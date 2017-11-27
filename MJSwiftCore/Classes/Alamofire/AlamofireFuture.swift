@@ -23,21 +23,33 @@ public let AlamofireFutureJSONMappingErrorCode = 1001
 
 public extension DataRequest {
     
-    @discardableResult
+    public func toFuture() -> Future<[String:AnyObject]> {
+        return self.then(success: { json in json })
+    }
+    
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
-                        completion: @escaping (DataResponse<Any>) -> Future<T>) -> Future<T> {
+                        completion: @escaping ([String : AnyObject]) -> Future<T>) -> Future<T> {
         let future: Future<T> = Future()
         response(queue: queue,
                  responseSerializer: DataRequest.jsonResponseSerializer(options: options),
                  completionHandler: { response in
-                    future.set(completion(response))
+                    switch response.result {
+                    case .failure://(let error):
+                        let finalError = NSError(domain:AlamofireFutureHTTPStatusCodeErrorDomain, code:(response.response?.statusCode)!, userInfo:nil)
+                        future.set(finalError)
+                    case .success(let data):
+                        if let json = data as? [String : AnyObject] {
+                            future.set(completion(json))
+                        } else {
+                            future.set(NSError(domain:AlamofireFutureErrorDomain, code:AlamofireFutureJSONMappingErrorCode, userInfo: nil))
+                        }
+                    }
         })
         
         return future
     }
     
-    @discardableResult
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         success: @escaping ([String : AnyObject]) -> T?,
@@ -58,5 +70,42 @@ public extension DataRequest {
                     }
         })
         return future
+    }
+}
+
+
+public extension Dictionary where Key == String, Value == AnyObject {
+    public func decodeAs<T>(_ type : T.Type) throws -> T where T : Decodable {
+        let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+        let object = try JSONDecoder().decode(type, from: data)
+        return object
+    }
+    
+    public func decodeAs<T>(_ type : T.Type) -> Future<T> where T : Decodable {
+        do {
+            let object : T = try decodeAs(type)
+            return Future(object)
+        } catch {
+            let error = NSError(domain: "com.mobilejazz.json", code: 1, userInfo: [NSLocalizedDescriptionKey : "Failed to deserialize JSON"])
+            return Future(error)
+        }
+    }
+}
+
+public extension Array where Element == [String : AnyObject] {
+    public func decodeAs<T>() throws -> [T] where T : Decodable {
+        let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
+        let array = try JSONDecoder().decode(Array<T>.self, from: data)
+        return array
+    }
+    
+    public func decodeAs<T>() -> Future<[T]> where T : Decodable {
+        do {
+            let array : [T] = try decodeAs()
+            return Future(array)
+        } catch {
+            let error = NSError(domain: "com.mobilejazz.json", code: 1, userInfo: [NSLocalizedDescriptionKey : "Failed to deserialize JSON"])
+            return Future(error)
+        }
     }
 }

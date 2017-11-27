@@ -36,32 +36,24 @@ class ItemNetworkService: Repository <ItemEntity> {
     
     private func get(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
-        return sessionManager.request(url).validate().then(success: { (json) -> ItemEntity in
-			let data = json.description.data(using: .utf8)!
-			let decoder = JSONDecoder()
-			var itemEntity = try! decoder.decode(ItemEntity.self, from: data)
-			itemEntity.lastUpdate = Date()
-			
-            return itemEntity
+        return sessionManager.request(url).validate().toFuture().flatMap({ json in
+            if let json = json {
+                return json.decodeAs(ItemEntity.self)
+            } else {
+                return Future(nil)
+            }
         })
     }
     
     private func getItems(_ query: AllItemsQuery) -> Future<[ItemEntity]> {
         let url = "/items"
-        return sessionManager.request(url).validate().then(success: { (json) -> [ItemEntity]? in
-            if let results = json["results"] as? [[String: AnyObject]] {
-				let decoder = JSONDecoder()
-				let jsonData = try! JSONSerialization.data(withJSONObject: results, options: .prettyPrinted)
-				let itemArray = try! decoder.decode(Array<ItemEntity>.self, from: jsonData)
-				
-				return itemArray.map({ item in
-					var itemCopy = item
-					itemCopy.lastUpdate = Date()
-					return itemCopy
-				})
-            } else {
-                return nil
+        return sessionManager.request(url).validate().toFuture().flatMap({ json in
+            if let json = json {
+                if let results = json["results"] as? [[String: AnyObject]] {
+                    return results.decodeAs()
+                }
             }
+            return Future(nil)
         })
     }
     
@@ -69,19 +61,13 @@ class ItemNetworkService: Repository <ItemEntity> {
         let url = "/items"
         return sessionManager.request(url,
                                       parameters: ["name" : query.text])
-            .validate().then(success: { (json) -> [ItemEntity]? in
-                if let results = json["results"] as? [[String: AnyObject]] {
-                    return results.map({ (objects) -> ItemEntity in
-						let data = json.description.data(using: .utf8)!
-						let decoder = JSONDecoder()
-						var itemEntity = try! decoder.decode(ItemEntity.self, from: data)
-						itemEntity.lastUpdate = Date()
-                        
-                        return itemEntity
-                    })
-                } else {
-                    return nil
+            .validate().toFuture().flatMap({ json in
+                if let json = json {
+                    if let results = json["results"] as? [[String: AnyObject]] {
+                        return results.decodeAs()
+                    }
                 }
+                return Future(nil)
             })
     }
 }
