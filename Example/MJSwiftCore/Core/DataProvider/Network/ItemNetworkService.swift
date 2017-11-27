@@ -50,20 +50,15 @@ class ItemNetworkService: Repository <ItemEntity> {
         let url = "/items"
         return sessionManager.request(url).validate().then(success: { (json) -> [ItemEntity]? in
             if let results = json["results"] as? [[String: AnyObject]] {
-                return results.map({ (objects) -> ItemEntity in
-                    let name = objects["name"] as? String
-                    let price = objects["price"] as? Double
-                    let count = objects["count"] as? Int
-                    let imageURL = objects["image-url"] as? String
-                    
-                    var itemEntity = ItemEntity(name: name!,
-                                                price: price!,
-                                                count: count!,
-                                                imageURL: URL(string: imageURL!))
-                    itemEntity.lastUpdate = Date()
-                    
-                    return itemEntity
-                })
+				let decoder = JSONDecoder()
+				let jsonData = try! JSONSerialization.data(withJSONObject: results, options: .prettyPrinted)
+				let itemArray = try! decoder.decode(Array<ItemEntity>.self, from: jsonData)
+				
+				return itemArray.map({ item in
+					var itemCopy = item
+					itemCopy.lastUpdate = Date()
+					return itemCopy
+				})
             } else {
                 return nil
             }
@@ -77,16 +72,10 @@ class ItemNetworkService: Repository <ItemEntity> {
             .validate().then(success: { (json) -> [ItemEntity]? in
                 if let results = json["results"] as? [[String: AnyObject]] {
                     return results.map({ (objects) -> ItemEntity in
-                        let name = objects["name"] as? String
-                        let price = objects["price"] as? Double
-                        let count = objects["count"] as? Int
-                        let imageURL = objects["image-url"] as? String
-                        
-                        var itemEntity = ItemEntity(name: name!,
-                                                    price: price!,
-                                                    count: count!,
-                                                    imageURL: URL(string: imageURL!))
-                        itemEntity.lastUpdate = Date()
+						let data = json.description.data(using: .utf8)!
+						let decoder = JSONDecoder()
+						var itemEntity = try! decoder.decode(ItemEntity.self, from: data)
+						itemEntity.lastUpdate = Date()
                         
                         return itemEntity
                     })
