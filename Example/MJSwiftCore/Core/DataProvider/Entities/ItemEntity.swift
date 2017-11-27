@@ -7,7 +7,7 @@ import Foundation
 
 import MJSwiftCore
 
-struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
+struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Decodable {
     var id: String?
     var name: String
     var price: Double
@@ -28,7 +28,6 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
     
 	// MARK: VastraTimestampStrategyDataSource
 	var lastUpdate: Date? = nil
-	
     
     func expiryTimeInterval() -> Time {
         return .seconds(30)

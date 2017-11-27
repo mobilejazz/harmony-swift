@@ -311,11 +311,15 @@ public extension Future {
     }
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (_ value: T?) -> Future<K>) -> Future<K> {
+    public func flatMap<K>(_ closure: @escaping (_ value: T) -> Future<K>) -> Future<K> {
         let future = Future<K>()
         
         then(success: { (value) in
-            future.set(closure(value))
+            if let value = value {
+                future.set(closure(value))
+            } else {
+                future.set(nil)
+            }
         }, failure: { (error) in
             future.set(error)
         })
@@ -379,7 +383,7 @@ public extension Future {
     public func zip<K,L>(_ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T?,K?,L?)> {
         return self.zip(futureK).flatMap { (valueTK) -> Future<(T?,K?,L?)> in
             return futureL.map({ (valueL) -> (T?,K?,L?) in
-                return (valueTK!.0, valueTK!.1, valueL)
+                return (valueTK.0, valueTK.1, valueL)
             })
         }
     }
@@ -388,7 +392,7 @@ public extension Future {
     public func zip<K,L,M>(_ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T?,K?,L?,M?)> {
         return self.zip(futureK, futureL).flatMap { (valueTKL) -> Future<(T?,K?,L?,M?)> in
             return futureM.map({ (valueM) -> (T?,K?,L?,M?) in
-                return (valueTKL!.0, valueTKL!.1, valueTKL!.2, valueM)
+                return (valueTKL.0, valueTKL.1, valueTKL.2, valueM)
             })
         }
     }

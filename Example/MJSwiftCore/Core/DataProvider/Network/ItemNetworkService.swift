@@ -37,21 +37,15 @@ class ItemNetworkService: Repository <ItemEntity> {
     private func get(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
         return sessionManager.request(url).validate().toFuture().flatMap({ json in
-            if let json = json {
-                return json.decodeAs(ItemEntity.self)
-            } else {
-                return Future(nil)
-            }
+            return json.decodeAs(ItemEntity.self)
         })
     }
     
     private func getItems(_ query: AllItemsQuery) -> Future<[ItemEntity]> {
         let url = "/items"
         return sessionManager.request(url).validate().toFuture().flatMap({ json in
-            if let json = json {
-                if let results = json["results"] as? [[String: AnyObject]] {
-                    return results.decodeAs()
-                }
+            if let results = json["results"] as? [[String: AnyObject]] {
+                return results.decodeAs()
             }
             return Future(nil)
         })
@@ -62,10 +56,8 @@ class ItemNetworkService: Repository <ItemEntity> {
         return sessionManager.request(url,
                                       parameters: ["name" : query.text])
             .validate().toFuture().flatMap({ json in
-                if let json = json {
-                    if let results = json["results"] as? [[String: AnyObject]] {
-                        return results.decodeAs()
-                    }
+                if let results = json["results"] as? [[String: AnyObject]] {
+                    return results.decodeAs()
                 }
                 return Future(nil)
             })
