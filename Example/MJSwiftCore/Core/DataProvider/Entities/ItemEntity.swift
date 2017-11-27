@@ -27,7 +27,7 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
     }
     
 	// MARK: VastraTimestampStrategyDataSource
-	var lastUpdate: Date? = Date()
+	var lastUpdate: Date? = nil
 	
     
     func expiryTimeInterval() -> Time {
