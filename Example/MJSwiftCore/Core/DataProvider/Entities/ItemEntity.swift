@@ -7,13 +7,13 @@ import Foundation
 
 import MJSwiftCore
 
-struct ItemEntity : Entity, VastraTimestampStrategyDataSource {
+struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
     var id: String?
     var name: String
     var price: Double
     var count: Int
     var imageURL: URL?
-    
+	
     init() {
         self.init(id: nil, name: "Blank", price: 0.0, count: 0, imageURL: nil)
     }
@@ -26,11 +26,20 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource {
         self.imageURL = imageURL
     }
     
-// MARK: VastraTimestampStrategyDataSource
-    
-    var lastUpdate: Date?
+	// MARK: VastraTimestampStrategyDataSource
+	var lastUpdate: Date? = Date()
+	
     
     func expiryTimeInterval() -> Time {
         return .seconds(30)
     }
+	
+	//MARK: Decodable
+	enum CodingKeys: String, CodingKey {
+		case id
+		case name
+		case price
+		case count
+		case imageURL = "image-url"
+	}
 }

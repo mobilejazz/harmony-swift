@@ -37,17 +37,11 @@ class ItemNetworkService: Repository <ItemEntity> {
     private func get(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
         return sessionManager.request(url).validate().then(success: { (json) -> ItemEntity in
-            let name = json["name"] as? String
-            let price = json["price"] as? Double
-            let count = json["count"] as? Int
-            let imageURL = json["image-url"] as? String
-            
-            var itemEntity = ItemEntity(name: name!,
-                                        price: price!,
-                                        count: count!,
-                                        imageURL: URL(string: imageURL!))
-            itemEntity.lastUpdate = Date()
-            
+			let data = json.description.data(using: .utf8)!
+			let decoder = JSONDecoder()
+			var itemEntity = try! decoder.decode(ItemEntity.self, from: data)
+			itemEntity.lastUpdate = Date()
+			
             return itemEntity
         })
     }
