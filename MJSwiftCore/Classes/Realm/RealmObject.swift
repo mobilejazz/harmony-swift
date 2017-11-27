@@ -14,10 +14,7 @@
 // limitations under the License.
 //
 
-
 import Foundation
-
-import Realm
 import RealmSwift
 
 open class RealmObject : Object {

@@ -14,12 +14,16 @@
 // limitations under the License.
 //
 
-import Foundation
-import RealmSwift
+import UIKit
 
-open class RealmMapper<From: Entity, To: Object> {
-    public init() { }
-    open func transform(_ from: From, inRealm realm: Realm) -> To {
-        fatalError()
+public extension UIEdgeInsets {
+    public func toFuture() -> Future<UIEdgeInsets> {
+        return Future(self)
+    }
+}
+
+public extension UIImage {
+    public func toFuture() -> Future<UIImage> {
+        return Future(self)
     }
 }

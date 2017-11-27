@@ -15,7 +15,6 @@
 //
 
 import Foundation
-
 import RealmSwift
 
 public protocol RealmQuery : Query {

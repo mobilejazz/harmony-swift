@@ -33,29 +33,29 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
   s.source_files = 'MJSwiftCore/Classes/**/*'
 
   s.subspec 'Common' do |sp|
-    sp.source_files = 'Classes/Common'
+    sp.source_files = 'MJSwiftCore/Classes/Common/**/*'
   end
 
   s.subspec 'Alamofire' do |sp|
-    sp.source_files = 'Classes/Alamofire'
+    sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*'
     sp.dependency 'Alamofire', '~> 4.5'
     sp.dependency 'MJSwiftCore/Common'
   end
 
   s.subspec 'Realm' do |sp|
-    sp.source_files = 'Classes/Realm'
+    sp.source_files = 'MJSwiftCore/Classes/Realm/**/*'
     sp.dependency 'RealmSwift', '~> 3.0.0'
     sp.dependency 'MJSwiftCore/Common'
   end
 
   s.subspec 'iOS' do |sp|
-    sp.source_files = 'Classes/iOS'
+    sp.source_files = 'MJSwiftCore/Classes/iOS/**/*'
     sp.frameworks = 'UIKit'
     sp.dependency 'MJSwiftCore/Common'
   end
 
   s.subspec 'Vastra' do |sp|
-    sp.source_files = 'Classes/Vastra'
+    sp.source_files = 'MJSwiftCore/Classes/Vastra/**/*'
   end
 
   # s.resource_bundles = {

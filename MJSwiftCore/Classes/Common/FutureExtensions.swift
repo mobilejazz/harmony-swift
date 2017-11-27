@@ -15,7 +15,6 @@
 //
 
 import Foundation
-import UIKit
 
 // ------------ Basic Foundation Types ------------ //
 
@@ -203,12 +202,6 @@ public extension CGAffineTransform {
     }
 }
 
-public extension UIEdgeInsets {
-    public func toFuture() -> Future<UIEdgeInsets> {
-        return Future(self)
-    }
-}
-
 // MARK: Ranges
 
 public extension NSRange {
@@ -217,7 +210,7 @@ public extension NSRange {
     }
 }
 
-// ------------ DAtes and Times ------------ //
+// ------------ Dates and Times ------------ //
 
 // MARK: Dates
 
@@ -299,14 +292,6 @@ public extension NSPredicate {
 
 public extension NSSortDescriptor {
     public func toFuture() -> Future<NSSortDescriptor> {
-        return Future(self)
-    }
-}
-
-// ------------ Basic UIKit Types ------------ //
-
-public extension UIImage {
-    public func toFuture() -> Future<UIImage> {
         return Future(self)
     }
 }

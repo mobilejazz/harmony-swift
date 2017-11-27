@@ -245,13 +245,13 @@ public class Future<T> {
     }
     
     private func send() {
-        if queue != nil {
+        if let queue = queue {
             let success = self.success
             let failure = self.failure
             let error = self.error
             let value = self.value
             
-            queue?.async {
+            queue.async {
                 if error != nil {
                     failure!(error!)
                 } else {

@@ -15,7 +15,6 @@
 //
 
 import Foundation
-
 import RealmSwift
 
 public let RealmHandlerDidCommitTransactionNotification = "com.mobilejazz.RealmHandlerDidCommitTransactionNotification"

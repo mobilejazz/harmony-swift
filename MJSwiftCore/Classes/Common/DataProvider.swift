@@ -102,6 +102,38 @@ extension DataProvider {
     }
 }
 
+public protocol ObjectValidation {
+    func isObjectValid<T>(_ object: T) -> Bool
+    func isArrayValid<T>(_ objects: [T]?) -> Bool
+}
+
+public extension ObjectValidation {
+    
+    /// Validator method for arrays
+    ///
+    /// The validation process iterates over the array and is considered valid if all objects are valid.
+    /// Note that:
+    ///   - An empty array is considered invalid
+    ///   - A nil instance is considered invalid
+    ///
+    /// - Parameter object: The object to validate.
+    /// - Returns: true if valid, false otherwise.
+    public func isArrayValid<T>(_ objects: [T]?) -> Bool {
+        if let objects = objects {
+            if objects.isEmpty {
+                return false
+            }
+            for object in objects {
+                if !isObjectValid(object) {
+                    return false
+                }
+            }
+            return true
+        } else {
+            return true
+        }
+    }
+}
 
 ///
 /// Generic DataProvider implementation
@@ -112,11 +144,11 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
     private let storage: Repository<E>
     private let toEntityMapper: Mapper<O, E>
     private let toObjectMapper: Mapper<E, O>
-    private let storageValidation: VastraService
+    private let storageValidation: ObjectValidation
     
     public init(network: Repository<E>,
                 storage: Repository<E>,
-                storageValidation: VastraService,
+                storageValidation: ObjectValidation,
                 toEntityMapper: Mapper<O, E>,
                 toObjectMapper: Mapper<E, O>) {
         self.network = network
@@ -141,7 +173,7 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                 })
             case .storageSync:
                 return storage.get(query).flatMap { values -> Future<[E]> in
-                    if !self.storageValidation.isObjectValid(values) {
+                    if !self.storageValidation.isArrayValid(values) {
                         return self.network.get(query).andThen(success: { entities in
                             if let entities = entities {
                                 self.storage.put(entities)

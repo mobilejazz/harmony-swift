@@ -55,28 +55,4 @@ public class VastraService {
         }
         return defaultValidationState
     }
-    
-    /// Validator method for arrays
-    ///
-    /// The validation process iterates over the strategies array in order and all objects of the array
-    /// The first strategy that returns Valid or Invalid will make this method return true or false.
-    /// If all strategies are consumed and none decided, default return value is false.
-    ///
-    /// - Parameter object: The object to validate.
-    /// - Returns: true if valid, false otherwise.
-    public func isObjectValid<T>(_ objects: [T]?) -> Bool {
-        if let objects = objects {
-            if objects.isEmpty {
-                return false
-            }
-            
-            for object in objects {
-                if !isObjectValid(object) {
-                    return false
-                }
-            }
-        }
-        
-        return true
-    }
 }

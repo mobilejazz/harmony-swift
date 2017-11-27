@@ -434,25 +434,25 @@ public extension UIImage {
     }
 }
 
-private let cache = NSCache<NSString, UIImage>()
-private let observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidReceiveMemoryWarning,
-                                                              object: nil,
-                                                              queue: OperationQueue.main) { n in cache.removeAllObjects() }
+let cache = NSCache<NSString, UIImage>()
+let observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidReceiveMemoryWarning,
+                                                      object: nil,
+                                                      queue: OperationQueue.main) { n in cache.removeAllObjects() }
 
-private extension UIImage {
+extension UIImage {
     
-    private static func cachedWithDescriptors(_ descriptors: [String:String]) -> UIImage? {
+    static func cachedWithDescriptors(_ descriptors: [String:String]) -> UIImage? {
         let key = cacheKeyWithDescriptors(descriptors)
         let image = cache.object(forKey: NSString(string:key))
         return image
     }
     
-    private func cacheWithDescriptors(_ descriptors: [String:String]) {
+    func cacheWithDescriptors(_ descriptors: [String:String]) {
         let key = UIImage.cacheKeyWithDescriptors(descriptors)
         cache.setObject(self, forKey: NSString(string:key))
     }
     
-    private static func cacheKeyWithDescriptors(_ descriptors : [String:String]) -> String {
+    static func cacheKeyWithDescriptors(_ descriptors : [String:String]) -> String {
         var string : String = ""
         let keys = descriptors.keys.sorted()
         for key in keys {
@@ -461,7 +461,7 @@ private extension UIImage {
         return string
     }
     
-    private func resizeTransformationToSize(_ size: CGSize) -> CGAffineTransform {
+    func resizeTransformationToSize(_ size: CGSize) -> CGAffineTransform {
         var transform = CGAffineTransform.identity
         
         switch imageOrientation {

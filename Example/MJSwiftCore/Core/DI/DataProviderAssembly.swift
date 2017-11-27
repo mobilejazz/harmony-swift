@@ -19,7 +19,7 @@ class DataProviderAssembly: Assembly {
     
     func assemble(container: Container) {
         // Vastra
-        container.register(VastraService.self, name: Names.storageValidation) { _ in
+        container.register(ObjectValidation.self, name: Names.storageValidation) { _ in
             return VastraService([VastraTimestampStrategy()])
         }
         
@@ -31,9 +31,12 @@ class DataProviderAssembly: Assembly {
         container.register(DataProvider<Item>.self) { r in
             return GenericDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
                                        storage: r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!,
-                                       storageValidation: r.resolve(VastraService.self, name: Names.storageValidation)!,
+                                       storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!,
                                        toEntityMapper: r.resolve(Mapper<Item, ItemEntity>.self)!,
                                        toObjectMapper: r.resolve(Mapper<ItemEntity, Item>.self)!)
             }.inObjectScope(.container)
     }
 }
+
+// Make Vastra compliant with ObjectValidation
+extension VastraService : ObjectValidation { }
