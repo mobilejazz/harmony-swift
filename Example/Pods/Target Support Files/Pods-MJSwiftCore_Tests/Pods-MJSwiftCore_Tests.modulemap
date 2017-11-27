@@ -1,0 +1,6 @@
+framework module Pods_MJSwiftCore_Tests {
+  umbrella header "Pods-MJSwiftCore_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

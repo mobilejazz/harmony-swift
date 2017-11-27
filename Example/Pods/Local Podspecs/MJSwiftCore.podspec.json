@@ -1,0 +1,67 @@
+{
+  "name": "MJSwiftCore",
+  "version": "0.1.0",
+  "summary": "Mobile Jazz Swift tooklkit utilities",
+  "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
+  "homepage": "https://github.com/mobilejazz/MJSwiftCore",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Joan Martin": "joan@mobilejazz.com"
+  },
+  "source": {
+    "git": "https://github.com/mobilejazz/MJSwiftCore.git",
+    "tag": "0.1.0"
+  },
+  "social_media_url": "https://twitter.com/mobilejazzcom",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "MJSwiftCore/Classes/**/*",
+  "subspecs": [
+    {
+      "name": "Common",
+      "source_files": "Classes/Common"
+    },
+    {
+      "name": "Alamofire",
+      "source_files": "Classes/Alamofire",
+      "dependencies": {
+        "Alamofire": [
+          "~> 4.5"
+        ],
+        "MJSwiftCore/Common": [
+
+        ]
+      }
+    },
+    {
+      "name": "Realm",
+      "source_files": "Classes/Realm",
+      "dependencies": {
+        "RealmSwift": [
+          "~> 3.0.0"
+        ],
+        "MJSwiftCore/Common": [
+
+        ]
+      }
+    },
+    {
+      "name": "iOS",
+      "source_files": "Classes/iOS",
+      "frameworks": "UIKit",
+      "dependencies": {
+        "MJSwiftCore/Common": [
+
+        ]
+      }
+    },
+    {
+      "name": "Vastra",
+      "source_files": "Classes/Vastra"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+PODS:
+  - Alamofire (4.5.1)
+  - Kingfisher (4.2.0)
+  - MJSwiftCore (0.1.0):
+    - MJSwiftCore/Alamofire (= 0.1.0)
+    - MJSwiftCore/Common (= 0.1.0)
+    - MJSwiftCore/iOS (= 0.1.0)
+    - MJSwiftCore/Realm (= 0.1.0)
+    - MJSwiftCore/Vastra (= 0.1.0)
+  - MJSwiftCore/Alamofire (0.1.0):
+    - Alamofire (~> 4.5)
+    - MJSwiftCore/Common
+  - MJSwiftCore/Common (0.1.0)
+  - MJSwiftCore/iOS (0.1.0):
+    - MJSwiftCore/Common
+  - MJSwiftCore/Realm (0.1.0):
+    - MJSwiftCore/Common
+    - RealmSwift (~> 3.0.0)
+  - MJSwiftCore/Vastra (0.1.0)
+  - Realm (3.0.2):
+    - Realm/Headers (= 3.0.2)
+  - Realm/Headers (3.0.2)
+  - RealmSwift (3.0.2):
+    - Realm (= 3.0.2)
+  - Swinject (2.1.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 4.2)
+  - MJSwiftCore (from `../`)
+  - Swinject (~> 2.1)
+
+EXTERNAL SOURCES:
+  MJSwiftCore:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
+  MJSwiftCore: cdd9b2717582a54334f9cb78295edea8e68c95a0
+  Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
+  RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
+  Swinject: afea49fd95f392b41171669f165842879c48fad6
+
+PODFILE CHECKSUM: c58616bda2920a2bc151546c76f844b08d9cbce5
+
+COCOAPODS: 1.3.1
