@@ -21,21 +21,24 @@ public enum MJSwiftCoreAlamofireError : Error {
     case jsonSerialization
 }
 
-public let AlamofireFutureHTTPStatusCodeErrorDomain = "com.mobilejazz.alamofire.future.statusCode"
-public let AlamofireFutureErrorDomain = "com.mobilejazz.alamofire.future"
-public let AlamofireFutureJSONMappingErrorCode = 1001
-
 public extension DataRequest {
     
+    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type [String : AnyObject]
     public func toFuture() -> Future<[String:AnyObject]> {
         return self.then(success: { json in json })
     }
     
+    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [String : AnyObject]
+    public func toFutureArray() -> Future<[[String:AnyObject]]> {
+        return self.then(completion: { json in Future(json) })
+    }
+    
+    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type T
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         completion: @escaping ([String : AnyObject]) -> Future<T>) -> Future<T> {
         let future: Future<T> = Future()
-        response(queue: queue,
+        validate().response(queue: queue,
                  responseSerializer: DataRequest.jsonResponseSerializer(options: options),
                  completionHandler: { response in
                     switch response.result {
@@ -52,12 +55,36 @@ public extension DataRequest {
         return future
     }
     
+    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [T]
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
-                        success: @escaping ([String : AnyObject]) -> T?,
+                        completion: @escaping ([[String : AnyObject]]) -> Future<[T]>) -> Future<[T]> {
+        let future: Future<[T]> = Future()
+        validate().response(queue: queue,
+                            responseSerializer: DataRequest.jsonResponseSerializer(options: options),
+                            completionHandler: { response in
+                                switch response.result {
+                                case .failure(let error):
+                                    future.set(error)
+                                case .success(let data):
+                                    if let json = data as? [[String : AnyObject]] {
+                                        future.set(completion(json))
+                                    } else {
+                                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
+                                    }
+                                }
+        })
+        return future
+    }
+    
+    
+    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type T
+    public func then<T>(queue: DispatchQueue? = nil,
+                        options: JSONSerialization.ReadingOptions = .allowFragments,
+                        success: @escaping ([String : AnyObject]) -> T,
                         failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
         let future = Future<T>()
-        response(queue: queue,
+        validate().response(queue: queue,
                  responseSerializer: DataRequest.jsonResponseSerializer(options: options),
                  completionHandler: { response in
                     switch response.result {
@@ -70,6 +97,33 @@ public extension DataRequest {
                             future.set(MJSwiftCoreAlamofireError.jsonSerialization)
                         }
                     }
+        })
+        return future
+    }
+    
+    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [T]
+    public func then<T>(queue: DispatchQueue? = nil,
+                        options: JSONSerialization.ReadingOptions = .allowFragments,
+                        forEach: @escaping ([String : AnyObject]) -> T,
+                        failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<[T]> {
+        let future = Future<[T]>()
+        validate().response(queue: queue,
+                            responseSerializer: DataRequest.jsonResponseSerializer(options: options),
+                            completionHandler: { response in
+                                switch response.result {
+                                case .failure(let error):
+                                    future.set(failure(error, response.response))
+                                case .success(let data):
+                                    if let json = data as? [[String : AnyObject]] {
+                                        var array : [T] = []
+                                        for dic in json {
+                                            array.append(forEach(dic))
+                                        }
+                                        future.set(array)
+                                    } else {
+                                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
+                                    }
+                                }
         })
         return future
     }

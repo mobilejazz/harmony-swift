@@ -12,7 +12,7 @@ import MJSwiftCore
 import RealmSwift
 
 class RealmItemToItemEntityMapper: Mapper<RealmItem, ItemEntity> {
-    override func transform(_ from: RealmItem) -> ItemEntity {
+    override func map(_ from: RealmItem) -> ItemEntity {
         var item = ItemEntity(id: from.id,
                               name: from.name,
                               price: from.price,
@@ -24,7 +24,7 @@ class RealmItemToItemEntityMapper: Mapper<RealmItem, ItemEntity> {
 }
 
 class ItemEntityToRealmItemMapper: RealmMapper <ItemEntity, RealmItem> {
-    override func transform(_ from: ItemEntity, inRealm realm: Realm) -> RealmItem {
+    override func map(_ from: ItemEntity, inRealm realm: Realm) -> RealmItem {
         let id = from.id != nil ? from.id : RealmItem.findId(key: "name", value: from.name, inRealm: realm)
         let object = RealmItem(id)
         object.name = from.name

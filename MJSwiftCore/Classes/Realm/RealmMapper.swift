@@ -19,7 +19,7 @@ import RealmSwift
 
 open class RealmMapper<From: Entity, To: Object> {
     public init() { }
-    open func transform(_ from: From, inRealm realm: Realm) -> To {
+    open func map(_ from: From, inRealm realm: Realm) -> To {
         fatalError()
     }
 }

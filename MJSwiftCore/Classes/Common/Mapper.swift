@@ -18,7 +18,7 @@ import Foundation
 
 open class Mapper<From, To> {
     public init() { }
-    open func transform(_ from: From) -> To {
+    open func map(_ from: From) -> To {
         fatalError("Undefined mapper. Class Mapper must be subclassed.")
     }
 }

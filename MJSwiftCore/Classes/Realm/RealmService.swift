@@ -71,7 +71,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
             return realmHandler.read({ (realm) -> E? in
                 let object = realm.object(ofType: O.self, forPrimaryKey: queryById.id)
                 if object != nil {
-                    return self.toEntityMapper.transform(object!)
+                    return self.toEntityMapper.map(object!)
                 } else {
                     return nil
                 }
@@ -82,13 +82,13 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
             if let predicate = query.toRealmQuery().realmPredicate() {
                 return realmHandler.read({ (realm) -> [E] in
                     return realm.objects(O.self).filter(predicate).map({ (object) -> E in
-                        return self.toEntityMapper.transform(object)
+                        return self.toEntityMapper.map(object)
                     })
                 })
             } else {
                 return realmHandler.read({ (realm) -> [E] in
                     return realm.objects(O.self).map({ (object) -> E in
-                        return self.toEntityMapper.transform(object)
+                        return self.toEntityMapper.map(object)
                     })
                 })
             }
@@ -99,7 +99,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
     public override func put(_ entities: [E]) -> Future<[E]> {
         return realmHandler.write({ (realm) -> [E] in
             for entity in entities {
-                let object = toRealmMapper.transform(entity, inRealm:realm)
+                let object = toRealmMapper.map(entity, inRealm:realm)
                 realm.add(object, update: true)
             }
             return entities
