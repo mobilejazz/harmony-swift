@@ -184,18 +184,12 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                     }
                 }
             }
-            }().map({ entities -> [O] in
-                return entities.map { value -> O in
-                    return self.toObjectMapper.map(value)
-                }
-            })
+            }().map { a in a.map { e in self.toObjectMapper.map(e)} }
     }
     
     @discardableResult
     override public func put(_ values: [O], operation: Operation) -> Future<[O]> {
-        let array = values.map { (object) -> E in
-            return toEntityMapper.map(object)
-        }
+        let array = values.map { o in toEntityMapper.map(o) }
         
         return { () -> Future<[E]> in
             switch operation {
@@ -216,11 +210,7 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                     }
                 })
             }
-            }().map({ entities -> [O] in
-                return entities.map { value -> O in
-                    return self.toObjectMapper.map(value)
-                }
-            })
+            }().map { a in a.map { e in self.toObjectMapper.map(e)} }
     }
     
     @discardableResult

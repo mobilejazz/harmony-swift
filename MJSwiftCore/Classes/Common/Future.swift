@@ -394,6 +394,11 @@ public extension Future {
             })
         }
     }
+    
+    /// Creates a new future from self
+    public func toFuture() -> Future<T> {
+        return Future(self)
+    }
 }
 
 /// To String extension

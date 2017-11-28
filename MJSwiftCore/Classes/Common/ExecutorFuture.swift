@@ -25,13 +25,11 @@ extension Executor {
     /// - Returns: A future wrapping the result.
     @discardableResult public func submit<T>(_ closure: @escaping (_ future: Future<T>) -> Void) -> Future<T> {
         let future = Future<T>()
-        
-        submit { (end) in
+        submit { end in
             closure(future.onContentSet {
                 end()
             })
         }
-        
-        return future
+        return Future(future) // Creating a new future to avoid a duplicate call to onContentSet to a same future
     }
 }
