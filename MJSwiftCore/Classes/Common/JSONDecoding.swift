@@ -27,8 +27,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
         do {
             let object : T = try decodeAs(type)
             return Future(object)
-        } catch {
-            let error = NSError(domain: "com.mobilejazz.json", code: 1, userInfo: [NSLocalizedDescriptionKey : "Failed to deserialize JSON dictionary"])
+        } catch(let error) {
             return Future(error)
         }
     }
@@ -45,8 +44,7 @@ public extension Array where Element == [String : AnyObject] {
         do {
             let array : [T] = try decodeAs()
             return Future(array)
-        } catch {
-            let error = NSError(domain: "com.mobilejazz.json", code: 1, userInfo: [NSLocalizedDescriptionKey : "Failed to deserialize JSON type"])
+        } catch(let error) {
             return Future(error)
         }
     }

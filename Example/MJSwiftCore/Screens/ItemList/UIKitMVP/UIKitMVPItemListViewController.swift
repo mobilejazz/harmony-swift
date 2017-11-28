@@ -43,7 +43,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
         })
     }
     
-    private func onDisplayError(_ error: NSError) {
+    private func onDisplayError(_ error: Error) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)

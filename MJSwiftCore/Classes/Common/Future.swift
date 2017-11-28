@@ -27,7 +27,7 @@ public enum FutureState {
 /// Observers must implement this protocol
 public protocol FutureObserver : AnyObject{
     func didSendValue<T>(_ value: T?)
-    func didSendError(_ error: NSError)
+    func didSendError(_ error: Error)
     func didCompleteFuture<T>(_ future: Future<T>)
 }
 
@@ -48,10 +48,10 @@ public class Future<T> {
     public private(set) var value: T?
     
     /// The error
-    public private(set) var error: NSError?
+    public private(set) var error: Error?
     
     private var success: ((_ value: T?) -> Void)?
-    private var failure: ((_ error: NSError) -> Void)?
+    private var failure: ((_ error: Error) -> Void)?
     private var onContentSet: (() -> Void)?
     private var isValueNil: Bool = false
     private var queue: DispatchQueue?
@@ -69,7 +69,7 @@ public class Future<T> {
     }
     
     /// Error initializer
-    public init(_ error: NSError) {
+    public init(_ error: Error) {
         set(error)
     }
     
@@ -98,7 +98,7 @@ public class Future<T> {
     }
     
     /// Sets the future error
-    public func set(_ error: NSError) {
+    public func set(_ error: Error) {
         if self.error != nil {
             fatalError(FutureError.errorAlreadySet.localizedDescription)
         }
@@ -122,7 +122,7 @@ public class Future<T> {
     }
     
     /// Sets both future and value together. If error, the error is set, otherwise the optional value is set.
-    public func set(value: T?, error: NSError?) {
+    public func set(value: T?, error: Error?) {
         if error != nil {
             set(error!)
         } else {
@@ -166,7 +166,7 @@ public class Future<T> {
     }
     
     /// Synchronous then
-    public func then() -> (T?, NSError?) {
+    public func then() -> (T?, Error?) {
         switch state {
         case .waitingBlock:
             state = .sent
@@ -183,7 +183,7 @@ public class Future<T> {
     }
     
     /// Then closure: delivers the optional value or the error
-    public func then(success: @escaping (_ value: T?) -> Void, failure: @escaping (_ error: NSError) -> Void) {
+    public func then(success: @escaping (_ value: T?) -> Void, failure: @escaping (_ error: Error) -> Void) {
         if self.success != nil || self.failure != nil {
             fatalError(FutureError.thenAlreadySet.localizedDescription)
         }
@@ -298,7 +298,7 @@ public extension Future {
     }
     
     /// Mappes the error and return a new future with the error mapped
-    public func mapError(_ transform: @escaping (_ error: NSError) -> NSError) -> Future<T> {
+    public func mapError(_ transform: @escaping (_ error: Error) -> Error) -> Future<T> {
         let future = Future<T>()
         
         then(success: { (value) in
@@ -328,7 +328,7 @@ public extension Future {
     }
     
     /// Intercepts the error (if available) and returns a new future of type T
-    public func recover(_ closure: @escaping (_ error: NSError) -> Future<T>) -> Future<T> {
+    public func recover(_ closure: @escaping (_ error: Error) -> Future<T>) -> Future<T> {
         let future = Future<T>()
         
         then(success: { (value) in
@@ -341,7 +341,7 @@ public extension Future {
     }
     
     /// Intercepts the then closure and returns a future containing the same result
-    public func andThen(success: @escaping (_ value: T?) -> Void = { value in }, failure: @escaping (_ error: NSError) -> Void = { error in }) -> Future<T> {
+    public func andThen(success: @escaping (_ value: T?) -> Void = { value in }, failure: @escaping (_ error: Error) -> Void = { error in }) -> Future<T> {
         let future = Future<T>()
         
         then(success: { (value) in

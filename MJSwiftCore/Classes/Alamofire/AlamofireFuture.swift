@@ -17,6 +17,10 @@
 import Foundation
 import Alamofire
 
+public enum MJSwiftCoreAlamofireError : Error {
+    case jsonSerialization
+}
+
 public let AlamofireFutureHTTPStatusCodeErrorDomain = "com.mobilejazz.alamofire.future.statusCode"
 public let AlamofireFutureErrorDomain = "com.mobilejazz.alamofire.future"
 public let AlamofireFutureJSONMappingErrorCode = 1001
@@ -35,25 +39,23 @@ public extension DataRequest {
                  responseSerializer: DataRequest.jsonResponseSerializer(options: options),
                  completionHandler: { response in
                     switch response.result {
-                    case .failure://(let error):
-                        let finalError = NSError(domain:AlamofireFutureHTTPStatusCodeErrorDomain, code:(response.response?.statusCode)!, userInfo:nil)
-                        future.set(finalError)
+                    case .failure(let error):
+                        future.set(error)
                     case .success(let data):
                         if let json = data as? [String : AnyObject] {
                             future.set(completion(json))
                         } else {
-                            future.set(NSError(domain:AlamofireFutureErrorDomain, code:AlamofireFutureJSONMappingErrorCode, userInfo: nil))
+                            future.set(MJSwiftCoreAlamofireError.jsonSerialization)
                         }
                     }
         })
-        
         return future
     }
     
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         success: @escaping ([String : AnyObject]) -> T?,
-                        failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> NSError = { (error, response) in return NSError(domain:AlamofireFutureHTTPStatusCodeErrorDomain, code:(response?.statusCode)!, userInfo:nil)}) -> Future<T> {
+                        failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
         let future = Future<T>()
         response(queue: queue,
                  responseSerializer: DataRequest.jsonResponseSerializer(options: options),
@@ -65,7 +67,7 @@ public extension DataRequest {
                         if let json = data as? [String : AnyObject] {
                             future.set(success(json))
                         } else {
-                            future.set(NSError(domain:AlamofireFutureErrorDomain, code:AlamofireFutureJSONMappingErrorCode, userInfo: nil))
+                            future.set(MJSwiftCoreAlamofireError.jsonSerialization)
                         }
                     }
         })
