@@ -280,6 +280,25 @@ public class Future<T> {
 /// Functional programming extension
 public extension Future {
     
+    /// Mutates the given value
+    public func mutateValue(_ transform: @escaping (inout T) -> Void) -> Future<T> {
+        let future = Future<T>()
+        
+        then(success: { (value) in
+            var value = value
+            if value != nil {
+                transform(&(value!))
+                future.set(value!)
+            } else {
+                future.set(nil)
+            }
+        }, failure: { (error) in
+            future.set(error)
+        })
+        
+        return future
+    }
+    
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
         let future = Future<K>()
