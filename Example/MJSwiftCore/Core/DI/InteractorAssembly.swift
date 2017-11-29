@@ -14,16 +14,12 @@ import MJSwiftCore
 class InteractorAssembly: Assembly {
     func assemble(container: Container) {
         // Executor
-        //container.register(Executor.self) { _ in DispatchQueueExecutor(DispatchQueue(label: "com.mobilejazz.core.executor")) }
-        container.register(Executor.self) { _ in
-            let operationQueue = OperationQueue()
-            operationQueue.name = "com.mobilejazz.core.executor"
-            operationQueue.maxConcurrentOperationCount = 1
-            return OperationQueueExecutor(operationQueue)
-        }
+        container.register(Executor.self) { r, arg in DispatchQueueExecutor(DispatchQueue(label: arg)) }
         
         // Interactors
-        container.register(GetItemsInteractor.self) { r in GetItemsInteractor(r.resolve(Executor.self)!, r.resolve(DataProvider<Item>.self)!) }
-        container.register(SearchItemsInteractor.self) { r in SearchItemsInteractor(r.resolve(Executor.self)!, r.resolve(DataProvider<Item>.self)!) }
+        container.register(GetItemsInteractor.self) { r in GetItemsInteractor(r.resolve(Executor.self, argument: "GetItemsInteractor")!,
+                                                                              r.resolve(DataProvider<Item>.self)!) }
+        container.register(SearchItemsInteractor.self) { r in SearchItemsInteractor(r.resolve(Executor.self, argument: "SearchItemsInteractor")!,
+                                                                                    r.resolve(DataProvider<Item>.self)!) }
     }
 }
