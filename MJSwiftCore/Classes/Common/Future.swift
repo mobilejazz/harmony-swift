@@ -22,10 +22,23 @@ public enum FutureState {
     case waitingBlock
     case waitingValueOrError
     case sent
+    
+    var localizedDescription: String {
+        switch (self) {
+        case .blank:
+            return "Blank: empty future"
+        case .waitingBlock:
+            return "Waiting for Block: value or error is already set and future is waiting for a then closure."
+        case .waitingValueOrError:
+            return "Waiting for Value or Error: then closure is already set and future is waiting for a value or error."
+        case .sent:
+            return "Sent: future has already sent the value or error to the then closure."
+        }
+    }
 }
 
 /// Observers must implement this protocol
-public protocol FutureObserver : AnyObject{
+public protocol FutureObserver : AnyObject {
     func didSendValue<T>(_ value: T?)
     func didSendError(_ error: Error)
     func didCompleteFuture<T>(_ future: Future<T>)
@@ -36,6 +49,19 @@ private enum FutureError: Error {
     case errorAlreadySet
     case thenAlreadySet
     case alreadySent
+    
+    var localizedDescription: String {
+        switch (self) {
+        case .valueAlreadySet:
+            return "Value already set: cannot set a new value once is already set."
+        case .errorAlreadySet:
+            return "Error already set: cannot set a new error once is already set."
+        case .thenAlreadySet:
+            return "Then already set: cannot set a new then closure once is already set."
+        case .alreadySent:
+            return "Future is already sent."
+        }
+    }
 }
 
 /// Future class. Wrapper of an optional value of type T or an error.
@@ -52,7 +78,7 @@ public class Future<T> {
     
     private var success: ((_ value: T?) -> Void)?
     private var failure: ((_ error: Error) -> Void)?
-    private var onContentSet: (() -> Void)?
+    private var onContentSet: ((inout T?, inout Error?) -> Void)?
     private var isValueNil: Bool = false
     private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
@@ -81,17 +107,13 @@ public class Future<T> {
         if self.value != nil || isValueNil {
             fatalError(FutureError.valueAlreadySet.localizedDescription)
         }
-        
         if value == nil {
             isValueNil = true
         }
-        
         self.value = value
-        
         for observer in observers.allObjects {
             (observer as! FutureObserver).didSendValue(value)
         }
-        
         update()
     }
     
@@ -100,13 +122,10 @@ public class Future<T> {
         if self.error != nil {
             fatalError(FutureError.errorAlreadySet.localizedDescription)
         }
-    
         self.error = error
-        
         for observer in observers.allObjects {
             (observer as! FutureObserver).didSendError(error)
         }
-        
         update()
     }
     
@@ -121,8 +140,8 @@ public class Future<T> {
     
     /// Sets both future and value together. If error, the error is set, otherwise the optional value is set.
     public func set(value: T?, error: Error?) {
-        if error != nil {
-            set(error!)
+        if let error = error {
+            set(error)
         } else {
             set(value)
         }
@@ -134,16 +153,34 @@ public class Future<T> {
     /// - Parameter closure: The code to be executed
     /// - Returns: The self instance
     @discardableResult
-    public func onContentSet(_ closure: @escaping () -> Void) -> Future<T> {
+    public func onSet(_ closure: @escaping () -> Void) -> Future<T> {
+        switch state {
+        case .waitingBlock, .sent:
+            closure()
+        case .blank, .waitingValueOrError:
+            onContentSet = { (_,_) in
+                closure()
+            }
+        }
+        return self
+    }
+    
+    /// Closure called right after content is set, without waiting the then closure.
+    /// Note that multiple calls to this method are discouraged, resulting with only one onContentSet closure being called.
+    ///
+    /// - Parameter closure: The code to be executed
+    /// - Returns: The self instance
+    @discardableResult
+    public func onSet(_ closure: @escaping (inout T?, inout Error?) -> Void) -> Future<T> {
         switch state {
         case .waitingBlock:
-            closure()
+            closure(&value, &error)
         case .blank:
             onContentSet = closure
         case .waitingValueOrError:
             onContentSet = closure
         case .sent:
-            closure()
+            closure(&value, &error)
         }
         return self
     }
@@ -185,17 +222,14 @@ public class Future<T> {
         if self.success != nil || self.failure != nil {
             fatalError(FutureError.thenAlreadySet.localizedDescription)
         }
-        
         self.success = success
         self.failure = failure
-        
         update()
     }
         
     /// Adds an observer
     public func addObserver(_ observer: FutureObserver) {
         observers.add(observer)
-        
         if state == .sent {
             observer.didCompleteFuture(self)
         }
@@ -212,15 +246,14 @@ public class Future<T> {
             fatalError(FutureError.alreadySent.localizedDescription)
         case .blank:
             // Waiting for either value||error , or the then block.
-            
             if value != nil || error != nil {
                 state = .waitingBlock
                 if let onContentSet = onContentSet {
-                    onContentSet()
+                    onContentSet(&value, &error)
                     self.onContentSet = nil
                 }
-                if semaphore != nil {
-                    DispatchSemaphore.signal(semaphore!)()
+                if let semaphore = semaphore {
+                    DispatchSemaphore.signal(semaphore)()
                 }
             } else if (success != nil) {
                 state = .waitingValueOrError
@@ -233,7 +266,7 @@ public class Future<T> {
         case .waitingValueOrError:
             if (value != nil || isValueNil) || error != nil {
                 if let onContentSet = onContentSet {
-                    onContentSet()
+                    onContentSet(&value, &error)
                     self.onContentSet = nil
                 }
                 send()
@@ -244,30 +277,27 @@ public class Future<T> {
     
     private func send() {
         if let queue = queue {
-            let success = self.success
-            let failure = self.failure
+            let success = self.success!
+            let failure = self.failure!
             let error = self.error
             let value = self.value
-            
             queue.async {
-                if error != nil {
-                    failure!(error!)
+                if let error = error {
+                    failure(error)
                 } else {
-                    success!(value)
+                    success(value)
                 }
             }
         } else {
-            if error != nil {
-                failure!(error!)
+            if let error = error {
+                failure!(error)
             } else {
                 success!(value)
             }
         }
-        
         for observer in observers.allObjects {
             (observer as! FutureObserver).didCompleteFuture(self)
         }
-        
         self.success = nil
         self.failure = nil
     }
@@ -281,7 +311,6 @@ public extension Future {
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
         let future = Future<K>()
-        
         then(success: { (value) in
             if value != nil {
                 future.set(transform(value!))
@@ -291,27 +320,23 @@ public extension Future {
         }, failure: { (error) in
             future.set(error)
         })
-        
         return future
     }
     
     /// Mappes the error and return a new future with the error mapped
     public func mapError(_ transform: @escaping (_ error: Error) -> Error) -> Future<T> {
         let future = Future<T>()
-        
         then(success: { (value) in
             future.set(value)
         }, failure: { (error) in
             future.set(transform(error))
         })
-        
         return future
     }
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     public func flatMap<K>(_ closure: @escaping (_ value: T) -> Future<K>) -> Future<K> {
         let future = Future<K>()
-        
         then(success: { (value) in
             if let value = value {
                 future.set(closure(value))
@@ -321,27 +346,23 @@ public extension Future {
         }, failure: { (error) in
             future.set(error)
         })
-        
         return future
     }
     
     /// Intercepts the error (if available) and returns a new future of type T
     public func recover(_ closure: @escaping (_ error: Error) -> Future<T>) -> Future<T> {
         let future = Future<T>()
-        
         then(success: { (value) in
             future.set(value)
         }, failure: { (error) in
             future.set(closure(error))
         })
-        
         return future
     }
     
     /// Intercepts the then closure and returns a future containing the same result
     public func andThen(success: @escaping (_ value: T?) -> Void = { value in }, failure: @escaping (_ error: Error) -> Void = { error in }) -> Future<T> {
         let future = Future<T>()
-        
         then(success: { (value) in
             success(value)
             future.set(value)
@@ -349,14 +370,12 @@ public extension Future {
             failure(error)
             future.set(error)
         })
-        
         return future
     }
     
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
         let future = Future<T>()
-        
         then(success: { (value) in
             closure()
             future.set(value)
@@ -364,14 +383,13 @@ public extension Future {
             closure()
             future.set(error)
         })
-        
         return future
     }
     
     /// Creates a new future that holds the tupple of results
     public func zip<K>(_ futureK: Future<K>) -> Future<(T?,K?)> {
-        return self.flatMap { (valueT) -> Future<(T?,K?)> in
-            return futureK.map({ (valueK) -> (T?,K?) in
+        return self.flatMap { valueT in
+            return futureK.map({ valueK in
                 return (valueT, valueK)
             })
         }
@@ -379,8 +397,8 @@ public extension Future {
     
     /// Creates a new future that holds the tupple of results
     public func zip<K,L>(_ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T?,K?,L?)> {
-        return self.zip(futureK).flatMap { (valueTK) -> Future<(T?,K?,L?)> in
-            return futureL.map({ (valueL) -> (T?,K?,L?) in
+        return self.zip(futureK).flatMap { valueTK in
+            return futureL.map({ valueL in
                 return (valueTK.0, valueTK.1, valueL)
             })
         }
@@ -388,8 +406,8 @@ public extension Future {
     
     /// Creates a new future that holds the tupple of results
     public func zip<K,L,M>(_ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T?,K?,L?,M?)> {
-        return self.zip(futureK, futureL).flatMap { (valueTKL) -> Future<(T?,K?,L?,M?)> in
-            return futureM.map({ (valueM) -> (T?,K?,L?,M?) in
+        return self.zip(futureK, futureL).flatMap { valueTKL in
+            return futureM.map({ valueM in
                 return (valueTKL.0, valueTKL.1, valueTKL.2, valueM)
             })
         }
@@ -399,6 +417,11 @@ public extension Future {
     public func toFuture() -> Future<T> {
         return Future(self)
     }
+}
+
+/// Operator + overriding
+public func +<T,K>(left: Future<T>, right: Future<K>) -> Future<(T?,K?)> {
+    return left.zip(right)
 }
 
 /// To String extension
@@ -431,7 +454,6 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
             }
         }
     }
-    
     public var debugDescription: String {
         return description
     }
