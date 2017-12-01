@@ -12,14 +12,16 @@ import Swinject
 import MJSwiftCore
 
 class InteractorAssembly: Assembly {
+    
     func assemble(container: Container) {
         // Executor
-        container.register(Executor.self) { r, arg in DispatchQueueExecutor(DispatchQueue(label: arg)) }.inObjectScope(.container)
+        container.register(Executor.self, name: "GetItemsInteractor") { r in DispatchQueueExecutor() }.inObjectScope(.container)
+        container.register(Executor.self, name: "SearchItemsInteractor") { r in DispatchQueueExecutor() }.inObjectScope(.container)
         
         // Interactors
-        container.register(GetItemsInteractor.self) { r in GetItemsInteractor(r.resolve(Executor.self, argument: "GetItemsInteractor")!,
+        container.register(GetItemsInteractor.self) { r in GetItemsInteractor(r.resolve(Executor.self, name: "GetItemsInteractor")!,
                                                                               r.resolve(DataProvider<Item>.self)!) }
-        container.register(SearchItemsInteractor.self) { r in SearchItemsInteractor(r.resolve(Executor.self, argument: "SearchItemsInteractor")!,
+        container.register(SearchItemsInteractor.self) { r in SearchItemsInteractor(r.resolve(Executor.self, name: "SearchItemsInteractor")!,
                                                                                     r.resolve(DataProvider<Item>.self)!) }
     }
 }

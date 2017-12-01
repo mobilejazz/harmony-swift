@@ -18,12 +18,31 @@ import UIKit
 
 public class OperationQueueExecutor: Executor {
     
+    let lock = SpinLock()
+    
+    public enum QueueType {
+        case serialQueue
+        case concurrentQueue
+    }
+    
     public let operationQueue : OperationQueue
     
     public var executing: Bool {
         get {
             return operationQueue.operationCount > 0
         }
+    }
+    
+    public convenience init (type : QueueType = .serialQueue, name: String = UUID().uuidString) {
+        let operationQueue = OperationQueue()
+        operationQueue.name = name
+        switch type {
+        case .serialQueue:
+            operationQueue.maxConcurrentOperationCount = 1;
+        case .concurrentQueue:
+            operationQueue.maxConcurrentOperationCount = OperationQueue.defaultMaxConcurrentOperationCount;
+        }
+        self.init(operationQueue)
     }
     
     public init(_ operationQueue: OperationQueue) {

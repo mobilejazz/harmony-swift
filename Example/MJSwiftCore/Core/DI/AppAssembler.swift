@@ -20,25 +20,3 @@ class AppAssembler {
         return assembler.resolver
     }
 }
-
-//        let realmConfiguration : Realm.Configuration = Realm.Configuration()
-//        let realmHandler : RealmHandler = RealmHandler(realmConfiguration)
-//        let realmService : RealmService<ItemEntity,RealmItem> = RealmService(realmHandler: realmHandler,
-//                                                                             toEntityMapper: RealmItemToItemEntityMapper(),
-//                                                                             toRealmMapper: ItemEntityToRealmItemMapper())
-//
-//        // Creating dependencies
-//        let itemNetworkClient: ItemNetworkClient = ItemNetworkService()
-//        let itemStorageClient: ItemStorageClient = ItemStorageRealmService(realmService: realmService)
-//
-//        // Creating data provider
-//        let itemDataProvider = ItemDataProvider(network: itemNetworkClient,
-//                                                storage: itemStorageClient,
-//                                                toItemEntityMapper: ItemToItemEntityMapper(),
-//                                                toItemMapper: ItemEntityToItemMapper())
-//
-//
-//        // Creating interactor
-//        let executor : Executor = DispatchQueueExecutor(DispatchQueue(label: "com.mobilejazz.core.executor"))
-//        let getItemsInteractor = GetItemsInteractor(executor, itemDataProvider)
-

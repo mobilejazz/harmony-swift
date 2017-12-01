@@ -17,39 +17,28 @@
 import Foundation
 
 public class DispatchQueueExecutor : Executor {
-    private let queue : DispatchQueue
-    private let semaphore : DispatchSemaphore = DispatchSemaphore(value: 0)
+    
+    public let queue : DispatchQueue
+    
     public private(set) var executing = false
+    
+    public convenience init() {
+        self.init(DispatchQueue(label: UUID().uuidString))
+    }
     
     public init(_ queue: DispatchQueue) {
         self.queue = queue
     }
-    
-    private func begin(_ closure: @escaping () -> Void) {
-        executing = true
-        queue.async {
-            closure()
-            self.semaphore.wait()
-        }
-    }
-    
-    private func end(_ closure: @escaping () -> Void) {
-        if Thread.isMainThread {
-            closure()
-            executing = false
-            semaphore.signal()
-        } else {
-            DispatchQueue.main.async {
-                self.end(closure)
-            }
-        }
-    }
-    
+        
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        begin {
+        queue.async {
+            self.executing = true
+            let sempahore = DispatchSemaphore(value: 0)
             closure {
-                self.end { }
+                sempahore.signal()
             }
+            sempahore.wait()
+            self.executing = false
         }
     }
 }
