@@ -34,9 +34,7 @@ public struct RealmHandler {
     
     public func write<T>(_ closure: (_ realm: Realm) -> T?) -> Future<T> {
         let future = Future<T>()
-
         let realm = realmFactory.realm()
-
         if realm.isInWriteTransaction {
             future.set(closure(realm))
         } else {
@@ -47,12 +45,11 @@ public struct RealmHandler {
                 realm.refresh()
                 future.set(result)
                 NotificationCenter.default.post(name: NSNotification.Name(RealmHandlerDidCommitTransactionNotification), object: nil, userInfo: nil)
-            } catch let error as NSError {
+            } catch let error {
                 realm.cancelWrite()
                 future.set(error)
             }
         }
-        
         return future
     }
 }

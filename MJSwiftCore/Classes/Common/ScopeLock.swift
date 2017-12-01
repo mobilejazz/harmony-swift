@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-import UIKit
+import Foundation
 
 private class LockProvider {
     let lock = NSLock()
@@ -41,8 +41,8 @@ private class LockProvider {
 
 private let lockProvider = LockProvider()
 
-/// Easy lock sync interface inspired in a Swinject internal class and matching the usability of objc's @syncrhonized(id) { }
-public class SpinLock {
+/// Easy lock sync interface matching the usability of objc's @syncrhonized(var) { }
+public class ScopeLock {
     
     /// The lock
     private let lock : NSLock
@@ -73,7 +73,7 @@ public class SpinLock {
     }
 }
 
-public extension SpinLock {
+public extension ScopeLock {
     convenience init(_ scope: Int) {
         self.init(NSNumber(integerLiteral: scope))
     }

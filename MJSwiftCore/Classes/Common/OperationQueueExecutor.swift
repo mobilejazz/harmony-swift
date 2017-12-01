@@ -14,11 +14,9 @@
 // limitations under the License.
 //
 
-import UIKit
+import Foundation
 
 public class OperationQueueExecutor: Executor {
-    
-    let lock = SpinLock()
     
     public enum QueueType {
         case serialQueue

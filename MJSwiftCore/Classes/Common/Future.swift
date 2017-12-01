@@ -102,6 +102,11 @@ public class Future<T> {
         set(future)
     }
     
+    /// Future initializer
+    public init(_ closure: @escaping (_ future: Future<T>) -> Void) {
+        closure(self)
+    }
+    
     /// Sets the future value
     public func set(_ value: T?) {
         if self.value != nil || isValueNil {
@@ -226,7 +231,7 @@ public class Future<T> {
         self.failure = failure
         update()
     }
-        
+    
     /// Adds an observer
     public func addObserver(_ observer: FutureObserver) {
         observers.add(observer)
@@ -310,80 +315,95 @@ public extension Future {
         
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
-        let future = Future<K>()
-        then(success: { (value) in
-            if value != nil {
-                future.set(transform(value!))
-            } else {
-                future.set(nil)
-            }
-        }, failure: { (error) in
-            future.set(error)
-        })
-        return future
+        return Future<K> { future in
+            self.then(success: { (value) in
+                if value != nil {
+                    future.set(transform(value!))
+                } else {
+                    future.set(nil)
+                }
+            }, failure: { (error) in
+                future.set(error)
+            })
+        }
     }
     
     /// Mappes the error and return a new future with the error mapped
     public func mapError(_ transform: @escaping (_ error: Error) -> Error) -> Future<T> {
-        let future = Future<T>()
-        then(success: { (value) in
-            future.set(value)
-        }, failure: { (error) in
-            future.set(transform(error))
-        })
-        return future
+        return Future<T> { future in
+            self.then(success: { (value) in
+                future.set(value)
+            }, failure: { (error) in
+                future.set(transform(error))
+            })
+        }
     }
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     public func flatMap<K>(_ closure: @escaping (_ value: T) -> Future<K>) -> Future<K> {
-        let future = Future<K>()
-        then(success: { (value) in
-            if let value = value {
-                future.set(closure(value))
-            } else {
-                future.set(nil)
-            }
-        }, failure: { (error) in
-            future.set(error)
-        })
-        return future
+        return Future<K> { future in
+            self.then(success: { (value) in
+                if let value = value {
+                    future.set(closure(value))
+                } else {
+                    future.set(nil)
+                }
+            }, failure: { (error) in
+                future.set(error)
+            })
+        }
     }
     
     /// Intercepts the error (if available) and returns a new future of type T
     public func recover(_ closure: @escaping (_ error: Error) -> Future<T>) -> Future<T> {
-        let future = Future<T>()
-        then(success: { (value) in
-            future.set(value)
-        }, failure: { (error) in
-            future.set(closure(error))
-        })
-        return future
+        return Future<T> { future in
+            self.then(success: { (value) in
+                future.set(value)
+            }, failure: { (error) in
+                future.set(closure(error))
+            })
+        }
     }
     
     /// Intercepts the then closure and returns a future containing the same result
     public func andThen(success: @escaping (_ value: T?) -> Void = { value in }, failure: @escaping (_ error: Error) -> Void = { error in }) -> Future<T> {
-        let future = Future<T>()
-        then(success: { (value) in
-            success(value)
-            future.set(value)
-        }, failure: { (error) in
-            failure(error)
-            future.set(error)
-        })
-        return future
+        return Future<T> { future in
+            self.then(success: { (value) in
+                success(value)
+                future.set(value)
+            }, failure: { (error) in
+                failure(error)
+                future.set(error)
+            })
+        }
     }
     
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
-        let future = Future<T>()
-        then(success: { (value) in
-            closure()
-            future.set(value)
-        }, failure: { (error) in
-            closure()
-            future.set(error)
-        })
-        return future
+        return Future<T> { future in
+            self.then(success: { (value) in
+                closure()
+                future.set(value)
+            }, failure: { (error) in
+                closure()
+                future.set(error)
+            })
+        }
+    }
+    
+    /// Filters the value and allows to exchange it in an error
+    public func filter(_ closure: @escaping (_ value: T?) -> Error?) -> Future<T> {
+        return Future<T> { future in
+            self.then(success: { value in
+                if let error = closure(value) {
+                    future.set(error)
+                } else {
+                    future.set(value)
+                }
+            }, failure: { error in
+                future.set(error)
+            })
+        }
     }
     
     /// Creates a new future that holds the tupple of results
@@ -422,6 +442,16 @@ public extension Future {
 /// Operator + overriding
 public func +<T,K>(left: Future<T>, right: Future<K>) -> Future<(T?,K?)> {
     return left.zip(right)
+}
+
+precedencegroup MapPrecedance {
+    associativity: left
+}
+infix operator <^> : MapPrecedance
+
+/// Map operator
+public func <^><T,K>(future: Future<T>, map: @escaping (T) -> K) -> Future<K> {
+    return future.map { value in map(value) }
 }
 
 /// To String extension
