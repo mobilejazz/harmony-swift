@@ -269,6 +269,7 @@
 		D219D7271FCC3F2F00D91CED /* FutureUIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7251FCC3EC100D91CED /* FutureUIKitExtensions.swift */; };
 		D219D72A1FCC6DA400D91CED /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7281FCC6D8900D91CED /* JSONDecoding.swift */; };
 		D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */; };
+		D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */; };
 		D2896BB71FD1497000B5B449 /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2896BB61FD1497000B5B449 /* ScopeLock.swift */; };
 		D36CE5AF6D192EB5E13C72196071F160 /* NSError+RLMSync.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9552073BED95E4FBBCE17AC6565320 /* NSError+RLMSync.h */; };
 		D61E2C90D6A3F2FA1C12D045230957F7 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370A97A909096C4FF1C734472F3D86B7 /* Results.swift */; };
@@ -709,6 +710,7 @@
 		D219D7251FCC3EC100D91CED /* FutureUIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureUIKitExtensions.swift; sourceTree = "<group>"; };
 		D219D7281FCC6D8900D91CED /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
+		D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRecognizer.swift; sourceTree = "<group>"; };
 		D2896BB61FD1497000B5B449 /* ScopeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLock.swift; sourceTree = "<group>"; };
 		D2D710DE9749C0735EED5C19F25134C2 /* RealmSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RealmSwift-prefix.pch"; sourceTree = "<group>"; };
 		D40439CD8A31BD40A28B34785F90EB11 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
@@ -864,6 +866,7 @@
 				D2896BB61FD1497000B5B449 /* ScopeLock.swift */,
 				D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */,
 				D219D7281FCC6D8900D91CED /* JSONDecoding.swift */,
+				D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */,
 			);
 			name = Common;
 			path = MJSwiftCore/Classes/Common;
@@ -1781,6 +1784,7 @@
 				F857F8C35CDF4C74F24C3EC678157025 /* VastraInvalidationStrategy.swift in Sources */,
 				504405E98CA81C914EEB5F11998354A9 /* VastraReachabilityStrategy.swift in Sources */,
 				4BBB2EE192BCAF99B3F52861AD2C6B38 /* VastraService.swift in Sources */,
+				D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */,
 				DAC1743F82DB93CEAA6CDDC8366C12FA /* VastraStrategy.swift in Sources */,
 				3922D8DE28722479EA4FA338F0E46EF3 /* VastraTimestampStrategy.swift in Sources */,
 				D219D72A1FCC6DA400D91CED /* JSONDecoding.swift in Sources */,
