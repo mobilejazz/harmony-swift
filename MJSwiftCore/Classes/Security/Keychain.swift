@@ -17,11 +17,11 @@
 import Foundation
 import Security
 
-public class KeychainManager {
+public class Keychain {
     
     public let service : String
     
-    public init(_ service: String) {
+    public init(_ service: String = "com.default.service") {
         self.service = service
     }
     
@@ -62,7 +62,7 @@ public class KeychainManager {
         // Delete first and old entry
         let deleteStatus = SecItemDelete(query as CFDictionary)
         if deleteStatus != errSecSuccess {
-            return .failed(deleteStatus)
+            // Nothing to do
         }
         
         // Setting the data
@@ -89,17 +89,33 @@ public class KeychainManager {
     }
 }
 
-public extension KeychainManager {
-    public func get(_ key: String) -> String? {
+public extension Keychain {
+    public func get<T>(_ key: String) -> T? where T: DataConvertible {
         guard let data : Data = get(key) else {
             return nil
         }
-        return String(data: data, encoding: .utf8)
+        return T(data:data)
+    }
+
+    @discardableResult
+    public func set<T>(_ value: T, forKey key: String) -> Result where T: DataConvertible {
+        return set(value.data, forKey: key)
     }
     
-    public func set(_ string: String, forKey key: String) {
-        if let data = string.data(using: .utf8) {
-            set(data, forKey: key)
+    public func get<T>(_ key: String) -> T? where T: NSCoding {
+        if let data : Data = get(key) {
+            if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {
+                return (value as! T)
+            } else {
+                return nil
+            }
         }
+        return nil
+    }
+
+    @discardableResult
+    public func set<T>(_ value: T, forKey key: String) -> Result where T: NSCoding {
+        let data = NSKeyedArchiver.archivedData(withRootObject: value)
+        return set(data, forKey: key)
     }
 }

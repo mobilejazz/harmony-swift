@@ -38,7 +38,7 @@ public class SecureKey {
     private let kSecValueDataStr = NSString(format: kSecValueData)
     
     @discardableResult
-    public func reset() -> Bool{
+    public func reset() -> Bool {
          if let tag = identifier.data(using: String.Encoding.utf8) {
             var keyData = Data(count: length)
             let result = keyData.withUnsafeMutableBytes({ (pointer) -> OSStatus in

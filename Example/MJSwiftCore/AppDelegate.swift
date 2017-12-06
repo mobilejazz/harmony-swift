@@ -29,22 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.setViewController(mainVC, animation: .crossDisolve)
         }
-        
-        
-//        let linkRecognizer = LinkRecognizer(scheme: "mjz", options: [.CaseInsensitive, .AnchoredStart, .AnchoredEnd])
-//        
-//        linkRecognizer.registerPattern("//screen/tomorrow", forKey: "tomorrow")
-//        linkRecognizer.registerPattern("//screen/today/\(LinkRecognizer.Pattern.numeric)", forKey: "today")
-//        linkRecognizer.registerPattern("//screen/yesterday/\(LinkRecognizer.Pattern.alphanumeric)/index", forKey: "yesterday")
-//        
-//        let result1 = linkRecognizer.recognize(URL(string:"mjz://screen/today/1234")!)
-//        let result2 = linkRecognizer.recognize(URL(string:"mjz://screen/tomorrow")!)
-//        let result3 = linkRecognizer.recognize(URL(string:"mjz://screen/yesterday/o239hf2oisdh9/index")!)
-//        
-//        NSLog("Result 1: \(result1)")
-//        NSLog("Result 2: \(result2)")
-//        NSLog("Result 3: \(result3)")
-        
+    
         return true
     }
 

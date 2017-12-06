@@ -269,8 +269,9 @@
 		D219D72A1FCC6DA400D91CED /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7281FCC6D8900D91CED /* JSONDecoding.swift */; };
 		D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */; };
 		D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */; };
-		D287E7871FD84D3E0023E43B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7851FD84D3E0023E43B /* KeychainManager.swift */; };
+		D287E7871FD84D3E0023E43B /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7851FD84D3E0023E43B /* Keychain.swift */; };
 		D287E7881FD84D3E0023E43B /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7861FD84D3E0023E43B /* SecureKey.swift */; };
+		D287E78A1FD85DE20023E43B /* DataConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7891FD85DE20023E43B /* DataConvertible.swift */; };
 		D2896BB71FD1497000B5B449 /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2896BB61FD1497000B5B449 /* ScopeLock.swift */; };
 		D36CE5AF6D192EB5E13C72196071F160 /* NSError+RLMSync.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9552073BED95E4FBBCE17AC6565320 /* NSError+RLMSync.h */; };
 		D61E2C90D6A3F2FA1C12D045230957F7 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370A97A909096C4FF1C734472F3D86B7 /* Results.swift */; };
@@ -712,8 +713,9 @@
 		D219D7281FCC6D8900D91CED /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
 		D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRecognizer.swift; sourceTree = "<group>"; };
-		D287E7851FD84D3E0023E43B /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		D287E7851FD84D3E0023E43B /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		D287E7861FD84D3E0023E43B /* SecureKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureKey.swift; sourceTree = "<group>"; };
+		D287E7891FD85DE20023E43B /* DataConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConvertible.swift; sourceTree = "<group>"; };
 		D2896BB61FD1497000B5B449 /* ScopeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLock.swift; sourceTree = "<group>"; };
 		D2D710DE9749C0735EED5C19F25134C2 /* RealmSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RealmSwift-prefix.pch"; sourceTree = "<group>"; };
 		D40439CD8A31BD40A28B34785F90EB11 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
@@ -1269,7 +1271,8 @@
 		D287E7841FD84D3E0023E43B /* Security */ = {
 			isa = PBXGroup;
 			children = (
-				D287E7851FD84D3E0023E43B /* KeychainManager.swift */,
+				D287E7891FD85DE20023E43B /* DataConvertible.swift */,
+				D287E7851FD84D3E0023E43B /* Keychain.swift */,
 				D287E7861FD84D3E0023E43B /* SecureKey.swift */,
 			);
 			name = Security;
@@ -1769,6 +1772,7 @@
 				6CA2D94F677317D7D6BB25D9BB7683E3 /* ContainerViewController.swift in Sources */,
 				8DB85FBD14DEAC05918A6A92B5A29B6A /* DataProvider.swift in Sources */,
 				569B2F257EFC87499E0CDDC0D43A0F90 /* DispatchQueueExecutor.swift in Sources */,
+				D287E78A1FD85DE20023E43B /* DataConvertible.swift in Sources */,
 				D2896BB71FD1497000B5B449 /* ScopeLock.swift in Sources */,
 				A574F6FAA2175F2442E26FC4D2F5BDD1 /* Entity.swift in Sources */,
 				1175894F21ABD16303FF984BAD4C23DE /* Executor.swift in Sources */,
@@ -1777,7 +1781,7 @@
 				B7725F9AF69AEA3AF5C72E44F8ABC4B9 /* Future.swift in Sources */,
 				ED4695CFE15035A672AE6D06908CBE0C /* FutureExtensions.swift in Sources */,
 				6618944EED7D07B3B4F8E25477602F35 /* Mapper.swift in Sources */,
-				D287E7871FD84D3E0023E43B /* KeychainManager.swift in Sources */,
+				D287E7871FD84D3E0023E43B /* Keychain.swift in Sources */,
 				7E0335A199BDCA327142A2B1EC84F326 /* MJSwiftCore-dummy.m in Sources */,
 				D6D1E5EB6706C30276FB17400E8CCB8A /* Model.swift in Sources */,
 				3C974D325CAD9AE33B7F072A5D093127 /* MultiRequestAdapter.swift in Sources */,
