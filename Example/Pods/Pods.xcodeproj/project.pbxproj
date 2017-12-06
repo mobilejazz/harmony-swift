@@ -270,6 +270,7 @@
 		D219D72A1FCC6DA400D91CED /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7281FCC6D8900D91CED /* JSONDecoding.swift */; };
 		D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */; };
 		D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */; };
+		D287E7821FD841D30023E43B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7811FD841D30023E43B /* KeychainManager.swift */; };
 		D2896BB71FD1497000B5B449 /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2896BB61FD1497000B5B449 /* ScopeLock.swift */; };
 		D36CE5AF6D192EB5E13C72196071F160 /* NSError+RLMSync.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9552073BED95E4FBBCE17AC6565320 /* NSError+RLMSync.h */; };
 		D61E2C90D6A3F2FA1C12D045230957F7 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370A97A909096C4FF1C734472F3D86B7 /* Results.swift */; };
@@ -711,6 +712,7 @@
 		D219D7281FCC6D8900D91CED /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
 		D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRecognizer.swift; sourceTree = "<group>"; };
+		D287E7811FD841D30023E43B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D2896BB61FD1497000B5B449 /* ScopeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLock.swift; sourceTree = "<group>"; };
 		D2D710DE9749C0735EED5C19F25134C2 /* RealmSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RealmSwift-prefix.pch"; sourceTree = "<group>"; };
 		D40439CD8A31BD40A28B34785F90EB11 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
@@ -862,7 +864,6 @@
 				AEDEBA0F7C0DA837006E7091A7455123 /* Model.swift */,
 				601019BCE5EBA3249A0F2C847EC38917 /* Entity.swift */,
 				C92A15CF7C372C7C78F342AEF657027A /* Mapper.swift */,
-				EDE6EC846302098375D519CBBC8342A7 /* SecureKey.swift */,
 				D2896BB61FD1497000B5B449 /* ScopeLock.swift */,
 				D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */,
 				D219D7281FCC6D8900D91CED /* JSONDecoding.swift */,
@@ -1241,6 +1242,7 @@
 			children = (
 				DCAB9D4671EFF881C8653499C451E9EB /* Alamofire */,
 				03611BB984857D7C6CFAB1E9525B8A4E /* Common */,
+				D287E7831FD84C0D0023E43B /* Security */,
 				1D36D61E3E6615464EFB37D4FA6A8849 /* iOS */,
 				3EEBC727FB1F5AFDA7534D1013BA8BE0 /* Realm */,
 				5937F499074D87D35A52AA5AA832C724 /* Support Files */,
@@ -1262,6 +1264,15 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Swinject";
+			sourceTree = "<group>";
+		};
+		D287E7831FD84C0D0023E43B /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				EDE6EC846302098375D519CBBC8342A7 /* SecureKey.swift */,
+				D287E7811FD841D30023E43B /* KeychainManager.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 		D31D10A5506DB589305B44E9C5DF243C /* Targets Support Files */ = {
@@ -1775,6 +1786,7 @@
 				EFE5CF9BAA7EC82B201E03C56E623D4B /* RealmHandler.swift in Sources */,
 				AD10827518D340E996DE317A146370CE /* RealmMapper.swift in Sources */,
 				D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */,
+				D287E7821FD841D30023E43B /* KeychainManager.swift in Sources */,
 				17A75EF900280A5C4C6C9B897F304A34 /* RealmObject.swift in Sources */,
 				0CAB247EE450E5C42854301A92611BA4 /* RealmService.swift in Sources */,
 				0BB487D58A9118AD4FCB2EBBC730B1FC /* Repository.swift in Sources */,

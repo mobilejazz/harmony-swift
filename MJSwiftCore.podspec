@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MJSwiftCore'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Mobile Jazz Swift toolkit utilities'
 
   # This description is used to generate tags and improve search results.
@@ -35,6 +35,11 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
   s.subspec 'Common' do |sp|
     sp.source_files = 'MJSwiftCore/Classes/Common/**/*'
   end
+  
+  s.subspec 'Security' do |sp|
+      sp.source_files = 'MJSwiftCore/Classes/Security/**/*'
+      sp.frameworks = 'Security'
+  end
 
   s.subspec 'Alamofire' do |sp|
     sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*'
@@ -46,6 +51,7 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
     sp.source_files = 'MJSwiftCore/Classes/Realm/**/*'
     sp.dependency 'RealmSwift', '~> 3.0.0'
     sp.dependency 'MJSwiftCore/Common'
+    sp.dependency 'MJSwiftCore/Security'
   end
 
   s.subspec 'iOS' do |sp|

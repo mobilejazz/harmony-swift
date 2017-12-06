@@ -23,6 +23,7 @@ pod 'MJSwiftCore'
 
 ```ruby
 pod 'MJSwiftCore/Common'
+pod 'MJSwiftCore/Security'
 pod 'MJSwiftCore/iOS'
 pod 'MJSwiftCore/Realm'
 pod 'MJSwiftCore/Alamofire'
