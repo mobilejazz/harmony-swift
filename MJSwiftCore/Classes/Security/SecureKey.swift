@@ -17,26 +17,38 @@
 import Foundation
 import Security
 
+// Arguments for the keychain queries
+private let kSecClassStr                = NSString(format: kSecClass)
+private let kSecClassKeyStr             = NSString(format: kSecClassKey)
+private let kSecAttrApplicationTagStr   = NSString(format: kSecAttrApplicationTag)
+private let kSecAttrKeySizeInBitsStr    = NSString(format: kSecAttrKeySizeInBits)
+private let kSecReturnDataStr           = NSString(format: kSecReturnData)
+private let kSecAttrAccessibleStr       = NSString(format: kSecAttrAccessible)
+private let kSecAttrAccessibleAlwaysStr = NSString(format: kSecAttrAccessibleAlways)
+private let kSecValueDataStr            = NSString(format: kSecValueData)
+
+/// Stores securely inside the Keychain an auto-generated data blob (aka. Key).
 public class SecureKey {
     
+    /// The key identifier
     public let identifier : String
+    
+    /// The key length
     public let length : size_t
     
+    /// Main initializer
+    ///
+    /// - Parameters:
+    ///   - identifier: The key identifier
+    ///   - length: The key length. Default value is 64.
     public init(identifier: String, length: size_t = 64) {
         self.identifier = identifier
         self.length = length
     }
     
-    // Arguments for the keychain queries
-    private let kSecClassStr = NSString(format: kSecClass)
-    private let kSecClassKeyStr = NSString(format: kSecClassKey)
-    private let kSecAttrApplicationTagStr = NSString(format: kSecAttrApplicationTag)
-    private let kSecAttrKeySizeInBitsStr = NSString(format: kSecAttrKeySizeInBits)
-    private let kSecReturnDataStr = NSString(format: kSecReturnData)
-    private let kSecAttrAccessibleStr = NSString(format: kSecAttrAccessible)
-    private let kSecAttrAccessibleAlwaysStr = NSString(format: kSecAttrAccessibleAlways)
-    private let kSecValueDataStr = NSString(format: kSecValueData)
-    
+    /// Generates a new key and stores it inside the keychain.
+    ///
+    /// - Returns: True if succeed, otherwise false.
     @discardableResult
     public func reset() -> Bool {
          if let tag = identifier.data(using: String.Encoding.utf8) {
@@ -60,10 +72,12 @@ public class SecureKey {
                 return true
             }
         }
-        
         return false
     }
     
+    /// Removes the stored key from the keychain.
+    ///
+    /// - Returns: True if succeed, otherwise false.
     @discardableResult
     public func clear() -> Bool {
         if let tag = identifier.data(using: String.Encoding.utf8) {
@@ -75,10 +89,13 @@ public class SecureKey {
                 return true
             }
         }
-        
         return false
     }
     
+    /// Returns the key.
+    /// Note that if there is no key previously stored, this method will generate a new key.
+    ///
+    /// - Returns: The key
     public func key() -> Data? {
         if let tag = identifier.data(using: String.Encoding.utf8) {
             let query = NSDictionary(objects:[kSecClassKeyStr, tag, length, true],
@@ -119,7 +136,6 @@ public class SecureKey {
                 }
             }
         }
-        
         return nil
     }
 }

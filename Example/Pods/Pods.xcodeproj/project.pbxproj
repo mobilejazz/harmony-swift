@@ -269,10 +269,15 @@
 		D219D72A1FCC6DA400D91CED /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7281FCC6D8900D91CED /* JSONDecoding.swift */; };
 		D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */; };
 		D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */; };
+		D284BDB81FE02A4700B37A18 /* AlamofireRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284BDB71FE02A4700B37A18 /* AlamofireRepository.swift */; };
+		D284BDBA1FE02B0C00B37A18 /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D284BDB91FE02B0C00B37A18 /* ErrorHelper.swift */; };
 		D287E7871FD84D3E0023E43B /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7851FD84D3E0023E43B /* Keychain.swift */; };
 		D287E7881FD84D3E0023E43B /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7861FD84D3E0023E43B /* SecureKey.swift */; };
 		D287E78A1FD85DE20023E43B /* DataConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D287E7891FD85DE20023E43B /* DataConvertible.swift */; };
 		D2896BB71FD1497000B5B449 /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2896BB61FD1497000B5B449 /* ScopeLock.swift */; };
+		D2BFD6691FDE7701000F4663 /* KeychainDataConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BFD6681FDE7701000F4663 /* KeychainDataConvertible.swift */; };
+		D2C774E51FD98C740069E347 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C774E41FD98C740069E347 /* StringExtensions.swift */; };
+		D2C774E71FD995770069E347 /* SharedTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C774E61FD995770069E347 /* SharedTimer.swift */; };
 		D36CE5AF6D192EB5E13C72196071F160 /* NSError+RLMSync.h in Headers */ = {isa = PBXBuildFile; fileRef = BC9552073BED95E4FBBCE17AC6565320 /* NSError+RLMSync.h */; };
 		D61E2C90D6A3F2FA1C12D045230957F7 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370A97A909096C4FF1C734472F3D86B7 /* Results.swift */; };
 		D6D1E5EB6706C30276FB17400E8CCB8A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDEBA0F7C0DA837006E7091A7455123 /* Model.swift */; };
@@ -713,10 +718,15 @@
 		D219D7281FCC6D8900D91CED /* JSONDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
 		D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
 		D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkRecognizer.swift; sourceTree = "<group>"; };
+		D284BDB71FE02A4700B37A18 /* AlamofireRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireRepository.swift; sourceTree = "<group>"; };
+		D284BDB91FE02B0C00B37A18 /* ErrorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHelper.swift; sourceTree = "<group>"; };
 		D287E7851FD84D3E0023E43B /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		D287E7861FD84D3E0023E43B /* SecureKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureKey.swift; sourceTree = "<group>"; };
 		D287E7891FD85DE20023E43B /* DataConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConvertible.swift; sourceTree = "<group>"; };
 		D2896BB61FD1497000B5B449 /* ScopeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeLock.swift; sourceTree = "<group>"; };
+		D2BFD6681FDE7701000F4663 /* KeychainDataConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataConvertible.swift; sourceTree = "<group>"; };
+		D2C774E41FD98C740069E347 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		D2C774E61FD995770069E347 /* SharedTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTimer.swift; sourceTree = "<group>"; };
 		D2D710DE9749C0735EED5C19F25134C2 /* RealmSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RealmSwift-prefix.pch"; sourceTree = "<group>"; };
 		D40439CD8A31BD40A28B34785F90EB11 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
 		D48E71F395A3E25183C78C25FC56DE2A /* RLMSyncConfiguration_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSyncConfiguration_Private.h; path = include/RLMSyncConfiguration_Private.h; sourceTree = "<group>"; };
@@ -866,10 +876,12 @@
 				AEDEBA0F7C0DA837006E7091A7455123 /* Model.swift */,
 				601019BCE5EBA3249A0F2C847EC38917 /* Entity.swift */,
 				C92A15CF7C372C7C78F342AEF657027A /* Mapper.swift */,
+				D284BDB91FE02B0C00B37A18 /* ErrorHelper.swift */,
 				D2896BB61FD1497000B5B449 /* ScopeLock.swift */,
 				D2396AAD1FD54CD700B673AA /* ScopeLockFuture.swift */,
 				D219D7281FCC6D8900D91CED /* JSONDecoding.swift */,
 				D2396AAF1FD557A800B673AA /* LinkRecognizer.swift */,
+				D2C774E41FD98C740069E347 /* StringExtensions.swift */,
 			);
 			name = Common;
 			path = MJSwiftCore/Classes/Common;
@@ -940,6 +952,7 @@
 		1D36D61E3E6615464EFB37D4FA6A8849 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D2C774E61FD995770069E347 /* SharedTimer.swift */,
 				DAD49D2C5AE6F38E770DF6977ACA123E /* ContainerViewController.swift */,
 				8D2151A9B423919B68826C584AF6289D /* PushNotificationQueue.swift */,
 				1E7B4251CBB1E0BA9E13CC80FBDD1E62 /* UIColorExtensions.swift */,
@@ -1273,6 +1286,7 @@
 			children = (
 				D287E7891FD85DE20023E43B /* DataConvertible.swift */,
 				D287E7851FD84D3E0023E43B /* Keychain.swift */,
+				D2BFD6681FDE7701000F4663 /* KeychainDataConvertible.swift */,
 				D287E7861FD84D3E0023E43B /* SecureKey.swift */,
 			);
 			name = Security;
@@ -1309,6 +1323,7 @@
 				53014BDE8B3AD8AC228C7F1553C1867D /* BaseURLRequestAdapter.swift */,
 				D958BC0A8149CE7176CFCD48DEFFBACB /* MultiRequestAdapter.swift */,
 				8BCB361CFCA14FB9C82A6823D6CA71EE /* MultiRequestRetrier.swift */,
+				D284BDB71FE02A4700B37A18 /* AlamofireRepository.swift */,
 			);
 			name = Alamofire;
 			path = MJSwiftCore/Classes/Alamofire;
@@ -1790,16 +1805,21 @@
 				1AF97194F5CEF3091D1EE28328BFEAB9 /* PushNotificationQueue.swift in Sources */,
 				1E9B88925A5CB300DFAF855C1B72BE23 /* RealmFactory.swift in Sources */,
 				EFE5CF9BAA7EC82B201E03C56E623D4B /* RealmHandler.swift in Sources */,
+				D2BFD6691FDE7701000F4663 /* KeychainDataConvertible.swift in Sources */,
 				AD10827518D340E996DE317A146370CE /* RealmMapper.swift in Sources */,
+				D2C774E71FD995770069E347 /* SharedTimer.swift in Sources */,
 				D2396AAE1FD54CD700B673AA /* ScopeLockFuture.swift in Sources */,
 				17A75EF900280A5C4C6C9B897F304A34 /* RealmObject.swift in Sources */,
 				0CAB247EE450E5C42854301A92611BA4 /* RealmService.swift in Sources */,
 				0BB487D58A9118AD4FCB2EBBC730B1FC /* Repository.swift in Sources */,
+				D284BDBA1FE02B0C00B37A18 /* ErrorHelper.swift in Sources */,
 				C9AFC8C09D95CA6A2691C3F1E6C990B7 /* UIColorExtensions.swift in Sources */,
 				06A2D5F410466993A656D2074F5C3A1E /* UIImageExtensions.swift in Sources */,
 				F857F8C35CDF4C74F24C3EC678157025 /* VastraInvalidationStrategy.swift in Sources */,
 				504405E98CA81C914EEB5F11998354A9 /* VastraReachabilityStrategy.swift in Sources */,
+				D2C774E51FD98C740069E347 /* StringExtensions.swift in Sources */,
 				4BBB2EE192BCAF99B3F52861AD2C6B38 /* VastraService.swift in Sources */,
+				D284BDB81FE02A4700B37A18 /* AlamofireRepository.swift in Sources */,
 				D287E7881FD84D3E0023E43B /* SecureKey.swift in Sources */,
 				D2396AB01FD557A800B673AA /* LinkRecognizer.swift in Sources */,
 				DAC1743F82DB93CEAA6CDDC8366C12FA /* VastraStrategy.swift in Sources */,

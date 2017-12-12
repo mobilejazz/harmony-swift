@@ -41,7 +41,7 @@ extension QueryById : RealmQuery {
 
 fileprivate extension Query {
     fileprivate func toRealmQuery() -> RealmQuery {
-        switch self.self {
+        switch self {
         case is RealmQuery:
             return self as! RealmQuery
         default:

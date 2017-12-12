@@ -17,30 +17,44 @@
 import Foundation
 import Security
 
+// Arguments for the keychain queries
+private let kSecClassGenericPasswordStr = NSString(format: kSecClassGenericPassword)
+private let kSecClassStr                = NSString(format: kSecClass)
+private let kSecAttrServiceStr          = NSString(format: kSecAttrService)
+private let kSecAttrAccountStr          = NSString(format: kSecAttrAccount)
+private let kSecReturnAttributesStr     = NSString(format: kSecReturnAttributes)
+private let kSecValueDataStr            = NSString(format: kSecValueData)
+private let kSecMatchLimitStr           = NSString(format: kSecMatchLimit)
+private let kSecMatchLimitOneStr        = NSString(format: kSecMatchLimitOne)
+private let kSecReturnDataStr           = NSString(format: kSecReturnData)
+
+/// A user-friendly interface to store Data inside the keychain.
 public class Keychain {
     
+    /// The Keychain's service name.
     public let service : String
     
+    /// Main initializer
+    /// The initializer needs a service name. Each service will identify an independent keychain memory zone.
+    ///
+    /// - Parameter service: The keychain service name. Default service is "com.default.service"
     public init(_ service: String = "com.default.service") {
         self.service = service
     }
     
+    /// A keychain operation result.
+    ///
+    /// - success: A success result
+    /// - failed: A failre result, including the status code.
     public enum Result : Error {
         case success
         case failed(OSStatus)
     }
     
-    // Arguments for the keychain queries
-    private let kSecClassGenericPasswordStr = NSString(format: kSecClassGenericPassword)
-    private let kSecClassStr = NSString(format: kSecClass)
-    private let kSecAttrServiceStr = NSString(format: kSecAttrService)
-    private let kSecAttrAccountStr = NSString(format: kSecAttrAccount)
-    private let kSecReturnAttributesStr = NSString(format: kSecReturnAttributes)
-    private let kSecValueDataStr = NSString(format: kSecValueData)
-    private let kSecMatchLimitStr = NSString(format: kSecMatchLimit)
-    private let kSecMatchLimitOneStr = NSString(format: kSecMatchLimitOne)
-    private let kSecReturnDataStr = NSString(format: kSecReturnData)
-    
+    /// Fetches the Data stored in the keychain for the given key.
+    ///
+    /// - Parameter key: The key.
+    /// - Returns: The stored Data or nil.
     public func get(_ key: String) -> Data? {
         let query = NSDictionary(objects:[kSecClassGenericPasswordStr, service, key, kCFBooleanTrue, kSecMatchLimitOneStr],
                                  forKeys: [kSecClassStr, kSecAttrServiceStr, kSecAttrAccountStr, kSecReturnDataStr, kSecMatchLimitStr])
@@ -55,6 +69,12 @@ public class Keychain {
         return nil
     }
     
+    /// Sets the given Data for the given key inside the keychain.
+    ///
+    /// - Parameters:
+    ///   - data: The data to store.
+    ///   - key: The key of the data.
+    /// - Returns: The operation result.
     @discardableResult
     public func set(_ data: Data, forKey key: String) -> Result {
         let query = NSMutableDictionary(objects:[kSecClassGenericPasswordStr, service, key, kCFBooleanTrue],
@@ -75,6 +95,10 @@ public class Keychain {
         }
     }
     
+    /// Deletes the Data associated to the given key.
+    ///
+    /// - Parameter key: The key.
+    /// - Returns: The operation result.
     @discardableResult
     public func delete(_ key: String) -> Result {
         let query = NSMutableDictionary(objects:[kSecClassGenericPasswordStr, service, key, kCFBooleanTrue],
@@ -90,18 +114,10 @@ public class Keychain {
 }
 
 public extension Keychain {
-    public func get<T>(_ key: String) -> T? where T: DataConvertible {
-        guard let data : Data = get(key) else {
-            return nil
-        }
-        return T(data:data)
-    }
-
-    @discardableResult
-    public func set<T>(_ value: T, forKey key: String) -> Result where T: DataConvertible {
-        return set(value.data, forKey: key)
-    }
-    
+    /// Custom getter for NSCoding conforming types.
+    ///
+    /// - Parameter key: The key.
+    /// - Returns: The NSCoding conforming type stored in the keychain or nil.
     public func get<T>(_ key: String) -> T? where T: NSCoding {
         if let data : Data = get(key) {
             if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {
@@ -112,7 +128,13 @@ public extension Keychain {
         }
         return nil
     }
-
+    
+    /// Custom setter for NSCoding conforming types.
+    ///
+    /// - Parameters:
+    ///   - value: The NSCoding conforming value.
+    ///   - key: The key.
+    /// - Returns: The operation result.
     @discardableResult
     public func set<T>(_ value: T, forKey key: String) -> Result where T: NSCoding {
         let data = NSKeyedArchiver.archivedData(withRootObject: value)

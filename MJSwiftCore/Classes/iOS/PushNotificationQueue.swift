@@ -16,12 +16,7 @@
 
 import UIKit
 
-public enum Action {
-    case queue
-    case ignore
-    case process
-}
-
+/// Filter options.
 public struct Filter : OptionSet {
     public let rawValue : Int
     
@@ -29,15 +24,35 @@ public struct Filter : OptionSet {
         self.rawValue = rawValue
     }
 
+    /// Never filter. Deliver all incoming notifications.
     public static let never = Filter(rawValue:0)
+    /// Filter notifications received in the background. Deliver otherwise.
     public static let applicationBackground = Filter(rawValue:1<<0)
+    /// Filter notifications received when inactive. Deliver otherwise.
     public static let applicationInactive = Filter(rawValue:1<<1)
+    /// Filter notifications received when active. Deliver otherwise.
     public static let applicationActive = Filter(rawValue:1<<2)
+    /// Filter all notifications. Deliver nothing.
     public static let always = Filter(rawValue:~0)
 }
 
+/// The delegate object
 public protocol PushNotificationQueueDelegate : class {
-    func actionForNotification(_ userInfo: [AnyHashable : Any], queue: PushNotificationQueue, completionHandler: @escaping (Action, UIBackgroundFetchResult) -> Void )
+    
+    /// Action for a new incoming push notification.
+    ///
+    /// - Parameters:
+    ///   - userInfo: The push notification
+    ///   - queue: The queue.
+    ///   - completionHandler: The completion handler. This closure must be called.
+    func actionForNotification(_ userInfo: [AnyHashable : Any], queue: PushNotificationQueue, completionHandler: @escaping (PushNotificationQueue.Action, UIBackgroundFetchResult) -> Void )
+    
+    /// Main push notification delivery method.
+    ///
+    /// - Parameters:
+    ///   - userInfo: The push notification
+    ///   - applicationState: The application state when the push notification was received.
+    ///   - queue: The notification queue.
     func receivedNotification(_ userInfo: [AnyHashable : Any], applicationState: UIApplicationState, queue: PushNotificationQueue)
 }
 
@@ -51,18 +66,37 @@ private class PushNotificationQueueItem {
     }
 }
 
+///
+/// Class responsible of processing incoming push notifications and deliver them to its delegate in the appropiated time.
+///
 public class PushNotificationQueue {
     
+    /// Puch notification action
+    ///
+    /// - queue: Add to the queue.
+    /// - ignore: Ignore notification.
+    /// - process: Process right away, ignoring the queue.
+    public enum Action {
+        case queue
+        case ignore
+        case process
+    }
+    
+    /// Filter option. Default value is .never.
     public var filter : Filter = .never
+    /// The delegate object.
     public weak var delegate : PushNotificationQueueDelegate?
+    
     private let operationQueue : OperationQueue
     
+    /// Main initializer
     public init() {
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
         operationQueue.isSuspended = true
     }
     
+    /// Enables or disables the notification delivery.
     public var enabled : Bool {
         get {
             return !operationQueue.isSuspended
@@ -72,10 +106,12 @@ public class PushNotificationQueue {
         }
     }
     
+    /// Removes all pending to be delivered notifications.
     public func clear() {
         operationQueue.cancelAllOperations()
     }
     
+    /// Adds a new notification into the queue.
     public func addNotification(_ userInfo: [AnyHashable : Any], completion: @escaping (UIBackgroundFetchResult) -> Void = { _ in }) {
         let item = PushNotificationQueueItem.init(userInfo: userInfo, applicationState: UIApplication.shared.applicationState)
         
