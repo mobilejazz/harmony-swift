@@ -17,7 +17,7 @@
 import Foundation
 import RealmSwift
 
-open class RealmMapper<From: Entity, To: Object> {
+open class RealmMapper<From, To: Object> {
     public init() { }
     open func map(_ from: From, inRealm realm: Realm) -> To {
         fatalError()

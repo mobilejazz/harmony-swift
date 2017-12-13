@@ -26,9 +26,10 @@ extension Executor {
     @discardableResult public func submit<T>(_ closure: @escaping (_ future: Future<T>) -> Void) -> Future<T> {
         return Future<T> { future in
             self.submit { end in
-                closure(future.onSet {
+                future.onSet {
                     end()
-                })
+                }
+                closure(future)
             }
         }.toFuture() // Creating a new future to avoid a duplicate call to onSet to the same future
     }

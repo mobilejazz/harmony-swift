@@ -156,9 +156,7 @@ public class Future<T> {
     /// Note that multiple calls to this method are discouraged, resulting with only one onContentSet closure being called.
     ///
     /// - Parameter closure: The code to be executed
-    /// - Returns: The self instance
-    @discardableResult
-    public func onSet(_ closure: @escaping () -> Void) -> Future<T> {
+    public func onSet(_ closure: @escaping () -> Void){
         switch state {
         case .waitingBlock, .sent:
             closure()
@@ -167,7 +165,6 @@ public class Future<T> {
                 closure()
             }
         }
-        return self
     }
     
     /// Closure called right after content is set, without waiting the then closure.
@@ -175,8 +172,7 @@ public class Future<T> {
     ///
     /// - Parameter closure: The code to be executed
     /// - Returns: The self instance
-    @discardableResult
-    public func onSet(_ closure: @escaping (inout T?, inout Error?) -> Void) -> Future<T> {
+    public func onSet(_ closure: @escaping (inout T?, inout Error?) -> Void) {
         switch state {
         case .waitingBlock:
             closure(&value, &error)
@@ -187,7 +183,6 @@ public class Future<T> {
         case .sent:
             closure(&value, &error)
         }
-        return self
     }
     
     /// Then closure executed in the given queue
