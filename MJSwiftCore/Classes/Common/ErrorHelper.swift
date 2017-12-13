@@ -53,6 +53,6 @@ public extension NSError {
     }
     
     public convenience init(_ message: String, reason: String? = nil, subdomain: String, code: Int = 0, userInfo: (inout [String : Any]) -> Void = { _ in }) {
-        self.init(message, reason: reason, domain: NSErrorDomain(subdomain), code: code, userInfo: userInfo)
+        self.init(message, reason: reason, domain: NSErrorDomain(subdomain), code: code, userInfo: userInfo )
     }
 }
