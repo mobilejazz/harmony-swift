@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.setViewController(mainVC, animation: .crossDisolve)
         }
-        
         return true
     }
 
