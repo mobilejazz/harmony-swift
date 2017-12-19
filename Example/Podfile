@@ -2,12 +2,12 @@ use_frameworks!
 
 target 'MJSwiftCore_Example' do
   pod 'MJSwiftCore', :path => '../'
+  pod 'MJSwiftCore/MJCocoaCore', :path => '../'
 
   pod 'Swinject', '~> 2.1'
   pod 'Kingfisher', '~> 4.2'
 
   target 'MJSwiftCore_Tests' do
     inherit! :search_paths
-    
   end
 end

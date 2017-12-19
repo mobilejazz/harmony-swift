@@ -37,11 +37,17 @@ public enum FutureState {
     }
 }
 
-/// Observers must implement this protocol
+/// Observers must implement this protocol. Methods are optional.
 public protocol FutureObserver : AnyObject {
-    func didSendValue<T>(_ value: T?)
-    func didSendError(_ error: Error)
+    func didSetValue<T>(_ value: T?)
+    func didSetError(_ error: Error)
     func didCompleteFuture<T>(_ future: Future<T>)
+}
+
+public extension FutureObserver {
+    func didSetValue<T>(_ value: T?) { }
+    func didSetError(_ error: Error) { }
+    func didCompleteFuture<T>(_ future: Future<T>) { }
 }
 
 private enum FutureError: Error {
@@ -133,8 +139,14 @@ public class Future<T> {
         self.isValueNil = value == nil
         self.value = value
         self.error = nil
+        if let onContentSet = onContentSet {
+            onContentSet(&(self.value), &(self.error))
+            if !reactive {
+                self.onContentSet = nil
+            }
+        }
         for observer in observers.allObjects {
-            (observer as! FutureObserver).didSendValue(value)
+            (observer as! FutureObserver).didSetValue(value)
         }
         update()
     }
@@ -149,8 +161,14 @@ public class Future<T> {
         self.isValueNil = false
         self.value = nil
         self.error = error
+        if let onContentSet = onContentSet {
+            onContentSet(&(self.value), &(self.error))
+            if !reactive {
+                self.onContentSet = nil
+            }
+        }
         for observer in observers.allObjects {
-            (observer as! FutureObserver).didSendError(error)
+            (observer as! FutureObserver).didSetError(error)
         }
         update()
     }
@@ -178,7 +196,7 @@ public class Future<T> {
     /// Note too that if the future has already been sent, this closure is not called.
     ///
     /// - Parameter closure: The code to be executed
-    public func onSet(_ closure: @escaping () -> Void){
+    public func onSet(_ closure: @escaping () -> Void) {
         onContentSet = { (_,_) in
             closure()
         }
@@ -277,12 +295,6 @@ public class Future<T> {
             // Waiting for either value||error , or the then block.
             if value != nil || error != nil {
                 state = .waitingBlock
-                if let onContentSet = onContentSet {
-                    onContentSet(&value, &error)
-                    if !reactive {
-                        self.onContentSet = nil
-                    }
-                }
                 if let semaphore = semaphore {
                     DispatchSemaphore.signal(semaphore)()
                 }
@@ -298,12 +310,6 @@ public class Future<T> {
             }
         case .waitingValueOrError:
             if (value != nil || isValueNil) || error != nil {
-                if let onContentSet = onContentSet {
-                    onContentSet(&value, &error)
-                    if !reactive {
-                        self.onContentSet = nil
-                    }
-                }
                 send()
                 if !reactive {
                     state = .sent

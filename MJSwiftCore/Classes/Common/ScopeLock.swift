@@ -63,12 +63,14 @@ private let globalLock = NSLock()
 /// The scope
 ///
 /// - none: No scope defined. The ScopeLock will be instance specific.
+/// - custom: Provides the lock itself
 /// - global: Global scope.
 /// - object: Object-defined scope
 /// - string: String-defined scope
 /// - int: Integer-defined scope
 public enum Scope {
     case none
+    case lock(NSLock)
     case global
     case object(AnyObject)
     case string(String)
@@ -97,6 +99,8 @@ public class ScopeLock {
         switch scope {
         case .none:
             lock = NSLock()
+        case .lock(let inLock):
+            lock = inLock
         case .global:
             lock = globalLock
         case .object(let object):
@@ -106,6 +110,11 @@ public class ScopeLock {
         case .int(let integer):
             lock = integerLockProvider.lockWithScope(integer)
         }
+    }
+    
+    /// Init from another ScopeLock
+    public init(_ scopeLock : ScopeLock) {
+        lock = scopeLock.lock
     }
 
     /// Convenience init to access the global scope
@@ -147,5 +156,13 @@ public class ScopeLock {
         lock.lock()
         closure()
         lock.unlock()
+    }
+    
+    /// The async lock method. The "end" closure must be called upon unlocking.
+    public func async(_ closure: @escaping (_ end: @escaping () -> Void) -> Void) {
+        lock.lock()
+        closure {
+            self.lock.unlock()
+        }
     }
 }

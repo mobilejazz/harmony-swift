@@ -17,9 +17,31 @@
 import Foundation
 
 public extension ScopeLock {
+    /// Syncing method using futures
+    ///
+    /// - Parameter closure: The sync closure
+    /// - Returns: A future contining the result
     func sync<T>(_ closure: @escaping () -> T?) -> Future<T> {
         return Future<T> { future in
-            future.set(closure())
+            self.sync {
+                future.set(closure())
+            }
         }
+    }
+    
+    /// Syncing method using an async closure
+    /// Note the sync will kept active until the future sets its value or error.
+    ///
+    /// - Parameter closure: The sync closure
+    /// - Returns: A future
+    func async<T>(_ closure: @escaping (_ future : Future<T>) -> Void) -> Future<T> {
+        return Future<T> { future in
+            self.async { end in
+                future.onSet {
+                    end()
+                }
+                closure(future)
+            }
+        }.toFuture()
     }
 }

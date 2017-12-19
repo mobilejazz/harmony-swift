@@ -16,20 +16,28 @@
 
 import Foundation
 
+///
+/// GCC based executor
+///
 public class DispatchQueueExecutor : Executor {
-    
+   
+    /// The dispatch queue
     public let queue : DispatchQueue
     
     public private(set) var executing = false
     
+    /// Convenience initalizer
     public convenience init() {
         self.init(DispatchQueue(label: UUID().uuidString))
     }
     
+    /// Main initializer
+    ///
+    /// - Parameter queue: The dispatch queue
     public init(_ queue: DispatchQueue) {
         self.queue = queue
     }
-        
+    
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         queue.async {
             self.executing = true

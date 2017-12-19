@@ -16,13 +16,21 @@
 
 import Foundation
 
+///
+/// OperationQueue based executor
+///
 public class OperationQueueExecutor: Executor {
     
+    /// The queue type
+    ///
+    /// - serialQueue: Serial queue
+    /// - concurrentQueue: Concurrent queue
     public enum QueueType {
         case serialQueue
         case concurrentQueue
     }
     
+    /// The operation queue
     public let operationQueue : OperationQueue
     
     public var executing: Bool {
@@ -31,6 +39,11 @@ public class OperationQueueExecutor: Executor {
         }
     }
     
+    /// Convenience initalizer
+    ///
+    /// - Parameters:
+    ///   - type: The type of queue
+    ///   - name: The name of the queue
     public convenience init (type : QueueType = .serialQueue, name: String = UUID().uuidString) {
         let operationQueue = OperationQueue()
         operationQueue.name = name
@@ -43,6 +56,9 @@ public class OperationQueueExecutor: Executor {
         self.init(operationQueue)
     }
     
+    /// Main initializer
+    ///
+    /// - Parameter operationQueue: The operation queue
     public init(_ operationQueue: OperationQueue) {
         self.operationQueue = operationQueue
     }

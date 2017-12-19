@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MJSwiftCore'
-  s.version          = '0.2.2'
+  s.version          = '0.2.3'
   s.summary          = 'Mobile Jazz Swift toolkit utilities'
 
   # This description is used to generate tags and improve search results.
@@ -31,6 +31,7 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'MJSwiftCore/Classes/**/*'
+  s.exclude_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*'
 
   s.subspec 'Common' do |sp|
     sp.source_files = 'MJSwiftCore/Classes/Common/**/*'
@@ -62,6 +63,11 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
 
   s.subspec 'Vastra' do |sp|
     sp.source_files = 'MJSwiftCore/Classes/Vastra/**/*'
+  end
+  
+  s.subspec 'MJCocoaCore' do |sp|
+      sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*'
+      sp.dependency 'MJCocoaCore/Common', '~>2.0'
   end
 
   # s.resource_bundles = {
