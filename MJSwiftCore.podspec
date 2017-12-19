@@ -68,6 +68,7 @@ Mobile Jazz Swift toolkit utilities for macOS and iOS.
   s.subspec 'MJCocoaCore' do |sp|
       sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*'
       sp.dependency 'MJCocoaCore/Common', '~>2.0'
+      sp.dependency 'MJSwiftCore/Common'
   end
 
   # s.resource_bundles = {
