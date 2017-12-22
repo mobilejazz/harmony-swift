@@ -158,8 +158,8 @@ public class ScopeLock {
         lock.unlock()
     }
     
-    /// The async lock method. The "end" closure must be called upon unlocking.
-    public func async(_ closure: @escaping (_ end: @escaping () -> Void) -> Void) {
+    /// The async lock method. The nested closure must be called upon unlocking.
+    public func async(_ closure: (@escaping () -> Void) -> Void) {
         lock.lock()
         closure {
             self.lock.unlock()

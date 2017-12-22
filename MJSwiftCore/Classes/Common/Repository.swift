@@ -22,7 +22,7 @@ public protocol Query { }
 /// A query by an id
 public class QueryById : Query {
     public let id : String
-    public init (_ id: String) {
+    public init(_ id: String) {
         self.id = id
     }
 }

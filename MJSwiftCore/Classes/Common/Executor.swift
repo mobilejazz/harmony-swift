@@ -25,5 +25,5 @@ public protocol Executor {
     ///
     /// - Parameter closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
     /// - Returns: Nothing (Void)
-    func submit(_ closure: @escaping (_ end: @escaping () -> Void) -> Void)
+    func submit(_ closure: @escaping (@escaping () -> Void) -> Void)
 }

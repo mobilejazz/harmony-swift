@@ -16,28 +16,8 @@
 
 import Foundation
 
-/// Future states
-public enum FutureState {
-    case blank
-    case waitingBlock
-    case waitingValueOrError
-    case sent
-    
-    var localizedDescription: String {
-        switch (self) {
-        case .blank:
-            return "Blank: empty future"
-        case .waitingBlock:
-            return "Waiting for Block: value or error is already set and future is waiting for a then closure."
-        case .waitingValueOrError:
-            return "Waiting for Value or Error: then closure is already set and future is waiting for a value or error."
-        case .sent:
-            return "Sent: future has already sent the value or error to the then closure."
-        }
-    }
-}
-
-/// Observers must implement this protocol. Methods are optional.
+/// Observers must conform to this protocol.
+/// Methods are optional.
 public protocol FutureObserver : AnyObject {
     func didSetValue<T>(_ value: T?)
     func didSetError(_ error: Error)
@@ -51,18 +31,15 @@ public extension FutureObserver {
 }
 
 private enum FutureError: Error {
-    case valueAlreadySet
-    case errorAlreadySet
+    case contentAlreadySet
     case thenAlreadySet
     case alreadySent
     case notReactive
     
     var localizedDescription: String {
         switch (self) {
-        case .valueAlreadySet:
-            return "Value already set: cannot set a new value once is already set."
-        case .errorAlreadySet:
-            return "Error already set: cannot set a new error once is already set."
+        case .contentAlreadySet:
+            return "Content already set: cannot set new content once is already set."
         case .thenAlreadySet:
             return "Then already set: cannot set a new then closure once is already set."
         case .alreadySent:
@@ -75,22 +52,52 @@ private enum FutureError: Error {
 
 /// Future class. Wrapper of an optional value of type T or an error.
 public class Future<T> {
+    
+    /// Future states
+    public enum State {
+        case blank
+        case waitingThen
+        case waitingContent
+        case sent
+        
+        var localizedDescription: String {
+            switch (self) {
+            case .blank:
+                return "Blank: empty future"
+            case .waitingThen:
+                return "Waiting for Block: value or error is already set and future is waiting for a then closure."
+            case .waitingContent:
+                return "Waiting for Value or Error: then closure is already set and future is waiting for a value or error."
+            case .sent:
+                return "Sent: future has already sent the value or error to the then closure."
+            }
+        }
+    }
+    
+    /// The future state
+    public private(set) var state: State = .blank
+    
+    /// The future's result
+    ///
+    /// - empty: a nil value was provided
+    /// - value: a value was provided
+    /// - error: an error was provided
+    public indirect enum Result {
+        case empty
+        case value(T)
+        case error(Error)
+    }
+    
+    /// The future result
+    public private(set) var result : Result? = nil
+    
     /// Defines if the future is reactive or not.
     public let reactive : Bool
     
-    /// The future state
-    public private(set) var state: FutureState = .blank
-    
-    /// The optional value
-    public private(set) var value: T?
-    
-    /// The error
-    public private(set) var error: Error?
-    
+    // Private variables
     private var success: ((_ value: T?) -> Void)?
     private var failure: ((_ error: Error) -> Void)?
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
-    private var isValueNil: Bool = false
     private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
     private let observers = NSHashTable<AnyObject>.weakObjects()
@@ -119,7 +126,7 @@ public class Future<T> {
     }
     
     /// Future initializer
-    public init(reactive: Bool = false, _ closure: @escaping (_ future: Future<T>) -> Void) {
+    public init(reactive: Bool = false, _ closure: (Future<T>) -> Void) {
         self.reactive = reactive
         closure(self)
     }
@@ -131,46 +138,12 @@ public class Future<T> {
     
     /// Sets the future value
     public func set(_ value: T?) {
-        if !reactive {
-            if self.value != nil || isValueNil {
-                fatalError(FutureError.valueAlreadySet.localizedDescription)
-            }
-        }
-        self.isValueNil = value == nil
-        self.value = value
-        self.error = nil
-        if let onContentSet = onContentSet {
-            onContentSet(&(self.value), &(self.error))
-            if !reactive {
-                self.onContentSet = nil
-            }
-        }
-        for observer in observers.allObjects {
-            (observer as! FutureObserver).didSetValue(value)
-        }
-        update()
+        set(value: value, error: nil)
     }
     
     /// Sets the future error
     public func set(_ error: Error) {
-        if !reactive {
-            if self.error != nil {
-                fatalError(FutureError.errorAlreadySet.localizedDescription)
-            }
-        }
-        self.isValueNil = false
-        self.value = nil
-        self.error = error
-        if let onContentSet = onContentSet {
-            onContentSet(&(self.value), &(self.error))
-            if !reactive {
-                self.onContentSet = nil
-            }
-        }
-        for observer in observers.allObjects {
-            (observer as! FutureObserver).didSetError(error)
-        }
-        update()
+        set(value: nil, error: error)
     }
     
     /// Sets the future with another future
@@ -182,13 +155,43 @@ public class Future<T> {
         })
     }
     
-    /// Sets both future and value together. If error, the error is set, otherwise the optional value is set.
+    /// Sets the future with a value if not error.
+    /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
-        if let error = error {
-            set(error)
-        } else {
-            set(value)
+        if !reactive {
+            if result != nil {
+                fatalError(FutureError.contentAlreadySet.localizedDescription)
+            }
         }
+        var value : T? = value
+        var error : Error? = error
+        if let onContentSet = onContentSet {
+            onContentSet(&value, &error)
+            if !reactive {
+                self.onContentSet = nil
+            }
+        }
+        if let error = error {
+            result = .error(error)
+        } else {
+            if let value = value {
+                result = .value(value)
+            } else {
+                result = .empty
+            }
+        }
+        for observer in observers.allObjects {
+            let observer = observer as! FutureObserver
+            switch result! {
+            case .error(let error):
+                observer.didSetError(error)
+            case .value(let value):
+                observer.didSetValue(value)
+            case .empty:
+                observer.didSetValue(nil as T?)
+            }
+        }
+        update()
     }
     
     /// Closure called right after content is set, without waiting the then closure.
@@ -230,18 +233,18 @@ public class Future<T> {
     }
     
     /// Synchronous then
-    public func then() -> (T?, Error?) {
+    public func then() -> Result {
         switch state {
-        case .waitingBlock:
+        case .waitingThen:
             if !reactive {
                 state = .sent
             }
-            return (value, error)
+            return result!
         case .blank:
             semaphore = DispatchSemaphore(value: 0)
             DispatchSemaphore.wait(semaphore!)()
             return then()
-        case .waitingValueOrError:
+        case .waitingContent:
             fatalError(FutureError.thenAlreadySet.localizedDescription)
         case .sent:
             fatalError(FutureError.alreadySent.localizedDescription)
@@ -249,7 +252,8 @@ public class Future<T> {
     }
     
     /// Then closure: delivers the optional value or the error
-    public func then(success: @escaping (_ value: T?) -> Void, failure: @escaping (_ error: Error) -> Void) {
+    public func then(success: @escaping (T?) -> Void,
+                     failure: @escaping (Error) -> Void) {
         if !reactive {
             if self.success != nil || self.failure != nil {
                 fatalError(FutureError.thenAlreadySet.localizedDescription)
@@ -264,10 +268,8 @@ public class Future<T> {
     public func complete() {
         if state != .sent {
             state = .sent
-            
             self.success = nil
             self.failure = nil
-            
             for observer in observers.allObjects {
                 (observer as! FutureObserver).didCompleteFuture(self)
             }
@@ -292,24 +294,24 @@ public class Future<T> {
         case .sent:
             fatalError(FutureError.alreadySent.localizedDescription)
         case .blank:
-            // Waiting for either value||error , or the then block.
-            if value != nil || error != nil {
-                state = .waitingBlock
+            // Waiting for either the result, or the then closure
+            if result != nil {
+                state = .waitingThen
                 if let semaphore = semaphore {
                     DispatchSemaphore.signal(semaphore)()
                 }
             } else if (success != nil) {
-                state = .waitingValueOrError
+                state = .waitingContent
             }
-        case .waitingBlock:
+        case .waitingThen:
             if success != nil {
                 send()
                 if !reactive {
                     state = .sent
                 }
             }
-        case .waitingValueOrError:
-            if (value != nil || isValueNil) || error != nil {
+        case .waitingContent:
+            if result != nil {
                 send()
                 if !reactive {
                     state = .sent
@@ -322,26 +324,30 @@ public class Future<T> {
         if let queue = queue {
             let success = self.success!
             let failure = self.failure!
-            let error = self.error
-            let value = self.value
+            let result = self.result!
             queue.async {
-                if let error = error {
+                switch result {
+                case .error(let error):
                     failure(error)
-                } else {
+                case .value(let value):
                     success(value)
+                case .empty:
+                    success(nil)
                 }
             }
         } else {
-            if let error = error {
+            switch result! {
+            case .error(let error):
                 failure!(error)
-            } else {
+            case .value(let value):
                 success!(value)
+            case .empty:
+                success!(nil)
             }
         }
         for observer in observers.allObjects {
             (observer as! FutureObserver).didCompleteFuture(self)
         }
-        
         if !reactive {
             self.success = nil
             self.failure = nil
@@ -369,7 +375,7 @@ public extension Future {
     }
     
     /// Mappes the error and return a new future with the error mapped
-    public func mapError(_ transform: @escaping (_ error: Error) -> Error) -> Future<T> {
+    public func mapError(_ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future(reactive: self.reactive) { future in
             self.then(success: { (value) in
                 future.set(value)
@@ -380,7 +386,7 @@ public extension Future {
     }
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (_ value: T) -> Future<K>) -> Future<K> {
+    public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
         return Future<K>(reactive: self.reactive) { future in
             self.then(success: { (value) in
                 if let value = value {
@@ -395,7 +401,7 @@ public extension Future {
     }
     
     /// Intercepts the error (if available) and returns a new future of type T
-    public func recover(_ closure: @escaping (_ error: Error) -> Future<T>) -> Future<T> {
+    public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
         return Future(reactive: self.reactive) { future in
             self.then(success: { (value) in
                 future.set(value)
@@ -406,7 +412,8 @@ public extension Future {
     }
     
     /// Intercepts the then closure and returns a future containing the same result
-    public func andThen(success: @escaping (_ value: T?) -> Void = { value in }, failure: @escaping (_ error: Error) -> Void = { error in }) -> Future<T> {
+    public func andThen(success: @escaping (T?) -> Void = { _ in },
+                        failure: @escaping (Error) -> Void = { _ in }) -> Future<T> {
         return Future(reactive: self.reactive) { future in
             self.then(success: { (value) in
                 success(value)
@@ -432,7 +439,7 @@ public extension Future {
     }
     
     /// Filters the value and allows to exchange it in an error
-    public func filter(_ closure: @escaping (_ value: T?) -> Error?) -> Future<T> {
+    public func filter(_ closure: @escaping (T?) -> Error?) -> Future<T> {
         return Future(reactive: self.reactive) { future in
             self.then(success: { value in
                 if let error = closure(value) {
@@ -490,6 +497,19 @@ public extension Future {
         }
     }
     
+    /// Calls the then block after the given deadline
+    public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+        return Future(reactive: self.reactive) { future in
+            queue.asyncAfter(deadline: deadline) {
+                self.then(success: { (value) in
+                    future.set(value)
+                }, failure: { (error) in
+                    future.set(error)
+                })
+            }
+        }
+    }
+    
     /// Ensures the future is called after the given date.
     /// If the date is earlier than now, nothing happens.
     public func after(_ date: Date) -> Future<T> {
@@ -523,27 +543,25 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         switch state {
         case .blank:
             return "Empty future. Waiting for value, error and then closure."
-        case .waitingBlock:
-            if error != nil {
-                return "Future waiting for then closure and error set to: \(error!)"
-            } else {
-                if value != nil {
-                    return "Future waiting for then closure and value set to nil."
-                } else {
-                    return "Future waiting for then closure and value set to: \(value!)"
-                }
+        case .waitingThen:
+            switch result! {
+            case .error(let error):
+                return "Future waiting for then closure and error set to: \(error)"
+            case .value(let value):
+                return "Future waiting for then closure and value set to: \(value)"
+            case .empty:
+                return "Future waiting for then closure and value set to nil."
             }
-        case .waitingValueOrError:
+        case .waitingContent:
             return "Future then closure set. Waiting for value or error."
         case .sent:
-            if error != nil {
-                return "Future sent with error: \(error!)"
-            } else {
-                if value != nil {
-                    return "Future sent with nil value."
-                } else {
-                    return "Future sent with value: \(value!)"
-                }
+            switch result! {
+            case .error(let error):
+                return "Future sent with error: \(error)"
+            case .value(let value):
+                return "Future sent with value: \(value)"
+            case .empty:
+                return "Future sent with nil value."
             }
         }
     }

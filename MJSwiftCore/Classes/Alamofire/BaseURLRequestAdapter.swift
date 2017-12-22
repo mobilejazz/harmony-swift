@@ -20,10 +20,10 @@ import Alamofire
 public class BaseURLRequestAdapter: RequestAdapter {
     
     // Example of usage of a bearer token
-    public let baseURLString : String
+    public let baseURL : URL
     
-    public init(_ baseURLString: String) {
-        self.baseURLString = baseURLString
+    public init(_ baseURL: URL) {
+        self.baseURL = baseURL
     }
     
     public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
@@ -34,9 +34,9 @@ public class BaseURLRequestAdapter: RequestAdapter {
         var request = urlRequest
         
         if let path: String = urlRequest.url?.path {
-            if let finalURL = URL(string:"\(baseURLString)\(path)") {
-                request.url = finalURL
-            }
+            var url = baseURL
+            url.appendPathComponent(path)
+            request.url = url
         }
         
         return request

@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = container
         window?.makeKeyAndVisible()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainVC = storyboard.instantiateInitialViewController()!
-            container.setViewController(mainVC, animation: .crossDisolve)
+            container.set(mainVC, animation: .crossDisolve)
         }
         return true
     }
@@ -53,7 +53,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

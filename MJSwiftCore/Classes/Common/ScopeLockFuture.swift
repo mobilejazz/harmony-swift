@@ -21,7 +21,7 @@ public extension ScopeLock {
     ///
     /// - Parameter closure: The sync closure
     /// - Returns: A future contining the result
-    func sync<T>(_ closure: @escaping () -> T?) -> Future<T> {
+    func sync<T>(_ closure: () -> T?) -> Future<T> {
         return Future<T> { future in
             self.sync {
                 future.set(closure())
@@ -34,7 +34,7 @@ public extension ScopeLock {
     ///
     /// - Parameter closure: The sync closure
     /// - Returns: A future
-    func async<T>(_ closure: @escaping (_ future : Future<T>) -> Void) -> Future<T> {
+    func async<T>(_ closure: (Future<T>) -> Void) -> Future<T> {
         return Future<T> { future in
             self.async { end in
                 future.onSet {

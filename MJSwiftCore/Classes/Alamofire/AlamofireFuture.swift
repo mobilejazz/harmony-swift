@@ -82,7 +82,7 @@ public extension DataRequest {
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         success: @escaping ([String : AnyObject]) -> T,
-                        failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
+                        failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
         return Future<T> { future in
             self.validate().response(queue: queue,
                                      responseSerializer: DataRequest.jsonResponseSerializer(options: options),
@@ -105,7 +105,7 @@ public extension DataRequest {
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         forEach: @escaping ([String : AnyObject]) -> T,
-                        failure: @escaping (_ error: Error, _ response: HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<[T]> {
+                        failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<[T]> {
         return Future<[T]> { future in
             self.validate().response(queue: queue,
                                      responseSerializer: DataRequest.jsonResponseSerializer(options: options),

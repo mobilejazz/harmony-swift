@@ -23,7 +23,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
         return object
     }
     
-    public func decodeAs<T>(_ type : T.Type, completion: @escaping (inout T) -> Void = { _ in }) -> Future<T> where T : Decodable {
+    public func decodeAs<T>(_ type : T.Type, completion: (inout T) -> Void = { _ in }) -> Future<T> where T : Decodable {
         do {
             var object : T = try decodeAs(type)
             completion(&object)
@@ -41,7 +41,7 @@ public extension Array where Element == [String : AnyObject] {
         return array
     }
     
-    public func decodeAs<T>(forEach: @escaping (inout T) -> Void = { _ in }, completion: @escaping (inout [T]) -> Void = { _ in }) -> Future<[T]> where T : Decodable {
+    public func decodeAs<T>(forEach: (inout T) -> Void = { _ in }, completion: (inout [T]) -> Void = { _ in }) -> Future<[T]> where T : Decodable {
         do {
             var array : [T] = try decodeAs()
             for index in array.indices {

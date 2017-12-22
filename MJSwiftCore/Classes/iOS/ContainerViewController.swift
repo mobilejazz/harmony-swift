@@ -16,26 +16,46 @@
 
 import UIKit
 
-public enum ContainerAnimation {
-    case none
-    case crossDisolve
-    case newModalBottom
-    case oldModalBottom
-}
-
-private let animationDuration : Double = 0.40
-private let animationOptions = UIViewAnimationOptions(rawValue:(7<<16))
-
+///
+/// Container view controller. A view controller that contains another view controller and
+/// can replace it with animations.
+///
+/// Typically used as the window's rootViewController.
+///
 public class ContainerViewController: UIViewController {
     
-    public private(set) var viewController : UIViewController?
+    private static let animationDuration : Double = 0.40
+    private static let animationOptions = UIViewAnimationOptions(rawValue:(7<<16))
     
-    public convenience init(_ viewController: UIViewController) {
-        self.init(nibName: nil, bundle: nil)
-        self.viewController = viewController
+    public enum Animation {
+        case none
+        case crossDisolve
+        case newModalBottom
+        case oldModalBottom
     }
     
-    public func setViewController(_ viewController: UIViewController, animation: ContainerAnimation = .none) {
+    /// The contained view controller
+    public private(set) var viewController : UIViewController
+    
+    /// Main initializer
+    ///
+    /// - Parameter viewController: The view controller to contain
+    public required init(_ viewController: UIViewController) {
+        self.viewController = viewController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        self.viewController = UIViewController(nibName: nil, bundle: nil)
+        super.init(coder: aDecoder)
+    }
+    
+    /// Sets a new view controller
+    ///
+    /// - Parameters:
+    ///   - viewController: The new view controller
+    ///   - animation: The replacement animation
+    public func set(_ viewController: UIViewController, animation: Animation = .none) {
         if isViewLoaded {
             // Getting instances on the view controllers
             let oldVC = self.viewController
@@ -49,68 +69,59 @@ public class ContainerViewController: UIViewController {
             // Storing the new view controller
             self.viewController = viewController
             
-            if let oldVC = oldVC {
-                oldVC.willMove(toParentViewController: nil)
-                self.addChildViewController(newVC)
-                
-                switch (animation) {
-                case .none:
-                    oldVC.view.removeFromSuperview()
-                    self.view.insertSubview(newVC.view, at: 0)
-                    oldVC.removeFromParentViewController()
-                    newVC.didMove(toParentViewController: self)
-                case .crossDisolve:
-                    self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
-                    UIView.animate(withDuration: animationDuration,
-                                   delay: 0,
-                                   options: animationOptions,
-                                   animations: {
-                                    oldVC.view.alpha = 0.0
-                    },
-                                   completion: { (success) in
-                                    oldVC.view.removeFromSuperview()
-                                    oldVC.removeFromParentViewController()
-                                    newVC.didMove(toParentViewController: self)
-                    })
-                case .newModalBottom:
-                    newVC.view.alpha = 0.0
-                    newVC.view.frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
-                    self.view.insertSubview(newVC.view, aboveSubview: oldVC.view)
-                    UIView.animate(withDuration: animationDuration,
-                                   delay: 0,
-                                   options: animationOptions,
-                                   animations: {
-                                    newVC.view.alpha = 1.0
-                                    newVC.view.frame = self.view.bounds
-                    },
-                                   completion: { (success) in
-                                    oldVC.view.removeFromSuperview()
-                                    oldVC.removeFromParentViewController()
-                                    newVC.didMove(toParentViewController: self)
-                    })
-                case .oldModalBottom:
-                    let frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
-                    self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
-                    UIView.animate(withDuration: animationDuration,
-                                   delay: 0,
-                                   options: animationOptions,
-                                   animations: {
-                                    oldVC.view.alpha = 0.0
-                                    oldVC.view.frame = frame
-                    },
-                                   completion: { (success) in
-                                    oldVC.view.removeFromSuperview()
-                                    oldVC.removeFromParentViewController()
-                                    newVC.didMove(toParentViewController: self)
-                    })
-                }
-            } else {
-                let subview = viewController.view!
-                subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                subview.frame = self.view.bounds
-                addChildViewController(viewController)
-                self.view.addSubview(subview)
-                viewController.didMove(toParentViewController: self)
+            oldVC.willMove(toParentViewController: nil)
+            self.addChildViewController(newVC)
+            
+            switch (animation) {
+            case .none:
+                oldVC.view.removeFromSuperview()
+                self.view.insertSubview(newVC.view, at: 0)
+                oldVC.removeFromParentViewController()
+                newVC.didMove(toParentViewController: self)
+            case .crossDisolve:
+                self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
+                UIView.animate(withDuration: ContainerViewController.animationDuration,
+                               delay: 0,
+                               options: ContainerViewController.animationOptions,
+                               animations: {
+                                oldVC.view.alpha = 0.0
+                },
+                               completion: { (success) in
+                                oldVC.view.removeFromSuperview()
+                                oldVC.removeFromParentViewController()
+                                newVC.didMove(toParentViewController: self)
+                })
+            case .newModalBottom:
+                newVC.view.alpha = 0.0
+                newVC.view.frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
+                self.view.insertSubview(newVC.view, aboveSubview: oldVC.view)
+                UIView.animate(withDuration: ContainerViewController.animationDuration,
+                               delay: 0,
+                               options: ContainerViewController.animationOptions,
+                               animations: {
+                                newVC.view.alpha = 1.0
+                                newVC.view.frame = self.view.bounds
+                },
+                               completion: { (success) in
+                                oldVC.view.removeFromSuperview()
+                                oldVC.removeFromParentViewController()
+                                newVC.didMove(toParentViewController: self)
+                })
+            case .oldModalBottom:
+                let frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
+                self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
+                UIView.animate(withDuration: ContainerViewController.animationDuration,
+                               delay: 0,
+                               options: ContainerViewController.animationOptions,
+                               animations: {
+                                oldVC.view.alpha = 0.0
+                                oldVC.view.frame = frame
+                },
+                               completion: { (success) in
+                                oldVC.view.removeFromSuperview()
+                                oldVC.removeFromParentViewController()
+                                newVC.didMove(toParentViewController: self)
+                })
             }
         } else {
             // View not loaded yet. Just storing the instance for later processing
@@ -120,17 +131,14 @@ public class ContainerViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let viewController = viewController {
-            if !self.childViewControllers.contains(viewController) {
-                let subview = viewController.view!
-                subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                subview.frame = self.view.bounds
-                
-                addChildViewController(viewController)
-                self.view.addSubview(subview)
-                viewController.didMove(toParentViewController: self)
-            }
+        if !self.childViewControllers.contains(viewController) {
+            let subview = viewController.view!
+            subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            subview.frame = self.view.bounds
+            
+            addChildViewController(viewController)
+            self.view.addSubview(subview)
+            viewController.didMove(toParentViewController: self)
         }
     }
     
@@ -141,59 +149,45 @@ public class ContainerViewController: UIViewController {
     
     override public func willMove(toParentViewController parent: UIViewController?) {
         super.willMove(toParentViewController: parent)
-        if let viewController = viewController {
-            if parent != nil {
-                addChildViewController(viewController)
-            } else {
-                viewController.willMove(toParentViewController: nil)
-            }
+        if parent != nil {
+            addChildViewController(viewController)
+        } else {
+            viewController.willMove(toParentViewController: nil)
         }
     }
     
     override public func didMove(toParentViewController parent: UIViewController?) {
         super.didMove(toParentViewController: parent)
-        
-        if let viewController = viewController {
-            if parent != nil {
-                viewController.didMove(toParentViewController: self)
-            } else {
-                viewController.removeFromParentViewController()
-            }
+        if parent != nil {
+            viewController.didMove(toParentViewController: self)
+        } else {
+            viewController.removeFromParentViewController()
         }
     }
     
     override public var preferredStatusBarStyle: UIStatusBarStyle {
         get {
-            if let vc = viewController {
-                return vc.preferredStatusBarStyle
-            } else {
-                return super.preferredStatusBarStyle
-            }
+            return viewController.preferredStatusBarStyle
         }
     }
     
     override public var shouldAutorotate: Bool {
         get {
-            if let vc = viewController {
-                return vc.shouldAutorotate
-            } else {
-                return super.shouldAutorotate
-            }
+            return viewController.shouldAutorotate
         }
     }
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
-            if let vc = viewController {
-                return vc.supportedInterfaceOrientations
-            } else {
-                return super.supportedInterfaceOrientations
-            }
+            return viewController.supportedInterfaceOrientations
         }
     }
 }
 
 public extension UIViewController {
+    /// Returns the first ContainerViewController found in the hierarchy.
+    ///
+    /// - Returns: The first ContainerViewController found in the hierarchy.
     public func containerViewController() -> ContainerViewController? {
         var vc : UIViewController? = self
         while vc != nil {
