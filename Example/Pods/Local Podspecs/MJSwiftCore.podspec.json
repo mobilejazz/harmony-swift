@@ -77,6 +77,9 @@
       "source_files": "MJSwiftCore/Classes/MJCocoaCore/**/*",
       "dependencies": {
         "MJCocoaCore/Common": [
+          "~>2.1"
+        ],
+        "MJSwiftCore/Common": [
 
         ]
       }

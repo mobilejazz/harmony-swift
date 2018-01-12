@@ -19,10 +19,10 @@ import MJCocoaCore
 
 public extension Future where T : AnyObject {
     public func toMJFuture() -> MJFuture<T> {
-        let future = MJFuture<T>()
-        self.then(success: { (value) in
+        let future = MJFuture<T>(reactive: reactive)
+        then(success: { value in
             future.setValue(value)
-        }, failure: { (error) in
+        }, failure: { error in
             future.setError(error)
         })
         return future
@@ -31,14 +31,14 @@ public extension Future where T : AnyObject {
 
 public extension Future where T == String {
     public func toMJFuture() -> MJFuture<NSString> {
-        let future = MJFuture<NSString>()
-        self.then(success: { (value) in
+        let future = MJFuture<NSString>(reactive: reactive)
+        then(success: { value in
             if let value = value {
                 future.setValue(value as NSString)
             } else {
                 future.setValue(nil)
             }
-        }, failure: { (error) in
+        }, failure: { error in
             future.setError(error)
         })
         return future
@@ -47,14 +47,14 @@ public extension Future where T == String {
 
 public extension Future where T == Bool {
     public func toMJFuture() -> MJFuture<NSNumber> {
-        let future = MJFuture<NSNumber>()
-        self.then(success: { (value) in
+        let future = MJFuture<NSNumber>(reactive: reactive)
+        then(success: { value in
             if let value = value {
                 future.setValue(NSNumber(value: value))
             } else {
                 future.setValue(nil)
             }
-        }, failure: { (error) in
+        }, failure: { error in
             future.setError(error)
         })
         return future
@@ -63,14 +63,14 @@ public extension Future where T == Bool {
 
 public extension Future where T == UInt {
     public func toMJFuture() -> MJFuture<NSNumber> {
-        let future = MJFuture<NSNumber>()
-        self.then(success: { (value) in
+        let future = MJFuture<NSNumber>(reactive: reactive)
+        then(success: { value in
             if let value = value {
                 future.setValue(NSNumber(value: value))
             } else {
                 future.setValue(nil)
             }
-        }, failure: { (error) in
+        }, failure: { error in
             future.setError(error)
         })
         return future
@@ -79,7 +79,7 @@ public extension Future where T == UInt {
 
 public extension Future where T == Int {
     public func toMJFuture() -> MJFuture<NSNumber> {
-        let future = MJFuture<NSNumber>()
+        let future = MJFuture<NSNumber>(reactive: reactive)
         self.then(success: { (value) in
             if let value = value {
                 future.setValue(NSNumber(value: value))
@@ -95,7 +95,7 @@ public extension Future where T == Int {
 
 public extension Future where T == Float {
     public func toMJFuture() -> MJFuture<NSNumber> {
-        let future = MJFuture<NSNumber>()
+        let future = MJFuture<NSNumber>(reactive: reactive)
         self.then(success: { (value) in
             if let value = value {
                 future.setValue(NSNumber(value: value))
@@ -111,7 +111,7 @@ public extension Future where T == Float {
 
 public extension Future where T == Double {
     public func toMJFuture() -> MJFuture<NSNumber> {
-        let future = MJFuture<NSNumber>()
+        let future = MJFuture<NSNumber>(reactive: reactive)
         self.then(success: { (value) in
             if let value = value {
                 future.setValue(NSNumber(value: value))

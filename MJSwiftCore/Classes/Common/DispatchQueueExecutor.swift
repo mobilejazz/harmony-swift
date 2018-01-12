@@ -26,15 +26,10 @@ public class DispatchQueueExecutor : Executor {
     
     public private(set) var executing = false
     
-    /// Convenience initalizer
-    public convenience init() {
-        self.init(DispatchQueue(label: UUID().uuidString))
-    }
-    
     /// Main initializer
     ///
     /// - Parameter queue: The dispatch queue
-    public init(_ queue: DispatchQueue) {
+    public init(_ queue: DispatchQueue = DispatchQueue(label: UUID().uuidString)) {
         self.queue = queue
     }
     

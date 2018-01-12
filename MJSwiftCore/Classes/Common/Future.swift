@@ -361,14 +361,14 @@ public class Future<T> {
 public extension Future {
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
-        return Future<K>(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future<K>(reactive: reactive) { future in
+            then(success: { value in
                 if value != nil {
                     future.set(transform(value!))
                 } else {
                     future.set(nil)
                 }
-            }, failure: { (error) in
+            }, failure: { error in
                 future.set(error)
             })
         }
@@ -376,10 +376,10 @@ public extension Future {
     
     /// Mappes the error and return a new future with the error mapped
     public func mapError(_ transform: @escaping (Error) -> Error) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future(reactive: reactive) { future in
+            then(success: { value in
                 future.set(value)
-            }, failure: { (error) in
+            }, failure: { error in
                 future.set(transform(error))
             })
         }
@@ -387,14 +387,14 @@ public extension Future {
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
-        return Future<K>(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future<K>(reactive: reactive) { future in
+            then(success: { value in
                 if let value = value {
                     future.set(closure(value))
                 } else {
                     future.set(nil)
                 }
-            }, failure: { (error) in
+            }, failure: { error in
                 future.set(error)
             })
         }
@@ -402,10 +402,10 @@ public extension Future {
     
     /// Intercepts the error (if available) and returns a new future of type T
     public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future(reactive: reactive) { future in
+            then(success: { value in
                 future.set(value)
-            }, failure: { (error) in
+            }, failure: { error in
                 future.set(closure(error))
             })
         }
@@ -414,11 +414,11 @@ public extension Future {
     /// Intercepts the then closure and returns a future containing the same result
     public func andThen(success: @escaping (T?) -> Void = { _ in },
                         failure: @escaping (Error) -> Void = { _ in }) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future(reactive: reactive) { future in
+            then(success: { value in
                 success(value)
                 future.set(value)
-            }, failure: { (error) in
+            }, failure: { error in
                 failure(error)
                 future.set(error)
             })
@@ -427,11 +427,11 @@ public extension Future {
     
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            self.then(success: { (value) in
+        return Future(reactive: reactive) { future in
+            then(success: { value in
                 closure()
                 future.set(value)
-            }, failure: { (error) in
+            }, failure: { error in
                 closure()
                 future.set(error)
             })
@@ -440,8 +440,8 @@ public extension Future {
     
     /// Filters the value and allows to exchange it in an error
     public func filter(_ closure: @escaping (T?) -> Error?) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            self.then(success: { value in
+        return Future(reactive: reactive) { future in
+            then(success: { value in
                 if let error = closure(value) {
                     future.set(error)
                 } else {
@@ -455,27 +455,123 @@ public extension Future {
     
     /// Creates a new future that holds the tupple of results
     public func zip<K>(_ futureK: Future<K>) -> Future<(T?,K?)> {
-        return self.flatMap { valueT in
-            return futureK.map({ valueK in
+        return flatMap { valueT in
+            return futureK.map { valueK in
                 return (valueT, valueK)
-            })
+            }
         }
     }
     
     /// Creates a new future that holds the tupple of results
     public func zip<K,L>(_ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T?,K?,L?)> {
-        return self.zip(futureK).flatMap { valueTK in
-            return futureL.map({ valueL in
+        return zip(futureK).flatMap { valueTK in
+            return futureL.map { valueL in
                 return (valueTK.0, valueTK.1, valueL)
-            })
+            }
         }
     }
     
     /// Creates a new future that holds the tupple of results
     public func zip<K,L,M>(_ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T?,K?,L?,M?)> {
-        return self.zip(futureK, futureL).flatMap { valueTKL in
-            return futureM.map({ valueM in
+        return zip(futureK, futureL).flatMap { valueTKL in
+            return futureM.map { valueM in
                 return (valueTKL.0, valueTKL.1, valueTKL.2, valueM)
+            }
+        }
+    }
+    
+    /// Unzips a 2-tuple future into two futures
+    public func unzip<K,L>() -> (Future<K>,Future<L>) where T == (K?,L?) {
+        let futureK = Future<K>(reactive: reactive)
+        let futureL = Future<L>(reactive: reactive)
+        then(success: { tuple in
+            futureK.set(tuple?.0)
+            futureL.set(tuple?.1)
+        }, failure: { error in
+            futureK.set(error)
+            futureL.set(error)
+        })
+        return (futureK, futureL)
+    }
+    
+    /// Unzips a 3-tuple future into three futures
+    public func unzip<K,L,M>() -> (Future<K>,Future<L>,Future<M>) where T == (K?,L?,M?) {
+        let futureK = Future<K>(reactive: reactive)
+        let futureL = Future<L>(reactive: reactive)
+        let futureM = Future<M>(reactive: reactive)
+        then(success: { tuple in
+            futureK.set(tuple?.0)
+            futureL.set(tuple?.1)
+            futureM.set(tuple?.2)
+        }, failure: { error in
+            futureK.set(error)
+            futureL.set(error)
+            futureM.set(error)
+        })
+        return (futureK, futureL, futureM)
+    }
+    
+    /// Unzips a 4-tuple future into four futures
+    public func unzip<K,L,M,N>() -> (Future<K>,Future<L>,Future<M>,Future<N>) where T == (K?,L?,M?,N?) {
+        let futureK = Future<K>(reactive: reactive)
+        let futureL = Future<L>(reactive: reactive)
+        let futureM = Future<M>(reactive: reactive)
+        let futureN = Future<N>(reactive: reactive)
+        then(success: { tuple in
+            futureK.set(tuple?.0)
+            futureL.set(tuple?.1)
+            futureM.set(tuple?.2)
+            futureN.set(tuple?.3)
+        }, failure: { error in
+            futureK.set(error)
+            futureL.set(error)
+            futureM.set(error)
+            futureN.set(error)
+        })
+        return (futureK, futureL, futureM, futureN)
+    }
+    
+    // Collapses a 2-tuple future into a single value future
+    public func collapse<K,L,Z>(_ closure: @escaping (K?,L?) -> Z) -> Future<Z> where T == (K?,L?) {
+        return Future<Z>(reactive: reactive) { future in
+            then(success: { tuple in
+                if let tuple = tuple {
+                    future.set(closure(tuple.0, tuple.1))
+                } else {
+                    future.set(nil)
+                }
+            }, failure: { error in
+                future.set(error)
+            })
+        }
+    }
+
+    // Collapses a 3-tuple future into a single value future
+    public func collapse<K,L,M,Z>(_ closure: @escaping (K?,L?,M?) -> Z) -> Future<Z> where T == (K?,L?,M?) {
+        return Future<Z>(reactive: reactive) { future in
+            then(success: { tuple in
+                if let tuple = tuple {
+                    future.set(closure(tuple.0, tuple.1, tuple.2))
+                } else {
+                    future.set(nil)
+                }
+            }, failure: { error in
+                future.set(error)
+            })
+        }
+    }
+    
+    // Collapses a 4-tuple future into a single value future
+    public func collapse<K,L,M,N,Z>(_ closure: @escaping (K?,L?,M?,N?) -> Z) -> Future<Z> where T == (K?,L?,M?,N?) {
+        return Future<Z>(reactive: reactive) { future in
+            then(success: { tuple in
+                if let tuple = tuple {
+                    future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
+                } else {
+                    future.set(nil)
+                }
+            }, failure: { error in
+                future.set(error)
             })
         }
     }

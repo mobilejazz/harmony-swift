@@ -45,29 +45,48 @@ static dispatch_queue_t _defaultReturnQueue = nil;
 
 + (MJFuture *)emptyFuture
 {
-    MJFuture *future = [[MJFuture alloc] init];
+    MJFuture *future = [[MJFuture alloc] initReactive:NO];
+    return future;
+}
+
++ (MJFuture *)reactiveFuture
+{
+    MJFuture *future = [[MJFuture alloc] initReactive:YES];
     return future;
 }
 
 + (MJFuture *)immediateFuture:(id)value
 {
-    MJFuture *future = [[MJFuture alloc] init];
+    MJFuture *future = [MJFuture emptyFuture];
     [future setValue:value];
     return future;
 }
 
-+ (MJFuture* _Nonnull)futureWithFuture:(MJFuture *_Nonnull )future
++ (MJFuture *)futureWithError:(NSError *)error
 {
-    MJFuture *newFuture = [[MJFuture alloc] init];
+    MJFuture *future = [MJFuture emptyFuture];
+    [future setError:error];
+    return future;
+}
+
++ (MJFuture *)futureWithFuture:(MJFuture *)future
+{
+    MJFuture *newFuture = [[MJFuture alloc] initReactive:future.reactive];
     [newFuture setFuture:future];
     return newFuture;
 }
 
 - (instancetype)init
 {
+    return [self initReactive:NO];
+}
+
+- (instancetype)initReactive:(BOOL)reactive
+{
     self = [super init];
     if (self)
     {
+        _reactive = reactive;
         _state = MJFutureStateBlank;
         _returnQueue = nil;
         _observers = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory];
@@ -94,15 +113,16 @@ static dispatch_queue_t _defaultReturnQueue = nil;
 {
     @synchronized (self)
     {
-        if (value == nil)
-            _isValueNil = YES;
-
-        if (_value)
+        if (!_reactive)
         {
-            [MJFutureDuplicateInvocationException(setValue:) raise];
+            if (_value || _isValueNil)
+                [MJFutureDuplicateInvocationException(setValue:) raise];
         }
 
+        if (value == nil)
+            _isValueNil = YES;
         _value = value;
+        _error = nil;
 
         [_observers.allObjects enumerateObjectsUsingBlock:^(id <MJFutureObserver> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if ([obj respondsToSelector:@selector(future:didSetValue:)])
@@ -119,14 +139,17 @@ static dispatch_queue_t _defaultReturnQueue = nil;
 {
     @synchronized (self)
     {
-        if (_error)
+        if (!_reactive)
         {
-            [MJFutureDuplicateInvocationException(setError:) raise];
+            if (_error)
+                [MJFutureDuplicateInvocationException(setError:) raise];
         }
 
         if (error)
         {
             _error = error;
+            _value = nil;
+            _isValueNil = NO;
 
             [_observers.allObjects enumerateObjectsUsingBlock:^(id <MJFutureObserver> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                 if ([obj respondsToSelector:@selector(future:didSetError:)])
@@ -183,14 +206,27 @@ static dispatch_queue_t _defaultReturnQueue = nil;
 {
     @synchronized (self)
     {
-        if (_thenBlock)
+        if (!_reactive)
         {
-            [MJFutureDuplicateInvocationException(then:) raise];
+            if (_thenBlock)
+                [MJFutureDuplicateInvocationException(then:) raise];
         }
-
         self.thenBlock = block;
-        
         [self mjz_update];
+    }
+}
+
+- (void)complete
+{
+    if (_state != MJFutureStateSent)
+    {
+        _state = MJFutureStateSent;
+        _thenBlock = nil;
+        if (_semaphore != nil)
+        {
+            dispatch_semaphore_signal(_semaphore);
+            _semaphore = nil;
+        }
     }
 }
 
@@ -223,7 +259,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         }
         else // if (_value || _isValueNil)
         {
-            _state = MJFutureStateSent;
+            if (!_reactive)
+            {
+                _state = MJFutureStateSent;
+            }
             return _value;
         }
     }
@@ -308,7 +347,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         if (_thenBlock)
         {
             [self mjz_send];
-            _state = MJFutureStateSent;
+            if (!_reactive)
+            {
+                _state = MJFutureStateSent;
+            }
         }
     }
     else if (_state == MJFutureStateWaitingValueOrError)
@@ -316,7 +358,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         if ((_value || _isValueNil) || _error)
         {
             [self mjz_send];
-            _state = MJFutureStateSent;
+            if (!_reactive)
+            {
+                _state = MJFutureStateSent;
+            }
         }
     }
 }
@@ -351,19 +396,22 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         }
     }];
 
-    self.thenBlock = nil;
-    _value = nil;
-    _error = nil;
+    if (!_reactive)
+    {
+        self.thenBlock = nil;
+        _value = nil;
+        _error = nil;
+    }
 }
 
 @end
 
 @implementation MJFuture (Functional)
 
-- (MJFuture *)map:(id  _Nonnull (^)(id _Nonnull))block
+- (MJFuture *)map:(id (^)(id))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    [self then:^(id  _Nullable object, NSError * _Nullable error) {
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
         if (object)
         {
             object = block(object);
@@ -373,10 +421,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
     return future;
 }
 
-- (MJFuture *)mapError:(NSError*  _Nonnull (^)(NSError* _Nonnull))block
+- (MJFuture *)mapError:(NSError* (^)(NSError*))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    [self then:^(id  _Nullable object, NSError * _Nullable error) {
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
         if (error)
         {
             error = block(error);
@@ -386,10 +434,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
     return future;
 }
 
-- (MJFuture *)flatMap:(MJFuture* _Nonnull (^)(id _Nonnull))block
+- (MJFuture *)flatMap:(MJFuture * (^)(id))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    [self then:^(id  _Nullable object, NSError * _Nullable error) {
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
         if (error)
         {
             [future setError:error];
@@ -405,10 +453,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
     return future;
 }
 
-- (MJFuture *)recover:(MJFuture*  _Nonnull (^)(NSError*_Nonnull))block
+- (MJFuture *)recover:(MJFuture <id> * (^)(NSError*))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    [self then:^(id  _Nullable object, NSError * _Nullable error) {
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
         if (error)
             [future setFuture:block(error)];
         else
@@ -417,10 +465,10 @@ static dispatch_queue_t _defaultReturnQueue = nil;
     return future;
 }
 
-- (MJFuture *)filter:(NSError*  _Nonnull (^)(id _Nonnull))block
+- (MJFuture *)filter:(NSError* (^)(id))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    [self then:^(id  _Nullable object, NSError * _Nullable error) {
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
         if (error)
         {
             [future setError:error];
