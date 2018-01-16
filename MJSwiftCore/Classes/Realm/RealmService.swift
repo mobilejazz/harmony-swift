@@ -68,29 +68,32 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         switch query.self {
         case is QueryById:
             let queryById = query as! QueryById
-            return realmHandler.read({ (realm) -> E? in
-                let object = realm.object(ofType: O.self, forPrimaryKey: queryById.id)
-                if object != nil {
-                    return self.toEntityMapper.map(object!)
+            return realmHandler.read({ realm -> E? in
+                if let object = realm.object(ofType: O.self, forPrimaryKey: queryById.id) {
+                    return self.toEntityMapper.map(object)
                 } else {
                     return nil
                 }
-            }).map({ (entity) -> [E] in
-                return [entity]
-            })
+            }).map { entity -> [E] in
+                if let entity = entity {
+                    return [entity]
+                } else {
+                    return []
+                }
+            }
         default:
             if let predicate = query.toRealmQuery().realmPredicate() {
-                return realmHandler.read({ (realm) -> [E] in
-                    return realm.objects(O.self).filter(predicate).map({ (object) -> E in
+                return realmHandler.read({ realm -> [E] in
+                    return realm.objects(O.self).filter(predicate).map { object -> E in
                         return self.toEntityMapper.map(object)
-                    })
-                })
+                    }
+                }).map { entities in entities! }
             } else {
                 return realmHandler.read({ (realm) -> [E] in
                     return realm.objects(O.self).map({ (object) -> E in
                         return self.toEntityMapper.map(object)
                     })
-                })
+                }).map { entities in entities! }
             }
         }
     }
@@ -103,12 +106,12 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
                 realm.add(object, update: true)
             }
             return entities
-        })
+        }).map { entities in entities! }
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Bool> {
-        return realmHandler.write({ (realm) -> Bool in
+        return realmHandler.write({ realm -> Bool? in
             if let predicate = query.toRealmQuery().realmPredicate() {
                 for object in realm.objects(O.self).filter(predicate) {
                     realm.delete(object)
@@ -119,6 +122,6 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
                 }
             }
             return true
-        })
+        }).map { bool in return bool! }
     }
 }

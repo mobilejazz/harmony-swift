@@ -10,6 +10,14 @@ import UIKit
 
 import MJSwiftCore
 
+
+class Foo <T> {
+    let value : T
+    init(_ value: T) {
+        self.value = value
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -28,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
-        }
-    
+        }        
+
         return true
     }
 

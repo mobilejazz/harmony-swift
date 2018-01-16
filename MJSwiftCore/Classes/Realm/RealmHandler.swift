@@ -27,13 +27,13 @@ public struct RealmHandler {
         self.realmFactory = realmFactory
     }
     
-    public func read<T>(_ closure: (Realm) -> T?) -> Future<T> {
+    public func read<T>(_ closure: (Realm) -> T?) -> Future<T?> {
         let realm = realmFactory.realm()
-        return Future<T>(closure(realm))
+        return Future<T?>(closure(realm))
     }
     
-    public func write<T>(_ closure: (Realm) -> T?) -> Future<T> {
-        let future = Future<T>()
+    public func write<T>(_ closure: (Realm) -> T?) -> Future<T?> {
+        let future = Future<T?>()
         let realm = realmFactory.realm()
         if realm.isInWriteTransaction {
             future.set(closure(realm))

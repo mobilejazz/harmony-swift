@@ -19,7 +19,7 @@ import Foundation
 public protocol Executor {
 
     /// var indicating if the executor is executing
-    var executing : Bool {get}
+    var executing : Bool { get }
     
     /// Submits a closure for its execution
     ///

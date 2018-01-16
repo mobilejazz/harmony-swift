@@ -21,8 +21,8 @@ struct SearchItemsInteractor {
     }
     
     internal func execute(text: String) -> Future<[Item]> {
-        return executor.submit({ (future) in
+        return executor.submit { future in
             future.set(self.dataProvider.get(SearchItemsQuery(text), operation: .network))
-        })
+        }
     }
 }

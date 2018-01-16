@@ -22,8 +22,8 @@ struct GetItemsInteractor {
     }
 
     internal func execute(_ operation: MJSwiftCore.Operation = .storageSync) -> Future<[Item]> {
-        return executor.submit({ (future) in
+        return executor.submit { future in
             future.set(self.dataProvider.get(AllItemsQuery(), operation: operation))
-        })
+        }
     }
 }

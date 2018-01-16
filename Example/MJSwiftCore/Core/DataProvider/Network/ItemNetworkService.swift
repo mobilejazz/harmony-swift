@@ -52,7 +52,7 @@ class ItemNetworkService: Repository <ItemEntity> {
                     item.lastUpdate = Date()
                 })
             }
-            return Future(nil)
+            return Future([])
         })
     }
     
@@ -66,7 +66,7 @@ class ItemNetworkService: Repository <ItemEntity> {
                         item.lastUpdate = Date()
                     })
                 }
-                return Future(nil)
+                return Future([])
             })
     }
 }

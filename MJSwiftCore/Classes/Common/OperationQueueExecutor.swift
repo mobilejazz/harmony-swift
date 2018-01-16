@@ -49,9 +49,9 @@ public class OperationQueueExecutor: Executor {
         operationQueue.name = name
         switch type {
         case .serialQueue:
-            operationQueue.maxConcurrentOperationCount = 1;
+            operationQueue.maxConcurrentOperationCount = 1
         case .concurrentQueue:
-            operationQueue.maxConcurrentOperationCount = OperationQueue.defaultMaxConcurrentOperationCount;
+            operationQueue.maxConcurrentOperationCount = OperationQueue.defaultMaxConcurrentOperationCount
         }
         self.init(operationQueue)
     }
@@ -66,9 +66,9 @@ public class OperationQueueExecutor: Executor {
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         operationQueue.addOperation {
             let sempahore = DispatchSemaphore(value: 0)
-            closure({
+            closure {
                 sempahore.signal()
-            })
+            }
             sempahore.wait()
         }
     }
