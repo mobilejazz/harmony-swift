@@ -32,13 +32,13 @@ public class MultiRequestRetrier: RequestRetrier {
     private func should(_ index: Int, _ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         if index < retriers.count {
             let retrier = retriers[index]
-            retrier.should(manager, retry: request, with: error, completion: { retry, timeDelay in
+            retrier.should(manager, retry: request, with: error) { retry, timeDelay in
                 if retry {
                     completion(true, timeDelay)
                 } else {
                     self.should(index+1, manager, retry: request, with: error, completion: completion)
                 }
-            })
+            }
         } else {
             completion(false, 0.0)
         }

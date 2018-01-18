@@ -83,15 +83,11 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         default:
             if let predicate = query.toRealmQuery().realmPredicate() {
                 return realmHandler.read({ realm -> [E] in
-                    return realm.objects(O.self).filter(predicate).map { object -> E in
-                        return self.toEntityMapper.map(object)
-                    }
+                    return toEntityMapper.map(realm.objects(O.self).filter(predicate))
                 }).unwrap()
             } else {
                 return realmHandler.read({ realm -> [E] in
-                    return realm.objects(O.self).map { object -> E in
-                        return self.toEntityMapper.map(object)
-                    }
+                    return toEntityMapper.map(realm.objects(O.self))
                 }).unwrap()
             }
         }

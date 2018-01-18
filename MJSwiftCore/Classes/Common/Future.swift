@@ -404,7 +404,7 @@ public extension Future {
     }
     
     /// Intercepts the then closure and returns a future containing the same result
-    public func andThen(success: @escaping (T?) -> Void = { _ in },
+    public func andThen(success: @escaping (T) -> Void = { _ in },
                         failure: @escaping (Error) -> Void = { _ in }) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel += nestingLevel

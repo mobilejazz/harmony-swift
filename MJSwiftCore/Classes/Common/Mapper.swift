@@ -22,3 +22,11 @@ open class Mapper<From, To> {
         fatalError("Undefined mapper. Class Mapper must be subclassed.")
     }
 }
+
+extension Mapper {
+    public func map( _ array: Array<From>) -> Array<To> {
+        return array.map { value -> To in
+            return map(value)
+        }
+    }
+}

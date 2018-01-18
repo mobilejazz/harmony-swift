@@ -167,30 +167,25 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                 return self.storage.get(query)
             case .networkSync:
                 return self.network.get(query).andThen(success: { entities in
-                    if let entities = entities {
-                        self.storage.put(entities)
-                    }
+                    self.storage.put(entities)
                 })
             case .storageSync:
                 return storage.get(query).flatMap { values -> Future<[E]> in
                     if !self.storageValidation.isArrayValid(values) {
                         return self.network.get(query).andThen(success: { entities in
-                            if let entities = entities {
-                                self.storage.put(entities)
-                            }
+                            self.storage.put(entities)
                         })
                     } else {
                         return Future(values)
                     }
                 }
             }
-            }().map { a in a.map { e in self.toObjectMapper.map(e)} }
+            }().map { a in self.toObjectMapper.map(a) }
     }
     
     @discardableResult
     override public func put(_ values: [O], operation: Operation) -> Future<[O]> {
         let array = values.map { o in toEntityMapper.map(o) }
-        
         return { () -> Future<[E]> in
             switch operation {
             case .network:
@@ -198,19 +193,15 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
             case .storage:
                 return self.storage.put(array)
             case .networkSync:
-                return self.network.put(array).andThen(success: { (entities) in
-                    if let entities = entities {
-                        self.storage.put(entities)
-                    }
+                return self.network.put(array).andThen(success: { entities in
+                    self.storage.put(entities)
                 })
             case .storageSync:
-                return self.storage.put(array).andThen(success: { (entities) in
-                    if let entities = entities {
-                        self.network.put(entities)
-                    }
+                return self.storage.put(array).andThen(success: { entities in
+                    self.network.put(entities)
                 })
             }
-            }().map { a in a.map { e in self.toObjectMapper.map(e)} }
+            }().map { a in self.toObjectMapper.map(a) }
     }
     
     @discardableResult
@@ -222,19 +213,15 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
             case .storage:
                 return self.storage.delete(query)
             case .networkSync:
-                return self.network.delete(query).andThen(success: { (success) in
-                    if let success = success {
-                        if success {
-                            self.storage.delete(query)
-                        }
+                return self.network.delete(query).andThen(success: { success in
+                    if success {
+                        self.storage.delete(query)
                     }
                 })
             case .storageSync:
-                return self.storage.delete(query).andThen(success: { (success) in
-                    if let success = success {
-                        if success {
-                            self.network.delete(query)
-                        }
+                return self.storage.delete(query).andThen(success: { success in
+                    if success {
+                        self.network.delete(query)
                     }
                 })
             }

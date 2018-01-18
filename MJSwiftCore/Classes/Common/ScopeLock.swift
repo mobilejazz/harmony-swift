@@ -16,16 +16,16 @@
 
 import Foundation
 
-private protocol LockProvider {
-    associatedtype T
-    func lockWithScope(_ scope: T) -> NSLock
+fileprivate protocol LockProvider {
+    associatedtype K
+    func lockWithScope(_ scope: K) -> NSLock
 }
 
-private class MapTableLockProvider<Type>: LockProvider where Type: AnyObject {
-    typealias T = Type
+fileprivate class MapTableLockProvider<T>: LockProvider where T: AnyObject {
+    typealias K = T
     let lock = NSLock()
-    var map = NSMapTable<Type, NSLock>.weakToStrongObjects()
-    func lockWithScope(_ scope: Type) -> NSLock {
+    var map = NSMapTable<T, NSLock>.weakToStrongObjects()
+    func lockWithScope(_ scope: T) -> NSLock {
         lock.lock()
         defer { lock.unlock() }
         if let lock = map.object(forKey: scope) {
@@ -38,11 +38,11 @@ private class MapTableLockProvider<Type>: LockProvider where Type: AnyObject {
     }
 }
 
-private class DictionaryLockProvider<Type>: LockProvider where Type : Hashable {
-    typealias T = Type
+fileprivate class DictionaryLockProvider<T>: LockProvider where T : Hashable {
+    typealias K = T
     let lock = NSLock()
-    var map : [Type : NSLock] = [:]
-    func lockWithScope(_ scope: Type) -> NSLock {
+    var map : [T : NSLock] = [:]
+    func lockWithScope(_ scope: T) -> NSLock {
         lock.lock()
         defer { lock.unlock() }
         if let lock = map[scope] {
@@ -55,27 +55,10 @@ private class DictionaryLockProvider<Type>: LockProvider where Type : Hashable {
     }
 }
 
-private let objectLockProvider = MapTableLockProvider<AnyObject>()
-private let stringLockProvider = DictionaryLockProvider<String>()
-private let integerLockProvider = DictionaryLockProvider<Int>()
-private let globalLock = NSLock()
-
-/// The scope
-///
-/// - none: No scope defined. The ScopeLock will be instance specific.
-/// - custom: Provides the lock itself
-/// - global: Global scope.
-/// - object: Object-defined scope
-/// - string: String-defined scope
-/// - int: Integer-defined scope
-public enum Scope {
-    case none
-    case lock(NSLock)
-    case global
-    case object(AnyObject)
-    case string(String)
-    case int(Int)
-}
+fileprivate let objectLockProvider  = MapTableLockProvider<AnyObject>()
+fileprivate let stringLockProvider  = DictionaryLockProvider<String>()
+fileprivate let integerLockProvider = DictionaryLockProvider<Int>()
+fileprivate let globalLock = NSLock()
 
 /// Easy lock sync interface matching the usability of objc's @syncrhonized(var) { }
 ///
@@ -89,8 +72,25 @@ public enum Scope {
 ///         return user
 ///     }
 /// }
-public class ScopeLock {
+public struct ScopeLock {
     
+    /// The scope
+    ///
+    /// - none: No scope defined. The ScopeLock will be instance specific.
+    /// - custom: Provides the lock itself
+    /// - global: Global scope.
+    /// - object: Object-defined scope
+    /// - string: String-defined scope
+    /// - int: Integer-defined scope
+    public enum Scope {
+        case none
+        case lock(NSLock)
+        case global
+        case object(AnyObject)
+        case string(String)
+        case int(Int)
+    }
+
     /// The lock
     private let lock : NSLock
     
@@ -118,23 +118,28 @@ public class ScopeLock {
     }
 
     /// Convenience init to access the global scope
-    public convenience init() {
+    public init() {
         self.init(.global)
     }
     
     /// Convenience init to use objects as scope
-    public convenience init(_ object: AnyObject) {
+    public init(_ object: AnyObject) {
         self.init(.object(object))
     }
     
     /// Convenience init to use integers as scope
-    public convenience init(_ value: Int) {
+    public init(_ value: Int) {
         self.init(.int(value))
     }
     
     /// Convenience init to use strings as scope
-    public convenience init(_ string: String) {
+    public init(_ string: String) {
         self.init(.string(string))
+    }
+    
+    /// Convenience init to use a given lock
+    public init(_ lock: NSLock) {
+        self.init(.lock(lock))
     }
     
     /// The syncing method
