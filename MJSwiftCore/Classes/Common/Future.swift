@@ -251,9 +251,9 @@ public class Future<T> {
         }
     }
     
-    /// Then closure: delivers the optional value or the error
-    public func then(success: @escaping (T) -> Void,
-                     failure: @escaping (Error) -> Void) {
+    /// Then closure: delivers the value or the error
+    public func then(success: @escaping (T) -> Void = { _ in },
+                     failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
             if self.success != nil || self.failure != nil {
                 fatalError(FutureError.thenAlreadySet.localizedDescription)
@@ -418,6 +418,7 @@ public extension Future {
         }
     }
     
+    /// Performs the closure after the then block is called.
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
@@ -446,6 +447,21 @@ public extension Future {
                 future.set(error)
             })
         }
+    }
+    
+    /// Creates a new future zipping the giving futures
+    public static func zip<T,K>(_ futureT: Future<T>, _ futureK: Future<K>) -> Future<(T,K)> {
+        return futureT.zip(futureK)
+    }
+    
+    /// Creates a new future zipping the giving futures
+    public static func zip<T,K,L>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T,K,L)> {
+        return futureT.zip(futureK, futureL)
+    }
+    
+    /// Creates a new future zipping the giving futures
+    public static func zip<T,K,L,M>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T,K,L,M)> {
+        return futureT.zip(futureK, futureL, futureM)
     }
     
     /// Creates a new future that holds the tupple of results
@@ -535,7 +551,7 @@ public extension Future {
         return (futureK, futureL, futureM, futureN)
     }
     
-    // Collapses a 2-tuple future into a single value future
+    /// Collapses a 2-tuple future into a single value future
     public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel += nestingLevel
@@ -547,7 +563,7 @@ public extension Future {
         }
     }
 
-    // Collapses a 3-tuple future into a single value future
+    /// Collapses a 3-tuple future into a single value future
     public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel += nestingLevel
@@ -559,7 +575,7 @@ public extension Future {
         }
     }
     
-    // Collapses a 4-tuple future into a single value future
+    /// Collapses a 4-tuple future into a single value future
     public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel += nestingLevel
@@ -615,6 +631,15 @@ public extension Future {
     }
 }
 
+extension Future {
+    /// Unwrapes a future of an optional type, returning a future of a non-optional type
+    public func unwrap<K>() -> Future<K> where T == K? {
+        return map { value -> K in
+            return value!
+        }
+    }
+}
+
 /// Operator + overriding
 public func +<T,K>(left: Future<T>, right: Future<K>) -> Future<(T,K)> {
     return left.zip(right)
@@ -655,6 +680,6 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         }
     }
     public var debugDescription: String {
-        return description
+        return description + "(nesting level: \(nestingLevel))"
     }
 }
