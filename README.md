@@ -28,6 +28,7 @@ pod 'MJSwiftCore/iOS'
 pod 'MJSwiftCore/Realm'
 pod 'MJSwiftCore/Alamofire'
 pod 'MJSwiftCore/Vastra'
+pod 'MJSwiftCore/MJCocoaCore'
 ```
 
 ## Author
