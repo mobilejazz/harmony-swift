@@ -1,6 +1,6 @@
 {
   "name": "MJSwiftCore",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "summary": "Mobile Jazz Swift toolkit utilities",
   "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
   "homepage": "https://github.com/mobilejazz/MJSwiftCore",
@@ -13,18 +13,30 @@
   },
   "source": {
     "git": "https://github.com/mobilejazz/MJSwiftCore.git",
-    "tag": "0.2.3"
+    "tag": "0.3.0"
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "platforms": {
     "ios": "10.0"
   },
-  "source_files": "MJSwiftCore/Classes/**/*",
-  "exclude_files": "MJSwiftCore/Classes/MJCocoaCore/**/*",
+  "default_subspecs": [
+    "Future",
+    "Common",
+    "Security"
+  ],
   "subspecs": [
     {
+      "name": "Future",
+      "source_files": "MJSwiftCore/Classes/Future/**/*"
+    },
+    {
       "name": "Common",
-      "source_files": "MJSwiftCore/Classes/Common/**/*"
+      "source_files": "MJSwiftCore/Classes/Common/**/*",
+      "dependencies": {
+        "MJSwiftCore/Future": [
+
+        ]
+      }
     },
     {
       "name": "Security",

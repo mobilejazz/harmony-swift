@@ -162,11 +162,11 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         return { () -> Future<[E]> in
             switch operation {
             case .network:
-                return self.network.get(query)
+                return network.get(query)
             case .storage:
-                return self.storage.get(query)
+                return storage.get(query)
             case .networkSync:
-                return self.network.get(query).andThen(success: { entities in
+                return network.get(query).andThen(success: { entities in
                     self.storage.put(entities)
                 })
             case .storageSync:
@@ -189,15 +189,15 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         return { () -> Future<[E]> in
             switch operation {
             case .network:
-                return self.network.put(array)
+                return network.put(array)
             case .storage:
-                return self.storage.put(array)
+                return storage.put(array)
             case .networkSync:
-                return self.network.put(array).andThen(success: { entities in
+                return network.put(array).andThen(success: { entities in
                     self.storage.put(entities)
                 })
             case .storageSync:
-                return self.storage.put(array).andThen(success: { entities in
+                return storage.put(array).andThen(success: { entities in
                     self.network.put(entities)
                 })
             }
@@ -209,17 +209,17 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         return { () -> Future<Bool> in
             switch operation {
             case .network:
-                return self.network.delete(query)
+                return network.delete(query)
             case .storage:
-                return self.storage.delete(query)
+                return storage.delete(query)
             case .networkSync:
-                return self.network.delete(query).andThen(success: { success in
+                return network.delete(query).andThen(success: { success in
                     if success {
                         self.storage.delete(query)
                     }
                 })
             case .storageSync:
-                return self.storage.delete(query).andThen(success: { success in
+                return storage.delete(query).andThen(success: { success in
                     if success {
                         self.network.delete(query)
                     }

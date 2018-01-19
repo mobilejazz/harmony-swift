@@ -1,7 +1,13 @@
 use_frameworks!
+platform :ios, '10.0'
 
 target 'MJSwiftCore_Example' do
+    
   pod 'MJSwiftCore', :path => '../'
+  pod 'MJSwiftCore/Vastra', :path => '../'
+  pod 'MJSwiftCore/Alamofire', :path => '../'
+  pod 'MJSwiftCore/iOS', :path => '../'
+  pod 'MJSwiftCore/Realm', :path => '../'
   pod 'MJSwiftCore/MJCocoaCore', :path => '../'
 
   pod 'Swinject', '~> 2.1'
