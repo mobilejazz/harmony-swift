@@ -31,6 +31,6 @@ extension Executor {
                 }
                 closure(future)
             }
-        }.toFuture() // Creating a new future to avoid a duplicate call to onSet to the same future
+        }.toFuture().inMainQueue() // Creating a new future to avoid a duplicate call to onSet to the same future
     }
 }

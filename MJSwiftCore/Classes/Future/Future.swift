@@ -139,6 +139,11 @@ public class Future<T> {
         return Future(self)
     }
     
+    /// Configures the reactive state as the given future
+    public func mimic(_ future: Future<T>) {
+        reactive = future.reactive
+    }
+    
     /// Sets the future value
     public func set(_ value: T) {
         set(value: value, error: nil)
