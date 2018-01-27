@@ -303,7 +303,7 @@
 		D087D7D38EE2EED00D5DFBC13FBD3888 /* RLMUpdateChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7FF737064F6DE1B038D97CBFBBDD0072 /* RLMUpdateChecker.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.0.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		D0BA53D474765F14DC863E4F01DF7F1C /* RLMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C0C3A89967581816D237B46871CE5B8 /* RLMConstants.h */; };
 		D228E445F40C3B3C8317034C2480ED36 /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45448363811E50E599C5D132430B30D1 /* VastraService.swift */; };
-		D2B865F4201B876B00D8CA92 /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B865F3201B876B00D8CA92 /* Subscriber.swift */; };
+		D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B865F3201B876B00D8CA92 /* FutureHub.swift */; };
 		D31EE48742599C468AEF44AE7F00BF8D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A1BBE1E8D48CCC4D7D755D99CEBFE /* Keychain.swift */; };
 		D34B77EBADF085B0BC5551E36C4D2993 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB536DCD603D2606FAD64B6B7A4D89FE /* Migration.swift */; };
 		D4034B7ACCE80125C4BD004532D32AA6 /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D127D3B4FB0495C57D1A139B7F129EC6 /* ScopeLockFuture.swift */; };
@@ -809,7 +809,7 @@
 		D127D3B4FB0495C57D1A139B7F129EC6 /* ScopeLockFuture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScopeLockFuture.swift; path = MJSwiftCore/Classes/Common/ScopeLockFuture.swift; sourceTree = "<group>"; };
 		D1559C4CD015B160038999AD787F08F6 /* SortDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SortDescriptor.swift; path = RealmSwift/SortDescriptor.swift; sourceTree = "<group>"; };
 		D28EB14F1E3732800E4EAB0E4F9DC55C /* collection_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = collection_notifier.cpp; path = Realm/ObjectStore/src/impl/collection_notifier.cpp; sourceTree = "<group>"; };
-		D2B865F3201B876B00D8CA92 /* Subscriber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriber.swift; path = MJSwiftCore/Classes/Future/Subscriber.swift; sourceTree = "<group>"; };
+		D2B865F3201B876B00D8CA92 /* FutureHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureHub.swift; path = MJSwiftCore/Classes/Future/FutureHub.swift; sourceTree = "<group>"; };
 		D38E96C3BBE4A0CC3012D61ACA30A809 /* RLMResults_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMResults_Private.h; path = include/RLMResults_Private.h; sourceTree = "<group>"; };
 		D4470BD2BB328ACF62D6A8029C60E7BF /* RLMMigration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMMigration.h; path = include/RLMMigration.h; sourceTree = "<group>"; };
 		D4872030D66C44B2A9E4FCA1C2D9B8DB /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1499,7 +1499,7 @@
 			children = (
 				AE900A4112F41DDC13CCF8B9172AB502 /* Future.swift */,
 				4199B09168163244DBD1A4A6EE87C873 /* FutureExtensions.swift */,
-				D2B865F3201B876B00D8CA92 /* Subscriber.swift */,
+				D2B865F3201B876B00D8CA92 /* FutureHub.swift */,
 			);
 			name = Future;
 			sourceTree = "<group>";
@@ -2021,7 +2021,7 @@
 				EA7D6D576EBB975B4B5C03FDCA46E883 /* MJSwiftCore-dummy.m in Sources */,
 				6F9BAE710D5C85F8790CEFDC775BE22F /* Model.swift in Sources */,
 				2524682454B13CFC509852918D612DDD /* MultiRequestAdapter.swift in Sources */,
-				D2B865F4201B876B00D8CA92 /* Subscriber.swift in Sources */,
+				D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */,
 				AC89BABAE2ED1FDB1CFBFC2FE538EB45 /* MultiRequestRetrier.swift in Sources */,
 				602C04AB36933125D82A7DA1E39B18F3 /* OperationQueueExecutor.swift in Sources */,
 				4309BA1A8DBD6840AB246605D656507D /* PushNotificationQueue.swift in Sources */,
