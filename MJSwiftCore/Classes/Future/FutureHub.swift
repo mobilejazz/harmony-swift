@@ -16,6 +16,10 @@
 
 import Foundation
 
+///
+/// A future hub acts as a cloner of a given future. It generates new futures that react to the original one.
+/// Typically used for reactive futures to maintain a live pipeline stream.
+///
 public class FutureHub <T> {
     
     public enum MemoryReferenceType {
@@ -80,7 +84,8 @@ public class FutureHub <T> {
         lock.unlock()
     }
     
-    public func unsubscribe() {
+    /// Unregisters all strong referended futures
+    public func unsubscribeAll() {
         lock.lock()
         strongFutures.removeAll()
         lock.unlock()
