@@ -87,12 +87,7 @@ public class FutureHub <T> {
     /// - Parameter future: The future to unregister
     public func unplug(_ future: Future<T>) {
         lock.lock()
-        for (index, element) in weakFutures.allObjects.enumerated() {
-            if future === element {
-                weakFutures.remove(at: index)
-                break
-            }
-        }
+        weakFutures.remove(future)
         for (index, element) in strongFutures.enumerated() {
             if future === element {
                 strongFutures.remove(at: index)
