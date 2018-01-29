@@ -17,11 +17,15 @@
 import Foundation
 
 ///
-/// A future hub acts as a cloner of a given future. It generates new futures that react to the original one.
+/// A future hub acts as a cloner of a given future. It can subscribe (plug) and unsubscribe (unplug) futures that react to the original one.
 /// Typically used for reactive futures to maintain a live pipeline stream.
 ///
 public class FutureHub <T> {
     
+    /// Memory Reference Type
+    ///
+    /// - strong: Strong reference
+    /// - weak: Weak reference
     public enum MemoryReferenceType {
         case strong
         case weak
@@ -53,12 +57,21 @@ public class FutureHub <T> {
         update()
     }
     
-    /// Returns a new future
+    /// Creates a new future and plugs (subscribes) it to the hub
     ///
     /// - Parameter memoryReferenceType: .weak (default) if weak reference, .strong if strong reference
     /// - Returns: A new future
-    public func subscribe(_ memoryReferenceType: MemoryReferenceType = .weak) -> Future<T> {
+    public func plug(_ memoryReferenceType: MemoryReferenceType = .weak) -> Future<T> {
         let future = Future<T>(reactive: reactive)
+        plug(future, memoryReferenceType: memoryReferenceType)
+        return future
+    }
+    
+    /// Plugs (subscribes) the given future to the hub
+    ///
+    /// - Parameter future: The future to subscribe
+    /// - Parameter memoryReferenceType: .weak (default) if weak reference, .strong if strong reference
+    public func plug(_ future: Future<T>, memoryReferenceType: MemoryReferenceType = .weak) {
         lock.lock()
         switch memoryReferenceType {
         case .strong:
@@ -67,14 +80,19 @@ public class FutureHub <T> {
             weakFutures.add(future)
         }
         lock.unlock()
-        return future
     }
     
-    /// Unregisters a strong referenced future
+    /// Unplug (unsubscribes) a future
     ///
     /// - Parameter future: The future to unregister
-    public func unsubscribe(_ future: Future<T>) {
+    public func unplug(_ future: Future<T>) {
         lock.lock()
+        for (index, element) in weakFutures.allObjects.enumerated() {
+            if future === element {
+                weakFutures.remove(at: index)
+                break
+            }
+        }
         for (index, element) in strongFutures.enumerated() {
             if future === element {
                 strongFutures.remove(at: index)
@@ -84,9 +102,12 @@ public class FutureHub <T> {
         lock.unlock()
     }
     
-    /// Unregisters all strong referended futures
-    public func unsubscribeAll() {
+    ///
+    /// Unplugs (unsubscribes) all futures
+    ///
+    public func unplugAll() {
         lock.lock()
+        weakFutures.removeAllObjects()
         strongFutures.removeAll()
         lock.unlock()
     }

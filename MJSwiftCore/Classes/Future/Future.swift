@@ -106,7 +106,7 @@ public class Future<T> {
     private let observers = NSHashTable<AnyObject>.weakObjects()
     
     /// Returns a hub associated to the current future
-    public lazy var hub = FutureHub<T>(self)
+    public private(set) lazy var hub = FutureHub<T>(self)
     
     /// Default initializer
     public init(reactive: Bool = false) {
