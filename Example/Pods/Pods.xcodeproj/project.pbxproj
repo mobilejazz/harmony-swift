@@ -810,6 +810,7 @@
 		D1559C4CD015B160038999AD787F08F6 /* SortDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SortDescriptor.swift; path = RealmSwift/SortDescriptor.swift; sourceTree = "<group>"; };
 		D28EB14F1E3732800E4EAB0E4F9DC55C /* collection_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = collection_notifier.cpp; path = Realm/ObjectStore/src/impl/collection_notifier.cpp; sourceTree = "<group>"; };
 		D2B865F3201B876B00D8CA92 /* FutureHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureHub.swift; path = MJSwiftCore/Classes/Future/FutureHub.swift; sourceTree = "<group>"; };
+		D2D4157F2020CD0B00D1DE83 /* readme-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "readme-macOS.swift"; path = "MJSwiftCore/Classes/iOS/readme-macOS.swift"; sourceTree = "<group>"; };
 		D38E96C3BBE4A0CC3012D61ACA30A809 /* RLMResults_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMResults_Private.h; path = include/RLMResults_Private.h; sourceTree = "<group>"; };
 		D4470BD2BB328ACF62D6A8029C60E7BF /* RLMMigration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMMigration.h; path = include/RLMMigration.h; sourceTree = "<group>"; };
 		D4872030D66C44B2A9E4FCA1C2D9B8DB /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1453,6 +1454,7 @@
 				3F68B918156E8D95BFB9AA62913CD211 /* UIImageExtensions.swift */,
 				626F86B4D89137C89345EF35CD0D1F5E /* UIResponderExtensions.swift */,
 				920D27D023FF5F50356B26ED976E8581 /* UIViewExtensions.swift */,
+				D2D4157F2020CD0B00D1DE83 /* readme-macOS.swift */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -1898,6 +1900,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					D557DCE19B64882876277B3FD2C50DCB = {
+						LastSwiftMigration = 0920;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2692,6 +2699,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B7E0334E5A2BA5FBD79F4F924DC79F2 /* MJCocoaCore.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2755,6 +2763,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B7E0334E5A2BA5FBD79F4F924DC79F2 /* MJCocoaCore.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2774,6 +2783,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
