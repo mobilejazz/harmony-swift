@@ -16,20 +16,6 @@
 
 import Foundation
 
-/// Observers must conform to this protocol.
-/// Methods are optional.
-public protocol FutureObserver : AnyObject {
-    func didSetValue<T>(_ value: T?)
-    func didSetError(_ error: Error)
-    func didCompleteFuture<T>(_ future: Future<T>)
-}
-
-public extension FutureObserver {
-    func didSetValue<T>(_ value: T?) { }
-    func didSetError(_ error: Error) { }
-    func didCompleteFuture<T>(_ future: Future<T>) { }
-}
-
 private enum FutureError: Error {
     case contentAlreadySet
     case thenAlreadySet
@@ -50,7 +36,9 @@ private enum FutureError: Error {
     }
 }
 
-/// Future class. Wrapper of an optional value of type T or an error.
+///
+/// Future class. Wrapper of a future value of generic type T or an error.
+///
 public class Future<T> {
     
     // The future nesting level.
@@ -103,7 +91,6 @@ public class Future<T> {
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
     private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
-    private let observers = NSHashTable<AnyObject>.weakObjects()
     
     /// Returns a hub associated to the current future
     public private(set) lazy var hub = FutureHub<T>(self)
@@ -143,7 +130,7 @@ public class Future<T> {
     }
     
     /// Configures the reactive state as the given future
-    public func mimic(_ future: Future<T>) {
+    internal func mimic(_ future: Future<T>) {
         reactive = future.reactive
     }
     
@@ -190,15 +177,6 @@ public class Future<T> {
         } else {
             result = .value(value!)
         }
-        for observer in observers.allObjects {
-            let observer = observer as! FutureObserver
-            switch result! {
-            case .error(let error):
-                observer.didSetError(error)
-            case .value(let value):
-                observer.didSetValue(value)
-            }
-        }
         update()
     }
     
@@ -240,6 +218,14 @@ public class Future<T> {
         return self.inQueue(DispatchQueue.main)
     }
     
+    /// Removes the custom defined queue
+    ///
+    /// - Returns: The self instance
+    public func inOriginalQueue() -> Future<T> {
+        self.queue = nil
+        return self
+    }
+    
     /// Synchronous then
     public func then() -> Result {
         switch state {
@@ -278,25 +264,9 @@ public class Future<T> {
             state = .sent
             self.success = nil
             self.failure = nil
-            for observer in observers.allObjects {
-                (observer as! FutureObserver).didCompleteFuture(self)
-            }
         }
     }
     
-    /// Adds an observer
-    public func add(_ observer: FutureObserver) {
-        observers.add(observer)
-        if state == .sent {
-            observer.didCompleteFuture(self)
-        }
-    }
-    
-    /// Removes an observer
-    public func remove(_ observer: FutureObserver) {
-        observers.remove(observer)
-    }
-
     private func update() {
         switch state {
         case .sent:
@@ -348,9 +318,6 @@ public class Future<T> {
             case .value(let value):
                 success!(value)
             }
-        }
-        for observer in observers.allObjects {
-            (observer as! FutureObserver).didCompleteFuture(self)
         }
         if !reactive {
             self.success = nil
