@@ -64,7 +64,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         self.toRealmMapper = toRealmMapper
     }
     
-    public override func get(_ query: Query) -> Future<[E]> {
+    public override func getAll(_ query: Query) -> Future<[E]> {
         switch query.self {
         case is QueryById:
             let queryById = query as! QueryById
@@ -94,7 +94,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
     }
     
     @discardableResult
-    public override func put(_ entities: [E]) -> Future<[E]> {
+    public override func putAll(_ entities: [E]) -> Future<[E]> {
         return realmHandler.write({ realm -> [E] in
             for entity in entities {
                 let object = toRealmMapper.map(entity, inRealm:realm)
@@ -115,6 +115,16 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
                 for object in realm.objects(O.self) {
                     realm.delete(object)
                 }
+            }
+            return true
+        }).unwrap()
+    }
+    
+    @discardableResult
+    public override func deleteAll(_ entities: [E]) -> Future<Bool> {
+        return realmHandler.write({ realm -> Bool in
+            for entity in entities {
+                realm.delete(toRealmMapper.map(entity, inRealm: realm))
             }
             return true
         }).unwrap()

@@ -30,8 +30,6 @@
 		D219D6FA1FCC2E2D00D91CED /* ItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6E61FCC2E2D00D91CED /* ItemEntity.swift */; };
 		D219D6FB1FCC2E2D00D91CED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6E81FCC2E2D00D91CED /* Item.swift */; };
 		D219D6FC1FCC2E2D00D91CED /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6E91FCC2E2D00D91CED /* Product.swift */; };
-		D219D6FD1FCC2E2D00D91CED /* SearchItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6EB1FCC2E2D00D91CED /* SearchItemsInteractor.swift */; };
-		D219D6FE1FCC2E2D00D91CED /* GetItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6EC1FCC2E2D00D91CED /* GetItemsInteractor.swift */; };
 		D219D70F1FCC2E4300D91CED /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7011FCC2E4300D91CED /* SplashViewController.swift */; };
 		D219D7101FCC2E4300D91CED /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D219D7021FCC2E4300D91CED /* SplashViewController.xib */; };
 		D219D7111FCC2E4300D91CED /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D7051FCC2E4300D91CED /* ItemCell.swift */; };
@@ -87,8 +85,6 @@
 		D219D6E61FCC2E2D00D91CED /* ItemEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemEntity.swift; sourceTree = "<group>"; };
 		D219D6E81FCC2E2D00D91CED /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		D219D6E91FCC2E2D00D91CED /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		D219D6EB1FCC2E2D00D91CED /* SearchItemsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItemsInteractor.swift; sourceTree = "<group>"; };
-		D219D6EC1FCC2E2D00D91CED /* GetItemsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetItemsInteractor.swift; sourceTree = "<group>"; };
 		D219D7011FCC2E4300D91CED /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D219D7021FCC2E4300D91CED /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		D219D7051FCC2E4300D91CED /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
@@ -208,7 +204,6 @@
 				D219D6D51FCC2E2D00D91CED /* Managers */,
 				D219D6D81FCC2E2D00D91CED /* DataProvider */,
 				D219D6E71FCC2E2D00D91CED /* Model */,
-				D219D6EA1FCC2E2D00D91CED /* Interactors */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -311,15 +306,6 @@
 				D219D6E91FCC2E2D00D91CED /* Product.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		D219D6EA1FCC2E2D00D91CED /* Interactors */ = {
-			isa = PBXGroup;
-			children = (
-				D219D6EB1FCC2E2D00D91CED /* SearchItemsInteractor.swift */,
-				D219D6EC1FCC2E2D00D91CED /* GetItemsInteractor.swift */,
-			);
-			path = Interactors;
 			sourceTree = "<group>";
 		};
 		D219D6FF1FCC2E4300D91CED /* Screens */ = {
@@ -642,13 +628,11 @@
 				D219D6F01FCC2E2D00D91CED /* DataProviderAssembly.swift in Sources */,
 				D219D6FC1FCC2E2D00D91CED /* Product.swift in Sources */,
 				D219D70F1FCC2E4300D91CED /* SplashViewController.swift in Sources */,
-				D219D6FE1FCC2E2D00D91CED /* GetItemsInteractor.swift in Sources */,
 				D219D7111FCC2E4300D91CED /* ItemCell.swift in Sources */,
 				D219D6F51FCC2E2D00D91CED /* ItemQuery.swift in Sources */,
 				D219D7151FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift in Sources */,
 				D219D7141FCC2E4300D91CED /* UIKitMVPItemListPresenter.swift in Sources */,
 				D219D6F31FCC2E2D00D91CED /* OAuth2RetryHandler.swift in Sources */,
-				D219D6FD1FCC2E2D00D91CED /* SearchItemsInteractor.swift in Sources */,
 				D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */,
 				D219D6F61FCC2E2D00D91CED /* RealmItem.swift in Sources */,
 				D219D7161FCC2E4300D91CED /* UIKitMVPItemDetailView.swift in Sources */,

@@ -302,7 +302,13 @@
 		D05059C40E030E3373A98FF6364CDD63 /* RLMSyncSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 994D6429842A4FA151CC7FD707E1A2AD /* RLMSyncSession.h */; };
 		D087D7D38EE2EED00D5DFBC13FBD3888 /* RLMUpdateChecker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7FF737064F6DE1B038D97CBFBBDD0072 /* RLMUpdateChecker.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.0.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		D0BA53D474765F14DC863E4F01DF7F1C /* RLMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C0C3A89967581816D237B46871CE5B8 /* RLMConstants.h */; };
+		D21284B4202B788000FE1E72 /* PutObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21284B3202B788000FE1E72 /* PutObjectInteractor.swift */; };
+		D21284B6202B7B1500FE1E72 /* DeleteObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21284B5202B7B1500FE1E72 /* DeleteObjectInteractor.swift */; };
 		D228E445F40C3B3C8317034C2480ED36 /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45448363811E50E599C5D132430B30D1 /* VastraService.swift */; };
+		D2AF4F19202B6F2D005EDFE2 /* GetObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F17202B6ED2005EDFE2 /* GetObjectsInteractor.swift */; };
+		D2AF4F1B202B6FE2005EDFE2 /* PutObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1A202B6FE2005EDFE2 /* PutObjectsInteractor.swift */; };
+		D2AF4F1D202B7087005EDFE2 /* DeleteObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1C202B7087005EDFE2 /* DeleteObjectsInteractor.swift */; };
+		D2AF4F1F202B76AE005EDFE2 /* GetObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1E202B76AE005EDFE2 /* GetObjectInteractor.swift */; };
 		D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B865F3201B876B00D8CA92 /* FutureHub.swift */; };
 		D31EE48742599C468AEF44AE7F00BF8D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A1BBE1E8D48CCC4D7D755D99CEBFE /* Keychain.swift */; };
 		D34B77EBADF085B0BC5551E36C4D2993 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB536DCD603D2606FAD64B6B7A4D89FE /* Migration.swift */; };
@@ -808,7 +814,13 @@
 		D125B5153B18F2978C650396EA175A53 /* object_store.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = object_store.cpp; path = Realm/ObjectStore/src/object_store.cpp; sourceTree = "<group>"; };
 		D127D3B4FB0495C57D1A139B7F129EC6 /* ScopeLockFuture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScopeLockFuture.swift; path = MJSwiftCore/Classes/Common/ScopeLockFuture.swift; sourceTree = "<group>"; };
 		D1559C4CD015B160038999AD787F08F6 /* SortDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SortDescriptor.swift; path = RealmSwift/SortDescriptor.swift; sourceTree = "<group>"; };
+		D21284B3202B788000FE1E72 /* PutObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PutObjectInteractor.swift; path = MJSwiftCore/Classes/Common/PutObjectInteractor.swift; sourceTree = "<group>"; };
+		D21284B5202B7B1500FE1E72 /* DeleteObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteObjectInteractor.swift; path = MJSwiftCore/Classes/Common/DeleteObjectInteractor.swift; sourceTree = "<group>"; };
 		D28EB14F1E3732800E4EAB0E4F9DC55C /* collection_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = collection_notifier.cpp; path = Realm/ObjectStore/src/impl/collection_notifier.cpp; sourceTree = "<group>"; };
+		D2AF4F17202B6ED2005EDFE2 /* GetObjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetObjectsInteractor.swift; path = MJSwiftCore/Classes/Common/GetObjectsInteractor.swift; sourceTree = "<group>"; };
+		D2AF4F1A202B6FE2005EDFE2 /* PutObjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PutObjectsInteractor.swift; path = MJSwiftCore/Classes/Common/PutObjectsInteractor.swift; sourceTree = "<group>"; };
+		D2AF4F1C202B7087005EDFE2 /* DeleteObjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteObjectsInteractor.swift; path = MJSwiftCore/Classes/Common/DeleteObjectsInteractor.swift; sourceTree = "<group>"; };
+		D2AF4F1E202B76AE005EDFE2 /* GetObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetObjectInteractor.swift; path = MJSwiftCore/Classes/Common/GetObjectInteractor.swift; sourceTree = "<group>"; };
 		D2B865F3201B876B00D8CA92 /* FutureHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureHub.swift; path = MJSwiftCore/Classes/Future/FutureHub.swift; sourceTree = "<group>"; };
 		D2D4157F2020CD0B00D1DE83 /* readme-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "readme-macOS.swift"; path = "MJSwiftCore/Classes/iOS/readme-macOS.swift"; sourceTree = "<group>"; };
 		D38E96C3BBE4A0CC3012D61ACA30A809 /* RLMResults_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMResults_Private.h; path = include/RLMResults_Private.h; sourceTree = "<group>"; };
@@ -1286,6 +1298,12 @@
 				9291BFB2E436828A5C10BEF6508120F1 /* DispatchQueueExecutor.swift */,
 				771A0650A4DD6F6C52122580E7785FCD /* Entity.swift */,
 				A3288B9BFA681FD68EBA6CF457EC9A45 /* ErrorHelper.swift */,
+				D2AF4F1E202B76AE005EDFE2 /* GetObjectInteractor.swift */,
+				D2AF4F17202B6ED2005EDFE2 /* GetObjectsInteractor.swift */,
+				D21284B3202B788000FE1E72 /* PutObjectInteractor.swift */,
+				D2AF4F1A202B6FE2005EDFE2 /* PutObjectsInteractor.swift */,
+				D21284B5202B7B1500FE1E72 /* DeleteObjectInteractor.swift */,
+				D2AF4F1C202B7087005EDFE2 /* DeleteObjectsInteractor.swift */,
 				C480896555C1FB4DC733A3C3C70F61B0 /* Executor.swift */,
 				04C4FB750BBABC97E45AF7F2BE1510DC /* ExecutorFuture.swift */,
 				457F439E87328D3EB63B7A1B1DBDF465 /* JSONDecoding.swift */,
@@ -2007,6 +2025,7 @@
 			files = (
 				8C1110A184B2F93850E612C121E81766 /* AlamofireFuture.swift in Sources */,
 				B4B195937266CBA92A436E55454EBD34 /* AlamofireRepository.swift in Sources */,
+				D2AF4F1B202B6FE2005EDFE2 /* PutObjectsInteractor.swift in Sources */,
 				1043045FCEBA7DC09762090D71535E90 /* BaseURLRequestAdapter.swift in Sources */,
 				709E46996ECA15EBC96061C7326A3D8D /* ContainerViewController.swift in Sources */,
 				7F82AF6121B1147AD22704104DE25125 /* DataConvertible.swift in Sources */,
@@ -2030,7 +2049,9 @@
 				2524682454B13CFC509852918D612DDD /* MultiRequestAdapter.swift in Sources */,
 				D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */,
 				AC89BABAE2ED1FDB1CFBFC2FE538EB45 /* MultiRequestRetrier.swift in Sources */,
+				D2AF4F1F202B76AE005EDFE2 /* GetObjectInteractor.swift in Sources */,
 				602C04AB36933125D82A7DA1E39B18F3 /* OperationQueueExecutor.swift in Sources */,
+				D2AF4F1D202B7087005EDFE2 /* DeleteObjectsInteractor.swift in Sources */,
 				4309BA1A8DBD6840AB246605D656507D /* PushNotificationQueue.swift in Sources */,
 				929E21F8DB25AE1465A9188829C7C481 /* RealmFactory.swift in Sources */,
 				5224827721659ADB5F601BF4CBB55DA7 /* RealmHandler.swift in Sources */,
@@ -2038,14 +2059,17 @@
 				B71D16761B3E755789757BDB2FD5A24E /* RealmObject.swift in Sources */,
 				6D0DBD3F27D9A9AE96966930E40C5B6E /* RealmService.swift in Sources */,
 				AABCFC0E1D2F40ECBB4B4524B625DB57 /* Repository.swift in Sources */,
+				D21284B6202B7B1500FE1E72 /* DeleteObjectInteractor.swift in Sources */,
 				50FF2E1F6E2C40B8B106FD29B19CCFCA /* ScopeLock.swift in Sources */,
 				D4034B7ACCE80125C4BD004532D32AA6 /* ScopeLockFuture.swift in Sources */,
 				71F94D77300B5DC1DDF8C0005BA16A03 /* SecureKey.swift in Sources */,
+				D21284B4202B788000FE1E72 /* PutObjectInteractor.swift in Sources */,
 				09AD067003232E388286C707353D9CA0 /* SharedTimer.swift in Sources */,
 				31967B369A59A2B4EB5223EAF8106D46 /* StringExtensions.swift in Sources */,
 				658226DAA4536793CD2D34BD72978E9F /* UIBarButtonItemExtensions.swift in Sources */,
 				A27B815E572918FD4F260043148F6FE5 /* UIButtonExtensions.swift in Sources */,
 				8D1E086D5697519FA972ED67FC67A7B8 /* UIColorExtensions.swift in Sources */,
+				D2AF4F19202B6F2D005EDFE2 /* GetObjectsInteractor.swift in Sources */,
 				9B236013F79B965CBC90A3FEF845D5A9 /* UIImageExtensions.swift in Sources */,
 				47C4D5498B89C6645B9CD9F420EFAFD2 /* UIResponderExtensions.swift in Sources */,
 				BEC079E8F95B21AC6CA8C7E60E5D0E41 /* UIViewExtensions.swift in Sources */,

@@ -66,7 +66,7 @@ fileprivate let globalLock = NSLock()
 ///
 /// func updateUser(_ user: User) -> User {
 ///     // Using a ScopeLock on user's id (string) to ensure
-///     // no other thread is manipulating the user with the given id
+///     // no other thread is manipulating a user with the given id
 ///     return ScopeLock(user.id).sync {
 ///         [...] // update user safely
 ///         return user

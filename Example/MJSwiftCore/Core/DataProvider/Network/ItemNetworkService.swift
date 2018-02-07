@@ -8,27 +8,18 @@ import Foundation
 import Alamofire
 import MJSwiftCore
 
-class ItemNetworkService: Repository <ItemEntity> {
+class ItemNetworkService: AlamofireRepository<ItemEntity> {
     
-    let sessionManager : SessionManager
-    
-    init(_ sessionManager: SessionManager) {
-        self.sessionManager = sessionManager
-        super.init()
-    }
-    
-    override func get(_ query: Query) -> Future<[ItemEntity]> {
+    override func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
         case is QueryById:
-            return get((query as! QueryById).id).map({ (entity) -> [ItemEntity] in
-                return [entity]
-            })
+            return get((query as! QueryById).id).map { [$0] }
         case is AllItemsQuery:
             return getItems(query as! AllItemsQuery)
         case is SearchItemsQuery:
             return searchItems(query as! SearchItemsQuery)
         default:
-            return super.get(query)
+            return super.getAll(query)
         }
     }
     
@@ -36,37 +27,37 @@ class ItemNetworkService: Repository <ItemEntity> {
     
     private func get(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
-        return sessionManager.request(url).toFuture().flatMap({ json in
-            let future = json.decodeAs(ItemEntity.self, completion: { (item) in
+        return sessionManager.request(url).toFuture().flatMap { json in
+            let future = json.decodeAs(ItemEntity.self) { item in
                 item.lastUpdate = Date()
-            })
+            }
             return future
-        })
+        }
     }
     
     private func getItems(_ query: AllItemsQuery) -> Future<[ItemEntity]> {
         let url = "/items"
-        return sessionManager.request(url).toFuture().flatMap({ json in
-            if let results = json["results"] as? [[String: AnyObject]] {
-                return results.decodeAs(forEach: { (item) in
-                    item.lastUpdate = Date()
-                })
+        return sessionManager.request(url).toFuture().flatMap { json in
+            guard let results = json["results"] as? [[String: AnyObject]] else {
+                return Future([]) // or pass error if desired
             }
-            return Future([])
-        })
+            return results.decodeAs(forEach: { item in
+                item.lastUpdate = Date()
+            })
+        }
     }
     
     private func searchItems(_ query: SearchItemsQuery) -> Future<[ItemEntity]> {
         let url = "/items"
         return sessionManager.request(url,
                                       parameters: ["name" : query.text])
-            .toFuture().flatMap({ json in
-                if let results = json["results"] as? [[String: AnyObject]] {
-                    return results.decodeAs(forEach: { (item) in
-                        item.lastUpdate = Date()
-                    })
+            .toFuture().flatMap { json in
+                guard let results = json["results"] as? [[String: AnyObject]] else {
+                    return Future([]) // or pass error if desired
                 }
-                return Future([])
-            })
+                return results.decodeAs(forEach: { item in
+                    item.lastUpdate = Date()
+                })
+            }
     }
 }

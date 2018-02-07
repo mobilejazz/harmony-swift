@@ -59,7 +59,7 @@ open class DataProvider <T> {
     ///   - query: The query encapsulating the query parameters
     ///   - operation: The operation type
     /// - Returns: A future of type list of T
-    open func get(_ query: Query, operation: Operation) -> Future<[T]> {
+    open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         fatalError("Undefined behavior on method get on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
     
@@ -70,7 +70,7 @@ open class DataProvider <T> {
     ///   - operation: The operation type
     /// - Returns: A future of type list of T
     @discardableResult
-    open func put(_ values: [T], operation: Operation) -> Future<[T]> {
+    open func putAll(_ objects: [T], operation: Operation) -> Future<[T]> {
         fatalError("Undefined behavior on method put on class \(String(describing: type(of:self))) for operation \(operation)")
     }
     
@@ -84,9 +84,32 @@ open class DataProvider <T> {
     open func delete(_ query: Query, operation: Operation) -> Future<Bool> {
         fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
+    
+    /// Delete a list of objects
+    ///
+    /// - Parameters:
+    ///   - entities: The query encapsulating the query parameters
+    ///   - operation: The operation type
+    /// - Returns: A future of type list of Bool. If the operation succeeds, the future will be resovled with true.
+    @discardableResult
+    open func deleteAll(_ objects: [T], operation: Operation) -> Future<Bool> {
+        fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation)")
+    }
 }
 
 extension DataProvider {
+    
+    /// Main get method
+    ///
+    /// - Parameters:
+    ///   - query: The query encapsulating the query parameters
+    ///   - operation: The operation type
+    /// - Returns: A future of type optional T
+    open func get(_ query: Query, operation: Operation) -> Future<T?> {
+        return getAll(query, operation: operation).map{ array in
+            return array.first
+        }
+    }
     
     /// Custom put for a single value
     ///
@@ -96,9 +119,14 @@ extension DataProvider {
     /// - Returns: A future of type T
     @discardableResult
     open func put(_ value: T, operation: Operation) -> Future<T> {
-        return put([value], operation: operation).map({ (array) -> T in
+        return putAll([value], operation: operation).map({ (array) -> T in
             return array.first!
         })
+    }
+    
+    @discardableResult
+    open func delete(_ entity: T, operation: Operation) -> Future<Bool> {
+        return deleteAll([entity], operation: operation)
     }
 }
 
@@ -158,22 +186,22 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         self.toObjectMapper = toObjectMapper
     }
     
-    override public func get(_ query: Query, operation: Operation) -> Future<[O]> {
+    override public func getAll(_ query: Query, operation: Operation) -> Future<[O]> {
         return { () -> Future<[E]> in
             switch operation {
             case .network:
-                return network.get(query)
+                return network.getAll(query)
             case .storage:
-                return storage.get(query)
+                return storage.getAll(query)
             case .networkSync:
-                return network.get(query).andThen(success: { entities in
-                    self.storage.put(entities)
+                return network.getAll(query).andThen(success: { entities in
+                    self.storage.putAll(entities)
                 })
             case .storageSync:
-                return storage.get(query).flatMap { values -> Future<[E]> in
+                return storage.getAll(query).flatMap { values -> Future<[E]> in
                     if !self.storageValidation.isArrayValid(values) {
-                        return self.network.get(query).andThen(success: { entities in
-                            self.storage.put(entities)
+                        return self.network.getAll(query).andThen(success: { entities in
+                            self.storage.putAll(entities)
                         })
                     } else {
                         return Future(values)
@@ -184,21 +212,21 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
     }
     
     @discardableResult
-    override public func put(_ values: [O], operation: Operation) -> Future<[O]> {
-        let array = values.map { o in toEntityMapper.map(o) }
+    override public func putAll(_ objects: [O], operation: Operation) -> Future<[O]> {
+        let array = objects.map { o in toEntityMapper.map(o) }
         return { () -> Future<[E]> in
             switch operation {
             case .network:
-                return network.put(array)
+                return network.putAll(array)
             case .storage:
-                return storage.put(array)
+                return storage.putAll(array)
             case .networkSync:
-                return network.put(array).andThen(success: { entities in
-                    self.storage.put(entities)
+                return network.putAll(array).andThen(success: { entities in
+                    self.storage.putAll(entities)
                 })
             case .storageSync:
-                return storage.put(array).andThen(success: { entities in
-                    self.network.put(entities)
+                return storage.putAll(array).andThen(success: { entities in
+                    self.network.putAll(entities)
                 })
             }
             }().map { a in self.toObjectMapper.map(a) }
@@ -222,6 +250,31 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                 return storage.delete(query).andThen(success: { success in
                     if success {
                         self.network.delete(query)
+                    }
+                })
+            }
+            }()
+    }
+    
+    @discardableResult
+    override public func deleteAll(_ objects: [O], operation: Operation) -> Future<Bool> {
+        let entities = objects.map { o in toEntityMapper.map(o) }
+        return { () -> Future<Bool> in
+            switch operation {
+            case .network:
+                return network.deleteAll(entities)
+            case .storage:
+                return storage.deleteAll(entities)
+            case .networkSync:
+                return network.deleteAll(entities).andThen(success: { success in
+                    if success {
+                        self.storage.deleteAll(entities)
+                    }
+                })
+            case .storageSync:
+                return storage.deleteAll(entities).andThen(success: { success in
+                    if success {
+                        self.network.deleteAll(entities)
                     }
                 })
             }

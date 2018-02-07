@@ -31,10 +31,10 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     private func loadItems(_ operation: MJSwiftCore.Operation) {
-        let getItemsInteractor = AppAssembler.resolver.resolve(GetItemsInteractor.self)!
+        let getItemsInteractor = AppAssembler.resolver.resolve(GetObjectsInteractor<Item>.self)!
         
         self.itemListView.onShowProgressHud()
-        getItemsInteractor.execute(operation).then(success: { items in
+        getItemsInteractor.execute(AllItemsQuery(), operation).then(success: { items in
             self.itemListView.onHideProgressHud()
             self.itemListView.onDisplayItems(items)
         }, failure: { (error) in
