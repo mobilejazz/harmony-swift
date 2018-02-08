@@ -27,6 +27,11 @@ public class QueryById : Query {
     }
 }
 
+// All objects query
+public class AllObjectsQuery : Query {
+    public init() { }
+}
+
 /// Abstract definition of a repository
 open class Repository<T> {
     

@@ -24,8 +24,8 @@ import Foundation
 /// - storageSync: Data stream will use storage and sync with network if needed
 public enum Operation {
     case network
-    case networkSync
     case storage
+    case networkSync
     case storageSync
 }
 

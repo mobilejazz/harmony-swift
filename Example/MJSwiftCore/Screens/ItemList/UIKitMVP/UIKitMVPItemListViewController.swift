@@ -34,7 +34,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
         let getItemsInteractor = AppAssembler.resolver.resolve(GetObjectsInteractor<Item>.self)!
         
         self.itemListView.onShowProgressHud()
-        getItemsInteractor.execute(AllItemsQuery(), operation).then(success: { items in
+        getItemsInteractor.execute(AllObjectsQuery(), operation).then(success: { items in
             self.itemListView.onHideProgressHud()
             self.itemListView.onDisplayItems(items)
         }, failure: { (error) in

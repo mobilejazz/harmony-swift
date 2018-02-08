@@ -7,10 +7,7 @@
 //
 
 import Foundation
-
 import MJSwiftCore
-
-extension AllItemsQuery : RealmQuery { }
 
 extension SearchItemsQuery : RealmQuery {
     func realmPredicate() -> NSPredicate? {

@@ -9,22 +9,21 @@ import Alamofire
 import MJSwiftCore
 
 class ItemNetworkService: AlamofireRepository<ItemEntity> {
-    
     override func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
         case is QueryById:
             return get((query as! QueryById).id).map { [$0] }
-        case is AllItemsQuery:
-            return getItems(query as! AllItemsQuery)
+        case is AllObjectsQuery:
+            return getAllItems()
         case is SearchItemsQuery:
-            return searchItems(query as! SearchItemsQuery)
+            return searchItems((query as! SearchItemsQuery).text)
         default:
             return super.getAll(query)
         }
     }
-    
-    // MARK: Private Methods
-    
+}
+
+private extension ItemNetworkService {
     private func get(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in
@@ -35,7 +34,7 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
         }
     }
     
-    private func getItems(_ query: AllItemsQuery) -> Future<[ItemEntity]> {
+    private func getAllItems() -> Future<[ItemEntity]> {
         let url = "/items"
         return sessionManager.request(url).toFuture().flatMap { json in
             guard let results = json["results"] as? [[String: AnyObject]] else {
@@ -47,10 +46,10 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
         }
     }
     
-    private func searchItems(_ query: SearchItemsQuery) -> Future<[ItemEntity]> {
+    private func searchItems(_ text: String) -> Future<[ItemEntity]> {
         let url = "/items"
         return sessionManager.request(url,
-                                      parameters: ["name" : query.text])
+                                      parameters: ["name" : text])
             .toFuture().flatMap { json in
                 guard let results = json["results"] as? [[String: AnyObject]] else {
                     return Future([]) // or pass error if desired

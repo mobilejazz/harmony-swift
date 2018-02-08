@@ -41,18 +41,24 @@ public func NSErrorDomain(_ string: String = "", domain: String = "\(Bundle.main
 }
 
 public extension NSError {
-    public convenience init(_ message: String, reason: String? = nil, domain: String = NSErrorDomain(), code: Int = 0, userInfo: (inout [String : Any]) -> Void = { _ in }) {
+    public convenience init(_ message: String,
+                            reason: String? = nil,
+                            domain: String = NSErrorDomain(),
+                            code: Int = 0,
+                            userInfo: (inout [String : Any]) -> Void = { _ in }) {
         var userInfoDict: [String : Any] = [NSLocalizedDescriptionKey : message]
         if let reason = reason {
             userInfoDict[NSLocalizedFailureReasonErrorKey] = reason
         }
-        
         userInfo(&userInfoDict)
-        
         self.init(domain: domain, code: code, userInfo: userInfoDict)
     }
     
-    public convenience init(_ message: String, reason: String? = nil, subdomain: String, code: Int = 0, userInfo: (inout [String : Any]) -> Void = { _ in }) {
+    public convenience init(_ message: String,
+                            reason: String? = nil,
+                            subdomain: String,
+                            code: Int = 0,
+                            userInfo: (inout [String : Any]) -> Void = { _ in }) {
         self.init(message, reason: reason, domain: NSErrorDomain(subdomain), code: code, userInfo: userInfo )
     }
 }
