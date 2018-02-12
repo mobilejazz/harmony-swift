@@ -310,6 +310,7 @@
 		D2AF4F1D202B7087005EDFE2 /* DeleteObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1C202B7087005EDFE2 /* DeleteObjectsInteractor.swift */; };
 		D2AF4F1F202B76AE005EDFE2 /* GetObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1E202B76AE005EDFE2 /* GetObjectInteractor.swift */; };
 		D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B865F3201B876B00D8CA92 /* FutureHub.swift */; };
+		D2DC4B8D202C9BEF000A1E5B /* GenericDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DC4B8C202C9BEF000A1E5B /* GenericDataProvider.swift */; };
 		D31EE48742599C468AEF44AE7F00BF8D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4A1BBE1E8D48CCC4D7D755D99CEBFE /* Keychain.swift */; };
 		D34B77EBADF085B0BC5551E36C4D2993 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB536DCD603D2606FAD64B6B7A4D89FE /* Migration.swift */; };
 		D4034B7ACCE80125C4BD004532D32AA6 /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D127D3B4FB0495C57D1A139B7F129EC6 /* ScopeLockFuture.swift */; };
@@ -823,6 +824,7 @@
 		D2AF4F1E202B76AE005EDFE2 /* GetObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetObjectInteractor.swift; path = MJSwiftCore/Classes/Common/GetObjectInteractor.swift; sourceTree = "<group>"; };
 		D2B865F3201B876B00D8CA92 /* FutureHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureHub.swift; path = MJSwiftCore/Classes/Future/FutureHub.swift; sourceTree = "<group>"; };
 		D2D4157F2020CD0B00D1DE83 /* readme-macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "readme-macOS.swift"; path = "MJSwiftCore/Classes/iOS/readme-macOS.swift"; sourceTree = "<group>"; };
+		D2DC4B8C202C9BEF000A1E5B /* GenericDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GenericDataProvider.swift; path = MJSwiftCore/Classes/Common/GenericDataProvider.swift; sourceTree = "<group>"; };
 		D38E96C3BBE4A0CC3012D61ACA30A809 /* RLMResults_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMResults_Private.h; path = include/RLMResults_Private.h; sourceTree = "<group>"; };
 		D4470BD2BB328ACF62D6A8029C60E7BF /* RLMMigration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMMigration.h; path = include/RLMMigration.h; sourceTree = "<group>"; };
 		D4872030D66C44B2A9E4FCA1C2D9B8DB /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1295,6 +1297,7 @@
 			isa = PBXGroup;
 			children = (
 				1CDCC02152A95B3CD0C5C73EF4D8ED74 /* DataProvider.swift */,
+				D2DC4B8C202C9BEF000A1E5B /* GenericDataProvider.swift */,
 				9291BFB2E436828A5C10BEF6508120F1 /* DispatchQueueExecutor.swift */,
 				771A0650A4DD6F6C52122580E7785FCD /* Entity.swift */,
 				A3288B9BFA681FD68EBA6CF457EC9A45 /* ErrorHelper.swift */,
@@ -2075,6 +2078,7 @@
 				BEC079E8F95B21AC6CA8C7E60E5D0E41 /* UIViewExtensions.swift in Sources */,
 				35D6F938A52E604C3E986141454DE601 /* VastraInvalidationStrategy.swift in Sources */,
 				DB73E459EF76045A7CC628432CB544DC /* VastraReachabilityStrategy.swift in Sources */,
+				D2DC4B8D202C9BEF000A1E5B /* GenericDataProvider.swift in Sources */,
 				D228E445F40C3B3C8317034C2480ED36 /* VastraService.swift in Sources */,
 				A0D3FF4C62B7950E466EE8505D151766 /* VastraStrategy.swift in Sources */,
 				F99620E857BE5FE0849A79C75B0719C6 /* VastraTimestampStrategy.swift in Sources */,

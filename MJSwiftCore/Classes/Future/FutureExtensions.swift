@@ -116,6 +116,12 @@ public extension CharacterSet {
 
 // MARK: Numbers
 
+public extension Bool {
+    public func toFuture() -> Future<Bool> {
+        return Future(self)
+    }
+}
+
 public extension UInt {
     public func toFuture() -> Future<UInt> {
         return Future(self)

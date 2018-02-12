@@ -45,7 +45,16 @@ open class Repository<T> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
     }
     
-    /// Main put method
+    /// Put by query method
+    ///
+    /// - Parameter query: An instance conforming to Query that encapsules the get query information
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    open func put(_ query: Query) -> Future<Bool> {
+        fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
+    }
+    
+    /// Put a list of objects method
     ///
     /// - Parameter entities: A list of entities to put
     /// - Returns: A future containing the list of updated entites after the put is resolved
@@ -53,6 +62,7 @@ open class Repository<T> {
     open func putAll(_ entities: [T]) -> Future<[T]> {
         fatalError("Undefined implementation for method put on \(String(describing: type(of:self)))")
     }
+    
     
     /// Delete by query method
     ///
