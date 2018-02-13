@@ -17,10 +17,19 @@
 import Foundation
 import RealmSwift
 
+///
+/// A realm factory is the class responsible to store a realm configuration and generate new realm instances.
+///
 public class RealmFactory {
     
     private var configuration : Realm.Configuration
     
+    /// Main initializer
+    ///
+    /// - Parameters:
+    ///   - config: The realm configuration
+    ///   - minimumValidSchemaVersion: The minimum valid schema version
+    ///   - encryptionKeyName: The encryption key name
     public init(configuration config: Realm.Configuration, minimumValidSchemaVersion: UInt64 = 0, encryptionKeyName: String? = nil) {
         configuration = config
         
@@ -45,10 +54,13 @@ public class RealmFactory {
         }
         
         if let fileURL = configuration.fileURL {
-            NSLog("Realm Path: \(fileURL)")
+            print("Realm Path: \(fileURL)")
         }
     }
     
+    /// Returns a new realm instance ready to be used in the caller thread.
+    ///
+    /// - Returns: A realm instance
     public func realm() -> Realm {
         let realm = try! Realm(configuration: configuration)
         return realm

@@ -305,6 +305,7 @@
 		D21284B4202B788000FE1E72 /* PutObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21284B3202B788000FE1E72 /* PutObjectInteractor.swift */; };
 		D21284B6202B7B1500FE1E72 /* DeleteObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21284B5202B7B1500FE1E72 /* DeleteObjectInteractor.swift */; };
 		D228E445F40C3B3C8317034C2480ED36 /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45448363811E50E599C5D132430B30D1 /* VastraService.swift */; };
+		D24484CC2031D7030038B9C6 /* RealmHandlerFutureExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24484CA2031D6E20038B9C6 /* RealmHandlerFutureExtensions.swift */; };
 		D2AF4F19202B6F2D005EDFE2 /* GetObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F17202B6ED2005EDFE2 /* GetObjectsInteractor.swift */; };
 		D2AF4F1B202B6FE2005EDFE2 /* PutObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1A202B6FE2005EDFE2 /* PutObjectsInteractor.swift */; };
 		D2AF4F1D202B7087005EDFE2 /* DeleteObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AF4F1C202B7087005EDFE2 /* DeleteObjectsInteractor.swift */; };
@@ -817,6 +818,7 @@
 		D1559C4CD015B160038999AD787F08F6 /* SortDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SortDescriptor.swift; path = RealmSwift/SortDescriptor.swift; sourceTree = "<group>"; };
 		D21284B3202B788000FE1E72 /* PutObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PutObjectInteractor.swift; path = MJSwiftCore/Classes/Common/PutObjectInteractor.swift; sourceTree = "<group>"; };
 		D21284B5202B7B1500FE1E72 /* DeleteObjectInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeleteObjectInteractor.swift; path = MJSwiftCore/Classes/Common/DeleteObjectInteractor.swift; sourceTree = "<group>"; };
+		D24484CA2031D6E20038B9C6 /* RealmHandlerFutureExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmHandlerFutureExtensions.swift; path = MJSwiftCore/Classes/Realm/RealmHandlerFutureExtensions.swift; sourceTree = "<group>"; };
 		D28EB14F1E3732800E4EAB0E4F9DC55C /* collection_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = collection_notifier.cpp; path = Realm/ObjectStore/src/impl/collection_notifier.cpp; sourceTree = "<group>"; };
 		D2AF4F17202B6ED2005EDFE2 /* GetObjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GetObjectsInteractor.swift; path = MJSwiftCore/Classes/Common/GetObjectsInteractor.swift; sourceTree = "<group>"; };
 		D2AF4F1A202B6FE2005EDFE2 /* PutObjectsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PutObjectsInteractor.swift; path = MJSwiftCore/Classes/Common/PutObjectsInteractor.swift; sourceTree = "<group>"; };
@@ -1455,6 +1457,7 @@
 			children = (
 				137F0E66575B6D73AEBFCA6A762A3738 /* RealmFactory.swift */,
 				569ABE0F7DC3C7EC18A561500BF500F0 /* RealmHandler.swift */,
+				D24484CA2031D6E20038B9C6 /* RealmHandlerFutureExtensions.swift */,
 				E7C9618B49EF021D69F83C758F502145 /* RealmMapper.swift */,
 				A39164F0280A64B8A068E35F3BE41BDC /* RealmObject.swift */,
 				5D2F554EDE3E300FADD4CBE7639F9026 /* RealmService.swift */,
@@ -2048,6 +2051,7 @@
 				17A702A66D5EFACE36A2D6FA73FDA813 /* LinkRecognizer.swift in Sources */,
 				59127F0BBC0B1B77E41853CF03286974 /* Mapper.swift in Sources */,
 				EA7D6D576EBB975B4B5C03FDCA46E883 /* MJSwiftCore-dummy.m in Sources */,
+				D24484CC2031D7030038B9C6 /* RealmHandlerFutureExtensions.swift in Sources */,
 				6F9BAE710D5C85F8790CEFDC775BE22F /* Model.swift in Sources */,
 				2524682454B13CFC509852918D612DDD /* MultiRequestAdapter.swift in Sources */,
 				D2B865F4201B876B00D8CA92 /* FutureHub.swift in Sources */,

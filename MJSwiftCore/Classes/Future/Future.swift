@@ -16,35 +16,35 @@
 
 import Foundation
 
-private enum FutureError: Error {
-    case contentAlreadySet
-    case thenAlreadySet
-    case alreadySent
-    case notReactive
-    
-    var localizedDescription: String {
-        switch (self) {
-        case .contentAlreadySet:
-            return "Content already set: cannot set new content once is already set."
-        case .thenAlreadySet:
-            return "Then already set: cannot set a new then closure once is already set."
-        case .alreadySent:
-            return "Future is already sent."
-        case .notReactive:
-            return "Future is not reactive and can't be completed"
-        }
-    }
-}
-
 ///
 /// Future class. Wrapper of a future value of generic type T or an error.
 ///
 public class Future<T> {
     
+    private enum InternalError: Error {
+        case contentAlreadySet
+        case thenAlreadySet
+        case alreadySent
+        case notReactive
+        
+        var localizedDescription: String {
+            switch (self) {
+            case .contentAlreadySet:
+                return "Content already set: cannot set new content once is already set."
+            case .thenAlreadySet:
+                return "Then already set: cannot set a new then closure once is already set."
+            case .alreadySent:
+                return "Future is already sent."
+            case .notReactive:
+                return "Future is not reactive and can't be completed"
+            }
+        }
+    }
+    
     // The future nesting level.
     //   - 0 if the user-created future
     //   - Increase 1 for each functional-programming-method generated future
-    public var nestingLevel : Int = 0
+    public private(set) var nestingLevel : Int = 0
     
     /// Future states
     public enum State {
@@ -119,9 +119,23 @@ public class Future<T> {
     }
     
     /// Future initializer
-    public init(reactive: Bool = false, _ closure: (Future<T>) -> Void) {
+    public init(reactive: Bool = false, _ closure: (Future<T>) throws -> Void) {
         self.reactive = reactive
-        closure(self)
+        do {
+            try closure(self)
+        } catch (let error) {
+            set(error)
+        }
+    }
+    
+    /// Future initializer
+    public convenience init(reactive: Bool = false, _ closure: () throws -> T) {
+        do {
+            let value = try closure()
+            self.init(value, reactive: reactive)
+        } catch (let error) {
+            self.init(error, reactive: reactive)
+        }
     }
     
     /// Creates a new future from self
@@ -161,7 +175,7 @@ public class Future<T> {
     public func set(value: T?, error: Error?) {
         if !reactive {
             if result != nil {
-                fatalError(FutureError.contentAlreadySet.localizedDescription)
+                fatalError(InternalError.contentAlreadySet.localizedDescription)
             }
         }
         var value : T? = value
@@ -239,9 +253,9 @@ public class Future<T> {
             DispatchSemaphore.wait(semaphore!)()
             return then()
         case .waitingContent:
-            fatalError(FutureError.thenAlreadySet.localizedDescription)
+            fatalError(InternalError.thenAlreadySet.localizedDescription)
         case .sent:
-            fatalError(FutureError.alreadySent.localizedDescription)
+            fatalError(InternalError.alreadySent.localizedDescription)
         }
     }
     
@@ -250,7 +264,7 @@ public class Future<T> {
                      failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
             if self.success != nil || self.failure != nil {
-                fatalError(FutureError.thenAlreadySet.localizedDescription)
+                fatalError(InternalError.thenAlreadySet.localizedDescription)
             }
         }
         self.success = success
@@ -270,7 +284,7 @@ public class Future<T> {
     private func update() {
         switch state {
         case .sent:
-            fatalError(FutureError.alreadySent.localizedDescription)
+            fatalError(InternalError.alreadySent.localizedDescription)
         case .blank:
             // Waiting for either the result, or the then closure
             if result != nil {
@@ -333,7 +347,7 @@ public extension Future {
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
         return Future<K>(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 future.set(transform(value))
             }, failure: { error in
@@ -345,7 +359,7 @@ public extension Future {
     /// Mappes the error and return a new future with the error mapped
     public func mapError(_ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 future.set(value)
             }, failure: { error in
@@ -357,7 +371,7 @@ public extension Future {
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
         return Future<K>(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 future.set(closure(value))
             }, failure: { error in
@@ -369,7 +383,7 @@ public extension Future {
     /// Intercepts the error (if available) and returns a new future of type T
     public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 future.set(value)
             }, failure: { error in
@@ -382,7 +396,7 @@ public extension Future {
     public func andThen(success: @escaping (T) -> Void = { _ in },
                         failure: @escaping (Error) -> Void = { _ in }) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 success(value)
                 future.set(value)
@@ -397,7 +411,7 @@ public extension Future {
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
                 closure()
                 future.set(value)
@@ -408,15 +422,16 @@ public extension Future {
         }
     }
     
-    /// Filters the value and allows to exchange it in an error
-    public func filter(_ closure: @escaping (T?) -> Error?) -> Future<T> {
+    /// Filters the value and allows to exchange it for a thrown error
+    public func filter(_ closure: @escaping (T) throws -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { value in
-                if let error = closure(value) {
-                    future.set(error)
-                } else {
+                do {
+                    try closure(value)
                     future.set(value)
+                } catch (let error) {
+                    future.set(error)
                 }
             }, failure: { error in
                 future.set(error)
@@ -529,7 +544,7 @@ public extension Future {
     /// Collapses a 2-tuple future into a single value future
     public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { tuple in
                 future.set(closure(tuple.0, tuple.1))
             }, failure: { error in
@@ -541,7 +556,7 @@ public extension Future {
     /// Collapses a 3-tuple future into a single value future
     public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2))
             }, failure: { error in
@@ -553,7 +568,7 @@ public extension Future {
     /// Collapses a 4-tuple future into a single value future
     public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             then(success: { tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
             }, failure: { error in
@@ -569,7 +584,7 @@ public extension Future {
     /// Adds a delay to the then call
     public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
         return Future(reactive: self.reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             queue.asyncAfter(deadline: .now() + interval) {
                 self.then(success: { value in
                     future.set(value)
@@ -583,7 +598,7 @@ public extension Future {
     /// Calls the then block after the given deadline
     public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
         return Future(reactive: self.reactive) { future in
-            future.nestingLevel += nestingLevel
+            future.nestingLevel = nestingLevel + 1
             queue.asyncAfter(deadline: deadline) {
                 self.then(success: { value in
                     future.set(value)
@@ -609,9 +624,7 @@ public extension Future {
 extension Future {
     /// Unwrapes a future of an optional type, returning a future of a non-optional type
     public func unwrap<K>() -> Future<K> where T == K? {
-        return map { value -> K in
-            return value!
-        }
+        return map { $0! }
     }
 }
 
