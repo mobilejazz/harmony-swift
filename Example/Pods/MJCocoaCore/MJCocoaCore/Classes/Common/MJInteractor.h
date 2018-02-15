@@ -17,51 +17,58 @@
 #import <Foundation/Foundation.h>
 
 #import "MJFuture.h"
+#import "MJExecutor.h"
 
 /**
  * Interactor superclass.
  **/
-@interface MJInteractor : NSObject <MJFutureObserver>
+@interface MJInteractor : NSObject
 
 /**
- * The dispatch queue. Default is a unique queue shared among all instances of a same class.
- * @discussion This queue can be overriden in order to customize the interactor behavior.
+ * Default initializer.
+ *
+ * @discussion Use -init method to use a default executor per interactor class.
  **/
-@property (nonatomic, strong) dispatch_queue_t queue;
+- (instancetype)initWithExecutor:(MJExecutor*)executor;
+
+/**
+ * The executor.
+ **/
+@property (nonatomic, strong) MJExecutor *executor;
 
 /**
  * Executes a block in a background queue. Locks the interactor thread.
  * @discussion A `begin` call must be in corresponded to a `end` call.
  **/
-- (void)begin:(void (^)(void))block;
+- (void)begin:(void (^)(void))block __attribute__((deprecated("Use -[self.executor submit:] instead")));
 
 /**
  * Executes a block in the main queue. Unlocks the interactor thread.
  * @discussion A `begin` call must be in corresponded to a `end` call.
  **/
-- (void)end:(void (^)(void))block;
+- (void)end:(void (^)(void))block __attribute__((deprecated("Use -[self.executor submit:] instead")));
 
 /**
  * Unlock the interactor thread. This is equal to calling end with a nil block parameter.
  */
-- (void)end;
+- (void)end __attribute__((deprecated("Use -[self.executor submit:] instead")));
 
 /**
  * Locks the interactor thread, executes the block in a background queue and then unlocks the interactor thread.
  * @discussion When using this method, do not use neither `-begin:` nor `-end:` or `-end` methods.
  **/
-- (void)perform:(void (^)(void))block;
+- (void)perform:(void (^)(void))block __attribute__((unavailable("This method is unavailable. Use -[self.executor submit:] instead")));
 
 /**
  * Creates a future to be used, and does the thread management.
  * @discussion When using this method, do not use neither `-begin:` nor `-end:` or `-end` methods.
  **/
-- (MJFuture*)performWithFuture:(void (^)(MJFuture *future))block;
+- (MJFuture*)performWithFuture:(void (^)(MJFuture *future))block __attribute__((deprecated("Use -[self.executor ft_submit:] instead")));
 
 /**
  * YES if executing, NO otherwise. This property is KVO compliant.
  **/
-@property (nonatomic, assign, readonly) BOOL isExecuting;
+@property (nonatomic, assign, readonly) BOOL isExecuting __attribute__((deprecated("Use self.executor.isExeucting instead")));
 
 /**
  * Set needs refresh method. This will flag the `refresh` property to YES until the end of the interactor.
@@ -74,3 +81,4 @@
 @property (nonatomic, assign, readonly) BOOL refresh;
 
 @end
+

@@ -15,5 +15,6 @@ target 'MJSwiftCore_Example' do
 
   target 'MJSwiftCore_Tests' do
     inherit! :search_paths
+    pod 'PromisesSwift', '~> 1.0'
   end
 end

@@ -15,7 +15,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MJFuture.h"
+
+@class MJFuture<T>;
 
 /**
  * Batch management of futures.
@@ -23,9 +24,24 @@
 @interface MJFutureBatch <T> : NSObject
 
 /**
- * Returns an empty future batch.
+ * Returns an empty non-serial future batch.
  **/
 + (MJFutureBatch <T> * _Nonnull)emptyBatch;
+
+/**
+ * Returns an empty serial future batch.
+ **/
++ (MJFutureBatch <T> * _Nonnull)emptySerialBatch;
+
+/**
+ * Default initializer.
+ **/
+- (instancetype _Nonnull)initSerial:(BOOL)serial;
+
+/**
+ * Serial delivery of futures (in order of batch).
+ **/
+@property (nonatomic, assign, readonly) BOOL serial;
 
 /**
  * Batches a future.

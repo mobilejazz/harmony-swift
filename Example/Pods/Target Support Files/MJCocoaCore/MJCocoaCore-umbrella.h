@@ -16,12 +16,15 @@
 #import "MJDEntity.h"
 #import "MJDEntityMapper.h"
 #import "MJErrorCodes.h"
-#import "MJFuture.h"
-#import "MJFutureBatch.h"
+#import "MJExecutor.h"
 #import "MJInteractor.h"
 #import "MJModelObject.h"
 #import "MJSecureKey.h"
 #import "NSString+Additions.h"
+#import "MJCocoaCoreFuture.h"
+#import "MJFuture.h"
+#import "MJFutureBatch.h"
+#import "MJFutureHub.h"
 
 FOUNDATION_EXPORT double MJCocoaCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char MJCocoaCoreVersionString[];

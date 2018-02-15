@@ -11,7 +11,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		607FACEC1AFB9204008FA782 /* FuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */; };
 		7152743BA0B4BF1E46BD8A78 /* Pods_MJSwiftCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ECDC09EDCF8816F81AEF3D1 /* Pods_MJSwiftCore_Example.framework */; };
 		95E42FF57A285F7CC71DE1AB /* Pods_MJSwiftCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311F2B5F4A80BDC248353862 /* Pods_MJSwiftCore_Tests.framework */; };
 		D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */; };
@@ -39,6 +39,9 @@
 		D219D7151FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70C1FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift */; };
 		D219D7161FCC2E4300D91CED /* UIKitMVPItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70D1FCC2E4300D91CED /* UIKitMVPItemDetailView.swift */; };
 		D219D7171FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */; };
+		D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */; };
+		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
+		D22A0BA82035CE570026068F /* PromisesPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +68,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* MJSwiftCore_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MJSwiftCore_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturePerformanceTests.swift; sourceTree = "<group>"; };
 		7ECDC09EDCF8816F81AEF3D1 /* Pods_MJSwiftCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJSwiftCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		982946972C97C62DC4064E5F /* MJSwiftCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = MJSwiftCore.podspec; path = ../MJSwiftCore.podspec; sourceTree = "<group>"; };
 		9998179D7257EF4EE6FAFBE9 /* Pods-MJSwiftCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +97,10 @@
 		D219D70C1FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailViewController.swift; sourceTree = "<group>"; };
 		D219D70D1FCC2E4300D91CED /* UIKitMVPItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailView.swift; sourceTree = "<group>"; };
 		D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailPresenter.swift; sourceTree = "<group>"; };
+		D22A0B9E2035C91F0026068F /* MJSwiftCore_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MJSwiftCore_Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDPerformanceTests.swift; sourceTree = "<group>"; };
+		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromisesPerformanceTest.swift; sourceTree = "<group>"; };
 		FA3CEBEDE802979A4DE14FCE /* Pods-MJSwiftCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Tests/Pods-MJSwiftCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +180,10 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				D22A0BA52035CD580026068F /* TestHelper.swift */,
+				607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */,
+				D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */,
+				D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -193,6 +203,7 @@
 				982946972C97C62DC4064E5F /* MJSwiftCore.podspec */,
 				1867765D8101E13AA1A34DF9 /* README.md */,
 				291B699DD5DD1B0C680CA3CD /* LICENSE */,
+				D22A0B9E2035C91F0026068F /* MJSwiftCore_Example-Bridging-Header.h */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -440,7 +451,7 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 3VP5WS89TZ;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -498,13 +509,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MJSwiftCore_Tests/Pods-MJSwiftCore_Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -646,7 +657,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				D22A0BA82035CE570026068F /* PromisesPerformanceTest.swift in Sources */,
+				D22A0BA62035CD580026068F /* TestHelper.swift in Sources */,
+				607FACEC1AFB9204008FA782 /* FuturePerformanceTests.swift in Sources */,
+				D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +798,7 @@
 			baseConfigurationReference = 3D928CA20F058D1F82218196 /* Pods-MJSwiftCore_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 3VP5WS89TZ;
 				INFOPLIST_FILE = MJSwiftCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -791,6 +806,8 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MJSwiftCore_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -801,6 +818,7 @@
 			baseConfigurationReference = 9998179D7257EF4EE6FAFBE9 /* Pods-MJSwiftCore_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 3VP5WS89TZ;
 				INFOPLIST_FILE = MJSwiftCore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -808,6 +826,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MJSwiftCore_Example-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -831,6 +850,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MJSwiftCore_Example-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MJSwiftCore_Example.app/MJSwiftCore_Example";
@@ -851,6 +871,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MJSwiftCore_Example-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MJSwiftCore_Example.app/MJSwiftCore_Example";

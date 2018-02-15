@@ -15,12 +15,14 @@
 //
 
 #import "MJFutureBatch.h"
+#import "MJFuture.h"
 
-@interface MJFutureResult : NSObject
+@interface MJFutureResult <T> : NSObject
 
-@property (nonatomic, strong) id object;
+@property (nonatomic, strong) T object;
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, strong) id context;
+@property (nonatomic, assign) BOOL completed;
 
 @end
 
@@ -36,23 +38,38 @@
     NSInteger _counter;
     NSMutableArray <MJFutureResult*> *_results;
     MJFutureResult *_errorResult;
+    
+    NSInteger _serialDeliveryIndex;
 }
 
 - (instancetype)init
 {
+    return [self initSerial:NO];
+}
+
+- (instancetype)initSerial:(BOOL)serial
+{
     self = [super init];
     if (self)
     {
+        _serial = serial;
         _results = [NSMutableArray array];
+        _serialDeliveryIndex = 0;
     }
     return self;
 }
+
 
 #pragma mark Public Methods
 
 + (MJFutureBatch*)emptyBatch
 {
-    return [[MJFutureBatch alloc] init];
+    return [[MJFutureBatch alloc] initSerial:NO];
+}
+
++ (MJFutureBatch*)emptySerialBatch
+{
+    return [[MJFutureBatch alloc] initSerial:YES];
 }
 
 - (void)batchFuture:(MJFuture * _Nonnull)future
@@ -67,18 +84,36 @@
         _counter++;
     }
     
+    if (_serial)
+    {
+        MJFutureResult *result = [MJFutureResult new];
+        [_results addObject:result];
+    }
+    
+    NSInteger serialIndex = _results.count - 1;
+    
     [future then:^(id  _Nullable object, NSError * _Nullable error) {
         
         @synchronized (self)
         {
             _counter--;
             
-            MJFutureResult *result = [MJFutureResult new];
+            MJFutureResult *result = nil;
+            
+            if (_serial)
+            {
+                result = _results[serialIndex];
+                result.completed = YES;
+            }
+            else
+            {
+                result = [MJFutureResult new];
+                [_results addObject:result];
+            }
+            
             result.object = object;
             result.error = error;
             result.context = context;
-            
-            [_results addObject:result];
             
             if (!_errorResult && error != nil)
                 _errorResult = result;
@@ -107,12 +142,31 @@
 {
     if (_thenBlock)
     {
-        NSMutableArray <MJFutureResult*> *results = _results;
-        _results = [NSMutableArray array];
-        
-        [results enumerateObjectsUsingBlock:^(MJFutureResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            _thenBlock(obj.object, obj.error, obj.context);
-        }];
+        if (_serial)
+        {
+            for (NSInteger i=_serialDeliveryIndex; i<_results.count; ++i)
+            {
+                MJFutureResult *result = _results[i];
+                if (result.completed)
+                {
+                    _thenBlock(result.object, result.error, result.context);
+                    _serialDeliveryIndex = i+1;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            NSMutableArray <MJFutureResult*> *results = _results;
+            _results = [NSMutableArray array];
+            
+            [results enumerateObjectsUsingBlock:^(MJFutureResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                _thenBlock(obj.object, obj.error, obj.context);
+            }];
+        }
     }
     
     if (_completionBlock && _counter == 0)

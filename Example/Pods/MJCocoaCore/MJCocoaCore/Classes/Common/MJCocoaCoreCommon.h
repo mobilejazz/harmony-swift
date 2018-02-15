@@ -14,14 +14,17 @@
 // limitations under the License.
 //
 
+#ifndef MJCocoaCoreCommon_h
+#define MJCocoaCoreCommon_h
+
 #import "MJAppLinkRecognizer.h"
 #import "MJDataProviderDirector.h"
 #import "MJDEntity.h"
 #import "MJDEntityMapper.h"
 #import "MJErrorCodes.h"
-#import "MJFuture.h"
-#import "MJFutureBatch.h"
 #import "MJInteractor.h"
 #import "MJModelObject.h"
 #import "MJSecureKey.h"
 #import "NSString+Additions.h"
+
+#endif /* MJCocoaCoreCommon_h */

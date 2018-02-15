@@ -16,12 +16,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class MJFutureHub<T>;
+
 typedef NS_ENUM(NSInteger, MJFutureState)
 {
-	MJFutureStateBlank,
-	MJFutureStateWaitingBlock,
-	MJFutureStateWaitingValueOrError,
-	MJFutureStateSent,
+    MJFutureStateBlank,
+    MJFutureStateWaitingBlock,
+    MJFutureStateWaitingValueOrError,
+    MJFutureStateSent,
 };
 
 extern NSString * _Nonnull const MJFutureValueNotAvailableException;
@@ -42,7 +44,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 
 /**
  Creates an empty future
-
+ 
  @return An empty future
  */
 + (MJFuture <T>* _Nonnull)emptyFuture;
@@ -51,12 +53,12 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  Creates an empty reactive future.
  
  @return An empty reactive future.
-**/
+ **/
 + (MJFuture <T>* _Nonnull)reactiveFuture;
 
 /**
  Creates an immediate future passing a value
-
+ 
  @param value The value to set to the future
  @return A future
  */
@@ -72,11 +74,11 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 
 /**
  Creates a future from another future
-
+ 
  @param future The future to set to the future
  @return A future
  */
-+ (MJFuture <T>* _Nonnull)futureWithFuture:(MJFuture<T>* _Nonnull )future;
++ (MJFuture <T>* _Nonnull)futureWithFuture:(MJFuture<T>* _Nonnull)future;
 
 /**
  Creates an empty future
@@ -98,12 +100,6 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 @property (nonatomic, assign, readonly) BOOL reactive;
 
 /**
- The queue on which the completion block will be called. Default is nil.
- @discussion If nil, the static default queue will be used instead.
- */
-@property (nonatomic, strong, readwrite) dispatch_queue_t _Nonnull returnQueue;
-
-/**
  Sets the default reutrn queue. Default one is the main queue.
  
  @param queue The default return queue
@@ -122,15 +118,22 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  ** ************************************ **/
 
 /**
- Sets the value on the future. If the future is ready, the *then* block will be called
+ Configures the receiver with the same reactiveness as the given future.
+ 
+ @param future The future to mimic its reactiveness.
+ */
+- (void)mimic:(MJFuture<T>* _Nonnull)future;
 
+/**
+ Sets the value on the future. If the future is ready, the *then* block will be called
+ 
  @param value A not null value
  */
 - (void)setValue:(_Nullable T)value;
 
 /**
  Sets an error on the future. If the future is ready, the *then* block will be called
-
+ 
  @param error A not null error object
  */
 - (void)setError:(NSError * _Nonnull)error;
@@ -144,9 +147,19 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 - (void)setValue:(_Nullable T)value error:(NSError * _Nullable)error;
 
 /**
- * Block called upon value is set.
+ Sets the future with the result of another future.
+ 
+ @param future The future to set the current future
  **/
-@property (nonatomic, strong) void (^ _Nullable onSetBlock)(_Nullable T __strong * _Nonnull, NSError * _Nullable __strong * _Nonnull );
+- (void)setFuture:(MJFuture * _Nonnull)future;
+
+/**
+ * Block called upon value is set.
+ *
+ * @param block The block called.
+ * @discussion The block parameters are pointers to the value/error. These pointers can be changed in order to replace the setted value or error.
+ **/
+- (void)onSet:(void (^_Nonnull)(_Nullable T __strong * _Nonnull, NSError * _Nullable __strong * _Nonnull ))block;
 
 #pragma mark - Future execution
 
@@ -155,9 +168,10 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  ** ************************************ **/
 
 /**
- * Returns the future in the given queue
+ * Returns the future in the given queue. Default queue is nil.
+ * @discussion A nil queue will execute the then block in the same queue where the setValue/setError happens.
  **/
-- (MJFuture<T>* _Nonnull)inQueue:(dispatch_queue_t _Nonnull)queue;
+- (MJFuture<T>* _Nonnull)inQueue:(dispatch_queue_t _Nullable)queue;
 
 /**
  * Returns the future in the main queue
@@ -169,12 +183,21 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  
  @param block The block to be executed, with the object or the error passed as parameter
  */
-- (void)then:(void (^ _Nullable )(_Nullable T object, NSError *_Nullable error))block;
+- (void)then:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block;
 
 /**
-  Completes the future (if not completed yet). Completed futures cannot be used anymore.
+ Optional interface for the -then: method.
  
-  @discussion Futures might be completed to finish the expectation of a value and then block. When completed, all then blocks and values are released.
+ @param success The success block
+ @param failure The failure block
+ @discussion If this method is called, you can't call the then method as it would redefine the then block.
+ **/
+- (void)success:(void (^ _Nullable)(_Nullable T value))success failure:( void (^ _Nullable)(NSError * _Nullable error))failure;
+
+/**
+ Completes the future (if not completed yet). Completed futures cannot be used anymore and no then block will be called afterwards.
+ 
+ @discussion Futures might be completed to finish the expectation of a value and then block. When completed, all then blocks and values are released.
  **/
 - (void)complete;
 
@@ -186,7 +209,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  Blocks the current thread until the value is obtained or return the value direclty if it is already availble.
  
  @return The future value.
- @discussion If error, this method returns nil and throws an exception;
+ @discussion If error, this method returns nil and throws an exception, containing the error inside the userInfo for the key MJFutureErrorKey.
  */
 - (_Nullable T)value;
 
@@ -216,6 +239,11 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  **/
 - (void)removeObserver:(_Nonnull id <MJFutureObserver>)observer;
 
+/**
+ Returns a hub associated to the current future
+ */
+@property (nonatomic, strong, readwrite) MJFutureHub<T> * _Nonnull hub;
+
 @end
 
 /**
@@ -236,28 +264,29 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 @interface MJFuture<T> (Functional)
 
 /**
-  Mappes the value and return a new future with the value mapped.
+ Mappes the value and return a new future with the value mapped.
  **/
-- (MJFuture* _Nonnull)map:(id _Nonnull (^_Nonnull)(T _Nonnull value))block;
+- (MJFuture * _Nonnull)map:(id _Nonnull (^_Nonnull)(T _Nonnull value))block;
 
 /**
-  Mappes the error and return a new future with the error mapped.
+ Mappes the error and return a new future with the error mapped.
  **/
 - (MJFuture <T> *_Nonnull)mapError:(NSError * _Nonnull (^_Nonnull)(NSError * _Nonnull error))block;
 
 /**
-  Intercepts the value if success and returns a new future of a mapped type to be chained
+ Intercepts the value if success and returns a new future of a mapped type to be chained
  **/
 - (MJFuture *_Nonnull)flatMap:(MJFuture * _Nonnull (^_Nonnull)(id _Nonnull value))block;
 
 /**
-  Intercepts the error (if available) and returns a new future of type T.
+ Intercepts the error (if available) and returns a new future of type T.
  **/
 - (MJFuture <T> *_Nonnull)recover:(MJFuture <T> * _Nonnull (^_Nonnull)(NSError * _Nonnull error))block;
 
 /**
-  Filters the value and allows to exchange it for an error.
+ Filters the value and allows to exchange it for an error.
  **/
 - (MJFuture <T> *_Nonnull)filter:(NSError * _Nonnull (^_Nonnull)(id _Nonnull value))block;
 
 @end
+

@@ -1,38 +1,38 @@
-**WARNING: This project has been abandoned in favor of MJSwiftCore: https://github.com/mobilejazz/MJSwiftCore**
+# ![Mobile Jazz Badge](https://raw.githubusercontent.com/mobilejazz/metadata/master/images/icons/mj-40x40.png) MJCocoaCore
 
-[![CI Status](http://img.shields.io/travis/mobilejazz/MJCocoaCore.svg?style=flat)](https://travis-ci.org/mobilejazz/MJCocoaCore)
 [![Version](https://img.shields.io/cocoapods/v/MJCocoaCore.svg?style=flat)](http://cocoapods.org/pods/MJCocoaCore)
 [![License](https://img.shields.io/cocoapods/l/MJCocoaCore.svg?style=flat)](http://cocoapods.org/pods/MJCocoaCore)
 [![Platform](https://img.shields.io/cocoapods/p/MJCocoaCore.svg?style=flat)](http://cocoapods.org/pods/MJCocoaCore)
 
+## Installation
 
-# ![Mobile Jazz Badge](https://raw.githubusercontent.com/mobilejazz/metadata/master/images/icons/mj-40x40.png) MJCocoaCore
+To install the MJCocoaCore library using [Cocoapods](https://cocoapods.org/), just paste the following line in your podfile:
 
-Utilities not dependent on UIKit, so they can be used in iOS, tvOS and macOS projects
-
-## How to install
-
-To install the MJ Cocoa Core library using [Cocoapods](https://cocoapods.org/), just paste the following line in your podfile:
 ```ruby
 pod 'MJCocoaCore'
 ```
 
-We also have some subpods that can be installed like this:
+Available Subspecs:
+
+- MJCocoaCore/Future
+- MJCocoaCore/Common
+- MJCocoaCore/Realm
+
+Note that the default pod `MJCocoaCore` does not contain the Realm subpod, which needs to be explicitely specified:
+
 ```ruby
-pod 'MJCocoaCore/Common'
+pod 'MJCocoaCore'
 pod 'MJCocoaCore/Realm'
 ```
 
-## Dependencies
+### Example Project
 
-MJCocoaCore/Realm rely on Realm, but the dependency is automatically managed by CocoaPods.
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Running the sample
+## Author
 
-To run the sample:
+Mobile Jazz, info@mobilejazz.com
 
-- clone this repo
-- `cd` into `Example`
-- run `pod install` from command line
-- use the WorkSpace & enjoy
-- check the Unit tests 
+## License
+
+MJCocoaCore is available under the Apache 2 license. See the LICENSE file for more info.

@@ -15,8 +15,9 @@
 //
 
 #import "MJInteractor.h"
+#import "MJExecutor.h"
 
-static NSMutableDictionary *_interactorDispatchQueues;
+static NSMutableDictionary *_executors;
 
 @interface MJInteractor ()
 
@@ -26,114 +27,77 @@ static NSMutableDictionary *_interactorDispatchQueues;
 
 @implementation MJInteractor
 {
-    dispatch_semaphore_t _semaphore;
+    void (^_end)(void);
 }
-
-@synthesize isExecuting = _isExecuting;
 
 + (void)initialize
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _interactorDispatchQueues = [[NSMutableDictionary alloc] init];
+        _executors = [[NSMutableDictionary alloc] init];
     });
 }
 
 - (id)init
 {
+    @synchronized(_executors)
+    {
+        NSString *key = NSStringFromClass(self.class);
+        MJExecutor *executor = _executors[key];
+        if (!executor)
+        {
+            NSString *queueName = [NSString stringWithFormat:@"com.mobilejazz.core.interactor.%@", key];
+            dispatch_queue_t queue = dispatch_queue_create([queueName cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
+            executor = [[MJExecutor alloc] initWithQueue:queue];
+            _executors[key] = executor;
+        }
+        return [self initWithExecutor:executor];
+    }
+}
+
+- (instancetype)initWithExecutor:(MJExecutor *)executor
+{
     self = [super init];
     if (self)
     {
         _refresh = NO;
-        
-        NSString *className = NSStringFromClass(self.class);
-        NSString *queueName = [NSString stringWithFormat:@"com.mobilejazz.core.interactor.%@", className];
-        
-        @synchronized(_interactorDispatchQueues)
-        {
-            dispatch_queue_t queue = _interactorDispatchQueues[queueName];
-            if (!queue)
-            {
-                queue = dispatch_queue_create([queueName cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
-                _interactorDispatchQueues[queueName] = queue;
-            }
-            
-            _queue = queue;
-        }
+        _executor = executor;
     }
     return self;
-}
-
-#pragma mark Properties
-
-- (void)setQueue:(dispatch_queue_t)queue
-{
-    if (queue == NULL)
-    {
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"An interactor cannot work with a NULL queue." userInfo:nil] raise];
-    }
-    
-    if (self.isExecuting == YES)
-    {
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:@"Cannot set the queue while the interactor is being executed." userInfo:nil] raise];
-    }
-    
-    _queue = queue;
 }
 
 #pragma mark Public Methods
 
 - (void)begin:(void (^)(void))block
 {
-    [self willChangeValueForKey:@"isExecuting"];
-    _isExecuting = YES;
-    [self didChangeValueForKey:@"isExecuting"];
-    dispatch_async(self.queue, ^{
-        _semaphore = dispatch_semaphore_create(0);
+    [_executor submit:^(void (^ _Nonnull end)(void)) {
+        _end = end;
         block();
-        dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
-    });
+    }];
 }
 
 - (void)end:(void (^)(void))block
 {
     if ([NSThread isMainThread])
     {
-        if (block)
-        {
-            block();
-        }
-        [self willChangeValueForKey:@"isExecuting"];
-        _isExecuting = NO;
-        [self didChangeValueForKey:@"isExecuting"];
-        if (_semaphore != NULL)
-        {
-            dispatch_semaphore_signal(_semaphore);
-        }
+        block();
+        [self end];
     }
     else
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (block)
-            {
-                block();
-            }
-            [self willChangeValueForKey:@"isExecuting"];
-            _isExecuting = NO;
-            [self didChangeValueForKey:@"isExecuting"];
-            if (_semaphore != NULL)
-            {
-                dispatch_semaphore_signal(_semaphore);
-            }
+            block();
+            [self end];
         });
     }
-    
-    _refresh = NO;
 }
 
 - (void)end
 {
-    [self end:nil];
+    void (^end)(void) = _end;
+    _end = nil;
+    _refresh = NO;
+    end();
 }
 
 - (void)setNeedsRefresh
@@ -143,46 +107,15 @@ static NSMutableDictionary *_interactorDispatchQueues;
 
 - (BOOL)isExecuting
 {
-    return _isExecuting;
-}
-
-- (void)perform:(void (^)(void))block
-{
-    [self begin:^{
-        block();
-        [self end];
-    }];
+    return _executor.isExecuting;
 }
 
 - (MJFuture*)performWithFuture:(void (^)(MJFuture *future))block
 {
-    MJFuture *future = [MJFuture emptyFuture];
-    
-    [future addObserver:self];
-    
-    [self begin:^{
+    return [_executor ft_submit:^(MJFuture * _Nonnull future) {
         block(future);
     }];
-    
-    return future;
-}
-
-#pragma mark - Protocols
-#pragma mark MJFutureObserver
-
-- (void)future:(MJFuture *)future didSetValue:(id)value
-{
-    [self end];
-}
-
-- (void)future:(MJFuture *)future didSetError:(NSError *)error
-{
-    [self end];
-}
-
-- (void)wontHappenFuture:(MJFuture *)future
-{
-    [self end];
 }
 
 @end
+
