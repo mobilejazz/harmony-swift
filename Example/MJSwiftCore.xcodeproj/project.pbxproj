@@ -42,6 +42,7 @@
 		D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
 		D22A0BA82035CE570026068F /* PromisesPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */; };
+		D27A38BE2035D3C4008B38B1 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDPerformanceTests.swift; sourceTree = "<group>"; };
 		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromisesPerformanceTest.swift; sourceTree = "<group>"; };
+		D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
 		FA3CEBEDE802979A4DE14FCE /* Pods-MJSwiftCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Tests/Pods-MJSwiftCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 			children = (
 				D22A0BA52035CD580026068F /* TestHelper.swift */,
 				607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */,
+				D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */,
 				D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */,
 				D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
@@ -661,6 +664,7 @@
 				D22A0BA62035CD580026068F /* TestHelper.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* FuturePerformanceTests.swift in Sources */,
 				D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */,
+				D27A38BE2035D3C4008B38B1 /* MJFuturePerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

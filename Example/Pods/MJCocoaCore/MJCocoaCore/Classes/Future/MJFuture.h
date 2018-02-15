@@ -288,5 +288,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  **/
 - (MJFuture <T> *_Nonnull)filter:(NSError * _Nonnull (^_Nonnull)(id _Nonnull value))block;
 
+- (MJFuture <T> *_Nonnull)andThen:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block;
+
 @end
 

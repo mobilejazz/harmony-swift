@@ -526,6 +526,14 @@ static dispatch_queue_t _defaultReturnQueue = nil;
     }];
     return future;
 }
+- (MJFuture *)andThen:(void (^)(id value, NSError * error))block
+{
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id  _Nullable value, NSError * _Nullable error) {
+        [future setValue:value error:error];
+    }];
+    return future;
+}
 
 @end
 
