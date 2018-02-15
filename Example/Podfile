@@ -12,9 +12,10 @@ target 'MJSwiftCore_Example' do
 
   pod 'Swinject', '~> 2.1'
   pod 'Kingfisher', '~> 4.2'
+  
+  pod 'PromisesSwift', '~> 1.0'
 
   target 'MJSwiftCore_Tests' do
     inherit! :search_paths
-    pod 'PromisesSwift', '~> 1.0'
   end
 end

@@ -57,8 +57,7 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                let future = Future<Bool>(true)
-                future.andThen(success: { value in
+                Future<Bool>(true).inQueue(queue).andThen(success: { value in
                  
                 }).inQueue(queue).then(success: { value in
                     semaphore.signal()
@@ -86,9 +85,9 @@ class FuturePerformanceTests: XCTestCase {
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 let future = Future<Bool>(true)
-                future.andThen(success: { value in
+                future.inQueue(queue).andThen(success: { value in
                     
-                }).andThen(success: { value in
+                }).inQueue(queue).andThen(success: { value in
                     
                 }).inQueue(queue).then(success: { value in
                     semaphore.signal()

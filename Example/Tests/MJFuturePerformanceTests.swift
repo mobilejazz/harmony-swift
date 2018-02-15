@@ -57,7 +57,7 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).andThen({ (value, error) in
+                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).andThen({ (value, error) in
                     
                 }).inQueue(queue).then { (value, error) in
                     semaphore.signal()
@@ -84,9 +84,9 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).andThen({ (value, error) in
+                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).andThen({ (value, error) in
                     
-                }).andThen({ (value, error) in
+                }).inQueue(queue).andThen({ (value, error) in
                     
                 }).inQueue(queue).then { (value, error) in
                     semaphore.signal()

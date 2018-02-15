@@ -26,6 +26,7 @@ public class Future<T> {
         case thenAlreadySet
         case alreadySent
         case notReactive
+        case missingLambda
         
         var localizedDescription: String {
             switch (self) {
@@ -37,6 +38,8 @@ public class Future<T> {
                 return "Future is already sent."
             case .notReactive:
                 return "Future is not reactive and can't be completed"
+            case .missingLambda:
+                return "Future cannot be sent as the then clousre hasn't been defined"
             }
         }
     }
@@ -85,12 +88,27 @@ public class Future<T> {
     /// Defines if the future is reactive or not.
     public private(set) var reactive : Bool
     
+    private struct Lambda {
+        init (_ success: @escaping (T) -> Void, _ failure: @escaping (Error) -> Void) {
+            self.success = success
+            self.failure = failure
+        }
+        let success: ((_ value: T) -> Void)
+        let failure: ((_ error: Error) -> Void)
+    }
+    
     // Private variables
-    private var success: ((_ value: T) -> Void)?
-    private var failure: ((_ error: Error) -> Void)?
+    private var lambda : Lambda?
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
     private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
+    private let lock = NSLock()
+    
+    private func lock(_ closure: () -> Void) {
+        lock.lock()
+        closure()
+        lock.unlock()
+    }
     
     /// Returns a hub associated to the current future
     public private(set) lazy var hub = FutureHub<T>(self)
@@ -186,12 +204,27 @@ public class Future<T> {
                 self.onContentSet = nil
             }
         }
-        if let error = error {
-            result = .error(error)
-        } else {
-            result = .value(value!)
+        
+        lock() {
+            if let error = error {
+                result = .error(error)
+            } else {
+                result = .value(value!)
+            }
+            
+            if lambda != nil {
+                // Resolve the then closure
+                send()
+                if !reactive {
+                    state = .sent
+                }
+            } else {
+                state = .waitingThen
+                if let semaphore = semaphore {
+                    semaphore.signal()
+                }
+            }
         }
-        update()
     }
     
     /// Closure called right after content is set, without waiting the then closure.
@@ -263,79 +296,61 @@ public class Future<T> {
     public func then(success: @escaping (T) -> Void = { _ in },
                      failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
-            if self.success != nil || self.failure != nil {
+            if lambda != nil {
                 fatalError(InternalError.thenAlreadySet.localizedDescription)
             }
         }
-        self.success = success
-        self.failure = failure
-        update()
+        
+        lock() {
+            self.lambda = Lambda(success, failure)
+            if result != nil {
+                send()
+                if !reactive {
+                    state = .sent
+                }
+            } else {
+                state = .waitingContent
+            }
+        }
     }
     
     /// Completes the future (if not completed yet)
     public func complete() {
-        if state != .sent {
-            state = .sent
-            self.success = nil
-            self.failure = nil
-        }
-    }
-    
-    private func update() {
-        switch state {
-        case .sent:
-            fatalError(InternalError.alreadySent.localizedDescription)
-        case .blank:
-            // Waiting for either the result, or the then closure
-            if result != nil {
-                state = .waitingThen
-                if let semaphore = semaphore {
-                    DispatchSemaphore.signal(semaphore)()
-                }
-            } else if (success != nil) {
-                state = .waitingContent
-            }
-        case .waitingThen:
-            if success != nil {
-                send()
-                if !reactive {
-                    state = .sent
-                }
-            }
-        case .waitingContent:
-            if result != nil {
-                send()
-                if !reactive {
-                    state = .sent
-                }
+        lock() {
+            if state != .sent {
+                state = .sent
+                lambda = nil
             }
         }
     }
     
     private func send() {
+        guard let lambda = lambda else {
+            print(InternalError.missingLambda.localizedDescription)
+            return
+        }
+        
         if let queue = queue {
-            let success = self.success!
-            let failure = self.failure!
-            let result = self.result!
-            queue.async {
-                switch result {
-                case .error(let error):
-                    failure(error)
-                case .value(let value):
-                    success(value)
+            switch result! {
+            case .error(let error):
+                queue.async {
+                    lambda.failure(error)
+                }
+            case .value(let value):
+                queue.async {
+                    lambda.success(value)
                 }
             }
         } else {
             switch result! {
             case .error(let error):
-                failure!(error)
+                lambda.failure(error)
             case .value(let value):
-                success!(value)
+                lambda.success(value)
             }
         }
         if !reactive {
-            self.success = nil
-            self.failure = nil
+            self.lambda = nil
         }
     }
 }

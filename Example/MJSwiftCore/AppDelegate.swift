@@ -8,6 +8,7 @@
 
 import UIKit
 import MJSwiftCore
+import Promises
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
         let splash = SplashViewController()
         let container = ContainerViewController(splash)
         
@@ -28,9 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
         }
-        
-        
-        
         return true
     }
 
