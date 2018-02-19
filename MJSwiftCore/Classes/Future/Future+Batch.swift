@@ -16,22 +16,48 @@
 
 import Foundation
 
+/// Creates a new future from all given futures
+public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
+    let reactive = futures.filter { $0.reactive }.count > 0
+    let future = Future<[T]>(reactive:reactive)
+    var dict : [Int:T] = [:]
+    for (idx, futureT) in futures.enumerated() {
+        futureT.then(success: { value in
+            dict[idx] = value
+            if future.result == nil || future.reactive {
+                if dict.count == futures.count {
+                    var array : [T] = []
+                    for idx in 0..<dict.count {
+                        array.append(dict[idx]!)
+                    }
+                    future.set(array)
+                }
+            }
+        }, failure: { error in
+            if future.result == nil || future.reactive {
+                future.set(error)
+            }
+        })
+    }
+    return future
+}
+
+/// Creates a new future zipping the giving futures
+public func zip<T,K>(_ futureT: Future<T>, _ futureK: Future<K>) -> Future<(T,K)> {
+    return futureT.zip(futureK)
+}
+
+/// Creates a new future zipping the giving futures
+public func zip<T,K,L>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T,K,L)> {
+    return futureT.zip(futureK, futureL)
+}
+
+/// Creates a new future zipping the giving futures
+public func zip<T,K,L,M>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T,K,L,M)> {
+    return futureT.zip(futureK, futureL, futureM)
+}
+
 public extension Future {
-    
-    /// Creates a new future zipping the giving futures
-    public static func zip<T,K>(_ futureT: Future<T>, _ futureK: Future<K>) -> Future<(T,K)> {
-        return futureT.zip(futureK)
-    }
-    
-    /// Creates a new future zipping the giving futures
-    public static func zip<T,K,L>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T,K,L)> {
-        return futureT.zip(futureK, futureL)
-    }
-    
-    /// Creates a new future zipping the giving futures
-    public static func zip<T,K,L,M>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T,K,L,M)> {
-        return futureT.zip(futureK, futureL, futureM)
-    }
     
     /// Creates a new future that holds the tupple of results
     public func zip<K>(_ futureK: Future<K>) -> Future<(T,K)> {
