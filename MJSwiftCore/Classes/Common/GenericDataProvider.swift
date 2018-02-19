@@ -84,7 +84,7 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                     return self.storage.putAll(entities)
                 }
             case .storageSync:
-                return storage.getAll(query).flatMap { values -> Future<[E]> in
+                return storage.getAll(query).flatMap { values in
                     if !self.storageValidation.isArrayValid(values) {
                         return self.network.getAll(query).flatMap { entities in
                             return self.storage.putAll(entities)

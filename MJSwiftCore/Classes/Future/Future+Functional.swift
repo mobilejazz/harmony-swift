@@ -66,21 +66,6 @@ public extension Future {
         }
     }
     
-    /// Intercepts the then closure and returns a future containing the same result
-    public func andThen(success: @escaping (T) -> Void = { _ in },
-                        failure: @escaping (Error) -> Void = { _ in }) -> Future<T> {
-        return Future(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
-            then(success: { value in
-                success(value)
-                future.set(value)
-            }, failure: { error in
-                failure(error)
-                future.set(error)
-            })
-        }
-    }
-    
     /// Performs the closure after the then block is called.
     @discardableResult
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
