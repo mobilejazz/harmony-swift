@@ -32,10 +32,10 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).inQueue(queue).then(success: { value in
+                Future<Bool>(true).inQueue(queue).then { value in
                     semaphore.signal()
                     expectation.fulfill()
-                })
+                }
                 semaphore.wait()
             }
             print(average: time)
@@ -57,12 +57,12 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).inQueue(queue).andThen(success: { value in
-                 
-                }).inQueue(queue).then(success: { value in
-                    semaphore.signal()
-                    expectation.fulfill()
-                })
+                Future<Bool>(true).inQueue(queue).then { value in
+                    
+                    }.inQueue(queue).then { value in
+                        semaphore.signal()
+                        expectation.fulfill()
+                }
                 semaphore.wait()
             }
             print(average: time)
@@ -85,14 +85,14 @@ class FuturePerformanceTests: XCTestCase {
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 let future = Future<Bool>(true)
-                future.inQueue(queue).andThen(success: { value in
+                future.inQueue(queue).then { value in
                     
-                }).inQueue(queue).andThen(success: { value in
-                    
-                }).inQueue(queue).then(success: { value in
-                    semaphore.signal()
-                    expectation.fulfill()
-                })
+                    }.inQueue(queue).then { value in
+                        
+                    }.inQueue(queue).then { value in
+                        semaphore.signal()
+                        expectation.fulfill()
+                }
                 semaphore.wait()
             }
             print(average: time)
@@ -112,9 +112,9 @@ class FuturePerformanceTests: XCTestCase {
         for _ in 0..<Constants.iterationCount {
             group.enter()
             let future = Future<Bool>()
-            future.inQueue(queue).then(success: { value in
+            future.inQueue(queue).then { value in
                 group.leave()
-            })
+            }
             futures.append(future)
         }
         let startDate = Date()

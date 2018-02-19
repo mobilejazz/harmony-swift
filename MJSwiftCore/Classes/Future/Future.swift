@@ -88,21 +88,13 @@ public class Future<T> {
     /// Defines if the future is reactive or not.
     public private(set) var reactive : Bool
     
-    private struct Lambda {
-        init (_ success: @escaping (T) -> Void, _ failure: @escaping (Error) -> Void) {
-            self.success = success
-            self.failure = failure
-        }
-        let success: ((_ value: T) -> Void)
-        let failure: ((_ error: Error) -> Void)
-    }
-    
     // Private variables
-    private var lambda : Lambda?
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
     private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
     private let lock = NSLock()
+    private var success: ((_ value: T) -> Void)?
+    private var failure: ((_ error: Error) -> Void)?
     
     private func lock(_ closure: () -> Void) {
         lock.lock()
@@ -212,7 +204,7 @@ public class Future<T> {
                 result = .value(value!)
             }
             
-            if lambda != nil {
+            if success != nil || failure != nil {
                 // Resolve the then closure
                 send()
                 if !reactive {
@@ -296,13 +288,14 @@ public class Future<T> {
     public func then(success: @escaping (T) -> Void = { _ in },
                      failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
-            if lambda != nil {
+            if self.success != nil || self.failure != nil {
                 fatalError(InternalError.thenAlreadySet.localizedDescription)
             }
         }
         
         lock() {
-            self.lambda = Lambda(success, failure)
+            self.success = success
+            self.failure = failure
             if result != nil {
                 send()
                 if !reactive {
@@ -314,43 +307,94 @@ public class Future<T> {
         }
     }
     
+    /// Defines the success closure. If already defined, it creates a new future, chain it and defines the new then closure.
+    @discardableResult
+    public func then(_ success: @escaping (T) -> Void)  -> Future<T> {
+        if self.success != nil {
+            let future = Future(self)
+            future.then(success)
+            return future
+        }
+        
+        lock() {
+            self.success = success
+            if result != nil {
+                send()
+                if !reactive {
+                    state = .sent
+                }
+            } else {
+                state = .waitingContent
+            }
+        }
+        return self
+    }
+    
+    /// Defines the failure closure. If already defined, it creates a new future, chain it and defines the new then closure.
+    @discardableResult
+    public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
+        if self.failure != nil {
+            let future = Future(self)
+            future.fail(failure)
+            return future
+        }
+        
+        lock() {
+            self.failure = failure
+            if result != nil {
+                send()
+                if !reactive {
+                    state = .sent
+                }
+            } else {
+                state = .waitingContent
+            }
+        }
+        return self
+    }
+    
     /// Completes the future (if not completed yet)
     public func complete() {
         lock() {
             if state != .sent {
                 state = .sent
-                lambda = nil
+                success = nil
+                failure = nil
             }
         }
     }
     
     private func send() {
-        guard let lambda = lambda else {
-            print(InternalError.missingLambda.localizedDescription)
-            return
-        }
-        
-        if let queue = queue {
-            switch result! {
-            case .error(let error):
-                queue.async {
-                    lambda.failure(error)
-                }
-            case .value(let value):
-                queue.async {
-                    lambda.success(value)
-                }
+        switch result! {
+        case .error(let error):
+            guard let failure = failure else {
+                print(InternalError.missingLambda.localizedDescription)
+                return
             }
-        } else {
-            switch result! {
-            case .error(let error):
-                lambda.failure(error)
-            case .value(let value):
-                lambda.success(value)
+            if let queue = queue {
+                queue.async {
+                    failure(error)
+                }
+            } else {
+                failure(error)
+            }
+        case .value(let value):
+            guard let success = success else {
+                print(InternalError.missingLambda.localizedDescription)
+                return
+            }
+            if let queue = queue {
+                queue.async {
+                    success(value)
+                }
+                
+            } else {
+                success(value)
             }
         }
         if !reactive {
-            self.lambda = nil
+            self.success = nil
+            self.failure = nil
         }
     }
 }

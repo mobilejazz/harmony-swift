@@ -29,14 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
         }
-        
-        let f1 = Future<Int>()
-        let f2 = Future<Int>()
-        let f3 = Future<Int>()
-        let f4 = Future<Int>()
-        
-        let f = batch(f1,f2,f3,f4)
-        
         return true
     }
 
