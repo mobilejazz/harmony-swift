@@ -17,12 +17,12 @@
 import Foundation
 
 public extension Future {
-    
+        
     /// Mappes the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
         return Future<K>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 future.set(transform(value))
             }, failure: { error in
                 future.set(error)
@@ -34,7 +34,7 @@ public extension Future {
     public func mapError(_ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 future.set(value)
             }, failure: { error in
                 future.set(transform(error))
@@ -46,7 +46,7 @@ public extension Future {
     public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
         return Future<K>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 future.set(closure(value))
             }, failure: { error in
                 future.set(error)
@@ -58,7 +58,7 @@ public extension Future {
     public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 future.set(value)
             }, failure: { error in
                 future.set(closure(error))
@@ -71,7 +71,7 @@ public extension Future {
     public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 closure()
                 future.set(value)
             }, failure: { error in
@@ -85,7 +85,7 @@ public extension Future {
     public func filter(_ closure: @escaping (T) throws -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            then(success: { value in
+            success({ value in
                 do {
                     try closure(value)
                     future.set(value)

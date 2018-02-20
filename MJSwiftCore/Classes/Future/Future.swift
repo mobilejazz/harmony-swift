@@ -173,11 +173,11 @@ public class Future<T> {
         if copyReactiveState {
             reactive = future.reactive
         }
-        future.then(success: { value in
+        future.then { value in
             self.set(value)
-        }, failure: { error in
-            self.set(error)
-        })
+            }.fail { error in
+                self.set(error)
+        }
     }
     
     /// Sets the future with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
@@ -265,28 +265,9 @@ public class Future<T> {
         return self
     }
     
-    /// Synchronous then
-    public func then() -> Result {
-        switch state {
-        case .waitingThen:
-            if !reactive {
-                state = .sent
-            }
-            return result!
-        case .blank:
-            semaphore = DispatchSemaphore(value: 0)
-            DispatchSemaphore.wait(semaphore!)()
-            return then()
-        case .waitingContent:
-            fatalError(InternalError.thenAlreadySet.localizedDescription)
-        case .sent:
-            fatalError(InternalError.alreadySent.localizedDescription)
-        }
-    }
-    
     /// Then closure: delivers the value or the error
-    public func then(success: @escaping (T) -> Void = { _ in },
-                     failure: @escaping (Error) -> Void = { _ in }) {
+    internal func success(_ success: @escaping (T) -> Void = { _ in },
+                          failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
             if self.success != nil || self.failure != nil {
                 fatalError(InternalError.thenAlreadySet.localizedDescription)
@@ -307,50 +288,49 @@ public class Future<T> {
         }
     }
     
-    /// Defines the success closure. If already defined, it creates a new future, chain it and defines the new then closure.
-    @discardableResult
-    public func then(_ success: @escaping (T) -> Void)  -> Future<T> {
-        if self.success != nil {
-            let future = Future(self)
-            future.then(success)
-            return future
-        }
-        
-        lock() {
-            self.success = success
-            if result != nil {
-                send()
-                if !reactive {
-                    state = .sent
-                }
-            } else {
-                state = .waitingContent
+    /// Synchronous then
+    public func then() -> Result {
+        switch state {
+        case .waitingThen:
+            if !reactive {
+                state = .sent
             }
+            return result!
+        case .blank:
+            semaphore = DispatchSemaphore(value: 0)
+            DispatchSemaphore.wait(semaphore!)()
+            return then()
+        case .waitingContent:
+            fatalError(InternalError.thenAlreadySet.localizedDescription)
+        case .sent:
+            fatalError(InternalError.alreadySent.localizedDescription)
         }
-        return self
     }
     
-    /// Defines the failure closure. If already defined, it creates a new future, chain it and defines the new then closure.
+    /// Main then method
+    @discardableResult
+    public func then(_ success: @escaping (T) -> Void) -> Future<T> {
+        return Future(reactive: reactive) { future in
+            self.success({ value in
+                success(value)
+                future.set(value)
+            }, failure: { error in
+                future.set(error)
+            })
+        }
+    }
+    
+    /// Main fail method
     @discardableResult
     public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
-        if self.failure != nil {
-            let future = Future(self)
-            future.fail(failure)
-            return future
+        return Future(reactive: reactive) { future in
+            self.success({ value in
+                future.set(value)
+            }, failure: { error in
+                failure(error)
+                future.set(error)
+            })
         }
-        
-        lock() {
-            self.failure = failure
-            if result != nil {
-                send()
-                if !reactive {
-                    state = .sent
-                }
-            } else {
-                state = .waitingContent
-            }
-        }
-        return self
     }
     
     /// Completes the future (if not completed yet)

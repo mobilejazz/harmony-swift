@@ -1,6 +1,6 @@
 {
   "name": "MJSwiftCore",
-  "version": "0.3.3",
+  "version": "0.3.7",
   "summary": "Mobile Jazz Swift toolkit utilities",
   "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
   "homepage": "https://github.com/mobilejazz/MJSwiftCore",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/mobilejazz/MJSwiftCore.git",
-    "tag": "0.3.3"
+    "tag": "0.3.7"
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "default_subspecs": [
@@ -94,7 +94,7 @@
       "source_files": "MJSwiftCore/Classes/MJCocoaCore/**/*",
       "dependencies": {
         "MJCocoaCore/Common": [
-          "~>2.3"
+          "2.3.6"
         ],
         "MJSwiftCore/Common": [
 

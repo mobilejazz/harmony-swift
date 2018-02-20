@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.3.6'
+    s.version          = '0.3.7'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     
     # This description is used to generate tags and improve search results.
@@ -73,7 +73,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'MJCocoaCore' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*'
-        sp.dependency 'MJCocoaCore/Common', '~>2.3'
+        sp.dependency 'MJCocoaCore/Common', '2.3.6'
         sp.dependency 'MJSwiftCore/Common'
     end
     

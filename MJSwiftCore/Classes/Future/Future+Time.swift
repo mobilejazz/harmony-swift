@@ -23,7 +23,7 @@ public extension Future {
         return Future(reactive: self.reactive) { future in
             future.nestingLevel = nestingLevel + 1
             queue.asyncAfter(deadline: .now() + interval) {
-                self.then(success: { value in
+                self.success({ value in
                     future.set(value)
                 }, failure: { error in
                     future.set(error)
@@ -37,7 +37,7 @@ public extension Future {
         return Future(reactive: self.reactive) { future in
             future.nestingLevel = nestingLevel + 1
             queue.asyncAfter(deadline: deadline) {
-                self.then(success: { value in
+                self.success({ value in
                     future.set(value)
                 }, failure: { error in
                     future.set(error)

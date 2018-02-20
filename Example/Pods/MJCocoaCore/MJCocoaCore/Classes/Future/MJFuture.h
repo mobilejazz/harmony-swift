@@ -186,13 +186,14 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 - (void)then:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block;
 
 /**
- Optional interface for the -then: method.
- 
- @param success The success block
- @param failure The failure block
- @discussion If this method is called, you can't call the then method as it would redefine the then block.
+ * Success block. Returns a new future instance chained to the original one.
  **/
-- (void)success:(void (^ _Nullable)(_Nullable T value))success failure:( void (^ _Nullable)(NSError * _Nullable error))failure;
+- (MJFuture<T>* _Nonnull)success:(void (^ _Nonnull)(_Nullable T value))success;
+
+/**
+ * Failure block. Returns a new future instance chained to the original one.
+ **/
+- (MJFuture<T>* _Nonnull)failure:( void (^ _Nonnull)(NSError * _Nonnull error))failure;
 
 /**
  Completes the future (if not completed yet). Completed futures cannot be used anymore and no then block will be called afterwards.

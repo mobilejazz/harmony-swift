@@ -1,29 +1,29 @@
 PODS:
   - Alamofire (4.6.0)
   - Kingfisher (4.2.0)
-  - MJCocoaCore/Common (2.3.5):
+  - MJCocoaCore/Common (2.3.6):
     - MJCocoaCore/Future
-  - MJCocoaCore/Future (2.3.5)
-  - MJSwiftCore (0.3.3):
-    - MJSwiftCore/Common (= 0.3.3)
-    - MJSwiftCore/Security (= 0.3.3)
-  - MJSwiftCore/Alamofire (0.3.3):
+  - MJCocoaCore/Future (2.3.6)
+  - MJSwiftCore (0.3.7):
+    - MJSwiftCore/Common (= 0.3.7)
+    - MJSwiftCore/Security (= 0.3.7)
+  - MJSwiftCore/Alamofire (0.3.7):
     - Alamofire (~> 4.5)
     - MJSwiftCore/Common
-  - MJSwiftCore/Common (0.3.3):
+  - MJSwiftCore/Common (0.3.7):
     - MJSwiftCore/Future
-  - MJSwiftCore/Future (0.3.3)
-  - MJSwiftCore/iOS (0.3.3):
+  - MJSwiftCore/Future (0.3.7)
+  - MJSwiftCore/iOS (0.3.7):
     - MJSwiftCore/Common
-  - MJSwiftCore/MJCocoaCore (0.3.3):
-    - MJCocoaCore/Common (~> 2.3)
+  - MJSwiftCore/MJCocoaCore (0.3.7):
+    - MJCocoaCore/Common (= 2.3.6)
     - MJSwiftCore/Common
-  - MJSwiftCore/Realm (0.3.3):
+  - MJSwiftCore/Realm (0.3.7):
     - MJSwiftCore/Common
     - MJSwiftCore/Security
     - RealmSwift (~> 3.0.0)
-  - MJSwiftCore/Security (0.3.3)
-  - MJSwiftCore/Vastra (0.3.3)
+  - MJSwiftCore/Security (0.3.7)
+  - MJSwiftCore/Vastra (0.3.7)
   - PromisesObjC (1.0.2)
   - PromisesSwift (1.0.2):
     - PromisesObjC (= 1.0.2)
@@ -52,8 +52,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
-  MJCocoaCore: 03a2180c292ec3cfbfb692d1240720e6b89f8f7f
-  MJSwiftCore: f0c3b59acbb2d4de48e5b1e937bc53d3e66729ee
+  MJCocoaCore: 58e4d21ec2dcb9db6b5e80aa9ab355e3238401e0
+  MJSwiftCore: c6c0c16a1195c3b1cb2681b4dcf01382a64a5e1a
   PromisesObjC: 5cb99f8b988db9461cd3025cab5cc17752873a5c
   PromisesSwift: a972cb5ca9780fb7f805e9c2d69e7efd417a0523
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180

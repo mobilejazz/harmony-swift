@@ -32,7 +32,7 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).then { (value, error) in
+                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -57,11 +57,11 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).andThen({ (value, error) in
+                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
                     
-                }).inQueue(queue).then { (value, error) in
-                    semaphore.signal()
-                    expectation.fulfill()
+                    }.inQueue(queue).success { value in
+                        semaphore.signal()
+                        expectation.fulfill()
                 }
                 semaphore.wait()
             }
@@ -84,11 +84,11 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).andThen({ (value, error) in
+                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
                     
-                }).inQueue(queue).andThen({ (value, error) in
+                }.inQueue(queue).success{ value in
                     
-                }).inQueue(queue).then { (value, error) in
+                }.inQueue(queue).success { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
