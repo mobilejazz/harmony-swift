@@ -21,7 +21,7 @@ import Foundation
 ///
 public class Future<T> {
     
-    private enum InternalError: Error {
+    internal enum InternalError: Error {
         case contentAlreadySet
         case thenAlreadySet
         case alreadySent
@@ -82,8 +82,8 @@ public class Future<T> {
         case error(Error)
     }
     
-    /// The future result
-    public private(set) var result : Result? = nil
+    /// The future result. Using _ prefix as the "result" method returns synchronously the result.
+    internal var _result : Result? = nil
     
     /// Defines if the future is reactive or not.
     public private(set) var reactive : Bool
@@ -95,12 +95,6 @@ public class Future<T> {
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
     private var failure: ((_ error: Error) -> Void)?
-    
-    private func lock(_ closure: () -> Void) {
-        lock.lock()
-        closure()
-        lock.unlock()
-    }
     
     /// Returns a hub associated to the current future
     public private(set) lazy var hub = FutureHub<T>(self)
@@ -184,7 +178,7 @@ public class Future<T> {
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
         if !reactive {
-            if result != nil {
+            if _result != nil {
                 fatalError(InternalError.contentAlreadySet.localizedDescription)
             }
         }
@@ -199,9 +193,9 @@ public class Future<T> {
         
         lock() {
             if let error = error {
-                result = .error(error)
+                _result = .error(error)
             } else {
-                result = .value(value!)
+                _result = .value(value!)
             }
             
             if success != nil || failure != nil {
@@ -244,7 +238,7 @@ public class Future<T> {
     /// - Parameter queue: The dispatch queue to call the then closure
     /// - Returns: The self instance
     @discardableResult
-    public func inQueue(_ queue: DispatchQueue) -> Future<T> {
+    public func on(_ queue: DispatchQueue?) -> Future<T> {
         self.queue = queue
         return self
     }
@@ -253,20 +247,12 @@ public class Future<T> {
     ///
     /// - Returns: The self instance
     @discardableResult
-    public func inMainQueue() -> Future<T> {
-        return self.inQueue(DispatchQueue.main)
-    }
-    
-    /// Removes the custom defined queue
-    ///
-    /// - Returns: The self instance
-    public func inOriginalQueue() -> Future<T> {
-        self.queue = nil
-        return self
+    public func onMainQueue() -> Future<T> {
+        return self.on(DispatchQueue.main)
     }
     
     /// Then closure: delivers the value or the error
-    internal func success(_ success: @escaping (T) -> Void = { _ in },
+    internal func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
             if self.success != nil || self.failure != nil {
@@ -277,7 +263,7 @@ public class Future<T> {
         lock() {
             self.success = success
             self.failure = failure
-            if result != nil {
+            if _result != nil {
                 send()
                 if !reactive {
                     state = .sent
@@ -288,30 +274,34 @@ public class Future<T> {
         }
     }
     
-    /// Synchronous then
-    public func then() -> Result {
-        switch state {
-        case .waitingThen:
-            if !reactive {
-                state = .sent
+    /// Deliver the result syncrhonously. This method might block the calling thread.
+    /// Note that the result can only be delivered once if the future is not reactive.
+    public var result : Result {
+        get {
+            switch state {
+            case .waitingThen:
+                if !reactive {
+                    state = .sent
+                }
+                return _result!
+            case .blank:
+                semaphore = DispatchSemaphore(value: 0)
+                semaphore!.wait()
+                return self.result
+            case .waitingContent:
+                fatalError(InternalError.thenAlreadySet.localizedDescription)
+            case .sent:
+                fatalError(InternalError.alreadySent.localizedDescription)
             }
-            return result!
-        case .blank:
-            semaphore = DispatchSemaphore(value: 0)
-            DispatchSemaphore.wait(semaphore!)()
-            return then()
-        case .waitingContent:
-            fatalError(InternalError.thenAlreadySet.localizedDescription)
-        case .sent:
-            fatalError(InternalError.alreadySent.localizedDescription)
         }
     }
     
     /// Main then method
     @discardableResult
-    public func then(_ success: @escaping (T) -> Void) -> Future<T> {
+    public func then(on queue: DispatchQueue? = nil, _ success: @escaping (T) -> Void) -> Future<T> {
+        self.queue = queue
         return Future(reactive: reactive) { future in
-            self.success({ value in
+            self.resolve(success: {value in
                 success(value)
                 future.set(value)
             }, failure: { error in
@@ -322,9 +312,10 @@ public class Future<T> {
     
     /// Main fail method
     @discardableResult
-    public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
+    public func fail(on queue: DispatchQueue? = nil, _ failure: @escaping (Error) -> Void) -> Future<T> {
+        self.queue = queue
         return Future(reactive: reactive) { future in
-            self.success({ value in
+            self.resolve(success: {value in
                 future.set(value)
             }, failure: { error in
                 failure(error)
@@ -345,7 +336,7 @@ public class Future<T> {
     }
     
     private func send() {
-        switch result! {
+        switch _result! {
         case .error(let error):
             guard let failure = failure else {
                 print(InternalError.missingLambda.localizedDescription)
@@ -377,6 +368,13 @@ public class Future<T> {
             self.failure = nil
         }
     }
+    
+    // Private lock method
+    private func lock(_ closure: () -> Void) {
+        lock.lock()
+        closure()
+        lock.unlock()
+    }
 }
 
 /// To String extension
@@ -386,7 +384,7 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         case .blank:
             return "Empty future. Waiting for value, error and then closure."
         case .waitingThen:
-            switch result! {
+            switch _result! {
             case .error(let error):
                 return "Future waiting for then closure and error set to: \(error)"
             case .value(let value):
@@ -395,7 +393,7 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         case .waitingContent:
             return "Future then closure set. Waiting for value or error."
         case .sent:
-            switch result! {
+            switch _result! {
             case .error(let error):
                 return "Future sent with error: \(error)"
             case .value(let value):

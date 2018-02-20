@@ -123,7 +123,7 @@ public class FutureHub <T> {
             lock.unlock()
             
             // Then, opening the then closure
-            future.success({ value in
+            future.resolve(success: {value in
                 self.lock.lock()
                 for future in self.weakFutures.allObjects {
                     future.set(value)

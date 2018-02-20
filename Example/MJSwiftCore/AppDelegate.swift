@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = container
         window?.makeKeyAndVisible()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainVC = storyboard.instantiateInitialViewController()!
-            container.set(mainVC, animation: .crossDisolve)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let mainVC = storyboard.instantiateInitialViewController()!
+//            container.set(mainVC, animation: .crossDisolve)
+//        }
         return true
     }
 

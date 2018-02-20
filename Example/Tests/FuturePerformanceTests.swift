@@ -32,7 +32,7 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).inQueue(queue).then { value in
+                Future<Bool>(true).on(queue).then { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -57,9 +57,9 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).inQueue(queue).then { value in
+                Future<Bool>(true).on(queue).then { value in
                     
-                    }.inQueue(queue).then { value in
+                    }.on(queue).then { value in
                         semaphore.signal()
                         expectation.fulfill()
                 }
@@ -85,11 +85,11 @@ class FuturePerformanceTests: XCTestCase {
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 let future = Future<Bool>(true)
-                future.inQueue(queue).then { value in
+                future.on(queue).then { value in
                     
-                    }.inQueue(queue).then { value in
+                    }.on(queue).then { value in
                         
-                    }.inQueue(queue).then { value in
+                    }.on(queue).then { value in
                         semaphore.signal()
                         expectation.fulfill()
                 }
@@ -112,7 +112,7 @@ class FuturePerformanceTests: XCTestCase {
         for _ in 0..<Constants.iterationCount {
             group.enter()
             let future = Future<Bool>()
-            future.inQueue(queue).then { value in
+            future.on(queue).then { value in
                 group.leave()
             }
             futures.append(future)

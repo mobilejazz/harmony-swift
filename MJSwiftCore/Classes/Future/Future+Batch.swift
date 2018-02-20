@@ -22,9 +22,9 @@ public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
     let future = Future<[T]>(reactive:reactive)
     var dict : [Int:T] = [:]
     for (idx, futureT) in futures.enumerated() {
-        futureT.success({ value in
+        futureT.resolve(success: {value in
             dict[idx] = value
-            if future.result == nil || future.reactive {
+            if future._result == nil || future.reactive {
                 if dict.count == futures.count {
                     var array : [T] = []
                     for idx in 0..<dict.count {
@@ -34,7 +34,7 @@ public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
                 }
             }
         }, failure: { error in
-            if future.result == nil || future.reactive {
+            if future._result == nil || future.reactive {
                 future.set(error)
             }
         })
@@ -92,7 +92,7 @@ public extension Future {
         let futureL = Future<L>(reactive: reactive)
         futureK.nestingLevel += nestingLevel
         futureL.nestingLevel += nestingLevel
-        success({ tuple in
+        resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
         }, failure: { error in
@@ -110,7 +110,7 @@ public extension Future {
         futureK.nestingLevel += nestingLevel
         futureL.nestingLevel += nestingLevel
         futureM.nestingLevel += nestingLevel
-        success({ tuple in
+        resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
             futureM.set(tuple.2)
@@ -132,7 +132,7 @@ public extension Future {
         futureL.nestingLevel += nestingLevel
         futureM.nestingLevel += nestingLevel
         futureN.nestingLevel += nestingLevel
-        success({ tuple in
+        resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
             futureM.set(tuple.2)
@@ -150,7 +150,7 @@ public extension Future {
     public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            success({ tuple in
+            resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1))
             }, failure: { error in
                 future.set(error)
@@ -162,7 +162,7 @@ public extension Future {
     public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            success({ tuple in
+            resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2))
             }, failure: { error in
                 future.set(error)
@@ -174,7 +174,7 @@ public extension Future {
     public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
         return Future<Z>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
-            success({ tuple in
+            resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
             }, failure: { error in
                 future.set(error)
