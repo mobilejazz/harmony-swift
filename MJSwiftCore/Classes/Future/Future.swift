@@ -163,6 +163,12 @@ public class Future<T> {
         }
     }
     
+    /// Future initializer
+    public convenience init(reactive: Bool = false, _ closure: () -> Error) {
+        let error = closure()
+        self.init(error, reactive: reactive)
+    }
+    
     /// Creates a new future from self
     public func toFuture() -> Future<T> {
         return Future(self)
@@ -199,8 +205,9 @@ public class Future<T> {
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
         if !reactive {
-            if _result != nil {
-                fatalError(InternalError.contentAlreadySet.localizedDescription)
+            if _result != nil || state == .sent  {
+                // Do nothing
+                return
             }
         }
         var value : T? = value

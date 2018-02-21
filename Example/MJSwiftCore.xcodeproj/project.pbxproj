@@ -11,7 +11,6 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* FuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */; };
 		7152743BA0B4BF1E46BD8A78 /* Pods_MJSwiftCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ECDC09EDCF8816F81AEF3D1 /* Pods_MJSwiftCore_Example.framework */; };
 		95E42FF57A285F7CC71DE1AB /* Pods_MJSwiftCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311F2B5F4A80BDC248353862 /* Pods_MJSwiftCore_Tests.framework */; };
 		D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */; };
@@ -39,10 +38,15 @@
 		D219D7151FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70C1FCC2E4300D91CED /* UIKitMVPItemDetailViewController.swift */; };
 		D219D7161FCC2E4300D91CED /* UIKitMVPItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70D1FCC2E4300D91CED /* UIKitMVPItemDetailView.swift */; };
 		D219D7171FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */; };
-		D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
-		D22A0BA82035CE570026068F /* PromisesPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */; };
-		D27A38BE2035D3C4008B38B1 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */; };
+		D2D9FB5B203DE7E20069AE74 /* Future+InitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */; };
+		D2D9FB5D203DEC8A0069AE74 /* Future+SetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */; };
+		D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */; };
+		D2D9FB64203DEC990069AE74 /* GCDPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */; };
+		D2D9FB65203DEC990069AE74 /* PromisesPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */; };
+		D2D9FB66203DEC990069AE74 /* FuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */; };
+		D2D9FB68203DEE9A0069AE74 /* Future+DeallocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB67203DEE9A0069AE74 /* Future+DeallocTests.swift */; };
+		D2D9FB6A203DF2A30069AE74 /* Future+ThenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB69203DF2A30069AE74 /* Future+ThenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +73,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* MJSwiftCore_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MJSwiftCore_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturePerformanceTests.swift; sourceTree = "<group>"; };
 		7ECDC09EDCF8816F81AEF3D1 /* Pods_MJSwiftCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJSwiftCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		982946972C97C62DC4064E5F /* MJSwiftCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = MJSwiftCore.podspec; path = ../MJSwiftCore.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9998179D7257EF4EE6FAFBE9 /* Pods-MJSwiftCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,10 +102,15 @@
 		D219D70D1FCC2E4300D91CED /* UIKitMVPItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailView.swift; sourceTree = "<group>"; };
 		D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailPresenter.swift; sourceTree = "<group>"; };
 		D22A0B9E2035C91F0026068F /* MJSwiftCore_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MJSwiftCore_Example-Bridging-Header.h"; sourceTree = "<group>"; };
-		D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDPerformanceTests.swift; sourceTree = "<group>"; };
 		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
-		D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromisesPerformanceTest.swift; sourceTree = "<group>"; };
-		D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
+		D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+InitTests.swift"; sourceTree = "<group>"; };
+		D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+SetTests.swift"; sourceTree = "<group>"; };
+		D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
+		D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDPerformanceTests.swift; sourceTree = "<group>"; };
+		D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromisesPerformanceTest.swift; sourceTree = "<group>"; };
+		D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuturePerformanceTests.swift; sourceTree = "<group>"; };
+		D2D9FB67203DEE9A0069AE74 /* Future+DeallocTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+DeallocTests.swift"; sourceTree = "<group>"; };
+		D2D9FB69203DF2A30069AE74 /* Future+ThenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+ThenTests.swift"; sourceTree = "<group>"; };
 		FA3CEBEDE802979A4DE14FCE /* Pods-MJSwiftCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Tests/Pods-MJSwiftCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,10 +191,11 @@
 			isa = PBXGroup;
 			children = (
 				D22A0BA52035CD580026068F /* TestHelper.swift */,
-				607FACEB1AFB9204008FA782 /* FuturePerformanceTests.swift */,
-				D27A38BD2035D3C4008B38B1 /* MJFuturePerformanceTests.swift */,
-				D22A0BA22035CCEC0026068F /* GCDPerformanceTests.swift */,
-				D22A0BA72035CE570026068F /* PromisesPerformanceTest.swift */,
+				D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */,
+				D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */,
+				D2D9FB69203DF2A30069AE74 /* Future+ThenTests.swift */,
+				D2D9FB67203DEE9A0069AE74 /* Future+DeallocTests.swift */,
+				D2D9FB5E203DEC990069AE74 /* Performance */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -384,6 +393,17 @@
 				D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */,
 			);
 			path = UIKitMVP;
+			sourceTree = "<group>";
+		};
+		D2D9FB5E203DEC990069AE74 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */,
+				D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */,
+				D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */,
+				D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */,
+			);
+			path = Performance;
 			sourceTree = "<group>";
 		};
 		EBF9F3F99D0477C705D28DA0 /* Pods */ = {
@@ -664,11 +684,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D22A0BA82035CE570026068F /* PromisesPerformanceTest.swift in Sources */,
+				D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */,
+				D2D9FB6A203DF2A30069AE74 /* Future+ThenTests.swift in Sources */,
+				D2D9FB68203DEE9A0069AE74 /* Future+DeallocTests.swift in Sources */,
+				D2D9FB66203DEC990069AE74 /* FuturePerformanceTests.swift in Sources */,
+				D2D9FB64203DEC990069AE74 /* GCDPerformanceTests.swift in Sources */,
 				D22A0BA62035CD580026068F /* TestHelper.swift in Sources */,
-				607FACEC1AFB9204008FA782 /* FuturePerformanceTests.swift in Sources */,
-				D22A0BA42035CCF20026068F /* GCDPerformanceTests.swift in Sources */,
-				D27A38BE2035D3C4008B38B1 /* MJFuturePerformanceTests.swift in Sources */,
+				D2D9FB65203DEC990069AE74 /* PromisesPerformanceTest.swift in Sources */,
+				D2D9FB5B203DE7E20069AE74 /* Future+InitTests.swift in Sources */,
+				D2D9FB5D203DEC8A0069AE74 /* Future+SetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

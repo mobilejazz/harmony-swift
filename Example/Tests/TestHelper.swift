@@ -32,3 +32,31 @@ func print(total time: TimeInterval) {
     print(String(format: "Total time: %.10lf", time))
 }
 
+/// Namespace for test helpers.
+public struct Test {
+    public enum Error: Int, CustomNSError {
+        case code13 = 13
+        case code42 = 42
+        public static var errorDomain: String {
+            return "com.mobilejazz.MJSWiftCore"
+        }
+        public var errorCode: Int { return rawValue }
+        public var errorUserInfo: [String: Any] { return [:] }
+    }
+}
+
+// Compare two `Error?`.
+public func == (lhs: Error?, rhs: Error?) -> Bool {
+    switch (lhs, rhs) {
+    case (nil, nil):
+        return true
+    case (nil, _?), (_?, nil):
+        return false
+    case let (lhs?, rhs?):
+        return (lhs as NSError).isEqual(rhs as NSError)
+    }
+}
+
+public func != (lhs: Error?, rhs: Error?) -> Bool {
+    return !(lhs == rhs)
+}
