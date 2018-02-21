@@ -80,6 +80,27 @@ public class Future<T> {
     public indirect enum Result {
         case value(T)
         case error(Error)
+        
+        /// Returns the value or throws an error if exists
+        public func get() throws -> T {
+            switch self {
+            case .value(let v):
+                return v
+            case .error(let e):
+                throw e
+            }
+        }
+        
+        // Returns the value or if error, returns nil and sets the error
+        public func get(error: inout Error?) -> T? {
+            switch self {
+            case .value(let v):
+                return v
+            case .error(let e):
+                error = e
+                return nil
+            }
+        }
     }
     
     /// The future result. Using _ prefix as the "result" method returns synchronously the result.

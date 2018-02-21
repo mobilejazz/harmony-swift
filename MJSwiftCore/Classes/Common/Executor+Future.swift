@@ -23,13 +23,18 @@ extension Executor {
     ///
     /// - Parameter closure: The closure to be executed. The future must be filled.
     /// - Returns: A future wrapping the result.
-    @discardableResult public func submit<T>(_ closure: @escaping (Future<T>) -> Void) -> Future<T> {
+    @discardableResult public func submit<T>(_ closure: @escaping (Future<T>) throws -> Void) -> Future<T> {
         return Future() { future in
             self.submit { end in
                 future.onSet {
                     end()
                 }
-                closure(future)
+                // Wrapping the closure with a try/catch to set errors automatically
+                do {
+                    try closure(future)
+                } catch (let error) {
+                    future.set(error)
+                }
             }
         }.toFuture().onMainQueue() // Creating a new future to avoid a duplicate call to onSet to the same future
     }
