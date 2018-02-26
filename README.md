@@ -22,6 +22,7 @@ pod 'MJSwiftCore'
 ### Subspecs
 
 ```ruby
+pod 'MJSwiftCore/Future'
 pod 'MJSwiftCore/Common'
 pod 'MJSwiftCore/Security'
 pod 'MJSwiftCore/iOS'
