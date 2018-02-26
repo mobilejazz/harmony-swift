@@ -449,7 +449,7 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         else
             failure(error);
     }
-    else if (value)
+    else if (value || _isValueNil)
     {
         if (queue)
             dispatch_async(queue, ^{ success(value); });

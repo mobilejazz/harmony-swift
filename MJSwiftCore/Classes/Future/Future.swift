@@ -194,11 +194,12 @@ public class Future<T> {
         if copyReactiveState {
             reactive = future.reactive
         }
-        future.then { value in
+        future.nestingLevel = nestingLevel + 1
+        future.resolve(success: { value in
             self.set(value)
-            }.fail { error in
-                self.set(error)
-        }
+        }, failure: { error in
+            self.set(error)
+        })
     }
     
     /// Sets the future with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
@@ -329,6 +330,7 @@ public class Future<T> {
     public func then(on queue: DispatchQueue? = nil, _ success: @escaping (T) -> Void) -> Future<T> {
         self.queue = queue
         return Future(reactive: reactive) { future in
+            future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
                 success(value)
                 future.set(value)
@@ -343,6 +345,7 @@ public class Future<T> {
     public func fail(on queue: DispatchQueue? = nil, _ failure: @escaping (Error) -> Void) -> Future<T> {
         self.queue = queue
         return Future(reactive: reactive) { future in
+            future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
                 future.set(value)
             }, failure: { error in

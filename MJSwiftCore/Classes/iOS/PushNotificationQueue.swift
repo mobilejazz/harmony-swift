@@ -16,26 +16,6 @@
 
 import UIKit
 
-/// Filter options.
-public struct Filter : OptionSet {
-    public let rawValue : Int
-    
-    public init(rawValue: Int) {
-        self.rawValue = rawValue
-    }
-
-    /// Never filter. Deliver all incoming notifications.
-    public static let never = Filter(rawValue:0)
-    /// Filter notifications received in the background. Deliver otherwise.
-    public static let applicationBackground = Filter(rawValue:1<<0)
-    /// Filter notifications received when inactive. Deliver otherwise.
-    public static let applicationInactive = Filter(rawValue:1<<1)
-    /// Filter notifications received when active. Deliver otherwise.
-    public static let applicationActive = Filter(rawValue:1<<2)
-    /// Filter all notifications. Deliver nothing.
-    public static let always = Filter(rawValue:~0)
-}
-
 /// The delegate object
 public protocol PushNotificationQueueDelegate : class {
     
@@ -70,6 +50,26 @@ private class PushNotificationQueueItem {
 /// Class responsible of processing incoming push notifications and deliver them to its delegate in the appropiated time.
 ///
 public class PushNotificationQueue {
+    
+    /// Filter options.
+    public struct Filter : OptionSet {
+        public let rawValue : Int
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        
+        /// Never filter. Deliver all incoming notifications.
+        public static let never = Filter(rawValue:0)
+        /// Filter notifications received in the background. Deliver otherwise.
+        public static let applicationBackground = Filter(rawValue:1<<0)
+        /// Filter notifications received when inactive. Deliver otherwise.
+        public static let applicationInactive = Filter(rawValue:1<<1)
+        /// Filter notifications received when active. Deliver otherwise.
+        public static let applicationActive = Filter(rawValue:1<<2)
+        /// Filter all notifications. Deliver nothing.
+        public static let always = Filter(rawValue:~0)
+    }
     
     /// Puch notification action
     ///

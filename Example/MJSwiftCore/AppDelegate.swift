@@ -8,6 +8,7 @@
 
 import UIKit
 import MJSwiftCore
+import MJCocoaCore
 import Promises
 
 @UIApplicationMain
