@@ -327,8 +327,7 @@ public class Future<T> {
     
     /// Main then method
     @discardableResult
-    public func then(on queue: DispatchQueue? = nil, _ success: @escaping (T) -> Void) -> Future<T> {
-        self.queue = queue
+    public func then(_ success: @escaping (T) -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
@@ -342,8 +341,7 @@ public class Future<T> {
     
     /// Main fail method
     @discardableResult
-    public func fail(on queue: DispatchQueue? = nil, _ failure: @escaping (Error) -> Void) -> Future<T> {
-        self.queue = queue
+    public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
