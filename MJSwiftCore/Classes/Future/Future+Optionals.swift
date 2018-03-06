@@ -17,9 +17,22 @@
 import Foundation
 
 public extension Future {
+    /// Custom error for unwrapping
+    public enum UnwrapError : Error {
+        /// Unwrap couldn't be done because value was nil
+        case nilValue
+        public var localizedDescription: String {
+            return "Cannot unwrap because value is nil"
+        }
+    }
     
     /// Unwrapes a future of an optional type, returning a future of a non-optional type
     public func unwrap<K>() -> Future<K> where T == K? {
-        return map { $0! }
+        return flatMap { value in
+            guard let value = value else {
+                return Future<K>(UnwrapError.nilValue)
+            }
+            return Future<K>(value)
+        }
     }
 }
