@@ -43,11 +43,20 @@ extension Double : DataConvertible { }
 
 extension UInt : DataConvertible { }
 
-extension String: DataConvertible {
+extension String : DataConvertible {
     public init?(data: Data) {
         self.init(data: data, encoding: .utf8)
     }
     public var data: Data {
         return self.data(using: .utf8)!
+    }
+}
+
+extension Data : DataConvertible {
+    public init?(data: Data) {
+        self = data
+    }
+    public var data: Data {
+        return self
     }
 }

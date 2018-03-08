@@ -1,6 +1,6 @@
 {
   "name": "MJSwiftCore",
-  "version": "0.3.9",
+  "version": "0.3.12",
   "summary": "Mobile Jazz Swift toolkit utilities",
   "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
   "homepage": "https://github.com/mobilejazz/MJSwiftCore",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/mobilejazz/MJSwiftCore.git",
-    "tag": "0.3.9"
+    "tag": "0.3.12"
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "default_subspecs": [
@@ -41,7 +41,12 @@
     {
       "name": "Security",
       "source_files": "MJSwiftCore/Classes/Security/**/*",
-      "frameworks": "Security"
+      "frameworks": "Security",
+      "dependencies": {
+        "MJSwiftCore/Common": [
+
+        ]
+      }
     },
     {
       "name": "Alamofire",

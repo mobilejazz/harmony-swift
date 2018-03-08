@@ -45,6 +45,7 @@ Pod::Spec.new do |s|
     s.subspec 'Security' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Security/**/*'
         sp.frameworks = 'Security'
+        sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Alamofire' do |sp|
