@@ -29,7 +29,7 @@ class DataProviderAssembly: Assembly {
         
         // Data Providers (registered as singletons)
         container.register(DataProvider<Item>.self) { r in
-            return GenericDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
+            return NetworkStorageDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
                                        storage: r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!,
                                        storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!,
                                        toEntityMapper: r.resolve(Mapper<Item, ItemEntity>.self)!,

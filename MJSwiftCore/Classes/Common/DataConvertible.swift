@@ -60,3 +60,30 @@ extension Data : DataConvertible {
         return self
     }
 }
+
+/// Custom mapper to convert to data from data convertible
+public class toDataMapper <T:DataConvertible> : Mapper<T,Data> {
+    public override func map(_ from: T) -> Data {
+        return from.data
+    }
+}
+
+/// Custom mapper to convert to data converitble from mapa
+public class toDataConvertibleMapper <T:DataConvertible> : Mapper<Data,T> {
+    public override func map(_ from: Data) -> T {
+        return T(data:from)!
+    }
+}
+
+/// Custom mapper to convert queries to data
+public class DataConvertibleQueryMapper <T:DataConvertible> : Mapper<Query,Query> {
+    public override func map(_ from: Query) -> Query {
+        switch from.self {
+        case is KeyValueQuery<T>:
+            let query = from as! KeyValueQuery<T>
+            return KeyValueQuery<Data>(query.key, query.value.data)
+        default:
+            return from
+        }
+    }
+}

@@ -49,32 +49,49 @@ public extension ObjectValidation {
     }
 }
 
+extension Operation {
+    /// - network: Data stream will only use network
+    public static let network = Operation(rawValue: "network")
+    /// - networkSync: Data stream will use network and sync with storage if needed
+    public static let networkSync = Operation(rawValue: "networkSync")
+    /// - storage: Data stream will only use storage
+    public static let storage = Operation(rawValue: "storage")
+    /// - storageSync: Data stream will use storage and sync with network if needed
+    public static let storageSync = Operation(rawValue: "storageSync")
+}
+
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class GenericDataProvider <O, E> : DataProvider <O>  {
+public class NetworkStorageDataProvider <O, E> : DataProvider <O>  {
     
     private let network: Repository<E>
     private let storage: Repository<E>
     private let toEntityMapper: Mapper<O, E>
     private let toObjectMapper: Mapper<E, O>
+    private let toRepositoryQueryMapper: Mapper <Query, Query>
     private let storageValidation: ObjectValidation
     
     public init(network: Repository<E>,
                 storage: Repository<E>,
                 storageValidation: ObjectValidation,
                 toEntityMapper: Mapper<O, E>,
-                toObjectMapper: Mapper<E, O>) {
+                toObjectMapper: Mapper<E, O>,
+                toRepositoryQueryMapper: Mapper <Query, Query> = BlankMapper<Query>()) {
         self.network = network
         self.storage = storage
         self.storageValidation = storageValidation
         self.toEntityMapper = toEntityMapper
         self.toObjectMapper = toObjectMapper
+        self.toRepositoryQueryMapper = toRepositoryQueryMapper
     }
     
     override public func getAll(_ query: Query, operation: Operation) -> Future<[O]> {
+        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<[E]> in
             switch operation {
+            case .none:
+                return Future([])
             case .network:
                 return network.getAll(query)
             case .storage:
@@ -93,14 +110,19 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                         return values.toFuture()
                     }
                 }
+            default:
+                fatalError("Invalid operation \(operation)")
             }
             }().map { a in self.toObjectMapper.map(a) }
     }
     
     @discardableResult
     override public func put(_ query: Query, operation: Operation) -> Future<Bool> {
+        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<Bool> in
             switch operation {
+            case .none:
+                return Future(false)
             case .network:
                 return network.put(query)
             case .storage:
@@ -121,6 +143,8 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                         return false.toFuture()
                     }
                 }
+            default:
+                fatalError("Invalid operation \(operation)")
             }
             }()
     }
@@ -130,6 +154,8 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         let array = objects.map { o in toEntityMapper.map(o) }
         return { () -> Future<[E]> in
             switch operation {
+            case .none:
+                return Future([])
             case .network:
                 return network.putAll(array)
             case .storage:
@@ -142,14 +168,19 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                 return storage.putAll(array).flatMap { entities in
                     return self.network.putAll(entities)
                 }
+            default:
+                fatalError("Invalid operation \(operation)")
             }
             }().map { a in self.toObjectMapper.map(a) }
     }
     
     @discardableResult
     override public func delete(_ query: Query, operation: Operation) -> Future<Bool> {
+        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<Bool> in
             switch operation {
+            case .none:
+                return Future(false)
             case .network:
                 return network.delete(query)
             case .storage:
@@ -170,6 +201,8 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                         return false.toFuture()
                     }
                 }
+            default:
+                fatalError("Invalid operation \(operation)")
             }
             }()
     }
@@ -179,6 +212,8 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
         let entities = objects.map { o in toEntityMapper.map(o) }
         return { () -> Future<Bool> in
             switch operation {
+            case .none:
+                return Future(false)
             case .network:
                 return network.deleteAll(entities)
             case .storage:
@@ -199,6 +234,8 @@ public class GenericDataProvider <O, E> : DataProvider <O>  {
                         return false.toFuture()
                     }
                 }
+            default:
+                fatalError("Invalid operation \(operation)")
             }
             }()
     }

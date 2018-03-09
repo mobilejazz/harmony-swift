@@ -11,6 +11,35 @@ import MJSwiftCore
 import MJCocoaCore
 import Promises
 
+class Dog : DataConvertible, CustomStringConvertible {
+    var description: String {
+        return "Dog named \(name) of \(age) years old"
+    }
+    
+    let name : String
+    let age : Int
+    
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    
+    public required init?(data: Data) {
+        let archiver = NSKeyedUnarchiver(forReadingWith: data)
+        self.name = archiver.decodeObject(forKey: "name") as! String
+        self.age = archiver.decodeInteger(forKey: "age")
+    }
+    
+    public var data: Data {
+        let archiver = NSKeyedArchiver()
+        archiver.encode(name, forKey: "name")
+        archiver.encode(age, forKey: "age")
+        return archiver.encodedData
+    }
+}
+
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -30,6 +59,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
         }
+                
+        let repository = KeychainRepository<Data>(Keychain())
+        //let repository = UserDefaultsRepository<Data>(UserDefaults.standard)
+        let dataProvider = RepositoryDataProvider<Dog,Data>(repository: repository,
+                                                            toEntityMapper: toDataMapper<Dog>(),
+                                                            toObjectMapper: toDataConvertibleMapper<Dog>())
+        
+        let dog = Dog(name:"Lassie", age: 6)
+        
+        dataProvider.get(KeyQuery("test.key")).unwrap().then { value in
+            print("Value: \(value)")
+            }.fail { error in
+                print("Error: \(error)")
+        }
+        
+        dataProvider.put(KeyValueQuery<Dog>("test.key", dog)).then { result in
+            print("Result: \(result)")
+            }.fail { error in
+                print("Error: \(error)")
+        }
+        
+        dataProvider.get(KeyQuery("test.key")).unwrap().then { value in
+            print("Value: \(value)")
+            }.fail { error in
+                print("Error: \(error)")
+        }
+        
+        dataProvider.delete(KeyQuery("test.key")).then { result in
+            print("Result: \(result)")
+            }.fail { error in
+                print("Error: \(error)")
+        }
+        
+        dataProvider.get(KeyQuery("test.key")).unwrap().then { value in
+            print("Value: \(value)")
+            }.fail { error in
+                print("Error: \(error)")
+        }
+        
         return true
     }
     

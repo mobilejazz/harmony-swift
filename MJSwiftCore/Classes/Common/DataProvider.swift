@@ -16,36 +16,17 @@
 
 import Foundation
 
-/// Data provider operation type
-///
-/// - network: Data stream will only use network
-/// - networkSync: Data stream will use network and sync with storage if needed
-/// - storage: Data stream will only use storage
-/// - storageSync: Data stream will use storage and sync with network if needed
-public enum Operation {
-    case network
-    case storage
-    case networkSync
-    case storageSync
-}
-
-extension Operation: CustomStringConvertible, CustomDebugStringConvertible {
-    public var description: String {
-        switch(self) {
-        case .network:
-            return "network"
-        case .networkSync:
-            return "networkSync"
-        case .storage:
-            return "storage"
-        case .storageSync:
-            return "storageSync"
-        }
-    }
+/// DataProvider implementations will have to define custom operations
+public struct Operation : RawRepresentable, Equatable, Hashable, CustomStringConvertible {
+    public typealias RawValue = String
+    public var rawValue: String
+    public var hashValue: Int { return rawValue.hashValue }
+    public static func ==(lhs: Operation, rhs: Operation) -> Bool { return lhs.rawValue == rhs.rawValue }
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public var description: String { return rawValue }
     
-    public var debugDescription: String {
-        return self.description
-    }
+    /// None operation
+    public static let none = Operation(rawValue:"none")
 }
 
 ///
@@ -59,7 +40,7 @@ open class DataProvider <T> {
     ///   - query: The query encapsulating the query parameters
     ///   - operation: The operation type
     /// - Returns: A future of type list of T
-    open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+    open func getAll(_ query: Query, operation: Operation = .none) -> Future<[T]> {
         fatalError("Undefined behavior on method get on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
     
@@ -68,7 +49,7 @@ open class DataProvider <T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ query: Query, operation: Operation) -> Future<Bool> {
+    open func put(_ query: Query, operation: Operation = .none) -> Future<Bool> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
     }
     
@@ -79,7 +60,7 @@ open class DataProvider <T> {
     ///   - operation: The operation type
     /// - Returns: A future of type list of T
     @discardableResult
-    open func putAll(_ objects: [T], operation: Operation) -> Future<[T]> {
+    open func putAll(_ objects: [T], operation: Operation = .none) -> Future<[T]> {
         fatalError("Undefined behavior on method put on class \(String(describing: type(of:self))) for operation \(operation)")
     }
     
@@ -90,7 +71,7 @@ open class DataProvider <T> {
     ///   - operation: The operation type
     /// - Returns: A future of type list of Bool. If the operation succeeds, the future will be resovled with true.
     @discardableResult
-    open func delete(_ query: Query, operation: Operation) -> Future<Bool> {
+    open func delete(_ query: Query, operation: Operation = .none) -> Future<Bool> {
         fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
     
@@ -101,7 +82,7 @@ open class DataProvider <T> {
     ///   - operation: The operation type
     /// - Returns: A future of type list of Bool. If the operation succeeds, the future will be resovled with true.
     @discardableResult
-    open func deleteAll(_ objects: [T], operation: Operation) -> Future<Bool> {
+    open func deleteAll(_ objects: [T], operation: Operation = .none) -> Future<Bool> {
         fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation)")
     }
 }
@@ -114,7 +95,7 @@ extension DataProvider {
     ///   - query: The query encapsulating the query parameters
     ///   - operation: The operation type
     /// - Returns: A future of type optional T
-    open func get(_ query: Query, operation: Operation) -> Future<T?> {
+    open func get(_ query: Query, operation: Operation = .none) -> Future<T?> {
         return getAll(query, operation: operation).map{ array in
             return array.first
         }
@@ -127,14 +108,14 @@ extension DataProvider {
     ///   - operation: The operation type
     /// - Returns: A future of type T
     @discardableResult
-    open func put(_ value: T, operation: Operation) -> Future<T> {
+    open func put(_ value: T, operation: Operation = .none) -> Future<T> {
         return putAll([value], operation: operation).map({ (array) -> T in
             return array.first!
         })
     }
     
     @discardableResult
-    open func delete(_ entity: T, operation: Operation) -> Future<Bool> {
+    open func delete(_ entity: T, operation: Operation = .none) -> Future<Bool> {
         return deleteAll([entity], operation: operation)
     }
 }

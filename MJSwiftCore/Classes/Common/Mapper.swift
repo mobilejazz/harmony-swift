@@ -30,3 +30,21 @@ extension Mapper {
         }
     }
 }
+
+///
+/// BlankMapper returns the same value as map
+///
+public class BlankMapper<T> : Mapper<T,T> {
+    public override func map(_ from: T) -> T {
+        return from
+    }
+}
+
+///
+/// CastMapper returns the same value but casted
+///
+public class CastMapper<T,Q> : Mapper<T,Q> {
+    public override func map(_ from: T) -> Q {
+        return from as! Q
+    }
+}

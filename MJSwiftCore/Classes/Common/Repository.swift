@@ -17,7 +17,9 @@
 import Foundation
 
 /// Default query interface
-public protocol Query { }
+public protocol Query {
+    func map<A,B>(_ mapper: Mapper<A, B>) -> Query
+}
 
 /// A query by an id
 public class QueryById : Query {
@@ -25,17 +27,39 @@ public class QueryById : Query {
     public init(_ id: String) {
         self.id = id
     }
+    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
 }
 
 // All objects query
 public class AllObjectsQuery : Query {
     public init() { }
+    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
+}
+
+public class KeyQuery : Query {
+    public let key : String
+    public init(_ key: String) {
+        self.key = key
+    }
+    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
+}
+
+public class KeyValueQuery<T> : KeyQuery {
+    public let value : T
+    public init(_ key: String, _ value: T) {
+        self.value = value
+        super.init(key)
+    }
+    
+    public override func map<A,B>(_ mapper: Mapper<A,B>) -> Query {
+        let value : B = mapper.map(self.value as! A)
+        let query = KeyValueQuery<B>(key, value)
+        return query
+    }
 }
 
 /// Abstract definition of a repository
 open class Repository<T> {
-    
-    public init() { }
     
     /// Main get method
     ///

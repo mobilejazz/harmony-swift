@@ -25,6 +25,8 @@ public extension RealmQuery {
     public func realmPredicate() -> NSPredicate? {
         return nil
     }
+    
+    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
 }
 
 extension NSPredicate : RealmQuery {
