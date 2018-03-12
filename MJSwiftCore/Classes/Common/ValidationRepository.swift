@@ -16,14 +16,19 @@
 
 import Foundation
 
-/// Custom repository errors
+/// Custom validation errors
 public enum ValidationError : Error {
+    // Validation is not valid
     case notValid
 }
 
+/// Object validation interface
 public protocol ObjectValidation {
+    /// Validates an object
     func isObjectValid<T>(_ object: T) -> Bool
-    func isArrayValid<T>(_ objects: [T]?) -> Bool
+    
+    /// Validates an array of objects
+    func isArrayValid<T>(_ objects: [T]) -> Bool
 }
 
 public extension ObjectValidation {
@@ -37,20 +42,16 @@ public extension ObjectValidation {
     ///
     /// - Parameter object: The object to validate.
     /// - Returns: true if valid, false otherwise.
-    public func isArrayValid<T>(_ objects: [T]?) -> Bool {
-        if let objects = objects {
-            if objects.isEmpty {
+    public func isArrayValid<T>(_ objects: [T]) -> Bool {
+        if objects.isEmpty {
+            return false
+        }
+        for object in objects {
+            if !isObjectValid(object) {
                 return false
             }
-            for object in objects {
-                if !isObjectValid(object) {
-                    return false
-                }
-            }
-            return true
-        } else {
-            return true
         }
+        return true
     }
 }
 
@@ -60,6 +61,7 @@ public extension ObjectValidation {
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
 public class ValidationRepository<T>: Repository<T> {
+    
     private let repository : Repository<T>
     private let storageValidation: ObjectValidation
     
@@ -75,14 +77,9 @@ public class ValidationRepository<T>: Repository<T> {
     }
     
     public override func getAll(_ query: Query) -> Future<[T]> {
-        return repository.getAll(query).flatMap { values in
-            values.forEach { value in
-                print(value)
-            }
+        return repository.getAll(query).filter { values in
             if !self.storageValidation.isArrayValid(values) {
-                return Future(ValidationError.notValid)
-            } else {
-                return values.toFuture()
+                throw ValidationError.notValid
             }
         }
     }
