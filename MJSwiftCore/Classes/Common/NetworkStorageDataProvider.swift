@@ -30,108 +30,69 @@ extension Operation {
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageDataProvider <O,E> : DataProvider <O>  {
+public class NetworkStorageDataProvider <T> : DataProvider <T>  {
     
-    private let network: Repository<E>
-    private let storage: Repository<E>
-    private let toEntityMapper: Mapper<O, E>
-    private let toObjectMapper: Mapper<E, O>
+    private let network: Repository<T>
+    private let storage: Repository<T>
     
-    public init(network: Repository<E>,
-                storage: Repository<E>,
-                toEntityMapper: Mapper<O, E>,
-                toObjectMapper: Mapper<E, O>) {
+    public init(network: Repository<T>,
+                storage: Repository<T>) {
         self.network = network
         self.storage = storage
-        self.toEntityMapper = toEntityMapper
-        self.toObjectMapper = toObjectMapper
     }
     
-    override public func getAll(_ query: Query, operation: Operation) -> Future<[O]> {
-        return { () -> Future<[E]> in
+    override public func get(_ query: Query, operation: Operation) -> Future<[T]> {
+        return { () -> Future<[T]> in
             switch operation {
             case .none:
                 return Future([])
             case .network:
-                return network.getAll(query)
+                return network.get(query)
             case .storage:
-                return storage.getAll(query)
+                return storage.get(query)
             case .networkSync:
-                return network.getAll(query).flatMap { entities in
-                    return self.storage.putAll(entities)
+                return network.get(query).flatMap { entities in
+                    return self.storage.put(ArrayQuery(entities))
                 }
             case .storageSync:
-                return storage.getAll(query).recover { error in
+                return storage.get(query).recover { error in
                     switch error {
                     case ValidationError.notValid:
-                        return self.network.getAll(query).flatMap { entities in
-                            return self.storage.putAll(entities)
+                        return self.network.get(query).flatMap { entities in
+                            return self.storage.put(ArrayQuery(entities))
                         }
                     default:
                         return Future(error)
                     }
                 }
             default:
-                fatalError("Invalid operation \(operation)")
-            }
-            }().map { a in self.toObjectMapper.map(a) }
-    }
-    
-    @discardableResult
-    override public func put(_ query: Query, operation: Operation) -> Future<Bool> {
-        return { () -> Future<Bool> in
-            switch operation {
-            case .none:
-                return Future(false)
-            case .network:
-                return network.put(query)
-            case .storage:
-                return storage.put(query)
-            case .networkSync:
-                return network.put(query).flatMap { succeed in
-                    if succeed {
-                        return self.storage.put(query)
-                    } else {
-                        return false.toFuture()
-                    }
-                }
-            case .storageSync:
-                return storage.put(query).flatMap { succeed in
-                    if succeed {
-                        return self.network.put(query)
-                    } else {
-                        return false.toFuture()
-                    }
-                }
-            default:
-                fatalError("Invalid operation \(operation)")
+                return super.get(query, operation: operation)
             }
             }()
     }
     
     @discardableResult
-    override public func putAll(_ objects: [O], operation: Operation) -> Future<[O]> {
-        let array = objects.map { o in toEntityMapper.map(o) }
-        return { () -> Future<[E]> in
+    override public func put(_ query: Query, operation: Operation) -> Future<[T]> {
+        return { () -> Future<[T]> in
             switch operation {
             case .none:
                 return Future([])
             case .network:
-                return network.putAll(array)
+                return network.put(query)
             case .storage:
-                return storage.putAll(array)
+                return storage.put(query)
             case .networkSync:
-                return network.putAll(array).flatMap { entities in
-                    return self.storage.putAll(entities)
+                return network.put(query).flatMap { array in
+                    return self.storage.put(query)
                 }
             case .storageSync:
-                return storage.putAll(array).flatMap { entities in
-                    return self.network.putAll(entities)
+                return storage.put(query).flatMap { array in
+                    return self.network.put(query)
                 }
             default:
-                fatalError("Invalid operation \(operation)")
+                return super.put(query, operation: operation)
             }
-            }().map { a in self.toObjectMapper.map(a) }
+            }()
     }
     
     @discardableResult
@@ -161,40 +122,7 @@ public class NetworkStorageDataProvider <O,E> : DataProvider <O>  {
                     }
                 }
             default:
-                fatalError("Invalid operation \(operation)")
-            }
-            }()
-    }
-    
-    @discardableResult
-    override public func deleteAll(_ objects: [O], operation: Operation) -> Future<Bool> {
-        let entities = objects.map { o in toEntityMapper.map(o) }
-        return { () -> Future<Bool> in
-            switch operation {
-            case .none:
-                return Future(false)
-            case .network:
-                return network.deleteAll(entities)
-            case .storage:
-                return storage.deleteAll(entities)
-            case .networkSync:
-                return network.deleteAll(entities).flatMap { success in
-                    if success {
-                        return self.storage.deleteAll(entities)
-                    } else {
-                        return false.toFuture()
-                    }
-                }
-            case .storageSync:
-                return storage.deleteAll(entities).flatMap { success in
-                    if success {
-                        return self.network.deleteAll(entities)
-                    } else {
-                        return false.toFuture()
-                    }
-                }
-            default:
-                fatalError("Invalid operation \(operation)")
+                return super.delete(query, operation: operation)
             }
             }()
     }

@@ -31,7 +31,7 @@ public struct GetObjectsInteractor <T> {
         
     public func execute(_ query: Query, _ operation: Operation) -> Future<[T]> {
         return executor.submit { future in
-            future.set(self.dataProvider.getAll(query, operation: operation))
+            future.set(self.dataProvider.get(query, operation: operation))
         }
     }
 }

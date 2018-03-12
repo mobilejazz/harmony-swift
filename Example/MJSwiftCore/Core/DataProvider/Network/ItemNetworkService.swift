@@ -9,7 +9,7 @@ import Alamofire
 import MJSwiftCore
 
 class ItemNetworkService: AlamofireRepository<ItemEntity> {
-    override func getAll(_ query: Query) -> Future<[ItemEntity]> {
+    override func get(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
         case is QueryById:
             return get((query as! QueryById).id).map { [$0] }
@@ -18,7 +18,7 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            return super.getAll(query)
+            return super.get(query)
         }
     }
 }

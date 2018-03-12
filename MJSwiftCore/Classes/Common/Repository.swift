@@ -59,9 +59,18 @@ public class KeyValueQuery<T> : KeyQuery {
         super.init(key)
     }
     public override func map<A,B>(_ mapper: Mapper<A,B>) -> Query {
-        let value : B = mapper.map(self.value as! A)
-        let query = KeyValueQuery<B>(key, value)
-        return query
+        return KeyValueQuery<B>(key, mapper.map(self.value as! A))
+    }
+}
+
+/// Array query
+public class ArrayQuery<T> : Query {
+    public let array : [T]
+    public init(_ array : [T]) {
+        self.array = array
+    }
+    public func map<A,B>(_ mapper: Mapper<A,B>) -> Query {
+        return ArrayQuery<B>(mapper.map(self.array as! [A]))
     }
 }
 
@@ -72,7 +81,7 @@ open class Repository<T> {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
-    open func getAll(_ query: Query) -> Future<[T]> {
+    open func get(_ query: Query) -> Future<[T]> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
     }
     
@@ -81,19 +90,9 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ query: Query) -> Future<Bool> {
+    open func put(_ query: Query) -> Future<[T]> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
     }
-    
-    /// Put a list of objects method
-    ///
-    /// - Parameter entities: A list of entities to put
-    /// - Returns: A future containing the list of updated entites after the put is resolved
-    @discardableResult
-    open func putAll(_ entities: [T]) -> Future<[T]> {
-        fatalError("Undefined implementation for method put on \(String(describing: type(of:self)))")
-    }
-    
     
     /// Delete by query method
     ///
@@ -103,15 +102,6 @@ open class Repository<T> {
     open func delete(_ query: Query) -> Future<Bool> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
     }
-    
-    /// Delete objects method
-    ///
-    /// - Parameter entities: A list of entities to delete
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
-    @discardableResult
-    open func deleteAll(_ entities: [T]) -> Future<Bool> {
-        fatalError("Undefined implementation method delete on \(String(describing: type(of:self)))")
-    }
 }
 
 extension Repository {
@@ -120,8 +110,8 @@ extension Repository {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
-    open func get(_ query: Query) -> Future<T?> {
-        return self.getAll(query).map { entities in
+    public func get(_ query: Query) -> Future<T?> {
+        return self.get(query).map { entities in
             return entities.first
         }
     }
@@ -131,10 +121,19 @@ extension Repository {
     /// - Parameter entity: The entity to put
     /// - Returns: A future containing the entity after the put is resolved
     @discardableResult
-    open func put(_ entity: T) -> Future<T> {
-        return self.putAll([entity]).map { entities in
+    public func put(_ entity: T) -> Future<T> {
+        return self.put([entity]).map { entities in
             return entities.first!
         }
+    }
+    
+    /// Put a list of objects method
+    ///
+    /// - Parameter entities: A list of entities to put
+    /// - Returns: A future containing the list of updated entites after the put is resolved
+    @discardableResult
+    public func put(_ entities: [T]) -> Future<[T]> {
+        return self.put(ArrayQuery(entities))
     }
     
     /// Delete a single object
@@ -142,7 +141,16 @@ extension Repository {
     /// - Parameter entity: The entity to put
     /// - Returns: A future containing the entity after the put is resolved
     @discardableResult
-    open func delete(_ entity: T) -> Future<Bool> {
-        return self.deleteAll([entity])
+    public func delete(_ entity: T) -> Future<Bool> {
+        return self.delete([entity])
+    }
+    
+    // Delete objects method
+    ///
+    /// - Parameter entities: A list of entities to delete
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    public func delete(_ entities: [T]) -> Future<Bool> {
+        return self.delete(ArrayQuery(entities))
     }
 }

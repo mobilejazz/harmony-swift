@@ -39,27 +39,17 @@ public class MappedRepository <From,To>: Repository <From> {
         self.toFromMapper = toFromMapper
     }
     
-    public override func getAll(_ query: Query) -> Future<[From]> {
-        return repository.getAll(query.map(toToMapper)).map { self.toFromMapper.map($0) }
+    public override func get(_ query: Query) -> Future<[From]> {
+        return repository.get(query.map(toToMapper)).map { self.toFromMapper.map($0) }
     }
 
     @discardableResult
-    public override func put(_ query: Query) -> Future<Bool> {
-        return repository.put(query.map(toToMapper))
-    }
-
-    @discardableResult
-    public override func putAll(_ objects: [From]) -> Future<[From]> {
-        return repository.putAll(toToMapper.map(objects)).map { self.toFromMapper.map($0) }
+    public override func put(_ query: Query) -> Future<[From]> {
+        return repository.put(query.map(toToMapper)).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Bool> {
         return repository.delete(query.map(toToMapper))
-    }
-
-    @discardableResult
-    public override func deleteAll(_ objects: [From]) -> Future<Bool> {
-        return repository.deleteAll(toToMapper.map(objects))
     }
 }

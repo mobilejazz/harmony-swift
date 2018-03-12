@@ -32,11 +32,14 @@ class DataProviderAssembly: Assembly {
             let storageEntityRepo = r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
             let storageValidationRepo = ValidationRepository(repository: storageEntityRepo,
                                                              storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
+
+            let dataProvider = NetworkStorageDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
+                                                          storage: storageValidationRepo)
             
-            return NetworkStorageDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
-                                              storage: storageValidationRepo,
-                                              toEntityMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
-                                              toObjectMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
+            return MappedDataProvider(dataProvider: dataProvider,
+                                      toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
+                                      toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
+            
             }.inObjectScope(.container)
     }
 }

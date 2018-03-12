@@ -31,7 +31,7 @@ public struct PutObjectsInteractor <T> {
         
     public func execute(_ values: [T], _ operation: Operation) -> Future<[T]> {
         return executor.submit { future in
-            future.set(self.dataProvider.putAll(values, operation: operation))
+            future.set(self.dataProvider.put(values, operation: operation))
         }
     }
 }

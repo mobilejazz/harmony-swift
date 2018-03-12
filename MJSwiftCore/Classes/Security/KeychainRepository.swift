@@ -32,7 +32,7 @@ public class KeychainRepository <T:DataConvertible> : Repository<T> {
         self.keychain = keychain
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public override func get(_ query: Query) -> Future<[T]> {
         switch query.self {
         case is KeyQuery:
             guard let value : T = keychain.get((query as! KeyQuery).key) else {
@@ -40,21 +40,17 @@ public class KeychainRepository <T:DataConvertible> : Repository<T> {
             }
             return Future([value])
         default:
-            return super.getAll(query)
+            return super.get(query)
         }
     }
-
-    public override func putAll(_ entities: [T]) -> Future<[T]> {
-        fatalError("KeychainRepository only accepts PUT actions using queries. Please, use method put(_ query: Query) with a KeyValueQuery instead.")
-    }
     
-    public override func put(_ query: Query) -> Future<Bool> {
+    public override func put(_ query: Query) -> Future<[T]> {
         switch query.self {
         case is KeyValueQuery<T>:
             let keyValueQuery = (query as! KeyValueQuery<T>)
             switch keychain.set(keyValueQuery.value, forKey: keyValueQuery.key) {
             case .success:
-                return Future(true)
+                return Future([keyValueQuery.value])
             case .failed(let status):
                 return Future(CustomError.failed(status))
             }
@@ -75,9 +71,5 @@ public class KeychainRepository <T:DataConvertible> : Repository<T> {
             default:
                 return super.delete(query)
         }
-    }
-
-    public override func deleteAll(_ entities: [T]) -> Future<Bool> {
-        fatalError("KeychainRepository only accepts DELETE actions using queries. Please, use method delete(_ query: Query) with a KeyQuery instead.")
     }
 }

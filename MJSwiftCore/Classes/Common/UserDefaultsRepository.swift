@@ -29,7 +29,7 @@ public class UserDefaultsRepository <T> : Repository<T> {
         self.userDefaults = userDefaults
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public override func get(_ query: Query) -> Future<[T]> {
         switch query.self {
         case is KeyQuery:
             let key = (query as! KeyQuery).key
@@ -81,20 +81,17 @@ public class UserDefaultsRepository <T> : Repository<T> {
                 return Future([value!])
             }
         default:
-            return super.getAll(query)
+            return super.get(query)
         }
     }
     
-    public override func putAll(_ entities: [T]) -> Future<[T]> {
-        fatalError("UserDefaultsRepository only accepts PUT actions using queries. Please, use method put(_ query: Query) with a KeyValueQuery instead.")
-    }
-    
-    public override func put(_ query: Query) -> Future<Bool> {
+    public override func put(_ query: Query) -> Future<[T]> {
         switch query.self {
         case is KeyValueQuery<T>:
             let keyValueQuery = (query as! KeyValueQuery<T>)
             userDefaults.set(keyValueQuery.value, forKey: keyValueQuery.key)
-            return Future(userDefaults.synchronize())
+            userDefaults.synchronize()
+            return Future([keyValueQuery.value])
         default:
             return super.put(query)
         }
@@ -109,10 +106,6 @@ public class UserDefaultsRepository <T> : Repository<T> {
         default:
             return super.delete(query)
         }
-    }
-    
-    public override func deleteAll(_ entities: [T]) -> Future<Bool> {
-        fatalError("UserDefaultsRepository only accepts DELETE actions using queries. Please, use method delete(_ query: Query) with a KeyQuery instead.")
     }
 }
 

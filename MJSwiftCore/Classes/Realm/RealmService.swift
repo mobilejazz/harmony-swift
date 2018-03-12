@@ -38,8 +38,16 @@ extension QueryById : RealmQuery {
         return NSPredicate(format: "id == %@", id)
     }
 }
-
 extension AllObjectsQuery : RealmQuery { }
+
+extension KeyValueQuery : RealmQuery {
+    public func realmPredicate() -> NSPredicate? {
+        guard let valueStr = value as? CVarArg else {
+            fatalError("KeyValueQuery can only be used in RealmService if value conforms to CVarArg")
+        }
+        return NSPredicate(format: "%@ == %@", key, valueStr)
+    }
+}
 
 fileprivate extension Query {
     fileprivate func toRealmQuery() -> RealmQuery {
@@ -66,7 +74,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         self.toRealmMapper = toRealmMapper
     }
     
-    public override func getAll(_ query: Query) -> Future<[E]> {
+    public override func get(_ query: Query) -> Future<[E]> {
         switch query.self {
         case is QueryById:
             let queryById = query as! QueryById
@@ -95,35 +103,41 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         }
     }
     
-    @discardableResult
-    public override func putAll(_ entities: [E]) -> Future<[E]> {
-        return realmHandler.write { realm -> [E] in
-            entities
-                .map { toRealmMapper.map($0, inRealm:realm) }
-                .forEach { realm.add($0, update: true) }
-            return entities
-        }.unwrap()
+    public override func put(_ query: Query) -> Future<[E]> {
+        switch query {
+        case is ArrayQuery<E>:
+            let array = (query as! ArrayQuery<E>).array
+            return realmHandler.write { realm -> [E] in
+                array
+                    .map { toRealmMapper.map($0, inRealm:realm) }
+                    .forEach { realm.add($0, update: true) }
+                return array
+                }.unwrap()
+        default:
+            return super.put(query)
+        }
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Bool> {
-        return realmHandler.write { realm -> Bool in
-            if let predicate = query.toRealmQuery().realmPredicate() {
-                realm.objects(O.self).filter(predicate).forEach { realm.delete($0) }
-            } else {
-                realm.objects(O.self).forEach { realm.delete($0) }
-            }
-            return true
-        }.unwrap()
-    }
-    
-    @discardableResult
-    public override func deleteAll(_ entities: [E]) -> Future<Bool> {
-        return realmHandler.write { realm -> Bool in
-            entities
-                .map { toRealmMapper.map($0, inRealm: realm) }
-                .forEach { realm.delete($0) }
-            return true
-        }.unwrap()
+        switch query {
+        case is ArrayQuery<E>:
+            let array = (query as! ArrayQuery<E>).array
+            return realmHandler.write { realm -> Bool in
+                array
+                    .map { toRealmMapper.map($0, inRealm: realm) }
+                    .forEach { realm.delete($0) }
+                return true
+                }.unwrap()
+        default:
+            return realmHandler.write { realm -> Bool in
+                if let predicate = query.toRealmQuery().realmPredicate() {
+                    realm.objects(O.self).filter(predicate).forEach { realm.delete($0) }
+                } else {
+                    realm.objects(O.self).forEach { realm.delete($0) }
+                }
+                return true
+                }.unwrap()
+        }
     }
 }

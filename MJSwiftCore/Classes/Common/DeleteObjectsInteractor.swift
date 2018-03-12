@@ -37,7 +37,7 @@ public struct DeleteObjectsInteractor <T> {
     
     public func execute(_ objects: [T], _ operation: Operation) -> Future<Bool> {
         return executor.submit { future in
-            future.set(self.dataProvider.deleteAll(objects, operation: operation))
+            future.set(self.dataProvider.delete(objects, operation: operation))
         }
     }
 }

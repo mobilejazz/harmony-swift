@@ -20,35 +20,27 @@ import Foundation
 /// Basic data provider using only one repository internally
 /// No operation is required in data provider's methods.
 ///
-public class RepositoryDataProvider <E> : DataProvider <E> {
+public class RepositoryDataProvider <T> : DataProvider <T> {
     
-    private let repository : Repository<E>
+    private let repository : Repository<T>
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - repository: The contained repository
-    public init(repository: Repository<E>) {
+    public init(repository: Repository<T>) {
         self.repository = repository
     }
     
-    public override func getAll(_ query: Query, operation: Operation = .none) -> Future<[E]> {
-        return repository.getAll(query)
+    public override func get(_ query: Query, operation: Operation = .none) -> Future<[T]> {
+        return repository.get(query)
     }
     
-    public override func put(_ query: Query, operation: Operation = .none) -> Future<Bool> {
+    public override func put(_ query: Query, operation: Operation = .none) -> Future<[T]> {
         return repository.put(query)
-    }
-    
-    public override func putAll(_ objects: [E], operation: Operation = .none) -> Future<[E]> {
-        return repository.putAll(objects)
     }
     
     public override func delete(_ query: Query, operation: Operation = .none) -> Future<Bool> {
         return repository.delete(query)
-    }
-    
-    public override func deleteAll(_ objects: [E], operation: Operation = .none) -> Future<Bool> {
-        return repository.deleteAll(objects)
     }
 }

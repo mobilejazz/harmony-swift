@@ -40,7 +40,7 @@ open class DataProvider <T> {
     ///   - query: The query encapsulating the query parameters
     ///   - operation: The operation type
     /// - Returns: A future of type list of T
-    open func getAll(_ query: Query, operation: Operation = .none) -> Future<[T]> {
+    open func get(_ query: Query, operation: Operation = .none) -> Future<[T]> {
         fatalError("Undefined behavior on method get on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
     
@@ -49,19 +49,8 @@ open class DataProvider <T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ query: Query, operation: Operation = .none) -> Future<Bool> {
+    open func put(_ query: Query, operation: Operation = .none) -> Future<[T]> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
-    }
-    
-    /// Put a list of objects method
-    ///
-    /// - Parameters:
-    ///   - values: List of values of type T to be put
-    ///   - operation: The operation type
-    /// - Returns: A future of type list of T
-    @discardableResult
-    open func putAll(_ objects: [T], operation: Operation = .none) -> Future<[T]> {
-        fatalError("Undefined behavior on method put on class \(String(describing: type(of:self))) for operation \(operation)")
     }
     
     /// Main delete method
@@ -74,17 +63,6 @@ open class DataProvider <T> {
     open func delete(_ query: Query, operation: Operation = .none) -> Future<Bool> {
         fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation) and query \(String(describing: type(of:query)))")
     }
-    
-    /// Delete a list of objects
-    ///
-    /// - Parameters:
-    ///   - entities: The query encapsulating the query parameters
-    ///   - operation: The operation type
-    /// - Returns: A future of type list of Bool. If the operation succeeds, the future will be resovled with true.
-    @discardableResult
-    open func deleteAll(_ objects: [T], operation: Operation = .none) -> Future<Bool> {
-        fatalError("Undefined behavior on method delete on class \(String(describing: type(of:self))) for operation \(operation)")
-    }
 }
 
 extension DataProvider {
@@ -95,8 +73,8 @@ extension DataProvider {
     ///   - query: The query encapsulating the query parameters
     ///   - operation: The operation type
     /// - Returns: A future of type optional T
-    open func get(_ query: Query, operation: Operation = .none) -> Future<T?> {
-        return getAll(query, operation: operation).map{ array in
+    public func get(_ query: Query, operation: Operation = .none) -> Future<T?> {
+        return get(query, operation: operation).map { array in
             return array.first
         }
     }
@@ -108,14 +86,36 @@ extension DataProvider {
     ///   - operation: The operation type
     /// - Returns: A future of type T
     @discardableResult
-    open func put(_ value: T, operation: Operation = .none) -> Future<T> {
-        return putAll([value], operation: operation).map({ (array) -> T in
+    public func put(_ value: T, operation: Operation = .none) -> Future<T> {
+        return put([value], operation: operation).map({ (array) -> T in
             return array.first!
         })
     }
     
+    /// Put a list of objects method
+    ///
+    /// - Parameters:
+    ///   - values: List of values of type T to be put
+    ///   - operation: The operation type
+    /// - Returns: A future of type list of T
     @discardableResult
-    open func delete(_ entity: T, operation: Operation = .none) -> Future<Bool> {
-        return deleteAll([entity], operation: operation)
+    public func put(_ objects: [T], operation: Operation = .none) -> Future<[T]> {
+        return put(ArrayQuery(objects), operation: operation)
+    }
+    
+    @discardableResult
+    public func delete(_ entity: T, operation: Operation = .none) -> Future<Bool> {
+        return delete([entity], operation: operation)
+    }
+    
+    /// Delete a list of objects
+    ///
+    /// - Parameters:
+    ///   - entities: The query encapsulating the query parameters
+    ///   - operation: The operation type
+    /// - Returns: A future of type list of Bool. If the operation succeeds, the future will be resovled with true.
+    @discardableResult
+    public func delete(_ objects: [T], operation: Operation = .none) -> Future<Bool> {
+        return delete(ArrayQuery(objects), operation: operation)
     }
 }

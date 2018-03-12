@@ -39,27 +39,17 @@ public class MappedDataProvider<From,To> : DataProvider<From> {
         self.toFromMapper = toFromMapper
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
-        return dataProvider.getAll(query.map(toToMapper)).map { self.toFromMapper.map($0) }
+    public override func get(_ query: Query, operation: Operation) -> Future<[From]> {
+        return dataProvider.get(query.map(toToMapper), operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
-    public override func put(_ query: Query, operation: Operation) -> Future<Bool> {
-        return dataProvider.put(query.map(toToMapper))
-    }
-    
-    @discardableResult
-    public override func putAll(_ objects: [From], operation: Operation) -> Future<[From]> {
-        return dataProvider.putAll(toToMapper.map(objects)).map { self.toFromMapper.map($0) }
+    public override func put(_ query: Query, operation: Operation) -> Future<[From]> {
+        return dataProvider.put(query.map(toToMapper), operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
     public override func delete(_ query: Query, operation: Operation) -> Future<Bool> {
-        return dataProvider.delete(query.map(toToMapper))
-    }
-    
-    @discardableResult
-    public override func deleteAll(_ objects: [From], operation: Operation) -> Future<Bool> {
-        return dataProvider.deleteAll(toToMapper.map(objects))
+        return dataProvider.delete(query.map(toToMapper), operation: operation)
     }
 }

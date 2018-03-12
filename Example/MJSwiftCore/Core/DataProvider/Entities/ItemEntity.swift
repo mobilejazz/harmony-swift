@@ -30,7 +30,7 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Decodable {
 	var lastUpdate: Date? = nil
     
     func expiryTimeInterval() -> Time {
-        return .seconds(30)
+        return .seconds(5)
     }
 	
 	//MARK: Decodable

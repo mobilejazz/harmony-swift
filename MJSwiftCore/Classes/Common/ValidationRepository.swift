@@ -76,8 +76,8 @@ public class ValidationRepository<T>: Repository<T> {
         self.storageValidation = storageValidation
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
-        return repository.getAll(query).filter { values in
+    public override func get(_ query: Query) -> Future<[T]> {
+        return repository.get(query).filter { values in
             if !self.storageValidation.isArrayValid(values) {
                 throw ValidationError.notValid
             }
@@ -85,22 +85,12 @@ public class ValidationRepository<T>: Repository<T> {
     }
     
     @discardableResult
-    public override func put(_ query: Query) -> Future<Bool> {
+    public override func put(_ query: Query) -> Future<[T]> {
         return repository.put(query)
-    }
-    
-    @discardableResult
-    public override func putAll(_ objects: [T]) -> Future<[T]> {
-        return repository.putAll(objects)
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Bool> {
         return repository.delete(query)
-    }
-    
-    @discardableResult
-    public override func deleteAll(_ objects: [T]) -> Future<Bool> {
-        return repository.deleteAll(objects)
     }
 }
