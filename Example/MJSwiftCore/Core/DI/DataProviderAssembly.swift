@@ -6,7 +6,7 @@
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 import Swinject
 import MJSwiftCore

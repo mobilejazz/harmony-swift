@@ -16,14 +16,28 @@
 
 import Foundation
 
-open class Mapper<From, To> {
+///
+/// Abstract class to map an object type to another object type
+///
+open class Mapper <From,To> {
+    
+    /// Default initializer
     public init() { }
+    
+    /// Mapping method
+    ///
+    /// - Parameter from: The original object
+    /// - Returns: The new mapped object
     open func map(_ from: From) -> To {
         fatalError("Undefined mapper. Class Mapper must be subclassed.")
     }
 }
 
 extension Mapper {
+    /// Mapping method for arrays
+    ///
+    /// - Parameter array: An array of objects
+    /// - Returns: An array of mapped objects
     public func map( _ array: Array<From>) -> Array<To> {
         return array.map { value -> To in
             return map(value)
@@ -32,19 +46,19 @@ extension Mapper {
 }
 
 ///
-/// BlankMapper returns the same value as map
+/// BlankMapper returns the same value
 ///
-public class BlankMapper<T> : Mapper<T,T> {
+public class BlankMapper <T> : Mapper <T,T> {
     public override func map(_ from: T) -> T {
         return from
     }
 }
 
 ///
-/// CastMapper returns the same value but casted
+/// CastMapper casts the input value to the mapped type
 ///
-public class CastMapper<T,Q> : Mapper<T,Q> {
-    public override func map(_ from: T) -> Q {
-        return from as! Q
+public class CastMapper <From,To> : Mapper <From,To> {
+    public override func map(_ from: From) -> To {
+        return from as! To
     }
 }

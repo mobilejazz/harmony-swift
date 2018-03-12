@@ -21,7 +21,7 @@ public extension Keychain {
     ///
     /// - Parameter key: The key.
     /// - Returns: The DataConvertible conforming value stored in the Keychain or nil.
-    public func get<T>(_ key: String) -> T? where T: DataConvertible {
+    public func get<T>(_ key: String) -> T? where T: DataDecodable {
         guard let data : Data = get(key) else {
             return nil
         }
@@ -35,7 +35,7 @@ public extension Keychain {
     ///   - key: The key.
     /// - Returns: The operation result.
     @discardableResult
-    public func set<T>(_ value: T, forKey key: String) -> Result where T: DataConvertible {
-        return set(value.data, forKey: key)
+    public func set<T>(_ value: T, forKey key: String) -> Result where T: DataCodable {
+        return set(value.toData(), forKey: key)
     }
 }

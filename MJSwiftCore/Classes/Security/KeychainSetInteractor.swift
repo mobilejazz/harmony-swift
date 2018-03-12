@@ -21,7 +21,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 /// Keychain set interactor
 ///
-public class KeychainSetInteractor <T:DataConvertible> {
+public class KeychainSetInteractor <T> where T:DataCodable {
     
     /// Custom interactor errors
     public enum CustomError: Error {

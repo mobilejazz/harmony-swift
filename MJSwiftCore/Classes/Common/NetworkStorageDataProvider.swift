@@ -51,15 +51,15 @@ public class NetworkStorageDataProvider <T> : DataProvider <T>  {
             case .storage:
                 return storage.get(query)
             case .networkSync:
-                return network.get(query).flatMap { entities in
-                    return self.storage.put(ArrayQuery(entities))
+                return network.get(query).filter { entities in
+                    self.storage.put(ArrayQuery(entities))
                 }
             case .storageSync:
                 return storage.get(query).recover { error in
                     switch error {
                     case ValidationError.notValid:
-                        return self.network.get(query).flatMap { entities in
-                            return self.storage.put(ArrayQuery(entities))
+                        return self.network.get(query).filter { entities in
+                            self.storage.put(ArrayQuery(entities))
                         }
                     default:
                         return Future(error)

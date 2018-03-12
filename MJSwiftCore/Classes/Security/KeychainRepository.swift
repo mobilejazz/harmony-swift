@@ -20,10 +20,16 @@ import Foundation
 /// Key-value based repository to store data in Keychain.
 /// The repository only works with KeyQuery and KeyValueQuery types.
 ///
-public class KeychainRepository <T:DataConvertible> : Repository<T> {
+public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataDecodable {
     
     public enum CustomError : Error {
         case failed(OSStatus)
+        public var localizedDescription: String {
+            switch self {
+            case .failed(let status):
+                return "Failed with status code: \(status)"
+            }
+        }
     }
     
     private let keychain : Keychain
