@@ -17,6 +17,10 @@
 
 import Foundation
 
+///
+/// Key-value based repository to store data in UserDefaults.
+/// The repository only works with KeyQuery and KeyValueQuery types.
+///
 public class UserDefaultsRepository <T> : Repository<T> {
     
     private let userDefaults : UserDefaults

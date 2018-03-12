@@ -63,31 +63,27 @@ extension Operation {
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageDataProvider <O, E> : DataProvider <O>  {
+public class NetworkStorageDataProvider <O,E> : DataProvider <O>  {
     
     private let network: Repository<E>
     private let storage: Repository<E>
     private let toEntityMapper: Mapper<O, E>
     private let toObjectMapper: Mapper<E, O>
-    private let toRepositoryQueryMapper: Mapper <Query, Query>
     private let storageValidation: ObjectValidation
     
     public init(network: Repository<E>,
                 storage: Repository<E>,
                 storageValidation: ObjectValidation,
                 toEntityMapper: Mapper<O, E>,
-                toObjectMapper: Mapper<E, O>,
-                toRepositoryQueryMapper: Mapper <Query, Query> = BlankMapper<Query>()) {
+                toObjectMapper: Mapper<E, O>) {
         self.network = network
         self.storage = storage
         self.storageValidation = storageValidation
         self.toEntityMapper = toEntityMapper
         self.toObjectMapper = toObjectMapper
-        self.toRepositoryQueryMapper = toRepositoryQueryMapper
     }
     
     override public func getAll(_ query: Query, operation: Operation) -> Future<[O]> {
-        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<[E]> in
             switch operation {
             case .none:
@@ -118,7 +114,6 @@ public class NetworkStorageDataProvider <O, E> : DataProvider <O>  {
     
     @discardableResult
     override public func put(_ query: Query, operation: Operation) -> Future<Bool> {
-        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<Bool> in
             switch operation {
             case .none:
@@ -176,7 +171,6 @@ public class NetworkStorageDataProvider <O, E> : DataProvider <O>  {
     
     @discardableResult
     override public func delete(_ query: Query, operation: Operation) -> Future<Bool> {
-        let query = toRepositoryQueryMapper.map(query)
         return { () -> Future<Bool> in
             switch operation {
             case .none:

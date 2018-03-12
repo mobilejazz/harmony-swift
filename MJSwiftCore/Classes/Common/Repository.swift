@@ -18,7 +18,14 @@ import Foundation
 
 /// Default query interface
 public protocol Query {
-    func map<A,B>(_ mapper: Mapper<A, B>) -> Query
+    func map<A,B>(_ mapper: Mapper<A,B>) -> Query
+}
+
+extension Query {
+    /// Default implementation returns self
+    public func map<A,B>(_ mapper: Mapper<A,B>) -> Query {
+        return self
+    }
 }
 
 /// A query by an id
@@ -27,30 +34,30 @@ public class QueryById : Query {
     public init(_ id: String) {
         self.id = id
     }
-    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
 }
 
-// All objects query
+/// All objects query
 public class AllObjectsQuery : Query {
     public init() { }
-    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
 }
 
+/// Key based query
 public class KeyQuery : Query {
     public let key : String
     public init(_ key: String) {
         self.key = key
     }
-    public func map<A,B>(_ mapper: Mapper<A, B>) -> Query { return self }
+    // Method definition is done because KeyValueQuery subclass must implement it
+    public func map<A,B>(_ mapper: Mapper<A,B>) -> Query { return self }
 }
 
+/// Key-value based query
 public class KeyValueQuery<T> : KeyQuery {
     public let value : T
     public init(_ key: String, _ value: T) {
         self.value = value
         super.init(key)
     }
-    
     public override func map<A,B>(_ mapper: Mapper<A,B>) -> Query {
         let value : B = mapper.map(self.value as! A)
         let query = KeyValueQuery<B>(key, value)

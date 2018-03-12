@@ -14,9 +14,12 @@
 // limitations under the License.
 //
 
-
 import Foundation
 
+///
+/// Key-value based repository to store data in Keychain.
+/// The repository only works with KeyQuery and KeyValueQuery types.
+///
 public class KeychainRepository <T:DataConvertible> : Repository<T> {
     
     public enum CustomError : Error {

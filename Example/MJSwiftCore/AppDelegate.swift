@@ -60,11 +60,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
                 
-        let repository = KeychainRepository<Data>(Keychain())
-        //let repository = UserDefaultsRepository<Data>(UserDefaults.standard)
-        let dataProvider = RepositoryDataProvider<Dog,Data>(repository: repository,
-                                                            toEntityMapper: toDataMapper<Dog>(),
-                                                            toObjectMapper: toDataConvertibleMapper<Dog>())
+        //let repository = KeychainRepository<Data>(Keychain())
+        let repository = UserDefaultsRepository<Data>(UserDefaults.standard)
+        
+        let mappedRepository = MappedRepository<Dog,Data>(repository: repository,
+                                                          toToMapper: toDataMapper<Dog>(),
+                                                          toFromMapper: toDataConvertibleMapper<Dog>())
+        
+        let dataProvider = RepositoryDataProvider<Dog>(repository: mappedRepository)
         
         let dog = Dog(name:"Lassie", age: 6)
         
