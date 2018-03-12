@@ -29,11 +29,14 @@ class DataProviderAssembly: Assembly {
         
         // Data Providers (registered as singletons)
         container.register(DataProvider<Item>.self) { r in
+            let storageEntityRepo = r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
+            let storageValidationRepo = ValidationRepository(repository: storageEntityRepo,
+                                                             storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
+            
             return NetworkStorageDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
-                                       storage: r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!,
-                                       storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!,
-                                       toEntityMapper: r.resolve(Mapper<Item, ItemEntity>.self)!,
-                                       toObjectMapper: r.resolve(Mapper<ItemEntity, Item>.self)!)
+                                              storage: storageValidationRepo,
+                                              toEntityMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
+                                              toObjectMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
             }.inObjectScope(.container)
     }
 }

@@ -372,6 +372,7 @@
 		D2819EE7025B0C5E3286CCD10CB2286E /* FBLPromise+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 616F7B93B3ED0802F09010976D267A40 /* FBLPromise+Testing.h */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC1B668FB57FCB1E29109A5717C6E9D /* MJSecureKey.m */; };
 		D2A5551A2056682500D88CCE /* MappedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A555192056682500D88CCE /* MappedRepository.swift */; };
+		D2A5551E20566D5800D88CCE /* ValidationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5551D20566D5800D88CCE /* ValidationRepository.swift */; };
 		D2EFD05820513F13007D310C /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EFD05720513F13007D310C /* KeychainGetInteractor.swift */; };
 		D2EFD05A205140A8007D310C /* KeychainSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EFD059205140A8007D310C /* KeychainSetInteractor.swift */; };
 		D36B4AEFAD2963D23FA7F5DDF3B0D5FD /* AlamofireRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225AEEDAF4831EFAE863DFB30BC8742E /* AlamofireRepository.swift */; };
@@ -1030,6 +1031,7 @@
 		D2468F1B20528C5C00B90AEA /* DataConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataConvertible.swift; path = MJSwiftCore/Classes/Common/DataConvertible.swift; sourceTree = "<group>"; };
 		D27AB8835AE0A756A0B6D29BC3BFE8C2 /* Future+Optionals.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Future+Optionals.swift"; path = "MJSwiftCore/Classes/Future/Future+Optionals.swift"; sourceTree = "<group>"; };
 		D2A555192056682500D88CCE /* MappedRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MappedRepository.swift; path = MJSwiftCore/Classes/Common/MappedRepository.swift; sourceTree = "<group>"; };
+		D2A5551D20566D5800D88CCE /* ValidationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ValidationRepository.swift; path = MJSwiftCore/Classes/Common/ValidationRepository.swift; sourceTree = "<group>"; };
 		D2EFD05720513F13007D310C /* KeychainGetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainGetInteractor.swift; path = MJSwiftCore/Classes/Security/KeychainGetInteractor.swift; sourceTree = "<group>"; };
 		D2EFD059205140A8007D310C /* KeychainSetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainSetInteractor.swift; path = MJSwiftCore/Classes/Security/KeychainSetInteractor.swift; sourceTree = "<group>"; };
 		D2FD46807B7FCC7CAADE26679469F70D /* Util.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Util.swift; path = RealmSwift/Util.swift; sourceTree = "<group>"; };
@@ -1264,6 +1266,7 @@
 				2115A96EC6B8F2B07FB59C57ED5D1961 /* LinkRecognizer.swift */,
 				BB0E5809FFF6CB32DC82A496455FAE36 /* Mapper.swift */,
 				D2A555192056682500D88CCE /* MappedRepository.swift */,
+				D2A5551D20566D5800D88CCE /* ValidationRepository.swift */,
 				5064AB570D6C839DEBB4CF79F1D2ACE6 /* Model.swift */,
 				76DE423AE517E879264227585305E5EB /* OperationQueueExecutor.swift */,
 				2109D36993A968601C518ACC5CCA8688 /* PutObjectInteractor.swift */,
@@ -2641,6 +2644,7 @@
 				FC4F87C6B7B31AAA5E4C4403E2E613C6 /* UserDefaultsSetInteractor.swift in Sources */,
 				D2EFD05A205140A8007D310C /* KeychainSetInteractor.swift in Sources */,
 				8FC99DB9375B7C8D98E7FABC0E197FBF /* VastraInvalidationStrategy.swift in Sources */,
+				D2A5551E20566D5800D88CCE /* ValidationRepository.swift in Sources */,
 				3D26962C4A26C83F40582914954F6B36 /* VastraReachabilityStrategy.swift in Sources */,
 				04AAC1F2024393FDAE2F4AB7EAD9E20E /* VastraService.swift in Sources */,
 				FCDA193AE3756E09153F4C75B8099F39 /* VastraStrategy.swift in Sources */,

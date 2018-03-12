@@ -16,39 +16,6 @@
 
 import Foundation
 
-public protocol ObjectValidation {
-    func isObjectValid<T>(_ object: T) -> Bool
-    func isArrayValid<T>(_ objects: [T]?) -> Bool
-}
-
-public extension ObjectValidation {
-    
-    /// Validator method for arrays
-    ///
-    /// The validation process iterates over the array and is considered valid if all objects are valid.
-    /// Note that:
-    ///   - An empty array is considered invalid
-    ///   - A nil instance is considered invalid
-    ///
-    /// - Parameter object: The object to validate.
-    /// - Returns: true if valid, false otherwise.
-    public func isArrayValid<T>(_ objects: [T]?) -> Bool {
-        if let objects = objects {
-            if objects.isEmpty {
-                return false
-            }
-            for object in objects {
-                if !isObjectValid(object) {
-                    return false
-                }
-            }
-            return true
-        } else {
-            return true
-        }
-    }
-}
-
 extension Operation {
     /// - network: Data stream will only use network
     public static let network = Operation(rawValue: "network")
@@ -69,16 +36,13 @@ public class NetworkStorageDataProvider <O,E> : DataProvider <O>  {
     private let storage: Repository<E>
     private let toEntityMapper: Mapper<O, E>
     private let toObjectMapper: Mapper<E, O>
-    private let storageValidation: ObjectValidation
     
     public init(network: Repository<E>,
                 storage: Repository<E>,
-                storageValidation: ObjectValidation,
                 toEntityMapper: Mapper<O, E>,
                 toObjectMapper: Mapper<E, O>) {
         self.network = network
         self.storage = storage
-        self.storageValidation = storageValidation
         self.toEntityMapper = toEntityMapper
         self.toObjectMapper = toObjectMapper
     }
@@ -97,13 +61,14 @@ public class NetworkStorageDataProvider <O,E> : DataProvider <O>  {
                     return self.storage.putAll(entities)
                 }
             case .storageSync:
-                return storage.getAll(query).flatMap { values in
-                    if !self.storageValidation.isArrayValid(values) {
+                return storage.getAll(query).recover { error in
+                    switch error {
+                    case ValidationError.notValid:
                         return self.network.getAll(query).flatMap { entities in
                             return self.storage.putAll(entities)
                         }
-                    } else {
-                        return values.toFuture()
+                    default:
+                        return Future(error)
                     }
                 }
             default:
