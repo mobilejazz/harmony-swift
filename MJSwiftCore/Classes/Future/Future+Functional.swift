@@ -18,7 +18,7 @@ import Foundation
 
 public extension Future {
         
-    /// Mappes the value and return a new future with the value mapped
+    /// Map the value and return a new future with the value mapped
     public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
         return Future<K>(reactive: reactive) { future in
             future.nestingLevel = nestingLevel + 1

@@ -242,6 +242,21 @@ public class Future<T> {
         }
     }
     
+    /// Clears the stored value and the referenced then closures.
+    /// Mainly, resets the state of the future to blank.
+    ///
+    /// - Returns: The self instance
+    @discardableResult
+    public func clear() -> Future<T> {
+        lock() {
+            _result = nil
+            success = nil
+            failure = nil
+            state = .blank
+        }
+        return self
+    }
+    
     /// Closure called right after content is set, without waiting the then closure.
     /// Note that multiple calls to this method are discouraged, resulting with only one onContentSet closure being called.
     /// Note too that if the future has already been sent, this closure is not called.
@@ -434,3 +449,35 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         return description + "(nesting level: \(nestingLevel))"
     }
 }
+
+///
+/// Definition of an Event as a Future of type Void.
+///
+public class Event : Future<Void> {
+    
+    public override init(reactive: Bool = true) {
+        super.init(reactive: reactive)
+    }
+    
+    /// Trigger the event without any parameter
+    public func trigger() {
+        self.set(Void())
+    }
+
+    public override func then(_ success: @escaping () -> Void) -> Future<Void> {
+        if reactive {
+            // If future is reactive, clearing the current stored Void()
+            self.clear()
+        }
+        return super.then(success)
+    }
+    
+    public override func fail(_ failure: @escaping (Error) -> Void) -> Future<Void> {
+        if reactive {
+            // If future is reactive, clearing the current stored Void()
+            self.clear()
+        }
+        return super.fail(failure)
+    }
+}
+
