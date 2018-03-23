@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, MJFutureMemoryReferenceType)
 
  @return An empty hub.
  */
-+ (MJFutureHub <T> * _Nonnull)hub;
++ (MJFutureHub <T> * _Nonnull)hub NS_SWIFT_UNAVAILABLE("");
 
 /**
  Static initializer.
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, MJFutureMemoryReferenceType)
  @param future The future for the hub
  @return A new hub instance.
  */
-+ (MJFutureHub <T> * _Nonnull)hubWithFuture:(MJFuture <T> * _Nonnull)future;
++ (MJFutureHub <T> * _Nonnull)hubWithFuture:(MJFuture <T> * _Nonnull)future NS_SWIFT_UNAVAILABLE("");
 
 /**
  * Default initializer
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, MJFutureMemoryReferenceType)
  @param future The future to use as base future
  @return A new initialized instance
  */
-- (instancetype _Nonnull)initWithFuture:(MJFuture<T> *_Nullable)future;
+- (instancetype _Nonnull)initWithFuture:(MJFuture<T> *_Nullable)future NS_SWIFT_NAME(init(_:));
 
 /**
  @property The future beign observed.
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, MJFutureMemoryReferenceType)
  @param type The memory reference type.
  @return A new future
  */
-- (MJFuture<T>* _Nonnull)plugAs:(MJFutureMemoryReferenceType)type;
+- (MJFuture<T>* _Nonnull)plugAs:(MJFutureMemoryReferenceType)type NS_SWIFT_NAME(plug(_:));
 
 /**
  Plugs (subscries) the given future (keepign a week memory reference).
@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, MJFutureMemoryReferenceType)
  @param future The future to plug.
  @param type The memory reference type
  */
-- (void)plug:(MJFuture<T> * _Nonnull)future as:(MJFutureMemoryReferenceType)type;
+- (void)plug:(MJFuture<T> * _Nonnull)future as:(MJFutureMemoryReferenceType)type NS_SWIFT_NAME(plug(_:memoryReferenceType:));
 
 /**
  Unplugs (unsubscribes) a future.

@@ -82,17 +82,64 @@ static dispatch_queue_t _defaultReturnQueue = nil;
 
 - (instancetype)init
 {
-    return [self initReactive:NO];
+    self = [super init];
+    if (self)
+    {
+        _state = MJFutureStateBlank;
+        _observers = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory];
+    }
+    return self;
 }
 
 - (instancetype)initReactive:(BOOL)reactive
 {
-    self = [super init];
+    self = [self init];
     if (self)
     {
         _reactive = reactive;
-        _state = MJFutureStateBlank;
-        _observers = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory];
+    }
+    return self;
+}
+
+- (instancetype)initWithFuture:(MJFuture*)future
+{
+    self = [self init];
+    if (self)
+    {
+        _reactive = future.reactive;
+        [self setFuture:future];
+    }
+    return self;
+}
+
+- (instancetype)initWithValue:(id)value
+{
+    return [self initWithValue:value reactive:NO];
+}
+
+- (instancetype)initWithValue:(id)value reactive:(BOOL)reactive
+{
+    self = [self init];
+    if (self)
+    {
+        _reactive = reactive;
+        [self setValue:value];
+    }
+    return self;
+}
+
+- (instancetype)initWithError:(NSError *)error
+{
+    return [self initWithError:error reactive:NO];
+}
+
+- (instancetype)initWithError:(NSError *)error reactive:(BOOL)reactive
+{
+    self = [self init];
+    if (self)
+    {
+        _reactive = reactive;
+        [self setError:error];
     }
     return self;
 }
@@ -193,6 +240,13 @@ static dispatch_queue_t _defaultReturnQueue = nil;
         [self setValue:value];
     }] failure:^(NSError * _Nonnull error) {
         [self setError:error];
+    }];
+}
+
+- (void)didSet:(void (^)(void))block
+{
+    [self onSet:^(__strong id  _Nullable * _Nonnull value, NSError *__strong  _Nullable * _Nonnull error) {
+        block();
     }];
 }
 
@@ -551,6 +605,15 @@ static dispatch_queue_t _defaultReturnQueue = nil;
             else
                 [future setValue:object];
         }
+    }];
+    return future;
+}
+
+- (MJFuture*)onCompletion:(void (^)(void))block
+{
+    MJFuture *future = [[MJFuture alloc] initReactive:self.reactive];
+    [self then:^(id object, NSError * error) {
+        block();
     }];
     return future;
 }

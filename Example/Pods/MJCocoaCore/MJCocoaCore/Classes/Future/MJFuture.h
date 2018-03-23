@@ -29,11 +29,13 @@ typedef NS_ENUM(NSInteger, MJFutureState)
 extern NSString * _Nonnull const MJFutureValueNotAvailableException;
 extern NSString * _Nonnull const MJFutureErrorKey;
 
+NS_SWIFT_UNAVAILABLE("")
 @protocol MJFutureObserver;
 
 /**
  * Future promise object.
  **/
+//NS_SWIFT_NAME(Future) // <- keeping the MJ prefix as a way to differenciate it from the pure swift Futures of MJSwiftCore
 @interface MJFuture <T> : NSObject
 
 #pragma mark - Creation
@@ -47,14 +49,14 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  
  @return An empty future
  */
-+ (MJFuture <T>* _Nonnull)emptyFuture;
++ (MJFuture <T>* _Nonnull)emptyFuture NS_SWIFT_UNAVAILABLE("");
 
 /**
  Creates an empty reactive future.
  
  @return An empty reactive future.
  **/
-+ (MJFuture <T>* _Nonnull)reactiveFuture;
++ (MJFuture <T>* _Nonnull)reactiveFuture NS_SWIFT_UNAVAILABLE("");
 
 /**
  Creates an immediate future passing a value
@@ -62,7 +64,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  @param value The value to set to the future
  @return A future
  */
-+ (MJFuture <T>* _Nonnull)immediateFuture:(_Nullable T)value;
++ (MJFuture <T>* _Nonnull)immediateFuture:(_Nullable T)value NS_SWIFT_UNAVAILABLE("");
 
 /**
  Creates an immediate future with an error.
@@ -70,7 +72,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  @param error The error
  @return A future
  **/
-+ (MJFuture <T>* _Nonnull)futureWithError:(NSError * _Nonnull)error;
++ (MJFuture <T>* _Nonnull)futureWithError:(NSError * _Nonnull)error NS_SWIFT_UNAVAILABLE("");
 
 /**
  Creates a future from another future
@@ -78,7 +80,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  @param future The future to set to the future
  @return A future
  */
-+ (MJFuture <T>* _Nonnull)futureWithFuture:(MJFuture<T>* _Nonnull)future;
++ (MJFuture <T>* _Nonnull)futureWithFuture:(MJFuture<T>* _Nonnull)future NS_SWIFT_UNAVAILABLE("");
 
 /**
  Creates an empty future
@@ -86,6 +88,48 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  @return The initialized instance
  **/
 - (_Nonnull instancetype)initReactive:(BOOL)reactive;
+
+/**
+ Creates a future from a future
+ @param future The future
+ @return The initialized instance
+ **/
+- (_Nonnull instancetype)initWithFuture:(MJFuture<T>* _Nonnull)future NS_SWIFT_NAME(init(_:));
+
+/**
+ Creates an immediate future passing a value
+ 
+ @param value The value to set to the future
+ @return A future
+ */
+- (_Nonnull instancetype)initWithValue:(_Nullable T)value NS_SWIFT_NAME(init(_:));
+
+/**
+ Creates an immediate future passing a value
+ 
+ @param value The value to set to the future
+ @param reactive YES for a reactive future, NO otherwise
+ @return A future
+ */
+- (_Nonnull instancetype)initWithValue:(_Nullable T)value reactive:(BOOL)reactive NS_SWIFT_NAME(init(_:reactive:));
+
+/**
+ Creates an immediate future with an error.
+ 
+ @param error The error
+ @return A future
+ */
+- (_Nonnull instancetype)initWithError:(NSError * _Nonnull)error NS_SWIFT_NAME(init(_:));
+
+/**
+ Creates an immediate future with an error.
+ 
+ @param error The error
+ @param reactive YES for a reactive future, NO otherwise
+ @return A future
+ */
+- (_Nonnull instancetype)initWithError:(NSError * _Nonnull)error reactive:(BOOL)reactive NS_SWIFT_NAME(init(_:reactive:));
+
 
 #pragma mark - Future lifecyle
 
@@ -122,21 +166,21 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  
  @param future The future to mimic its reactiveness.
  */
-- (void)mimic:(MJFuture<T>* _Nonnull)future;
+- (void)mimic:(MJFuture<T>* _Nonnull)future NS_SWIFT_UNAVAILABLE("");
 
 /**
  Sets the value on the future. If the future is ready, the *then* block will be called
  
  @param value A not null value
  */
-- (void)setValue:(_Nullable T)value;
+- (void)setValue:(_Nullable T)value NS_SWIFT_NAME(set(_:));
 
 /**
  Sets an error on the future. If the future is ready, the *then* block will be called
  
  @param error A not null error object
  */
-- (void)setError:(NSError * _Nonnull)error;
+- (void)setError:(NSError * _Nonnull)error NS_SWIFT_NAME(set(_:));
 
 /**
  If error, the future sends the error. Otherwise sends the value (even if the value is nil).
@@ -144,14 +188,21 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  @param value The value
  @param error The error
  **/
-- (void)setValue:(_Nullable T)value error:(NSError * _Nullable)error;
+- (void)setValue:(_Nullable T)value error:(NSError * _Nullable)error NS_SWIFT_NAME(set(value:error:));
 
 /**
  Sets the future with the result of another future.
  
  @param future The future to set the current future
  **/
-- (void)setFuture:(MJFuture * _Nonnull)future;
+- (void)setFuture:(MJFuture * _Nonnull)future NS_SWIFT_NAME(set(_:));
+
+/**
+ * Block called upon value is set.
+ *
+ * @param block The block called.
+ **/
+- (void)didSet:(void (^_Nonnull)(void))block NS_SWIFT_NAME(onSet(_:));
 
 /**
  * Block called upon value is set.
@@ -171,29 +222,29 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  * Returns the future in the given queue. Default queue is nil.
  * @discussion A nil queue will execute the then block in the same queue where the setValue/setError happens.
  **/
-- (MJFuture<T>* _Nonnull)inQueue:(dispatch_queue_t _Nullable)queue;
+- (MJFuture<T>* _Nonnull)inQueue:(dispatch_queue_t _Nullable)queue NS_SWIFT_NAME(on(_:));
 
 /**
  * Returns the future in the main queue
  **/
-- (MJFuture<T>* _Nonnull)inMainQueue;
+- (MJFuture<T>* _Nonnull)inMainQueue NS_SWIFT_NAME(onMainQueue());
 
 /**
  Completion block executed when the future has value.
  
  @param block The block to be executed, with the object or the error passed as parameter
  */
-- (void)then:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block;
+- (void)then:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block NS_SWIFT_UNAVAILABLE("");
 
 /**
  * Success block. Returns a new future instance chained to the original one.
  **/
-- (MJFuture<T>* _Nonnull)success:(void (^ _Nonnull)(_Nullable T value))success;
+- (MJFuture<T>* _Nonnull)success:(void (^ _Nonnull)(_Nullable T value))success NS_SWIFT_NAME(then(_:));
 
 /**
  * Failure block. Returns a new future instance chained to the original one.
  **/
-- (MJFuture<T>* _Nonnull)failure:( void (^ _Nonnull)(NSError * _Nonnull error))failure;
+- (MJFuture<T>* _Nonnull)failure:( void (^ _Nonnull)(NSError * _Nonnull error))failure NS_SWIFT_NAME(fail(_:));
 
 /**
  Completes the future (if not completed yet). Completed futures cannot be used anymore and no then block will be called afterwards.
@@ -232,13 +283,13 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  Registers an observer.
  @param observer An observer
  **/
-- (void)addObserver:(_Nonnull id <MJFutureObserver>)observer;
+- (void)addObserver:(_Nonnull id <MJFutureObserver>)observer NS_SWIFT_UNAVAILABLE("");
 
 /**
  Unregisters an observer.
  @param observer An observer
  **/
-- (void)removeObserver:(_Nonnull id <MJFutureObserver>)observer;
+- (void)removeObserver:(_Nonnull id <MJFutureObserver>)observer NS_SWIFT_UNAVAILABLE("");
 
 /**
  Returns a hub associated to the current future
@@ -251,6 +302,7 @@ extern NSString * _Nonnull const MJFutureErrorKey;
  * Observer object.
  * @discussion Observer methods may be called from background threads.
  **/
+NS_SWIFT_UNAVAILABLE("")
 @protocol MJFutureObserver <NSObject>
 
 @optional
@@ -290,9 +342,15 @@ extern NSString * _Nonnull const MJFutureErrorKey;
 - (MJFuture <T> *_Nonnull)filter:(NSError * _Nonnull (^_Nonnull)(id _Nonnull value))block;
 
 /**
+ On completion block.
+ **/
+- (MJFuture <T> *_Nonnull)onCompletion:(void  (^_Nonnull)(void))block;
+
+/**
  Intercepts a future then block and exposes it, returning a new chained future.
  **/
-- (MJFuture <T> *_Nonnull)andThen:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block;
+- (MJFuture <T> *_Nonnull)andThen:(void (^ _Nonnull)(_Nullable T value, NSError *_Nullable error))block NS_SWIFT_UNAVAILABLE("");
 
 @end
+
 

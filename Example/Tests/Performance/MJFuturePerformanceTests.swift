@@ -32,7 +32,7 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
+                MJFuture<NSNumber>(NSNumber(value:true)).on(queue).then { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -57,9 +57,9 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
+                MJFuture<NSNumber>(NSNumber(value:true)).on(queue).then { value in
                     
-                    }.inQueue(queue).success { value in
+                    }.on(queue).then { value in
                         semaphore.signal()
                         expectation.fulfill()
                 }
@@ -84,11 +84,11 @@ class MJFuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                MJFuture<NSNumber>.immediateFuture(NSNumber(value:true)).inQueue(queue).success { value in
+                MJFuture<NSNumber>(NSNumber(value:true)).on(queue).then { value in
                     
-                }.inQueue(queue).success{ value in
+                }.on(queue).then{ value in
                     
-                }.inQueue(queue).success { value in
+                }.on(queue).then { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -111,8 +111,10 @@ class MJFuturePerformanceTests: XCTestCase {
         for _ in 0..<Constants.iterationCount {
             group.enter()
             let future = MJFuture<NSNumber>()
-            future.inQueue(queue).then { (value, error) in
+            future.on(queue).then { value in
                 group.leave()
+                }.fail { error in
+                    group.leave()
             }
             futures.append(future)
         }
@@ -120,7 +122,7 @@ class MJFuturePerformanceTests: XCTestCase {
     
         // Act.
         for future in futures {
-            future.setValue(NSNumber(value:true))
+            future.set(NSNumber(value:true))
         }
     
         // Assert.
