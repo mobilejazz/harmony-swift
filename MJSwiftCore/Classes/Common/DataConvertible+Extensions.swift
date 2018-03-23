@@ -28,7 +28,7 @@ extension String : DataConvertible {
     public init?(data: Data) {
         self.init(data: data, encoding: .utf8)
     }
-    public var data: Data {
+    public func toData() -> Data {
         return self.data(using: .utf8)!
     }
 }
@@ -37,7 +37,7 @@ extension Data : DataConvertible {
     public init?(data: Data) {
         self = data
     }
-    public var data: Data {
+    public func toData() -> Data {
         return self
     }
 }
@@ -46,7 +46,7 @@ extension URL : DataConvertible {
     public init?(data: Data) {
         self.init(dataRepresentation: data, relativeTo: nil)
     }
-    public var data: Data {
+    public func toData() -> Data {
         return self.dataRepresentation
     }
 }
@@ -68,7 +68,7 @@ extension Date : DataConvertible {
         
         self = Calendar(identifier: .gregorian).date(from: components)!
     }
-    public var data: Data {
+    public func toData() -> Data {
         let cal = Calendar(identifier: .gregorian)
         let comp = cal.dateComponents([.day,.month,.year,.hour,.minute,.second], from: self)
         let year = comp.year!

@@ -63,34 +63,47 @@ public extension ObjectValidation {
 public class ValidationRepository<T>: Repository<T> {
     
     private let repository : Repository<T>
-    private let storageValidation: ObjectValidation
+    private let validation: ObjectValidation
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - repository: The contained repository
-    ///   - storageValidation: The storage validation
-    public init(repository: Repository<T>,
-                storageValidation: ObjectValidation) {
+    ///   - validation: The storage validation
+    public init(repository: Repository<T>, validation: ObjectValidation) {
         self.repository = repository
-        self.storageValidation = storageValidation
+        self.validation = validation
     }
     
-    public override func get(_ query: Query) -> Future<[T]> {
-        return repository.get(query).filter { values in
-            if !self.storageValidation.isArrayValid(values) {
+    public override func get(_ query: Query, operation: Operation) -> Future<T?> {
+        return repository.get(query, operation: operation).filter { value in
+            if !self.validation.isObjectValid(value) {
                 throw ValidationError.notValid
             }
         }
     }
     
-    @discardableResult
-    public override func put(_ query: Query) -> Future<[T]> {
-        return repository.put(query)
+    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+        return repository.getAll(query, operation: operation).filter { values in
+            if !self.validation.isArrayValid(values) {
+                throw ValidationError.notValid
+            }
+        }
     }
     
-    @discardableResult
-    public override func delete(_ query: Query) -> Future<Bool> {
-        return repository.delete(query)
+    public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
+        return repository.put(value, in: query, operation: operation)
+    }
+    
+    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+        return repository.putAll(array, in: query, operation: operation)
+    }
+    
+    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
+        return repository.delete(value, in: query, operation: operation)
+    }
+    
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
+        return repository.deleteAll(array, in: query, operation: operation)
     }
 }

@@ -40,15 +40,6 @@ extension QueryById : RealmQuery {
 }
 extension AllObjectsQuery : RealmQuery { }
 
-extension KeyValueQuery : RealmQuery {
-    public func realmPredicate() -> NSPredicate? {
-        guard let valueStr = value as? CVarArg else {
-            fatalError("KeyValueQuery can only be used in RealmService if value conforms to CVarArg")
-        }
-        return NSPredicate(format: "%@ == %@", key, valueStr)
-    }
-}
-
 fileprivate extension Query {
     fileprivate func toRealmQuery() -> RealmQuery {
         switch self {
@@ -74,7 +65,12 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         self.toRealmMapper = toRealmMapper
     }
     
-    public override func get(_ query: Query) -> Future<[E]> {
+    public override func get(_ query: Query, operation: Operation) -> Future<E?> {
+        // TODO
+        return Future()
+    }
+    
+    public override func getAll(_ query: Query, operation: Operation) -> Future<[E]> {
         switch query.self {
         case is QueryById:
             let queryById = query as! QueryById
@@ -103,26 +99,24 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         }
     }
     
-    public override func put(_ query: Query) -> Future<[E]> {
-        switch query {
-        case is ArrayQuery<E>:
-            let array = (query as! ArrayQuery<E>).array
-            return realmHandler.write { realm -> [E] in
-                array
-                    .map { toRealmMapper.map($0, inRealm:realm) }
-                    .forEach { realm.add($0, update: true) }
-                return array
-                }.unwrap()
-        default:
-            return super.put(query)
-        }
+    public override func put(_ value: E, in query: Query, operation: Operation) -> Future<E> {
+        // TODO
+        return Future()
+    }
+    
+    public override func putAll(_ array: [E], in query: Query, operation: Operation) -> Future<[E]> {
+        return realmHandler.write { realm -> [E] in
+            array
+                .map { toRealmMapper.map($0, inRealm:realm) }
+                .forEach { realm.add($0, update: true) }
+            return array
+            }.unwrap()
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Bool> {
+    public override func deleteAll(_ array: [E], in query: Query, operation: Operation) -> Future<Bool> {
         switch query {
-        case is ArrayQuery<E>:
-            let array = (query as! ArrayQuery<E>).array
+        case is BlankQuery:
             return realmHandler.write { realm -> Bool in
                 array
                     .map { toRealmMapper.map($0, inRealm: realm) }

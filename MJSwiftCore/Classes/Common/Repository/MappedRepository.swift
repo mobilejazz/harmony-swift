@@ -39,17 +39,32 @@ public class MappedRepository <From,To>: Repository <From> {
         self.toFromMapper = toFromMapper
     }
     
-    public override func get(_ query: Query) -> Future<[From]> {
-        return repository.get(query.map(toToMapper)).map { self.toFromMapper.map($0) }
-    }
-
-    @discardableResult
-    public override func put(_ query: Query) -> Future<[From]> {
-        return repository.put(query.map(toToMapper)).map { self.toFromMapper.map($0) }
+    public override func get(_ query: Query, operation: Operation) -> Future<From?> {
+        return repository.get(query, operation: operation).map { value in
+            if let value = value {
+                return self.toFromMapper.map(value)
+            }
+            return nil
+        }
     }
     
-    @discardableResult
-    public override func delete(_ query: Query) -> Future<Bool> {
-        return repository.delete(query.map(toToMapper))
+    public override func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
+         return repository.getAll(query, operation: operation).map { self.toFromMapper.map($0) }
+    }
+    
+    public override func put(_ value: From, in query: Query, operation: Operation) -> Future<From> {
+         return repository.put(toToMapper.map(value), in: query, operation: operation).map { self.toFromMapper.map($0) }
+    }
+    
+    public override func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
+        return repository.putAll(toToMapper.map(array), in: query, operation: operation).map { self.toFromMapper.map($0) }
+    }
+    
+    public override func delete(_ value: From, in query: Query, operation: Operation) -> Future<Bool> {
+        return repository.delete(toToMapper.map(value), in: query, operation: operation)
+    }
+    
+    public override func deleteAll(_ array: [From], in query: Query, operation: Operation) -> Future<Bool> {
+        return repository.deleteAll(toToMapper.map(array), in: query, operation: operation)
     }
 }

@@ -17,21 +17,21 @@
 import Foundation
 
 ///
-/// Generic get object interactor
+/// Generic get objects interactor
 ///
-public struct GetObjectInteractor <T> {
+public struct GetObjectsInteractor <T> {
     
     private let executor : Executor
-    private let dataProvider: DataProvider<T>
+    private let repository: Repository<T>
     
-    public init(_ executor: Executor, _ dataProvider: DataProvider<T>) {
+    public init(_ executor: Executor, _ repository: Repository<T>) {
         self.executor = executor
-        self.dataProvider = dataProvider
+        self.repository = repository
     }
-    
-    public func execute(_ query: Query, _ operation: Operation) -> Future<T?> {
+        
+    public func execute(_ query: Query, _ operation: Operation) -> Future<[T]> {
         return executor.submit { future in
-            future.set(self.dataProvider.get(query, operation: operation))
+            future.set(self.repository.getAll(query, operation: operation))
         }
     }
 }

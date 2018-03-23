@@ -24,7 +24,7 @@ public enum MJSwiftCoreAlamofireError : Error {
 public extension DataRequest {
     
     /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type [String : AnyObject]
-    public func toFuture() -> Future<[String:AnyObject]> {
+    public func toFuture() -> Future<[String:AnyObject]?> {
         return self.then(success: { json in json })
     }
     

@@ -17,21 +17,22 @@
 import Foundation
 
 ///
-/// Generic get objects interactor
+/// Generic put objects interactor
 ///
-public struct GetObjectsInteractor <T> {
+public struct PutObjectInteractor <T> {
     
     private let executor : Executor
-    private let dataProvider: DataProvider<T>
+    private let repository: Repository<T>
     
-    public init(_ executor: Executor, _ dataProvider: DataProvider<T>) {
+    public init(_ executor: Executor, _ repository: Repository<T>) {
         self.executor = executor
-        self.dataProvider = dataProvider
+        self.repository = repository
     }
-        
-    public func execute(_ query: Query, _ operation: Operation) -> Future<[T]> {
+    
+    public func execute(_ value: T, query: Query, _ operation: Operation) -> Future<T> {
         return executor.submit { future in
-            future.set(self.dataProvider.get(query, operation: operation))
+            future.set(self.repository.put(value, in: query, operation: operation))
         }
     }
 }
+

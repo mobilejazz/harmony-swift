@@ -35,4 +35,10 @@ public extension Future {
             return Future<K>(value)
         }
     }
+    
+    public func optional() -> Future<T?> {
+        return self.map { value -> T? in
+            return value
+        }
+    }
 }

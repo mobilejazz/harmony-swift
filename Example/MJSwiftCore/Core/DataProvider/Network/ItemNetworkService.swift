@@ -9,40 +9,56 @@ import Alamofire
 import MJSwiftCore
 
 class ItemNetworkService: AlamofireRepository<ItemEntity> {
-    override func get(_ query: Query) -> Future<[ItemEntity]> {
+    
+    override func get(_ query: Query, operation: MJSwiftCore.Operation) -> Future<ItemEntity?> {
         switch query.self {
         case is QueryById:
-            return get((query as! QueryById).id).map { [$0] }
+            return getById((query as! QueryById).id)
+        default:
+            return super.get(query, operation: operation)
+        }
+    }
+    
+    override func getAll(_ query: Query, operation: MJSwiftCore.Operation) -> Future<[ItemEntity]> {
+        switch query.self {
+        case is QueryById:
+            return getById((query as! QueryById).id).map { [$0!] }
         case is AllObjectsQuery:
             return getAllItems()
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            return super.get(query)
+            return super.getAll(query, operation: operation)
         }
     }
 }
 
 private extension ItemNetworkService {
-    private func get(_ id: String) -> Future<ItemEntity> {
+    private func getById(_ id: String) -> Future<ItemEntity?> {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in
-            let future = json.decodeAs(ItemEntity.self) { item in
-                item.lastUpdate = Date()
+            if let json = json {
+                let future = json.decodeAs(ItemEntity.self) { item in
+                    item.lastUpdate = Date()
+                }
+                return future.optional()
             }
-            return future
+            return Future(nil)
         }
     }
     
     private func getAllItems() -> Future<[ItemEntity]> {
         let url = "/items"
         return sessionManager.request(url).toFuture().flatMap { json in
-            guard let results = json["results"] as? [[String: AnyObject]] else {
-                return Future([]) // or pass error if desired
+            if let json = json {
+                guard let results = json["results"] as? [[String: AnyObject]] else {
+                    return Future([]) // or pass error if desired
+                }
+                return results.decodeAs(forEach: { item in
+                    item.lastUpdate = Date()
+                })
             }
-            return results.decodeAs(forEach: { item in
-                item.lastUpdate = Date()
-            })
+            return Future([])
         }
     }
     
@@ -51,12 +67,15 @@ private extension ItemNetworkService {
         return sessionManager.request(url,
                                       parameters: ["name" : text])
             .toFuture().flatMap { json in
-                guard let results = json["results"] as? [[String: AnyObject]] else {
-                    return Future([]) // or pass error if desired
+                if let json = json {
+                    guard let results = json["results"] as? [[String: AnyObject]] else {
+                        return Future([]) // or pass error if desired
+                    }
+                    return results.decodeAs(forEach: { item in
+                        item.lastUpdate = Date()
+                    })
                 }
-                return results.decodeAs(forEach: { item in
-                    item.lastUpdate = Date()
-                })
-            }
+                return Future([])
+        }
     }
 }

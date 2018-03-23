@@ -19,6 +19,6 @@ class InteractorAssembly: Assembly {
         
         // Interactors
         container.register(GetObjectsInteractor<Item>.self) { r in GetObjectsInteractor<Item>(r.resolve(Executor.self, name: "GetItems")!,
-                                                                                              r.resolve(DataProvider<Item>.self)!) }
+                                                                                              r.resolve(Repository<Item>.self)!) }
     }
 }

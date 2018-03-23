@@ -28,17 +28,17 @@ class DataProviderAssembly: Assembly {
         container.register(Mapper<ItemEntity, Item>.self) { _ in ItemEntityToItemMapper() }
         
         // Data Providers (registered as singletons)
-        container.register(DataProvider<Item>.self) { r in
+        container.register(Repository<Item>.self) { r in
             let storageEntityRepo = r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
-            let storageValidationRepo = ValidationRepository(repository: storageEntityRepo,
-                                                             storageValidation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
-
-            let dataProvider = NetworkStorageDataProvider(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
-                                                          storage: storageValidationRepo)
+            let storageValidationRepo = ValidationRepository.init(repository: storageEntityRepo,
+                                                                  validation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
             
-            return MappedDataProvider(dataProvider: dataProvider,
-                                      toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
-                                      toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
+            let networkStorageRepo = NetworkStorageRepository(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
+                                                              storage: storageValidationRepo)
+            
+            return MappedRepository(repository: networkStorageRepo,
+                                    toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
+                                    toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
             
             }.inObjectScope(.container)
     }

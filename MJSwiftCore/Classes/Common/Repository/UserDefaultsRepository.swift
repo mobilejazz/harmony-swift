@@ -29,7 +29,7 @@ public class UserDefaultsRepository <T> : Repository<T> {
         self.userDefaults = userDefaults
     }
     
-    public override func get(_ query: Query) -> Future<[T]> {
+    public override func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch query.self {
         case is KeyQuery:
             let key = (query as! KeyQuery).key
@@ -75,36 +75,69 @@ public class UserDefaultsRepository <T> : Repository<T> {
                     return userDefaults.object(forKey: key) as? T
                 }
             }()
-            if value == nil {
-                return Future([])
-            } else {
-                return Future([value!])
-            }
+            return Future(value)
         default:
-            return super.get(query)
+            return super.get(query, operation: operation)
         }
     }
     
-    public override func put(_ query: Query) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch query.self {
-        case is KeyValueQuery<T>:
-            let keyValueQuery = (query as! KeyValueQuery<T>)
-            userDefaults.set(keyValueQuery.value, forKey: keyValueQuery.key)
-            userDefaults.synchronize()
-            return Future([keyValueQuery.value])
+        case is KeyQuery:
+            let key = (query as! KeyQuery).key
+            let array = userDefaults.array(forKey: key) as? [T]
+            if let array = array {
+                return Future(array)
+            } else {
+                return Future([])
+            }
+            
         default:
-            return super.put(query)
+            return super.getAll(query, operation: operation)
         }
     }
     
-    public override func delete(_ query: Query) -> Future<Bool> {
+    public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
+        switch query.self {
+        case is KeyQuery:
+            userDefaults.set(value, forKey: (query as! KeyQuery).key)
+            userDefaults.synchronize()
+            return Future(value)
+        default:
+            return super.put(value, in: query, operation: operation)
+        }
+    }
+    
+    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+        switch query.self {
+        case is KeyQuery:
+            userDefaults.set(array, forKey: (query as! KeyQuery).key)
+            userDefaults.synchronize()
+            return Future(array)
+        default:
+            return super.putAll(array, in: query, operation: operation)
+        }
+    }
+    
+    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
         case is KeyQuery:
             let key = (query as! KeyQuery).key
             userDefaults.removeObject(forKey: key)
             return Future(userDefaults.synchronize())
         default:
-            return super.delete(query)
+            return super.delete(value, in: query, operation: operation)
+        }
+    }
+    
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
+        switch query.self {
+        case is KeyQuery:
+            let key = (query as! KeyQuery).key
+            userDefaults.removeObject(forKey: key)
+            return Future(userDefaults.synchronize())
+        default:
+            return super.deleteAll(array, in: query, operation: operation)
         }
     }
 }
