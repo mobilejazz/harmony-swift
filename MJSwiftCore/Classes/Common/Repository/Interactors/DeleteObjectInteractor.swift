@@ -29,7 +29,7 @@ public struct DeleteObjectInteractor <T> {
         self.repository = repository
     }
     
-    public func execute(_ object: T, query: Query, _ operation: Operation) -> Future<Bool> {
+    public func execute(object: T? = nil, query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         return executor.submit { future in
             future.set(self.repository.delete(object, in: query, operation: operation))
         }

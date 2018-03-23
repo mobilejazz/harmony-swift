@@ -99,7 +99,7 @@ public class ValidationRepository<T>: Repository<T> {
         return repository.putAll(array, in: query, operation: operation)
     }
     
-    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         return repository.delete(value, in: query, operation: operation)
     }
     

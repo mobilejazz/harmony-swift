@@ -29,7 +29,7 @@ public struct GetObjectsInteractor <T> {
         self.repository = repository
     }
         
-    public func execute(_ query: Query, _ operation: Operation) -> Future<[T]> {
+    public func execute(_ query: Query, _ operation: Operation = .blank) -> Future<[T]> {
         return executor.submit { future in
             future.set(self.repository.getAll(query, operation: operation))
         }

@@ -29,7 +29,7 @@ public struct PutObjectsInteractor <T> {
         self.repository = repository
     }
         
-    public func execute(_ array: [T], query: Query, _ operation: Operation) -> Future<[T]> {
+    public func execute(_ array: [T], query: Query, _ operation: Operation = .blank) -> Future<[T]> {
         return executor.submit { future in
             future.set(self.repository.putAll(array, in: query, operation: operation))
         }

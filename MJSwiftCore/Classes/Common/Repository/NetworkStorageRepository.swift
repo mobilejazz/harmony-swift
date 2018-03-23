@@ -119,7 +119,7 @@ public class NetworkStorageRepository <T> : Repository <T>  {
     }
     
     @discardableResult
-    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         return { () -> Future<Bool> in
             switch operation {
             case .network:

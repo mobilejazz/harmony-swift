@@ -82,7 +82,7 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
         }
     }
     
-    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
         case is KeyQuery:
             switch keychain.delete((query as! KeyQuery).key) {

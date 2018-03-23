@@ -19,6 +19,7 @@ import Foundation
 /// Default query interface
 public protocol Query { }
 
+/// Blank query
 public class BlankQuery : Query {
     public init() {}
 }
@@ -102,7 +103,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ value: T, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
+    open func delete(_ value: T? = nil, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
     }
     
@@ -111,7 +112,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ array: [T], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
+    open func deleteAll(_ array: [T] = [], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
     }
 }

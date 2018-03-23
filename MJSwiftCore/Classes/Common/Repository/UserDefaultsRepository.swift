@@ -119,7 +119,7 @@ public class UserDefaultsRepository <T> : Repository<T> {
         }
     }
     
-    public override func delete(_ value: T, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
         case is KeyQuery:
             let key = (query as! KeyQuery).key
