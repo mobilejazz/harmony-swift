@@ -464,6 +464,7 @@ public class Event : Future<Void> {
         self.set(Void())
     }
 
+    @discardableResult
     public override func then(_ success: @escaping () -> Void) -> Future<Void> {
         if reactive {
             // If future is reactive, clearing the current stored Void()
@@ -472,6 +473,7 @@ public class Event : Future<Void> {
         return super.then(success)
     }
     
+    @discardableResult
     public override func fail(_ failure: @escaping (Error) -> Void) -> Future<Void> {
         if reactive {
             // If future is reactive, clearing the current stored Void()
