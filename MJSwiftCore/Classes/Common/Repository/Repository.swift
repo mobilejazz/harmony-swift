@@ -37,14 +37,6 @@ public class AllObjectsQuery : Query {
     public init() { }
 }
 
-/// Key based query
-public class KeyQuery : Query {
-    public let key : String
-    public init(_ key: String) {
-        self.key = key
-    }
-}
-
 ///
 /// An operation defines an abstraction on how data must be fetched
 ///
@@ -69,7 +61,12 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
     open func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future(nil)
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
+        }
     }
     
     /// Main get method
@@ -77,7 +74,12 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
     open func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method getAll on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future([])
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method getAll on \(String(describing: type(of:self)))")
+        }
     }
     
     /// Put by query method
@@ -86,7 +88,12 @@ open class Repository<T> {
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
     open func put(_ value: T, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<T> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future(value)
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
+        }
     }
     
     /// Put by query method
@@ -95,7 +102,12 @@ open class Repository<T> {
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
     open func putAll(_ array: [T], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<[T]> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method putAll on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future(array)
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method putAll on \(String(describing: type(of:self)))")
+        }
     }
     
     /// Delete by query method
@@ -104,7 +116,12 @@ open class Repository<T> {
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
     open func delete(_ value: T? = nil, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future(false)
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
+        }
     }
     
     /// Delete by query method
@@ -113,6 +130,11 @@ open class Repository<T> {
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
     open func deleteAll(_ array: [T] = [], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
-        fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
+        switch query {
+        case is BlankQuery:
+            return Future(false)
+        default:
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
+        }
     }
 }

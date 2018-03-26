@@ -30,13 +30,13 @@ class DataProviderAssembly: Assembly {
         // Data Providers (registered as singletons)
         container.register(Repository<Item>.self) { r in
             let storageEntityRepo = r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
-            let storageValidationRepo = ValidationRepository.init(repository: storageEntityRepo,
-                                                                  validation: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
+            let storageValidationRepo = RepositoryValidator(repository: storageEntityRepo,
+                                                            validator: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
             
             let networkStorageRepo = NetworkStorageRepository(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
                                                               storage: storageValidationRepo)
             
-            return MappedRepository(repository: networkStorageRepo,
+            return RepositoryMapper(repository: networkStorageRepo,
                                     toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
                                     toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
             

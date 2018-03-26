@@ -367,10 +367,10 @@
 		D17E72AAB7487C585AE4F4CF02BFA070 /* RLMSyncUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EA584BADF4D98C209F3A75604D52314 /* RLMSyncUtil.h */; };
 		D18530950136334C019819C85F9D0A41 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA330710E657DDC35DE9B9CCA860C000 /* UIView+Extensions.swift */; };
 		D1C14F3A6A530E46428D92C692D9B332 /* RLMObject_Private.h in Copy . Private Headers */ = {isa = PBXBuildFile; fileRef = 953E1F465C51D722A296D77E31A3BE92 /* RLMObject_Private.h */; };
-		D21566B4206554CB00369579 /* ValidationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566A8206554CA00369579 /* ValidationRepository.swift */; };
+		D21566B4206554CB00369579 /* RepositoryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566A8206554CA00369579 /* RepositoryValidator.swift */; };
 		D21566B5206554CB00369579 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566A9206554CA00369579 /* Repository.swift */; };
 		D21566B6206554CB00369579 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AA206554CA00369579 /* UserDefaultsRepository.swift */; };
-		D21566B7206554CB00369579 /* MappedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AB206554CA00369579 /* MappedRepository.swift */; };
+		D21566B7206554CB00369579 /* RepositoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AB206554CA00369579 /* RepositoryMapper.swift */; };
 		D21566B8206554CB00369579 /* PutObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AD206554CA00369579 /* PutObjectsInteractor.swift */; };
 		D21566B9206554CB00369579 /* GetObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AE206554CA00369579 /* GetObjectsInteractor.swift */; };
 		D21566BA206554CB00369579 /* PutObjectInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21566AF206554CA00369579 /* PutObjectInteractor.swift */; };
@@ -1020,10 +1020,10 @@
 		D0A732675AE01461852CDD87D234039F /* LinkRecognizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LinkRecognizer.swift; path = MJSwiftCore/Classes/Common/LinkRecognizer.swift; sourceTree = "<group>"; };
 		D1482A3C3653CE874CE71102F8DDE0E8 /* MJExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJExecutor.h; path = MJCocoaCore/Classes/Common/MJExecutor.h; sourceTree = "<group>"; };
 		D1948ECDD00AB16D92DF766A6DDF5661 /* FBLPromise+Do.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Do.m"; path = "Sources/FBLPromises/FBLPromise+Do.m"; sourceTree = "<group>"; };
-		D21566A8206554CA00369579 /* ValidationRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationRepository.swift; sourceTree = "<group>"; };
+		D21566A8206554CA00369579 /* RepositoryValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryValidator.swift; sourceTree = "<group>"; };
 		D21566A9206554CA00369579 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		D21566AA206554CA00369579 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
-		D21566AB206554CA00369579 /* MappedRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappedRepository.swift; sourceTree = "<group>"; };
+		D21566AB206554CA00369579 /* RepositoryMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryMapper.swift; sourceTree = "<group>"; };
 		D21566AD206554CA00369579 /* PutObjectsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutObjectsInteractor.swift; sourceTree = "<group>"; };
 		D21566AE206554CA00369579 /* GetObjectsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetObjectsInteractor.swift; sourceTree = "<group>"; };
 		D21566AF206554CA00369579 /* PutObjectInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutObjectInteractor.swift; sourceTree = "<group>"; };
@@ -1823,8 +1823,8 @@
 			children = (
 				D21566AC206554CA00369579 /* Interactors */,
 				D21566A9206554CA00369579 /* Repository.swift */,
-				D21566AB206554CA00369579 /* MappedRepository.swift */,
-				D21566A8206554CA00369579 /* ValidationRepository.swift */,
+				D21566AB206554CA00369579 /* RepositoryMapper.swift */,
+				D21566A8206554CA00369579 /* RepositoryValidator.swift */,
 				D21566B3206554CA00369579 /* NetworkStorageRepository.swift */,
 				D21566AA206554CA00369579 /* UserDefaultsRepository.swift */,
 			);
@@ -2694,7 +2694,7 @@
 				5853D71FF31D72F6A8236D07EB6F9BD9 /* Mapper+NSCoding.swift in Sources */,
 				D9A93036B511C9886AAA0C299E2D99CF /* Mapper.swift in Sources */,
 				5D749DFBF2F95CE2F4C66FA6016CE885 /* MJSwiftCore-dummy.m in Sources */,
-				D21566B7206554CB00369579 /* MappedRepository.swift in Sources */,
+				D21566B7206554CB00369579 /* RepositoryMapper.swift in Sources */,
 				A4F32C880C4A2536FDA4B0DF556D678A /* Model.swift in Sources */,
 				1F317A15AB582567E8C41280BD7DF20F /* MultiRequestAdapter.swift in Sources */,
 				22FC672EB52370864483BD44D8AF2418 /* MultiRequestRetrier.swift in Sources */,
@@ -2705,7 +2705,7 @@
 				9682E94C3F8C0446A7FF25C089FA7CBD /* RealmHandler+Future.swift in Sources */,
 				E200D0009D005EBC54363C215C554F53 /* RealmHandler.swift in Sources */,
 				36C95A80AC082450432BB718D891D32E /* RealmMapper.swift in Sources */,
-				D21566B4206554CB00369579 /* ValidationRepository.swift in Sources */,
+				D21566B4206554CB00369579 /* RepositoryValidator.swift in Sources */,
 				30F89AC79907A0A74E8C0B7EC1AA7BB1 /* RealmObject.swift in Sources */,
 				034E3C2F0F87635E2C3A9063354A37EA /* RealmService.swift in Sources */,
 				0D8A32042DDC9991C89B26A9E0020B3A /* ScopeLock.swift in Sources */,

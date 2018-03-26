@@ -60,24 +60,24 @@ public extension ObjectValidation {
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class ValidationRepository<T>: Repository<T> {
+public class RepositoryValidator<T>: Repository<T> {
     
     private let repository : Repository<T>
-    private let validation: ObjectValidation
+    private let validator: ObjectValidation
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - repository: The contained repository
     ///   - validation: The storage validation
-    public init(repository: Repository<T>, validation: ObjectValidation) {
+    public init(repository: Repository<T>, validator: ObjectValidation) {
         self.repository = repository
-        self.validation = validation
+        self.validator = validator
     }
     
     public override func get(_ query: Query, operation: Operation) -> Future<T?> {
         return repository.get(query, operation: operation).filter { value in
-            if !self.validation.isObjectValid(value) {
+            if !self.validator.isObjectValid(value) {
                 throw ValidationError.notValid
             }
         }
@@ -85,7 +85,7 @@ public class ValidationRepository<T>: Repository<T> {
     
     public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return repository.getAll(query, operation: operation).filter { values in
-            if !self.validation.isArrayValid(values) {
+            if !self.validator.isArrayValid(values) {
                 throw ValidationError.notValid
             }
         }

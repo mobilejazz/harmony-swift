@@ -19,20 +19,26 @@ import Foundation
 
 ///
 /// Key-value based repository to store data in UserDefaults.
-/// The repository only works with KeyQuery and KeyValueQuery types.
+/// The repository only works with QueryById and KeyValueQuery types.
 ///
 public class UserDefaultsRepository <T> : Repository<T> {
     
     private let userDefaults : UserDefaults
-    
-    public init(_ userDefaults : UserDefaults) {
+    private let keyPrefix : String
+
+    public init(_ userDefaults : UserDefaults, keyPrefix: String = "") {
         self.userDefaults = userDefaults
+        self.keyPrefix = keyPrefix + "."
+    }
+    
+    private func key(_ string: String) -> String {
+        return keyPrefix + string
     }
     
     public override func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch query.self {
-        case is KeyQuery:
-            let key = (query as! KeyQuery).key
+        case is QueryById:
+            let key = self.key((query as! QueryById).id)
             let value : T? = {
                 switch T.self {
                 case is Int.Type:
@@ -83,15 +89,22 @@ public class UserDefaultsRepository <T> : Repository<T> {
     
     public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch query.self {
-        case is KeyQuery:
-            let key = (query as! KeyQuery).key
+        case is QueryById:
+            let key = self.key((query as! QueryById).id)
             let array = userDefaults.array(forKey: key) as? [T]
             if let array = array {
                 return Future(array)
             } else {
                 return Future([])
             }
-            
+        case is AllObjectsQuery:
+            let key = self.key(String(describing:T.self) + ".allObjects")
+            let array = userDefaults.array(forKey: key) as? [T]
+            if let array = array {
+                return Future(array)
+            } else {
+                return Future([])
+            }
         default:
             return super.getAll(query, operation: operation)
         }
@@ -99,8 +112,8 @@ public class UserDefaultsRepository <T> : Repository<T> {
     
     public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
         switch query.self {
-        case is KeyQuery:
-            userDefaults.set(value, forKey: (query as! KeyQuery).key)
+        case is QueryById:
+            userDefaults.set(value, forKey: key((query as! QueryById).id))
             userDefaults.synchronize()
             return Future(value)
         default:
@@ -110,8 +123,12 @@ public class UserDefaultsRepository <T> : Repository<T> {
     
     public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch query.self {
-        case is KeyQuery:
-            userDefaults.set(array, forKey: (query as! KeyQuery).key)
+        case is QueryById:
+            userDefaults.set(array, forKey: self.key((query as! QueryById).id))
+            userDefaults.synchronize()
+            return Future(array)
+        case is AllObjectsQuery:
+            userDefaults.set(array, forKey: self.key(String(describing:T.self) + ".allObjects"))
             userDefaults.synchronize()
             return Future(array)
         default:
@@ -121,8 +138,8 @@ public class UserDefaultsRepository <T> : Repository<T> {
     
     public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
-        case is KeyQuery:
-            let key = (query as! KeyQuery).key
+        case is QueryById:
+            let key = self.key((query as! QueryById).id)
             userDefaults.removeObject(forKey: key)
             return Future(userDefaults.synchronize())
         default:
@@ -132,8 +149,8 @@ public class UserDefaultsRepository <T> : Repository<T> {
     
     public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
-        case is KeyQuery:
-            let key = (query as! KeyQuery).key
+        case is QueryById:
+            let key = self.key((query as! QueryById).id)
             userDefaults.removeObject(forKey: key)
             return Future(userDefaults.synchronize())
         default:

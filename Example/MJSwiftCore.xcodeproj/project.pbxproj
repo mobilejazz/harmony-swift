@@ -225,7 +225,7 @@
 			children = (
 				D219D6CF1FCC2E2D00D91CED /* DI */,
 				D219D6D51FCC2E2D00D91CED /* Managers */,
-				D219D6D81FCC2E2D00D91CED /* DataProvider */,
+				D219D6D81FCC2E2D00D91CED /* Repository */,
 				D219D6E71FCC2E2D00D91CED /* Model */,
 			);
 			path = Core;
@@ -252,7 +252,7 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		D219D6D81FCC2E2D00D91CED /* DataProvider */ = {
+		D219D6D81FCC2E2D00D91CED /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				D219D6D91FCC2E2D00D91CED /* Network */,
@@ -261,7 +261,7 @@
 				D219D6E31FCC2E2D00D91CED /* Mappers */,
 				D219D6E51FCC2E2D00D91CED /* Entities */,
 			);
-			path = DataProvider;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		D219D6D91FCC2E2D00D91CED /* Network */ = {

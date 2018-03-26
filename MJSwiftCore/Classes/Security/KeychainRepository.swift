@@ -18,7 +18,7 @@ import Foundation
 
 ///
 /// Key-value based repository to store data in Keychain.
-/// The repository only works with KeyQuery and KeyValueQuery types.
+/// The repository only works with QueryById and KeyValueQuery types.
 ///
 public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataDecodable {
     
@@ -38,11 +38,10 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
         self.keychain = keychain
     }
     
-    
     public override func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch query.self {
-        case is KeyQuery:
-            let value : T? = keychain.get((query as! KeyQuery).key)
+        case is QueryById:
+            let value : T? = keychain.get((query as! QueryById).id)
             return Future(value)
         default:
             return super.get(query)
@@ -51,7 +50,7 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
     
     public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch query.self {
-        case is KeyQuery:
+        case is QueryById:
             fatalError("KeychainRepository does not support getAll with arrays. Use the standalone get(_:operation:) method to get a value")
         default:
             return super.getAll(query, operation: operation)
@@ -60,9 +59,9 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
     
     public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
         switch query.self {
-        case is KeyQuery:
-            let keyQuery = (query as! KeyQuery)
-            switch keychain.set(value, forKey: keyQuery.key) {
+        case is QueryById:
+            let key = (query as! QueryById).id
+            switch keychain.set(value, forKey: key) {
             case .success:
                 return Future(value)
             case .failed(let status):
@@ -75,7 +74,7 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
 
     public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch query.self {
-        case is KeyQuery:
+        case is QueryById:
             fatalError("KeychainRepository does not support putAll with arrays. Use the standalone put(_:in:operation:) method to insert a value")
         default:
             return super.putAll(array, in: query, operation: operation)
@@ -84,8 +83,8 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
     
     public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
-        case is KeyQuery:
-            switch keychain.delete((query as! KeyQuery).key) {
+        case is QueryById:
+            switch keychain.delete((query as! QueryById).id) {
             case .success:
                 return Future(true)
             case .failed(let status):
@@ -98,8 +97,8 @@ public class KeychainRepository <T> : Repository<T> where T:DataCodable, T:DataD
     
     public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
         switch query.self {
-            case is KeyQuery:
-                switch keychain.delete((query as! KeyQuery).key) {
+            case is QueryById:
+                switch keychain.delete((query as! QueryById).id) {
                 case .success:
                     return Future(true)
                 case .failed(let status):

@@ -19,7 +19,7 @@ import Foundation
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
-public class MappedRepository <From,To>: Repository <From> {
+public class RepositoryMapper <From,To>: Repository <From> {
     
     private let repository : Repository<To>
     private let toToMapper: Mapper<From,To>
