@@ -73,6 +73,7 @@ public class FutureHub <T> {
     /// - Parameter memoryReferenceType: .weak (default) if weak reference, .strong if strong reference
     public func plug(_ future: Future<T>, memoryReferenceType: MemoryReferenceType = .weak) {
         lock.lock()
+        // Store the future
         switch memoryReferenceType {
         case .strong:
             strongFutures.append(future)
@@ -80,6 +81,15 @@ public class FutureHub <T> {
             weakFutures.add(future)
         }
         lock.unlock()
+        // Deliver the current value/error if exists
+        if let result = self.future?._result {
+            switch result {
+            case .value(let value):
+                future.set(value)
+            case .error(let error):
+                future.set(error)
+            }
+        }
     }
     
     /// Unplug (unsubscribes) a future

@@ -10,13 +10,6 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
-class Dog {
-    let name : String
-    init(_ name: String) {
-        self.name = name
-    }
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

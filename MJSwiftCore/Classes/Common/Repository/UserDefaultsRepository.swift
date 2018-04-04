@@ -28,7 +28,11 @@ public class UserDefaultsRepository <T> : Repository<T> {
 
     public init(_ userDefaults : UserDefaults, keyPrefix: String = "") {
         self.userDefaults = userDefaults
-        self.keyPrefix = keyPrefix + "."
+        if keyPrefix.count > 0 {
+            self.keyPrefix = keyPrefix + "."
+        } else {
+            self.keyPrefix = ""
+        }
     }
     
     private func key(_ string: String) -> String {

@@ -38,8 +38,18 @@ extension Mapper {
     ///
     /// - Parameter array: An array of objects
     /// - Returns: An array of mapped objects
-    public func map( _ array: Array<From>) -> Array<To> {
+    public func map( _ array: [From]) -> [To] {
         return array.map { value -> To in
+            return map(value)
+        }
+    }
+    
+    // Mapping method for dictionaries
+    ///
+    /// - Parameter dictionary: A dictionary of key-value, where value is typed as "From"
+    /// - Returns: A dictionary of mapped values
+    public func map<K>(_ dictionary: [K:From]) -> [K:To] where K:Hashable {
+        return dictionary.mapValues { value in
             return map(value)
         }
     }
