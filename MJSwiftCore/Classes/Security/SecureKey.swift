@@ -53,9 +53,9 @@ public class SecureKey {
     public func reset() -> Bool {
          if let tag = identifier.data(using: String.Encoding.utf8) {
             var keyData = Data(count: length)
-            let result = keyData.withUnsafeMutableBytes({ (pointer) -> OSStatus in
+            let result = keyData.withUnsafeMutableBytes { pointer in
                 return SecRandomCopyBytes(kSecRandomDefault, keyData.count, pointer)
-            })
+            }
             
             if result == -1 {
                 NSLog("Error executing SecRandomCopyBytes()")
@@ -115,9 +115,9 @@ public class SecureKey {
                 // If no pre-existing key from this application
                 
                 var keyData = Data(count: length)
-                let result = keyData.withUnsafeMutableBytes({ (pointer) -> OSStatus in
+                let result = keyData.withUnsafeMutableBytes { pointer in
                     return SecRandomCopyBytes(kSecRandomDefault, keyData.count, pointer)
-                })
+                }
                 
                 if result == -1 {
                     NSLog("Error executing SecRandomCopyBytes()")

@@ -4,27 +4,30 @@ PODS:
   - MJCocoaCore/Common (2.3.8):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.8)
-  - MJSwiftCore (0.3.13):
-    - MJSwiftCore/Common (= 0.3.13)
-    - MJSwiftCore/Security (= 0.3.13)
-  - MJSwiftCore/Alamofire (0.3.13):
+  - MJObjection (1.6.4)
+  - MJSwiftCore (0.3.14):
+    - MJSwiftCore/Common (= 0.3.14)
+    - MJSwiftCore/Security (= 0.3.14)
+  - MJSwiftCore/Alamofire (0.3.14):
     - Alamofire (~> 4.5)
     - MJSwiftCore/Common
-  - MJSwiftCore/Common (0.3.13):
+  - MJSwiftCore/Common (0.3.14):
     - MJSwiftCore/Future
-  - MJSwiftCore/Future (0.3.13)
-  - MJSwiftCore/iOS (0.3.13):
+  - MJSwiftCore/Future (0.3.14)
+  - MJSwiftCore/iOS (0.3.14):
     - MJSwiftCore/Common
-  - MJSwiftCore/MJCocoaCore (0.3.13):
-    - MJCocoaCore/Common (~> 2.3)
+  - MJSwiftCore/MJCocoaCore (0.3.14):
+    - MJCocoaCore/Common (~> 2.3.8)
     - MJSwiftCore/Common
-  - MJSwiftCore/Realm (0.3.13):
+  - MJSwiftCore/Objection (0.3.14):
+    - MJObjection
+  - MJSwiftCore/Realm (0.3.14):
     - MJSwiftCore/Common
     - MJSwiftCore/Security
     - RealmSwift (~> 3.0.0)
-  - MJSwiftCore/Security (0.3.13):
+  - MJSwiftCore/Security (0.3.14):
     - MJSwiftCore/Common
-  - MJSwiftCore/Vastra (0.3.13)
+  - MJSwiftCore/Vastra (0.3.14)
   - PromisesObjC (1.0.2)
   - PromisesSwift (1.0.2):
     - PromisesObjC (= 1.0.2)
@@ -41,6 +44,7 @@ DEPENDENCIES:
   - MJSwiftCore/Alamofire (from `../`)
   - MJSwiftCore/iOS (from `../`)
   - MJSwiftCore/MJCocoaCore (from `../`)
+  - MJSwiftCore/Objection (from `../`)
   - MJSwiftCore/Realm (from `../`)
   - MJSwiftCore/Vastra (from `../`)
   - PromisesSwift (~> 1.0)
@@ -54,13 +58,14 @@ SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
   MJCocoaCore: 48b554ce49ec5845b5f7307c40db98e7f09ad3d3
-  MJSwiftCore: b78462f42769629ba7c8a1f26d2f77c4c76bbfb6
+  MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
+  MJSwiftCore: dbaa6f2257a3fc9bd41d236d42f8212d635bba0e
   PromisesObjC: 5cb99f8b988db9461cd3025cab5cc17752873a5c
   PromisesSwift: a972cb5ca9780fb7f805e9c2d69e7efd417a0523
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
   Swinject: afea49fd95f392b41171669f165842879c48fad6
 
-PODFILE CHECKSUM: e8647061ccdf292f877ea0ab010f2855024175f5
+PODFILE CHECKSUM: b80e13a627d4ca44dc70f01ec7eea3abc91a3479
 
 COCOAPODS: 1.4.0

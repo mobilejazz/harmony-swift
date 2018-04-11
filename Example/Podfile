@@ -9,6 +9,7 @@ target 'MJSwiftCore_Example' do
   pod 'MJSwiftCore/iOS', :path => '../'
   pod 'MJSwiftCore/Realm', :path => '../'
   pod 'MJSwiftCore/MJCocoaCore', :path => '../'
+  pod 'MJSwiftCore/Objection', :path => '../'
 
   pod 'Swinject', '~> 2.1'
   pod 'Kingfisher', '~> 4.2'

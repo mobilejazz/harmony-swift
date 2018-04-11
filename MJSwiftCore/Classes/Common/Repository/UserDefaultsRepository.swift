@@ -146,6 +146,9 @@ public class UserDefaultsRepository <T> : Repository<T> {
             let key = self.key((query as! QueryById).id)
             userDefaults.removeObject(forKey: key)
             return Future(userDefaults.synchronize())
+        case is AllObjectsQuery:
+            userDefaults.removeObject(forKey: self.key(String(describing:T.self) + ".allObjects"))
+            return Future(userDefaults.synchronize())
         default:
             return super.delete(value, in: query, operation: operation)
         }
