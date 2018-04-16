@@ -226,6 +226,7 @@ public extension Date {
     }
 }
 
+@available(iOS 10.0, *)
 public extension DateInterval {
     public func toFuture() -> Future<DateInterval> {
         return Future(self)
@@ -270,6 +271,7 @@ public extension DateIntervalFormatter {
     }
 }
 
+@available(iOS 10.0, *)
 public extension ISO8601DateFormatter {
     public func toFuture() -> Future<ISO8601DateFormatter> {
         return Future(self)

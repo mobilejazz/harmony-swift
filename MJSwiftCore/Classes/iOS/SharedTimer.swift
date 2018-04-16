@@ -111,18 +111,33 @@ public class SharedTimer {
         if invalidated {
             return
         }
-        
-        timer = Timer(timeInterval: interval, repeats: repeats) { timer in
-            let observers = self.observers.allObjects as! [SharedTimerObserver]
-            for observer in observers {
-                observer.didFire(timer: self, date: timer.fireDate)
+    
+        if #available(iOS 10.0, *) {
+            timer = Timer(timeInterval: interval, repeats: repeats) { timer in
+                let observers = self.observers.allObjects as! [SharedTimerObserver]
+                for observer in observers {
+                    observer.didFire(timer: self, date: timer.fireDate)
+                }
             }
+        } else {
+            
+            let date = Date(timeInterval: interval, since: Date())
+            timer = Timer(fireAt: date, interval: interval, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: repeats)
         }
+        
         RunLoop.main.add(timer!, forMode: .commonModes)
         RunLoop.main.add(timer!, forMode: .UITrackingRunLoopMode)
     }
     
     private func stopTimer() {
         invalidate()
+    }
+    
+    @available(iOS, deprecated:10.0, message: "")
+    @objc private func fire(timer: Timer) {
+        let observers = self.observers.allObjects as! [SharedTimerObserver]
+        for observer in observers {
+            observer.didFire(timer: self, date: timer.fireDate)
+        }
     }
 }

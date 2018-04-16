@@ -1,45 +1,45 @@
 PODS:
-  - Alamofire (4.6.0)
-  - Kingfisher (4.2.0)
+  - Alamofire (4.7.2)
+  - Kingfisher (4.7.0)
   - MJCocoaCore/Common (2.3.8):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.8)
   - MJObjection (1.6.4)
-  - MJSwiftCore (0.3.14):
-    - MJSwiftCore/Common (= 0.3.14)
-    - MJSwiftCore/Security (= 0.3.14)
-  - MJSwiftCore/Alamofire (0.3.14):
-    - Alamofire (~> 4.5)
+  - MJSwiftCore (0.4.1):
+    - MJSwiftCore/Common (= 0.4.1)
+    - MJSwiftCore/Security (= 0.4.1)
+  - MJSwiftCore/Alamofire (0.4.1):
+    - Alamofire (~> 4.7.2)
     - MJSwiftCore/Common
-  - MJSwiftCore/Common (0.3.14):
+  - MJSwiftCore/Common (0.4.1):
     - MJSwiftCore/Future
-  - MJSwiftCore/Future (0.3.14)
-  - MJSwiftCore/iOS (0.3.14):
+  - MJSwiftCore/Future (0.4.1)
+  - MJSwiftCore/iOS (0.4.1):
     - MJSwiftCore/Common
-  - MJSwiftCore/MJCocoaCore (0.3.14):
+  - MJSwiftCore/MJCocoaCore (0.4.1):
     - MJCocoaCore/Common (~> 2.3.8)
     - MJSwiftCore/Common
-  - MJSwiftCore/Objection (0.3.14):
+  - MJSwiftCore/Objection (0.4.1):
     - MJObjection
-  - MJSwiftCore/Realm (0.3.14):
+  - MJSwiftCore/Realm (0.4.1):
     - MJSwiftCore/Common
     - MJSwiftCore/Security
-    - RealmSwift (~> 3.0.0)
-  - MJSwiftCore/Security (0.3.14):
+    - RealmSwift (~> 3.3.2)
+  - MJSwiftCore/Security (0.4.1):
     - MJSwiftCore/Common
-  - MJSwiftCore/Vastra (0.3.14)
+  - MJSwiftCore/Vastra (0.4.1)
   - PromisesObjC (1.0.2)
   - PromisesSwift (1.0.2):
     - PromisesObjC (= 1.0.2)
-  - Realm (3.0.2):
-    - Realm/Headers (= 3.0.2)
-  - Realm/Headers (3.0.2)
-  - RealmSwift (3.0.2):
-    - Realm (= 3.0.2)
-  - Swinject (2.1.1)
+  - Realm (3.3.2):
+    - Realm/Headers (= 3.3.2)
+  - Realm/Headers (3.3.2)
+  - RealmSwift (3.3.2):
+    - Realm (= 3.3.2)
+  - Swinject (2.4.0)
 
 DEPENDENCIES:
-  - Kingfisher (~> 4.2)
+  - Kingfisher (~> 4.7.0)
   - MJSwiftCore (from `../`)
   - MJSwiftCore/Alamofire (from `../`)
   - MJSwiftCore/iOS (from `../`)
@@ -48,24 +48,24 @@ DEPENDENCIES:
   - MJSwiftCore/Realm (from `../`)
   - MJSwiftCore/Vastra (from `../`)
   - PromisesSwift (~> 1.0)
-  - Swinject (~> 2.1)
+  - Swinject (~> 2.4.0)
 
 EXTERNAL SOURCES:
   MJSwiftCore:
     :path: ../
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  Kingfisher: 9ee7e788d8ba07c3f21ce0d43f33cec310a4f781
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   MJCocoaCore: 48b554ce49ec5845b5f7307c40db98e7f09ad3d3
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
-  MJSwiftCore: dbaa6f2257a3fc9bd41d236d42f8212d635bba0e
+  MJSwiftCore: 3581bfec756a360d222ec9d6381fc167e6cb2c35
   PromisesObjC: 5cb99f8b988db9461cd3025cab5cc17752873a5c
   PromisesSwift: a972cb5ca9780fb7f805e9c2d69e7efd417a0523
-  Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
-  RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
-  Swinject: afea49fd95f392b41171669f165842879c48fad6
+  Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
+  RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
+  Swinject: a1364b0f66c2736bb03c1c7cab54809e16df25da
 
-PODFILE CHECKSUM: b80e13a627d4ca44dc70f01ec7eea3abc91a3479
+PODFILE CHECKSUM: 94042f680d0cc5e428b70bdfff5721b38e62b0c5
 
 COCOAPODS: 1.4.0

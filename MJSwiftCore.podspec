@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.4.0'
+    s.version          = '0.4.1'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     
     # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
     s.default_subspecs = 'Common', 'Security'
     
     s.osx.deployment_target = '10.12'
-    s.ios.deployment_target = '10.0'
+    s.ios.deployment_target = '9.0'
 
     s.subspec 'Future' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Future/**/*'
@@ -50,13 +50,13 @@ Pod::Spec.new do |s|
     
     s.subspec 'Alamofire' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*'
-        sp.dependency 'Alamofire', '~> 4.5'
+        sp.dependency 'Alamofire', '~> 4.7.2'
         sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Realm' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Realm/**/*'
-        sp.dependency 'RealmSwift', '~> 3.0.0'
+        sp.dependency 'RealmSwift', '~> 3.3.2'
         sp.dependency 'MJSwiftCore/Common'
         sp.dependency 'MJSwiftCore/Security'
     end
