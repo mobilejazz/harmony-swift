@@ -16,16 +16,16 @@
 
 import Foundation
 
-/// Custom mapper to convert to data from data convertible
-public class DataConvertibleToDataMapper <T:DataCodable> : Mapper <T,Data> {
+public class EncodableToDataMapper <T> : Mapper <T, Data> where T: Encodable {
     public override func map(_ from: T) -> Data {
-        return from.toData()
+        let data = try! JSONEncoder().encode(from)
+        return data
     }
 }
 
-/// Custom mapper to convert to data converitble from mapa
-public class DataToDataConvertibleMapper <T:DataDecodable> : Mapper <Data,T> {
+public class DataToDecodableMapper <T> : Mapper <Data, T> where T: Decodable {
     public override func map(_ from: Data) -> T {
-        return T(data:from)!
+        let value = try! JSONDecoder().decode(T.self, from: from)
+        return value
     }
 }

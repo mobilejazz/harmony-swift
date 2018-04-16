@@ -27,37 +27,48 @@ class StorageAssembly: Assembly {
     
     func assemble(container: Container) {
         
-        // Realm
-        container.register(RealmFactory.self) { _ in
-            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-            let configuration = Realm.Configuration.init(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
-                                                         inMemoryIdentifier: nil,
-                                                         syncConfiguration: nil,
-                                                         encryptionKey: nil,
-                                                         readOnly: false,
-                                                         schemaVersion: CurrentAppRealmVersion,
-                                                         migrationBlock: { (migration, version) in
-                                                            // No migration to be done
-            },
-                                                         deleteRealmIfMigrationNeeded: false,
-                                                         shouldCompactOnLaunch: nil,
-                                                         objectTypes: [RealmItem.self, // <--- List here realm classes
-                                                                       ])
-            return RealmFactory(configuration: configuration,
-                                minimumValidSchemaVersion: CurrentAppRealmVersion,
-                                encryptionKeyName: "SwiftCore")
-            }.inObjectScope(.container)
-        container.register(RealmHandler.self) { r in RealmHandler(r.resolve(RealmFactory.self)!) }
+//        // Realm
+//        container.register(RealmFactory.self) { _ in
+//            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+//            let configuration = Realm.Configuration.init(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
+//                                                         inMemoryIdentifier: nil,
+//                                                         syncConfiguration: nil,
+//                                                         encryptionKey: nil,
+//                                                         readOnly: false,
+//                                                         schemaVersion: CurrentAppRealmVersion,
+//                                                         migrationBlock: { (migration, version) in
+//                                                            // No migration to be done
+//            },
+//                                                         deleteRealmIfMigrationNeeded: false,
+//                                                         shouldCompactOnLaunch: nil,
+//                                                         objectTypes: [RealmItem.self, // <--- List here realm classes
+//                                                                       ])
+//            return RealmFactory(configuration: configuration,
+//                                minimumValidSchemaVersion: CurrentAppRealmVersion,
+//                                encryptionKeyName: "SwiftCore")
+//            }.inObjectScope(.container)
+//        container.register(RealmHandler.self) { r in RealmHandler(r.resolve(RealmFactory.self)!) }
+//
+//        // Mappers
+//        container.register(Mapper<RealmItem, ItemEntity>.self) { _ in RealmItemToItemEntityMapper() }
+//        container.register(RealmMapper<ItemEntity, RealmItem>.self) { _ in ItemEntityToRealmItemMapper() }
+//
+//        // Storage Services
+//        container.register(Repository<ItemEntity>.self, name: Names.storageRepository, factory: { r in
+//            return RealmService(realmHandler: r.resolve(RealmHandler.self)!,
+//                                toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
+//                                toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!)
+//        })
         
-        // Mappers
-        container.register(Mapper<RealmItem, ItemEntity>.self) { _ in RealmItemToItemEntityMapper() }
-        container.register(RealmMapper<ItemEntity, RealmItem>.self) { _ in ItemEntityToRealmItemMapper() }
-        
-        // Storage Services
         container.register(Repository<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-            return RealmService(realmHandler: r.resolve(RealmHandler.self)!,
-                                toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
-                                toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!)
+//            let keyValueService : KeyValueInterface<ItemEntity> = InMemoryKeyValueService<ItemEntity>()
+            
+            let userDefaultsService = UserDefaultsKeyValueService<Data>(UserDefaults.standard)
+            let dataRepository = KeyValueRepository<Data>(userDefaultsService, keyPrefix: "ItemEntity")
+            let repository = RepositoryMapper<ItemEntity, Data>(repository: dataRepository,
+                                                                toToMapper: EncodableToDataMapper<ItemEntity>(),
+                                                                toFromMapper: DataToDecodableMapper<ItemEntity>())
+            return repository
         })
     }
 }

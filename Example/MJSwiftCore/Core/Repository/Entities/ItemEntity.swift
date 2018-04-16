@@ -7,7 +7,7 @@ import Foundation
 
 import MJSwiftCore
 
-struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Decodable {
+struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
     var id: String?
     var name: String
     var price: Double
@@ -30,7 +30,7 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Decodable {
 	var lastUpdate: Date? = nil
     
     func expiryTimeInterval() -> Time {
-        return .seconds(5)
+        return .seconds(30)
     }
 	
 	//MARK: Decodable
@@ -40,5 +40,6 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Decodable {
 		case price
 		case count
 		case imageURL = "image-url"
+        case lastUpdate
 	}
 }

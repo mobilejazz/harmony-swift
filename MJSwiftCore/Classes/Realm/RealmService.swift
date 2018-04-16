@@ -33,7 +33,7 @@ extension NSPredicate : RealmQuery {
     }
 }
 
-extension QueryById : RealmQuery {
+extension QueryById : RealmQuery where T==String {
     public func realmPredicate() -> NSPredicate? {
         return NSPredicate(format: "id == %@", id)
     }
@@ -72,8 +72,8 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
     
     public override func getAll(_ query: Query, operation: Operation) -> Future<[E]> {
         switch query.self {
-        case is QueryById:
-            let queryById = query as! QueryById
+        case is QueryById<String>:
+            let queryById = query as! QueryById<String>
             return realmHandler.read { realm -> E? in
                 if let object = realm.object(ofType: O.self, forPrimaryKey: queryById.id) {
                     return toEntityMapper.map(object)

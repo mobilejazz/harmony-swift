@@ -25,9 +25,9 @@ public class BlankQuery : Query {
 }
 
 /// A query by an id
-public class QueryById : Query {
-    public let id : String
-    public init(_ id: String) {
+public class QueryById <T> : Query where T:Hashable {
+    public let id : T
+    public init(_ id: T) {
         self.id = id
     }
 }

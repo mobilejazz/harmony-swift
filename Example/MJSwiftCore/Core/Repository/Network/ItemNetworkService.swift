@@ -12,8 +12,8 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
     
     override func get(_ query: Query, operation: MJSwiftCore.Operation) -> Future<ItemEntity?> {
         switch query.self {
-        case is QueryById:
-            return getById((query as! QueryById).id)
+        case is QueryById<String>:
+            return getById((query as! QueryById<String>).id)
         default:
             return super.get(query, operation: operation)
         }
@@ -21,8 +21,8 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
     
     override func getAll(_ query: Query, operation: MJSwiftCore.Operation) -> Future<[ItemEntity]> {
         switch query.self {
-        case is QueryById:
-            return getById((query as! QueryById).id).map { [$0!] }
+        case is QueryById<String>:
+            return getById((query as! QueryById<String>).id).map { [$0!] }
         case is AllObjectsQuery:
             return getAllItems()
         case is SearchItemsQuery:

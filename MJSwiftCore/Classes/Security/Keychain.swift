@@ -114,6 +114,38 @@ public class Keychain {
 }
 
 public extension Keychain {
+    
+    /// Custom getter for Decodable conforming types.
+    ///
+    /// - Parameter key: The key.
+    /// - Returns: The type stored in the keychain or nil.
+    public func get<T>(_ key: String) ->T? where T:Decodable {
+        guard let data : Data = get(key) else {
+            return nil
+        }
+        do {
+            let value = try PropertyListDecoder().decode(T.self, from: data)
+            return value
+        } catch {
+            return nil
+        }
+    }
+    
+    /// Custom setter for Encodable conforming types.
+    ///
+    /// - Parameters:
+    ///   - value: The Encodable conforming value.
+    ///   - key: The key.
+    /// - Returns: The operation result.
+    public func set<T>(_ value: T, forKey key: String) -> Result where T:Encodable {
+        do {
+            let data = try PropertyListEncoder().encode(value)
+            return set(data, forKey: key)
+        } catch {
+            return Keychain.Result.failed(0)
+        }
+    }
+    
     /// Custom getter for NSCoding conforming types.
     ///
     /// - Parameter key: The key.

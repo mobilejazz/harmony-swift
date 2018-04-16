@@ -21,7 +21,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 /// Keychain set interactor
 ///
-public class KeychainSetInteractor <T> where T:DataCodable {
+public class KeychainSetInteractor {
     
     /// Custom interactor errors
     public enum CustomError: Error {
@@ -62,7 +62,7 @@ public class KeychainSetInteractor <T> where T:DataCodable {
     /// Main execution method
     ///
     /// - Returns: A future for the result value or error
-    public func execute(_ value : T) -> Future<Bool> {
+    public func execute<T>(_ value : T) -> Future<Bool> where T:Encodable {
         return executor.submit { future in
             let result = self.keychain.set(value, forKey: self.key)
             switch result {
