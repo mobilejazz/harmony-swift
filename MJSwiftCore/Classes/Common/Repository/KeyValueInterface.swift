@@ -16,25 +16,52 @@
 
 import Foundation
 
+///
+/// Abstract definition of a key value interface
+///
 open class KeyValueInterface <T> {
+    /// Getter by key.
+    ///
+    /// - Parameter key: The key
+    /// - Returns: The value
     func get(_ key: String) -> T? {
         fatalError("This method is unimplemented")
     }
     
+    /// Array getter by key.
+    ///
+    /// - Parameter key: The key
+    /// - Returns: The value
     func getAll(_ key: String) -> [T]? {
         fatalError("This method is unimplemented")
     }
     
+    /// Setter by key.
+    ///
+    /// - Parameters:
+    ///   - value: The value
+    ///   - key: The key
+    /// - Returns: True if success, false if failure
     @discardableResult
     func set(_ value: T, forKey key: String) -> Bool {
         fatalError("This method is unimplemented")
     }
     
+    /// Array setter by key.
+    ///
+    /// - Parameters:
+    ///   - array: The array
+    ///   - key: The key
+    /// - Returns: True if success, false if failure
     @discardableResult
-    func setAll(_ value: [T], forKey key: String) -> Bool  {
+    func setAll(_ array: [T], forKey key: String) -> Bool  {
         fatalError("This method is unimplemented")
     }
     
+    /// Delete a value or an array by key.
+    ///
+    /// - Parameter key: The key
+    /// - Returns: True if success, false if failure
     @discardableResult
     func delete(_ key: String) -> Bool  {
         fatalError("This method is unimplemented")

@@ -40,13 +40,13 @@ public class NetworkStorageRepository <T> : Repository <T>  {
         self.storage = storage
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<T?> {
+    public override func get(_ query: Query, operation: Operation = .storageSync) -> Future<T?> {
         return getAll(query, operation: operation).map { array in
             return array.first
         }
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation = .storageSync) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
             case .network:
@@ -75,7 +75,7 @@ public class NetworkStorageRepository <T> : Repository <T>  {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
+    public override func put(_ value: T, in query: Query, operation: Operation = .networkSync) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
             case .network:
@@ -97,7 +97,7 @@ public class NetworkStorageRepository <T> : Repository <T>  {
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
             case .network:
@@ -119,7 +119,7 @@ public class NetworkStorageRepository <T> : Repository <T>  {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<Bool> {
         return { () -> Future<Bool> in
             switch operation {
             case .network:
@@ -149,7 +149,7 @@ public class NetworkStorageRepository <T> : Repository <T>  {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<Bool> {
         return { () -> Future<Bool> in
             switch operation {
             case .network:

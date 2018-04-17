@@ -138,3 +138,35 @@ open class Repository<T> {
         }
     }
 }
+
+extension Repository {
+    
+    public func get(_ id: AnyHashable, operation: Operation = .blank) -> Future<T?> {
+        return get(QueryById(id), operation: operation)
+    }
+    
+    public func getAll(_ id: AnyHashable, operation: Operation = .blank) -> Future<[T]> {
+        return getAll(QueryById(id), operation: operation)
+    }
+    
+    @discardableResult
+    public func put(_ value: T, forId id: AnyHashable, operation: Operation = .blank) -> Future<T> {
+        return put(value, in: QueryById(id), operation: operation)
+    }
+    
+    @discardableResult
+    public func putAll(_ array: [T], forId id: AnyHashable, operation: Operation = .blank) -> Future<[T]> {
+        return putAll(array, in: QueryById(id), operation: operation)
+    }
+    
+    @discardableResult
+    public func delete(_ value: T? = nil, forId id: AnyHashable, operation: Operation = .blank) -> Future<Bool> {
+        return delete(value, in: QueryById(id), operation: operation)
+    }
+    
+    @discardableResult
+    public func deleteAll(_ array: [T] = [], forId id: AnyHashable, operation: Operation = .blank) -> Future<Bool> {
+        return deleteAll(array, in: QueryById(id), operation: operation)
+    }
+}
+

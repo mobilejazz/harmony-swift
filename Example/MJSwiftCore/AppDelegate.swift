@@ -10,6 +10,17 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
+
+struct Dog : Codable {
+    let name : String
+    let age : Int
+    
+    init (name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -28,6 +39,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
+        }
+        
+//        let keyValueService = InMemoryKeyValueService<Dog>()
+//        let repository : Repository<Dog> = KeyValueRepository<Dog>(keyValueService)
+        
+        let keyValueService = UserDefaultsKeyValueService<Data>(UserDefaults.standard, keyPrefix: "test")
+        let dataRepository = KeyValueRepository<Data>(keyValueService)
+        let repository : Repository<Dog> = RepositoryMapper<Dog, Data>(repository: dataRepository,
+                                                                       toToMapper: EncodableToDataMapper<Dog>(),
+                                                                       toFromMapper: DataToDecodableMapper<Dog>())
+        
+        
+        repository.get("dog").then { dog in
+            if let dog = dog {
+                print("Dog: \(dog)")
+                } else {
+                print("No dog found")
+            }
+        }
+        
+        let dog = Dog(name: "Lassie", age: 7)
+        
+        repository.put(dog, forId:"dog").fail { error in
+                print("error: \(error)")
+        }
+        
+        repository.get("dog").then { dog in
+            if let dog = dog {
+                print("Dog: \(dog)")
+            } else {
+                print("No dog found")
+            }
+        }
+        
+        repository.delete(forId: "dog")
+        
+        repository.get("dog").then { dog in
+            if let dog = dog {
+                print("Dog: \(dog)")
+            } else {
+                print("No dog found")
+            }
         }
         
         return true

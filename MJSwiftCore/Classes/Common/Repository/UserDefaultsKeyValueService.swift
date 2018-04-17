@@ -21,11 +21,24 @@ import Foundation
 //
 public class UserDefaultsKeyValueService <T> : KeyValueInterface <T> {
     private let userDefaults : UserDefaults
-    public init(_ userDefaults : UserDefaults) {
+    private let keyPrefix : String
+    
+    public init(_ userDefaults : UserDefaults, keyPrefix: String = "") {
         self.userDefaults = userDefaults
+        self.keyPrefix = keyPrefix
+    }
+    
+    private func addPrefixTo(_ key: String) -> String {
+        switch keyPrefix.count {
+        case 0:
+            return key
+        default:
+            return keyPrefix + "." + key
+        }
     }
     
     public override func get(_ key: String) -> T? {
+        let key = addPrefixTo(key)
         let value : T? = {
             switch T.self {
             case is Int.Type:
@@ -72,20 +85,24 @@ public class UserDefaultsKeyValueService <T> : KeyValueInterface <T> {
     }
     
     public override func getAll(_ key: String) -> [T]? {
+        let key = addPrefixTo(key)
         return userDefaults.array(forKey: key) as? [T]
     }
     
     public override func set(_ value: T, forKey key: String) -> Bool {
+        let key = addPrefixTo(key)
         userDefaults.set(value, forKey: key)
         return userDefaults.synchronize()
     }
     
     public override func setAll(_ values: [T], forKey key: String) -> Bool {
+        let key = addPrefixTo(key)
         userDefaults.set(values, forKey: key)
         return userDefaults.synchronize()
     }
     
     public override func delete(_ key: String) -> Bool {
+        let key = addPrefixTo(key)
         userDefaults.removeObject(forKey: key)
         return userDefaults.synchronize()
     }

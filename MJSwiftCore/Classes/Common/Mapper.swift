@@ -72,3 +72,23 @@ public class CastMapper <From,To> : Mapper <From,To> {
         return from as! To
     }
 }
+
+///
+/// Mapper defined by a closure
+///
+public class ClosureMapper <From,To> : Mapper <From,To> {
+    
+    private let closure : (From) -> To
+    
+    /// Default initializer
+    ///
+    /// - Parameter closure: The map closure
+    public init (_ closure : @escaping (From) -> To) {
+        self.closure = closure
+        super.init()
+    }
+    
+    public override func map(_ from: From) -> To {
+        return closure(from)
+    }
+}

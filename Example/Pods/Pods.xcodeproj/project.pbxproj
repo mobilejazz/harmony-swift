@@ -414,7 +414,6 @@
 		D25566682084F4EA00AA76EE /* Mapper+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25566672084F4EA00AA76EE /* Mapper+Codable.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2B34D55F2141CFE3B3C45A571524D67 /* PutObjectsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152E041454B8B5E677CD3EC89C100A02 /* PutObjectsInteractor.swift */; };
-		D2BD7A592084DAA0000BF6E8 /* InMemoryKeyStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BD7A582084DAA0000BF6E8 /* InMemoryKeyStorageRepository.swift */; };
 		D2BD7A5B2084E0E7000BF6E8 /* KeyValueInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BD7A5A2084E0E7000BF6E8 /* KeyValueInterface.swift */; };
 		D2BD7A5D2084E157000BF6E8 /* UserDefaultsKeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BD7A5C2084E157000BF6E8 /* UserDefaultsKeyValueService.swift */; };
 		D2C595EB83C9DEADAAF31D0F93E7BBF1 /* RLMObjectSchema_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C586257D0A0FBB4305EAE1B7914AAE26 /* RLMObjectSchema_Private.h */; };
@@ -1127,7 +1126,6 @@
 		D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueService.swift; sourceTree = "<group>"; };
 		D25566672084F4EA00AA76EE /* Mapper+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mapper+Codable.swift"; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
-		D2BD7A582084DAA0000BF6E8 /* InMemoryKeyStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyStorageRepository.swift; sourceTree = "<group>"; };
 		D2BD7A5A2084E0E7000BF6E8 /* KeyValueInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueInterface.swift; sourceTree = "<group>"; };
 		D2BD7A5C2084E157000BF6E8 /* UserDefaultsKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyValueService.swift; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
@@ -1828,7 +1826,6 @@
 			isa = PBXGroup;
 			children = (
 				E99E5F31A4949AA94841BEFA7667D6A0 /* NetworkStorageRepository.swift */,
-				D2BD7A582084DAA0000BF6E8 /* InMemoryKeyStorageRepository.swift */,
 				6C5588E329AA9503C122B7D1B520C37C /* Repository.swift */,
 				72780059B470C9FA605A75ACAAF63590 /* RepositoryMapper.swift */,
 				738F350E46FC8B574904A58DAFCCF215 /* RepositoryValidator.swift */,
@@ -2863,7 +2860,6 @@
 				661C6EECD920E6E08EEB32BC511C1218 /* DeleteObjectInteractor.swift in Sources */,
 				73CAECA39E3C3415E65865A8EAE58734 /* DeleteObjectsInteractor.swift in Sources */,
 				F5B290AC3AFB71ED0DB0DA16F7853B5C /* DispatchQueueExecutor.swift in Sources */,
-				D2BD7A592084DAA0000BF6E8 /* InMemoryKeyStorageRepository.swift in Sources */,
 				BEF625D2E0542330B4C8C4A1ABFCADF0 /* Entity.swift in Sources */,
 				6717D787470465AF39902B0E7C84C39E /* ErrorHelper.swift in Sources */,
 				8EEA99A155C05D08C2B355CE1D83C5B0 /* Executor+Future.swift in Sources */,

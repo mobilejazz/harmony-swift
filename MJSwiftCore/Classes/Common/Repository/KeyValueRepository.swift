@@ -17,35 +17,35 @@
 import Foundation
 
 ///
-/// Key-value based repository to store data in UserDefaults.
-/// The repository only works with QueryById and KeyValueQuery types.
+/// Key-value based repository to store data in a key value interface.
+/// The repository only works with QueryById
 ///
 public class KeyValueRepository <T> : Repository<T> {
     
     private let keyValueService : KeyValueInterface<T>
-    private let keyPrefix : String
-
-    public init(_ keyValueService : KeyValueInterface<T>, keyPrefix: String = "") {
+    
+    public init(_ keyValueService : KeyValueInterface<T>) {
         self.keyValueService = keyValueService
-        if keyPrefix.count > 0 {
-            self.keyPrefix = keyPrefix + "."
-        } else {
-            self.keyPrefix = ""
-        }
     }
     
     private func keyFromQuery(_ query: Query) -> String? {
         switch query.self {
         case is QueryById<String>:
-            return keyPrefix + (query as! QueryById<String>).id
+            return (query as! QueryById<String>).id
+        case is QueryById<Int>:
+            let key = "\((query as! QueryById<Int>).id)"
+            return key
+        case is QueryById<AnyHashable>:
+            let key =  "\((query as! QueryById<AnyHashable>).id.hashValue)"
+            return key
         case is AllObjectsQuery:
-            return keyPrefix + String(describing:T.self) + ".allObjects"
+            return String(describing:T.self) + ".allObjects"
         default:
             return nil
         }
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<T?> {
+    public override func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
         guard let key = keyFromQuery(query) else {
             return super.get(query, operation: operation)
         }
@@ -53,7 +53,7 @@ public class KeyValueRepository <T> : Repository<T> {
         return Future(value)
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
         guard let key = keyFromQuery(query) else {
             return super.getAll(query, operation: operation)
         }
@@ -65,7 +65,7 @@ public class KeyValueRepository <T> : Repository<T> {
         }
     }
     
-    public override func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
+    public override func put(_ value: T, in query: Query, operation: Operation = .blank) -> Future<T> {
         guard let key = keyFromQuery(query) else {
             return super.put(value, in: query, operation: operation)
         }
@@ -73,7 +73,7 @@ public class KeyValueRepository <T> : Repository<T> {
         return Future(value)
     }
     
-    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<[T]> {
         guard let key = keyFromQuery(query) else {
             return super.putAll(array, in: query, operation: operation)
         }
@@ -81,7 +81,7 @@ public class KeyValueRepository <T> : Repository<T> {
         return Future(array)
     }
     
-    public override func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation = .blank) -> Future<Bool> {
         guard let key = keyFromQuery(query) else {
             return super.delete(value, in: query, operation: operation)
         }
@@ -89,7 +89,7 @@ public class KeyValueRepository <T> : Repository<T> {
         return Future(true)
     }
     
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<Bool> {
         guard let key = keyFromQuery(query) else {
             return super.deleteAll(array, in: query, operation: operation)
         }
