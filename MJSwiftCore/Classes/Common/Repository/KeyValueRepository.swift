@@ -16,6 +16,30 @@
 
 import Foundation
 
+/// Protocol to use a query as a key for a key value interface
+public protocol KeyValueQuery : Query {
+    var key : String { get }
+}
+
+extension QueryById : KeyValueQuery {
+    public var key : String {
+        get {
+            switch T.self {
+            case is String.Type:
+                return id as! String
+            case is Int.Type:
+                return "\(id as! Int)"
+            default:
+                return "\(id.hashValue)"
+            }
+        }
+    }
+}
+
+extension AllObjectsQuery : KeyValueQuery {
+    public var key : String { get { return "allObjects" } }
+}
+
 ///
 /// Key-value based repository to store data in a key value interface.
 /// The repository only works with QueryById
@@ -24,41 +48,32 @@ public class KeyValueRepository <T> : Repository<T> {
     
     private let keyValueService : KeyValueInterface<T>
     
+    /// Default initializer
+    ///
+    /// - Parameter keyValueService: The key value service to be used
     public init(_ keyValueService : KeyValueInterface<T>) {
         self.keyValueService = keyValueService
     }
     
     private func keyFromQuery(_ query: Query) -> String? {
-        switch query.self {
-        case is QueryById<String>:
-            return (query as! QueryById<String>).id
-        case is QueryById<Int>:
-            let key = "\((query as! QueryById<Int>).id)"
-            return key
-        case is QueryById<AnyHashable>:
-            let key =  "\((query as! QueryById<AnyHashable>).id.hashValue)"
-            return key
-        case is AllObjectsQuery:
-            return String(describing:T.self) + ".allObjects"
-        default:
-            return nil
+        if case let query as KeyValueQuery = query.self {
+            return query.key
         }
+        return nil
     }
     
     public override func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
         guard let key = keyFromQuery(query) else {
             return super.get(query, operation: operation)
         }
-        let value = keyValueService.get(key)
-        return Future(value)
+        return Future(keyValueService.get(key))
     }
     
     public override func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
         guard let key = keyFromQuery(query) else {
             return super.getAll(query, operation: operation)
         }
-        let array = keyValueService.getAll(key)
-        if let array = array {
+        if let array = keyValueService.getAll(key) {
             return Future(array)
         } else {
             return Future([])

@@ -34,4 +34,10 @@ public struct DeleteObjectsInteractor <T> {
             future.set(self.repository.deleteAll(objects, in: query, operation: operation))
         }
     }
+    
+    public func execute<K>(objects: [T] = [], forId id: K, operation: Operation = .blank) -> Future<Bool> where K:Hashable {
+        return executor.submit { future in
+            future.set(self.repository.deleteAll(objects, forId: id, operation: operation))
+        }
+    }
 }

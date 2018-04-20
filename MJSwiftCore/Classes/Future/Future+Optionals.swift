@@ -16,21 +16,17 @@
 
 import Foundation
 
+extension FutureError {
+    /// - network: Data stream will only use network
+    public static let nilValue = FutureError(rawValue: "Cannot unwrap because value is nil")
+}
+
 public extension Future {
-    /// Custom error for unwrapping
-    public enum UnwrapError : Error {
-        /// Unwrap couldn't be done because value was nil
-        case nilValue
-        public var localizedDescription: String {
-            return "Cannot unwrap because value is nil"
-        }
-    }
-    
     /// Unwrapes a future of an optional type, returning a future of a non-optional type
     public func unwrap<K>() -> Future<K> where T == K? {
         return flatMap { value in
             guard let value = value else {
-                return Future<K>(UnwrapError.nilValue)
+                return Future<K>(FutureError.nilValue)
             }
             return Future<K>(value)
         }
@@ -39,6 +35,16 @@ public extension Future {
     public func optional() -> Future<T?> {
         return self.map { value -> T? in
             return value
+        }
+    }
+    
+    /// Performs a map of an optional future when the value is defined
+    public func unwrappedMap<K,P>(_ closure: @escaping (K) -> P) -> Future<P?> where T == K? {
+        return flatMap { value in
+            guard let value = value else {
+                return Future<P?>(nil)
+            }
+            return Future<P?>(closure(value))
         }
     }
 }

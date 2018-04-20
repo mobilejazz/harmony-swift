@@ -18,6 +18,7 @@ import Foundation
 import RealmSwift
 
 open class RealmObject : Object {
+    
     @objc dynamic public var id : String = ""
     
     public convenience init(_ id: String?) {
@@ -28,7 +29,6 @@ open class RealmObject : Object {
             self.id = UUID().uuidString
         }
     }
-    
     override open static func primaryKey() -> String? {
         return "id"
     }

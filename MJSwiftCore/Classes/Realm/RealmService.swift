@@ -38,16 +38,15 @@ extension QueryById : RealmQuery where T==String {
         return NSPredicate(format: "id == %@", id)
     }
 }
+
 extension AllObjectsQuery : RealmQuery { }
 
 fileprivate extension Query {
     fileprivate func toRealmQuery() -> RealmQuery {
-        switch self {
-        case is RealmQuery:
-            return self as! RealmQuery
-        default:
-            fatalError("Query class \(String(describing: type(of:self))) cannot be used in realm. Fix by conforming to protocol RealmQuery.")
+        if case let query as RealmQuery = self {
+            return query
         }
+        fatalError("Query class \(String(describing: type(of:self))) cannot be used in realm. Fix by conforming to protocol RealmQuery.")
     }
 }
 
@@ -65,46 +64,51 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
         self.toRealmMapper = toRealmMapper
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<E?> {
-        // TODO
-        return Future()
+    private func idFromQuery(_ query: Query) -> String? {
+        if case let query as QueryById<String> = query.self {
+            return query.id
+        }
+        return nil
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[E]> {
-        switch query.self {
-        case is QueryById<String>:
-            let queryById = query as! QueryById<String>
-            return realmHandler.read { realm -> E? in
-                if let object = realm.object(ofType: O.self, forPrimaryKey: queryById.id) {
-                    return toEntityMapper.map(object)
-                } else {
-                    return nil
-                }
-            }.map { entity -> [E] in
-                guard let entity = entity else {
-                    return []
-                }
-                return [entity]
-            }
-        default:
+    public override func get(_ query: Query, operation: Operation = .blank) -> Future<E?> {
+        if let id = idFromQuery(query) {
+            return realmHandler.read { realm in
+                let primaryKey : String = id
+                return realm.object(ofType: O.self, forPrimaryKey: primaryKey)
+                }.unwrappedMap { o in self.toEntityMapper.map(o) }
+        } else {
+            // Otherwise, the get method can't resolve the query.
+            // It needs to be done via a getAll call, as the return is an array of objects.
+            return super.get(query, operation: operation)
+        }
+    }
+    
+    public override func getAll(_ query: Query = AllObjectsQuery(), operation: Operation = .blank) -> Future<[E]> {
+        if let _ = idFromQuery(query) {
+            return self.get(query, operation: operation).unwrappedMap{ [$0] }.unwrap()
+        } else {
             if let predicate = query.toRealmQuery().realmPredicate() {
                 return realmHandler.read { realm -> [E] in
                     return Array(realm.objects(O.self).filter(predicate)).map { toEntityMapper.map($0) }
-                }.unwrap()
+                    }.unwrap()
             } else {
                 return realmHandler.read { realm -> [E] in
                     return Array(realm.objects(O.self)).map { toEntityMapper.map($0) }
-                }.unwrap()
+                    }.unwrap()
             }
         }
     }
     
-    public override func put(_ value: E, in query: Query, operation: Operation) -> Future<E> {
-        // TODO
-        return Future()
+    public override func put(_ value: E, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<E> {
+        return realmHandler.write { realm -> E in
+            let object = toRealmMapper.map(value, inRealm: realm)
+            realm.add(object)
+            return value
+        }.unwrap()
     }
     
-    public override func putAll(_ array: [E], in query: Query, operation: Operation) -> Future<[E]> {
+    public override func putAll(_ array: [E], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<[E]> {
         return realmHandler.write { realm -> [E] in
             array
                 .map { toRealmMapper.map($0, inRealm:realm) }
@@ -114,7 +118,7 @@ public class RealmService<E: Entity, O: Object> : Repository<E> {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [E], in query: Query, operation: Operation) -> Future<Bool> {
+    public override func deleteAll(_ array: [E] = [], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         switch query {
         case is BlankQuery:
             return realmHandler.write { realm -> Bool in

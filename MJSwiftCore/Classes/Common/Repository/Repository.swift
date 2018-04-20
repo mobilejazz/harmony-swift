@@ -25,7 +25,7 @@ public class BlankQuery : Query {
 }
 
 /// A query by an id
-public class QueryById <T> : Query where T:Hashable {
+public class QueryById <T> where T:Hashable {
     public let id : T
     public init(_ id: T) {
         self.id = id
@@ -73,7 +73,7 @@ open class Repository<T> {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
-    open func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
+    open func getAll(_ query: Query = AllObjectsQuery(), operation: Operation = .blank) -> Future<[T]> {
         switch query {
         case is BlankQuery:
             return Future([])
@@ -118,7 +118,7 @@ open class Repository<T> {
     open func delete(_ value: T? = nil, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         switch query {
         case is BlankQuery:
-            return Future(false)
+            return Future(true)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
         }
@@ -132,7 +132,7 @@ open class Repository<T> {
     open func deleteAll(_ array: [T] = [], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
         switch query {
         case is BlankQuery:
-            return Future(false)
+            return Future(true)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
         }
@@ -140,32 +140,31 @@ open class Repository<T> {
 }
 
 extension Repository {
-    
-    public func get(_ id: AnyHashable, operation: Operation = .blank) -> Future<T?> {
+    public func get<K>(_ id: K, operation: Operation = .blank) -> Future<T?> where K:Hashable {
         return get(QueryById(id), operation: operation)
     }
     
-    public func getAll(_ id: AnyHashable, operation: Operation = .blank) -> Future<[T]> {
+    public func getAll<K>(_ id: K, operation: Operation = .blank) -> Future<[T]> where K:Hashable {
         return getAll(QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func put(_ value: T, forId id: AnyHashable, operation: Operation = .blank) -> Future<T> {
+    public func put<K>(_ value: T, forId id: K, operation: Operation = .blank) -> Future<T> where K:Hashable {
         return put(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func putAll(_ array: [T], forId id: AnyHashable, operation: Operation = .blank) -> Future<[T]> {
+    public func putAll<K>(_ array: [T], forId id: K, operation: Operation = .blank) -> Future<[T]> where K:Hashable {
         return putAll(array, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func delete(_ value: T? = nil, forId id: AnyHashable, operation: Operation = .blank) -> Future<Bool> {
+    public func delete<K>(_ value: T? = nil, forId id: K, operation: Operation = .blank) -> Future<Bool> where K:Hashable {
         return delete(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func deleteAll(_ array: [T] = [], forId id: AnyHashable, operation: Operation = .blank) -> Future<Bool> {
+    public func deleteAll<K>(_ array: [T] = [], forId id: K, operation: Operation = .blank) -> Future<Bool> where K:Hashable {
         return deleteAll(array, in: QueryById(id), operation: operation)
     }
 }

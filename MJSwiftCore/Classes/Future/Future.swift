@@ -16,33 +16,34 @@
 
 import Foundation
 
+public struct FutureError : RawRepresentable, Equatable, Hashable, CustomStringConvertible, Error {
+    public typealias RawValue = String
+    public var rawValue: String
+    public var hashValue: Int { return rawValue.hashValue }
+    public static func ==(lhs: FutureError, rhs: FutureError) -> Bool { return lhs.rawValue == rhs.rawValue }
+    public init(rawValue: String) { self.rawValue = rawValue }
+    public var description: String { return rawValue }
+    
+    /// Future content has already been set
+    internal static let contentAlreadySet = FutureError(rawValue:"Content already set: cannot set new content once is already set.")
+    
+    /// Future content has already been set
+    internal static let thenAlreadySet = FutureError(rawValue:"Then already set: cannot set a new then closure once is already set.")
+    
+    /// Future content has already been set
+    internal static let alreadySent = FutureError(rawValue:"Future is already sent.")
+    
+    /// Future content has already been set
+    internal static let notReactive = FutureError(rawValue:"Future is not reactive and can't be completed.")
+    
+    /// Future content has already been set
+    internal static let missingLambda = FutureError(rawValue:"Future cannot be sent as the then clousre hasn't been defined")
+}
+
 ///
 /// Future class. Wrapper of a future value of generic type T or an error.
 ///
 public class Future<T> {
-    
-    internal enum InternalError: Error {
-        case contentAlreadySet
-        case thenAlreadySet
-        case alreadySent
-        case notReactive
-        case missingLambda
-        
-        var localizedDescription: String {
-            switch (self) {
-            case .contentAlreadySet:
-                return "Content already set: cannot set new content once is already set."
-            case .thenAlreadySet:
-                return "Then already set: cannot set a new then closure once is already set."
-            case .alreadySent:
-                return "Future is already sent."
-            case .notReactive:
-                return "Future is not reactive and can't be completed"
-            case .missingLambda:
-                return "Future cannot be sent as the then clousre hasn't been defined"
-            }
-        }
-    }
     
     // The future nesting level.
     //   - 0 if the user-created future
@@ -300,7 +301,7 @@ public class Future<T> {
                           failure: @escaping (Error) -> Void = { _ in }) {
         if !reactive {
             if self.success != nil || self.failure != nil {
-                fatalError(InternalError.thenAlreadySet.localizedDescription)
+                fatalError(FutureError.thenAlreadySet.description)
             }
         }
         
@@ -333,9 +334,9 @@ public class Future<T> {
                 semaphore!.wait()
                 return self.result
             case .waitingContent:
-                fatalError(InternalError.thenAlreadySet.localizedDescription)
+                fatalError(FutureError.thenAlreadySet.description)
             case .sent:
-                fatalError(InternalError.alreadySent.localizedDescription)
+                fatalError(FutureError.alreadySent.description)
             }
         }
     }
@@ -383,7 +384,7 @@ public class Future<T> {
         switch _result! {
         case .error(let error):
             guard let failure = failure else {
-                print(InternalError.missingLambda.localizedDescription)
+                print(FutureError.missingLambda.description)
                 return
             }
             if let queue = queue {
@@ -395,7 +396,7 @@ public class Future<T> {
             }
         case .value(let value):
             guard let success = success else {
-                print(InternalError.missingLambda.localizedDescription)
+                print(FutureError.missingLambda.description)
                 return
             }
             if let queue = queue {
@@ -450,6 +451,12 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
+extension Future where T==Void {
+    public func set() {
+        set(Void())
+    }
+}
+
 ///
 /// Definition of an Event as a Future of type Void.
 ///
@@ -461,7 +468,7 @@ public class Event : Future<Void> {
     
     /// Trigger the event without any parameter
     public func trigger() {
-        self.set(Void())
+        self.set()
     }
 
     @discardableResult

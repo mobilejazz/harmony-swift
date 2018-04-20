@@ -58,7 +58,7 @@ fileprivate class DictionaryLockProvider<T>: LockProvider where T : Hashable {
 fileprivate let objectLockProvider  = MapTableLockProvider<AnyObject>()
 fileprivate let stringLockProvider  = DictionaryLockProvider<String>()
 fileprivate let integerLockProvider = DictionaryLockProvider<Int>()
-fileprivate let globalLock = NSLock()
+fileprivate let typeLockProvider = DictionaryLockProvider<String>()
 
 /// Easy lock sync interface matching the usability of objc's @syncrhonized(var) { }
 ///
@@ -82,7 +82,7 @@ public struct ScopeLock {
     /// - object: Object-defined scope
     /// - string: String-defined scope
     /// - int: Integer-defined scope
-    public enum Scope {
+    public enum Scope<T> {
         case none
         case lock(NSLock)
         case global
@@ -95,14 +95,14 @@ public struct ScopeLock {
     private let lock : NSLock
     
     /// Main init
-    public init(_ scope: Scope) {
+    public init<T>(_ scope: Scope<T>) {
         switch scope {
         case .none:
             lock = NSLock()
         case .lock(let inLock):
             lock = inLock
         case .global:
-            lock = globalLock
+            lock = typeLockProvider.lockWithScope(String(describing: T.self))
         case .object(let object):
             lock = objectLockProvider.lockWithScope(object)
         case .string(let string):
@@ -119,27 +119,31 @@ public struct ScopeLock {
 
     /// Convenience init to access the global scope
     public init() {
-        self.init(.global)
+        self.init(Void.self)
     }
     
     /// Convenience init to use objects as scope
-    public init(_ object: AnyObject) {
-        self.init(.object(object))
+    public init<T>(_ object: T) where T:AnyObject {
+        self.init(Scope<Void>.object(object))
+    }
+    
+    public init<T>(_ type: T.Type) {
+        self.init(Scope<T>.global)
     }
     
     /// Convenience init to use integers as scope
     public init(_ value: Int) {
-        self.init(.int(value))
+        self.init(Scope<Void>.int(value))
     }
     
     /// Convenience init to use strings as scope
     public init(_ string: String) {
-        self.init(.string(string))
+        self.init(Scope<Void>.string(string))
     }
     
     /// Convenience init to use a given lock
     public init(_ lock: NSLock) {
-        self.init(.lock(lock))
+        self.init(Scope<Void>.lock(lock))
     }
     
     /// The syncing method

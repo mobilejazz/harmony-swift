@@ -34,5 +34,11 @@ public struct PutObjectInteractor <T> {
             future.set(self.repository.put(value, in: query, operation: operation))
         }
     }
+    
+    public func execute<K>(_ value: T, forId id: K, _ operation: Operation = .blank) -> Future<T> where K:Hashable {
+        return executor.submit { future in
+            future.set(self.repository.put(value, forId: id, operation: operation))
+        }
+    }
 }
 

@@ -29,9 +29,15 @@ public struct GetObjectsInteractor <T> {
         self.repository = repository
     }
         
-    public func execute(_ query: Query, _ operation: Operation = .blank) -> Future<[T]> {
+    public func execute(_ query: Query = AllObjectsQuery(), _ operation: Operation = .blank) -> Future<[T]> {
         return executor.submit { future in
             future.set(self.repository.getAll(query, operation: operation))
+        }
+    }
+    
+    public func execute<K>(_ id: K, _ operation: Operation = .blank) -> Future<[T]> where K:Hashable {
+        return executor.submit { future in
+            future.set(self.repository.getAll(id, operation: operation))
         }
     }
 }
