@@ -41,15 +41,45 @@ public struct FutureError : RawRepresentable, Equatable, Hashable, CustomStringC
 }
 
 ///
+/// A FutureResolver resolves a Future.
+///
+public class FutureResolver<T> {
+    
+    private let future : Future<T>
+    
+    /// Main initializer
+    ///
+    /// - Parameter future: The future to resolve
+    public init(_ future: Future<T>) {
+        self.future = future
+    }
+    
+    /// Sets the future value
+    public func set(_ value: T) {
+        future.set(value)
+    }
+    
+    /// Sets the future error
+    public func set(_ error: Error) {
+        future.set(error)
+    }
+    
+    /// Sets the future with another future
+    public func set(_ future: Future<T>, copyReactiveState: Bool = true) {
+        self.future.set(future, copyReactiveState: copyReactiveState)
+    }
+    
+    /// Sets the future with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
+    /// Note: error is prioritary, and if not error the value will be used.
+    public func set(value: T?, error: Error?) {
+        future.set(value: value, error: error)
+    }
+}
+
+///
 /// Future class. Wrapper of a future value of generic type T or an error.
 ///
 public class Future<T> {
-    
-    // The future nesting level.
-    //   - 0 if the user-created future
-    //   - Increase 1 for each functional-programming-method generated future
-    public internal(set) var nestingLevel : Int = 0
-    
     /// Future states
     public enum State {
         case blank
@@ -145,10 +175,11 @@ public class Future<T> {
     }
     
     /// Future initializer
-    public init(reactive: Bool = false, _ closure: (Future<T>) throws -> Void) {
+    public init(reactive: Bool = false, _ closure: (FutureResolver<T>) throws -> Void) {
         self.reactive = reactive
         do {
-            try closure(self)
+            let resolver = FutureResolver(self)
+            try closure(resolver)
         } catch (let error) {
             set(error)
         }
@@ -195,7 +226,6 @@ public class Future<T> {
         if copyReactiveState {
             reactive = future.reactive
         }
-        future.nestingLevel = nestingLevel + 1
         future.resolve(success: { value in
             self.set(value)
         }, failure: { error in
@@ -345,7 +375,6 @@ public class Future<T> {
     @discardableResult
     public func then(_ success: @escaping (T) -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
                 success(value)
                 future.set(value)
@@ -359,7 +388,6 @@ public class Future<T> {
     @discardableResult
     public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
             self.resolve(success: {value in
                 future.set(value)
             }, failure: { error in
@@ -447,7 +475,7 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         }
     }
     public var debugDescription: String {
-        return description + "(nesting level: \(nestingLevel))"
+        return description
     }
 }
 

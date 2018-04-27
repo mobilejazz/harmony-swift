@@ -90,8 +90,6 @@ public extension Future {
     public func unzip<K,L>() -> (Future<K>,Future<L>) where T == (K,L) {
         let futureK = Future<K>(reactive: reactive)
         let futureL = Future<L>(reactive: reactive)
-        futureK.nestingLevel += nestingLevel
-        futureL.nestingLevel += nestingLevel
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -107,9 +105,6 @@ public extension Future {
         let futureK = Future<K>(reactive: reactive)
         let futureL = Future<L>(reactive: reactive)
         let futureM = Future<M>(reactive: reactive)
-        futureK.nestingLevel += nestingLevel
-        futureL.nestingLevel += nestingLevel
-        futureM.nestingLevel += nestingLevel
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -128,10 +123,6 @@ public extension Future {
         let futureL = Future<L>(reactive: reactive)
         let futureM = Future<M>(reactive: reactive)
         let futureN = Future<N>(reactive: reactive)
-        futureK.nestingLevel += nestingLevel
-        futureL.nestingLevel += nestingLevel
-        futureM.nestingLevel += nestingLevel
-        futureN.nestingLevel += nestingLevel
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -149,7 +140,6 @@ public extension Future {
     /// Collapses a 2-tuple future into a single value future
     public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1))
             }, failure: { error in
@@ -161,7 +151,6 @@ public extension Future {
     /// Collapses a 3-tuple future into a single value future
     public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2))
             }, failure: { error in
@@ -173,7 +162,6 @@ public extension Future {
     /// Collapses a 4-tuple future into a single value future
     public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
         return Future<Z>(reactive: reactive) { future in
-            future.nestingLevel = nestingLevel + 1
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
             }, failure: { error in

@@ -35,13 +35,13 @@ public extension ScopeLock {
     /// - Parameter closure: The sync closure
     /// - Returns: A future
     func async<T>(_ closure: (Future<T>) -> Void) -> Future<T> {
-        return Future<T> { future in
-            async { end in
-                future.onSet {
-                    end()
-                }
-                closure(future)
+        let future = Future<T>()
+        async { end in
+            future.onSet {
+                end()
             }
-        }.toFuture()
+            closure(future)
+        }
+        return future.toFuture()
     }
 }

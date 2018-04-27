@@ -20,13 +20,12 @@ public extension Future {
     
     /// Adds a delay to the then call
     public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            future.nestingLevel = nestingLevel + 1
+        return Future(reactive: self.reactive) { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
-                    future.set(value)
+                    resolver.set(value)
                 }, failure: { error in
-                    future.set(error)
+                    resolver.set(error)
                 })
             }
         }
@@ -34,13 +33,12 @@ public extension Future {
     
     /// Calls the then block after the given deadline
     public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
-        return Future(reactive: self.reactive) { future in
-            future.nestingLevel = nestingLevel + 1
+        return Future(reactive: self.reactive) { resolver in
             queue.asyncAfter(deadline: deadline) {
                 self.resolve(success: {value in
-                    future.set(value)
+                    resolver.set(value)
                 }, failure: { error in
-                    future.set(error)
+                    resolver.set(error)
                 })
             }
         }

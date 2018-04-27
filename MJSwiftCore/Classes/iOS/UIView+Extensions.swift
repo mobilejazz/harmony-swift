@@ -18,6 +18,16 @@ import UIKit
 
 public extension UIView {
     
+    /// Returns a view instance created from a XIB
+    ///
+    /// - Parameter nibName: The nib name or nothing to use a nib name with the same name as the view class
+    /// - Returns: The view
+    public static func fromNib<T>(nibName: String = String(describing: T.self)) -> T where T:UIView {
+        let nib = UINib(nibName: nibName, bundle: nil)
+        let view = nib.instantiate(withOwner: nil, options: nil).first! as! T
+        return view
+    }
+    
     public func subviews(passingTest test: (UIView) -> Bool, views: (UIView) -> Void) {
         var subviews : [UIView] = []
         subviews.append(self)
