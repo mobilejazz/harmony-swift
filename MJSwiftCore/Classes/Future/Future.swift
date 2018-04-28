@@ -76,6 +76,13 @@ public class FutureResolver<T> {
     }
 }
 
+extension FutureResolver where T==Void {
+    public func set() {
+        future.set()
+    }
+}
+
+
 ///
 /// Future class. Wrapper of a future value of generic type T or an error.
 ///
