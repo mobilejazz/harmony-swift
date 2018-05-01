@@ -43,7 +43,7 @@ public struct FutureError : RawRepresentable, Equatable, Hashable, CustomStringC
 ///
 /// A FutureResolver resolves a Future.
 ///
-public class FutureResolver<T> {
+public struct FutureResolver<T> {
     
     private let future : Future<T>
     

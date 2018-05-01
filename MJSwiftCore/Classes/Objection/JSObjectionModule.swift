@@ -39,7 +39,7 @@ public extension JSObjectionModule {
         bindBlock({ closure($0!) }, to: type as AnyClass, in: scope.scope())
     }
     /// Swift binding method
-    public func bind<T,K>(_ type: K, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject, K:Protocol {
+    public func bind(_ type: Protocol, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
         bindBlock({ closure($0!) }, to: type, in: scope.scope())
     }
     /// Swift binding method
@@ -47,7 +47,7 @@ public extension JSObjectionModule {
         bindBlock({ closure($0!) }, to: type as AnyClass, in: scope.scope(), named: name)
     }
     /// Swift binding method
-    public func bind<T,K>(_ type: K, named name: String, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject, K:Protocol {
+    public func bind(_ type: Protocol, named name: String, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
         bindBlock({ closure($0!) }, to: type, in: scope.scope(), named: name)
     }
     /// Swift eager singletons
