@@ -24,7 +24,7 @@ open class KeyValueInterface <T> {
     ///
     /// - Parameter key: The key
     /// - Returns: The value
-    func get(_ key: String) -> T? {
+    open func get(_ key: String) -> T? {
         fatalError("This method is unimplemented")
     }
     
@@ -32,7 +32,7 @@ open class KeyValueInterface <T> {
     ///
     /// - Parameter key: The key
     /// - Returns: The value
-    func getAll(_ key: String) -> [T]? {
+    open func getAll(_ key: String) -> [T]? {
         fatalError("This method is unimplemented")
     }
     
@@ -43,7 +43,7 @@ open class KeyValueInterface <T> {
     ///   - key: The key
     /// - Returns: True if success, false if failure
     @discardableResult
-    func set(_ value: T, forKey key: String) -> Bool {
+    open func set(_ value: T, forKey key: String) -> Bool {
         fatalError("This method is unimplemented")
     }
     
@@ -54,7 +54,7 @@ open class KeyValueInterface <T> {
     ///   - key: The key
     /// - Returns: True if success, false if failure
     @discardableResult
-    func setAll(_ array: [T], forKey key: String) -> Bool  {
+    open func setAll(_ array: [T], forKey key: String) -> Bool  {
         fatalError("This method is unimplemented")
     }
     
@@ -63,7 +63,7 @@ open class KeyValueInterface <T> {
     /// - Parameter key: The key
     /// - Returns: True if success, false if failure
     @discardableResult
-    func delete(_ key: String) -> Bool  {
+    open func delete(_ key: String) -> Bool  {
         fatalError("This method is unimplemented")
     }
 }

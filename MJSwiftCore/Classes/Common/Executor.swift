@@ -27,3 +27,20 @@ public protocol Executor {
     /// - Returns: Nothing (Void)
     func submit(_ closure: @escaping (@escaping () -> Void) -> Void)
 }
+
+///
+/// A direct executor executes on the current queue/thread synchronously.
+///
+public class DirectExecutor : Executor {
+    public var executing: Bool = false
+    
+    public init() { }
+    
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
+        executing = true
+        closure {
+            // Nothign to be done
+        }
+        executing = false
+    }
+}

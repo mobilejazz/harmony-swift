@@ -31,7 +31,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     private func loadItems(_ operation: MJSwiftCore.Operation) {
-        let getItemsInteractor = AppAssembler.resolver.resolve(GetObjectsInteractor<Item>.self)!
+        let getItemsInteractor = AppAssembler.resolver.resolve(Interactor.GetAllByQuery<Item>.self)!
         
         self.itemListView.onShowProgressHud()
         getItemsInteractor.execute(AllObjectsQuery(), operation).then { items in

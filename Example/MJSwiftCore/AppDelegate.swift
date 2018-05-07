@@ -10,16 +10,6 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
-
-func futureString(_ string: String, _ time: Int) -> Future<String> {
-    return Future() { resolver in
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(time)) {
-            resolver.set(string)
-        }
-    }
-}
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

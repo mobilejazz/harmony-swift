@@ -18,7 +18,7 @@ class InteractorAssembly: Assembly {
         container.register(Executor.self, name: "GetItems") { r in DispatchQueueExecutor() }.inObjectScope(.container)
         
         // Interactors
-        container.register(GetObjectsInteractor<Item>.self) { r in GetObjectsInteractor<Item>(r.resolve(Executor.self, name: "GetItems")!,
-                                                                                              r.resolve(Repository<Item>.self)!) }
+        container.register(Interactor.GetAllByQuery<Item>.self) { r in Interactor.GetAllByQuery<Item>(r.resolve(Executor.self, name: "GetItems")!,
+                                                                                                      r.resolve(Repository<Item>.self)!) }
     }
 }

@@ -23,7 +23,7 @@ public class UserDefaultsKeyValueService <T> : KeyValueInterface <T> {
     private let userDefaults : UserDefaults
     private let keyPrefix : String
     
-    public init(_ userDefaults : UserDefaults, keyPrefix: String = "") {
+    public init(_ userDefaults : UserDefaults = UserDefaults.standard, keyPrefix: String = "") {
         self.userDefaults = userDefaults
         self.keyPrefix = keyPrefix
     }
