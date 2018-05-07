@@ -17,11 +17,11 @@
 import Foundation
 
 /// Protocol to use a query as a key for a key value interface
-public protocol KeyValueQuery : Query {
+public protocol KeyQuery : Query {
     var key : String { get }
 }
 
-extension QueryById : KeyValueQuery {
+extension QueryById : KeyQuery {
     public var key : String {
         get {
             switch T.self {
@@ -36,7 +36,7 @@ extension QueryById : KeyValueQuery {
     }
 }
 
-extension AllObjectsQuery : KeyValueQuery {
+extension AllObjectsQuery : KeyQuery {
     public var key : String { get { return "allObjects" } }
 }
 
@@ -44,7 +44,7 @@ extension AllObjectsQuery : KeyValueQuery {
 /// Key-value based repository to store data in a key value interface.
 /// The repository only works with QueryById
 ///
-public class KeyValueRepository <T> : Repository<T> {
+public class KeyValueDataSource<T> : DataSource<T> {
     
     private let keyValueService : KeyValueInterface<T>
     
@@ -56,22 +56,22 @@ public class KeyValueRepository <T> : Repository<T> {
     }
     
     private func keyFromQuery(_ query: Query) -> String? {
-        if case let query as KeyValueQuery = query.self {
+        if case let query as KeyQuery = query.self {
             return query.key
         }
         return nil
     }
     
-    public override func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
+    public override func get(_ query: Query) -> Future<T?> {
         guard let key = keyFromQuery(query) else {
-            return super.get(query, operation: operation)
+            return super.get(query)
         }
         return Future(keyValueService.get(key))
     }
     
-    public override func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
+    public override func getAll(_ query: Query) -> Future<[T]> {
         guard let key = keyFromQuery(query) else {
-            return super.getAll(query, operation: operation)
+            return super.getAll(query)
         }
         if let array = keyValueService.getAll(key) {
             return Future(array)
@@ -80,33 +80,33 @@ public class KeyValueRepository <T> : Repository<T> {
         }
     }
     
-    public override func put(_ value: T, in query: Query, operation: Operation = .blank) -> Future<T> {
+    public override func put(_ value: T, in query: Query) -> Future<T> {
         guard let key = keyFromQuery(query) else {
-            return super.put(value, in: query, operation: operation)
+            return super.put(value, in: query)
         }
         keyValueService.set(value, forKey: key)
         return Future(value)
     }
     
-    public override func putAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         guard let key = keyFromQuery(query) else {
-            return super.putAll(array, in: query, operation: operation)
+            return super.putAll(array, in: query)
         }
         keyValueService.setAll(array, forKey: key)
         return Future(array)
     }
     
-    public override func delete(_ value: T?, in query: Query, operation: Operation = .blank) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query) -> Future<Bool> {
         guard let key = keyFromQuery(query) else {
-            return super.delete(value, in: query, operation: operation)
+            return super.delete(value, in: query)
         }
         keyValueService.delete(key)
         return Future(true)
     }
     
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<Bool> {
+    public override func deleteAll(_ array: [T], in query: Query) -> Future<Bool> {
         guard let key = keyFromQuery(query) else {
-            return super.deleteAll(array, in: query, operation: operation)
+            return super.deleteAll(array, in: query)
         }
         keyValueService.delete(key)
         return Future(true)

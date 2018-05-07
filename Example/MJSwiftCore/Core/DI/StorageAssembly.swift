@@ -27,7 +27,7 @@ class StorageAssembly: Assembly {
     
     func assemble(container: Container) {
         
-//        // Realm
+// Realm
 //        container.register(RealmFactory.self) { _ in
 //            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 //            let configuration = Realm.Configuration.init(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
@@ -54,22 +54,28 @@ class StorageAssembly: Assembly {
 //        container.register(RealmMapper<ItemEntity, RealmItem>.self) { _ in ItemEntityToRealmItemMapper() }
 //
 //        // Storage Services
-//        container.register(Repository<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-//            return RealmService(realmHandler: r.resolve(RealmHandler.self)!,
-//                                toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
-//                                toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!)
+//        container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
+//            return RealmDataSource(realmHandler: r.resolve(RealmHandler.self)!,
+//                                   toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
+//                                   toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!)
 //        })
 //
-        container.register(Repository<ItemEntity>.self, name: Names.storageRepository, factory: { r in
+        
+// In-Memory key value storage
+//        container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
 //            let keyValueService : KeyValueInterface<ItemEntity> = InMemoryKeyValueService<ItemEntity>()
-//            let repository = KeyValueRepository<ItemEntity>(keyValueService)
-
+//            let dataSource = KeyValueDataSource<ItemEntity>(keyValueService)
+//            return dataSource
+//        })
+        
+// User defaults key value storge
+        container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
             let userDefaultsService = UserDefaultsKeyValueService<Data>(UserDefaults.standard, keyPrefix: "ItemEntity")
-            let dataRepository = KeyValueRepository<Data>(userDefaultsService)
-            let repository = RepositoryMapper<ItemEntity, Data>(repository: dataRepository,
+            let keyValueDataSource = KeyValueDataSource<Data>(userDefaultsService)
+            let dataSource = DataSourceMapper<ItemEntity, Data>(dataSource: keyValueDataSource,
                                                                 toToMapper: EncodableToDataMapper<ItemEntity>(),
                                                                 toFromMapper: DataToDecodableMapper<ItemEntity>())
-            return repository
+            return dataSource
         })
     }
 }

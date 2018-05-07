@@ -17,7 +17,7 @@
 import Foundation
 import Alamofire
 
-open class AlamofireRepository<T>: Repository<T> {
+open class AlamofireDataSource<T>: DataSource<T> {
     
     public let sessionManager : SessionManager
     

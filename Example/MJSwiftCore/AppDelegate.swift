@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let executor = OperationQueueExecutor() // <- This is a background execution executor
         let directExecutor = DirectExecutor()
         
-        let get = Interactor.Get<Bool>(executor, KeyValueRepository<Bool>(UserDefaultsKeyValueService()), "com.test")
-        let put = Interactor.Put<Bool>(executor, KeyValueRepository<Bool>(UserDefaultsKeyValueService()), "com.test")
+        let get = Interactor.Get<Bool>(executor, KeyValueDataSource<Bool>(UserDefaultsKeyValueService()).toRepository(), "com.test")
+        let put = Interactor.Put<Bool>(executor, KeyValueDataSource<Bool>(UserDefaultsKeyValueService()).toRepository(), "com.test")
         
         // 1
         get.execute(in: directExecutor).on(nil).then { value in

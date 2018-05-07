@@ -13,7 +13,7 @@ import Swinject
 class AppAssembler {
     static let assembler : Assembler = Assembler([StorageAssembly(),
                                                   NetworkAssembly(),
-                                                  DataProviderAssembly(),
+                                                  RepositoryAssembly(),
                                                   InteractorAssembly()])
     
     static var resolver : Resolver {

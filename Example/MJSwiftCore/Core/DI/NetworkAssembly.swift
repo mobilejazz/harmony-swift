@@ -52,6 +52,6 @@ class NetworkAssembly: Assembly {
         }
         
         // Network Clients
-        container.register(Repository<ItemEntity>.self, name: Names.networkRepository) { r in ItemNetworkService(r.resolve(SessionManager.self)!) }
+        container.register(DataSource<ItemEntity>.self, name: Names.networkRepository) { r in ItemNetworkService(r.resolve(SessionManager.self)!) }
     }
 }

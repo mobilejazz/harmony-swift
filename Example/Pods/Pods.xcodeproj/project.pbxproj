@@ -16,7 +16,7 @@
 		03E0A134F1DDF33EA16F004F1A230CA1 /* FormatIndicatedCacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F346D22B77D352B10486E86AC6DFCC97 /* FormatIndicatedCacheSerializer.swift */; };
 		043A1712667A74A4BB01644BD8286B55 /* Promise+When.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E23CA9AF90DD1BC99A5A0C8CDB4372 /* Promise+When.swift */; };
 		0570B0BDF960BE0351A20940CD87AA4C /* InteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1046AA06D190F5ADE135D37C48268F3C /* InteractorPut.swift */; };
-		05F813FA6D68F443D4B349864A829CB8 /* AlamofireRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireRepository.swift */; };
+		05F813FA6D68F443D4B349864A829CB8 /* AlamofireDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireDataSource.swift */; };
 		072A975ED552D8854180E256FCCA9A04 /* Container.TypeForwarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C6425B500B4AC425D31DF8DEA0A569 /* Container.TypeForwarding.swift */; };
 		07937F6E76E70665FCDD1C0EF3266860 /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A52DF12CAB70C743904F3E9C6A7675D /* ScopeLockFuture.swift */; };
 		094CCF8905C5378E2280DBF627AEEA7A /* sync_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3741A178AA64E480B9AC0FC0513E3BFF /* sync_session.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
@@ -60,7 +60,6 @@
 		1A2D98D4A8E6C8DE4423669C75002AD5 /* RLMSyncSessionRefreshHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = 906497F3772BC3A10B4CF3B5700D515A /* RLMSyncSessionRefreshHandle.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		1B274903C1682A6B9959ADC71860B213 /* Swinject-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB03DCA705A5A93BD8D0688863289234 /* Swinject-dummy.m */; };
 		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E31EAD42AA3A125534C1BF7195C6CAE /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1BC01E4064CFC89BD63E0376BE5BEF7D /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA775153951154EB20E31F88446E00 /* KeyValueRepository.swift */; };
 		1C0152F6CCC85612AE49A652BBE6C85C /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B520A5935EDC46FD9A4C7CC91A79A6 /* VastraService.swift */; };
 		1C413ACA30AD14E0CC900D89B1D0A0EB /* FBLPromise+Any.h in Headers */ = {isa = PBXBuildFile; fileRef = 987D0C72DF2FFF4089E921E2D9B85E7E /* FBLPromise+Any.h */; };
 		1CE98B16D808E8457C4EE08E1971AF9D /* RLMSyncManager.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = B3A5F4472B7FA2FD5A66D3728A4C29EF /* RLMSyncManager.h */; };
@@ -199,7 +198,7 @@
 		6A7D741CD747A8BD33EEC8D275B61B83 /* RLMObject_Private.h in Copy . Private Headers */ = {isa = PBXBuildFile; fileRef = 8D69E8420F5279730CFCDDDE4A75CED5 /* RLMObject_Private.h */; };
 		6A8DA694D0D76AC3F8C34580AFD058A9 /* RLMProperty.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 735FF745AB2322FEDBF31235B80F9213 /* RLMProperty.h */; };
 		6ACA2C52E89FD36FEE777144913FA4EE /* RLMRealmConfiguration+Sync.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EC324E3073417B287EEA9FE44C90915 /* RLMRealmConfiguration+Sync.h */; };
-		6AE3C42D78309B45DE11FA035B09AC8D /* RepositoryValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F350E46FC8B574904A58DAFCCF215 /* RepositoryValidator.swift */; };
+		6AE3C42D78309B45DE11FA035B09AC8D /* DataSourceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F350E46FC8B574904A58DAFCCF215 /* DataSourceValidator.swift */; };
 		6BE27D5B45CA0A3914BE7FC856D1DBCB /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE59681480489A4EFADAE400E879A7C /* Object.swift */; };
 		6BF29501BBBE3080DB097A1D73102C6F /* JSObjectionInjectorEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = D8C23EA5E4D083E2A74EF9E4FBB38A56 /* JSObjectionInjectorEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C0A427DEB0BCF4C85F2B161F8777253 /* RLMCollection.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = C5BF870DEE8E221C3EE626849D4E70FB /* RLMCollection.h */; };
@@ -410,7 +409,9 @@
 		D17F4BC3FBBC2F35C6731FAB37D58197 /* RLMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ACBAA3057CA862DA8ED073A1A3998D1 /* RLMConstants.h */; };
 		D21D1FF820A0570F0023AF98 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FF720A0570F0023AF98 /* UITableView+Extensions.swift */; };
 		D21D1FFE20A0A4750023AF98 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FFD20A0A4750023AF98 /* DataSource.swift */; };
-		D21D200020A0A4A50023AF98 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FFF20A0A4A50023AF98 /* Query.swift */; };
+		D21D200220A0A5780023AF98 /* SingleDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D200120A0A5780023AF98 /* SingleDataSourceRepository.swift */; };
+		D21D200420A0A6AB0023AF98 /* KeyValueDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D200320A0A6AB0023AF98 /* KeyValueDataSource.swift */; };
+		D21D200820A0A8E20023AF98 /* DataSourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D200720A0A8E20023AF98 /* DataSourceMapper.swift */; };
 		D25566642084E39400AA76EE /* KeychainKeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25566632084E39400AA76EE /* KeychainKeyValueService.swift */; };
 		D25566662084E78000AA76EE /* InMemoryKeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */; };
 		D25B6F5820877EDD00AB81D6 /* ExecutorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25B6F5720877EDD00AB81D6 /* ExecutorFactory.swift */; };
@@ -486,7 +487,7 @@
 		F8BED89C01ED4F1CF4840354F35CEF66 /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F2739FF890E19D9B6FF255843A372 /* NSString+Additions.m */; };
 		F8DAD052B8B00AB2222BD03E22B74BFE /* FBLPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 92999B3280D055ABA24E1043A30A5D11 /* FBLPromise.h */; };
 		F92067CD7F2C094E2CBF621D44518786 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0370AEC378634B7E4F78A96FAB055CE0 /* Realm.swift */; };
-		F950A7F5CCA9F838B8B07E7F12CCA0C8 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmService.swift */; };
+		F950A7F5CCA9F838B8B07E7F12CCA0C8 /* RealmDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmDataSource.swift */; };
 		F95AFBA371D3D9873F46C4DD6900E1D1 /* RLMSyncUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E7BB3F8F8A960CE06A278CA37F9BF94 /* RLMSyncUser.h */; };
 		F99429CE924A697BE90B28628DF016AE /* FBLPromise+Any.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 987D0C72DF2FFF4089E921E2D9B85E7E /* FBLPromise+Any.h */; };
 		F9B3B7B17475A499453FB7A3E166C933 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5A7BC6CEFA1837205DCCE296FDB054 /* Future.swift */; };
@@ -809,7 +810,6 @@
 		1EF0E0A6C9C261900A648827E5ED122F /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		1F5F280768AE2B9127EE50699A133DAD /* MJObjection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJObjection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F6E6B9D6C2A59EF16BC9B5334B7A858 /* Pods-MJSwiftCore_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MJSwiftCore_Example-dummy.m"; sourceTree = "<group>"; };
-		1FCA775153951154EB20E31F88446E00 /* KeyValueRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
 		2007712913F62E0C2EE8E5AB488B0499 /* FBLPromises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBLPromises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		207D59C8C1BB760173A2620E7504CBE9 /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultiRequestAdapter.swift; path = MJSwiftCore/Classes/Alamofire/MultiRequestAdapter.swift; sourceTree = "<group>"; };
 		21528E0FCC9EB4C227800455D92964CA /* RLMSyncSubscription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSyncSubscription.h; path = include/RLMSyncSubscription.h; sourceTree = "<group>"; };
@@ -869,7 +869,7 @@
 		3F3FEB0DAC4379DDAE1E13D259C21A76 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Extensions.swift"; path = "MJSwiftCore/Classes/iOS/UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		3F4A3EF601E27A35D01506DBA9C00F0B /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = MJSwiftCore/Classes/Security/Keychain.swift; sourceTree = "<group>"; };
 		3F70607236422DB619C16BE0D476B48F /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
-		3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlamofireRepository.swift; path = MJSwiftCore/Classes/Alamofire/AlamofireRepository.swift; sourceTree = "<group>"; };
+		3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlamofireDataSource.swift; path = MJSwiftCore/Classes/Alamofire/AlamofireDataSource.swift; sourceTree = "<group>"; };
 		3FBFBA0187309CBED32D7C00DD0D8A48 /* MJSwiftCore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MJSwiftCore-dummy.m"; sourceTree = "<group>"; };
 		4050E8AF2EFDB596F6050745E1D59568 /* RLMProperty.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMProperty.mm; path = Realm/RLMProperty.mm; sourceTree = "<group>"; };
 		40986B0BD693F7803A2C16C9156E0A0D /* RLMConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RLMConstants.m; path = Realm/RLMConstants.m; sourceTree = "<group>"; };
@@ -971,7 +971,7 @@
 		72DBF71CB0047FBAB8B104140BCE37B4 /* RLMRealmConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMRealmConfiguration.h; path = include/RLMRealmConfiguration.h; sourceTree = "<group>"; };
 		73584F63EBA56D2D89234954F0B5397F /* MJExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJExecutor.h; path = MJCocoaCore/Classes/Common/MJExecutor.h; sourceTree = "<group>"; };
 		735FF745AB2322FEDBF31235B80F9213 /* RLMProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMProperty.h; path = include/RLMProperty.h; sourceTree = "<group>"; };
-		738F350E46FC8B574904A58DAFCCF215 /* RepositoryValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RepositoryValidator.swift; sourceTree = "<group>"; };
+		738F350E46FC8B574904A58DAFCCF215 /* DataSourceValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataSourceValidator.swift; sourceTree = "<group>"; };
 		74196EB1A60859406F5B999AF9F329E3 /* RLMSchema_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSchema_Private.h; path = include/RLMSchema_Private.h; sourceTree = "<group>"; };
 		74C0DCFA0FDB089E03EB34631DF848C1 /* RLMPlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMPlatform.h; path = include/RLMPlatform.h; sourceTree = "<group>"; };
 		7738466F416EEDD42E401AEE4BDB392A /* InteractorGet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InteractorGet.swift; sourceTree = "<group>"; };
@@ -1124,7 +1124,9 @@
 		D203EAB4D303D218AC4967A72321D0AE /* RLMSyncPermission.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMSyncPermission.mm; path = Realm/RLMSyncPermission.mm; sourceTree = "<group>"; };
 		D21D1FF720A0570F0023AF98 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITableView+Extensions.swift"; path = "MJSwiftCore/Classes/iOS/UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		D21D1FFD20A0A4750023AF98 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		D21D1FFF20A0A4A50023AF98 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		D21D200120A0A5780023AF98 /* SingleDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDataSourceRepository.swift; sourceTree = "<group>"; };
+		D21D200320A0A6AB0023AF98 /* KeyValueDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueDataSource.swift; sourceTree = "<group>"; };
+		D21D200720A0A8E20023AF98 /* DataSourceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceMapper.swift; sourceTree = "<group>"; };
 		D25566632084E39400AA76EE /* KeychainKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainKeyValueService.swift; path = MJSwiftCore/Classes/Security/KeychainKeyValueService.swift; sourceTree = "<group>"; };
 		D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueService.swift; sourceTree = "<group>"; };
 		D25B6F5720877EDD00AB81D6 /* ExecutorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExecutorFactory.swift; path = MJSwiftCore/Classes/Common/ExecutorFactory.swift; sourceTree = "<group>"; };
@@ -1215,7 +1217,7 @@
 		F91F0FC01792241B27C20BD672FAF0E7 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD151F0993D8C5613D6D1D28DA58D33 /* FBLPromise+When.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+When.h"; path = "Sources/FBLPromises/include/FBLPromise+When.h"; sourceTree = "<group>"; };
 		FBBFFD545C25D1D8E751E729E7D78DF3 /* JSObjectionModule.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSObjectionModule.swift; path = MJSwiftCore/Classes/Objection/JSObjectionModule.swift; sourceTree = "<group>"; };
-		FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RealmService.swift; path = MJSwiftCore/Classes/Realm/RealmService.swift; sourceTree = "<group>"; };
+		FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RealmDataSource.swift; path = MJSwiftCore/Classes/Realm/RealmDataSource.swift; sourceTree = "<group>"; };
 		FBEAD19E53DBC30B9908AB390D92F766 /* MJSwiftCore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJSwiftCore.xcconfig; sourceTree = "<group>"; };
 		FC080332D226AF5CD65102F022A4CB40 /* sync_manager.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = sync_manager.cpp; path = Realm/ObjectStore/src/sync/sync_manager.cpp; sourceTree = "<group>"; };
 		FE6CB09D74A5066E9E624432DC0723EF /* RLMUtil.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMUtil.mm; path = Realm/RLMUtil.mm; sourceTree = "<group>"; };
@@ -1353,7 +1355,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0D04C4DCE1A877D0EEC6F1D7E8FE97 /* Alamofire+Future.swift */,
-				3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireRepository.swift */,
+				3F802C2FD6B3C4234C0F7BA776FB33FD /* AlamofireDataSource.swift */,
 				5A1C5893117BA4CA9FB7D5FA861F5230 /* BaseURLRequestAdapter.swift */,
 				207D59C8C1BB760173A2620E7504CBE9 /* MultiRequestAdapter.swift */,
 				03A07E4A7F118AB832C76A8E9B1B7031 /* MultiRequestRetrier.swift */,
@@ -1794,7 +1796,7 @@
 				EBDAD5601A38A6145C6D9D05FD8F149C /* RealmHandler+Future.swift */,
 				33970926906BDB77A9185B3A6AB7A0F2 /* RealmMapper.swift */,
 				52078F4C89CFE3B1504FC7CE990C1E07 /* RealmObject.swift */,
-				FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmService.swift */,
+				FBD19A7D250DBF7BFED1C337A44AA7AC /* RealmDataSource.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -1829,16 +1831,17 @@
 		B41325F912FA342EC481CE60D0DA96A7 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				E99E5F31A4949AA94841BEFA7667D6A0 /* NetworkStorageRepository.swift */,
-				D21D1FFF20A0A4A50023AF98 /* Query.swift */,
-				6C5588E329AA9503C122B7D1B520C37C /* Repository.swift */,
-				D21D1FFD20A0A4750023AF98 /* DataSource.swift */,
-				72780059B470C9FA605A75ACAAF63590 /* RepositoryMapper.swift */,
-				738F350E46FC8B574904A58DAFCCF215 /* RepositoryValidator.swift */,
 				D2BD7A5A2084E0E7000BF6E8 /* KeyValueInterface.swift */,
-				1FCA775153951154EB20E31F88446E00 /* KeyValueRepository.swift */,
 				D2BD7A5C2084E157000BF6E8 /* UserDefaultsKeyValueService.swift */,
 				D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */,
+				D21D1FFD20A0A4750023AF98 /* DataSource.swift */,
+				D21D200720A0A8E20023AF98 /* DataSourceMapper.swift */,
+				738F350E46FC8B574904A58DAFCCF215 /* DataSourceValidator.swift */,
+				D21D200320A0A6AB0023AF98 /* KeyValueDataSource.swift */,
+				6C5588E329AA9503C122B7D1B520C37C /* Repository.swift */,
+				72780059B470C9FA605A75ACAAF63590 /* RepositoryMapper.swift */,
+				D21D200120A0A5780023AF98 /* SingleDataSourceRepository.swift */,
+				E99E5F31A4949AA94841BEFA7667D6A0 /* NetworkStorageRepository.swift */,
 				1BC8444D14EB158920ED56FA2A894F2D /* Interactors */,
 			);
 			name = Repository;
@@ -2863,7 +2866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C941029DDE29829EC6AB1F0913B3709E /* Alamofire+Future.swift in Sources */,
-				05F813FA6D68F443D4B349864A829CB8 /* AlamofireRepository.swift in Sources */,
+				05F813FA6D68F443D4B349864A829CB8 /* AlamofireDataSource.swift in Sources */,
 				D25B6F5820877EDD00AB81D6 /* ExecutorFactory.swift in Sources */,
 				9A5691B13BC36072B139948543B1626F /* BaseURLRequestAdapter.swift in Sources */,
 				6C89072D0420F4E341178047E239B99B /* ContainerViewController.swift in Sources */,
@@ -2871,8 +2874,10 @@
 				F5B290AC3AFB71ED0DB0DA16F7853B5C /* DispatchQueueExecutor.swift in Sources */,
 				BEF625D2E0542330B4C8C4A1ABFCADF0 /* Entity.swift in Sources */,
 				6717D787470465AF39902B0E7C84C39E /* ErrorHelper.swift in Sources */,
+				D21D200420A0A6AB0023AF98 /* KeyValueDataSource.swift in Sources */,
 				8EEA99A155C05D08C2B355CE1D83C5B0 /* Executor+Future.swift in Sources */,
 				44425B5940C537F57345D781DB7936FB /* Executor.swift in Sources */,
+				D21D200820A0A8E20023AF98 /* DataSourceMapper.swift in Sources */,
 				0EAE66C7D2DA3ACFB68D0FA75EDE4B04 /* Future+Batch.swift in Sources */,
 				6CB2BA9614FBFDD29BD24CBF2718840C /* Future+Extensions.swift in Sources */,
 				C729C474EDDA151600DDAAB2C6947CE2 /* Future+Functional.swift in Sources */,
@@ -2894,6 +2899,7 @@
 				D21D1FF820A0570F0023AF98 /* UITableView+Extensions.swift in Sources */,
 				DA0795BBB58C1238625C35BF49CC8140 /* LinkRecognizer.swift in Sources */,
 				CEB4383064731B60A8F07ED289FB623A /* Mapper+NSCoding.swift in Sources */,
+				D21D200220A0A5780023AF98 /* SingleDataSourceRepository.swift in Sources */,
 				9ADCB0B388F47A3EDA4F0C51DE3192F8 /* Mapper.swift in Sources */,
 				69A1A59C3560E289BCB2FEF65E3F0AC7 /* MJSwiftCore-dummy.m in Sources */,
 				9D4A2941CDAC2EF235D85A1A005CC7A3 /* Model.swift in Sources */,
@@ -2901,7 +2907,6 @@
 				8E5B727FB95B152908A417F11554A250 /* MultiRequestAdapter.swift in Sources */,
 				E123E6EA8B4F727855C9564ABEEE3BD4 /* MultiRequestRetrier.swift in Sources */,
 				52636DCE9950B69A61DA4C202362BE4D /* NetworkStorageRepository.swift in Sources */,
-				D21D200020A0A4A50023AF98 /* Query.swift in Sources */,
 				5B7A5402B80F75D40E987374638DE07C /* OperationQueueExecutor.swift in Sources */,
 				D25566642084E39400AA76EE /* KeychainKeyValueService.swift in Sources */,
 				D2BD7A5D2084E157000BF6E8 /* UserDefaultsKeyValueService.swift in Sources */,
@@ -2914,10 +2919,10 @@
 				8B821BE6FF49869EC67E25354671C661 /* RealmHandler.swift in Sources */,
 				7FD000F45896253524A469AAAA0C97E0 /* RealmMapper.swift in Sources */,
 				E1598E0C854BA868101D17F5222B15A8 /* RealmObject.swift in Sources */,
-				F950A7F5CCA9F838B8B07E7F12CCA0C8 /* RealmService.swift in Sources */,
+				F950A7F5CCA9F838B8B07E7F12CCA0C8 /* RealmDataSource.swift in Sources */,
 				ECD8C9F0AA3543805594A8EBB7156DD2 /* Repository.swift in Sources */,
 				75521F5C6F96C237F14A6C5213CE36AA /* RepositoryMapper.swift in Sources */,
-				6AE3C42D78309B45DE11FA035B09AC8D /* RepositoryValidator.swift in Sources */,
+				6AE3C42D78309B45DE11FA035B09AC8D /* DataSourceValidator.swift in Sources */,
 				7DDE6CB30ED1D0B4F2D09098D6DB4A6F /* ScopeLock.swift in Sources */,
 				07937F6E76E70665FCDD1C0EF3266860 /* ScopeLockFuture.swift in Sources */,
 				D289CAF52094820A004B571B /* Mapper+Codable.swift in Sources */,
@@ -2932,7 +2937,6 @@
 				91BB6169880B5EEC95F4F533E1AE1479 /* UIResponder+Extensions.swift in Sources */,
 				A6ED0618F52CE77BE59B56F662C3D45E /* UIView+Extensions.swift in Sources */,
 				89703A3A5E21F00515845A3B09B0E9D6 /* UserDefaultsGetInteractor.swift in Sources */,
-				1BC01E4064CFC89BD63E0376BE5BEF7D /* KeyValueRepository.swift in Sources */,
 				1739FA7050D9EF6E2538207598590F71 /* UserDefaultsSetInteractor.swift in Sources */,
 				9ABD17F1B06BC91811ABDB1BD3B2D651 /* VastraInvalidationStrategy.swift in Sources */,
 				0DC10140150EFB478B5CBB0F715A65BB /* VastraReachabilityStrategy.swift in Sources */,

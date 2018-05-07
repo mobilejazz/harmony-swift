@@ -8,18 +8,18 @@ import Foundation
 import Alamofire
 import MJSwiftCore
 
-class ItemNetworkService: AlamofireRepository<ItemEntity> {
+class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
-    override func get(_ query: Query, operation: MJSwiftCore.Operation) -> Future<ItemEntity?> {
+    override func get(_ query: Query) -> Future<ItemEntity?> {
         switch query.self {
         case is QueryById<String>:
             return getById((query as! QueryById<String>).id)
         default:
-            return super.get(query, operation: operation)
+            return super.get(query)
         }
     }
     
-    override func getAll(_ query: Query, operation: MJSwiftCore.Operation) -> Future<[ItemEntity]> {
+    override func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
         case is QueryById<String>:
             return getById((query as! QueryById<String>).id).map { [$0!] }
@@ -28,7 +28,7 @@ class ItemNetworkService: AlamofireRepository<ItemEntity> {
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            return super.getAll(query, operation: operation)
+            return super.getAll(query)
         }
     }
 }

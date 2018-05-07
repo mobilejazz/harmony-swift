@@ -30,12 +30,12 @@ extension Operation {
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageRepository <T> : Repository <T>  {
+public class NetworkStorageRepository<T> : Repository<T>  {
     
-    private let network: Repository<T>
-    private let storage: Repository<T>
+    private let network: DataSource<T>
+    private let storage: DataSource<T>
     
-    public init(network: Repository<T>, storage: Repository<T>) {
+    public init(network: DataSource<T>, storage: DataSource<T>) {
         self.network = network
         self.storage = storage
     }

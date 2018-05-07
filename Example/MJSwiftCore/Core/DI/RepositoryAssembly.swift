@@ -11,7 +11,7 @@ import Foundation
 import Swinject
 import MJSwiftCore
 
-class DataProviderAssembly: Assembly {
+class RepositoryAssembly: Assembly {
     
     struct Names {
         static let storageValidation = "storageValidation"
@@ -29,12 +29,12 @@ class DataProviderAssembly: Assembly {
         
         // Data Providers (registered as singletons)
         container.register(Repository<Item>.self) { r in
-            let storageEntityRepo = r.resolve(Repository<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
-            let storageValidationRepo = RepositoryValidator(repository: storageEntityRepo,
-                                                            validator: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
+            let storageDataSource = r.resolve(DataSource<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
+            let storageValidationDataSource = DataSourceValidator(dataSource: storageDataSource,
+                                                                  validator: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
             
-            let networkStorageRepo = NetworkStorageRepository(network: r.resolve(Repository<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
-                                                              storage: storageValidationRepo)
+            let networkStorageRepo = NetworkStorageRepository(network: r.resolve(DataSource<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
+                                                              storage: storageValidationDataSource)
             
             return RepositoryMapper(repository: networkStorageRepo,
                                     toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,

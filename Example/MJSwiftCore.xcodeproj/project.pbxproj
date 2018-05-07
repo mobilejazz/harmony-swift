@@ -16,7 +16,7 @@
 		D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */; };
 		D219D6EE1FCC2E2D00D91CED /* StorageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */; };
 		D219D6EF1FCC2E2D00D91CED /* InteractorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */; };
-		D219D6F01FCC2E2D00D91CED /* DataProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D31FCC2E2D00D91CED /* DataProviderAssembly.swift */; };
+		D219D6F01FCC2E2D00D91CED /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */; };
 		D219D6F11FCC2E2D00D91CED /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */; };
 		D219D6F21FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */; };
 		D219D6F31FCC2E2D00D91CED /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */; };
@@ -79,7 +79,7 @@
 		D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAssembly.swift; sourceTree = "<group>"; };
 		D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorAssembly.swift; sourceTree = "<group>"; };
-		D219D6D31FCC2E2D00D91CED /* DataProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProviderAssembly.swift; sourceTree = "<group>"; };
+		D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
 		D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRetrier.swift; sourceTree = "<group>"; };
 		D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 				D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */,
 				D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */,
 				D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */,
-				D219D6D31FCC2E2D00D91CED /* DataProviderAssembly.swift */,
+				D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */,
 				D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */,
 			);
 			path = DI;
@@ -665,7 +665,7 @@
 				D219D6FA1FCC2E2D00D91CED /* ItemEntity.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				D219D7131FCC2E4300D91CED /* UIKitMVPItemListViewController.swift in Sources */,
-				D219D6F01FCC2E2D00D91CED /* DataProviderAssembly.swift in Sources */,
+				D219D6F01FCC2E2D00D91CED /* RepositoryAssembly.swift in Sources */,
 				D219D6FC1FCC2E2D00D91CED /* Product.swift in Sources */,
 				D219D70F1FCC2E4300D91CED /* SplashViewController.swift in Sources */,
 				D219D7111FCC2E4300D91CED /* ItemCell.swift in Sources */,
