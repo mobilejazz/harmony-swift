@@ -32,15 +32,13 @@ public protocol Executor {
 /// A direct executor executes on the current queue/thread synchronously.
 ///
 public class DirectExecutor : Executor {
-    public var executing: Bool = false
+    public private(set) var executing: Bool = false
     
     public init() { }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         executing = true
-        closure {
-            // Nothign to be done
-        }
+        closure { /* Nothign to be done */ }
         executing = false
     }
 }
