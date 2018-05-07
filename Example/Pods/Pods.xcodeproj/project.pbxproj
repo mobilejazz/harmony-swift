@@ -409,6 +409,8 @@
 		D1575AAADDCEA395E3828EBAC2A772FA /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29067CBBB9F908C49DCB6DC84B86C10E /* Box.swift */; };
 		D17F4BC3FBBC2F35C6731FAB37D58197 /* RLMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ACBAA3057CA862DA8ED073A1A3998D1 /* RLMConstants.h */; };
 		D21D1FF820A0570F0023AF98 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FF720A0570F0023AF98 /* UITableView+Extensions.swift */; };
+		D21D1FFE20A0A4750023AF98 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FFD20A0A4750023AF98 /* DataSource.swift */; };
+		D21D200020A0A4A50023AF98 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D1FFF20A0A4A50023AF98 /* Query.swift */; };
 		D25566642084E39400AA76EE /* KeychainKeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25566632084E39400AA76EE /* KeychainKeyValueService.swift */; };
 		D25566662084E78000AA76EE /* InMemoryKeyValueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */; };
 		D25B6F5820877EDD00AB81D6 /* ExecutorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25B6F5720877EDD00AB81D6 /* ExecutorFactory.swift */; };
@@ -1121,6 +1123,8 @@
 		D1DA7665261618522E00AD569992940A /* FBLPromise+Resolve.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Resolve.m"; path = "Sources/FBLPromises/FBLPromise+Resolve.m"; sourceTree = "<group>"; };
 		D203EAB4D303D218AC4967A72321D0AE /* RLMSyncPermission.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMSyncPermission.mm; path = Realm/RLMSyncPermission.mm; sourceTree = "<group>"; };
 		D21D1FF720A0570F0023AF98 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UITableView+Extensions.swift"; path = "MJSwiftCore/Classes/iOS/UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		D21D1FFD20A0A4750023AF98 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		D21D1FFF20A0A4A50023AF98 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		D25566632084E39400AA76EE /* KeychainKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainKeyValueService.swift; path = MJSwiftCore/Classes/Security/KeychainKeyValueService.swift; sourceTree = "<group>"; };
 		D25566652084E78000AA76EE /* InMemoryKeyValueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueService.swift; sourceTree = "<group>"; };
 		D25B6F5720877EDD00AB81D6 /* ExecutorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExecutorFactory.swift; path = MJSwiftCore/Classes/Common/ExecutorFactory.swift; sourceTree = "<group>"; };
@@ -1826,7 +1830,9 @@
 			isa = PBXGroup;
 			children = (
 				E99E5F31A4949AA94841BEFA7667D6A0 /* NetworkStorageRepository.swift */,
+				D21D1FFF20A0A4A50023AF98 /* Query.swift */,
 				6C5588E329AA9503C122B7D1B520C37C /* Repository.swift */,
+				D21D1FFD20A0A4750023AF98 /* DataSource.swift */,
 				72780059B470C9FA605A75ACAAF63590 /* RepositoryMapper.swift */,
 				738F350E46FC8B574904A58DAFCCF215 /* RepositoryValidator.swift */,
 				D2BD7A5A2084E0E7000BF6E8 /* KeyValueInterface.swift */,
@@ -2895,9 +2901,11 @@
 				8E5B727FB95B152908A417F11554A250 /* MultiRequestAdapter.swift in Sources */,
 				E123E6EA8B4F727855C9564ABEEE3BD4 /* MultiRequestRetrier.swift in Sources */,
 				52636DCE9950B69A61DA4C202362BE4D /* NetworkStorageRepository.swift in Sources */,
+				D21D200020A0A4A50023AF98 /* Query.swift in Sources */,
 				5B7A5402B80F75D40E987374638DE07C /* OperationQueueExecutor.swift in Sources */,
 				D25566642084E39400AA76EE /* KeychainKeyValueService.swift in Sources */,
 				D2BD7A5D2084E157000BF6E8 /* UserDefaultsKeyValueService.swift in Sources */,
+				D21D1FFE20A0A4750023AF98 /* DataSource.swift in Sources */,
 				E7BCA843BA44C9B9BB7BD09D4E45D769 /* PushNotificationQueue.swift in Sources */,
 				0570B0BDF960BE0351A20940CD87AA4C /* InteractorPut.swift in Sources */,
 				30F7EEAC31759A11C48F91790C82466E /* readme-macOS.swift in Sources */,

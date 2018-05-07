@@ -59,11 +59,11 @@ class StorageAssembly: Assembly {
 //                                toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
 //                                toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!)
 //        })
-        
+//
         container.register(Repository<ItemEntity>.self, name: Names.storageRepository, factory: { r in
 //            let keyValueService : KeyValueInterface<ItemEntity> = InMemoryKeyValueService<ItemEntity>()
 //            let repository = KeyValueRepository<ItemEntity>(keyValueService)
-            
+
             let userDefaultsService = UserDefaultsKeyValueService<Data>(UserDefaults.standard, keyPrefix: "ItemEntity")
             let dataRepository = KeyValueRepository<Data>(userDefaultsService)
             let repository = RepositoryMapper<ItemEntity, Data>(repository: dataRepository,

@@ -30,6 +30,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
+        let executor = OperationQueueExecutor() // <- This is a background execution executor
+        let directExecutor = DirectExecutor()
+        
+        let get = Interactor.Get<Bool>(executor, KeyValueRepository<Bool>(UserDefaultsKeyValueService()), "com.test")
+        let put = Interactor.Put<Bool>(executor, KeyValueRepository<Bool>(UserDefaultsKeyValueService()), "com.test")
+        
+        // 1
+        get.execute(in: directExecutor).on(nil).then { value in
+            // 2
+            if let value = value {
+                print("value: \(value)")
+            } else {
+                print("value not stored")
+            }
+        }
+        
+        // 3
+        put.execute(true, in: directExecutor).on(nil).then { success in
+            // 4
+            print("success: \(success)")
+        }
+        
+        // 5
+        get.execute(in: directExecutor).on(nil).then { value in
+            // 6
+            if let value = value {
+                print("value: \(value)")
+            } else {
+                print("value not stored")
+            }
+        }
+        
         return true
     }
     

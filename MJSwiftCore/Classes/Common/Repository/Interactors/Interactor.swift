@@ -30,6 +30,7 @@ open class QueryInteractor<T> {
 open class DirectInteractor<T> : QueryInteractor <T>{
     public let query : Query
     
+    @available(*, unavailable)
     public required init(_ executor: Executor, _ repository: Repository<T>) {
         self.query = BlankQuery()
         super.init(executor, repository)

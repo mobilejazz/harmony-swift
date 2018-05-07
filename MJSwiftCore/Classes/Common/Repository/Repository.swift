@@ -16,27 +16,6 @@
 
 import Foundation
 
-/// Default query interface
-public protocol Query { }
-
-/// Blank query
-public class BlankQuery : Query {
-    public init() {}
-}
-
-/// A query by an id
-public class QueryById <T> where T:Hashable {
-    public let id : T
-    public init(_ id: T) {
-        self.id = id
-    }
-}
-
-/// All objects query
-public class AllObjectsQuery : Query {
-    public init() { }
-}
-
 ///
 /// An operation defines an abstraction on how data must be fetched
 ///
@@ -48,13 +27,13 @@ public struct Operation : RawRepresentable, Equatable, Hashable, CustomStringCon
     public init(rawValue: String) { self.rawValue = rawValue }
     public var description: String { return rawValue }
 
-    /// Blank/Undefined/Default operationx cierto
+    /// Blank/Undefined/Default operation
     public static let blank = Operation(rawValue:"blank")
 }
 
 
 /// Abstract definition of a repository
-open class Repository<T> {
+open class Repository <T> {
     
     /// Get a single method
     ///
