@@ -59,3 +59,25 @@ public class InMemoryKeyValueService <T> : KeyValueInterface <T> {
         return true
     }
 }
+
+fileprivate var defaults = [String : Any]()
+
+extension InMemoryKeyValueService {
+    
+    /// Returns a default instance for each T type
+    public static var `default` : InMemoryKeyValueService<T> {
+        get {
+            let key = String(describing: T.self)
+            if let instance = defaults[key] {
+                return instance as! InMemoryKeyValueService<T>
+            }
+            let instance = InMemoryKeyValueService<T>()
+            defaults[key] = instance
+            return instance
+        }
+        set {
+            let key = String(describing: T.self)
+            defaults[key] = newValue
+        }
+    }
+}

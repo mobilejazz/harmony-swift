@@ -34,6 +34,14 @@ internal extension ObjectionScope {
 }
 
 public extension JSObjectionModule {
+    // Swift binding method
+    public func bind<T>(_ type: T.Type, to provider: JSObjectionProvider) where T:AnyObject {
+        bindProvider(provider, to: type as AnyClass)
+    }
+    /// Swift binding method
+    public func bind(_ type: Protocol, to provider: JSObjectionProvider) {
+        bindProvider(provider, to: type)
+    }
     /// Swift binding method
     public func bind<T>(_ type: T.Type, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject {
         bindBlock({ closure($0!) }, to: type as AnyClass, in: scope.scope())
