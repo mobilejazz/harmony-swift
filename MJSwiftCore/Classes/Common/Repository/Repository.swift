@@ -39,7 +39,7 @@ open class Repository<T> {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
-    open func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
+    open func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch operation {
         case .blank:
             return Future(nil)
@@ -52,7 +52,7 @@ open class Repository<T> {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
-    open func getAll(_ query: Query = AllObjectsQuery(), operation: Operation = .blank) -> Future<[T]> {
+    open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
         case .blank:
             return Future([])
@@ -66,7 +66,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ value: T, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<T> {
+    open func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
         case .blank:
             return Future(value)
@@ -80,7 +80,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func putAll(_ array: [T], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<[T]> {
+    open func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
         case .blank:
             return Future(array)
@@ -94,7 +94,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ value: T? = nil, in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
+    open func delete(_ value: T? = nil, in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
         case .blank:
             return Future(true)
@@ -108,7 +108,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ array: [T] = [], in query: Query = BlankQuery(), operation: Operation = .blank) -> Future<Bool> {
+    open func deleteAll(_ array: [T] = [], in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
         case .blank:
             return Future(true)

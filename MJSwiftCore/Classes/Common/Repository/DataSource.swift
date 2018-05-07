@@ -122,3 +122,34 @@ open class DataSource <T> {
         }
     }
 }
+
+extension DataSource {
+    public func get<K>(_ id: K) -> Future<T?> where K:Hashable {
+        return get(QueryById(id))
+    }
+    
+    public func getAll<K>(_ id: K) -> Future<[T]> where K:Hashable {
+        return getAll(QueryById(id))
+    }
+    
+    @discardableResult
+    public func put<K>(_ value: T, forId id: K) -> Future<T> where K:Hashable {
+        return put(value, in: QueryById(id))
+    }
+    
+    @discardableResult
+    public func putAll<K>(_ array: [T], forId id: K) -> Future<[T]> where K:Hashable {
+        return putAll(array, in: QueryById(id))
+    }
+    
+    @discardableResult
+    public func delete<K>(_ value: T? = nil, forId id: K) -> Future<Bool> where K:Hashable {
+        return delete(value, in: QueryById(id))
+    }
+    
+    @discardableResult
+    public func deleteAll<K>(_ array: [T] = [], forId id: K) -> Future<Bool> where K:Hashable {
+        return deleteAll(array, in: QueryById(id))
+    }
+}
+
