@@ -118,23 +118,23 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [E] = [], in query: Query = BlankQuery()) -> Future<Bool> {
+    public override func deleteAll(_ array: [E] = [], in query: Query = BlankQuery()) -> Future<Void> {
         switch query {
         case is BlankQuery:
-            return realmHandler.write { realm -> Bool in
+            return realmHandler.write { realm in
                 array
                     .map { toRealmMapper.map($0, inRealm: realm) }
                     .forEach { realm.delete($0) }
-                return true
+                return Void()
                 }.unwrap()
         default:
-            return realmHandler.write { realm -> Bool in
+            return realmHandler.write { realm in
                 if let predicate = query.toRealmQuery().realmPredicate() {
                     realm.objects(O.self).filter(predicate).forEach { realm.delete($0) }
                 } else {
                     realm.objects(O.self).forEach { realm.delete($0) }
                 }
-                return true
+                return Void()
                 }.unwrap()
         }
     }

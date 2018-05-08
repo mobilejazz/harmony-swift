@@ -90,7 +90,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
+    open func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Void> {
         switch operation {
         default:
             fatalError("Undefined operation \(operation.rawValue) for method delete on \(String(describing: type(of:self)))")
@@ -102,7 +102,7 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
+    open func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Void> {
         switch operation {
         default:
             fatalError("Undefined operation \(operation.rawValue) for method deleteAll on \(String(describing: type(of:self)))")
@@ -130,12 +130,12 @@ extension Repository {
     }
     
     @discardableResult
-    public func delete<K>(_ value: T?, forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
+    public func delete<K>(_ value: T?, forId id: K, operation: Operation = .none) -> Future<Void> where K:Hashable {
         return delete(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func deleteAll<K>(_ array: [T], forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
+    public func deleteAll<K>(_ array: [T], forId id: K, operation: Operation = .none) -> Future<Void> where K:Hashable {
         return deleteAll(array, in: QueryById(id), operation: operation)
     }
 }

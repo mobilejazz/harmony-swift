@@ -119,28 +119,20 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<Bool> {
-        return { () -> Future<Bool> in
+    public override func delete(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<Void> {
+        return { () -> Future<Void> in
             switch operation {
             case .network:
                 return network.delete(value, in: query)
             case .storage:
                 return storage.delete(value, in: query)
             case .networkSync:
-                return network.delete(value, in: query).flatMap { success in
-                    if success {
-                        return self.storage.delete(value, in: query)
-                    } else {
-                        return false.toFuture()
-                    }
+                return network.delete(value, in: query).flatMap {
+                    return self.storage.delete(value, in: query)
                 }
             case .storageSync:
-                return storage.delete(value, in: query).flatMap { success in
-                    if success {
-                        return self.network.delete(value, in: query)
-                    } else {
-                        return false.toFuture()
-                    }
+                return storage.delete(value, in: query).flatMap {
+                    return self.network.delete(value, in: query)
                 }
             default:
                 return super.delete(value, in: query, operation: operation)
@@ -149,28 +141,20 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<Bool> {
-        return { () -> Future<Bool> in
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<Void> {
+        return { () -> Future<Void> in
             switch operation {
             case .network:
                 return network.deleteAll(array, in: query)
             case .storage:
                 return storage.deleteAll(array, in: query)
             case .networkSync:
-                return network.deleteAll(array, in: query).flatMap { success in
-                    if success {
-                        return self.storage.deleteAll(array, in: query)
-                    } else {
-                        return false.toFuture()
-                    }
+                return network.deleteAll(array, in: query).flatMap {
+                    return self.storage.deleteAll(array, in: query)
                 }
             case .storageSync:
-                return storage.deleteAll(array, in: query).flatMap { success in
-                    if success {
-                        return self.network.deleteAll(array, in: query)
-                    } else {
-                        return false.toFuture()
-                    }
+                return storage.deleteAll(array, in: query).flatMap {
+                    return self.network.deleteAll(array, in: query)
                 }
             default:
                 return super.deleteAll(array, in: query, operation: operation)

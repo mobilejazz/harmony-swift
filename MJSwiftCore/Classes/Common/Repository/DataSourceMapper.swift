@@ -67,7 +67,7 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     }
     
     @discardableResult
-    public override func delete(_ value: From?, in query: Query) -> Future<Bool> {
+    public override func delete(_ value: From?, in query: Query) -> Future<Void> {
         if let value = value {
             return dataSource.delete(toToMapper.map(value), in: query)
         }
@@ -75,7 +75,7 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [From], in query: Query) -> Future<Bool> {
+    public override func deleteAll(_ array: [From], in query: Query) -> Future<Void> {
         return dataSource.deleteAll(toToMapper.map(array), in: query)
     }
     

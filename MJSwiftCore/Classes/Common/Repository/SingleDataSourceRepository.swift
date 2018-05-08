@@ -52,12 +52,12 @@ public class SingleDataSourceRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query, operation: Operation = .none) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation = .none) -> Future<Void> {
         return dataSource.delete(value, in: query)
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .none) -> Future<Bool> {
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .none) -> Future<Void> {
         return dataSource.deleteAll(array, in: query)
     }
 }

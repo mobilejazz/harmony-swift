@@ -76,9 +76,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // 6
-        delete.execute().then { success in
+        delete.execute().then {
             // 7
-            print("Delete success: \(success)")
+            print("Delete success")
             }.fail { error in
                 print("Error: \(error)")
         }
