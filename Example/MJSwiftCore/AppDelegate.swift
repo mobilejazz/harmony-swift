@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
         
         //let dataSource = UserDefaultsDataSource<Bool>()
-        let dataSource = InMemoryDataSource<Bool>()
+        let dataSource : DataSource<Bool> = InMemoryDataSource<Bool>()
         //let dataSource = KeychainDataSource<Bool>(Keychain())
         
         let key = "com.test.1"

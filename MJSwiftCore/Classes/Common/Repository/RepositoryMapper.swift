@@ -53,8 +53,12 @@ public class RepositoryMapper<From,To>: Repository<From> {
     }
     
     @discardableResult
-    public override func put(_ value: From, in query: Query, operation: Operation) -> Future<From> {
-         return repository.put(toToMapper.map(value), in: query, operation: operation).map { self.toFromMapper.map($0) }
+    public override func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
+        var mapped : To? = nil
+        if let value = value {
+            mapped = toToMapper.map(value)
+        }
+         return repository.put(mapped, in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult

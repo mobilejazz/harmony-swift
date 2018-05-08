@@ -98,13 +98,13 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query) -> Future<T> {
+    public override func put(_ value: T?, in query: Query) -> Future<T> {
         guard let key = addPrefixTo(query.key()) else {
             return super.put(value, in: query)
         }
-        userDefaults.set(value, forKey: key)
+        userDefaults.set(value!, forKey: key)
         userDefaults.synchronize()
-        return Future(value)
+        return Future(value!)
     }
     
     @discardableResult

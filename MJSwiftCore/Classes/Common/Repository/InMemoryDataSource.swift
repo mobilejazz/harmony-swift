@@ -42,12 +42,12 @@ public class InMemoryDataSource<T> : DataSource<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query) -> Future<T> {
+    public override func put(_ value: T? = nil, in query: Query) -> Future<T> {
         guard let key = query.key() else {
             return super.put(value, in: query)
         }
-        objects[key] = value
-        return Future(value)
+        objects[key] = value!
+        return Future(value!)
     }
     
     @discardableResult

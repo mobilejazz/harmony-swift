@@ -45,10 +45,8 @@ open class Repository<T> {
     /// - Returns: A Future of an optional repository's type
     open func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch operation {
-        case .none:
-            return Future(nil)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method get on \(String(describing: type(of:self)))")
         }
     }
     
@@ -58,10 +56,8 @@ open class Repository<T> {
     /// - Returns: A Future of the repository's type
     open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
-        case .none:
-            return Future([])
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method getAll on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method getAll on \(String(describing: type(of:self)))")
         }
     }
     
@@ -70,12 +66,10 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
+    open func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
-        case .none:
-            return Future(value)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method put on \(String(describing: type(of:self)))")
         }
     }
     
@@ -86,10 +80,8 @@ open class Repository<T> {
     @discardableResult
     open func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
-        case .none:
-            return Future(array)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method putAll on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method putAll on \(String(describing: type(of:self)))")
         }
     }
     
@@ -98,12 +90,10 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ value: T? = nil, in query: Query, operation: Operation) -> Future<Bool> {
+    open func delete(_ value: T?, in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
-        case .none:
-            return Future(true)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method delete on \(String(describing: type(of:self)))")
         }
     }
     
@@ -112,12 +102,10 @@ open class Repository<T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ array: [T] = [], in query: Query, operation: Operation) -> Future<Bool> {
+    open func deleteAll(_ array: [T], in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
-        case .none:
-            return Future(true)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
+            fatalError("Undefined operation \(operation.rawValue) for method deleteAll on \(String(describing: type(of:self)))")
         }
     }
 }
@@ -132,7 +120,7 @@ extension Repository {
     }
     
     @discardableResult
-    public func put<K>(_ value: T, forId id: K, operation: Operation = .none) -> Future<T> where K:Hashable {
+    public func put<K>(_ value: T?, forId id: K, operation: Operation = .none) -> Future<T> where K:Hashable {
         return put(value, in: QueryById(id), operation: operation)
     }
     
@@ -142,12 +130,12 @@ extension Repository {
     }
     
     @discardableResult
-    public func delete<K>(_ value: T? = nil, forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
+    public func delete<K>(_ value: T?, forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
         return delete(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func deleteAll<K>(_ array: [T] = [], forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
+    public func deleteAll<K>(_ array: [T], forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
         return deleteAll(array, in: QueryById(id), operation: operation)
     }
 }

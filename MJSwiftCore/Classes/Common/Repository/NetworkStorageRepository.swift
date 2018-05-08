@@ -75,7 +75,7 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query, operation: Operation = .networkSync) -> Future<T> {
+    public override func put(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
             case .network:

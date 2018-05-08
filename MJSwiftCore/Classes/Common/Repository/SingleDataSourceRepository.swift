@@ -42,7 +42,7 @@ public class SingleDataSourceRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query, operation: Operation = .none) -> Future<T> {
+    public override func put(_ value: T?, in query: Query, operation: Operation = .none) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     

@@ -53,8 +53,12 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     }
     
     @discardableResult
-    public override func put(_ value: From, in query: Query) -> Future<From> {
-        return dataSource.put(toToMapper.map(value), in: query).map { self.toFromMapper.map($0) }
+    public override func put(_ value: From?, in query: Query) -> Future<From> {
+        var mapped : To? = nil
+        if let value = value {
+            mapped = toToMapper.map(value)
+        }
+        return dataSource.put(mapped, in: query).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult

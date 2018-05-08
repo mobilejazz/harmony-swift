@@ -100,11 +100,11 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         }
     }
     
-    public override func put(_ value: E, in query: Query = BlankQuery()) -> Future<E> {
+    public override func put(_ value: E?, in query: Query = BlankQuery()) -> Future<E> {
         return realmHandler.write { realm -> E in
-            let object = toRealmMapper.map(value, inRealm: realm)
+            let object = toRealmMapper.map(value!, inRealm: realm)
             realm.add(object)
-            return value
+            return value!
         }.unwrap()
     }
     

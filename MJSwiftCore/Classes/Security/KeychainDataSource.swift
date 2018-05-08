@@ -47,14 +47,14 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query) -> Future<T> {
+    public override func put(_ value: T?, in query: Query) -> Future<T> {
         guard let key = query.key() else {
             return super.put(value, in: query)
         }
-        let result = keychain.set(value, forKey: key)
+        let result = keychain.set(value!, forKey: key)
         switch result {
         case .success:
-            return Future(value)
+            return Future(value!)
         case .failed(_):
             return Future(result)
         }

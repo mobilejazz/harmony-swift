@@ -92,7 +92,7 @@ public class DataSourceValidator<T>: DataSource<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T, in query: Query) -> Future<T> {
+    public override func put(_ value: T?, in query: Query) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
