@@ -20,15 +20,15 @@ extension Interactor {
     ///
     /// Generic put object by query interactor
     ///
-    public class PutByQuery <T> : QueryInteractor<T> {
-        public func execute(_ value: T, query: Query, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
+    public class PutByQuery<T> : QueryInteractor<T> {
+        public func execute(_ value: T?, query: Query, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: query, operation: operation))
             }
         }
         
-        public func execute<K>(_ value: T, forId id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        public func execute<K>(_ value: T?, forId id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, forId: id, operation: operation))
@@ -39,8 +39,8 @@ extension Interactor {
     ///
     /// Generic put object interactor
     ///
-    public class Put <T> : DirectInteractor<T> {
-        public func execute(_ value: T, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
+    public class Put<T> : DirectInteractor<T> {
+        public func execute(_ value: T?, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: self.query, operation: operation))
@@ -51,7 +51,7 @@ extension Interactor {
     ///
     /// Generic put objects by query interactor
     ///
-    public class PutAllByQuery <T> : QueryInteractor <T> {
+    public class PutAllByQuery<T> : QueryInteractor<T> {
         public func execute(_ array: [T], query: Query, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -70,7 +70,7 @@ extension Interactor {
     ///
     /// Generic put objects interactor
     ///
-    public class PutAll <T> : DirectInteractor <T> {
+    public class PutAll<T> : DirectInteractor<T> {
         public func execute(_ array: [T], _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in

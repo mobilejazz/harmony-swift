@@ -39,6 +39,8 @@ public struct Operation : RawRepresentable, Equatable, Hashable, CustomStringCon
 ///
 open class Repository<T> {
     
+    public init() { }
+    
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information

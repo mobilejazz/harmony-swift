@@ -42,6 +42,8 @@ public class AllObjectsQuery : Query {
 ///
 open class DataSource <T> {
     
+    public init() { }
+    
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information

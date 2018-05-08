@@ -20,7 +20,7 @@ extension Interactor {
     ///
     /// Generic get object interactor
     ///
-    public class GetByQuery <T> : QueryInteractor <T> {
+    public class GetByQuery<T> : QueryInteractor<T> {
         public func execute(_ query: Query, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -39,7 +39,7 @@ extension Interactor {
     ///
     /// Generic get object interactor with a prefilled query
     ///
-    public class Get <T> : DirectInteractor <T> {
+    public class Get<T> : DirectInteractor<T> {
         public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -51,7 +51,7 @@ extension Interactor {
     ///
     /// Generic get objects interactor
     ///
-    public class GetAllByQuery <T> : QueryInteractor <T> {
+    public class GetAllByQuery<T> : QueryInteractor<T> {
         public func execute(_ query: Query = AllObjectsQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -70,7 +70,7 @@ extension Interactor {
     ///
     /// Generic get all objects interactor
     ///
-    public class GetAll <T> : DirectInteractor <T>{
+    public class GetAll<T> : DirectInteractor<T>{
         public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
