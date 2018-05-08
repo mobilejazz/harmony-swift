@@ -33,9 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let executor = OperationQueueExecutor() // <- This is a background execution executor
         let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
         
-        let get = Interactor.Get<Bool>(executor, UserDefaultsDataSource<Bool>().toRepository(), "com.test")
-        let put = Interactor.Put<Bool>(executor, UserDefaultsDataSource<Bool>().toRepository(), "com.test")
-        let delete = Interactor.Delete<Bool>(executor, UserDefaultsDataSource<Bool>().toRepository(), "com.test")
+        //let dataSource = UserDefaultsDataSource<Bool>()
+        let dataSource = InMemoryDataSource<Bool>()
+        //let dataSource = KeychainDataSource<Bool>(Keychain())
+        
+        let key = "com.test.1"
+        
+        let get = Interactor.Get<Bool>(executor, dataSource.toRepository(), key)
+        let put = Interactor.Put<Bool>(executor, dataSource.toRepository(), key)
+        let delete = Interactor.Delete<Bool>(executor, dataSource.toRepository(), key)
         
         // 1
         get.execute().then { value in
@@ -45,12 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 print("value not stored")
             }
+            }.fail { error in
+                print("Error: \(error)")
         }
         
         // 3
         put.execute(true).then { success in
             // 4
             print("success: \(success)")
+            }.fail { error in
+                print("Error: \(error)")
         }
         
         // 5
@@ -61,12 +71,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 print("value not stored")
             }
+            }.fail { error in
+                print("Error: \(error)")
         }
         
         // 6
         delete.execute().then { success in
             // 7
             print("Delete success: \(success)")
+            }.fail { error in
+                print("Error: \(error)")
         }
         
         return true

@@ -85,17 +85,25 @@ extension InMemoryDataSource {
     /// Returns a default instance for each T type
     public static var `default` : InMemoryDataSource<T> {
         get {
-            let key = String(describing: T.self)
-            if let instance = defaults[key] {
-                return instance as! InMemoryDataSource<T>
-            }
-            let instance = InMemoryDataSource<T>()
-            defaults[key] = instance
-            return instance
+            return self.default(forKey: "")
         }
         set {
-            let key = String(describing: T.self)
-            defaults[key] = newValue
+            self.setDefault(newValue, forKey: "")
         }
+    }
+    
+    public static func `default`(forKey key: String) -> InMemoryDataSource<T> {
+        let key = String(describing: T.self) + key
+        if let instance = defaults[key] {
+            return instance as! InMemoryDataSource<T>
+        }
+        let instance = InMemoryDataSource<T>()
+        defaults[key] = instance
+        return instance
+    }
+    
+    public static func setDefault(_ dataSource: InMemoryDataSource<T>, forKey key: String) {
+        let key = String(describing: T.self) + key
+        defaults[key] = dataSource
     }
 }
