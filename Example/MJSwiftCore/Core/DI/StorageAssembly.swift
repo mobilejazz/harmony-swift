@@ -75,6 +75,7 @@ class StorageAssembly: Assembly {
             let dataSource = DataSourceMapper<ItemEntity, Data>(dataSource: keyValueDataSource,
                                                                 toToMapper: EncodableToDataMapper<ItemEntity>(),
                                                                 toFromMapper: DataToDecodableMapper<ItemEntity>())
+            
             return dataSource
         })
     }

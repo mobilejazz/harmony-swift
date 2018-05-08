@@ -17,7 +17,7 @@
 import Foundation
 
 ///
-/// An operation defines an abstraction on how data must be fetched
+/// An operation defines an abstraction on how data must be fetched (to which DataSource<T> a query must be forwarded).
 ///
 public struct Operation : RawRepresentable, Equatable, Hashable, CustomStringConvertible {
     public typealias RawValue = String
@@ -27,12 +27,16 @@ public struct Operation : RawRepresentable, Equatable, Hashable, CustomStringCon
     public init(rawValue: String) { self.rawValue = rawValue }
     public var description: String { return rawValue }
 
-    /// Blank/Undefined/Default operation
-    public static let blank = Operation(rawValue:"blank")
+    /// None operation
+    public static let none = Operation(rawValue:"none")
 }
 
-
-/// Abstract definition of a repository
+///
+/// Abstract definition of a repository.
+/// A Repository<T> is responsible to forward a query to a specific DataSource<T>.
+/// Each repository subclass must extend the Operation struct with its own operations, then override any needed method
+/// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
+///
 open class Repository<T> {
     
     /// Get a single method
@@ -41,7 +45,7 @@ open class Repository<T> {
     /// - Returns: A Future of an optional repository's type
     open func get(_ query: Query, operation: Operation) -> Future<T?> {
         switch operation {
-        case .blank:
+        case .none:
             return Future(nil)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
@@ -54,7 +58,7 @@ open class Repository<T> {
     /// - Returns: A Future of the repository's type
     open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
-        case .blank:
+        case .none:
             return Future([])
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method getAll on \(String(describing: type(of:self)))")
@@ -68,7 +72,7 @@ open class Repository<T> {
     @discardableResult
     open func put(_ value: T, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
-        case .blank:
+        case .none:
             return Future(value)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
@@ -82,7 +86,7 @@ open class Repository<T> {
     @discardableResult
     open func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
-        case .blank:
+        case .none:
             return Future(array)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method putAll on \(String(describing: type(of:self)))")
@@ -96,7 +100,7 @@ open class Repository<T> {
     @discardableResult
     open func delete(_ value: T? = nil, in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
-        case .blank:
+        case .none:
             return Future(true)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
@@ -110,7 +114,7 @@ open class Repository<T> {
     @discardableResult
     open func deleteAll(_ array: [T] = [], in query: Query, operation: Operation) -> Future<Bool> {
         switch operation {
-        case .blank:
+        case .none:
             return Future(true)
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
@@ -119,31 +123,31 @@ open class Repository<T> {
 }
 
 extension Repository {
-    public func get<K>(_ id: K, operation: Operation = .blank) -> Future<T?> where K:Hashable {
+    public func get<K>(_ id: K, operation: Operation = .none) -> Future<T?> where K:Hashable {
         return get(QueryById(id), operation: operation)
     }
     
-    public func getAll<K>(_ id: K, operation: Operation = .blank) -> Future<[T]> where K:Hashable {
+    public func getAll<K>(_ id: K, operation: Operation = .none) -> Future<[T]> where K:Hashable {
         return getAll(QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func put<K>(_ value: T, forId id: K, operation: Operation = .blank) -> Future<T> where K:Hashable {
+    public func put<K>(_ value: T, forId id: K, operation: Operation = .none) -> Future<T> where K:Hashable {
         return put(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func putAll<K>(_ array: [T], forId id: K, operation: Operation = .blank) -> Future<[T]> where K:Hashable {
+    public func putAll<K>(_ array: [T], forId id: K, operation: Operation = .none) -> Future<[T]> where K:Hashable {
         return putAll(array, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func delete<K>(_ value: T? = nil, forId id: K, operation: Operation = .blank) -> Future<Bool> where K:Hashable {
+    public func delete<K>(_ value: T? = nil, forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
         return delete(value, in: QueryById(id), operation: operation)
     }
     
     @discardableResult
-    public func deleteAll<K>(_ array: [T] = [], forId id: K, operation: Operation = .blank) -> Future<Bool> where K:Hashable {
+    public func deleteAll<K>(_ array: [T] = [], forId id: K, operation: Operation = .none) -> Future<Bool> where K:Hashable {
         return deleteAll(array, in: QueryById(id), operation: operation)
     }
 }

@@ -37,7 +37,9 @@ public class AllObjectsQuery : Query {
     public init() { }
 }
 
+///
 /// Abstract definition of a DataSource
+///
 open class DataSource <T> {
     
     /// Get a single method

@@ -16,6 +16,11 @@
 
 import Foundation
 
+///
+/// Single data source repository.
+/// All repository methods are directly forwarded to a single data source.
+/// Operation parameter is not used in any case.
+///
 public class SingleDataSourceRepository<T> : Repository<T> {
 
     private let dataSource : DataSource<T>
@@ -28,33 +33,36 @@ public class SingleDataSourceRepository<T> : Repository<T> {
         self.dataSource = dataSource
     }
     
-    public override func get(_ query: Query, operation: Operation = .blank) -> Future<T?> {
+    public override func get(_ query: Query, operation: Operation = .none) -> Future<T?> {
         return dataSource.get(query)
     }
     
-    public override func getAll(_ query: Query, operation: Operation = .blank) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation = .none) -> Future<[T]> {
         return dataSource.getAll(query)
     }
     
-    public override func put(_ value: T, in query: Query, operation: Operation = .blank) -> Future<T> {
+    public override func put(_ value: T, in query: Query, operation: Operation = .none) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
-    public override func putAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query, operation: Operation = .none) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
     
-    public override func delete(_ value: T?, in query: Query, operation: Operation = .blank) -> Future<Bool> {
+    public override func delete(_ value: T?, in query: Query, operation: Operation = .none) -> Future<Bool> {
         return dataSource.delete(value, in: query)
     }
     
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .blank) -> Future<Bool> {
+    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .none) -> Future<Bool> {
         return dataSource.deleteAll(array, in: query)
     }
 }
 
 extension DataSource {
-    public func toRepository() -> SingleDataSourceRepository<T> {
+    /// Creates a single data source repository from a data source
+    ///
+    /// - Returns: A SingleDataSourceRepository repository
+    public func toRepository() -> Repository<T> {
         return SingleDataSourceRepository(self)
     }
 }
