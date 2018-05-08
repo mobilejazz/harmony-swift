@@ -52,14 +52,17 @@ public class RepositoryMapper<From,To>: Repository<From> {
          return repository.getAll(query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func put(_ value: From, in query: Query, operation: Operation) -> Future<From> {
          return repository.put(toToMapper.map(value), in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
         return repository.putAll(toToMapper.map(array), in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func delete(_ value: From?, in query: Query, operation: Operation) -> Future<Bool> {
         if let value = value {
             return repository.delete(toToMapper.map(value), in: query, operation: operation)
@@ -67,6 +70,7 @@ public class RepositoryMapper<From,To>: Repository<From> {
         return repository.delete(nil, in: query, operation: operation)
     }
     
+    @discardableResult
     public override func deleteAll(_ array: [From], in query: Query, operation: Operation) -> Future<Bool> {
         return repository.deleteAll(toToMapper.map(array), in: query, operation: operation)
     }

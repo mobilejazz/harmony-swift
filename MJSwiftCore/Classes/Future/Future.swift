@@ -422,7 +422,7 @@ public class Future<T> {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue {
+            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
                 queue.async {
                     failure(error)
                 }
@@ -434,7 +434,7 @@ public class Future<T> {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue {
+            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
                 queue.async {
                     success(value)
                 }

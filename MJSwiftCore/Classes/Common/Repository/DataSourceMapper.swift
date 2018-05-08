@@ -52,14 +52,17 @@ public class DataSourceMapper<From,To> : DataSource<From> {
         return dataSource.getAll(query).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func put(_ value: From, in query: Query) -> Future<From> {
         return dataSource.put(toToMapper.map(value), in: query).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func putAll(_ array: [From], in query: Query) -> Future<[From]> {
         return dataSource.putAll(toToMapper.map(array), in: query).map { self.toFromMapper.map($0) }
     }
     
+    @discardableResult
     public override func delete(_ value: From?, in query: Query) -> Future<Bool> {
         if let value = value {
             return dataSource.delete(toToMapper.map(value), in: query)
@@ -67,6 +70,7 @@ public class DataSourceMapper<From,To> : DataSource<From> {
         return dataSource.delete(nil, in: query)
     }
     
+    @discardableResult
     public override func deleteAll(_ array: [From], in query: Query) -> Future<Bool> {
         return dataSource.deleteAll(toToMapper.map(array), in: query)
     }

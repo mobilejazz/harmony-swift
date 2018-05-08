@@ -16,29 +16,32 @@
 
 import Foundation
 
-//
-// Provides a user defaults service for a key value interface
-//
-public class UserDefaultsKeyValueService <T> : KeyValueInterface <T> {
+public class UserDefaultsDataSource<T> : DataSource<T> {
+
     private let userDefaults : UserDefaults
-    private let keyPrefix : String
+    private let prefix : String
     
-    public init(_ userDefaults : UserDefaults = UserDefaults.standard, keyPrefix: String = "") {
+    public init(_ userDefaults: UserDefaults = UserDefaults.standard, prefix: String = "") {
         self.userDefaults = userDefaults
-        self.keyPrefix = keyPrefix
+        self.prefix = prefix
     }
     
-    private func addPrefixTo(_ key: String) -> String {
-        switch keyPrefix.count {
+    private func addPrefixTo(_ key: String?) -> String? {
+        guard let key = key else {
+            return nil
+        }
+        switch prefix.count {
         case 0:
             return key
         default:
-            return keyPrefix + "." + key
+            return prefix + "." + key
         }
     }
     
-    public override func get(_ key: String) -> T? {
-        let key = addPrefixTo(key)
+    public override func get(_ query: Query) -> Future<T?> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.get(query)
+        }
         let value : T? = {
             switch T.self {
             case is Int.Type:
@@ -81,29 +84,54 @@ public class UserDefaultsKeyValueService <T> : KeyValueInterface <T> {
                 return userDefaults.object(forKey: key) as? T
             }
         }()
-        return value
+        return Future(value)
     }
     
-    public override func getAll(_ key: String) -> [T]? {
-        let key = addPrefixTo(key)
-        return userDefaults.array(forKey: key) as? [T]
+    public override func getAll(_ query: Query) -> Future<[T]> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.getAll(query)
+        }
+        if let array = userDefaults.array(forKey: key) as? [T] {
+            return Future(array)
+        }
+        return Future([])
     }
     
-    public override func set(_ value: T, forKey key: String) -> Bool {
-        let key = addPrefixTo(key)
+    @discardableResult
+    public override func put(_ value: T, in query: Query) -> Future<T> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.put(value, in: query)
+        }
         userDefaults.set(value, forKey: key)
-        return userDefaults.synchronize()
+        userDefaults.synchronize()
+        return Future(value)
     }
     
-    public override func setAll(_ values: [T], forKey key: String) -> Bool {
-        let key = addPrefixTo(key)
-        userDefaults.set(values, forKey: key)
-        return userDefaults.synchronize()
+    @discardableResult
+    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.putAll(array, in: query)
+        }
+        userDefaults.set(array, forKey: key)
+        userDefaults.synchronize()
+        return Future(array)
     }
     
-    public override func delete(_ key: String) -> Bool {
-        let key = addPrefixTo(key)
+    @discardableResult
+    public override func delete(_ value: T?, in query: Query) -> Future<Bool> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.delete(value, in: query)
+        }
         userDefaults.removeObject(forKey: key)
-        return userDefaults.synchronize()
+        return Future(userDefaults.synchronize())
+    }
+    
+    @discardableResult
+    public override func deleteAll(_ array: [T], in query: Query) -> Future<Bool> {
+        guard let key = addPrefixTo(query.key()) else {
+            return super.deleteAll(array, in: query)
+        }
+        userDefaults.removeObject(forKey: key)
+        return Future(userDefaults.synchronize())
     }
 }

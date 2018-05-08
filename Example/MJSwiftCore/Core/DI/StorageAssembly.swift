@@ -63,16 +63,13 @@ class StorageAssembly: Assembly {
         
 // In-Memory key value storage
 //        container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-//            let keyValueService : KeyValueInterface<ItemEntity> = InMemoryKeyValueService<ItemEntity>()
-//            let dataSource = KeyValueDataSource<ItemEntity>(keyValueService)
-//            return dataSource
+//            return InMemoryDataSource<ItemEntity>()
 //        })
         
 // User defaults key value storge
         container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-            let userDefaultsService = UserDefaultsKeyValueService<Data>(UserDefaults.standard, keyPrefix: "ItemEntity")
-            let keyValueDataSource = KeyValueDataSource<Data>(userDefaultsService)
-            let dataSource = DataSourceMapper<ItemEntity, Data>(dataSource: keyValueDataSource,
+            let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
+            let dataSource = DataSourceMapper<ItemEntity, Data>(dataSource: userDefaultsDataSource,
                                                                 toToMapper: EncodableToDataMapper<ItemEntity>(),
                                                                 toFromMapper: DataToDecodableMapper<ItemEntity>())
             
