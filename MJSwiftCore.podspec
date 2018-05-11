@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.4.10'
+    s.version          = '0.4.11'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     
     # This description is used to generate tags and improve search results.
@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
     
     s.osx.deployment_target = '10.12'
     s.ios.deployment_target = '9.0'
-
+    
     s.subspec 'Future' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Future/**/*'
     end

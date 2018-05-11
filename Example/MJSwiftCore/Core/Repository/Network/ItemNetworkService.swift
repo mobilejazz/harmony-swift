@@ -7,6 +7,7 @@ import Foundation
 
 import Alamofire
 import MJSwiftCore
+import MJCocoaCore
 
 class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
@@ -47,7 +48,7 @@ private extension ItemNetworkService {
         }
     }
     
-    private func getAllItems() -> Future<[ItemEntity]> {
+    private func getAllItems() -> Future<[ItemEntity]> {        
         let url = "/items"
         return sessionManager.request(url).toFuture().flatMap { json in
             if let json = json {

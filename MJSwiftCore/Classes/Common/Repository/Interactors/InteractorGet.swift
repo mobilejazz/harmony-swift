@@ -21,7 +21,7 @@ extension Interactor {
     /// Generic get object interactor
     ///
     public class GetByQuery<T> : QueryInteractor<T> {
-        public func execute(_ query: Query, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
+        public func execute(_ query: Query = BlankQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(query, operation: operation))

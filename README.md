@@ -30,6 +30,7 @@ pod 'MJSwiftCore/Realm'
 pod 'MJSwiftCore/Alamofire'
 pod 'MJSwiftCore/Vastra'
 pod 'MJSwiftCore/MJCocoaCore'
+pod 'MJSwiftCore/MJObjection'
 ```
 
 ## Author

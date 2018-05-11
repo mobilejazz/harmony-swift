@@ -5,29 +5,29 @@ PODS:
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.8)
   - MJObjection (1.6.4)
-  - MJSwiftCore (0.4.1):
-    - MJSwiftCore/Common (= 0.4.1)
-    - MJSwiftCore/Security (= 0.4.1)
-  - MJSwiftCore/Alamofire (0.4.1):
+  - MJSwiftCore (0.4.10):
+    - MJSwiftCore/Common (= 0.4.10)
+    - MJSwiftCore/Security (= 0.4.10)
+  - MJSwiftCore/Alamofire (0.4.10):
     - Alamofire (~> 4.7.2)
     - MJSwiftCore/Common
-  - MJSwiftCore/Common (0.4.1):
+  - MJSwiftCore/Common (0.4.10):
     - MJSwiftCore/Future
-  - MJSwiftCore/Future (0.4.1)
-  - MJSwiftCore/iOS (0.4.1):
+  - MJSwiftCore/Future (0.4.10)
+  - MJSwiftCore/iOS (0.4.10):
     - MJSwiftCore/Common
-  - MJSwiftCore/MJCocoaCore (0.4.1):
+  - MJSwiftCore/MJCocoaCore (0.4.10):
     - MJCocoaCore/Common (~> 2.3.8)
     - MJSwiftCore/Common
-  - MJSwiftCore/Objection (0.4.1):
+  - MJSwiftCore/Objection (0.4.10):
     - MJObjection
-  - MJSwiftCore/Realm (0.4.1):
+  - MJSwiftCore/Realm (0.4.10):
     - MJSwiftCore/Common
     - MJSwiftCore/Security
     - RealmSwift (~> 3.3.2)
-  - MJSwiftCore/Security (0.4.1):
+  - MJSwiftCore/Security (0.4.10):
     - MJSwiftCore/Common
-  - MJSwiftCore/Vastra (0.4.1)
+  - MJSwiftCore/Vastra (0.4.10)
   - PromisesObjC (1.0.2)
   - PromisesSwift (1.0.2):
     - PromisesObjC (= 1.0.2)
@@ -50,16 +50,28 @@ DEPENDENCIES:
   - PromisesSwift (~> 1.0)
   - Swinject (~> 2.4.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Kingfisher
+    - MJCocoaCore
+    - MJObjection
+    - PromisesObjC
+    - PromisesSwift
+    - Realm
+    - RealmSwift
+    - Swinject
+
 EXTERNAL SOURCES:
   MJSwiftCore:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   MJCocoaCore: 48b554ce49ec5845b5f7307c40db98e7f09ad3d3
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
-  MJSwiftCore: 3581bfec756a360d222ec9d6381fc167e6cb2c35
+  MJSwiftCore: cccab8f7d4afb587d6d1b2ca0ebebdc2b2c27272
   PromisesObjC: 5cb99f8b988db9461cd3025cab5cc17752873a5c
   PromisesSwift: a972cb5ca9780fb7f805e9c2d69e7efd417a0523
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
@@ -68,4 +80,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 94042f680d0cc5e428b70bdfff5721b38e62b0c5
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2

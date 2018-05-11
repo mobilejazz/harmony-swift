@@ -71,7 +71,7 @@ extension Interactor {
     /// Generic delete objects interactor
     ///
     public class DeleteAll<T> : DirectInteractor<T> {
-        public func execute(objects: [T] = [], operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ objects: [T] = [], operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(objects, in: self.query, operation: operation))
