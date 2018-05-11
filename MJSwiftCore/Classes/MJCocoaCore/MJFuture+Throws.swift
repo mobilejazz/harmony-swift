@@ -21,7 +21,8 @@ import MJCocoaCore
 /// - Parameter closure: The closure
 /// - Returns: The returned value from the closure
 /// - Throws: The error included in an exception raised by a MJFuture when using the .value() method
-func `catchAndThrow`<K>(_ closure: @escaping () -> K?) throws -> K? {
+@discardableResult
+public func catchAndThrow<K>(_ closure: @escaping () -> K?) throws -> K? {
     var value : K? = nil
     var error : Error? = nil
     ObjC.try({

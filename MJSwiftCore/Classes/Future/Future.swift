@@ -121,7 +121,7 @@ public class Future<T> {
         
         /// Returns the value or throws an error if exists
         @discardableResult
-        fileprivate func get() throws -> T {
+        public func get() throws -> T {
             switch self {
             case .value(let v):
                 return v
@@ -132,7 +132,7 @@ public class Future<T> {
         
         // Returns the value or if error, returns nil and sets the error
         @discardableResult
-        fileprivate func get(error: inout Error?) -> T? {
+        public func get(error: inout Error?) -> T? {
             switch self {
             case .value(let v):
                 return v
@@ -360,7 +360,7 @@ public class Future<T> {
     
     /// Deliver the result syncrhonously. This method might block the calling thread.
     /// Note that the result can only be delivered once if the future is not reactive.
-    private var result : Result {
+    public var result : Result {
         get {
             switch state {
             case .waitingThen:
