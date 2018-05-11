@@ -28,6 +28,11 @@ func `catchAndThrow`<K>(_ closure: @escaping () -> K?) throws -> K? {
         value = closure()
     }, catch: { exception in
         error = exception.userInfo?[MJFutureErrorKey] as? NSError
+        if error == nil {
+            // if no error found, the exception was not initiated by a MJFuture.
+            // Therefore, lets raise it again.
+            exception.raise()
+        }
     })
     if let error = error {
         throw error
