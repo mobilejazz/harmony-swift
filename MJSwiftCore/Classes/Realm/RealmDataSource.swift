@@ -100,6 +100,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         }
     }
     
+    @discardableResult
     public override func put(_ value: E?, in query: Query = BlankQuery()) -> Future<E> {
         return realmHandler.write { realm -> E in
             let object = toRealmMapper.map(value!, inRealm: realm)
@@ -108,6 +109,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         }.unwrap()
     }
     
+    @discardableResult
     public override func putAll(_ array: [E], in query: Query = BlankQuery()) -> Future<[E]> {
         return realmHandler.write { realm -> [E] in
             array
@@ -117,25 +119,45 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
             }.unwrap()
     }
     
+    
     @discardableResult
-    public override func deleteAll(_ array: [E] = [], in query: Query = BlankQuery()) -> Future<Void> {
+    public override func delete(_ query: Query) -> Future<Void> {
         switch query {
-        case is BlankQuery:
+        case let query as ObjectQuery<E>:
             return realmHandler.write { realm in
-                array
+                let object = toRealmMapper.map(query.object, inRealm: realm)
+                realm.delete(object)
+                return Void()
+            }.unwrap()
+        default:
+            return super.delete(query)
+        }
+    }
+    
+    @discardableResult
+    public override func deleteAll(_ query: Query = BlankQuery()) -> Future<Void> {
+        switch query {
+        case let query as ObjectsQuery<E>:
+            return realmHandler.write { realm in
+                query.objects
                     .map { toRealmMapper.map($0, inRealm: realm) }
                     .forEach { realm.delete($0) }
                 return Void()
                 }.unwrap()
-        default:
+        case is AllObjectsQuery:
             return realmHandler.write { realm in
-                if let predicate = query.toRealmQuery().realmPredicate() {
-                    realm.objects(O.self).filter(predicate).forEach { realm.delete($0) }
-                } else {
-                    realm.objects(O.self).forEach { realm.delete($0) }
-                }
+                realm.objects(O.self).forEach { realm.delete($0) }
                 return Void()
                 }.unwrap()
+        default:
+            if let predicate = query.toRealmQuery().realmPredicate() {
+                return realmHandler.write { realm in
+                    realm.objects(O.self).filter(predicate).forEach { realm.delete($0) }
+                    return Void()
+                    }.unwrap()
+            } else {
+                return super.deleteAll(query)
+            }
         }
     }
 }

@@ -37,6 +37,22 @@ public class AllObjectsQuery : Query {
     public init() { }
 }
 
+/// Single object query
+public class ObjectQuery<T> : Query {
+    let object : T
+    public init(_ object : T) {
+        self.object = object
+    }
+}
+
+/// Objects query
+public class ObjectsQuery<T> : Query {
+    let objects : [T]
+    public init(_ objects : [T]) {
+        self.objects = objects
+    }
+}
+
 ///
 /// Abstract definition of a DataSource
 ///
@@ -95,7 +111,7 @@ open class DataSource <T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ value: T?, in query: Query = BlankQuery()) -> Future<Void> {
+    open func delete(_ query: Query = BlankQuery()) -> Future<Void> {
         switch query {
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
@@ -107,7 +123,7 @@ open class DataSource <T> {
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ array: [T], in query: Query) -> Future<Void> {
+    open func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
@@ -135,13 +151,13 @@ extension DataSource {
     }
     
     @discardableResult
-    public func delete<K>(_ value: T?, forId id: K) -> Future<Void> where K:Hashable {
-        return delete(value, in: QueryById(id))
+    public func delete<K>(_ id: K) -> Future<Void> where K:Hashable {
+        return delete(QueryById(id))
     }
     
     @discardableResult
-    public func deleteAll<K>(_ array: [T], forId id: K) -> Future<Void> where K:Hashable {
-        return deleteAll(array, in: QueryById(id))
+    public func deleteAll<K>(_ id: K) -> Future<Void> where K:Hashable {
+        return deleteAll(QueryById(id))
     }
 }
 

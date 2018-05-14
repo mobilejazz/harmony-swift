@@ -67,15 +67,12 @@ public class RepositoryMapper<From,To>: Repository<From> {
     }
     
     @discardableResult
-    public override func delete(_ value: From?, in query: Query, operation: Operation) -> Future<Void> {
-        if let value = value {
-            return repository.delete(toToMapper.map(value), in: query, operation: operation)
-        }
-        return repository.delete(nil, in: query, operation: operation)
+    public override func delete(_ query: Query, operation: Operation) -> Future<Void> {
+        return repository.delete(query, operation: operation)
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [From], in query: Query, operation: Operation) -> Future<Void> {
-        return repository.deleteAll(toToMapper.map(array), in: query, operation: operation)
+    public override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
+        return repository.deleteAll(query, operation: operation)
     }
 }

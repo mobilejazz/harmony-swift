@@ -21,6 +21,7 @@ extension Interactor {
     /// Generic put object by query interactor
     ///
     public class PutByQuery<T> : QueryInteractor<T> {
+        @discardableResult
         public func execute(_ value: T? = nil, query: Query = BlankQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -28,6 +29,7 @@ extension Interactor {
             }
         }
         
+        @discardableResult
         public func execute<K>(_ value: T?, forId id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -40,6 +42,7 @@ extension Interactor {
     /// Generic put object interactor
     ///
     public class Put<T> : DirectInteractor<T> {
+        @discardableResult
         public func execute(_ value: T? = nil, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -52,6 +55,7 @@ extension Interactor {
     /// Generic put objects by query interactor
     ///
     public class PutAllByQuery<T> : QueryInteractor<T> {
+        @discardableResult
         public func execute(_ array: [T] = [], query: Query = BlankQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -59,6 +63,7 @@ extension Interactor {
             }
         }
         
+        @discardableResult
         public func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -71,6 +76,7 @@ extension Interactor {
     /// Generic put objects interactor
     ///
     public class PutAll<T> : DirectInteractor<T> {
+        @discardableResult
         public func execute(_ array: [T] = [], _ operation: Operation = .none, in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in

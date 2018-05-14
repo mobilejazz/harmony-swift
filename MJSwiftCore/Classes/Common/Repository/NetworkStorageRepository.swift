@@ -119,45 +119,45 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<Void> {
+    public override func delete(_ query: Query, operation: Operation = .networkSync) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
             case .network:
-                return network.delete(value, in: query)
+                return network.delete(query)
             case .storage:
-                return storage.delete(value, in: query)
+                return storage.delete(query)
             case .networkSync:
-                return network.delete(value, in: query).flatMap {
-                    return self.storage.delete(value, in: query)
+                return network.delete(query).flatMap {
+                    return self.storage.delete(query)
                 }
             case .storageSync:
-                return storage.delete(value, in: query).flatMap {
-                    return self.network.delete(value, in: query)
+                return storage.delete(query).flatMap {
+                    return self.network.delete(query)
                 }
             default:
-                return super.delete(value, in: query, operation: operation)
+                return super.delete(query, operation: operation)
             }
             }()
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<Void> {
+    public override func deleteAll(_ query: Query, operation: Operation = .networkSync) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
             case .network:
-                return network.deleteAll(array, in: query)
+                return network.deleteAll(query)
             case .storage:
-                return storage.deleteAll(array, in: query)
+                return storage.deleteAll(query)
             case .networkSync:
-                return network.deleteAll(array, in: query).flatMap {
-                    return self.storage.deleteAll(array, in: query)
+                return network.deleteAll(query).flatMap {
+                    return self.storage.deleteAll(query)
                 }
             case .storageSync:
-                return storage.deleteAll(array, in: query).flatMap {
-                    return self.network.deleteAll(array, in: query)
+                return storage.deleteAll(query).flatMap {
+                    return self.network.deleteAll(query)
                 }
             default:
-                return super.deleteAll(array, in: query, operation: operation)
+                return super.deleteAll(query, operation: operation)
             }
             }()
     }

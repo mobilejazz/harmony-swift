@@ -118,9 +118,9 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query) -> Future<Void> {
+    public override func delete(_ query: Query) -> Future<Void> {
         guard let key = addPrefixTo(query.key()) else {
-            return super.delete(value, in: query)
+            return super.delete(query)
         }
         userDefaults.removeObject(forKey: key)
         userDefaults.synchronize()
@@ -128,9 +128,9 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query) -> Future<Void> {
+    public override func deleteAll(_ query: Query) -> Future<Void> {
         guard let key = addPrefixTo(query.key()) else {
-            return super.deleteAll(array, in: query)
+            return super.deleteAll(query)
         }
         userDefaults.removeObject(forKey: key)
         userDefaults.synchronize()

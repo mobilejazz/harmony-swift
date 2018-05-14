@@ -76,9 +76,9 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
     }
     
     @discardableResult
-    public override func delete(_ value: T?, in query: Query) -> Future<Void> {
+    public override func delete(_ query: Query) -> Future<Void> {
         guard let key = query.key() else {
-            return super.delete(value, in: query)
+            return super.delete(query)
         }
         let result = keychain.delete(key)
         switch result {
@@ -90,9 +90,9 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
     }
     
     @discardableResult
-    public override func deleteAll(_ array: [T], in query: Query) -> Future<Void> {
+    public override func deleteAll(_ query: Query) -> Future<Void> {
         guard let key = query.key() else {
-            return super.deleteAll(array, in: query)
+            return super.deleteAll(query)
         }
         let result = keychain.delete(key)
         switch result {

@@ -21,17 +21,19 @@ extension Interactor {
     /// Generic delete object by query interactor
     ///
     public class DeleteByQuery<T> : QueryInteractor<T> {
-        public func execute(_ object: T? = nil, query: Query = BlankQuery(), operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
+        @discardableResult
+        public func execute(_ query: Query, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.delete(object, in: query, operation: operation))
+                resolver.set(self.repository.delete(query, operation: operation))
             }
         }
         
-        public func execute<K>(_ object: T? = nil, forId id: K, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        @discardableResult
+        public func execute<K>(_ id: K, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.delete(object, forId: id, operation: operation))
+                resolver.set(self.repository.delete(id, operation: operation))
             }
         }
     }
@@ -40,10 +42,11 @@ extension Interactor {
     /// Generic delete object interactor
     ///
     public class Delete<T> : DirectInteractor<T> {
-        public func execute(_ object: T? = nil, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
+        @discardableResult
+        public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.delete(object, in: self.query, operation: operation))
+                resolver.set(self.repository.delete(self.query, operation: operation))
             }
         }
     }
@@ -52,17 +55,19 @@ extension Interactor {
     /// Generic delete objects interactor
     ///
     public class DeleteAllByQuery<T> : QueryInteractor<T> {
-        public func execute(_ objects: [T] = [], query: Query = BlankQuery(), operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
+        @discardableResult
+        public func execute(_ query: Query, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.deleteAll(objects, in: query, operation: operation))
+                resolver.set(self.repository.deleteAll(query, operation: operation))
             }
         }
         
-        public func execute<K>(_ objects: [T] = [], forId id: K, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        @discardableResult
+        public func execute<K>(_ id: K, operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.deleteAll(objects, forId: id, operation: operation))
+                resolver.set(self.repository.deleteAll(id, operation: operation))
             }
         }
     }
@@ -71,10 +76,11 @@ extension Interactor {
     /// Generic delete objects interactor
     ///
     public class DeleteAll<T> : DirectInteractor<T> {
-        public func execute(_ objects: [T] = [], operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
+        @discardableResult
+        public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
-                resolver.set(self.repository.deleteAll(objects, in: self.query, operation: operation))
+                resolver.set(self.repository.deleteAll(self.query, operation: operation))
             }
         }
     }
