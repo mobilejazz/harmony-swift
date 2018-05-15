@@ -16,43 +16,18 @@
 
 import Foundation
 
-///
-/// CoreError
-///
-public enum CoreError : Error {
-    public typealias RawValue = Int
+public class CoreError : Error, CustomStringConvertible {
     
-    case notFound
-    case illegalArgument(String)
-    case notValid
-    case failed(String)
+    public let code : Int
+    public let description : String
     
-    public var localizedDescription: String {
-        switch self {
-        case .notFound:
-            return "Object not found"
-        case .illegalArgument(let reason):
-            return "Illegal argument: \(reason)"
-        case .notValid:
-            return "Object is not valid"
-        case .failed(let reason):
-            return "Action failed: \(reason)"
-        }
+    public init(code: Int = 0, description: String = "") {
+        self.code = code
+        self.description = description
     }
     
-    public var code : Int {
-        get {
-            switch self {
-            case .notFound:
-                return 1
-            case .illegalArgument:
-                return 2
-            case .notValid:
-                return 3
-            case .failed:
-                return 4
-            }
-        }
+    public var localizedDescription: String {
+        return description
     }
     
     public static let domain : String = "com.mobilejazz.core"
@@ -61,3 +36,23 @@ public enum CoreError : Error {
         return NSError(domain: CoreError.domain, code: code, userInfo: [NSLocalizedDescriptionKey : localizedDescription])
     }
 }
+
+extension CoreError {
+    
+    public class NotFound : CoreError {
+        public init(description: String = "Not Found") { super.init(code: 1, description: description) }
+    }
+    
+    public class IllegalArgument : CoreError {
+        public init(description: String = "Ilegal Argument") { super.init(code: 2, description: description) }
+    }
+    
+    public class NotValid : CoreError {
+        public init(description: String = "Object is not valid") { super.init(code: 3, description: description) }
+    }
+    
+    public class Failed : CoreError {
+        public init(description: String = "Action failed") { super.init(code: 4, description: description) }
+    }
+}
+

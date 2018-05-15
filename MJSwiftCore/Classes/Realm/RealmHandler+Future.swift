@@ -30,7 +30,7 @@ public extension RealmHandler {
                     if let value = try closure(realm) {
                         resolver.set(value)
                     } else {
-                        resolver.set(CoreError.notFound)
+                        resolver.set(CoreError.NotFound())
                     }
                 }
             } catch let error {
@@ -50,7 +50,7 @@ public extension RealmHandler {
                     if let value = try closure(realm) {
                         future.set(value)
                     } else {
-                        future.set(CoreError.notFound)
+                        future.set(CoreError.NotFound())
                     }
                 }
             } catch let error {

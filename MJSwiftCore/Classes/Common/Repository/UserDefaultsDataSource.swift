@@ -84,7 +84,7 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
                     return userDefaults.object(forKey: key) as? T
                 }
                 }() else {
-                    return Future(CoreError.notFound)
+                    return Future(CoreError.NotFound())
             }
             return Future(value)
         default:
@@ -96,7 +96,7 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
         switch query {
         case let query as KeyQuery:
             guard let array = userDefaults.array(forKey: query.key) as? [T] else {
-                return Future(CoreError.notFound)
+                return Future(CoreError.NotFound())
             }
             return Future(array)
         default:
@@ -109,7 +109,7 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument("Value cannot be nil"))
+                return Future(CoreError.IllegalArgument(description: "Value cannot be nil"))
             }
             userDefaults.set(value, forKey: query.key)
             userDefaults.synchronize()

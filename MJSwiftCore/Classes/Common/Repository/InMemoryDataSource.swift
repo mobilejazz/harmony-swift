@@ -27,7 +27,7 @@ public class InMemoryDataSource<T> : DataSource<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = objects[query.key] else {
-                return Future(CoreError.notFound)
+                return Future(CoreError.NotFound())
             }
             return Future(value)
         default:
@@ -41,7 +41,7 @@ public class InMemoryDataSource<T> : DataSource<T> {
             if let value = arrays[query.key] {
                 return Future(value)
             }
-            return Future(CoreError.notFound)
+            return Future(CoreError.NotFound())
         default:
             return super.getAll(query)
         }
@@ -52,7 +52,7 @@ public class InMemoryDataSource<T> : DataSource<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument("Value cannot be nil"))
+                return Future(CoreError.IllegalArgument(description: "Value cannot be nil"))
             }
             objects[query.key] = value
             return Future(value)

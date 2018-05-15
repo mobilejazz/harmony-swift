@@ -31,7 +31,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         switch query {
         case let query as KeyQuery:
             guard let value : T = keychain.get(query.key) else {
-                return Future(CoreError.notFound)
+                return Future(CoreError.NotFound())
             }
             return Future(value)
         default:
@@ -43,10 +43,10 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         switch query {
         case let query as KeyQuery:
             guard let nsarray : NSArray = keychain.get(query.key) else {
-                return Future(CoreError.notFound)
+                return Future(CoreError.NotFound())
             }
             guard let array = nsarray as? [T] else {
-                return Future(CoreError.failed("NSArray to Array<\(String(describing:T.self))> cast failed."))
+                return Future(CoreError.Failed(description: "NSArray to Array<\(String(describing:T.self))> cast failed."))
             }
             return Future(array)
         default:
@@ -59,13 +59,13 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument("Value cannot be nil"))
+                return Future(CoreError.IllegalArgument(description: "Value cannot be nil"))
             }
             switch keychain.set(value, forKey: query.key) {
             case .success:
                 return Future(value)
             case .failed(let status):
-                return Future(CoreError.failed("OSStatus \(status)"))
+                return Future(CoreError.Failed(description: "OSStatus \(status)"))
             }
         default:
             return super.put(value, in: query)
@@ -81,7 +81,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             case .success:
                 return Future(array)
             case .failed(let status):
-                return Future(CoreError.failed("OSStatus \(status)"))
+                return Future(CoreError.Failed(description: "OSStatus \(status)"))
             }
         default:
             return super.putAll(array, in: query)
@@ -96,7 +96,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             case .success:
                 return Future(Void())
             case .failed(let status):
-                return Future(CoreError.failed("OSStatus \(status)"))
+                return Future(CoreError.Failed(description: "OSStatus \(status)"))
             }
         default:
             return super.delete(query)
@@ -111,7 +111,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             case .success:
                 return Future(Void())
             case .failed(let status):
-                return Future(CoreError.failed("OSStatus \(status)"))
+                return Future(CoreError.Failed(description: "OSStatus \(status)"))
             }
         default:
             return super.deleteAll(query)

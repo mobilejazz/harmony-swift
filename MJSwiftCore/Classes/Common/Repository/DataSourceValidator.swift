@@ -72,7 +72,7 @@ public class DataSourceValidator<T>: DataSource<T> {
     public override func get(_ query: Query) -> Future<T> {
         return dataSource.get(query).filter { value in
             if !self.validator.isObjectValid(value) {
-                throw CoreError.notValid
+                throw CoreError.NotValid()
             }
         }
     }
@@ -80,7 +80,7 @@ public class DataSourceValidator<T>: DataSource<T> {
     public override func getAll(_ query: Query) -> Future<[T]> {
         return dataSource.getAll(query).filter { values in
             if !self.validator.isArrayValid(values) {
-                throw CoreError.notValid
+                throw CoreError.NotValid()
             }
         }
     }

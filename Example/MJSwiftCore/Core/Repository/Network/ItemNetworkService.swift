@@ -37,7 +37,7 @@ private extension ItemNetworkService {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in
             guard let json = json  else {
-                return Future(CoreError.notFound)
+                return Future(CoreError.NotFound())
             }
             let future = json.decodeAs(ItemEntity.self) { item in
                 item.lastUpdate = Date()

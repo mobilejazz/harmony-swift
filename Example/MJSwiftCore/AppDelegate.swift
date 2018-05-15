@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
-        //let executor = OperationQueueExecutor() // <- This is a background execution executor
-        let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
+        let executor = OperationQueueExecutor() // <- This is a background execution executor
+        //let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
         
         //let dataSource = UserDefaultsDataSource<Bool>()
         let dataSource : DataSource<Bool> = InMemoryDataSource<Bool>()
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }.fail { error in
                 print("Error: \(error)")
         }
-        
+
         // 3
         put.execute(true).then { success in
             // 4
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }.fail { error in
                 print("Error: \(error)")
         }
-        
+
         // 5
         get.execute().then { value in
             // 6
@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }.fail { error in
                 print("Error: \(error)")
         }
-        
+
         // 6
         delete.execute().then {
             // 7

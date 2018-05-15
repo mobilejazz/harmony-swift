@@ -48,16 +48,14 @@ public class NetworkStorageRepository<T> : Repository<T>  {
             case .storage:
                 return storage.get(query)
             case .networkSync:
-                return network.get(query).filter { entity in
-                    self.storage.put(entity, in: query)
+                return network.get(query).flatMap { entity in
+                    return self.storage.put(entity, in: query)
                 }
             case .storageSync:
                 return storage.get(query).recover { error in
                     switch error {
-                    case CoreError.notValid:
-                        return self.network.get(query).filter { entity in
-                            self.storage.put(entity, in: query)
-                        }
+                    case is CoreError.NotValid, is CoreError.NotFound:
+                        return self.get(query, operation: .networkSync)
                     default:
                         return Future(error)
                     }
@@ -76,16 +74,14 @@ public class NetworkStorageRepository<T> : Repository<T>  {
             case .storage:
                 return storage.getAll(query)
             case .networkSync:
-                return network.getAll(query).filter { entities in
-                    self.storage.putAll(entities, in: query)
+                return network.getAll(query).flatMap { entities in
+                    return self.storage.putAll(entities, in: query)
                 }
             case .storageSync:
                 return storage.getAll(query).recover { error in
                     switch error {
-                    case CoreError.notValid:
-                        return self.network.getAll(query).filter { entities in
-                            self.storage.putAll(entities, in: query)
-                        }
+                    case is CoreError.NotValid, is CoreError.NotFound:
+                        return self.getAll(query, operation: .networkSync)
                     default:
                         return Future(error)
                     }

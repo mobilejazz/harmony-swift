@@ -72,7 +72,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         switch query {
         case is BlankQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument("Value cannot be nil"))
+                return Future(CoreError.IllegalArgument(description: "Value cannot be nil"))
             }
             return realmHandler.write { realm in
                 let object = toRealmMapper.map(value, inRealm: realm)
@@ -81,7 +81,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 }.map { self.toEntityMapper.map($0) }
         case let query as ObjectQuery<E>:
             if value != nil {
-                return Future(CoreError.illegalArgument("Value parameter must be nil when using an ObjectQuery"))
+                return Future(CoreError.IllegalArgument(description: "Value parameter must be nil when using an ObjectQuery"))
             }
             return put(query.object, in: BlankQuery())
         default:
@@ -100,7 +100,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 }.map { self.toEntityMapper.map($0) }
         case let query as ObjectsQuery<E>:
             if array.count > 0 {
-                return Future(CoreError.illegalArgument("Array must be empty when using an ObjectsQuery"))
+                return Future(CoreError.IllegalArgument(description: "Array must be empty when using an ObjectsQuery"))
             }
             return putAll(query.objects, in: BlankQuery())
         default:
@@ -122,7 +122,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         case let query as ObjectQuery<E>:
             return realmHandler.write { realm in
                 if query.object.id == nil {
-                    throw CoreError.illegalArgument("The object Id must be not nil")
+                    throw CoreError.IllegalArgument(description: "The object Id must be not nil")
                 }
                 let object = toRealmMapper.map(query.object, inRealm: realm)
                 realm.delete(object)
