@@ -39,7 +39,7 @@ public class AllObjectsQuery : Query {
 
 /// Single object query
 public class ObjectQuery<T> : Query {
-    let object : T
+    public let object : T
     public init(_ object : T) {
         self.object = object
     }
@@ -47,7 +47,7 @@ public class ObjectQuery<T> : Query {
 
 /// Objects query
 public class ObjectsQuery<T> : Query {
-    let objects : [T]
+    public let objects : [T]
     public init(_ objects : [T]) {
         self.objects = objects
     }
