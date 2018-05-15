@@ -32,9 +32,36 @@ public extension Future {
         }
     }
     
+    /// Converts the non-optional typed future to an optional typed future
+    ///
+    /// - Returns: An optional typed future
     public func optional() -> Future<T?> {
-        return self.map { value -> T? in
-            return value
+        return self.map { $0 as T? }
+    }
+    
+    /// Calls the closure when the future is resolved with a nil value.
+    ///
+    /// - Parameter closure: The closure that will return a non-nil value.
+    /// - Returns: A future with a non-optional type.
+    public func fill<K>(_ closure: @escaping () -> K) -> Future<K>  where T == K? {
+        return flatMap { value in
+            guard let value = value else {
+                return Future<K>(closure())
+            }
+            return Future<K>(value)
+        }
+    }
+    
+    /// Calls the closure when the future is resolved with a nil value.
+    ///
+    /// - Parameter closure: The closure that will return a non-optional future.
+    /// - Returns: A future with a non-optional type.
+    public func flatFill<K>(_ closure: @escaping () -> Future<K>) -> Future<K>  where T == K? {
+        return flatMap { value in
+            guard let value = value else {
+                return Future<K>(closure())
+            }
+            return Future<K>(value)
         }
     }
     
