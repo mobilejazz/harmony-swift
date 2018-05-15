@@ -40,15 +40,3 @@ extension QueryById : KeyQuery {
 extension AllObjectsQuery : KeyQuery {
     public var key : String { get { return "allObjects" } }
 }
-
-extension Query {
-    /// Returns the key associated to the query, if available
-    ///
-    /// - Returns: The key
-    public func key() -> String? {
-        if case let query as KeyQuery = self {
-            return query.key
-        }
-        return nil
-    }
-}

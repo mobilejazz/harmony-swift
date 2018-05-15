@@ -28,83 +28,93 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
     }
     
     public override func get(_ query: Query) -> Future<T> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            guard let value : T = keychain.get(query.key) else {
+                return Future(CoreError.notFound)
+            }
+            return Future(value)
+        default:
             return super.get(query)
         }
-        guard let value : T = keychain.get(key) else {
-            return Future(CoreError.notFound)
-        }
-        return Future(value)
     }
     
     public override func getAll(_ query: Query) -> Future<[T]> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            guard let nsarray : NSArray = keychain.get(query.key) else {
+                return Future(CoreError.notFound)
+            }
+            guard let array = nsarray as? [T] else {
+                return Future(CoreError.failed)
+            }
+            return Future(array)
+        default:
             return super.getAll(query)
         }
-        if let nsarray : NSArray = keychain.get(key) {
-            let array = nsarray as! [T]
-            return Future(array)
-        }
-        return Future([])
     }
     
     @discardableResult
     public override func put(_ value: T?, in query: Query) -> Future<T> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            guard let value = value else {
+                return Future(CoreError.illegalArgument)
+            }
+            switch keychain.set(value, forKey: query.key) {
+            case .success:
+                return Future(value)
+            case .failed(_):
+                return Future(CoreError.failed)
+            }
+        default:
             return super.put(value, in: query)
-        }
-        guard let value = value else {
-            return Future(CoreError.illegalArgument)
-        }
-        let result = keychain.set(value, forKey: key)
-        switch result {
-        case .success:
-            return Future(value)
-        case .failed(_):
-            return Future(result)
         }
     }
     
     @discardableResult
     public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            let nsarray = array as NSArray
+            switch keychain.set(nsarray, forKey: query.key) {
+            case .success:
+                return Future(array)
+            case .failed(_):
+                return Future(CoreError.failed)
+            }
+        default:
             return super.putAll(array, in: query)
-        }
-        let nsarray = array as NSArray
-        let result = keychain.set(nsarray, forKey: key)
-        switch result {
-        case .success:
-            return Future(array)
-        case .failed(_):
-            return Future(result)
         }
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Void> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            switch keychain.delete(query.key) {
+            case .success:
+                return Future(Void())
+            case .failed(_):
+                return Future(CoreError.failed)
+            }
+        default:
             return super.delete(query)
-        }
-        let result = keychain.delete(key)
-        switch result {
-        case .success:
-            return Future(Void())
-        case .failed(_):
-            return Future(result)
         }
     }
     
     @discardableResult
     public override func deleteAll(_ query: Query) -> Future<Void> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            switch keychain.delete(query.key) {
+            case .success:
+                return Future(Void())
+            case .failed(_):
+                return Future(CoreError.failed)
+            }
+        default:
             return super.deleteAll(query)
-        }
-        let result = keychain.delete(key)
-        switch result {
-        case .success:
-            return Future(Void())
-        case .failed(_):
-            return Future(result)
         }
     }
 }

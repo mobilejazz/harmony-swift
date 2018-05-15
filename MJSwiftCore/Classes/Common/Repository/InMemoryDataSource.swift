@@ -24,62 +24,74 @@ public class InMemoryDataSource<T> : DataSource<T> {
     public override init() {}
     
     public override func get(_ query: Query) -> Future<T> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            guard let value = objects[query.key] else {
+                return Future(CoreError.notFound)
+            }
+            return Future(value)
+        default:
             return super.get(query)
         }
-        guard let value = objects[key] else {
-            return Future(CoreError.notFound)
-        }
-        return Future(value)
     }
     
     public override func getAll(_ query: Query) -> Future<[T]> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            if let value = arrays[query.key] {
+                return Future(value)
+            }
+            return Future(CoreError.notFound)
+        default:
             return super.getAll(query)
         }
-        if let value = arrays[key] {
-            return Future(value)
-        }
-        return Future([])
     }
     
     @discardableResult
     public override func put(_ value: T? = nil, in query: Query) -> Future<T> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            guard let value = value else {
+                return Future(CoreError.illegalArgument)
+            }
+            objects[query.key] = value
+            return Future(value)
+        default:
             return super.put(value, in: query)
         }
-        guard let value = value else {
-            return Future(CoreError.illegalArgument)
-        }
-        objects[key] = value
-        return Future(value)
     }
     
     @discardableResult
     public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            arrays[query.key] = array
+            return Future(array)
+        default:
             return super.putAll(array, in: query)
         }
-        arrays[key] = array
-        return Future(array)
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Void> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            objects[query.key] = nil
+            return Future(Void())
+        default:
             return super.delete(query)
         }
-        objects[key] = nil
-        return Future(Void())
     }
     
     @discardableResult
     public override func deleteAll(_ query: Query) -> Future<Void> {
-        guard let key = query.key() else {
+        switch query {
+        case let query as KeyQuery:
+            arrays[query.key] = nil
+            return Future(Void())
+        default:
             return super.deleteAll(query)
         }
-        arrays[key] = nil
-        return Future(Void())
     }
 }
 

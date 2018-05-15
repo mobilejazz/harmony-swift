@@ -39,106 +39,119 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
     }
     
     public override func get(_ query: Query) -> Future<T> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            let key = query.key
+            guard let value : T = {
+                switch T.self {
+                case is Int.Type:
+                    return userDefaults.integer(forKey: key) as? T
+                case is [Int].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is Double.Type:
+                    return userDefaults.double(forKey: key) as? T
+                case is [Double].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is Bool.Type:
+                    return userDefaults.bool(forKey: key) as? T
+                case is [Bool].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is Float.Type:
+                    return userDefaults.float(forKey: key) as? T
+                case is [Float].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is Data.Type:
+                    return userDefaults.data(forKey: key) as? T
+                case is [Data].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is String.Type:
+                    return userDefaults.string(forKey: key) as? T
+                case is [String].Type:
+                    return userDefaults.stringArray(forKey: key) as? T
+                case is URL.Type:
+                    return userDefaults.url(forKey: key) as? T
+                case is [URL].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is Date.Type:
+                    return userDefaults.object(forKey: key) as? T
+                case is [Date].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is [Any].Type:
+                    return userDefaults.array(forKey: key) as? T
+                case is [String:Any].Type:
+                    return userDefaults.dictionary(forKey: key) as? T
+                default:
+                    return userDefaults.object(forKey: key) as? T
+                }
+                }() else {
+                    return Future(CoreError.notFound)
+            }
+            return Future(value)
+        default:
             return super.get(query)
         }
-        guard let value : T = {
-            switch T.self {
-            case is Int.Type:
-                return userDefaults.integer(forKey: key) as? T
-            case is [Int].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is Double.Type:
-                return userDefaults.double(forKey: key) as? T
-            case is [Double].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is Bool.Type:
-                return userDefaults.bool(forKey: key) as? T
-            case is [Bool].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is Float.Type:
-                return userDefaults.float(forKey: key) as? T
-            case is [Float].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is Data.Type:
-                return userDefaults.data(forKey: key) as? T
-            case is [Data].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is String.Type:
-                return userDefaults.string(forKey: key) as? T
-            case is [String].Type:
-                return userDefaults.stringArray(forKey: key) as? T
-            case is URL.Type:
-                return userDefaults.url(forKey: key) as? T
-            case is [URL].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is Date.Type:
-                return userDefaults.object(forKey: key) as? T
-            case is [Date].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is [Any].Type:
-                return userDefaults.array(forKey: key) as? T
-            case is [String:Any].Type:
-                return userDefaults.dictionary(forKey: key) as? T
-            default:
-                return userDefaults.object(forKey: key) as? T
-            }
-            }() else {
-            return Future(CoreError.notFound)
-        }
-        return Future(value)
     }
     
     public override func getAll(_ query: Query) -> Future<[T]> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            guard let array = userDefaults.array(forKey: query.key) as? [T] else {
+                return Future(CoreError.notFound)
+            }
+            return Future(array)
+        default:
             return super.getAll(query)
         }
-        if let array = userDefaults.array(forKey: key) as? [T] {
-            return Future(array)
-        }
-        return Future([])
     }
     
     @discardableResult
     public override func put(_ value: T?, in query: Query) -> Future<T> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            guard let value = value else {
+                return Future(CoreError.illegalArgument)
+            }
+            userDefaults.set(value, forKey: query.key)
+            userDefaults.synchronize()
+            return Future(value)
+        default:
             return super.put(value, in: query)
         }
-        guard let value = value else {
-            return Future(CoreError.illegalArgument)
-        }
-        userDefaults.set(value, forKey: key)
-        userDefaults.synchronize()
-        return Future(value)
     }
     
     @discardableResult
     public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            userDefaults.set(array, forKey: query.key)
+            userDefaults.synchronize()
+            return Future(array)
+        default:
             return super.putAll(array, in: query)
         }
-        userDefaults.set(array, forKey: key)
-        userDefaults.synchronize()
-        return Future(array)
     }
     
     @discardableResult
     public override func delete(_ query: Query) -> Future<Void> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            userDefaults.removeObject(forKey: query.key)
+            userDefaults.synchronize()
+            return Future(Void())
+        default:
             return super.delete(query)
         }
-        userDefaults.removeObject(forKey: key)
-        userDefaults.synchronize()
-        return Future(Void())
     }
     
     @discardableResult
     public override func deleteAll(_ query: Query) -> Future<Void> {
-        guard let key = addPrefixTo(query.key()) else {
+        switch query {
+        case let query as KeyQuery:
+            userDefaults.removeObject(forKey: query.key)
+            userDefaults.synchronize()
+            return Future(Void())
+        default:
             return super.deleteAll(query)
         }
-        userDefaults.removeObject(forKey: key)
-        userDefaults.synchronize()
-        return Future(Void())
     }
 }
