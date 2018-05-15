@@ -46,7 +46,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
                 return Future(CoreError.notFound)
             }
             guard let array = nsarray as? [T] else {
-                return Future(CoreError.failed)
+                return Future(CoreError.failed("NSArray to Array<\(String(describing:T.self))> cast failed."))
             }
             return Future(array)
         default:
@@ -59,13 +59,13 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument)
+                return Future(CoreError.illegalArgument("Value cannot be nil"))
             }
             switch keychain.set(value, forKey: query.key) {
             case .success:
                 return Future(value)
-            case .failed(_):
-                return Future(CoreError.failed)
+            case .failed(let status):
+                return Future(CoreError.failed("OSStatus \(status)"))
             }
         default:
             return super.put(value, in: query)
@@ -80,8 +80,8 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             switch keychain.set(nsarray, forKey: query.key) {
             case .success:
                 return Future(array)
-            case .failed(_):
-                return Future(CoreError.failed)
+            case .failed(let status):
+                return Future(CoreError.failed("OSStatus \(status)"))
             }
         default:
             return super.putAll(array, in: query)
@@ -95,8 +95,8 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             switch keychain.delete(query.key) {
             case .success:
                 return Future(Void())
-            case .failed(_):
-                return Future(CoreError.failed)
+            case .failed(let status):
+                return Future(CoreError.failed("OSStatus \(status)"))
             }
         default:
             return super.delete(query)
@@ -110,8 +110,8 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             switch keychain.delete(query.key) {
             case .success:
                 return Future(Void())
-            case .failed(_):
-                return Future(CoreError.failed)
+            case .failed(let status):
+                return Future(CoreError.failed("OSStatus \(status)"))
             }
         default:
             return super.deleteAll(query)

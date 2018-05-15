@@ -52,7 +52,7 @@ public class InMemoryDataSource<T> : DataSource<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
-                return Future(CoreError.illegalArgument)
+                return Future(CoreError.illegalArgument("Value cannot be nil"))
             }
             objects[query.key] = value
             return Future(value)

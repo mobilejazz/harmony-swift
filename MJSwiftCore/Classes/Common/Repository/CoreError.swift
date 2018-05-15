@@ -16,37 +16,48 @@
 
 import Foundation
 
-public enum CoreError : Int, Error {
+///
+/// CoreError
+///
+public enum CoreError : Error {
     public typealias RawValue = Int
     
-    case unkonwn = 0
-    case notFound = 1
-    case illegalArgument = 2
-    case notValid = 3
-    case failed = 4
+    case notFound
+    case illegalArgument(String)
+    case notValid
+    case failed(String)
     
     public var localizedDescription: String {
         switch self {
-        case .unkonwn:
-            return "Unkonwn error"
         case .notFound:
             return "Object not found"
-        case .illegalArgument:
-            return "Illegal argument"
+        case .illegalArgument(let reason):
+            return "Illegal argument: \(reason)"
         case .notValid:
             return "Object is not valid"
-        case .failed:
-            return "Action failed"
+        case .failed(let reason):
+            return "Action failed: \(reason)"
         }
     }
     
     public var code : Int {
-        get { return self.rawValue }
+        get {
+            switch self {
+            case .notFound:
+                return 1
+            case .illegalArgument:
+                return 2
+            case .notValid:
+                return 3
+            case .failed:
+                return 4
+            }
+        }
     }
     
     public static let domain : String = "com.mobilejazz.core"
     
     public func toNSError() -> NSError {
-        return NSError(domain: CoreError.domain, code: self.code, userInfo: [NSLocalizedDescriptionKey : self.localizedDescription])
+        return NSError(domain: CoreError.domain, code: code, userInfo: [NSLocalizedDescriptionKey : localizedDescription])
     }
 }
