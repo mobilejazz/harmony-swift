@@ -39,12 +39,9 @@ public class DataSourceMapper<From,To> : DataSource<From> {
         self.toFromMapper = toFromMapper
     }
     
-    public override func get(_ query: Query) -> Future<From?> {
+    public override func get(_ query: Query) -> Future<From> {
         return dataSource.get(query).map { value in
-            if let value = value {
-                return self.toFromMapper.map(value)
-            }
-            return nil
+            return self.toFromMapper.map(value)
         }
     }
     

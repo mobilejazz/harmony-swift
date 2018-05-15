@@ -33,7 +33,7 @@ public class SingleDataSourceRepository<T> : Repository<T> {
         self.dataSource = dataSource
     }
     
-    public override func get(_ query: Query, operation: Operation = .none) -> Future<T?> {
+    public override func get(_ query: Query, operation: Operation = .none) -> Future<T> {
         return dataSource.get(query)
     }
     

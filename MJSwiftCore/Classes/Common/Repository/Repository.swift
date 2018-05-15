@@ -45,7 +45,7 @@ open class Repository<T> {
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
-    open func get(_ query: Query, operation: Operation) -> Future<T?> {
+    open func get(_ query: Query, operation: Operation) -> Future<T> {
         switch operation {
         default:
             fatalError("Undefined operation \(operation.rawValue) for method get on \(String(describing: type(of:self)))")
@@ -113,7 +113,7 @@ open class Repository<T> {
 }
 
 extension Repository {
-    public func get<K>(_ id: K, operation: Operation = .none) -> Future<T?> where K:Hashable {
+    public func get<K>(_ id: K, operation: Operation = .none) -> Future<T> where K:Hashable {
         return get(QueryById(id), operation: operation)
     }
     

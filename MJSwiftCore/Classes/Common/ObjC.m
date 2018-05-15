@@ -62,4 +62,14 @@
     }
 }
 
++ (NSString*)buildDate
+{
+    return [NSString stringWithUTF8String:__DATE__];
+}
+
++ (NSString*)buildTime
+{
+    return [NSString stringWithUTF8String:__TIME__];
+}
+
 @end

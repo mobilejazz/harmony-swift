@@ -40,10 +40,32 @@ public class NetworkStorageRepository<T> : Repository<T>  {
         self.storage = storage
     }
     
-    public override func get(_ query: Query, operation: Operation = .storageSync) -> Future<T?> {
-        return getAll(query, operation: operation).map { array in
-            return array.first
-        }
+    public override func get(_ query: Query, operation: Operation = .storageSync) -> Future<T> {
+        return { () -> Future<T> in
+            switch operation {
+            case .network:
+                return network.get(query)
+            case .storage:
+                return storage.get(query)
+            case .networkSync:
+                return network.get(query).filter { entity in
+                    self.storage.put(entity, in: query)
+                }
+            case .storageSync:
+                return storage.get(query).recover { error in
+                    switch error {
+                    case CoreError.notValid:
+                        return self.network.get(query).filter { entity in
+                            self.storage.put(entity, in: query)
+                        }
+                    default:
+                        return Future(error)
+                    }
+                }
+            default:
+                return super.get(query, operation: operation)
+            }
+            }()
     }
     
     public override func getAll(_ query: Query, operation: Operation = .storageSync) -> Future<[T]> {
@@ -60,7 +82,7 @@ public class NetworkStorageRepository<T> : Repository<T>  {
             case .storageSync:
                 return storage.getAll(query).recover { error in
                     switch error {
-                    case ValidationError.notValid:
+                    case CoreError.notValid:
                         return self.network.getAll(query).filter { entities in
                             self.storage.putAll(entities, in: query)
                         }

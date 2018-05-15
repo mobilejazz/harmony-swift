@@ -27,11 +27,13 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         self.keychain = keychain
     }
     
-    public override func get(_ query: Query) -> Future<T?> {
+    public override func get(_ query: Query) -> Future<T> {
         guard let key = query.key() else {
             return super.get(query)
         }
-        let value : T? = keychain.get(key)
+        guard let value : T = keychain.get(key) else {
+            return Future(CoreError.notFound)
+        }
         return Future(value)
     }
     
@@ -51,10 +53,13 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         guard let key = query.key() else {
             return super.put(value, in: query)
         }
-        let result = keychain.set(value!, forKey: key)
+        guard let value = value else {
+            return Future(CoreError.illegalArgument)
+        }
+        let result = keychain.set(value, forKey: key)
         switch result {
         case .success:
-            return Future(value!)
+            return Future(value)
         case .failed(_):
             return Future(result)
         }

@@ -63,8 +63,8 @@ open class DataSource <T> {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A Future of an optional repository's type
-    open func get(_ query: Query) -> Future<T?> {
+    /// - Returns: A Future containing the fetched object or an error .notFound if not found
+    open func get(_ query: Query) -> Future<T> {
         switch query {
         default:
             fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
@@ -132,7 +132,7 @@ open class DataSource <T> {
 }
 
 extension DataSource {
-    public func get<K>(_ id: K) -> Future<T?> where K:Hashable {
+    public func get<K>(_ id: K) -> Future<T> where K:Hashable {
         return get(QueryById(id))
     }
     

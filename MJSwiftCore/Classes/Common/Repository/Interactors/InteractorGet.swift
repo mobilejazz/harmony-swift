@@ -21,14 +21,14 @@ extension Interactor {
     /// Generic get object interactor
     ///
     public class GetByQuery<T> : QueryInteractor<T> {
-        public func execute(_ query: Query = BlankQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
+        public func execute(_ query: Query = BlankQuery(), _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(query, operation: operation))
             }
         }
         
-        public func execute<K>(_ id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> where K:Hashable {
+        public func execute<K>(_ id: K, _ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(id, operation: operation))
@@ -40,7 +40,7 @@ extension Interactor {
     /// Generic get object interactor with a prefilled query
     ///
     public class Get<T> : DirectInteractor<T> {
-        public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<T?> {
+        public func execute(_ operation: Operation = .none, in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(self.query, operation: operation))

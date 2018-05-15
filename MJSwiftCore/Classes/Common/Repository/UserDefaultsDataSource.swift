@@ -38,11 +38,11 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
         }
     }
     
-    public override func get(_ query: Query) -> Future<T?> {
+    public override func get(_ query: Query) -> Future<T> {
         guard let key = addPrefixTo(query.key()) else {
             return super.get(query)
         }
-        let value : T? = {
+        guard let value : T = {
             switch T.self {
             case is Int.Type:
                 return userDefaults.integer(forKey: key) as? T
@@ -83,7 +83,9 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
             default:
                 return userDefaults.object(forKey: key) as? T
             }
-        }()
+            }() else {
+            return Future(CoreError.notFound)
+        }
         return Future(value)
     }
     
@@ -102,9 +104,12 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
         guard let key = addPrefixTo(query.key()) else {
             return super.put(value, in: query)
         }
-        userDefaults.set(value!, forKey: key)
+        guard let value = value else {
+            return Future(CoreError.illegalArgument)
+        }
+        userDefaults.set(value, forKey: key)
         userDefaults.synchronize()
-        return Future(value!)
+        return Future(value)
     }
     
     @discardableResult

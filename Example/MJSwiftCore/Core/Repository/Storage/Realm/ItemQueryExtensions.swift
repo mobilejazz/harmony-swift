@@ -10,7 +10,7 @@ import Foundation
 import MJSwiftCore
 
 extension SearchItemsQuery : RealmQuery {
-    func realmPredicate() -> NSPredicate? {
-        return NSPredicate(format: "name CONTAINS %@", text)
+    var realmPredicate : NSPredicate {
+        get { return NSPredicate(format: "name CONTAINS %@", text) }
     }
 }

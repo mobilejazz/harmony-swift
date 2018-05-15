@@ -17,7 +17,7 @@
 import Foundation
 
 extension FutureError {
-    /// - network: Data stream will only use network
+    /// - nilValue: The optional can't be unwraped because it is nil
     public static let nilValue = FutureError(rawValue: "Cannot unwrap because value is nil")
 }
 

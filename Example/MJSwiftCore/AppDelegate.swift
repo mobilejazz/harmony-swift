@@ -46,11 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 1
         get.execute().then { value in
             // 2
-            if let value = value {
-                print("value: \(value)")
-            } else {
-                print("value not stored")
-            }
+            print("value: \(value)")
             }.fail { error in
                 print("Error: \(error)")
         }
@@ -66,11 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 5
         get.execute().then { value in
             // 6
-            if let value = value {
-                print("value: \(value)")
-            } else {
-                print("value not stored")
-            }
+            print("value: \(value)")
             }.fail { error in
                 print("Error: \(error)")
         }

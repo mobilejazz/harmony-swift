@@ -23,11 +23,13 @@ public class InMemoryDataSource<T> : DataSource<T> {
     
     public override init() {}
     
-    public override func get(_ query: Query) -> Future<T?> {
+    public override func get(_ query: Query) -> Future<T> {
         guard let key = query.key() else {
             return super.get(query)
         }
-        let value = objects[key]
+        guard let value = objects[key] else {
+            return Future(CoreError.notFound)
+        }
         return Future(value)
     }
     
@@ -46,8 +48,11 @@ public class InMemoryDataSource<T> : DataSource<T> {
         guard let key = query.key() else {
             return super.put(value, in: query)
         }
-        objects[key] = value!
-        return Future(value!)
+        guard let value = value else {
+            return Future(CoreError.illegalArgument)
+        }
+        objects[key] = value
+        return Future(value)
     }
     
     @discardableResult

@@ -11,7 +11,7 @@ import MJCocoaCore
 
 class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
-    override func get(_ query: Query) -> Future<ItemEntity?> {
+    override func get(_ query: Query) -> Future<ItemEntity> {
         switch query.self {
         case is QueryById<String>:
             return getById((query as! QueryById<String>).id)
@@ -22,8 +22,6 @@ class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
     override func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
-        case is QueryById<String>:
-            return getById((query as! QueryById<String>).id).map { [$0!] }
         case is AllObjectsQuery:
             return getAllItems()
         case is SearchItemsQuery:
@@ -35,16 +33,16 @@ class ItemNetworkService: AlamofireDataSource<ItemEntity> {
 }
 
 private extension ItemNetworkService {
-    private func getById(_ id: String) -> Future<ItemEntity?> {
+    private func getById(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in
-            if let json = json {
-                let future = json.decodeAs(ItemEntity.self) { item in
-                    item.lastUpdate = Date()
-                }
-                return future.optional()
+            guard let json = json  else {
+                return Future(CoreError.notFound)
             }
-            return Future(nil)
+            let future = json.decodeAs(ItemEntity.self) { item in
+                item.lastUpdate = Date()
+            }
+            return future
         }
     }
     

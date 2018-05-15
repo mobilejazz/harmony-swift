@@ -16,12 +16,6 @@
 
 import Foundation
 
-/// Custom validation errors
-public enum ValidationError : Error {
-    // Validation is not valid
-    case notValid
-}
-
 /// Object validation interface
 public protocol ObjectValidation {
     /// Validates an object
@@ -75,10 +69,10 @@ public class DataSourceValidator<T>: DataSource<T> {
         self.validator = validator
     }
     
-    public override func get(_ query: Query) -> Future<T?> {
+    public override func get(_ query: Query) -> Future<T> {
         return dataSource.get(query).filter { value in
             if !self.validator.isObjectValid(value) {
-                throw ValidationError.notValid
+                throw CoreError.notValid
             }
         }
     }
@@ -86,7 +80,7 @@ public class DataSourceValidator<T>: DataSource<T> {
     public override func getAll(_ query: Query) -> Future<[T]> {
         return dataSource.getAll(query).filter { values in
             if !self.validator.isArrayValid(values) {
-                throw ValidationError.notValid
+                throw CoreError.notValid
             }
         }
     }

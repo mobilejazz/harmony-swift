@@ -36,23 +36,23 @@ public struct RealmHandler {
     /// Read method.
     ///
     /// - Parameter closure: A closure providing a realm to execute read queries.
-    public func read(_ closure: (Realm) -> Void) {
+    public func read(_ closure: (Realm) throws -> Void) throws {
         let realm = realmFactory.realm()
-        closure(realm)
+        try closure(realm)
     }
     
     /// Write method.
     ///
     /// - Parameter closure: A closure providing a realm to execute write queries.
     /// - Throws: If error, the transaction is canceled and the error is thrown.
-    public func write(_ closure: (Realm) -> Void) throws {
+    public func write(_ closure: (Realm) throws -> Void) throws {
         let realm = realmFactory.realm()
         if realm.isInWriteTransaction {
-            closure(realm)
+            try closure(realm)
         } else {
             realm.beginWrite()
             do {
-                closure(realm)
+                try closure(realm)
                 try realm.commitWrite()
                 realm.refresh()
                 NotificationCenter.default.post(name: NSNotification.Name(RealmHandlerDidCommitTransactionNotification),

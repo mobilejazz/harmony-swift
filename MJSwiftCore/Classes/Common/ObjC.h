@@ -22,6 +22,9 @@
 + (void)try:(void(^_Nonnull)(void))try catch:(void(^_Nonnull)(NSException*_Nonnull))catch;
 + (void)try:(void(^_Nonnull)(void))try catch:(void(^_Nonnull)(NSException*_Nonnull))catch finally:(void(^_Nonnull)(void))finally;
 
++ (NSString* _Nonnull)buildDate;
++ (NSString* _Nonnull)buildTime;
+
 @end
 
 @interface NSException (toNSError)

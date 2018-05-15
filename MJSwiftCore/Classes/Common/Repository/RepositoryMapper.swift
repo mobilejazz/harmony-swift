@@ -39,11 +39,8 @@ public class RepositoryMapper<From,To>: Repository<From> {
         self.toFromMapper = toFromMapper
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<From?> {
+    public override func get(_ query: Query, operation: Operation) -> Future<From> {
         return repository.get(query, operation: operation).map { value in
-            guard let value = value else {
-                return nil
-            }
             return self.toFromMapper.map(value)
         }
     }
