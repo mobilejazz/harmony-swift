@@ -414,6 +414,7 @@
 		D1575AAADDCEA395E3828EBAC2A772FA /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29067CBBB9F908C49DCB6DC84B86C10E /* Box.swift */; };
 		D164A1B9031D2B6F8DBBD09096B6F1C2 /* KeychainSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3AD4FDC24AED99C67B86D614AFCFF /* KeychainSetInteractor.swift */; };
 		D252EBD420AAB818000188A2 /* CoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBD220AAB80F000188A2 /* CoreError.swift */; };
+		D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBDC20AC0D1B000188A2 /* ClassError.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
 		D30B7A8F1F700DCB56F0C85F475A3361 /* Promise+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D59B849274008907E74DCDF26B88D /* Promise+Resolve.swift */; };
@@ -1149,6 +1150,7 @@
 		D1DA7665261618522E00AD569992940A /* FBLPromise+Resolve.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Resolve.m"; path = "Sources/FBLPromises/FBLPromise+Resolve.m"; sourceTree = "<group>"; };
 		D203EAB4D303D218AC4967A72321D0AE /* RLMSyncPermission.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMSyncPermission.mm; path = Realm/RLMSyncPermission.mm; sourceTree = "<group>"; };
 		D252EBD220AAB80F000188A2 /* CoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreError.swift; sourceTree = "<group>"; };
+		D252EBDC20AC0D1B000188A2 /* ClassError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassError.swift; path = MJSwiftCore/Classes/Common/ClassError.swift; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
@@ -2175,6 +2177,7 @@
 				C4CB15500398E080B0DC2C9B4DAC9B24 /* Mapper.swift */,
 				DC4D08B226982AE884D737114FDFD2A7 /* Mapper+Codable.swift */,
 				C3D43D15658AC1257C7EE14686B12186 /* Mapper+NSCoding.swift */,
+				D252EBDC20AC0D1B000188A2 /* ClassError.swift */,
 				2E8518894150254F7A393BA6CAEFD70E /* Model.swift */,
 				5EC50CEB34CD7FBB2F244D5E82E3FEAD /* ObjC.h */,
 				6E071FCE140966049527BC7B982EE4EF /* ObjC.m */,
@@ -2994,6 +2997,7 @@
 				899A3D310CF400C758701587D2863D83 /* readme-macOS.swift in Sources */,
 				6187BA6A8B614E71394BEF724C41E06C /* RealmDataSource.swift in Sources */,
 				D94AE1A82EF11AABEB7DE8E912FECB9B /* RealmFactory.swift in Sources */,
+				D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */,
 				D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */,
 				DDC260200B674FB82DE7CEDFA5440147 /* RealmHandler.swift in Sources */,
 				752EF763C7D4A22B9262D775B1F166E6 /* RealmMapper.swift in Sources */,

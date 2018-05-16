@@ -23,15 +23,6 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 public class KeychainGetInteractor {
     
-    /// Custom interactor errors
-    public enum CustomError: Error {
-        /// Value was not found for the given key
-        case notFound
-        var localizedDescription: String {
-            return "No found keychain data for the given key"
-        }
-    }
-    
     private let executor : Executor
     private let keychain : Keychain
     private let key : String
@@ -64,7 +55,7 @@ public class KeychainGetInteractor {
             if let result : T = self.keychain.get(self.key) {
                 future.set(result)
             } else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
             }
         }
     }

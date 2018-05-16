@@ -23,18 +23,6 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 public class KeychainSetInteractor {
     
-    /// Custom interactor errors
-    public enum CustomError: Error {
-        /// Set action failed
-        case failed(OSStatus)
-        var localizedDescription: String {
-            switch self {
-            case .failed(let status):
-                return "Keychain request failed with status: \(status)"
-            }
-        }
-    }
-    
     private let executor : Executor
     private let keychain : Keychain
     private let key : String
@@ -63,13 +51,13 @@ public class KeychainSetInteractor {
     ///
     /// - Returns: A future for the result value or error
     public func execute<T>(_ value : T) -> Future<Bool> where T:Encodable {
-        return executor.submit { future in
+        return executor.submit { resolver in
             let result = self.keychain.set(value, forKey: self.key)
             switch result {
             case .success:
-                future.set(true)
+                resolver.set(true)
             case .failed(let status):
-                future.set(CustomError.failed(status))
+                resolver.set(CoreError.Failed(description: "Keychain failed to set value for key \(self.key) (OSStatus \(status))", userInfo: ["OSStatus": status]))
             }
         }
     }

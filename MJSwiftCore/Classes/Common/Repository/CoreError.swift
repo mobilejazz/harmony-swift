@@ -16,43 +16,37 @@
 
 import Foundation
 
-public class CoreError : Error, CustomStringConvertible {
+///
+/// CoreError is used as a namespace
+///
+public struct CoreError {
     
-    public let code : Int
-    public let description : String
-    
-    public init(code: Int = 0, description: String = "") {
-        self.code = code
-        self.description = description
+    /// Not found error
+    public class NotFound : ClassError {
+        public init(description: String = "Not Found", userInfo: [String : Any] = [:]) {
+            super.init(code: 1, description: description, userInfo: userInfo)
+        }
     }
     
-    public var localizedDescription: String {
-        return description
+    /// Illegal argument error
+    public class IllegalArgument : ClassError {
+        public init(description: String = "Ilegal Argument", userInfo: [String : Any] = [:]) {
+            super.init(code: 2, description: description, userInfo: userInfo)
+        }
     }
     
-    public static let domain : String = "com.mobilejazz.core"
-    
-    public func toNSError() -> NSError {
-        return NSError(domain: CoreError.domain, code: code, userInfo: [NSLocalizedDescriptionKey : localizedDescription])
-    }
-}
-
-extension CoreError {
-    
-    public class NotFound : CoreError {
-        public init(description: String = "Not Found") { super.init(code: 1, description: description) }
+    /// Not valid error
+    public class NotValid : ClassError {
+        public init(description: String = "Object is not valid", userInfo: [String : Any] = [:]) {
+            super.init(code: 3, description: description, userInfo: userInfo)
+        }
     }
     
-    public class IllegalArgument : CoreError {
-        public init(description: String = "Ilegal Argument") { super.init(code: 2, description: description) }
-    }
-    
-    public class NotValid : CoreError {
-        public init(description: String = "Object is not valid") { super.init(code: 3, description: description) }
-    }
-    
-    public class Failed : CoreError {
-        public init(description: String = "Action failed") { super.init(code: 4, description: description) }
+    /// Failed error
+    public class Failed : ClassError {
+        public init(description: String = "Action failed", userInfo: [String : Any] = [:]) {
+            super.init(code: 4, description: description, userInfo: userInfo)
+        }
     }
 }
 

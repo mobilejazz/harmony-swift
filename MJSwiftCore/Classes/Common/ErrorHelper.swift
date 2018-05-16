@@ -16,34 +16,17 @@
 
 import Foundation
 
-public enum GenericError : Error {
-    case unknown
-    case string(String)
-    case int(Int)
-    case object(AnyObject)
-    
-    public var localizedDescription: String {
-        switch self {
-        case .unknown:
-            return "Error : Unknown"
-        case .string(let string):
-            return "Error : \(string)"
-        case .int(let value):
-            return "Error : \(value)"
-        case .object(let object):
-            return "Error: \(object)"
-        }
-    }
-}
-
-public func NSErrorDomain(_ string: String = "", domain: String = "\(Bundle.main.bundleIdentifier!)") -> String {
-    return domain + "." + string
-}
-
 public extension NSError {
+    public static func domain(_ string: String = "", base: String = "\(Bundle.main.bundleIdentifier!)") -> String {
+        if string.count > 0 {
+            return base + "." + string
+        }
+        return base
+    }
+    
     public convenience init(_ message: String,
                             reason: String? = nil,
-                            domain: String = NSErrorDomain(),
+                            domain: String = NSError.domain(),
                             code: Int = 0,
                             userInfo: (inout [String : Any]) -> Void = { _ in }) {
         var userInfoDict: [String : Any] = [NSLocalizedDescriptionKey : message]
@@ -59,6 +42,6 @@ public extension NSError {
                             subdomain: String,
                             code: Int = 0,
                             userInfo: (inout [String : Any]) -> Void = { _ in }) {
-        self.init(message, reason: reason, domain: NSErrorDomain(subdomain), code: code, userInfo: userInfo )
+        self.init(message, reason: reason, domain: NSError.domain(subdomain), code: code, userInfo: userInfo )
     }
 }

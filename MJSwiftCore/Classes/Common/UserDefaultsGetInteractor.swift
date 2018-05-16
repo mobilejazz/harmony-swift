@@ -22,17 +22,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 /// Generic interactor to get values from the UserDefaults
 ///
 public class UserDefaultsGetInteractor<T> {
-    
-    /// Custom interactor errors
-    public enum CustomError: Error {
-        /// Value was not found for the given key
-        case notFound
-        
-        var localizedDescription: String {
-            return "No found value for the given key"
-        }
-    }
-    
+
     private let executor : Executor
     private let userDefaults : UserDefaults
     private let key : String
@@ -65,7 +55,7 @@ extension UserDefaultsGetInteractor where T == Any {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.object(forKey: self.key) else {
-                future.set(value:nil, error:CustomError.notFound)
+                future.set(value:nil, error:CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value:value, error:nil)
@@ -80,7 +70,7 @@ extension UserDefaultsGetInteractor where T == [Any] {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.array(forKey: self.key) else {
-                future.set(value:nil, error:CustomError.notFound)
+                future.set(value:nil, error:CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value:value, error:nil)
@@ -96,7 +86,7 @@ extension UserDefaultsGetInteractor where T == [String : Any] {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.dictionary(forKey: self.key) else {
-                future.set(value:nil, error:CustomError.notFound)
+                future.set(value:nil, error:CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value:value, error:nil)
@@ -111,7 +101,7 @@ extension UserDefaultsGetInteractor where T == Date {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.object(forKey: self.key) else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value as! Date)
@@ -138,7 +128,7 @@ extension UserDefaultsGetInteractor where T == URL {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.url(forKey: self.key) else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value)
@@ -165,7 +155,7 @@ extension UserDefaultsGetInteractor where T == String {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.string(forKey: self.key) else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value)
@@ -180,7 +170,7 @@ extension UserDefaultsGetInteractor where T == [String] {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.stringArray(forKey: self.key) else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value)
@@ -195,7 +185,7 @@ extension UserDefaultsGetInteractor where T == Data {
     public func execute() -> Future<T> {
         return executor.submit { future in
             guard let value = self.userDefaults.data(forKey: self.key) else {
-                future.set(CustomError.notFound)
+                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
                 return
             }
             future.set(value)

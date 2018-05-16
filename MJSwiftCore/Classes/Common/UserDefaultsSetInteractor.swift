@@ -47,15 +47,15 @@ public class UserDefaultsSetInteractor<T> {
         self.init(defaultExecutor, UserDefaults.standard, key)
     }
     
-    private func _execute(_ value: T?) -> Future<Bool> {
+    private func _execute(_ value: T?) -> Future<Void> {
         return executor.submit { future in
             if let value = value {
                 self.userDefaults.set(value, forKey: self.key)
             } else {
                 self.userDefaults.removeObject(forKey: self.key)
             }
-            let result = self.userDefaults.synchronize()
-            future.set(result)
+            self.userDefaults.synchronize()
+            future.set()
         }
     }
 }
@@ -65,7 +65,7 @@ extension UserDefaultsSetInteractor where T == [String : Any] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -75,7 +75,7 @@ extension UserDefaultsSetInteractor where T == Any {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -85,7 +85,7 @@ extension UserDefaultsSetInteractor where T == [Any] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -95,7 +95,7 @@ extension UserDefaultsSetInteractor where T == Data {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -105,7 +105,7 @@ extension UserDefaultsSetInteractor where T == [Data] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -115,7 +115,7 @@ extension UserDefaultsSetInteractor where T == String {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -125,7 +125,7 @@ extension UserDefaultsSetInteractor where T == [String] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -135,7 +135,7 @@ extension UserDefaultsSetInteractor where T == NSNumber {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -145,7 +145,7 @@ extension UserDefaultsSetInteractor where T == [NSNumber] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -155,7 +155,7 @@ extension UserDefaultsSetInteractor where T == Date {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -165,7 +165,7 @@ extension UserDefaultsSetInteractor where T == [Date] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -175,7 +175,7 @@ extension UserDefaultsSetInteractor where T == Float {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -185,7 +185,7 @@ extension UserDefaultsSetInteractor where T == [Float] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -195,7 +195,7 @@ extension UserDefaultsSetInteractor where T == Double {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -205,7 +205,7 @@ extension UserDefaultsSetInteractor where T == [Double] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -215,7 +215,7 @@ extension UserDefaultsSetInteractor where T == Int {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -225,7 +225,7 @@ extension UserDefaultsSetInteractor where T == [Int] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -235,7 +235,7 @@ extension UserDefaultsSetInteractor where T == Bool {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -245,7 +245,7 @@ extension UserDefaultsSetInteractor where T == [Bool] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -255,7 +255,7 @@ extension UserDefaultsSetInteractor where T == URL {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
@@ -265,7 +265,7 @@ extension UserDefaultsSetInteractor where T == [URL] {
     /// Pass nil to remove the value from the user defaults.
     ///
     /// - Returns: A future for the success result or error
-    public func execute(_ value: T?) -> Future<Bool> {
+    public func execute(_ value: T?) -> Future<Void> {
         return _execute(value)
     }
 }
