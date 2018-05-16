@@ -42,25 +42,37 @@ import Foundation
 ///
 open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvertible, Equatable, Hashable {
     
+    /// The error's domain
+    public let domain : String
+    
     /// The error's code
     public let code : Int
     
     /// The error's description
     public let description : String
     
-    /// THe error's user info
+    /// The error's user info
     public let userInfo : [String : Any]
     
     /// Main initializer
     ///
     /// - Parameters:
+    ///   - domain:  The error's context. Default value is "default".
     ///   - code: The error's code
     ///   - description: The error's description
     ///   - userInfo: The error's user info (default is empty dictionary)
-    public init(code: Int, description: String, userInfo: [String : Any] = [:]) {
+    public init(domain: String = "default" , code: Int, description: String, userInfo: [String : Any] = [:]) {
+        self.domain = domain
         self.code = code
         self.description = description
         self.userInfo = userInfo
+    }
+    
+    /// Convenience initializer
+    ///
+    /// - Parameter error: The NSError error
+    public convenience init(_ error: NSError) {
+        self.init(domain: error.domain, code: error.code, description: error.localizedDescription, userInfo: error.userInfo)
     }
     
     /// Localized error description
@@ -73,21 +85,22 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
         return "Error Code <\(code)>: \(description) - User Info: \(userInfo)"
     }
     
-    /// Equatable
+    /// Two ClassError are the same if code and domain are the same.
     public static func ==(lhs: ClassError, rhs: ClassError) -> Bool {
-        return lhs.code == rhs.code
+        return lhs.code == rhs.code && lhs.domain == rhs.domain
     }
     
-    /// Hashable
+    /// Hash method
     public var hashValue: Int {
-        return code.hashValue
+        return "\(domain).\(code)".hashValue
     }
     
     /// Converts the CoreError into a NSError format
-    /// The default error domain is the one returned by NSError.domain()
-    public func toNSError(domain: String = NSError.domain()) -> NSError {
+    /// - Parameter domain: The domain for the NSError. If nil (default), the domain used is self.domain
+    /// - Returns: An NSError instnace
+    public func toNSError(domain: String? = nil) -> NSError {
         var userInfo = self.userInfo
         userInfo[NSLocalizedDescriptionKey] = localizedDescription
-        return NSError(domain: domain, code: code, userInfo: userInfo)
+        return NSError(domain: domain ?? self.domain, code: code, userInfo: userInfo)
     }
 }

@@ -21,31 +21,34 @@ import Foundation
 ///
 public struct CoreError {
     
+    // The domain for all CoreError errors.
+    public static let domain = "com.mobilejazz.core.error"
+    
     /// Not found error
     public class NotFound : ClassError {
         public init(description: String = "Not Found", userInfo: [String : Any] = [:]) {
-            super.init(code: 1, description: description, userInfo: userInfo)
+            super.init(domain:CoreError.domain, code: 1, description: description, userInfo: userInfo)
         }
     }
     
     /// Illegal argument error
     public class IllegalArgument : ClassError {
         public init(description: String = "Ilegal Argument", userInfo: [String : Any] = [:]) {
-            super.init(code: 2, description: description, userInfo: userInfo)
+            super.init(domain:CoreError.domain, code: 2, description: description, userInfo: userInfo)
         }
     }
     
     /// Not valid error
     public class NotValid : ClassError {
         public init(description: String = "Object is not valid", userInfo: [String : Any] = [:]) {
-            super.init(code: 3, description: description, userInfo: userInfo)
+            super.init(domain:CoreError.domain, code: 3, description: description, userInfo: userInfo)
         }
     }
     
     /// Failed error
     public class Failed : ClassError {
         public init(description: String = "Action failed", userInfo: [String : Any] = [:]) {
-            super.init(code: 4, description: description, userInfo: userInfo)
+            super.init(domain:CoreError.domain, code: 4, description: description, userInfo: userInfo)
         }
     }
 }

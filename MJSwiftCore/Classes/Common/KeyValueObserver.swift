@@ -21,8 +21,7 @@ import Foundation
 ///
 public class KeyValueObserver<V> : NSObject where V : Any {
     
-    private lazy var context = "com.mobilejazz.\(String(describing: self)).\(self.keyPath)"
-    
+    private var context : String
     private let resolver : FutureResolver<V>
     private var keyPath : String
     private var target : NSObject
@@ -49,6 +48,7 @@ public class KeyValueObserver<V> : NSObject where V : Any {
         self.keyPath = keyPath
         self.target = target
         self.resolver = resolver
+        self.context = "com.mobilejazz.KeyValueObserver<\(String(describing: V.self))>.\(keyPath)"
         super.init()
         self.target.addObserver(self, forKeyPath: keyPath, options: .new, context: &context)
     }
@@ -62,8 +62,7 @@ public class KeyValueObserver<V> : NSObject where V : Any {
             if let value = change?[NSKeyValueChangeKey.newKey] {
                 resolver.set(value as! V)
             }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
 }
+

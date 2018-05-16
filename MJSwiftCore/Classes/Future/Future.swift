@@ -16,28 +16,22 @@
 
 import Foundation
 
-public struct FutureError : RawRepresentable, Equatable, Hashable, CustomStringConvertible, Error {
-    public typealias RawValue = String
-    public var rawValue: String
-    public var hashValue: Int { return rawValue.hashValue }
-    public static func ==(lhs: FutureError, rhs: FutureError) -> Bool { return lhs.rawValue == rhs.rawValue }
-    public init(rawValue: String) { self.rawValue = rawValue }
-    public var description: String { return rawValue }
+fileprivate struct FutureError : Error {
+    let description : String
+    init(_ description: String) {
+        self.description = description
+    }
+}
+
+extension FutureError {
+    /// Future content has already been set
+    fileprivate static let thenAlreadySet = FutureError("Then already set: cannot set a new then closure once is already set.")
     
     /// Future content has already been set
-    internal static let contentAlreadySet = FutureError(rawValue:"Content already set: cannot set new content once is already set.")
+    fileprivate static let alreadySent = FutureError("Future is already sent.")
     
     /// Future content has already been set
-    internal static let thenAlreadySet = FutureError(rawValue:"Then already set: cannot set a new then closure once is already set.")
-    
-    /// Future content has already been set
-    internal static let alreadySent = FutureError(rawValue:"Future is already sent.")
-    
-    /// Future content has already been set
-    internal static let notReactive = FutureError(rawValue:"Future is not reactive and can't be completed.")
-    
-    /// Future content has already been set
-    internal static let missingLambda = FutureError(rawValue:"Future cannot be sent as the then clousre hasn't been defined")
+    fileprivate static let missingLambda = FutureError("Future cannot be sent as the then clousre hasn't been defined")
 }
 
 ///
@@ -77,6 +71,7 @@ public struct FutureResolver<T> {
 }
 
 extension FutureResolver where T==Void {
+    /// Sets the future with a void value
     public func set() {
         future.set()
     }

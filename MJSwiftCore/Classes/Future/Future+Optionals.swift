@@ -16,17 +16,16 @@
 
 import Foundation
 
-extension FutureError {
-    /// - nilValue: The optional can't be unwraped because it is nil
-    public static let nilValue = FutureError(rawValue: "Cannot unwrap because value is nil")
-}
+
+/// Future can't unrwap because value is nil error
+public class FutureNilValueError : Error { public init() {} }
 
 public extension Future {
     /// Unwrapes a future of an optional type, returning a future of a non-optional type
     public func unwrap<K>() -> Future<K> where T == K? {
         return flatMap { value in
             guard let value = value else {
-                return Future<K>(FutureError.nilValue)
+                return Future<K>(FutureNilValueError())
             }
             return Future<K>(value)
         }
