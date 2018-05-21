@@ -30,51 +30,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
-        let executor = OperationQueueExecutor() // <- This is a background execution executor
-        //let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
         
-        //let dataSource = UserDefaultsDataSource<Bool>()
-        let dataSource : DataSource<Bool> = InMemoryDataSource<Bool>()
-        //let dataSource = KeychainDataSource<Bool>(Keychain())
-        
-        let key = "com.test.1"
-        
-        let get = Interactor.Get<Bool>(executor, dataSource.toRepository(), key)
-        let put = Interactor.Put<Bool>(executor, dataSource.toRepository(), key)
-        let delete = Interactor.Delete<Bool>(executor, dataSource.toRepository(), key)
-        
-        // 1
-        get.execute().then { value in
-            // 2
-            print("value: \(value)")
-            }.fail { error in
-                print("Error: \(error)")
-        }
-
-        // 3
-        put.execute(true).then { success in
-            // 4
-            print("success: \(success)")
-            }.fail { error in
-                print("Error: \(error)")
-        }
-
-        // 5
-        get.execute().then { value in
-            // 6
-            print("value: \(value)")
-            }.fail { error in
-                print("Error: \(error)")
-        }
-
-        // 6
-        delete.execute().then {
-            // 7
-            print("Delete success")
-            }.fail { error in
-                print("Error: \(error)")
-        }
-        
+//        let executor = OperationQueueExecutor() // <- This is a background execution executor
+//        //let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
+//
+//        //let dataSource = UserDefaultsDataSource<Bool>()
+//        let dataSource : DataSource<Bool> = InMemoryDataSource<Bool>()
+//        //let dataSource = KeychainDataSource<Bool>(Keychain())
+//
+//        let key = "com.test.1"
+//
+//        let get = Interactor.Get<Bool>(executor, dataSource.toRepository(), key)
+//        let put = Interactor.Put<Bool>(executor, dataSource.toRepository(), key)
+//        let delete = Interactor.Delete<Bool>(executor, dataSource.toRepository(), key)
+//
+//        // 1
+//        get.execute().then { value in
+//            // 2
+//            print("value: \(value)")
+//            }.fail { error in
+//                print("Error: \(error)")
+//        }
+//
+//        // 3
+//        put.execute(true).then { success in
+//            // 4
+//            print("success: \(success)")
+//            }.fail { error in
+//                print("Error: \(error)")
+//        }
+//
+//        // 5
+//        get.execute().then { value in
+//            // 6
+//            print("value: \(value)")
+//            }.fail { error in
+//                print("Error: \(error)")
+//        }
+//
+//        // 6
+//        delete.execute().then {
+//            // 7
+//            print("Delete success")
+//            }.fail { error in
+//                print("Error: \(error)")
+//        }
+//
         return true
     }
     

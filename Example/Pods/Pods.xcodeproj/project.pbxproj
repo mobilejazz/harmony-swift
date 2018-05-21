@@ -417,6 +417,7 @@
 		D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBDC20AC0D1B000188A2 /* ClassError.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
+		D2D752D920B2BA9F00386BBF /* Array+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */; };
 		D30B7A8F1F700DCB56F0C85F475A3361 /* Promise+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D59B849274008907E74DCDF26B88D /* Promise+Resolve.swift */; };
 		D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0208CED19718E626E411E23DE1D29E1A /* RealmHandler+Future.swift */; };
 		D5C2EC219E066A7A32D120BE41D06CF3 /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E839B3343678C7C1647FF5B46CD57380 /* Future+Batch.swift */; };
@@ -1153,6 +1154,7 @@
 		D252EBDC20AC0D1B000188A2 /* ClassError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassError.swift; path = MJSwiftCore/Classes/Common/ClassError.swift; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
+		D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+BinarySearch.swift"; path = "MJSwiftCore/Classes/Common/Array+BinarySearch.swift"; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
 		D2F3D6EC06490C778CBE0603D5BAA585 /* FBLPromise+Timeout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Timeout.h"; path = "Sources/FBLPromises/include/FBLPromise+Timeout.h"; sourceTree = "<group>"; };
 		D3B7DA96354A703F0DAC763FE5C03BBE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2165,6 +2167,7 @@
 		F488C1E83B72895B582A0D87FD21CD29 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */,
 				7261E3438226B644AD322E1E874F776E /* DispatchQueueExecutor.swift */,
 				B081FC02E7513DDFCB8425A8E74EB978 /* Entity.swift */,
 				BE9196A3C6BB41E82E9074BBDE2B498F /* ErrorHelper.swift */,
@@ -2981,6 +2984,7 @@
 				F942C73A67CC43AE68E9C85017D401BE /* KeychainGetInteractor.swift in Sources */,
 				D164A1B9031D2B6F8DBBD09096B6F1C2 /* KeychainSetInteractor.swift in Sources */,
 				EC67FD3AC6DCDF73C0F78C04A1F49019 /* KeyValueObserver.swift in Sources */,
+				D2D752D920B2BA9F00386BBF /* Array+BinarySearch.swift in Sources */,
 				E49768830562DFE648DAFD51F6807D23 /* LinkRecognizer.swift in Sources */,
 				374C61CB60528A2112FD877A860BEA3B /* Mapper+Codable.swift in Sources */,
 				E66D359EF1154FEBDA27DD4DC3F7981F /* Mapper+NSCoding.swift in Sources */,
