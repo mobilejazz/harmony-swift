@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
-        
 //        let executor = OperationQueueExecutor() // <- This is a background execution executor
 //        //let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
 //

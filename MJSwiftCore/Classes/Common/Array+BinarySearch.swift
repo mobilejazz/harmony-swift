@@ -29,7 +29,7 @@ public enum BinarySearchType {
 
 extension Array where Element : Comparable {
     
-    /// Performs a binary search to find for the target value. The array must be sorted otherwise unexpected behavior might raise.
+    /// Performs a binary search to find for the target value. The array must be sorted ascending, otherwise unexpected behavior might raise.
     ///
     /// - Parameters:
     ///   - target: The target value to find
@@ -130,7 +130,7 @@ extension Array where Element : Comparable {
         }
     }
     
-    /// Performs a binary search to find for the target value. The array must be sorted otherwise unexpected behavior might raise.
+    /// Performs a binary search to find for the target value. The array must be sorted ascending, otherwise unexpected behavior might raise.
     ///
     /// - Parameters:
     ///   - target: The target value to find
