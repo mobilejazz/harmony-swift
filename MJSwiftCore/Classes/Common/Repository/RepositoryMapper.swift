@@ -55,7 +55,7 @@ public class RepositoryMapper<From,To>: Repository<From> {
         if let value = value {
             mapped = toToMapper.map(value)
         }
-         return repository.put(mapped, in: query, operation: operation).map { self.toFromMapper.map($0) }
+        return repository.put(mapped, in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult

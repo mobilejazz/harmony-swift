@@ -16,16 +16,14 @@
 
 import Foundation
 
-extension Operation {
-    /// - network: Data stream will only use network
-    public static let network = Operation(rawValue: "network")
-    /// - networkSync: Data stream will use network and sync with storage if needed
-    public static let networkSync = Operation(rawValue: "networkSync")
-    /// - storage: Data stream will only use storage
-    public static let storage = Operation(rawValue: "storage")
-    /// - storageSync: Data stream will use storage and sync with network if needed
-    public static let storageSync = Operation(rawValue: "storageSync")
-}
+/// - network: Data stream will only use network
+public class NetworkOperation : Operation { public init () { } }
+/// - networkSync: Data stream will use network and sync with storage if needed
+public class NetworkSyncOperation : Operation { public init () { } }
+/// - storage: Data stream will only use storage
+public class StorageOperation : Operation { public init () { } }
+/// - storageSync: Data stream will use storage and sync with network if needed
+public class StorageSyncOperation : Operation { public init () { } }
 
 ///
 /// Generic DataProvider implementation for network an storage operations
@@ -40,22 +38,22 @@ public class NetworkStorageRepository<T> : Repository<T>  {
         self.storage = storage
     }
     
-    public override func get(_ query: Query, operation: Operation = .storageSync) -> Future<T> {
+    public override func get(_ query: Query, operation: Operation) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.get(query)
-            case .storage:
+            case is StorageOperation:
                 return storage.get(query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.get(query).flatMap { entity in
                     return self.storage.put(entity, in: query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.get(query).recover { error in
                     switch error {
                     case is CoreError.NotValid, is CoreError.NotFound:
-                        return self.get(query, operation: .networkSync)
+                        return self.get(query, operation: NetworkSyncOperation())
                     default:
                         return Future(error)
                     }
@@ -66,22 +64,22 @@ public class NetworkStorageRepository<T> : Repository<T>  {
             }()
     }
     
-    public override func getAll(_ query: Query, operation: Operation = .storageSync) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.getAll(query)
-            case .storage:
+            case is StorageOperation:
                 return storage.getAll(query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.getAll(query).flatMap { entities in
                     return self.storage.putAll(entities, in: query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.getAll(query).recover { error in
                     switch error {
                     case is CoreError.NotValid, is CoreError.NotFound:
-                        return self.getAll(query, operation: .networkSync)
+                        return self.getAll(query, operation: NetworkSyncOperation())
                     default:
                         return Future(error)
                     }
@@ -93,18 +91,18 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query, operation: Operation = .networkSync) -> Future<T> {
+    public override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.put(value, in: query)
-            case .storage:
+            case is StorageOperation:
                 return storage.put(value, in: query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.put(value, in: query).flatMap { value in
                     return self.storage.put(value, in: query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.put(value, in: query).flatMap { value in
                     return self.network.put(value, in: query)
                 }
@@ -115,18 +113,18 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation = .networkSync) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.putAll(array, in: query)
-            case .storage:
+            case is StorageOperation:
                 return storage.putAll(array, in: query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.putAll(array, in: query).flatMap { array in
                     return self.storage.putAll(array, in: query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.putAll(array, in: query).flatMap { array in
                     return self.network.putAll(array, in: query)
                 }
@@ -137,18 +135,18 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation = .networkSync) -> Future<Void> {
+    public override func delete(_ query: Query, operation: Operation) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.delete(query)
-            case .storage:
+            case is StorageOperation:
                 return storage.delete(query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.delete(query).flatMap {
                     return self.storage.delete(query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.delete(query).flatMap {
                     return self.network.delete(query)
                 }
@@ -159,18 +157,18 @@ public class NetworkStorageRepository<T> : Repository<T>  {
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation = .networkSync) -> Future<Void> {
+    public override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
-            case .network:
+            case is NetworkOperation:
                 return network.deleteAll(query)
-            case .storage:
+            case is StorageOperation:
                 return storage.deleteAll(query)
-            case .networkSync:
+            case is NetworkSyncOperation:
                 return network.deleteAll(query).flatMap {
                     return self.storage.deleteAll(query)
                 }
-            case .storageSync:
+            case is StorageSyncOperation:
                 return storage.deleteAll(query).flatMap {
                     return self.network.deleteAll(query)
                 }

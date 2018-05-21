@@ -27,7 +27,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.loadItems(.storageSync)
+        self.loadItems(StorageSyncOperation())
     }
     
     private func loadItems(_ operation: MJSwiftCore.Operation) {
@@ -56,7 +56,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     func onEventReloadList() {
-        loadItems(.networkSync)
+        loadItems(NetworkSyncOperation())
     }
     
     // MARK: Segues

@@ -418,6 +418,7 @@
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
 		D2D752D920B2BA9F00386BBF /* Array+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */; };
+		D2D752DB20B2FF1100386BBF /* RetryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D752DA20B2FF1100386BBF /* RetryRepository.swift */; };
 		D30B7A8F1F700DCB56F0C85F475A3361 /* Promise+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D59B849274008907E74DCDF26B88D /* Promise+Resolve.swift */; };
 		D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0208CED19718E626E411E23DE1D29E1A /* RealmHandler+Future.swift */; };
 		D5C2EC219E066A7A32D120BE41D06CF3 /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E839B3343678C7C1647FF5B46CD57380 /* Future+Batch.swift */; };
@@ -1155,6 +1156,7 @@
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
 		D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+BinarySearch.swift"; path = "MJSwiftCore/Classes/Common/Array+BinarySearch.swift"; sourceTree = "<group>"; };
+		D2D752DA20B2FF1100386BBF /* RetryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryRepository.swift; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
 		D2F3D6EC06490C778CBE0603D5BAA585 /* FBLPromise+Timeout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Timeout.h"; path = "Sources/FBLPromises/include/FBLPromise+Timeout.h"; sourceTree = "<group>"; };
 		D3B7DA96354A703F0DAC763FE5C03BBE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1846,6 +1848,7 @@
 				C81EE480115F9D958687FCB3FDD453A9 /* RepositoryMapper.swift */,
 				6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */,
 				6658B3F4D4AFAD8C652ED4CCF35CF961 /* UserDefaultsDataSource.swift */,
+				D2D752DA20B2FF1100386BBF /* RetryRepository.swift */,
 				73761F25D552F5896C1EB34F9AE5D62C /* Interactors */,
 			);
 			name = Repository;
@@ -2995,6 +2998,7 @@
 				3ABB0E0613BECA106BFE93C7FC20CBFB /* MultiRequestRetrier.swift in Sources */,
 				DADCA622CF9D06E5AAF328099510236B /* NetworkStorageRepository.swift in Sources */,
 				EF0DC9775B63EC563FACDBFF19D440D6 /* ObjC.m in Sources */,
+				D2D752DB20B2FF1100386BBF /* RetryRepository.swift in Sources */,
 				5810F94BEEFA4B34AE5E414344C8A768 /* OperationQueueExecutor.swift in Sources */,
 				B3E41F403588477A417FB4050CAB9E20 /* PushNotificationQueue.swift in Sources */,
 				69F1FF2E2198411B30D6D6C6F158F70F /* Query+KeyValue.swift in Sources */,

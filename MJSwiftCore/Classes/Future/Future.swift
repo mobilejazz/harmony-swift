@@ -198,7 +198,7 @@ public class Future<T> {
             self.init(error, reactive: reactive)
         }
     }
-    
+        
     /// Future initializer
     public convenience init(reactive: Bool = false, _ closure: () -> Error) {
         let error = closure()

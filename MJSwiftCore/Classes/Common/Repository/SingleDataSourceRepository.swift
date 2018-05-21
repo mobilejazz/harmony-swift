@@ -33,31 +33,31 @@ public class SingleDataSourceRepository<T> : Repository<T> {
         self.dataSource = dataSource
     }
     
-    public override func get(_ query: Query, operation: Operation = .none) -> Future<T> {
+    public override func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
         return dataSource.get(query)
     }
     
-    public override func getAll(_ query: Query, operation: Operation = .none) -> Future<[T]> {
+    public override func getAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query, operation: Operation = .none) -> Future<T> {
+    public override func put(_ value: T?, in query: Query, operation: Operation = BlankOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation = .none) -> Future<[T]> {
+    public override func putAll(_ array: [T], in query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation = .none) -> Future<Void> {
+    public override func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation = .none) -> Future<Void> {
+    public override func deleteAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }
