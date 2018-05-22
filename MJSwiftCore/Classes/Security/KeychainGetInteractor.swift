@@ -55,7 +55,7 @@ public class KeychainGetInteractor {
             if let result : T = self.keychain.get(self.key) {
                 future.set(result)
             } else {
-                future.set(CoreError.NotFound(description: "Value not found for key \(self.key)"))
+                future.set(CoreError.NotFound("Value not found for key \(self.key)"))
             }
         }
     }

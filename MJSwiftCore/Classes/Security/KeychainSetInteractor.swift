@@ -57,7 +57,7 @@ public class KeychainSetInteractor {
             case .success:
                 resolver.set(true)
             case .failed(let status):
-                resolver.set(CoreError.Failed(description: "Keychain failed to set value for key \(self.key) (OSStatus \(status))", userInfo: ["OSStatus": status]))
+                resolver.set(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(self.key) (OSStatus \(status))"))
             }
         }
     }

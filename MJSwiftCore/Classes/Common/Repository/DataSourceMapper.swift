@@ -72,5 +72,4 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     public override func deleteAll(_ query: Query) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
-    
 }

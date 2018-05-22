@@ -21,19 +21,10 @@ import Foundation
 ///
 public class RetryOperation : Operation {
     
-    /// Retry action
-    ///
-    /// - retry: Retry if counter is greater than zero
-    /// - fail: Fail the operation
-    public enum Action {
-        case retry
-        case fail
-    }
-    
     /// The amount of retries. If zero, the operation won't retry
     public let count : Int
     /// A closure defining the retry strategy.
-    public let closure : (Error) -> Action
+    public let retryIf : (Error) -> Bool
     /// The operation forwarded to the repository
     public let operation : Operation
     
@@ -42,23 +33,32 @@ public class RetryOperation : Operation {
     /// - Parameters_
     ///   - operation: The operation that will be forwarded to the nested repository
     ///   - count: The retry counter. Default value is 1 (one retry)
-    ///   - closure: The inspection closure. Use this closure to filter incoming errors and define a retry policy. Default value returns `.retry`.
-    public init(_ operation: Operation , _ count: Int = 1, _ closure: @escaping (Error) -> Action = { _ in return .retry }) {
+    ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default closure returns true.
+    public init(_ operation: Operation , _ count: Int = 1, _ retryIf: @escaping (Error) -> Bool = { _ in true }) {
         self.operation = operation
         self.count = count
-        self.closure = closure
+        self.retryIf = retryIf
+    }
+    
+    /// Validates if the current operation is enabled to retry
+    ///
+    /// - Parameter error: The incoming error
+    /// - Returns: True if can retry, false otherwise.
+    public func canRetry(_ error: Error) -> Bool {
+        return count > 0 && retryIf(error)
     }
     
     /// Creates a new retry operation with the counter decremented by one.
     ///
     /// - Returns: A new retry operation
-    public func retry() -> RetryOperation {
-        return RetryOperation(operation, count-1, closure)
+    public func next() -> RetryOperation {
+        return RetryOperation(operation, count-1, retryIf)
     }
 }
 
 ///
-/// Repository adding a retry logic over an existing repository when an error happens
+/// Repository adding a retry logic over an existing repository when an error happens.
+/// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
 public class RetryRepository<T> : Repository<T> {
     
@@ -77,14 +77,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.get(query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.get(query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.get(query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.get(query, operation: operation)
+            return repository.get(query, operation: operation)
         }
     }
     
@@ -92,14 +92,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.getAll(query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.getAll(query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.getAll(query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.getAll(query, operation: operation)
+            return repository.getAll(query, operation: operation)
         }
     }
     
@@ -108,14 +108,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.put(value, in: query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.put(value, in: query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.put(value, in: query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.put(value, in: query, operation: operation)
+            return repository.put(value, in: query, operation: operation)
         }
     }
     
@@ -124,14 +124,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.putAll(array, in: query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.putAll(array, in: query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.putAll(array, in: query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.putAll(array, in: query, operation: operation)
+            return repository.putAll(array, in: query, operation: operation)
         }
     }
     
@@ -140,14 +140,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.delete(query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.delete(query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.delete(query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.delete(query, operation: operation)
+            return repository.delete(query, operation: operation)
         }
     }
     
@@ -156,14 +156,14 @@ public class RetryRepository<T> : Repository<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.deleteAll(query, operation: retryOp.operation).recover { error in
-                if retryOp.closure(error) == .retry && retryOp.count > 0 {
-                    return self.deleteAll(query, operation: retryOp.retry())
+                if retryOp.canRetry(error) {
+                    return self.deleteAll(query, operation: retryOp.next())
                 } else {
                     return Future(error)
                 }
             }
         default:
-            return super.deleteAll(query, operation: operation)
+            return repository.deleteAll(query, operation: operation)
         }
     }
 }

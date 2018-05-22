@@ -36,9 +36,9 @@ extension Array where Element : Comparable {
     ///   - type: The binary search type. Use equal to find the specific value. Use smallerOrEqual or greaterOrEqual to find the closest value.
     /// - Returns: The index of the array
     /// - Throws: This method may throw a CoreError.NotFound error if not found, or a CoreError.IllegalArgument if the array used is empty.
-    public func search(_ target: Element, type:  BinarySearchType = .equal) throws -> Int {
+    public func binarySearch(_ target: Element, type:  BinarySearchType = .equal) throws -> Int {
         if count == 0 {
-            throw CoreError.IllegalArgument(description: "Cannot perform a binary search on an empty array.")
+            throw CoreError.IllegalArgument("Cannot perform a binary search on an empty array.")
         }
         
         if count == 1 {
@@ -136,9 +136,9 @@ extension Array where Element : Comparable {
     ///   - target: The target value to find
     ///   - type: The binary search type. Use equal to find the specific value. Use smallerOrEqual or greaterOrEqual to find the closest value.
     /// - Returns: A future containing the index of the array or an error (either a CoreError.NotFound error if not found, or a CoreError.IllegalArgument if the array used is empty)
-    public func search(_ target: Element, type:  BinarySearchType = .equal) -> Future<Int> {
+    public func binarySearch(_ target: Element, type:  BinarySearchType = .equal) -> Future<Int> {
         return Future() { resolver in
-            let index : Int = try search(target, type: type)
+            let index : Int = try binarySearch(target, type: type)
             resolver.set(index)
         }
     }

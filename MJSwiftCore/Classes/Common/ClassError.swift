@@ -51,9 +51,6 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
     /// The error's description
     public let description : String
     
-    /// The error's user info
-    public let userInfo : [String : Any]
-    
     /// Main initializer
     ///
     /// - Parameters:
@@ -61,18 +58,10 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
     ///   - code: The error's code
     ///   - description: The error's description
     ///   - userInfo: The error's user info (default is empty dictionary)
-    public init(domain: String = "default" , code: Int, description: String, userInfo: [String : Any] = [:]) {
+    public init(domain: String = "default" , code: Int, description: String) {
         self.domain = domain
         self.code = code
         self.description = description
-        self.userInfo = userInfo
-    }
-    
-    /// Convenience initializer
-    ///
-    /// - Parameter error: The NSError error
-    public convenience init(_ error: NSError) {
-        self.init(domain: error.domain, code: error.code, description: error.localizedDescription, userInfo: error.userInfo)
     }
     
     /// Localized error description
@@ -95,12 +84,15 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
         return "\(domain).\(code)".hashValue
     }
     
+    /// Subclasses can override this method to return a custom user info for NSError transformation
+    open func userInfo() -> [String:Any] {
+        return [NSLocalizedDescriptionKey : description]
+    }
+    
     /// Converts the CoreError into a NSError format
     /// - Parameter domain: The domain for the NSError. If nil (default), the domain used is self.domain
     /// - Returns: An NSError instnace
     public func toNSError(domain: String? = nil) -> NSError {
-        var userInfo = self.userInfo
-        userInfo[NSLocalizedDescriptionKey] = localizedDescription
-        return NSError(domain: domain ?? self.domain, code: code, userInfo: userInfo)
+        return NSError(domain: domain ?? self.domain, code: code, userInfo: userInfo())
     }
 }
