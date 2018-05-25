@@ -16,11 +16,11 @@
 
 import Foundation
 
-public extension Future {
+public extension Observable {
         
-    /// Map the value and return a new future with the value mapped
-    public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
-        return Future<K>() { resolver in
+    /// Map the value and return a new observable with the value mapped
+    public func map<K>(_ transform: @escaping (T) -> K) -> Observable<K> {
+        return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
                 resolver.set(transform(value))
             }, failure: { error in
@@ -29,9 +29,9 @@ public extension Future {
         }
     }
     
-    /// Mappes the error and return a new future with the error mapped
-    public func mapError(_ transform: @escaping (Error) -> Error) -> Future<T> {
-        return Future() { resolver in
+    /// Mappes the error and return a new observable with the error mapped
+    public func mapError(_ transform: @escaping (Error) -> Error) -> Observable<T> {
+        return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
@@ -40,9 +40,9 @@ public extension Future {
         }
     }
     
-    /// Intercepts the value if success and returns a new future of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
-        return Future<K>() { resolver in
+    /// Intercepts the value if success and returns a new observable of a mapped type to be chained
+    public func flatMap<K>(_ closure: @escaping (T) -> Observable<K>) -> Observable<K> {
+        return Observable<K>(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(closure(value))
             }, failure: { error in
@@ -51,9 +51,9 @@ public extension Future {
         }
     }
     
-    /// Intercepts the error (if available) and returns a new future of type T
-    public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
-        return Future() { resolver in
+    /// Intercepts the error (if available) and returns a new observable of type T
+    public func recover(_ closure: @escaping (Error) -> Observable<T>) -> Observable<T> {
+        return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
@@ -64,8 +64,8 @@ public extension Future {
     
     /// Performs the closure after the then block is called.
     @discardableResult
-    public func onCompletion(_ closure: @escaping () -> Void) -> Future<T> {
-        return Future() { resolver in
+    public func onCompletion(_ closure: @escaping () -> Void) -> Observable<T> {
+        return Observable(parent: self) { resolver in
             resolve(success: {value in
                 closure()
                 resolver.set(value)
@@ -77,8 +77,8 @@ public extension Future {
     }
     
     /// Filters the value and allows to exchange it for a thrown error
-    public func filter(_ closure: @escaping (T) throws -> Void) -> Future<T> {
-        return Future() { resolver in
+    public func filter(_ closure: @escaping (T) throws -> Void) -> Observable<T> {
+        return Observable(parent: self) { resolver in
             resolve(success: {value in
                 do {
                     try closure(value)

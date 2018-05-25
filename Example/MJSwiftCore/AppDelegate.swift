@@ -10,10 +10,40 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
+
+func future() -> Future<String> {
+    return Future() { resolver in
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
+            resolver.set(true)
+        })
+        }.map { value -> String in
+            if value {
+                return "TRUE"
+            } else {
+                return "FALSE"
+            }
+        }
+}
+
+func obs() -> Observable<String> {
+    return Observable() { resolver in
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
+            resolver.set(true)
+        })
+        }.map { value -> String in
+            if value {
+                return "TRUE"
+            } else {
+                return "FALSE"
+            }
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var observable : Observable<String>!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
                 
@@ -24,57 +54,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = container
         window?.makeKeyAndVisible()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainVC = storyboard.instantiateInitialViewController()!
-            container.set(mainVC, animation: .crossDisolve)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let mainVC = storyboard.instantiateInitialViewController()!
+//            container.set(mainVC, animation: .crossDisolve)
+//        }
+        
+//        let observable = obs()
+//        observable.then { value in
+//            print("Result: \(value)")
+//        }
+//
+//        eventObs.set(false)
+//        eventObs.set(true)
+        
+        future().then { value in
+            print("Future: \(value)")
         }
         
-//        let executor = OperationQueueExecutor() // <- This is a background execution executor
-//        //let executor = DirectExecutor() // <- This is a direct executor (on the current thread and process)
-//
-//        //let dataSource = UserDefaultsDataSource<Bool>()
-//        let dataSource : DataSource<Bool> = InMemoryDataSource<Bool>()
-//        //let dataSource = KeychainDataSource<Bool>(Keychain())
-//
-//        let key = "com.test.1"
-//
-//        let get = Interactor.Get<Bool>(executor, dataSource.toRepository(), key)
-//        let put = Interactor.Put<Bool>(executor, dataSource.toRepository(), key)
-//        let delete = Interactor.Delete<Bool>(executor, dataSource.toRepository(), key)
-//
-//        // 1
-//        get.execute().then { value in
-//            // 2
-//            print("value: \(value)")
-//            }.fail { error in
-//                print("Error: \(error)")
-//        }
-//
-//        // 3
-//        put.execute(true).then { success in
-//            // 4
-//            print("success: \(success)")
-//            }.fail { error in
-//                print("Error: \(error)")
-//        }
-//
-//        // 5
-//        get.execute().then { value in
-//            // 6
-//            print("value: \(value)")
-//            }.fail { error in
-//                print("Error: \(error)")
-//        }
-//
-//        // 6
-//        delete.execute().then {
-//            // 7
-//            print("Delete success")
-//            }.fail { error in
-//                print("Error: \(error)")
-//        }
-//
+        observable = obs()
+        observable.then { value in
+            print("observable: \(value)")
+        }
+        
         return true
     }
     

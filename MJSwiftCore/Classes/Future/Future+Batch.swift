@@ -18,13 +18,12 @@ import Foundation
 
 /// Creates a new future from all given futures
 public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
-    let reactive = futures.filter { $0.reactive }.count > 0
-    let future = Future<[T]>(reactive:reactive)
+    let future = Future<[T]>()
     var dict : [Int:T] = [:]
     for (idx, futureT) in futures.enumerated() {
         futureT.resolve(success: {value in
             dict[idx] = value
-            if future._result == nil || future.reactive {
+            if future._result == nil {
                 if dict.count == futures.count {
                     var array : [T] = []
                     for idx in 0..<dict.count {
@@ -34,7 +33,7 @@ public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
                 }
             }
         }, failure: { error in
-            if future._result == nil || future.reactive {
+            if future._result == nil {
                 future.set(error)
             }
         })
@@ -88,8 +87,8 @@ public extension Future {
     
     /// Unzips a 2-tuple future into two futures
     public func unzip<K,L>() -> (Future<K>,Future<L>) where T == (K,L) {
-        let futureK = Future<K>(reactive: reactive)
-        let futureL = Future<L>(reactive: reactive)
+        let futureK = Future<K>()
+        let futureL = Future<L>()
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -102,9 +101,9 @@ public extension Future {
     
     /// Unzips a 3-tuple future into three futures
     public func unzip<K,L,M>() -> (Future<K>,Future<L>,Future<M>) where T == (K,L,M) {
-        let futureK = Future<K>(reactive: reactive)
-        let futureL = Future<L>(reactive: reactive)
-        let futureM = Future<M>(reactive: reactive)
+        let futureK = Future<K>()
+        let futureL = Future<L>()
+        let futureM = Future<M>()
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -119,10 +118,10 @@ public extension Future {
     
     /// Unzips a 4-tuple future into four futures
     public func unzip<K,L,M,N>() -> (Future<K>,Future<L>,Future<M>,Future<N>) where T == (K,L,M,N) {
-        let futureK = Future<K>(reactive: reactive)
-        let futureL = Future<L>(reactive: reactive)
-        let futureM = Future<M>(reactive: reactive)
-        let futureN = Future<N>(reactive: reactive)
+        let futureK = Future<K>()
+        let futureL = Future<L>()
+        let futureM = Future<M>()
+        let futureN = Future<N>()
         resolve(success: {tuple in
             futureK.set(tuple.0)
             futureL.set(tuple.1)
@@ -139,7 +138,7 @@ public extension Future {
     
     /// Collapses a 2-tuple future into a single value future
     public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
-        return Future<Z>(reactive: reactive) { future in
+        return Future<Z>() { future in
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1))
             }, failure: { error in
@@ -150,7 +149,7 @@ public extension Future {
     
     /// Collapses a 3-tuple future into a single value future
     public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
-        return Future<Z>(reactive: reactive) { future in
+        return Future<Z>() { future in
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2))
             }, failure: { error in
@@ -161,7 +160,7 @@ public extension Future {
     
     /// Collapses a 4-tuple future into a single value future
     public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
-        return Future<Z>(reactive: reactive) { future in
+        return Future<Z>() { future in
             resolve(success: {tuple in
                 future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
             }, failure: { error in

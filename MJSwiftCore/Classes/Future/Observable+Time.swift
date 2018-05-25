@@ -16,11 +16,11 @@
 
 import Foundation
 
-public extension Future {
+public extension Observable {
     
     /// Adds a delay to the then call
-    public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
-        return Future() { resolver in
+    public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
+        return Observable() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
                     resolver.set(value)
@@ -32,8 +32,8 @@ public extension Future {
     }
     
     /// Calls the then block after the given deadline
-    public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
-        return Future() { resolver in
+    public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
+        return Observable() { resolver in
             queue.asyncAfter(deadline: deadline) {
                 self.resolve(success: {value in
                     resolver.set(value)
@@ -44,9 +44,9 @@ public extension Future {
         }
     }
     
-    /// Ensures the future is called after the given date.
+    /// Ensures the observable is called after the given date.
     /// If the date is earlier than now, nothing happens.
-    public func after(_ date: Date) -> Future<T> {
+    public func after(_ date: Date) -> Observable<T> {
         let interval = date.timeIntervalSince(Date())
         if interval < 0 {
             return self

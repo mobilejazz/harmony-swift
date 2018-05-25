@@ -22,7 +22,7 @@ import Foundation
 public class KeyValueObserver<V> : NSObject where V : Any {
     
     private var context : String
-    private let resolver : FutureResolver<V>
+    private let resolver : ObservableResolver<V>
     private var keyPath : String
     private var target : NSObject
     
@@ -33,9 +33,9 @@ public class KeyValueObserver<V> : NSObject where V : Any {
     ///   - keyPath: The keyPath to observe
     ///   - closure: The callback closure
     public convenience init(target: NSObject, keyPath: String, _ closure: @escaping (V) -> Void ) {
-        let future = Future<V>(reactive: true)
-        future.then { closure($0) }
-        self.init(target: target, keyPath: keyPath, resolver: FutureResolver(future))
+        let observable = Observable<V>()
+        observable.then { closure($0) }
+        self.init(target: target, keyPath: keyPath, resolver: ObservableResolver(observable))
     }
     
     /// Main init method to use a reactive future resolver as callback
@@ -44,7 +44,7 @@ public class KeyValueObserver<V> : NSObject where V : Any {
     ///   - target: The object to observe
     ///   - keyPath: The keyPath to observe
     ///   - closure: The callback closure
-    public init(target: NSObject, keyPath: String, resolver: FutureResolver<V>) {
+    public init(target: NSObject, keyPath: String, resolver: ObservableResolver<V>) {
         self.keyPath = keyPath
         self.target = target
         self.resolver = resolver
