@@ -10,40 +10,29 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
-
-func future() -> Future<String> {
+/// Creates and returns a new future, which is resolved 2 seconds after
+func fut() -> Future<Int> {
     return Future() { resolver in
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
-            resolver.set(true)
+            resolver.set(2)
         })
-        }.map { value -> String in
-            if value {
-                return "TRUE"
-            } else {
-                return "FALSE"
-            }
-        }
+        }.map { $0*2 }
 }
 
-func obs() -> Observable<String> {
-    return Observable() { resolver in
+/// Creates and returns a new observable, which is triggered 2 seconds after
+func obs() -> Observable<Int> {
+    return Observable<Int>() { resolver in
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
-            resolver.set(true)
+            resolver.set(1)
         })
-        }.map { value -> String in
-            if value {
-                return "TRUE"
-            } else {
-                return "FALSE"
-            }
-    }
+        }.map { $0*2 }
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var observable : Observable<String>!
+    var observable : Observable<Int>!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
                 
@@ -53,29 +42,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = container
         window?.makeKeyAndVisible()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let mainVC = storyboard.instantiateInitialViewController()!
-//            container.set(mainVC, animation: .crossDisolve)
-//        }
-        
-//        let observable = obs()
+    
+        // Observables requires to retain the last item from the chain
+//        observable = obs().map { $0*2 }.recover { _ in Observable(0) }.map { $0*2 }
 //        observable.then { value in
-//            print("Result: \(value)")
+//            print("observable value: \(value)")
 //        }
-//
-//        eventObs.set(false)
-//        eventObs.set(true)
+//        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(3), execute: {
+//            // when the last chain item is deallocated, the whole chain falls
+//            self.observable = nil
+//        })
         
-        future().then { value in
-            print("Future: \(value)")
-        }
-        
-        observable = obs()
-        observable.then { value in
-            print("observable: \(value)")
-        }
+        // Futures can be chained and finally opened. The chain will be retained until the root future is resolved.
+//        fut().map { $0*2 }.recover { _ in Future(0) }.map { $0*2 }.then { value in
+//            print("future value: \(value)")
+//        }
         
         return true
     }

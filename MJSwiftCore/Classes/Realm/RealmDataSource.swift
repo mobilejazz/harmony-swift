@@ -43,7 +43,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
     
     public override func get(_ query: Query) -> Future<E> {
         switch query {
-        case let query as QueryById<String>:
+        case let query as IdQuery<String>:
             return realmHandler.read { realm in
                 return realm.object(ofType: O.self, forPrimaryKey: query.id)
                 }.map { self.toEntityMapper.map($0) }
@@ -98,11 +98,11 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 objetcs.forEach { realm.add($0, update: true) }
                 return objetcs
                 }.map { self.toEntityMapper.map($0) }
-        case let query as ObjectsQuery<E>:
+        case let query as ArrayQuery<E>:
             if array.count > 0 {
                 return Future(CoreError.IllegalArgument("Array must be empty when using an ObjectsQuery"))
             }
-            return putAll(query.objects, in: BlankQuery())
+            return putAll(query.array, in: BlankQuery())
         default:
             return super.putAll(array, in: query)
         }
@@ -112,7 +112,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
     @discardableResult
     public override func delete(_ query: Query) -> Future<Void> {
         switch query {
-        case let query as QueryById<String>:
+        case let query as IdQuery<String>:
             return realmHandler.write { realm in
                 if let object = realm.object(ofType: O.self, forPrimaryKey: query.id) {
                     realm.delete(object)
@@ -136,9 +136,9 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
     @discardableResult
     public override func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
-        case let query as ObjectsQuery<E>:
+        case let query as ArrayQuery<E>:
             return realmHandler.write { realm in
-                query.objects
+                query.array
                     .map { toRealmMapper.map($0, inRealm: realm) }
                     .forEach { realm.delete($0) }
                 return Void()

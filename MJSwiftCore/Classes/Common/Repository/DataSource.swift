@@ -25,7 +25,7 @@ public class BlankQuery : Query {
 }
 
 /// A query by an id
-public class QueryById <T> where T:Hashable {
+public class IdQuery <T> where T:Hashable {
     public let id : T
     public init(_ id: T) {
         self.id = id
@@ -45,11 +45,11 @@ public class ObjectQuery<T> : Query {
     }
 }
 
-/// Objects query
-public class ObjectsQuery<T> : Query {
-    public let objects : [T]
-    public init(_ objects : [T]) {
-        self.objects = objects
+/// Array based query
+public class ArrayQuery<T> : Query {
+    public let array : [T]
+    public init(_ array : [T]) {
+        self.array = array
     }
 }
 
@@ -133,31 +133,31 @@ open class DataSource <T> {
 
 extension DataSource {
     public func get<K>(_ id: K) -> Future<T> where K:Hashable {
-        return get(QueryById(id))
+        return get(IdQuery(id))
     }
     
     public func getAll<K>(_ id: K) -> Future<[T]> where K:Hashable {
-        return getAll(QueryById(id))
+        return getAll(IdQuery(id))
     }
     
     @discardableResult
     public func put<K>(_ value: T?, forId id: K) -> Future<T> where K:Hashable {
-        return put(value, in: QueryById(id))
+        return put(value, in: IdQuery(id))
     }
     
     @discardableResult
     public func putAll<K>(_ array: [T], forId id: K) -> Future<[T]> where K:Hashable {
-        return putAll(array, in: QueryById(id))
+        return putAll(array, in: IdQuery(id))
     }
     
     @discardableResult
     public func delete<K>(_ id: K) -> Future<Void> where K:Hashable {
-        return delete(QueryById(id))
+        return delete(IdQuery(id))
     }
     
     @discardableResult
     public func deleteAll<K>(_ id: K) -> Future<Void> where K:Hashable {
-        return deleteAll(QueryById(id))
+        return deleteAll(IdQuery(id))
     }
 }
 

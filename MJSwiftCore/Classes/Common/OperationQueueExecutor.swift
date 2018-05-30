@@ -21,39 +21,18 @@ import Foundation
 ///
 public class OperationQueueExecutor: Executor {
     
+    /// The operation queue
+    public let operationQueue : OperationQueue
+    
+    public var executing: Bool { return operationQueue.operationCount > 0 }
+    
     /// The queue type
     ///
     /// - serialQueue: Serial queue
     /// - concurrentQueue: Concurrent queue
     public enum QueueType {
-        case serialQueue
-        case concurrentQueue
-    }
-    
-    /// The operation queue
-    public let operationQueue : OperationQueue
-    
-    public var executing: Bool {
-        get {
-            return operationQueue.operationCount > 0
-        }
-    }
-    
-    /// Convenience initalizer
-    ///
-    /// - Parameters:
-    ///   - type: The type of queue
-    ///   - name: The name of the queue
-    public convenience init (type : QueueType = .serialQueue, name: String = UUID().uuidString) {
-        let operationQueue = OperationQueue()
-        operationQueue.name = name
-        switch type {
-        case .serialQueue:
-            operationQueue.maxConcurrentOperationCount = 1
-        case .concurrentQueue:
-            operationQueue.maxConcurrentOperationCount = OperationQueue.defaultMaxConcurrentOperationCount
-        }
-        self.init(operationQueue)
+        case serial
+        case concurrent(count:Int)
     }
     
     /// Main initializer
@@ -61,6 +40,23 @@ public class OperationQueueExecutor: Executor {
     /// - Parameter operationQueue: The operation queue
     public init(_ operationQueue: OperationQueue) {
         self.operationQueue = operationQueue
+    }
+    
+    /// Convenience initalizer
+    ///
+    /// - Parameters:
+    ///   - type: The type of queue
+    ///   - name: The name of the queue
+    public convenience init (type : QueueType = .serial, name: String = UUID().uuidString) {
+        let operationQueue = OperationQueue()
+        operationQueue.name = name
+        switch type {
+        case .serial:
+            operationQueue.maxConcurrentOperationCount = 1
+        case .concurrent(let count):
+            operationQueue.maxConcurrentOperationCount = count
+        }
+        self.init(operationQueue)
     }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {

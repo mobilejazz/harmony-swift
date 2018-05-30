@@ -68,69 +68,60 @@ public class RetryDataSource<T> : DataSource<T> {
 
 extension RetryDataSource {
     
-    private func retry(_ it: Int, _ error: Error) -> Bool {
+    private func retry<K>(_ it: Int, _ error: Error, _ closure: () -> Future<K>) -> Future<K> {
         // Must retry if:
         //  - it is greater than zero
         //  - The retryIf closure returns true
-        return it > 0 && retryIf(error)
+        if it > 0 && retryIf(error) {
+            return closure()
+        }
+        return Future(error)
     }
-
+    
     private func get(_ query: Query, _ it: Int) -> Future<T> {
         return dataSource.get(query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.get(query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }
     
     private func getAll(_ query: Query, _ it: Int) -> Future<[T]> {
         return dataSource.getAll(query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.getAll(query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }
     
     private func put(_ value: T?, in query: Query, _ it: Int) -> Future<T> {
         return dataSource.put(value, in: query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.put(value, in: query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }
     
     private func putAll(_ array: [T], in query: Query, _ it: Int) -> Future<[T]> {
         return dataSource.putAll(array, in: query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.putAll(array, in: query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }
     
     private func delete(_ query: Query, _ it: Int) -> Future<Void> {
         return dataSource.delete(query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.delete(query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }
     
     private func deleteAll(_ query: Query, _ it: Int) -> Future<Void> {
         return dataSource.deleteAll(query).recover { error in
-            if self.retry(it, error) {
+            return self.retry(it, error) {
                 return self.deleteAll(query, it - 1)
-            } else {
-                return Future(error)
             }
         }
     }

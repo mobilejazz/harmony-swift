@@ -22,7 +22,7 @@ public protocol KeyQuery : Query {
     var key : String { get }
 }
 
-extension QueryById : KeyQuery {
+extension IdQuery : KeyQuery {
     public var key : String {
         get {
             switch T.self {

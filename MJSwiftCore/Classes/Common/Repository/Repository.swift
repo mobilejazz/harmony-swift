@@ -109,30 +109,30 @@ open class Repository<T> {
 
 extension Repository {
     public func get<K>(_ id: K, operation: Operation) -> Future<T> where K:Hashable {
-        return get(QueryById(id), operation: operation)
+        return get(IdQuery(id), operation: operation)
     }
     
     public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
-        return getAll(QueryById(id), operation: operation)
+        return getAll(IdQuery(id), operation: operation)
     }
     
     @discardableResult
     public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K:Hashable {
-        return put(value, in: QueryById(id), operation: operation)
+        return put(value, in: IdQuery(id), operation: operation)
     }
     
     @discardableResult
     public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
-        return putAll(array, in: QueryById(id), operation: operation)
+        return putAll(array, in: IdQuery(id), operation: operation)
     }
     
     @discardableResult
     public func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
-        return delete(QueryById(id), operation: operation)
+        return delete(IdQuery(id), operation: operation)
     }
     
     @discardableResult
     public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
-        return deleteAll(QueryById(id), operation: operation)
+        return deleteAll(IdQuery(id), operation: operation)
     }
 }

@@ -13,8 +13,8 @@ class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
     override func get(_ query: Query) -> Future<ItemEntity> {
         switch query.self {
-        case is QueryById<String>:
-            return getById((query as! QueryById<String>).id)
+        case is IdQuery<String>:
+            return getById((query as! IdQuery<String>).id)
         default:
             return super.get(query)
         }

@@ -75,9 +75,26 @@ extension ObservableResolver where T==Void {
 }
 
 ///
-/// Observable class. Wrapper of a observable value of generic type T or an error.
+/// Observable class. Wrapper of an observable value of generic type T or an error.
+/// Observable chains must be retained from the end, as an observable child retains its parent, but the parent does not retains it child (this differs from the Future<T>).
+///
+/// Therefore, this is a good usage of an observable:
+///     class MyViewController {
+///         let obs : Observable<Int>
+///         func viewDidAppear(_ eventHub: Observable<Int>.Hub) {
+///             super.viewDidAppear()
+///             // The instance must be retained, otherwise the then closure won't be called
+///             obs = eventHub.plug().then { value in
+///                 print("value: \(value)")
+///                 // Update UI with value
+///                 }.fail { error in
+///                     // Update UI with error
+///             }
+///         }
+///     }
 ///
 public class Observable<T> {
+    
     /// Observable states
     public enum State {
         case blank
@@ -133,7 +150,7 @@ public class Observable<T> {
             }
         }
     }
-    
+        
     /// The observable result. Using _ prefix as the "result" method returns synchronously the result.
     internal var _result : Result? = nil
     
@@ -146,7 +163,7 @@ public class Observable<T> {
     private var failure: ((_ error: Error) -> Void)?
     
     /// Returns a hub associated to the current observable
-    public private(set) lazy var hub = ObservableHub<T>(self)
+    public private(set) lazy var hub = Hub(self)
     
     /// Default initializer
     public init(parent: Any? = nil) {
@@ -180,11 +197,7 @@ public class Observable<T> {
             set(error)
         }
     }
-    
-    deinit {
-        print("Deinit \(String(describing: type(of: self)))")
-    }
-        
+
     /// Observable initializer
     public convenience init(_ closure: () -> Error) {
         let error = closure()
@@ -313,7 +326,7 @@ public class Observable<T> {
             }
         }
     }
-    
+
     /// Deliver the result syncrhonously. This method might block the calling thread.
     /// Note that the result can only be delivered once if the observable is not reactive.
     public var result : Result {
