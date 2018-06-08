@@ -422,6 +422,8 @@
 		D231D8B920B6C7A200FB0E3E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231D8B820B6C7A200FB0E3E /* Event.swift */; };
 		D252EBD420AAB818000188A2 /* CoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBD220AAB80F000188A2 /* CoreError.swift */; };
 		D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBDC20AC0D1B000188A2 /* ClassError.swift */; };
+		D27044BE20CA7DD100226F5E /* MutableCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27044BD20CA7DD100226F5E /* MutableCodingKey.swift */; };
+		D27044C020CA82DB00226F5E /* CodingKeyStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27044BF20CA82DB00226F5E /* CodingKeyStrategies.swift */; };
 		D290E01120B4097900D7C0D6 /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290E01020B4097900D7C0D6 /* RetryDataSource.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
@@ -1169,6 +1171,8 @@
 		D231D8B820B6C7A200FB0E3E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Event.swift; path = MJSwiftCore/Classes/Future/Event.swift; sourceTree = "<group>"; };
 		D252EBD220AAB80F000188A2 /* CoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreError.swift; sourceTree = "<group>"; };
 		D252EBDC20AC0D1B000188A2 /* ClassError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassError.swift; path = MJSwiftCore/Classes/Common/ClassError.swift; sourceTree = "<group>"; };
+		D27044BD20CA7DD100226F5E /* MutableCodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MutableCodingKey.swift; path = MJSwiftCore/Classes/Common/MutableCodingKey.swift; sourceTree = "<group>"; };
+		D27044BF20CA82DB00226F5E /* CodingKeyStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodingKeyStrategies.swift; path = MJSwiftCore/Classes/Common/CodingKeyStrategies.swift; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
 		D290E01020B4097900D7C0D6 /* RetryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
@@ -2205,11 +2209,13 @@
 				19D0FE55D700F051B0F1F21B8B99F775 /* Executor+Future.swift */,
 				6B44B8448CCC2AB0834C64F78C10B35B /* ExecutorFactory.swift */,
 				9F21E40E3570E30C96195D5F8D8CA1E8 /* JSONDecoding.swift */,
+				D27044BF20CA82DB00226F5E /* CodingKeyStrategies.swift */,
 				F8F4A4F851A195E007359AA97AFABAF4 /* KeyValueObserver.swift */,
 				42D1264DFF5910A2DE9707EC6F08F851 /* LinkRecognizer.swift */,
 				C4CB15500398E080B0DC2C9B4DAC9B24 /* Mapper.swift */,
 				DC4D08B226982AE884D737114FDFD2A7 /* Mapper+Codable.swift */,
 				C3D43D15658AC1257C7EE14686B12186 /* Mapper+NSCoding.swift */,
+				D27044BD20CA7DD100226F5E /* MutableCodingKey.swift */,
 				D252EBDC20AC0D1B000188A2 /* ClassError.swift */,
 				2E8518894150254F7A393BA6CAEFD70E /* Model.swift */,
 				5EC50CEB34CD7FBB2F244D5E82E3FEAD /* ObjC.h */,
@@ -3027,6 +3033,7 @@
 				A03AD3FD181E2B5D5F069A2E567430A3 /* Model.swift in Sources */,
 				CEEC6DA5917662A17AF2C10755AC566F /* MultiRequestAdapter.swift in Sources */,
 				3ABB0E0613BECA106BFE93C7FC20CBFB /* MultiRequestRetrier.swift in Sources */,
+				D27044BE20CA7DD100226F5E /* MutableCodingKey.swift in Sources */,
 				DADCA622CF9D06E5AAF328099510236B /* NetworkStorageRepository.swift in Sources */,
 				EF0DC9775B63EC563FACDBFF19D440D6 /* ObjC.m in Sources */,
 				D2D752DB20B2FF1100386BBF /* RetryRepository.swift in Sources */,
@@ -3052,6 +3059,7 @@
 				BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */,
 				DEFEBA3260809E7E845327D272C5A22E /* String+Extensions.swift in Sources */,
 				761FC36E32CBFA5CBF0CF60633D7505B /* UIBarButtonItem+Extensions.swift in Sources */,
+				D27044C020CA82DB00226F5E /* CodingKeyStrategies.swift in Sources */,
 				6B915EAD763730FB70ABC2B994AAB508 /* UIButton+Extensions.swift in Sources */,
 				D2B7EB7520B802F10014A9DA /* Observable+MJFuture.swift in Sources */,
 				A2D9243BA2B4226F37A57724A4600AA7 /* UIColor+Extensions.swift in Sources */,

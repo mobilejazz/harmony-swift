@@ -9,6 +9,16 @@ import Alamofire
 import MJSwiftCore
 import MJCocoaCore
 
+extension ItemEntity {
+    fileprivate static var fromNetworkMap : [String : String] {
+        return ["image-url" : "imageURL"]
+    }
+    
+    fileprivate static var toNetworkMap : [String : String] {
+        return ["imageURL" : "image-url"]
+    }
+}
+
 class ItemNetworkService: AlamofireDataSource<ItemEntity> {
     
     override func get(_ query: Query) -> Future<ItemEntity> {
@@ -39,7 +49,7 @@ private extension ItemNetworkService {
             guard let json = json  else {
                 return Future(CoreError.NotFound())
             }
-            let future = json.decodeAs(ItemEntity.self) { item in
+            let future = json.decodeAs(ItemEntity.self, keyDecodingStrategy: .map(ItemEntity.fromNetworkMap)) { item in
                 item.lastUpdate = Date()
             }
             return future
@@ -53,7 +63,7 @@ private extension ItemNetworkService {
                 guard let results = json["results"] as? [[String: AnyObject]] else {
                     return Future([]) // or pass error if desired
                 }
-                return results.decodeAs(forEach: { item in
+                return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
                     item.lastUpdate = Date()
                 })
             }
@@ -70,7 +80,7 @@ private extension ItemNetworkService {
                     guard let results = json["results"] as? [[String: AnyObject]] else {
                         return Future([]) // or pass error if desired
                     }
-                    return results.decodeAs(forEach: { item in
+                    return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
                         item.lastUpdate = Date()
                     })
                 }

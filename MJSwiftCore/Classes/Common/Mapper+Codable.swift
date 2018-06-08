@@ -29,3 +29,11 @@ public class DataToDecodableMapper <T> : Mapper <Data, T> where T: Decodable {
         return value
     }
 }
+
+public class EncodableToDecodableMapper <E,D> : Mapper <E, D> where D: Decodable, E: Encodable {
+    public override func map(_ from: E) -> D {
+        let data = try! JSONEncoder().encode(from)
+        let value = try! JSONDecoder().decode(D.self, from: data)
+        return value
+    }
+}

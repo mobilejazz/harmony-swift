@@ -32,14 +32,5 @@ struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
     func expiryTimeInterval() -> Time {
         return .seconds(30)
     }
-	
-	//MARK: Decodable
-	enum CodingKeys: String, CodingKey {
-		case id
-		case name
-		case price
-		case count
-		case imageURL = "image-url"
-        case lastUpdate
-	}
 }
+
