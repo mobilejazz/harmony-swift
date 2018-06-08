@@ -24,8 +24,11 @@ class RepositoryAssembly: Assembly {
         }
         
         // Mappers
-        container.register(Mapper<Item, ItemEntity>.self) { _ in ItemToItemEntityMapper() }
-        container.register(Mapper<ItemEntity, Item>.self) { _ in ItemEntityToItemMapper() }
+//        container.register(Mapper<Item, ItemEntity>.self) { _ in ItemToItemEntityMapper() }
+//        container.register(Mapper<ItemEntity, Item>.self) { _ in ItemEntityToItemMapper() }
+        
+        container.register(Mapper<Item, ItemEntity>.self) { _ in EncodableToDecodableMapper() }
+        container.register(Mapper<ItemEntity, Item>.self) { _ in EncodableToDecodableMapper() }
         
         // Data Providers (registered as singletons)
         container.register(Repository<Item>.self) { r in
