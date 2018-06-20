@@ -36,7 +36,7 @@ public class RepositoryMapper <From,To> : Repository {
     public init<R>(repository: R,
                    toToMapper: Mapper <From,To>,
                    toFromMapper: Mapper<To,From>) where R: Repository, To == R.T {
-        self.repository = AnyRepository(base: repository)
+        self.repository = repository.asAnyRepository()
         self.toToMapper = toToMapper
         self.toFromMapper = toFromMapper
     }

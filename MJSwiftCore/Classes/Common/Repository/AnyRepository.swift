@@ -56,6 +56,15 @@ public class AnyRepository <T> : Repository {
     }
 }
 
+extension Repository {
+    /// Returns an AnyRepository abstraction of the current repository
+    ///
+    /// - Returns: An AnyRepository abstraction
+    public func asAnyRepository() -> AnyRepository<T> {
+        return AnyRepository(self)
+    }
+}
+
 ///
 /// This is an abstract class. Do not use it.
 /// Repository base class defining a generic type T (which is unrelated to the associated type of the Repository protocol)
