@@ -19,9 +19,11 @@ import Foundation
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class DataSourceMapper<From,To> : DataSource<From> {
+public class DataSourceMapper<From,To> : DataSource {
+    
+    public typealias T = From
 
-    private let dataSource : DataSource<To>
+    private let dataSource : AnyDataSource<To>
     private let toToMapper: Mapper<From,To>
     private let toFromMapper: Mapper<To,From>
     
@@ -31,26 +33,26 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     ///   - dataSource: The contained dataSource
     ///   - toToMapper: From to To mapper
     ///   - toFromMapper: To to From mapper
-    public init(dataSource: DataSource<To>,
-                toToMapper: Mapper <From,To>,
-                toFromMapper: Mapper<To,From>) {
-        self.dataSource = dataSource
+    public init<D>(dataSource: D,
+                   toToMapper: Mapper <From,To>,
+                   toFromMapper: Mapper<To,From>) where D : DataSource, D.T == To{
+        self.dataSource = dataSource.asAnyDataSource()
         self.toToMapper = toToMapper
         self.toFromMapper = toFromMapper
     }
     
-    public override func get(_ query: Query) -> Future<From> {
+    public func get(_ query: Query) -> Future<From> {
         return dataSource.get(query).map { value in
             return self.toFromMapper.map(value)
         }
     }
     
-    public override func getAll(_ query: Query) -> Future<[From]> {
+    public func getAll(_ query: Query) -> Future<[From]> {
         return dataSource.getAll(query).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
-    public override func put(_ value: From?, in query: Query) -> Future<From> {
+    public func put(_ value: From?, in query: Query) -> Future<From> {
         var mapped : To? = nil
         if let value = value {
             mapped = toToMapper.map(value)
@@ -59,17 +61,17 @@ public class DataSourceMapper<From,To> : DataSource<From> {
     }
     
     @discardableResult
-    public override func putAll(_ array: [From], in query: Query) -> Future<[From]> {
+    public func putAll(_ array: [From], in query: Query) -> Future<[From]> {
         return dataSource.putAll(toToMapper.map(array), in: query).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }

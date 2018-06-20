@@ -53,85 +53,25 @@ public class ArrayQuery<T> : Query {
     }
 }
 
-///
-/// Abstract definition of a DataSource
-///
-open class DataSource <T> {
-    
-    public init() { }
-    
+public protocol TypedDataSource {
+    associatedtype T
+}
+
+public protocol GetDataSource : TypedDataSource {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future containing the fetched object or an error .notFound if not found
-    open func get(_ query: Query) -> Future<T> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
-        }
-    }
+    func get(_ query: Query) -> Future<T>
     
     /// Main get method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
-    open func getAll(_ query: Query) -> Future<[T]> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method getAll on \(String(describing: type(of:self)))")
-        }
-    }
-    
-    /// Put by query method
-    ///
-    /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
-    @discardableResult
-    open func put(_ value: T?, in query: Query) -> Future<T> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method put on \(String(describing: type(of:self)))")
-        }
-    }
-    
-    /// Put by query method
-    ///
-    /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
-    @discardableResult
-    open func putAll(_ array: [T], in query: Query) -> Future<[T]> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method putAll on \(String(describing: type(of:self)))")
-        }
-    }
-    
-    /// Delete by query method
-    ///
-    /// - Parameter query: An instance conforming to Query that encapusles the delete query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
-    @discardableResult
-    open func delete(_ query: Query = BlankQuery()) -> Future<Void> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method delete on \(String(describing: type(of:self)))")
-        }
-    }
-    
-    /// Delete by query method
-    ///
-    /// - Parameter query: An instance conforming to Query that encapusles the delete query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
-    @discardableResult
-    open func deleteAll(_ query: Query) -> Future<Void> {
-        switch query {
-        default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method deleteAll on \(String(describing: type(of:self)))")
-        }
-    }
+    func getAll(_ query: Query) -> Future<[T]>
 }
 
-extension DataSource {
+extension GetDataSource {
     public func get<K>(_ id: K) -> Future<T> where K:Hashable {
         return get(IdQuery(id))
     }
@@ -139,7 +79,25 @@ extension DataSource {
     public func getAll<K>(_ id: K) -> Future<[T]> where K:Hashable {
         return getAll(IdQuery(id))
     }
+}
+
+public protocol PutDataSource : TypedDataSource {
+    /// Put by query method
+    ///
+    /// - Parameter query: An instance conforming to Query that encapsules the get query information
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    func put(_ value: T?, in query: Query) -> Future<T>
     
+    /// Put by query method
+    ///
+    /// - Parameter query: An instance conforming to Query that encapsules the get query information
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    func putAll(_ array: [T], in query: Query) -> Future<[T]>
+}
+
+extension PutDataSource {
     @discardableResult
     public func put<K>(_ value: T?, forId id: K) -> Future<T> where K:Hashable {
         return put(value, in: IdQuery(id))
@@ -149,7 +107,25 @@ extension DataSource {
     public func putAll<K>(_ array: [T], forId id: K) -> Future<[T]> where K:Hashable {
         return putAll(array, in: IdQuery(id))
     }
+}
+
+public protocol DeleteDataSource : TypedDataSource {
+    /// Delete by query method
+    ///
+    /// - Parameter query: An instance conforming to Query that encapusles the delete query information
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    func delete(_ query: Query) -> Future<Void>
     
+    /// Delete by query method
+    ///
+    /// - Parameter query: An instance conforming to Query that encapusles the delete query information
+    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    @discardableResult
+    func deleteAll(_ query: Query) -> Future<Void>
+}
+
+extension DeleteDataSource {
     @discardableResult
     public func delete<K>(_ id: K) -> Future<Void> where K:Hashable {
         return delete(IdQuery(id))
@@ -160,4 +136,10 @@ extension DataSource {
         return deleteAll(IdQuery(id))
     }
 }
+
+    
+///
+/// Abstract definition of a DataSource
+///
+public protocol DataSource : GetDataSource, PutDataSource, DeleteDataSource { }
 

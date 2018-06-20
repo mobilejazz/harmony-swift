@@ -431,6 +431,7 @@
 		D2B7EB7520B802F10014A9DA /* Observable+MJFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B7EB7420B802F00014A9DA /* Observable+MJFuture.swift */; };
 		D2D752D920B2BA9F00386BBF /* Array+BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */; };
 		D2D752DB20B2FF1100386BBF /* RetryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D752DA20B2FF1100386BBF /* RetryRepository.swift */; };
+		D2EDF60E20DA94B00063DB89 /* AnyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */; };
 		D30B7A8F1F700DCB56F0C85F475A3361 /* Promise+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D59B849274008907E74DCDF26B88D /* Promise+Resolve.swift */; };
 		D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0208CED19718E626E411E23DE1D29E1A /* RealmHandler+Future.swift */; };
 		D5C2EC219E066A7A32D120BE41D06CF3 /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E839B3343678C7C1647FF5B46CD57380 /* Future+Batch.swift */; };
@@ -1182,6 +1183,7 @@
 		D2D752D820B2BA9F00386BBF /* Array+BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+BinarySearch.swift"; path = "MJSwiftCore/Classes/Common/Array+BinarySearch.swift"; sourceTree = "<group>"; };
 		D2D752DA20B2FF1100386BBF /* RetryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryRepository.swift; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
+		D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyDataSource.swift; sourceTree = "<group>"; };
 		D2F3D6EC06490C778CBE0603D5BAA585 /* FBLPromise+Timeout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Timeout.h"; path = "Sources/FBLPromises/include/FBLPromise+Timeout.h"; sourceTree = "<group>"; };
 		D3B7DA96354A703F0DAC763FE5C03BBE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D49FC9E5ACD670AF03633199A455562B /* FBLPromise+Catch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Catch.h"; path = "Sources/FBLPromises/include/FBLPromise+Catch.h"; sourceTree = "<group>"; };
@@ -1870,6 +1872,7 @@
 			children = (
 				D252EBD220AAB80F000188A2 /* CoreError.swift */,
 				290287706A57A33D8B8D581891D4ADA5 /* DataSource.swift */,
+				D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */,
 				3FD3137AB068B107654E5DC3F72E1185 /* DataSourceMapper.swift */,
 				FE4822CE81A4DF6B4EBB0ABBD233339B /* DataSourceValidator.swift */,
 				D290E01020B4097900D7C0D6 /* RetryDataSource.swift */,
@@ -2997,6 +3000,7 @@
 				5EB03BEA62B86B0789DADE8EE21BF2F9 /* DispatchQueueExecutor.swift in Sources */,
 				94399715DDCD474EE83158C615A06358 /* Entity.swift in Sources */,
 				BB95EDFDFD96BC2339816EF65A5F89FB /* ErrorHelper.swift in Sources */,
+				D2EDF60E20DA94B00063DB89 /* AnyDataSource.swift in Sources */,
 				107997AF62813DF8B998F883869D7D96 /* Executor+Future.swift in Sources */,
 				B8C92BCE17C07B9CC3F56ACA11911F6D /* Executor.swift in Sources */,
 				D231D8B920B6C7A200FB0E3E /* Event.swift in Sources */,
