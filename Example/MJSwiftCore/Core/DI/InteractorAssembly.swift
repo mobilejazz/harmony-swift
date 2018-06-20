@@ -19,6 +19,6 @@ class InteractorAssembly: Assembly {
         
         // Interactors
         container.register(Interactor.GetAllByQuery<Item>.self) { r in Interactor.GetAllByQuery<Item>(r.resolve(Executor.self, name: "GetItems")!,
-                                                                                                      r.resolve(Repository<Item>.self)!) }
+                                                                                                      r.resolve(AnyRepository<Item>.self)!) }
     }
 }

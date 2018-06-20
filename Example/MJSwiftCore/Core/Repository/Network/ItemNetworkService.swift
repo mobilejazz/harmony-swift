@@ -19,26 +19,54 @@ extension ItemEntity {
     }
 }
 
-class ItemNetworkService: AlamofireDataSource<ItemEntity> {
+class ItemNetworkService : AlamofireDataSource  {
     
-    override func get(_ query: Query) -> Future<ItemEntity> {
+    typealias T = ItemEntity
+    
+    var sessionManager : SessionManager
+    
+    required init(_ sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
+    }
+    
+    func get(_ query: Query) -> Future<ItemEntity> {
         switch query.self {
         case is IdQuery<String>:
             return getById((query as! IdQuery<String>).id)
         default:
-            return super.get(query)
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
         }
     }
     
-    override func getAll(_ query: Query) -> Future<[ItemEntity]> {
+    func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
         case is AllObjectsQuery:
             return getAllItems()
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            return super.getAll(query)
+            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
         }
+    }
+    
+    func putAll(_ array: [ItemEntity], in query: Query) -> Future<[ItemEntity]> {
+        // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
+        return Future<[ItemEntity]>()
+    }
+    
+    func put(_ value: ItemEntity?, in query: Query) -> Future<ItemEntity> {
+        // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
+        return Future<ItemEntity>()
+    }
+    
+    func deleteAll(_ query: Query) -> Future<Void> {
+        // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
+        return Future<Void>()
+    }
+    
+    func delete(_ query: Query) -> Future<Void> {
+        // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
+        return Future<Void>()
     }
 }
 

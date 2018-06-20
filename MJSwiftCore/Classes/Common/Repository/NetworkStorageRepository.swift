@@ -30,10 +30,10 @@ public class StorageSyncOperation : Operation { public init () { } }
 ///
 public class NetworkStorageRepository<T> : Repository  {
     
-    private let network: DataSource<T>
-    private let storage: DataSource<T>
+    private let network: AnyDataSource<T>
+    private let storage: AnyDataSource<T>
     
-    public init(network: DataSource<T>, storage: DataSource<T>) {
+    public init(network: AnyDataSource<T>, storage: AnyDataSource<T>) {
         self.network = network
         self.storage = storage
     }
@@ -64,7 +64,7 @@ public class NetworkStorageRepository<T> : Repository  {
             }()
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+    public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
             case is NetworkOperation:
@@ -85,13 +85,13 @@ public class NetworkStorageRepository<T> : Repository  {
                     }
                 }
             default:
-                return super.getAll(query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
             case is NetworkOperation:
@@ -107,13 +107,13 @@ public class NetworkStorageRepository<T> : Repository  {
                     return self.network.put(value, in: query)
                 }
             default:
-                return super.put(value, in: query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return { () -> Future<[T]> in
             switch operation {
             case is NetworkOperation:
@@ -129,13 +129,13 @@ public class NetworkStorageRepository<T> : Repository  {
                     return self.network.putAll(array, in: query)
                 }
             default:
-                return super.putAll(array, in: query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
             case is NetworkOperation:
@@ -151,13 +151,13 @@ public class NetworkStorageRepository<T> : Repository  {
                     return self.network.delete(query)
                 }
             default:
-                return super.delete(query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         return { () -> Future<Void> in
             switch operation {
             case is NetworkOperation:
@@ -173,7 +173,7 @@ public class NetworkStorageRepository<T> : Repository  {
                     return self.network.deleteAll(query)
                 }
             default:
-                return super.deleteAll(query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }
