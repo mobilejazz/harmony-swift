@@ -26,16 +26,11 @@ public class BlankOperation : Operation {
     public init() { }
 }
 
-///
-/// Abstract definition of a repository.
-/// A Repository<T> is responsible to forward a query to a specific DataSource<T>.
-/// Each repository subclass must extend the Operation struct with its own operations, then override any needed method
-/// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
-///
-public protocol Repository {
-    
+public protocol TypedRepository {
     associatedtype T
-    
+}
+
+public protocol GetRepository : TypedRepository {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -47,7 +42,19 @@ public protocol Repository {
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
     func getAll(_ query: Query, operation: Operation) -> Future<[T]>
+}
+
+extension GetRepository {
+    public func get<K>(_ id: K, operation: Operation) -> Future<T> where K:Hashable {
+        return get(IdQuery(id), operation: operation)
+    }
     
+    public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+        return getAll(IdQuery(id), operation: operation)
+    }
+}
+
+public protocol PutRepository : TypedRepository {
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -61,6 +68,21 @@ public protocol Repository {
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
     func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]>
+}
+
+extension PutRepository {
+    @discardableResult
+    public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K:Hashable {
+        return put(value, in: IdQuery(id), operation: operation)
+    }
+    
+    @discardableResult
+    public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+        return putAll(array, in: IdQuery(id), operation: operation)
+    }
+}
+
+public protocol DeleteRepository : TypedRepository {
     
     /// Delete by query method
     ///
@@ -77,25 +99,7 @@ public protocol Repository {
     func deleteAll(_ query: Query, operation: Operation) -> Future<Void>
 }
 
-extension Repository {
-    public func get<K>(_ id: K, operation: Operation) -> Future<T> where K:Hashable {
-        return get(IdQuery(id), operation: operation)
-    }
-    
-    public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
-        return getAll(IdQuery(id), operation: operation)
-    }
-    
-    @discardableResult
-    public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K:Hashable {
-        return put(value, in: IdQuery(id), operation: operation)
-    }
-    
-    @discardableResult
-    public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
-        return putAll(array, in: IdQuery(id), operation: operation)
-    }
-    
+extension DeleteRepository {
     @discardableResult
     public func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
         return delete(IdQuery(id), operation: operation)
@@ -106,3 +110,11 @@ extension Repository {
         return deleteAll(IdQuery(id), operation: operation)
     }
 }
+
+///
+/// Abstract definition of a repository.
+/// A Repository<T> is responsible to forward a query to a specific DataSource<T>.
+/// Each repository subclass must extend the Operation struct with its own operations, then override any needed method
+/// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
+///
+public protocol Repository : GetRepository, PutRepository, DeleteRepository { }

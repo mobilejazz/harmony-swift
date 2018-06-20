@@ -19,9 +19,11 @@ import Foundation
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
-public class RepositoryMapper<From,To>: Repository<From> {
+public class RepositoryMapper <From,To> : Repository {
     
-    private let repository : Repository<To>
+    public typealias T = From
+    
+    private let repository : AnyRepository<To>
     private let toToMapper: Mapper<From,To>
     private let toFromMapper: Mapper<To,From>
     
@@ -31,26 +33,26 @@ public class RepositoryMapper<From,To>: Repository<From> {
     ///   - repository: The contained repository
     ///   - toToMapper: From to To mapper
     ///   - toFromMapper: To to From mapper
-    public init(repository: Repository<To>,
-                toToMapper: Mapper <From,To>,
-                toFromMapper: Mapper<To,From>) {
-        self.repository = repository
+    public init<R>(repository: R,
+                   toToMapper: Mapper <From,To>,
+                   toFromMapper: Mapper<To,From>) where R: Repository, To == R.T {
+        self.repository = AnyRepository(base: repository)
         self.toToMapper = toToMapper
         self.toFromMapper = toFromMapper
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<From> {
+    public func get(_ query: Query, operation: Operation) -> Future<From> {
         return repository.get(query, operation: operation).map { value in
             return self.toFromMapper.map(value)
         }
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
+    public func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
          return repository.getAll(query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
-    public override func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
+    public func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
         var mapped : To? = nil
         if let value = value {
             mapped = toToMapper.map(value)
@@ -59,17 +61,17 @@ public class RepositoryMapper<From,To>: Repository<From> {
     }
     
     @discardableResult
-    public override func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
+    public func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
         return repository.putAll(toToMapper.map(array), in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         return repository.delete(query, operation: operation)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         return repository.deleteAll(query, operation: operation)
     }
 }

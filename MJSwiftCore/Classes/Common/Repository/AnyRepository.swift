@@ -1,47 +1,62 @@
 //
-//  AnyRepository.swift
-//  MJSwiftCore
+// Copyright 2018 Mobile Jazz SL
 //
-//  Created by Borja Arias Drake on 20/06/2018.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 import Foundation
 
+///
 /// A type eraser for the Repository type, following Apple's Swift Standard Library approach.
-public class AnyRepository<T> : Repository {
+///
+public class AnyRepository <T> : Repository {
     
     private var box: RepositoryBoxBase<T>
     
-    init<R: Repository>(base: R) where R.T == T {
-        self.box = RepositoryBox(base: base)
+    public init<R: Repository>(base: R) where R.T == T {
+        box = RepositoryBox(base: base)
     }
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
-        return self.box.get(query, operation: operation)
+        return box.get(query, operation: operation)
     }
     
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
-        return self.box.getAll(query, operation: operation)
+        return box.getAll(query, operation: operation)
     }
     
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
-        return self.box.put(value, in: query, operation: operation)
+        return box.put(value, in: query, operation: operation)
     }
     
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
-        return self.box.putAll(array, in: query, operation: operation)
+        return box.putAll(array, in: query, operation: operation)
     }
     
     public func delete(_ query: Query, operation: Operation) -> Future<Void> {
-        return self.box.delete(query, operation: operation)
+        return box.delete(query, operation: operation)
     }
     
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
-        return self.box.deleteAll(query, operation: operation)
+        return box.deleteAll(query, operation: operation)
     }
 }
 
-fileprivate class RepositoryBoxBase<T>: Repository {
+///
+/// This is an abstract class. Do not use it.
+/// Repository base class defining a generic type T (which is unrelated to the associated type of the Repository protocol)
+///
+fileprivate class RepositoryBoxBase <T>: Repository {
     
     func get(_ query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
@@ -68,7 +83,10 @@ fileprivate class RepositoryBoxBase<T>: Repository {
     }
 }
 
-fileprivate class RepositoryBox<Base : Repository> : RepositoryBoxBase<Base.T> {
+///
+/// A repository box, which has as generic type a Repository and links the RepositoryBoxBase type T as the Base.T type.
+///
+fileprivate class RepositoryBox <Base> : RepositoryBoxBase <Base.T> where Base : Repository {
     
     private var base: Base
     
@@ -77,29 +95,26 @@ fileprivate class RepositoryBox<Base : Repository> : RepositoryBoxBase<Base.T> {
     }
     
     override func get(_ query: Query, operation: Operation) -> Future<T> {
-        return self.base.get(query, operation: operation)
+        return base.get(query, operation: operation)
     }
     
     override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
-        return self.base.getAll(query, operation: operation)
+        return base.getAll(query, operation: operation)
     }
     
     override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
-        return self.base.put(value, in: query, operation: operation)
+        return base.put(value, in: query, operation: operation)
     }
     
     override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
-        return self.base.putAll(array, in: query, operation: operation)
+        return base.putAll(array, in: query, operation: operation)
     }
     
     override func delete(_ query: Query, operation: Operation) -> Future<Void> {
-        return self.base.delete(query, operation: operation)
+        return base.delete(query, operation: operation)
     }
     
     override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
-        return self.base.deleteAll(query, operation: operation)
+        return base.deleteAll(query, operation: operation)
     }
 }
-
-
-

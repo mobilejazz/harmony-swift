@@ -60,7 +60,7 @@ public class RetryOperation : Operation {
 /// Repository adding a retry logic over an existing repository when an error happens.
 /// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
-public class RetryRepository<T, R: Repository> : Repository where T == R.T {
+public class RetryRepository <T,R> : Repository where R : Repository, T == R.T {
         
     /// The nested repository
     private let repository : R
