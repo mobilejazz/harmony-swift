@@ -50,7 +50,7 @@ open class DirectInteractor<T> : QueryInteractor <T>{
         super.init(executor, repository)
     }
     
-    public convenience init<K>(_ executor: Executor, _ repository: AnyRepository<T>, _ id: K) where K:Hashable {
+    public convenience init<K>(_ executor: Executor, _ repository: AnyRepository<T>, _ id: K) where K : Hashable {
         self.init(executor, repository, IdQuery(id))
     }
 }

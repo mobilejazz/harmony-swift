@@ -21,16 +21,16 @@ import Foundation
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDataSourceRepository<T> : Repository {
+public class SingleDataSourceRepository<D,T> : Repository where D : DataSource, D.T == T {
 
-    private let dataSource : AnyDataSource<T>
+    private let dataSource : D
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - dataSource: The contained data source
-    public init<D>(_ dataSource: D) where D : DataSource, D.T == T {
-        self.dataSource = dataSource.asAnyDataSource()
+    public init(_ dataSource: D) {
+        self.dataSource = dataSource
     }
     
     public func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
