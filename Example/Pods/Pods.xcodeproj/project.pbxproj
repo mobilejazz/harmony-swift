@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		005CF3FEA0DD46E7312D729379D54F83 /* FBLPromise+All.h in Headers */ = {isa = PBXBuildFile; fileRef = D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */; };
+		0067933D20DA39E700E7001F /* AnyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0067933C20DA39E700E7001F /* AnyRepository.swift */; };
 		0096C6816AC3D92834AB65C49518C177 /* ImageView+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C633AE8A7E0F3ECBBB6708EB2F0B704 /* ImageView+Kingfisher.swift */; };
 		00BEC5265037EB90E663F5F36C4E62AA /* FBLPromise+Do.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 0EE42AA0A16675147E2429BAEA293363 /* FBLPromise+Do.h */; };
 		00EDE360182D44C9EB26320646E1445B /* RLMSyncUtil.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 778972D863E70A8784D146CE784160C6 /* RLMSyncUtil.h */; };
@@ -760,6 +761,7 @@
 
 /* Begin PBXFileReference section */
 		002A05DD30A2DB7A66CA8EE8664826CF /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0067933C20DA39E700E7001F /* AnyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyRepository.swift; sourceTree = "<group>"; };
 		017ED9EE5762934ABF359F5F1464911F /* JSObjectFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSObjectFactory.m; path = Source/JSObjectFactory.m; sourceTree = "<group>"; };
 		0208CED19718E626E411E23DE1D29E1A /* RealmHandler+Future.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "RealmHandler+Future.swift"; path = "MJSwiftCore/Classes/Realm/RealmHandler+Future.swift"; sourceTree = "<group>"; };
 		0232D53408A656145BC5AD3BC2995D01 /* Resource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resource.swift; path = Sources/Resource.swift; sourceTree = "<group>"; };
@@ -1875,6 +1877,7 @@
 				12334A2FE64C881EC750BF933EE04D72 /* NetworkStorageRepository.swift */,
 				2911624EB2A68EC349EC0295A6955F86 /* Query+KeyValue.swift */,
 				F0704F9FC8B9518C7E555C81E3F79640 /* Repository.swift */,
+				0067933C20DA39E700E7001F /* AnyRepository.swift */,
 				C81EE480115F9D958687FCB3FDD453A9 /* RepositoryMapper.swift */,
 				6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */,
 				6658B3F4D4AFAD8C652ED4CCF35CF961 /* UserDefaultsDataSource.swift */,
@@ -3055,6 +3058,7 @@
 				884BC1FDBD3226709DA00A048658EA55 /* ScopeLock.swift in Sources */,
 				3E4A3AD4A5DDEFD7DC669F1BE85F029F /* ScopeLockFuture.swift in Sources */,
 				2C07B06180CE60DE2B273B646CBE5358 /* SecureKey.swift in Sources */,
+				0067933D20DA39E700E7001F /* AnyRepository.swift in Sources */,
 				C908BE1549B66B235EEFDBD58685E717 /* SharedTimer.swift in Sources */,
 				BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */,
 				DEFEBA3260809E7E845327D272C5A22E /* String+Extensions.swift in Sources */,
