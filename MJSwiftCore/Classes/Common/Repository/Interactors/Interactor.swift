@@ -25,9 +25,9 @@ public struct Interactor { }
 open class QueryInteractor<T> {
 
     public let executor : Executor
-    public let repository: Repository<T>
+    public let repository: AnyRepository<T>
     
-    public required init(_ executor: Executor, _ repository: Repository<T>) {
+    public required init(_ executor: Executor, _ repository: AnyRepository<T>) {
         self.executor = executor
         self.repository = repository
     }
@@ -40,17 +40,17 @@ open class DirectInteractor<T> : QueryInteractor <T>{
     public let query : Query
     
     @available(*, unavailable)
-    public required init(_ executor: Executor, _ repository: Repository<T>) {
+    public required init(_ executor: Executor, _ repository: AnyRepository<T>) {
         self.query = BlankQuery()
         super.init(executor, repository)
     }
     
-    public required init(_ executor: Executor, _ repository: Repository<T>, _ query: Query) {
+    public required init(_ executor: Executor, _ repository: AnyRepository<T>, _ query: Query) {
         self.query = query
         super.init(executor, repository)
     }
     
-    public convenience init<K>(_ executor: Executor, _ repository: Repository<T>, _ id: K) where K:Hashable {
+    public convenience init<K>(_ executor: Executor, _ repository: AnyRepository<T>, _ id: K) where K:Hashable {
         self.init(executor, repository, IdQuery(id))
     }
 }

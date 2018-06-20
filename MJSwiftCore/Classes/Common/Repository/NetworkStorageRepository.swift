@@ -28,7 +28,7 @@ public class StorageSyncOperation : Operation { public init () { } }
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageRepository<T> : Repository<T>  {
+public class NetworkStorageRepository<T> : Repository  {
     
     private let network: DataSource<T>
     private let storage: DataSource<T>
@@ -38,7 +38,7 @@ public class NetworkStorageRepository<T> : Repository<T>  {
         self.storage = storage
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<T> {
+    public func get(_ query: Query, operation: Operation) -> Future<T> {
         return { () -> Future<T> in
             switch operation {
             case is NetworkOperation:
@@ -59,7 +59,7 @@ public class NetworkStorageRepository<T> : Repository<T>  {
                     }
                 }
             default:
-                return super.get(query, operation: operation)
+                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
             }
             }()
     }

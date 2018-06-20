@@ -32,79 +32,49 @@ public class BlankOperation : Operation {
 /// Each repository subclass must extend the Operation struct with its own operations, then override any needed method
 /// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
 ///
-open class Repository<T> {
+public protocol Repository {
     
-    public init() { }
+    associatedtype T
     
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
-    open func get(_ query: Query, operation: Operation) -> Future<T> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
-        }
-    }
+    func get(_ query: Query, operation: Operation) -> Future<T>
     
     /// Main get method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of the repository's type
-    open func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method getAll on \(String(describing: type(of:self)))")
-        }
-    }
+    func getAll(_ query: Query, operation: Operation) -> Future<[T]>
     
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method put on \(String(describing: type(of:self)))")
-        }
-    }
+    func put(_ value: T?, in query: Query, operation: Operation) -> Future<T>
     
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method putAll on \(String(describing: type(of:self)))")
-        }
-    }
+    func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]>
     
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func delete(_ query: Query, operation: Operation) -> Future<Void> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method delete on \(String(describing: type(of:self)))")
-        }
-    }
+    func delete(_ query: Query, operation: Operation) -> Future<Void>
     
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
     @discardableResult
-    open func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
-        switch operation {
-        default:
-            fatalError("Undefined operation \(String(describing: operation)) for method deleteAll on \(String(describing: type(of:self)))")
-        }
-    }
+    func deleteAll(_ query: Query, operation: Operation) -> Future<Void>
 }
 
 extension Repository {

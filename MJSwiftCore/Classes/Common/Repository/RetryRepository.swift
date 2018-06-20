@@ -60,20 +60,20 @@ public class RetryOperation : Operation {
 /// Repository adding a retry logic over an existing repository when an error happens.
 /// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
-public class RetryRepository<T> : Repository<T> {
-    
+public class RetryRepository<T, R: Repository> : Repository where T == R.T {
+        
     /// The nested repository
-    private let repository : Repository<T>
+    private let repository : R
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - repository: The contained repository
-    public init(_ repository: Repository<T>) {
+    public init(_ repository: R) {
         self.repository = repository
     }
     
-    public override func get(_ query: Query, operation: Operation) -> Future<T> {
+    public func get(_ query: Query, operation: Operation) -> Future<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.get(query, operation: retryOp.operation).recover { error in
@@ -88,7 +88,7 @@ public class RetryRepository<T> : Repository<T> {
         }
     }
     
-    public override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
+    public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.getAll(query, operation: retryOp.operation).recover { error in
@@ -104,7 +104,7 @@ public class RetryRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.put(value, in: query, operation: retryOp.operation).recover { error in
@@ -120,7 +120,7 @@ public class RetryRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.putAll(array, in: query, operation: retryOp.operation).recover { error in
@@ -136,7 +136,7 @@ public class RetryRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.delete(query, operation: retryOp.operation).recover { error in
@@ -152,7 +152,7 @@ public class RetryRepository<T> : Repository<T> {
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
         case let retryOp as RetryOperation:
             return repository.deleteAll(query, operation: retryOp.operation).recover { error in
