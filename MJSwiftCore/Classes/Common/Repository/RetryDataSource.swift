@@ -19,9 +19,9 @@ import Foundation
 ///
 /// A retry data source adds retry capabilities over an existing data source.
 ///
-public class RetryDataSource<T> : DataSource<T> {
+public class RetryDataSource <T> : DataSource {
     
-    private let dataSource : DataSource<T>
+    private let dataSource : AnyDataSource<T>
     private let retryCount : Int
     private let retryIf : (Error) -> Bool
     
@@ -31,37 +31,39 @@ public class RetryDataSource<T> : DataSource<T> {
     ///   - dataSource: The data source to retry
     ///   - retryCount: The number of retries. Default value is 1.
     ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default closure returns true.
-    public init(_ dataSource: DataSource<T>, retryCount: Int = 1, retryIf : @escaping (Error) -> Bool = { _ in true }) {
-        self.dataSource = dataSource
+    public init<D>(_ dataSource: D,
+                   retryCount: Int = 1,
+                   retryIf : @escaping (Error) -> Bool = { _ in true }) where D : DataSource, D.T == T {
+        self.dataSource = dataSource.asAnyDataSource()
         self.retryCount = retryCount
         self.retryIf = retryIf
     }
     
-    public override func get(_ query: Query) -> Future<T> {
+    public func get(_ query: Query) -> Future<T> {
         return get(query, retryCount)
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public func getAll(_ query: Query) -> Future<[T]> {
         return getAll(query, retryCount)
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query) -> Future<T> {
+    public func put(_ value: T?, in query: Query) -> Future<T> {
         return put(value, in: query, retryCount)
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return putAll(array, in: query, retryCount)
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         return delete(query, retryCount)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         return deleteAll(query, retryCount)
     }
 }

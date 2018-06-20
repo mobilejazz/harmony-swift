@@ -21,43 +21,43 @@ import Foundation
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDataSourceRepository<T> : Repository<T> {
+public class SingleDataSourceRepository<T> : Repository {
 
-    private let dataSource : DataSource<T>
+    private let dataSource : AnyDataSource<T>
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - dataSource: The contained data source
-    public init(_ dataSource: DataSource<T>) {
-        self.dataSource = dataSource
+    public init<D>(_ dataSource: D) where D : DataSource, D.T == T {
+        self.dataSource = dataSource.asAnyDataSource()
     }
     
-    public override func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
+    public func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
         return dataSource.get(query)
     }
     
-    public override func getAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
+    public func getAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query, operation: Operation = BlankOperation()) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation: Operation = BlankOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
-    public override func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }
@@ -66,7 +66,7 @@ extension DataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleDataSourceRepository repository
-    public func toRepository() -> Repository<T> {
-        return SingleDataSourceRepository(self)
+    public func toRepository() -> AnyRepository<T> {
+        return SingleDataSourceRepository(self).asAnyRepository()
     }
 }

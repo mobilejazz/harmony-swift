@@ -17,12 +17,9 @@
 import Foundation
 import Alamofire
 
-open class AlamofireDataSource<T>: DataSource<T> {
+public protocol AlamofireDataSource : DataSource {
     
-    public let sessionManager : SessionManager
+    var sessionManager : SessionManager { get }
     
-    public init(_ sessionManager: SessionManager) {
-        self.sessionManager = sessionManager
-        super.init()
-    }
+    init(_ sessionManager: SessionManager)
 }

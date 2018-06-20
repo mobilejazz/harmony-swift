@@ -54,9 +54,9 @@ public extension ObjectValidation {
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class DataSourceValidator<T>: DataSource<T> {
+public class DataSourceValidator <T> : DataSource {
     
-    private let dataSource : DataSource<T>
+    private let dataSource : AnyDataSource<T>
     private let validator: ObjectValidation
     
     /// Default initializer
@@ -64,12 +64,12 @@ public class DataSourceValidator<T>: DataSource<T> {
     /// - Parameters:
     ///   - dataSource: The contained repository
     ///   - validation: The storage validation
-    public init(dataSource: DataSource<T>, validator: ObjectValidation) {
-        self.dataSource = dataSource
+    public init<D>(dataSource: D, validator: ObjectValidation) where D : DataSource, D.T == T {
+        self.dataSource = dataSource.asAnyDataSource()
         self.validator = validator
     }
     
-    public override func get(_ query: Query) -> Future<T> {
+    public func get(_ query: Query) -> Future<T> {
         return dataSource.get(query).filter { value in
             if !self.validator.isObjectValid(value) {
                 throw CoreError.NotValid()
@@ -77,7 +77,7 @@ public class DataSourceValidator<T>: DataSource<T> {
         }
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public func getAll(_ query: Query) -> Future<[T]> {
         return dataSource.getAll(query).filter { values in
             if !self.validator.isArrayValid(values) {
                 throw CoreError.NotValid()
@@ -86,22 +86,22 @@ public class DataSourceValidator<T>: DataSource<T> {
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query) -> Future<T> {
+    public func put(_ value: T?, in query: Query) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }

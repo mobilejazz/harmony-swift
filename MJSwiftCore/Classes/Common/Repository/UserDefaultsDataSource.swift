@@ -16,7 +16,7 @@
 
 import Foundation
 
-public class UserDefaultsDataSource<T> : DataSource<T> {
+public class UserDefaultsDataSource <T> : DataSource {
 
     private let userDefaults : UserDefaults
     private let prefix : String
@@ -38,7 +38,7 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
         }
     }
     
-    public override func get(_ query: Query) -> Future<T> {
+    public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
             let key = query.key
@@ -88,11 +88,11 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
             }
             return Future(value)
         default:
-            return super.get(query)
+            fatalError()
         }
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
             guard let array = userDefaults.array(forKey: query.key) as? [T] else {
@@ -100,12 +100,12 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
             }
             return Future(array)
         default:
-            return super.getAll(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query) -> Future<T> {
+    public func put(_ value: T?, in query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
@@ -115,43 +115,43 @@ public class UserDefaultsDataSource<T> : DataSource<T> {
             userDefaults.synchronize()
             return Future(value)
         default:
-            return super.put(value, in: query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
             userDefaults.set(array, forKey: query.key)
             userDefaults.synchronize()
             return Future(array)
         default:
-            return super.putAll(array, in: query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
             userDefaults.removeObject(forKey: query.key)
             userDefaults.synchronize()
             return Future(Void())
         default:
-            return super.delete(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
             userDefaults.removeObject(forKey: query.key)
             userDefaults.synchronize()
             return Future(Void())
         default:
-            return super.deleteAll(query)
+            fatalError()
         }
     }
 }

@@ -61,7 +61,7 @@ public class RetryOperation : Operation {
 /// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
 public class RetryRepository <T,R> : Repository where R : Repository, T == R.T {
-        
+    
     /// The nested repository
     private let repository : R
     

@@ -27,7 +27,9 @@ extension NSPredicate : RealmQuery {
     }
 }
 
-public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
+public class RealmDataSource <E: Entity, O: Object> : DataSource {
+    
+    public typealias T = E
     
     let realmHandler: RealmHandler
     let toEntityMapper: Mapper<O,E>
@@ -41,18 +43,18 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
         self.toRealmMapper = toRealmMapper
     }
     
-    public override func get(_ query: Query) -> Future<E> {
+    public func get(_ query: Query) -> Future<E> {
         switch query {
         case let query as IdQuery<String>:
             return realmHandler.read { realm in
                 return realm.object(ofType: O.self, forPrimaryKey: query.id)
                 }.map { self.toEntityMapper.map($0) }
         default:
-            return super.get(query)
+            fatalError()
         }
     }
     
-    public override func getAll(_ query: Query) -> Future<[E]> {
+    public func getAll(_ query: Query) -> Future<[E]> {
         switch query {
         case is AllObjectsQuery:
             return realmHandler.read { realm in
@@ -63,12 +65,12 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 return Array(realm.objects(O.self).filter(query.realmPredicate))
                 }.map { self.toEntityMapper.map($0) }
         default:
-            return super.getAll(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func put(_ value: E?, in query: Query) -> Future<E> {
+    public func put(_ value: E?, in query: Query) -> Future<E> {
         switch query {
         case is BlankQuery:
             guard let value = value else {
@@ -85,12 +87,12 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
             }
             return put(query.object, in: BlankQuery())
         default:
-            return super.put(value, in: query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func putAll(_ array: [E], in query: Query) -> Future<[E]> {
+    public func putAll(_ array: [E], in query: Query) -> Future<[E]> {
         switch query {
         case is BlankQuery:
             return realmHandler.write { realm -> [O] in
@@ -104,13 +106,13 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
             }
             return putAll(query.array, in: BlankQuery())
         default:
-            return super.putAll(array, in: query)
+            fatalError()
         }
     }
     
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdQuery<String>:
             return realmHandler.write { realm in
@@ -129,12 +131,12 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 return Void()
             }
         default:
-            return super.delete(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         case let query as ArrayQuery<E>:
             return realmHandler.write { realm in
@@ -154,7 +156,7 @@ public class RealmDataSource<E: Entity, O: Object> : DataSource<E> {
                 return Void()
                 }
         default:
-            return super.deleteAll(query)
+            fatalError()
         }
     }
 }

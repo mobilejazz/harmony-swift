@@ -19,7 +19,7 @@ import Foundation
 //
 // Provides a keychain service for a key value interface
 //
-public class KeychainDataSource<T> : DataSource<T> where T:Codable {
+public class KeychainDataSource<T> : DataSource where T : Codable {
     
     private let keychain : Keychain
     
@@ -27,7 +27,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
         self.keychain = keychain
     }
     
-    public override func get(_ query: Query) -> Future<T> {
+    public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
             guard let value : T = keychain.get(query.key) else {
@@ -35,11 +35,11 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             }
             return Future(value)
         default:
-            return super.get(query)
+            fatalError()
         }
     }
     
-    public override func getAll(_ query: Query) -> Future<[T]> {
+    public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
             guard let nsarray : NSArray = keychain.get(query.key) else {
@@ -50,12 +50,12 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
             }
             return Future(array)
         default:
-            return super.getAll(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func put(_ value: T?, in query: Query) -> Future<T> {
+    public func put(_ value: T?, in query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
             guard let value = value else {
@@ -68,12 +68,12 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            return super.put(value, in: query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
             let nsarray = array as NSArray
@@ -84,12 +84,12 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            return super.putAll(array, in: query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func delete(_ query: Query) -> Future<Void> {
+    public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
             switch keychain.delete(query.key) {
@@ -99,12 +99,12 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            return super.delete(query)
+            fatalError()
         }
     }
     
     @discardableResult
-    public override func deleteAll(_ query: Query) -> Future<Void> {
+    public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
             switch keychain.delete(query.key) {
@@ -114,7 +114,7 @@ public class KeychainDataSource<T> : DataSource<T> where T:Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            return super.deleteAll(query)
+            fatalError()
         }
     }
 }
