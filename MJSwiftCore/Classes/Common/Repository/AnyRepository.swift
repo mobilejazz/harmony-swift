@@ -21,10 +21,14 @@ import Foundation
 ///
 public class AnyRepository <T> : Repository {
     
-    private var box: RepositoryBoxBase<T>
+    private let box: RepositoryBoxBase<T>
     
-    public init<R: Repository>(base: R) where R.T == T {
-        box = RepositoryBox(base: base)
+    /// Default initializer.
+    ///
+    /// - Parameters:
+    ///   - repository: The repository to abstract
+    public init<R: Repository>(_ repository: R) where R.T == T {
+        box = RepositoryBox(repository)
     }
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
@@ -88,9 +92,9 @@ fileprivate class RepositoryBoxBase <T>: Repository {
 ///
 fileprivate class RepositoryBox <Base> : RepositoryBoxBase <Base.T> where Base : Repository {
     
-    private var base: Base
+    private let base: Base
     
-    init(base: Base) {
+    init(_ base: Base) {
         self.base = base
     }
     
