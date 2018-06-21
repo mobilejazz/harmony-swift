@@ -22,7 +22,7 @@ public class AnyDataSource <T> : DataSource {
     /// Default initializer.
     ///
     /// - Parameters:
-    ///   - repository: The repository to abstract
+    ///   - dataSource: The dataSource to abstract
     public init<D: DataSource>(_ dataSource: D) where D.T == T {
         box = DataSourceBox(dataSource)
     }
