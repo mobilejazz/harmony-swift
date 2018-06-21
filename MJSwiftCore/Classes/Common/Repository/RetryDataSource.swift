@@ -19,9 +19,9 @@ import Foundation
 ///
 /// A retry data source adds retry capabilities over an existing data source.
 ///
-public class RetryDataSource <T> : DataSource {
+public class RetryDataSource <D,T> : DataSource where D : DataSource, D.T == T {
     
-    private let dataSource : AnyDataSource<T>
+    private let dataSource : D
     private let retryCount : Int
     private let retryIf : (Error) -> Bool
     
@@ -31,10 +31,10 @@ public class RetryDataSource <T> : DataSource {
     ///   - dataSource: The data source to retry
     ///   - retryCount: The number of retries. Default value is 1.
     ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default closure returns true.
-    public init<D>(_ dataSource: D,
-                   retryCount: Int = 1,
-                   retryIf : @escaping (Error) -> Bool = { _ in true }) where D : DataSource, D.T == T {
-        self.dataSource = dataSource.asAnyDataSource()
+    public init(_ dataSource: D,
+                retryCount: Int = 1,
+                retryIf : @escaping (Error) -> Bool = { _ in true }) {
+        self.dataSource = dataSource
         self.retryCount = retryCount
         self.retryIf = retryIf
     }

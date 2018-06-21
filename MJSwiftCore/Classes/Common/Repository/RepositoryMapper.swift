@@ -19,11 +19,11 @@ import Foundation
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
-public class RepositoryMapper <From,To> : Repository {
+public class RepositoryMapper <R,From,To> : Repository where R : Repository, R.T == To {
     
     public typealias T = From
     
-    private let repository : AnyRepository<To>
+    private let repository : R
     private let toToMapper: Mapper<From,To>
     private let toFromMapper: Mapper<To,From>
     
@@ -33,10 +33,10 @@ public class RepositoryMapper <From,To> : Repository {
     ///   - repository: The contained repository
     ///   - toToMapper: From to To mapper
     ///   - toFromMapper: To to From mapper
-    public init<R>(repository: R,
-                   toToMapper: Mapper <From,To>,
-                   toFromMapper: Mapper<To,From>) where R: Repository, To == R.T {
-        self.repository = repository.asAnyRepository()
+    public init(repository: R,
+                toToMapper: Mapper <From,To>,
+                toFromMapper: Mapper<To,From>) {
+        self.repository = repository
         self.toToMapper = toToMapper
         self.toFromMapper = toFromMapper
     }

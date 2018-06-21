@@ -19,7 +19,7 @@ extension ItemEntity {
     }
 }
 
-class ItemNetworkService : AlamofireDataSource  {
+class ItemNetworkDataSource : AlamofireDataSource  {
     
     typealias T = ItemEntity
     
@@ -51,26 +51,26 @@ class ItemNetworkService : AlamofireDataSource  {
     
     func putAll(_ array: [ItemEntity], in query: Query) -> Future<[ItemEntity]> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        return Future<[ItemEntity]>()
+        fatalError()
     }
     
     func put(_ value: ItemEntity?, in query: Query) -> Future<ItemEntity> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        return Future<ItemEntity>()
+        fatalError()
     }
     
     func deleteAll(_ query: Query) -> Future<Void> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        return Future<Void>()
+        fatalError()
     }
     
     func delete(_ query: Query) -> Future<Void> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        return Future<Void>()
+        fatalError()
     }
 }
 
-private extension ItemNetworkService {
+private extension ItemNetworkDataSource {
     private func getById(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in

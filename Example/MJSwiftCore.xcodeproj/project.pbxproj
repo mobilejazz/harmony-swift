@@ -20,7 +20,7 @@
 		D219D6F11FCC2E2D00D91CED /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */; };
 		D219D6F21FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */; };
 		D219D6F31FCC2E2D00D91CED /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */; };
-		D219D6F41FCC2E2D00D91CED /* ItemNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6DA1FCC2E2D00D91CED /* ItemNetworkService.swift */; };
+		D219D6F41FCC2E2D00D91CED /* ItemNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6DA1FCC2E2D00D91CED /* ItemNetworkDataSource.swift */; };
 		D219D6F51FCC2E2D00D91CED /* ItemQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6DC1FCC2E2D00D91CED /* ItemQuery.swift */; };
 		D219D6F61FCC2E2D00D91CED /* RealmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6E01FCC2E2D00D91CED /* RealmItem.swift */; };
 		D219D6F71FCC2E2D00D91CED /* RealmItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6E11FCC2E2D00D91CED /* RealmItemMapper.swift */; };
@@ -83,7 +83,7 @@
 		D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRetrier.swift; sourceTree = "<group>"; };
 		D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
-		D219D6DA1FCC2E2D00D91CED /* ItemNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemNetworkService.swift; sourceTree = "<group>"; };
+		D219D6DA1FCC2E2D00D91CED /* ItemNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemNetworkDataSource.swift; sourceTree = "<group>"; };
 		D219D6DC1FCC2E2D00D91CED /* ItemQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemQuery.swift; sourceTree = "<group>"; };
 		D219D6E01FCC2E2D00D91CED /* RealmItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmItem.swift; sourceTree = "<group>"; };
 		D219D6E11FCC2E2D00D91CED /* RealmItemMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmItemMapper.swift; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 		D219D6D91FCC2E2D00D91CED /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D219D6DA1FCC2E2D00D91CED /* ItemNetworkService.swift */,
+				D219D6DA1FCC2E2D00D91CED /* ItemNetworkDataSource.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -623,7 +623,7 @@
 				D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */,
 				D219D6F61FCC2E2D00D91CED /* RealmItem.swift in Sources */,
 				D219D7161FCC2E4300D91CED /* UIKitMVPItemDetailView.swift in Sources */,
-				D219D6F41FCC2E2D00D91CED /* ItemNetworkService.swift in Sources */,
+				D219D6F41FCC2E2D00D91CED /* ItemNetworkDataSource.swift in Sources */,
 				D219D7121FCC2E4300D91CED /* UIKitMVPItemListView.swift in Sources */,
 				D219D6F81FCC2E2D00D91CED /* ItemQueryExtensions.swift in Sources */,
 			);

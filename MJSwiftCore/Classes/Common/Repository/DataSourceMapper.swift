@@ -19,11 +19,11 @@ import Foundation
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class DataSourceMapper <From,To> : DataSource {
+public class DataSourceMapper <D,From,To> : DataSource where D : DataSource, D.T == To {
     
     public typealias T = From
 
-    private let dataSource : AnyDataSource<To>
+    private let dataSource : D
     private let toToMapper: Mapper<From,To>
     private let toFromMapper: Mapper<To,From>
     
@@ -33,10 +33,10 @@ public class DataSourceMapper <From,To> : DataSource {
     ///   - dataSource: The contained dataSource
     ///   - toToMapper: From to To mapper
     ///   - toFromMapper: To to From mapper
-    public init<D>(dataSource: D,
-                   toToMapper: Mapper <From,To>,
-                   toFromMapper: Mapper<To,From>) where D : DataSource, D.T == To{
-        self.dataSource = dataSource.asAnyDataSource()
+    public init(dataSource: D,
+                toToMapper: Mapper <From,To>,
+                toFromMapper: Mapper<To,From>) {
+        self.dataSource = dataSource
         self.toToMapper = toToMapper
         self.toFromMapper = toFromMapper
     }
