@@ -67,11 +67,11 @@ class StorageAssembly: Assembly {
 //        })
         
 // User defaults key value storge
-        container.register(DataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
+        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
             let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
-            let dataSource = DataSourceMapper<ItemEntity, Data>(dataSource: userDefaultsDataSource,
-                                                                toToMapper: EncodableToDataMapper<ItemEntity>(),
-                                                                toFromMapper: DataToDecodableMapper<ItemEntity>())
+            let dataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
+                                              toToMapper: EncodableToDataMapper<ItemEntity>(),
+                                              toFromMapper: DataToDecodableMapper<ItemEntity>()).asAnyDataSource()
             
             return dataSource
         })

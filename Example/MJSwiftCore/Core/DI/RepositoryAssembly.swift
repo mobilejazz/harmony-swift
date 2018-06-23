@@ -31,17 +31,17 @@ class RepositoryAssembly: Assembly {
         container.register(Mapper<ItemEntity, Item>.self) { _ in EncodableToDecodableMapper() }
         
         // Data Providers (registered as singletons)
-        container.register(Repository<Item>.self) { r in
-            let storageDataSource = r.resolve(DataSource<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
+        container.register(AnyRepository<Item>.self) { r in
+            let storageDataSource = r.resolve(AnyDataSource<ItemEntity>.self, name: StorageAssembly.Names.storageRepository)!
             let storageValidationDataSource = DataSourceValidator(dataSource: storageDataSource,
                                                                   validator: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
             
-            let networkStorageRepo = NetworkStorageRepository(network: r.resolve(DataSource<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
-                                                              storage: storageValidationDataSource)
+            let networkStorageRepo = NetworkStorageRepository(network: r.resolve(AnyDataSource<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!,
+                                                              storage: storageValidationDataSource.asAnyDataSource())
             
-            return RepositoryMapper(repository: networkStorageRepo,
+            return RepositoryMapper(repository: networkStorageRepo.asAnyRepository(),
                                     toToMapper: r.resolve(Mapper<Item,ItemEntity>.self)!,
-                                    toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!)
+                                    toFromMapper: r.resolve(Mapper<ItemEntity,Item>.self)!).asAnyRepository()
             
             }.inObjectScope(.container)
     }
