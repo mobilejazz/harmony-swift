@@ -57,6 +57,9 @@ extension DataSource {
     ///
     /// - Returns: An AnyDataSource abstraction
     public func asAnyDataSource() -> AnyDataSource<T> {
+        if let dataSource = self as? AnyDataSource<T> {
+            return dataSource
+        }
         return AnyDataSource(self)
     }
 }

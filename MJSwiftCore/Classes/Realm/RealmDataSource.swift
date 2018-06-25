@@ -112,7 +112,6 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
         }
     }
     
-    
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {

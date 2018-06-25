@@ -61,6 +61,9 @@ extension Repository {
     ///
     /// - Returns: An AnyRepository abstraction
     public func asAnyRepository() -> AnyRepository<T> {
+        if let repo = self as? AnyRepository<T> {
+            return repo
+        }
         return AnyRepository(self)
     }
 }
