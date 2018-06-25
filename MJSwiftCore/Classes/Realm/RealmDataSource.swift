@@ -100,9 +100,11 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
                 objetcs.forEach { realm.add($0, update: true) }
                 return objetcs
                 }.map { self.toEntityMapper.map($0) }
+        case is AllObjectsQuery:
+            return putAll(array, in: BlankQuery())
         case let query as ArrayQuery<E>:
             if array.count > 0 {
-                return Future(CoreError.IllegalArgument("Array must be empty when using an ObjectsQuery"))
+                return Future(CoreError.IllegalArgument("Parameter array must be empty when using an ArrayQuery"))
             }
             return putAll(query.array, in: BlankQuery())
         default:

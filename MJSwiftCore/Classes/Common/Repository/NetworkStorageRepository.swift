@@ -28,12 +28,12 @@ public class StorageSyncOperation : Operation { public init () { } }
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageRepository<T> : Repository  {
+public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, S : DataSource, N.T == T, S.T == T {
     
-    private let network: AnyDataSource<T>
-    private let storage: AnyDataSource<T>
+    private let network: N
+    private let storage: S
     
-    public init(network: AnyDataSource<T>, storage: AnyDataSource<T>) {
+    public init(network: N, storage: S) {
         self.network = network
         self.storage = storage
     }

@@ -54,9 +54,9 @@ public extension ObjectValidation {
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class DataSourceValidator <T> : DataSource {
+public class DataSourceValidator <D,T> : DataSource where D : DataSource, D.T == T {
     
-    private let dataSource : AnyDataSource<T>
+    private let dataSource : D
     private let validator: ObjectValidation
     
     /// Default initializer
@@ -64,8 +64,8 @@ public class DataSourceValidator <T> : DataSource {
     /// - Parameters:
     ///   - dataSource: The contained repository
     ///   - validation: The storage validation
-    public init<D>(dataSource: D, validator: ObjectValidation) where D : DataSource, D.T == T {
-        self.dataSource = dataSource.asAnyDataSource()
+    public init(dataSource: D, validator: ObjectValidation) {
+        self.dataSource = dataSource
         self.validator = validator
     }
     
