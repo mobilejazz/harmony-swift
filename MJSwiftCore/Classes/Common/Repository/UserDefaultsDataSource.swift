@@ -88,7 +88,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             }
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.get, self)
         }
     }
     
@@ -100,7 +100,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             }
             return Future(array)
         default:
-            fatalError()
+            query.fatalError(.getAll, self)
         }
     }
     
@@ -115,7 +115,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             userDefaults.synchronize()
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.put, self)
         }
     }
     
@@ -127,7 +127,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             userDefaults.synchronize()
             return Future(array)
         default:
-            fatalError()
+            query.fatalError(.putAll, self)
         }
     }
     
@@ -139,7 +139,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             userDefaults.synchronize()
             return Future(Void())
         default:
-            fatalError()
+            query.fatalError(.delete, self)
         }
     }
     
@@ -151,7 +151,7 @@ public class UserDefaultsDataSource <T> : DataSource {
             userDefaults.synchronize()
             return Future(Void())
         default:
-            fatalError()
+            query.fatalError(.deleteAll, self)
         }
     }
 }

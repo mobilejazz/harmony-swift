@@ -16,8 +16,36 @@
 
 import Foundation
 
+public enum DataSourceCRUD : CustomStringConvertible {
+    case get
+    case getAll
+    case put
+    case putAll
+    case delete
+    case deleteAll
+    case custom(String)
+    
+    public var description: String {
+        switch self {
+        case .get: return "get"
+        case .getAll: return "getAll"
+        case .put: return "put"
+        case .putAll: return "putAll"
+        case .delete: return "delete"
+        case .deleteAll: return "deleteAll"
+        case .custom(let string): return string
+        }
+    }
+}
+
 /// Default query interface
 public protocol Query { }
+
+extension Query {
+    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
+        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
+    }
+}
 
 /// Blank query
 public class BlankQuery : Query {

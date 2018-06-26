@@ -31,7 +31,7 @@ public class InMemoryDataSource<T> : DataSource {
             }
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.get, self)
         }
     }
     
@@ -43,7 +43,7 @@ public class InMemoryDataSource<T> : DataSource {
             }
             return Future(CoreError.NotFound())
         default:
-            fatalError()
+            query.fatalError(.getAll, self)
         }
     }
     
@@ -57,7 +57,7 @@ public class InMemoryDataSource<T> : DataSource {
             objects[query.key] = value
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.put, self)
         }
     }
     
@@ -68,7 +68,7 @@ public class InMemoryDataSource<T> : DataSource {
             arrays[query.key] = array
             return Future(array)
         default:
-            fatalError()
+            query.fatalError(.putAll, self)
         }
     }
     
@@ -79,7 +79,7 @@ public class InMemoryDataSource<T> : DataSource {
             objects[query.key] = nil
             return Future(Void())
         default:
-            fatalError()
+            query.fatalError(.delete, self)
         }
     }
     
@@ -90,7 +90,7 @@ public class InMemoryDataSource<T> : DataSource {
             arrays[query.key] = nil
             return Future(Void())
         default:
-            fatalError()
+            query.fatalError(.deleteAll, self)
         }
     }
 }

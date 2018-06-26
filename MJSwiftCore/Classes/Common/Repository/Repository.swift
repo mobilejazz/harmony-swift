@@ -16,10 +16,38 @@
 
 import Foundation
 
+public enum RepositoryCRUD : CustomStringConvertible {
+    case get
+    case getAll
+    case put
+    case putAll
+    case delete
+    case deleteAll
+    case custom(String)
+    
+    public var description: String {
+        switch self {
+        case .get: return "get"
+        case .getAll: return "getAll"
+        case .put: return "put"
+        case .putAll: return "putAll"
+        case .delete: return "delete"
+        case .deleteAll: return "deleteAll"
+        case .custom(let string): return string
+        }
+    }
+}
+
 ///
 /// An operation defines an abstraction on how data must be fetched (to which DataSource<T> a query must be forwarded).
 ///
 public protocol Operation { }
+
+extension Operation {
+    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
+        Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
+    }
+}
 
 /// An empty operation definition
 public class BlankOperation : Operation {

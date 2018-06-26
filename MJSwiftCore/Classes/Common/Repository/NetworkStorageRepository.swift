@@ -59,7 +59,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     }
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.get, self)
             }
             }()
     }
@@ -85,7 +85,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     }
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.getAll, self)
             }
             }()
     }
@@ -107,7 +107,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     return self.network.put(value, in: query)
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.put, self)
             }
             }()
     }
@@ -129,7 +129,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     return self.network.putAll(array, in: query)
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.putAll, self)
             }
             }()
     }
@@ -151,7 +151,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     return self.network.delete(query)
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.delete, self)
             }
             }()
     }
@@ -173,7 +173,7 @@ public class NetworkStorageRepository<N,S,T> : Repository where N : DataSource, 
                     return self.network.deleteAll(query)
                 }
             default:
-                fatalError("Undefined operation \(String(describing: operation)) for method get on \(String(describing: type(of:self)))")
+                operation.fatalError(.deleteAll, self)
             }
             }()
     }

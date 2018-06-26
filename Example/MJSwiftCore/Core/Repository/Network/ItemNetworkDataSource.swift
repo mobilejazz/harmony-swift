@@ -34,7 +34,7 @@ class ItemNetworkDataSource : AlamofireDataSource  {
         case is IdQuery<String>:
             return getById((query as! IdQuery<String>).id)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
+            query.fatalError(.get, self)
         }
     }
     
@@ -45,28 +45,28 @@ class ItemNetworkDataSource : AlamofireDataSource  {
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            fatalError("Undefined query class \(String(describing: type(of:query))) for method get on \(String(describing: type(of:self)))")
+            query.fatalError(.getAll, self)
         }
     }
     
     func putAll(_ array: [ItemEntity], in query: Query) -> Future<[ItemEntity]> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        fatalError()
+        query.fatalError(.putAll, self)
     }
     
     func put(_ value: ItemEntity?, in query: Query) -> Future<ItemEntity> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        fatalError()
+        query.fatalError(.put, self)
     }
     
     func deleteAll(_ query: Query) -> Future<Void> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        fatalError()
+        query.fatalError(.deleteAll, self)
     }
     
     func delete(_ query: Query) -> Future<Void> {
         // Protocol-refactoring: NEEDS-IMPLEMENTATION OR ONLY CONFORMING TO GetDataSource
-        fatalError()
+        query.fatalError(.delete, self)
     }
 }
 
