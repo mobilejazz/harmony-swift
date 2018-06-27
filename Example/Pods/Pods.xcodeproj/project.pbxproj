@@ -431,6 +431,8 @@
 		D27CFF6A20E383030036392E /* AnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6720E383020036392E /* AnyGetDataSource.swift */; };
 		D27CFF6B20E383030036392E /* AnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6820E383030036392E /* AnyPutDataSource.swift */; };
 		D27CFF6D20E3838E0036392E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6C20E3838E0036392E /* Interactor.swift */; };
+		D27CFF7120E3BABC0036392E /* DataSourceEnsambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */; };
+		D27CFF7320E3C2B40036392E /* RepositoryEnsambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */; };
 		D290E01120B4097900D7C0D6 /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290E01020B4097900D7C0D6 /* RetryDataSource.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
@@ -1190,6 +1192,8 @@
 		D27CFF6720E383020036392E /* AnyGetDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetDataSource.swift; sourceTree = "<group>"; };
 		D27CFF6820E383030036392E /* AnyPutDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutDataSource.swift; sourceTree = "<group>"; };
 		D27CFF6C20E3838E0036392E /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceEnsambler.swift; sourceTree = "<group>"; };
+		D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEnsambler.swift; sourceTree = "<group>"; };
 		D290E01020B4097900D7C0D6 /* RetryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
 		D2B7EB7420B802F00014A9DA /* Observable+MJFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MJFuture.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/Observable+MJFuture.swift"; sourceTree = "<group>"; };
@@ -1884,6 +1888,7 @@
 			children = (
 				D252EBD220AAB80F000188A2 /* CoreError.swift */,
 				290287706A57A33D8B8D581891D4ADA5 /* DataSource.swift */,
+				D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */,
 				D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */,
 				D27CFF6620E383020036392E /* AnyDeleteDataSource.swift */,
 				D27CFF6720E383020036392E /* AnyGetDataSource.swift */,
@@ -1895,6 +1900,7 @@
 				12334A2FE64C881EC750BF933EE04D72 /* NetworkStorageRepository.swift */,
 				2911624EB2A68EC349EC0295A6955F86 /* Query+KeyValue.swift */,
 				F0704F9FC8B9518C7E555C81E3F79640 /* Repository.swift */,
+				D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */,
 				0067933C20DA39E700E7001F /* AnyRepository.swift */,
 				D27CFF6120E37E190036392E /* AnyGetRepository.swift */,
 				D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */,
@@ -3028,6 +3034,7 @@
 				5532277E1F5C5FC042E8EB30713E10FA /* Future+Extensions.swift in Sources */,
 				076947D7AD725CA34C411FB73BAE19CD /* Future+Functional.swift in Sources */,
 				BC69339E483340C87361D2D75027FCB9 /* Future+MJFuture.swift in Sources */,
+				D27CFF7320E3C2B40036392E /* RepositoryEnsambler.swift in Sources */,
 				2449DF79C7245BFD648545A0681FD2AF /* Future+Operators.swift in Sources */,
 				C6477C4F63C9A874A341BC5062454A6C /* Future+Optionals.swift in Sources */,
 				C0AED0EFE4986028A026363B2705E658 /* Future+Time.swift in Sources */,
@@ -3070,6 +3077,7 @@
 				6187BA6A8B614E71394BEF724C41E06C /* RealmDataSource.swift in Sources */,
 				D94AE1A82EF11AABEB7DE8E912FECB9B /* RealmFactory.swift in Sources */,
 				D27CFF6420E37E1A0036392E /* AnyGetRepository.swift in Sources */,
+				D27CFF7120E3BABC0036392E /* DataSourceEnsambler.swift in Sources */,
 				D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */,
 				D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */,
 				DDC260200B674FB82DE7CEDFA5440147 /* RealmHandler.swift in Sources */,

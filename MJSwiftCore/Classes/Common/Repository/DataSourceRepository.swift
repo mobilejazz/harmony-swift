@@ -132,9 +132,9 @@ extension DeleteDataSource {
 ///
 public class DataSourceRepository<Get: GetDataSource,Put: PutDataSource,Delete: DeleteDataSource,T> : Repository where Get.T == T, Put.T == T, Delete.T == T {
     
-    private let getDataSource : Get
-    private let putDataSource : Put
-    private let deleteDataSource : Delete
+    private let getDataSource : Get?
+    private let putDataSource : Put?
+    private let deleteDataSource : Delete?
     
     /// Main initializer
     ///
@@ -142,38 +142,56 @@ public class DataSourceRepository<Get: GetDataSource,Put: PutDataSource,Delete: 
     ///   - getDataSource: The get data source
     ///   - putDataSource: The put data source
     ///   - deleteDataSource: The delete data source
-    public init(get getDataSource: Get, put putDataSource: Put, delete deleteDataSource: Delete) {
+    public init(get getDataSource: Get? = nil, put putDataSource: Put? = nil, delete deleteDataSource: Delete? = nil) {
         self.getDataSource = getDataSource
         self.putDataSource = putDataSource
         self.deleteDataSource = deleteDataSource
     }
     
     public func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
-        return getDataSource.get(query)
+        guard let dataSource = getDataSource else {
+            fatalError()
+        }
+        return dataSource.get(query)
     }
     
     public func getAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
-        return getDataSource.getAll(query)
+        guard let dataSource = getDataSource else {
+            fatalError()
+        }
+        return dataSource.getAll(query)
     }
     
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation = BlankOperation()) -> Future<T> {
-        return putDataSource.put(value, in: query)
+        guard let dataSource = putDataSource else {
+            fatalError()
+        }
+        return dataSource.put(value, in: query)
     }
     
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
-        return putDataSource.putAll(array, in: query)
+        guard let dataSource = putDataSource else {
+            fatalError()
+        }
+        return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
     public func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
-        return deleteDataSource.delete(query)
+        guard let dataSource = deleteDataSource else {
+            fatalError()
+        }
+        return dataSource.delete(query)
     }
     
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
-        return deleteDataSource.deleteAll(query)
+        guard let dataSource = deleteDataSource else {
+            fatalError()
+        }
+        return dataSource.deleteAll(query)
     }
 }
 

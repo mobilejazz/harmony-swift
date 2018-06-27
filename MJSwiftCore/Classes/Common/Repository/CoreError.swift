@@ -51,17 +51,24 @@ public struct CoreError {
         }
     }
     
+    /// Illegal argument error
+    public class NotImplemented : ClassError {
+        public init(_ description: String = "Not Implemented") {
+            super.init(domain:CoreError.domain, code: 3, description: description)
+        }
+    }
+    
     /// Not valid error
     public class NotValid : ClassError {
         public init(_ description: String = "Object is not valid") {
-            super.init(domain:CoreError.domain, code: 3, description: description)
+            super.init(domain:CoreError.domain, code: 4, description: description)
         }
     }
     
     /// Failed error
     public class Failed : ClassError {
         public init(_ description: String = "Action failed") {
-            super.init(domain:CoreError.domain, code: 4, description: description)
+            super.init(domain:CoreError.domain, code: 5, description: description)
         }
     }
 }

@@ -14,6 +14,7 @@ import MJSwiftCore
 class InteractorAssembly: Assembly {
     
     func assemble(container: Container) {
+        
         // Executor
         container.register(Executor.self, name: "GetItems") { r in DispatchQueueExecutor() }.inObjectScope(.container)
         

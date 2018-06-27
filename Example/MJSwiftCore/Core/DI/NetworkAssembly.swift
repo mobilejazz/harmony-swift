@@ -52,7 +52,7 @@ class NetworkAssembly: Assembly {
         }
         
         // Network Clients
-        container.register(AnyDataSource<ItemEntity>.self, name: Names.networkRepository) { r in ItemNetworkDataSource(r.resolve(SessionManager.self)!).asAnyDataSource()
+        container.register(AnyGetDataSource<ItemEntity>.self, name: Names.networkRepository) { r in ItemNetworkDataSource(r.resolve(SessionManager.self)!).asAnyGetDataSource()
         }
     }
 }
