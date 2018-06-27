@@ -52,7 +52,7 @@ extension PutDataSource {
 /// This is an abstract class. Do not use it.
 /// PutDataSource base class defining a generic type T (which is unrelated to the associated type of the PutDataSource protocol)
 ///
-fileprivate class PutDataSourceBoxBase <T>: PutDataSource {
+internal class PutDataSourceBoxBase <T>: PutDataSource {
     
     func put(_ value: T?, in query: Query) -> Future<T> {
         fatalError("This method is abstract.")
@@ -66,7 +66,7 @@ fileprivate class PutDataSourceBoxBase <T>: PutDataSource {
 ///
 /// A data source box, which has as generic type a PutDataSource and links the PutDataSourceBoxBase type T as the Base.T type.
 ///
-fileprivate class PutDataSourceBox <Base> : PutDataSourceBoxBase <Base.T> where Base : PutDataSource {
+internal class PutDataSourceBox <Base: PutDataSource> : PutDataSourceBoxBase <Base.T> {
     
     private let base: Base
     

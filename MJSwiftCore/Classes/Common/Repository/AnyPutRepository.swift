@@ -56,7 +56,7 @@ extension PutRepository {
 /// This is an abstract class. Do not use it.
 /// PutRepository base class defining a generic type T (which is unrelated to the associated type of the PutRepository protocol)
 ///
-fileprivate class PutRepositoryBoxBase <T>: PutRepository {
+internal class PutRepositoryBoxBase <T>: PutRepository {
 
     func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
@@ -70,7 +70,7 @@ fileprivate class PutRepositoryBoxBase <T>: PutRepository {
 ///
 /// A repository box, which has as generic type a PutRepository and links the PutRepositoryBoxBase type T as the Base.T type.
 ///
-fileprivate class PutRepositoryBox <Base> : PutRepositoryBoxBase <Base.T> where Base : PutRepository {
+internal class PutRepositoryBox <Base: PutRepository> : PutRepositoryBoxBase <Base.T> {
     
     private let base: Base
     

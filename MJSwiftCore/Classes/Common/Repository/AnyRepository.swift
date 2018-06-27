@@ -72,7 +72,7 @@ extension Repository {
 /// This is an abstract class. Do not use it.
 /// Repository base class defining a generic type T (which is unrelated to the associated type of the Repository protocol)
 ///
-fileprivate class RepositoryBoxBase <T>: Repository {
+internal class RepositoryBoxBase <T>: Repository {
     
     func get(_ query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
@@ -102,7 +102,7 @@ fileprivate class RepositoryBoxBase <T>: Repository {
 ///
 /// A repository box, which has as generic type a Repository and links the RepositoryBoxBase type T as the Base.T type.
 ///
-fileprivate class RepositoryBox <Base> : RepositoryBoxBase <Base.T> where Base : Repository {
+internal class RepositoryBox <Base: Repository> : RepositoryBoxBase <Base.T> {
     
     private let base: Base
     

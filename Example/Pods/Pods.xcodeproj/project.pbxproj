@@ -368,7 +368,7 @@
 		BA4DF38E820FF6B40FFABF8B1BBCC615 /* Kingfisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CFC961416024A4DC165C4B46833091A /* Kingfisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA8FAFFBC8A71A25E72EF0D06F7963A8 /* RLMCollection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF4A20D8C40CE1C5328D75E4180F36 /* RLMCollection.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		BB249FF02909617C4ACDFD7B3AD698B4 /* object_store.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 189EB010AD8DF4DD92FC841A0CBF654B /* object_store.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
-		BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */; };
+		BB3B470E167B9B2B80BD2A3FC43A5B82 /* DataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */; };
 		BB95EDFDFD96BC2339816EF65A5F89FB /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9196A3C6BB41E82E9074BBDE2B498F /* ErrorHelper.swift */; };
 		BBEFE2F9CEB73DC7BD97FFA66A0D9D4F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AB4650C929C527226C50AAD1B9E7B0 /* Validation.swift */; };
 		BC350472385C93CEA205604A741D0D6C /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6496D66AFBF6420B2E00E1791B890 /* Promise.swift */; };
@@ -1004,7 +1004,7 @@
 		6CE59681480489A4EFADAE400E879A7C /* Object.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Object.swift; path = RealmSwift/Object.swift; sourceTree = "<group>"; };
 		6D898B006F3FC970BFDF842B61B8CEF1 /* RLMMigration.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMMigration.mm; path = Realm/RLMMigration.mm; sourceTree = "<group>"; };
 		6DDA8C3948AB821B2D3C9211ABC9D827 /* MJDataProviderDirector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJDataProviderDirector.m; path = MJCocoaCore/Classes/Common/MJDataProviderDirector.m; sourceTree = "<group>"; };
-		6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SingleDataSourceRepository.swift; sourceTree = "<group>"; };
+		6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataSourceRepository.swift; sourceTree = "<group>"; };
 		6E071FCE140966049527BC7B982EE4EF /* ObjC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjC.m; path = MJSwiftCore/Classes/Common/ObjC.m; sourceTree = "<group>"; };
 		6E54ED7498DBB4222E4C1AA0686CBAC3 /* FBLPromise+Validate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Validate.m"; path = "Sources/FBLPromises/FBLPromise+Validate.m"; sourceTree = "<group>"; };
 		6EC2329D3F19FC12B6E2877D2602BB9E /* object_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = object_notifier.cpp; path = Realm/ObjectStore/src/impl/object_notifier.cpp; sourceTree = "<group>"; };
@@ -1900,7 +1900,7 @@
 				D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */,
 				D27CFF6020E37E190036392E /* AnyDeleteRepository.swift */,
 				C81EE480115F9D958687FCB3FDD453A9 /* RepositoryMapper.swift */,
-				6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */,
+				6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */,
 				6658B3F4D4AFAD8C652ED4CCF35CF961 /* UserDefaultsDataSource.swift */,
 				D2D752DA20B2FF1100386BBF /* RetryRepository.swift */,
 				73761F25D552F5896C1EB34F9AE5D62C /* Interactors */,
@@ -3086,7 +3086,7 @@
 				2C07B06180CE60DE2B273B646CBE5358 /* SecureKey.swift in Sources */,
 				0067933D20DA39E700E7001F /* AnyRepository.swift in Sources */,
 				C908BE1549B66B235EEFDBD58685E717 /* SharedTimer.swift in Sources */,
-				BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */,
+				BB3B470E167B9B2B80BD2A3FC43A5B82 /* DataSourceRepository.swift in Sources */,
 				DEFEBA3260809E7E845327D272C5A22E /* String+Extensions.swift in Sources */,
 				761FC36E32CBFA5CBF0CF60633D7505B /* UIBarButtonItem+Extensions.swift in Sources */,
 				D27044C020CA82DB00226F5E /* CodingKeyStrategies.swift in Sources */,

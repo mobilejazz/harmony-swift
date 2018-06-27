@@ -19,7 +19,7 @@ import Foundation
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class DataSourceMapper <D,From,To> : DataSource where D : DataSource, D.T == To {
+public class DataSourceMapper <D: DataSource,From,To> : DataSource where D.T == To {
     
     public typealias T = From
 

@@ -54,7 +54,7 @@ public extension ObjectValidation {
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class DataSourceValidator <D,T> : DataSource where D : DataSource, D.T == T {
+public class DataSourceValidator <D: DataSource,T> : DataSource where D.T == T {
     
     private let dataSource : D
     private let validator: ObjectValidation

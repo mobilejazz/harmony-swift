@@ -19,7 +19,7 @@ import Foundation
 ///
 /// A retry data source adds retry capabilities over an existing data source.
 ///
-public class RetryDataSource <D,T> : DataSource where D : DataSource, D.T == T {
+public class RetryDataSource <D: DataSource,T> : DataSource where D.T == T {
     
     private let dataSource : D
     private let retryCount : Int

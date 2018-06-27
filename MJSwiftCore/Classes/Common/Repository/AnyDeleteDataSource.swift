@@ -52,7 +52,7 @@ extension DeleteDataSource {
 /// This is an abstract class. Do not use it.
 /// DeleteDataSource base class defining a generic type T (which is unrelated to the associated type of the DeleteDataSource protocol)
 ///
-fileprivate class DeleteDataSourceBoxBase <T>: DeleteDataSource {
+internal class DeleteDataSourceBoxBase <T>: DeleteDataSource {
     
     func delete(_ query: Query) -> Future<Void> {
         fatalError("This method is abstract.")
@@ -66,7 +66,7 @@ fileprivate class DeleteDataSourceBoxBase <T>: DeleteDataSource {
 ///
 /// A data source box, which has as generic type a DeleteDataSource and links the DeleteDataSourceBoxBase type T as the Base.T type.
 ///
-fileprivate class DeleteDataSourceBox <Base> : DeleteDataSourceBoxBase <Base.T> where Base : DeleteDataSource {
+internal class DeleteDataSourceBox <Base: DeleteDataSource> : DeleteDataSourceBoxBase <Base.T> {
     
     private let base: Base
     

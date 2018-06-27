@@ -19,7 +19,7 @@ import Foundation
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
-public class RepositoryMapper <R,From,To> : Repository where R : Repository, R.T == To {
+public class RepositoryMapper <R: Repository,From,To> : Repository where R.T == To {
     
     public typealias T = From
     

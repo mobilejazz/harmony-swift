@@ -42,7 +42,7 @@ public enum DataSourceCRUD : CustomStringConvertible {
 public protocol Query { }
 
 extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
+    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : TypedDataSource {
         Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }

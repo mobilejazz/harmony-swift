@@ -56,7 +56,7 @@ extension DeleteRepository {
 /// This is an abstract class. Do not use it.
 /// DeleteRepository base class defining a generic type T (which is unrelated to the associated type of the DeleteRepository protocol)
 ///
-fileprivate class DeleteRepositoryBoxBase <T>: DeleteRepository {
+internal class DeleteRepositoryBoxBase <T>: DeleteRepository {
 
     func delete(_ query: Query, operation: Operation) -> Future<Void> {
         fatalError("This method is abstract.")
@@ -70,7 +70,7 @@ fileprivate class DeleteRepositoryBoxBase <T>: DeleteRepository {
 ///
 /// A repository box, which has as generic type a DeleteRepository and links the DeleteRepositoryBoxBase type T as the Base.T type.
 ///
-fileprivate class DeleteRepositoryBox <Base> : DeleteRepositoryBoxBase <Base.T> where Base : DeleteRepository {
+internal class DeleteRepositoryBox <Base: DeleteRepository> : DeleteRepositoryBoxBase <Base.T> {
     
     private let base: Base
     

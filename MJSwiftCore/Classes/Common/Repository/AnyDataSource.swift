@@ -68,7 +68,7 @@ extension DataSource {
 /// This is an abstract class. Do not use it.
 /// DataSource base class defining a generic type T (which is unrelated to the associated type of the DataSource protocol)
 ///
-fileprivate class DataSourceBoxBase <T>: DataSource {
+internal class DataSourceBoxBase <T>: DataSource {
     
     func get(_ query: Query) -> Future<T> {
         fatalError("This method is abstract.")
@@ -98,7 +98,7 @@ fileprivate class DataSourceBoxBase <T>: DataSource {
 ///
 /// A data source box, which has as generic type a DataSource and links the DataSourceBoxBase type T as the Base.T type.
 ///
-fileprivate class DataSourceBox <Base> : DataSourceBoxBase <Base.T> where Base : DataSource {
+internal class DataSourceBox <Base: DataSource> : DataSourceBoxBase <Base.T> {
     
     private let base: Base
     
