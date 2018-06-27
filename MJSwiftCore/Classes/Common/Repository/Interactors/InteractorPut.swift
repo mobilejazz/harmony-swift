@@ -20,7 +20,16 @@ extension Interactor {
     ///
     /// Generic put object by query interactor
     ///
-    public class PutByQuery<T> : QueryInteractor<T> {
+    public class PutByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyPutRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : PutRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyPutRepository()
+        }
+        
         @discardableResult
         public func execute(_ value: T? = nil, query: Query = BlankQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
@@ -41,7 +50,22 @@ extension Interactor {
     ///
     /// Generic put object interactor
     ///
-    public class Put<T> : DirectInteractor<T> {
+    public class Put<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyPutRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : PutRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyPutRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : PutRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         @discardableResult
         public func execute(_ value: T? = nil, _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
@@ -54,7 +78,16 @@ extension Interactor {
     ///
     /// Generic put objects by query interactor
     ///
-    public class PutAllByQuery<T> : QueryInteractor<T> {
+    public class PutAllByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyPutRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : PutRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyPutRepository()
+        }
+        
         @discardableResult
         public func execute(_ array: [T] = [], query: Query = BlankQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
@@ -75,7 +108,22 @@ extension Interactor {
     ///
     /// Generic put objects interactor
     ///
-    public class PutAll<T> : DirectInteractor<T> {
+    public class PutAll<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyPutRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : PutRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyPutRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : PutRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         @discardableResult
         public func execute(_ array: [T] = [], _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor

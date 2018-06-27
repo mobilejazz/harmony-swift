@@ -87,15 +87,15 @@ private extension ItemNetworkDataSource {
     private func getAllItems() -> Future<[ItemEntity]> {        
         let url = "/items"
         return sessionManager.request(url).toFuture().flatMap { json in
-            if let json = json {
-                guard let results = json["results"] as? [[String: AnyObject]] else {
-                    return Future([]) // or pass error if desired
-                }
-                return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
-                    item.lastUpdate = Date()
-                })
+            guard let json = json else {
+                return Future([]) // no json to parse
             }
-            return Future([])
+            guard let results = json["results"] as? [[String: AnyObject]] else {
+                return Future([]) // or pass error if desired
+            }
+            return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
+                item.lastUpdate = Date()
+            })
         }
     }
     
@@ -104,15 +104,15 @@ private extension ItemNetworkDataSource {
         return sessionManager.request(url,
                                       parameters: ["name" : text])
             .toFuture().flatMap { json in
-                if let json = json {
-                    guard let results = json["results"] as? [[String: AnyObject]] else {
-                        return Future([]) // or pass error if desired
-                    }
-                    return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
-                        item.lastUpdate = Date()
-                    })
+                guard let json = json else {
+                    return Future([]) // no json to parse
                 }
-                return Future([])
+                guard let results = json["results"] as? [[String: AnyObject]] else {
+                    return Future([]) // or pass error if desired
+                }
+                return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in
+                    item.lastUpdate = Date()
+                })
         }
     }
 }

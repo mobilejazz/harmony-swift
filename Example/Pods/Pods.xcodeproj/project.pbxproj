@@ -330,7 +330,6 @@
 		A879CED2E7C2D24AEC9C667DFD40BEE0 /* VastraTimestampStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9475289DEABC275F9BDC33E6B56B088 /* VastraTimestampStrategy.swift */; };
 		A87C15BEE0F04029EBE999AF0DAE20DD /* RLMObjectBase.h in Headers */ = {isa = PBXBuildFile; fileRef = DB525DC889DCBBCC60ED1976E62F3451 /* RLMObjectBase.h */; };
 		A8A79840E81BFA3D8DCC29BE71F1AEC4 /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55DD05D01976A62DC4436BADE2D5EF /* KingfisherManager.swift */; };
-		A8B3356536498906DD1D0A4AFF48D1A7 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32BD28CD85B05E663BC62BB8786451E /* Interactor.swift */; };
 		A92AF3FC54575F6A1F133E9E55AD23F9 /* RLMProperty.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4050E8AF2EFDB596F6050745E1D59568 /* RLMProperty.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		A9D2A6547EE5F6532EF8D1F1870BF158 /* CacheSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6559CA99ACB5BCDC82AE1BCEA64ADB /* CacheSerializer.swift */; };
 		A9DE0F60352EF932B5A8F09C127FBE39 /* RLMNetworkClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 992A8E4D3B15FFA91F89EB624529E791 /* RLMNetworkClient.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
@@ -425,6 +424,13 @@
 		D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252EBDC20AC0D1B000188A2 /* ClassError.swift */; };
 		D27044BE20CA7DD100226F5E /* MutableCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27044BD20CA7DD100226F5E /* MutableCodingKey.swift */; };
 		D27044C020CA82DB00226F5E /* CodingKeyStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27044BF20CA82DB00226F5E /* CodingKeyStrategies.swift */; };
+		D27CFF6320E37E1A0036392E /* AnyDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6020E37E190036392E /* AnyDeleteRepository.swift */; };
+		D27CFF6420E37E1A0036392E /* AnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6120E37E190036392E /* AnyGetRepository.swift */; };
+		D27CFF6520E37E1A0036392E /* AnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */; };
+		D27CFF6920E383030036392E /* AnyDeleteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6620E383020036392E /* AnyDeleteDataSource.swift */; };
+		D27CFF6A20E383030036392E /* AnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6720E383020036392E /* AnyGetDataSource.swift */; };
+		D27CFF6B20E383030036392E /* AnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6820E383030036392E /* AnyPutDataSource.swift */; };
+		D27CFF6D20E3838E0036392E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6C20E3838E0036392E /* Interactor.swift */; };
 		D290E01120B4097900D7C0D6 /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290E01020B4097900D7C0D6 /* RetryDataSource.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
@@ -1177,6 +1183,13 @@
 		D27044BD20CA7DD100226F5E /* MutableCodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MutableCodingKey.swift; path = MJSwiftCore/Classes/Common/MutableCodingKey.swift; sourceTree = "<group>"; };
 		D27044BF20CA82DB00226F5E /* CodingKeyStrategies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CodingKeyStrategies.swift; path = MJSwiftCore/Classes/Common/CodingKeyStrategies.swift; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
+		D27CFF6020E37E190036392E /* AnyDeleteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyDeleteRepository.swift; sourceTree = "<group>"; };
+		D27CFF6120E37E190036392E /* AnyGetRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetRepository.swift; sourceTree = "<group>"; };
+		D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutRepository.swift; sourceTree = "<group>"; };
+		D27CFF6620E383020036392E /* AnyDeleteDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyDeleteDataSource.swift; sourceTree = "<group>"; };
+		D27CFF6720E383020036392E /* AnyGetDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetDataSource.swift; sourceTree = "<group>"; };
+		D27CFF6820E383030036392E /* AnyPutDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutDataSource.swift; sourceTree = "<group>"; };
+		D27CFF6C20E3838E0036392E /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		D290E01020B4097900D7C0D6 /* RetryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
 		D2B7EB7420B802F00014A9DA /* Observable+MJFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MJFuture.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/Observable+MJFuture.swift"; sourceTree = "<group>"; };
@@ -1222,7 +1235,6 @@
 		E1DF01FACB1D5312F03C5C58BB469C66 /* Pods_MJSwiftCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MJSwiftCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1FE81FC7146B67A830940EA686BBADD /* Swinject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swinject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E583DF1978DE1F74F5503B91A5C97E /* RLMUpdateChecker.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMUpdateChecker.mm; path = Realm/RLMUpdateChecker.mm; sourceTree = "<group>"; };
-		E32BD28CD85B05E663BC62BB8786451E /* Interactor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		E4AEA16A3452682D7927EDEDD1CECF30 /* MJModelObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJModelObject.h; path = MJCocoaCore/Classes/Common/MJModelObject.h; sourceTree = "<group>"; };
 		E59C2EEBC28052F01D433E78B9AE6F10 /* list.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = list.cpp; path = Realm/ObjectStore/src/list.cpp; sourceTree = "<group>"; };
 		E5B4A39623112FE517A8A4D95CA3BF5A /* JSObjectionUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSObjectionUtils.m; path = Source/JSObjectionUtils.m; sourceTree = "<group>"; };
@@ -1779,10 +1791,10 @@
 		73761F25D552F5896C1EB34F9AE5D62C /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				E32BD28CD85B05E663BC62BB8786451E /* Interactor.swift */,
-				4A0C626A67813D8A5AEC70950F86EA85 /* InteractorDelete.swift */,
+				D27CFF6C20E3838E0036392E /* Interactor.swift */,
 				F64A5866190C127AECD9571D613C4BD5 /* InteractorGet.swift */,
 				A47276D4BE6582E999E61E0E829A1B22 /* InteractorPut.swift */,
+				4A0C626A67813D8A5AEC70950F86EA85 /* InteractorDelete.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -1873,6 +1885,9 @@
 				D252EBD220AAB80F000188A2 /* CoreError.swift */,
 				290287706A57A33D8B8D581891D4ADA5 /* DataSource.swift */,
 				D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */,
+				D27CFF6620E383020036392E /* AnyDeleteDataSource.swift */,
+				D27CFF6720E383020036392E /* AnyGetDataSource.swift */,
+				D27CFF6820E383030036392E /* AnyPutDataSource.swift */,
 				3FD3137AB068B107654E5DC3F72E1185 /* DataSourceMapper.swift */,
 				FE4822CE81A4DF6B4EBB0ABBD233339B /* DataSourceValidator.swift */,
 				D290E01020B4097900D7C0D6 /* RetryDataSource.swift */,
@@ -1881,6 +1896,9 @@
 				2911624EB2A68EC349EC0295A6955F86 /* Query+KeyValue.swift */,
 				F0704F9FC8B9518C7E555C81E3F79640 /* Repository.swift */,
 				0067933C20DA39E700E7001F /* AnyRepository.swift */,
+				D27CFF6120E37E190036392E /* AnyGetRepository.swift */,
+				D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */,
+				D27CFF6020E37E190036392E /* AnyDeleteRepository.swift */,
 				C81EE480115F9D958687FCB3FDD453A9 /* RepositoryMapper.swift */,
 				6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */,
 				6658B3F4D4AFAD8C652ED4CCF35CF961 /* UserDefaultsDataSource.swift */,
@@ -3017,7 +3035,6 @@
 				D231D8B520B6C69E00FB0E3E /* Observable+Batch.swift in Sources */,
 				5F551B39A193DDC7A88395C948AB3CBF /* Future.swift in Sources */,
 				C9DBC6E6A5EE3CC88AD5FB978F3605B1 /* InMemoryDataSource.swift in Sources */,
-				A8B3356536498906DD1D0A4AFF48D1A7 /* Interactor.swift in Sources */,
 				D231D8B320B6C69E00FB0E3E /* Observable+Optionals.swift in Sources */,
 				7CBCCFB65E1F81FA2B5D4986D3F0713C /* InteractorDelete.swift in Sources */,
 				3F2F47D611F4FDF52CE6D500F854F7FA /* InteractorGet.swift in Sources */,
@@ -3025,6 +3042,7 @@
 				F9ADF86CCA481871AF7DD5C911CD7415 /* JSObjectionInjector.swift in Sources */,
 				5544EEBDAD29A4771CEA285EE37F2F2A /* JSObjectionModule.swift in Sources */,
 				250E24913E70D2CCF67BB28479F34855 /* JSONDecoding.swift in Sources */,
+				D27CFF6520E37E1A0036392E /* AnyPutRepository.swift in Sources */,
 				61D2E62F4EE2923FF9FFF9C27B832931 /* Keychain.swift in Sources */,
 				90DD955BDB0DE75A89D28B885B75535C /* KeychainDataSource.swift in Sources */,
 				F942C73A67CC43AE68E9C85017D401BE /* KeychainGetInteractor.swift in Sources */,
@@ -3043,6 +3061,7 @@
 				D27044BE20CA7DD100226F5E /* MutableCodingKey.swift in Sources */,
 				DADCA622CF9D06E5AAF328099510236B /* NetworkStorageRepository.swift in Sources */,
 				EF0DC9775B63EC563FACDBFF19D440D6 /* ObjC.m in Sources */,
+				D27CFF6A20E383030036392E /* AnyGetDataSource.swift in Sources */,
 				D2D752DB20B2FF1100386BBF /* RetryRepository.swift in Sources */,
 				5810F94BEEFA4B34AE5E414344C8A768 /* OperationQueueExecutor.swift in Sources */,
 				B3E41F403588477A417FB4050CAB9E20 /* PushNotificationQueue.swift in Sources */,
@@ -3050,11 +3069,14 @@
 				899A3D310CF400C758701587D2863D83 /* readme-macOS.swift in Sources */,
 				6187BA6A8B614E71394BEF724C41E06C /* RealmDataSource.swift in Sources */,
 				D94AE1A82EF11AABEB7DE8E912FECB9B /* RealmFactory.swift in Sources */,
+				D27CFF6420E37E1A0036392E /* AnyGetRepository.swift in Sources */,
 				D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */,
 				D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */,
 				DDC260200B674FB82DE7CEDFA5440147 /* RealmHandler.swift in Sources */,
 				752EF763C7D4A22B9262D775B1F166E6 /* RealmMapper.swift in Sources */,
 				0168DBE360FAB5C0E2C3F9769037E0B6 /* RealmObject.swift in Sources */,
+				D27CFF6320E37E1A0036392E /* AnyDeleteRepository.swift in Sources */,
+				D27CFF6920E383030036392E /* AnyDeleteDataSource.swift in Sources */,
 				CFDC2624601206E63FC8D2989E895017 /* Repository.swift in Sources */,
 				D290E01120B4097900D7C0D6 /* RetryDataSource.swift in Sources */,
 				2C9DAAA822E90CECD1020D3D339E2C0F /* RepositoryMapper.swift in Sources */,
@@ -3071,6 +3093,7 @@
 				6B915EAD763730FB70ABC2B994AAB508 /* UIButton+Extensions.swift in Sources */,
 				D2B7EB7520B802F10014A9DA /* Observable+MJFuture.swift in Sources */,
 				A2D9243BA2B4226F37A57724A4600AA7 /* UIColor+Extensions.swift in Sources */,
+				D27CFF6D20E3838E0036392E /* Interactor.swift in Sources */,
 				7B0607CD8AB3E417CD5F8E44EFD87CC6 /* UIImage+Extensions.swift in Sources */,
 				B288FFD84FE6C1C87EA79F325DF43D84 /* UIResponder+Extensions.swift in Sources */,
 				39CFEEF0084EB9F1A9FF5340E600C5F0 /* UITableView+Extensions.swift in Sources */,
@@ -3083,6 +3106,7 @@
 				9EEA4DC6B8F31E048A6D98402E913A9A /* VastraInvalidationStrategy.swift in Sources */,
 				787598D1190EA8C0E64D64DFBAAE490D /* VastraReachabilityStrategy.swift in Sources */,
 				9F624E06ECF22610C648E3B27CB220A3 /* VastraService.swift in Sources */,
+				D27CFF6B20E383030036392E /* AnyPutDataSource.swift in Sources */,
 				23AC217708BB7E6DBF1CCBB7DB386AE7 /* VastraStrategy.swift in Sources */,
 				D231D8B420B6C69E00FB0E3E /* Observable+Time.swift in Sources */,
 				A879CED2E7C2D24AEC9C667DFD40BEE0 /* VastraTimestampStrategy.swift in Sources */,

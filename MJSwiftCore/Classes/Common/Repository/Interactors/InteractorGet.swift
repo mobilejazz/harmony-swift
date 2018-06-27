@@ -20,7 +20,16 @@ extension Interactor {
     ///
     /// Generic get object interactor
     ///
-    public class GetByQuery<T> : QueryInteractor<T> {
+    public class GetByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyGetRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : GetRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyGetRepository()
+        }
+        
         public func execute(_ query: Query = BlankQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -39,7 +48,22 @@ extension Interactor {
     ///
     /// Generic get object interactor with a prefilled query
     ///
-    public class Get<T> : DirectInteractor<T> {
+    public class Get<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyGetRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : GetRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyGetRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : GetRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         public func execute(_ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -51,7 +75,16 @@ extension Interactor {
     ///
     /// Generic get objects interactor
     ///
-    public class GetAllByQuery<T> : QueryInteractor<T> {
+    public class GetAllByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyGetRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : GetRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyGetRepository()
+        }
+        
         public func execute(_ query: Query = AllObjectsQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
@@ -70,7 +103,22 @@ extension Interactor {
     ///
     /// Generic get all objects interactor
     ///
-    public class GetAll<T> : DirectInteractor<T>{
+    public class GetAll<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyGetRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : GetRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyGetRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : GetRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         public func execute(_ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in

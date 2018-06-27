@@ -20,7 +20,16 @@ extension Interactor {
     ///
     /// Generic delete object by query interactor
     ///
-    public class DeleteByQuery<T> : QueryInteractor<T> {
+    public class DeleteByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyDeleteRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : DeleteRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyDeleteRepository()
+        }
+        
         @discardableResult
         public func execute(_ query: Query, operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
@@ -41,7 +50,22 @@ extension Interactor {
     ///
     /// Generic delete object interactor
     ///
-    public class Delete<T> : DirectInteractor<T> {
+    public class Delete<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyDeleteRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : DeleteRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyDeleteRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : DeleteRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         @discardableResult
         public func execute(_ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
@@ -54,7 +78,16 @@ extension Interactor {
     ///
     /// Generic delete objects interactor
     ///
-    public class DeleteAllByQuery<T> : QueryInteractor<T> {
+    public class DeleteAllByQuery<T> {
+        
+        private let executor : Executor
+        private let repository: AnyDeleteRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R) where R : DeleteRepository, R.T == T {
+            self.executor = executor
+            self.repository = repository.asAnyDeleteRepository()
+        }
+        
         @discardableResult
         public func execute(_ query: Query, operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
@@ -75,7 +108,22 @@ extension Interactor {
     ///
     /// Generic delete objects interactor
     ///
-    public class DeleteAll<T> : DirectInteractor<T> {
+    public class DeleteAll<T> {
+        
+        private let query : Query
+        private let executor : Executor
+        private let repository: AnyDeleteRepository<T>
+        
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : DeleteRepository, R.T == T {
+            self.query = query
+            self.executor = executor
+            self.repository = repository.asAnyDeleteRepository()
+        }
+        
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : DeleteRepository, R.T == T {
+            self.init(executor, repository, IdQuery(id))
+        }
+        
         @discardableResult
         public func execute(_ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor

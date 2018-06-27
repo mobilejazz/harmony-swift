@@ -19,39 +19,3 @@ import Foundation
 // Namespace definition
 public struct Interactor { }
 
-///
-/// Convenience superclass for interactors
-///
-open class QueryInteractor<T> {
-
-    public let executor : Executor
-    public let repository: AnyRepository<T>
-    
-    public required init(_ executor: Executor, _ repository: AnyRepository<T>) {
-        self.executor = executor
-        self.repository = repository
-    }
-}
-
-///
-/// Convenience superclass for interactors
-///
-open class DirectInteractor<T> : QueryInteractor <T>{
-    public let query : Query
-    
-    @available(*, unavailable)
-    public required init(_ executor: Executor, _ repository: AnyRepository<T>) {
-        self.query = BlankQuery()
-        super.init(executor, repository)
-    }
-    
-    public required init(_ executor: Executor, _ repository: AnyRepository<T>, _ query: Query) {
-        self.query = query
-        super.init(executor, repository)
-    }
-    
-    public convenience init<K>(_ executor: Executor, _ repository: AnyRepository<T>, _ id: K) where K : Hashable {
-        self.init(executor, repository, IdQuery(id))
-    }
-}
-
