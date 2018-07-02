@@ -52,12 +52,17 @@ public extension Future {
     }
     
     /// Intercepts the error (if available) and returns a new future of type T
-    public func recover(_ closure: @escaping (Error) -> Future<T>) -> Future<T> {
+    public func recover(_ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                resolver.set(closure(error))
+                do {
+                    let future = try closure(error)
+                    resolver.set(future)
+                } catch (let error) {
+                    resolver.set(error)
+                }
             })
         }
     }

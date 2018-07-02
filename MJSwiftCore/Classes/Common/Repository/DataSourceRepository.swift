@@ -130,77 +130,44 @@ extension DeleteDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class DataSourceRepository<Get: GetDataSource,Put: PutDataSource,Delete: DeleteDataSource,T> : Repository where Get.T == T, Put.T == T, Delete.T == T {
+public class DataSourceRepository<D: DataSource,T> : Repository where D.T == T {
     
-    private let getDataSource : Get?
-    private let putDataSource : Put?
-    private let deleteDataSource : Delete?
+    private let dataSource : D
     
     /// Main initializer
     ///
     /// - Parameters:
-    ///   - getDataSource: The get data source
-    ///   - putDataSource: The put data source
-    ///   - deleteDataSource: The delete data source
-    public init(get getDataSource: Get? = nil, put putDataSource: Put? = nil, delete deleteDataSource: Delete? = nil) {
-        self.getDataSource = getDataSource
-        self.putDataSource = putDataSource
-        self.deleteDataSource = deleteDataSource
+    ///   - dataSource: The data source
+    public init(_ dataSource: D) {
+        self.dataSource = dataSource
     }
     
     public func get(_ query: Query, operation: Operation = BlankOperation()) -> Future<T> {
-        guard let dataSource = getDataSource else {
-            fatalError()
-        }
         return dataSource.get(query)
     }
     
     public func getAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
-        guard let dataSource = getDataSource else {
-            fatalError()
-        }
         return dataSource.getAll(query)
     }
     
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation = BlankOperation()) -> Future<T> {
-        guard let dataSource = putDataSource else {
-            fatalError()
-        }
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation = BlankOperation()) -> Future<[T]> {
-        guard let dataSource = putDataSource else {
-            fatalError()
-        }
         return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
     public func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
-        guard let dataSource = deleteDataSource else {
-            fatalError()
-        }
         return dataSource.delete(query)
     }
     
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
-        guard let dataSource = deleteDataSource else {
-            fatalError()
-        }
         return dataSource.deleteAll(query)
-    }
-}
-
-extension DataSourceRepository where Get == Put, Get == Delete {
-    /// Initializer for a single DataSource
-    ///
-    /// - Parameter dataSource: The data source
-    public convenience init(_ dataSource: Get) {
-        self.init(get: dataSource, put: dataSource, delete: dataSource)
     }
 }
 

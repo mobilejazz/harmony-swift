@@ -80,7 +80,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.get(query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:
@@ -95,7 +95,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.getAll(query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:
@@ -111,7 +111,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.put(value, in: query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:
@@ -127,7 +127,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.putAll(array, in: query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:
@@ -143,7 +143,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.delete(query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:
@@ -159,7 +159,7 @@ public class RetryRepository <R: Repository,T> : Repository where T == R.T {
                 if retryOp.canRetry(error) {
                     return self.deleteAll(query, operation: retryOp.next())
                 } else {
-                    return Future(error)
+                    throw error
                 }
             }
         default:

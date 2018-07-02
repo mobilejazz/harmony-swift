@@ -27,7 +27,7 @@ class StorageAssembly: Assembly {
     
     func assemble(container: Container) {
         
-// Realm
+        // Realm
         container.register(RealmFactory.self) { _ in
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             let configuration = Realm.Configuration.init(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
@@ -61,12 +61,12 @@ class StorageAssembly: Assembly {
         })
 
         
-// In-Memory key value storage
+        // In-Memory key value storage
 //        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
 //            return InMemoryDataSource<ItemEntity>().asAnyDataSource()
 //        })
         
-// User defaults key value storge
+        // User defaults key value storge
 //        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
 //            let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
 //            let dataSource = DataSourceMapper(dataSource: userDefaultsDataSource,

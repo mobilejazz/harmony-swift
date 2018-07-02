@@ -11,7 +11,7 @@ import MJSwiftCore
 import MJCocoaCore
 
 /// Creates and returns a new future, which is resolved 2 seconds after
-func fut() -> Future<Int> {
+func future() -> Future<Int> {
     return Future() { resolver in
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
             resolver.set(2)
@@ -20,7 +20,7 @@ func fut() -> Future<Int> {
 }
 
 /// Creates and returns a new observable, which is triggered 2 seconds after
-func obs() -> Observable<Int> {
+func observable() -> Observable<Int> {
     return Observable<Int>() { resolver in
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
             resolver.set(1)

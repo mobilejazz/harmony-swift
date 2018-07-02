@@ -52,12 +52,17 @@ public extension Observable {
     }
     
     /// Intercepts the error (if available) and returns a new observable of type T
-    public func recover(_ closure: @escaping (Error) -> Observable<T>) -> Observable<T> {
+    public func recover(_ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                resolver.set(closure(error))
+                do {
+                    let observable = try closure(error)
+                    resolver.set(observable)
+                } catch (let error) {
+                    resolver.set(error)
+                }
             })
         }
     }
