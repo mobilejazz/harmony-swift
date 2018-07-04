@@ -46,8 +46,8 @@ extension GetDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleGetDataSourceRepository repository
-    public func toGetRepository() -> AnyGetRepository<T> {
-        return GetDataSourceRepository(self).asAnyGetRepository()
+    public func toGetRepository() -> GetDataSourceRepository<Self,T> {
+        return GetDataSourceRepository(self)
     }
 }
 
@@ -83,8 +83,8 @@ extension PutDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SinglePutDataSourceRepository repository
-    public func toPutRepository() -> AnyPutRepository<T> {
-        return PutDataSourceRepository(self).asAnyPutRepository()
+    public func toPutRepository() -> PutDataSourceRepository<Self,T> {
+        return PutDataSourceRepository(self)
     }
 }
 
@@ -104,7 +104,7 @@ public class DeleteDataSourceRepository<D: DeleteDataSource,T> : DeleteRepositor
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-
+    
     @discardableResult
     public func delete(_ query: Query, operation: Operation = BlankOperation()) -> Future<Void> {
         return dataSource.delete(query)
@@ -120,8 +120,8 @@ extension DeleteDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleDeleteDataSourceRepository repository
-    public func toDeleteRepository() -> AnyDeleteRepository<T> {
-        return DeleteDataSourceRepository(self).asAnyDeleteRepository()
+    public func toDeleteRepository() -> DeleteDataSourceRepository<Self,T> {
+        return DeleteDataSourceRepository(self)
     }
 }
 
@@ -175,7 +175,8 @@ extension DataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleDataSourceRepository repository
-    public func toRepository() -> AnyRepository<T> {
-        return DataSourceRepository(self).asAnyRepository()
+    public func toRepository() -> DataSourceRepository<Self,T> {
+        return DataSourceRepository(self)
     }
 }
+
