@@ -18,12 +18,12 @@ import UIKit
 
 public extension UIButton {
     public func setBackgroundColor(_ color: UIColor, radius: CGFloat = 0.0, for state: UIControlState) {
-        let image = UIImage.resizableImage(color: color, radius: radius)
+        let image = UIImage.resizable(color: color, radius: radius)
         setBackgroundImage(image, for: state)
     }
     
     public func setBackgroundColor(_ color: UIColor, cornerInset: CornerInset, for state: UIControlState) {
-        let image = UIImage.resizableImage(color: color, cornerInset: cornerInset)
+        let image = UIImage.resizable(color: color, cornerInset: cornerInset)
         setBackgroundImage(image, for: state)
     }
     

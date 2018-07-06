@@ -17,9 +17,9 @@
 import UIKit
 
 private let AlphaMask : UInt32  = 0xFF000000
-private let RedMask : UInt32    = 0xFF0000
-private let GreenMask : UInt32  = 0xFF00
-private let BlueMask : UInt32   = 0xFF
+private let RedMask : UInt32    = 0x00FF0000
+private let GreenMask : UInt32  = 0x0000FF00
+private let BlueMask : UInt32   = 0x000000FF
 
 private let AlphaShift : UInt32 = 24
 private let RedShift : UInt32   = 16
@@ -33,15 +33,15 @@ private let GreenLum : CGFloat  = 0.5870
 private let BlueLum : CGFloat   = 0.1140
 
 public extension UIColor {
-
-    public convenience init(rgbHexValue value: UInt32) {
+    
+    public convenience init(rgb value: UInt32) {
         let red = (CGFloat)((value & RedMask) >> RedShift)
         let green = (CGFloat)((value & GreenMask) >> GreenShift)
         let blue = (CGFloat)((value & BlueMask) >> BlueShift)
         self.init(red: red/ColorSize, green: green/ColorSize, blue: blue/ColorSize, alpha: 1.0)
     }
     
-    public convenience init(rgbaHexValue value: UInt32) {
+    public convenience init(rgba value: UInt32) {
         let red = (CGFloat)((value & RedMask) >> RedShift)
         let green = (CGFloat)((value & GreenMask) >> GreenShift)
         let blue = (CGFloat)((value & BlueMask) >> BlueShift)
@@ -49,23 +49,23 @@ public extension UIColor {
         self.init(red: red/ColorSize, green: green/ColorSize, blue: blue/ColorSize, alpha: alpha/ColorSize)
     }
     
-    public convenience init(rgbHexString string: String) {
+    public convenience init?(rgb string: String) {
         var value : UInt32 = 0
         let scanner = Scanner(string: string)
         if scanner.scanHexInt32(&value) {
-            self.init(rgbHexValue: value)
+            self.init(rgb: value)
         } else {
-            fatalError("Invalid RGB string value \(string)")
+            return nil
         }
     }
     
-    public convenience init(rgbaHexString string: String) {
+    public convenience init?(rgba string: String) {
         var value : UInt32 = 0
         let scanner = Scanner(string: string)
         if scanner.scanHexInt32(&value) {
-            self.init(rgbaHexValue: value)
+            self.init(rgba: value)
         } else {
-            fatalError("Invalid RGB string value \(string)")
+            return nil
         }
     }
     
@@ -77,7 +77,7 @@ public extension UIColor {
         self.init(red: red255/ColorSize, green: blue255/ColorSize, blue: green255/ColorSize, alpha: alpha255/ColorSize)
     }
     
-    public var rgbHexValue : UInt32 {
+    public var rgbValue : UInt32 {
         get {
             if let components = self.cgColor.components {
                 let count = self.cgColor.numberOfComponents
@@ -95,7 +95,7 @@ public extension UIColor {
         }
     }
     
-    public var rgbaHexValue : UInt32 {
+    public var rgbaValue : UInt32 {
         get {
             if let components = self.cgColor.components {
                 let count = self.cgColor.numberOfComponents
@@ -115,16 +115,16 @@ public extension UIColor {
         }
     }
     
-    public var rgbHexString : String {
+    public var rgbString : String {
         get {
-            let value = rgbHexValue
+            let value = rgbValue
             return String(format:"%2X", value)
         }
     }
     
-    public var rgbaHexString : String {
+    public var rgbaString : String {
         get {
-            let value = rgbaHexValue
+            let value = rgbaValue
             return String(format:"%2X", value)
         }
     }

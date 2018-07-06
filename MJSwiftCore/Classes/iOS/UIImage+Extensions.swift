@@ -114,17 +114,23 @@ extension GradientDirection : CustomStringConvertible {
 
 public extension UIImage {
     
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerInset : CornerInset = CornerInset()) {
-        
+//    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerInset : CornerInset = CornerInset()) {
+//        guard let image = UIImage.image(color: color, size: size, cornerInset: cornerInset) else {
+//            return nil
+//        }
+//        self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+//    }
+    
+    public static func image(color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerInset : CornerInset = CornerInset()) -> UIImage? {
         let descriptors : [String:String] = [
             "resizable": "false",
-            "color":"\(color.rgbaHexString)",
+            "color":"\(color.rgbaString)",
             "size":"\(size)",
             "cornerInset":"\(cornerInset)"
         ]
         
         if let image = UIImage.cachedWithDescriptors(descriptors) {
-            self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+            return image
         } else {
             
             let scale = UIScreen.main.scale
@@ -161,18 +167,18 @@ public extension UIImage {
                 
                 let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImageOrientation.up)
                 image.cacheWithDescriptors(descriptors)
-                self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+                return image
             } else {
                 return nil
             }
         }
     }
     
-    public static func resizableImage(color: UIColor, cornerInset : CornerInset = CornerInset()) -> UIImage? {
+    public static func resizable(color: UIColor, cornerInset : CornerInset = CornerInset()) -> UIImage? {
         
         let descriptors : [String:String] = [
             "resizable": "true",
-            "color":"\(color.rgbaHexString)",
+            "color":"\(color.rgbaString)",
             "cornerInset":"\(cornerInset)"
         ]
         
@@ -187,36 +193,43 @@ public extension UIImage {
                                           max(cornerInset.bottomLeft, cornerInset.bottomRight),
                                           max(cornerInset.topRight, cornerInset.bottomRight))
             
-            if let image = UIImage(color:color, size: size, cornerInset: cornerInset) {
-                let resizableImage = image.resizableImage(withCapInsets: insets)
-                resizableImage.cacheWithDescriptors(descriptors)
-                return resizableImage
+            guard let image = UIImage.image(color:color, size: size, cornerInset: cornerInset) else {
+                return nil
             }
+            
+            let resizableImage = image.resizableImage(withCapInsets: insets)
+            resizableImage.cacheWithDescriptors(descriptors)
+            return resizableImage
         }
-        return nil
     }
     
-    public static func resizableImage(color: UIColor, radius : CGFloat) -> UIImage?  {
-        return UIImage.resizableImage(color: color, cornerInset: CornerInset(radius: radius))
+    public static func resizable(color: UIColor, radius : CGFloat) -> UIImage?  {
+        return UIImage.resizable(color: color, cornerInset: CornerInset(radius: radius))
     }
     
-    public convenience init?(named: String, tintColor: UIColor, style: TintStyle = .keepingAlpha) {
+//    public convenience init?(named: String, tintColor: UIColor, style: TintStyle = .keepingAlpha) {
+//        guard let image = UIImage.image(named: named, tintColor: tintColor, style: style) else {
+//            return nil
+//        }
+//        self.init(cgImage: image.cgImage!)
+//    }
+    
+    public static func image(named: String, tintColor: UIColor, style: TintStyle = .keepingAlpha) -> UIImage? {
         let descriptors : [String:String] = [
             "name": named,
-            "tint.color":"\(tintColor.rgbaHexString)",
+            "tint.color":"\(tintColor.rgbaString)",
             "tint.style":"\(style)"
         ]
         
         if let image = UIImage.cachedWithDescriptors(descriptors) {
-            self.init(cgImage: image.cgImage!)
+            return image
         } else {
-            if let image = UIImage(named:named) {
-                let tintedImage = image.tintedWithColor(tintColor, style: style)
-                tintedImage.cacheWithDescriptors(descriptors)
-                self.init(cgImage: tintedImage.cgImage!)
-            } else {
+            guard let image = UIImage(named:named) else {
                 return nil
             }
+            let tintedImage = image.tintedWithColor(tintColor, style: style)
+            tintedImage.cacheWithDescriptors(descriptors)
+            return image
         }
     }
     
@@ -316,7 +329,7 @@ public extension UIImage {
         return image
     }
     
-    public func resizeToSize(_ size : CGSize, interpolationQuality: CGInterpolationQuality = .default) -> UIImage {
+    public func resizeTo(size : CGSize, interpolationQuality: CGInterpolationQuality = .default) -> UIImage {
         let transform = resizeTransformationToSize(size)
         var drawTransposed = false
         switch imageOrientation {
@@ -346,51 +359,51 @@ public extension UIImage {
         return self
     }
     
-    public convenience init?(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) {
+//    public convenience init?(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) {
+//        guard let image = UIImage.image(gradientColors: gradientColors, size: size, direction: direction) else {
+//            return nil
+//        }
+//        self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+//    }
+    
+    public static func image(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
         let descriptors : [String:String] = [
             "size" : "\(size)",
             "resizable" : "false",
-            "gradient.colors" : "\(gradientColors.map({ c in c.rgbaHexValue }))",
+            "gradient.colors" : "\(gradientColors.map({ c in c.rgbaValue }))",
             "gradient.direction" : "\(direction)"
         ]
         
         if let image = UIImage.cachedWithDescriptors(descriptors) {
-            self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
+            return image
         } else {
-            
             let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-            if let context = UIGraphicsGetCurrentContext() {
-                if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                                             colors: gradientColors.map({ c in c.cgColor }) as CFArray,
-                                             locations: nil) {
-                    var startPoint = CGPoint.zero
-                    var endPoint = CGPoint.zero
-                    switch direction {
-                    case .vertical:
-                        endPoint.y = rect.size.height
-                    case .horizontal:
-                        endPoint.x = rect.size.width
-                    case .leftSlanted:
-                        endPoint = CGPoint(x: rect.size.width, y : rect.size.height)
-                    case .rightSlanted:
-                        startPoint.x = rect.size.width
-                        endPoint.y = rect.size.height
-                    }
-                    context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue:0))
-                    let cgImage = context.makeImage()!
-                    self.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: UIImageOrientation.up)
-                    UIGraphicsEndImageContext()
-                } else {
-                    return nil
-                }
-            } else {
-                return nil
+            
+            guard let context = UIGraphicsGetCurrentContext() else { return nil }
+            guard let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors.map({ c in c.cgColor }) as CFArray, locations: nil) else { return nil }
+            
+            var startPoint = CGPoint.zero
+            var endPoint = CGPoint.zero
+            switch direction {
+            case .vertical:
+                endPoint.y = rect.size.height
+            case .horizontal:
+                endPoint.x = rect.size.width
+            case .leftSlanted:
+                endPoint = CGPoint(x: rect.size.width, y : rect.size.height)
+            case .rightSlanted:
+                startPoint.x = rect.size.width
+                endPoint.y = rect.size.height
             }
+            context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue:0))
+            let cgImage = context.makeImage()!
+            UIGraphicsEndImageContext()
+            return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: UIImageOrientation.up)
         }
     }
     
-    public static func resizableImage(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
+    public static func resizable(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
         if (size.width == 0.0 && direction == .horizontal) ||
             (size.height == 0.0 && direction == .vertical) ||
             (size.height == 0.0 && size.width == 0.0) {
@@ -400,7 +413,7 @@ public extension UIImage {
         let descriptors : [String : String] = [
             "size" : "\(size)",
             "resizable" : "true",
-            "gradient.colors" : "\(gradientColors.map({ c in c.rgbaHexValue }))",
+            "gradient.colors" : "\(gradientColors.map({ c in c.rgbaValue }))",
             "gradient.direction" : "\(direction)"
         ]
 
@@ -423,7 +436,7 @@ public extension UIImage {
                 break;
             }
             
-            if let image = UIImage(gradientColors: gradientColors, size: imageSize, direction: direction) {
+            if let image = UIImage.image(gradientColors: gradientColors, size: imageSize, direction: direction) {
                 let resizableImage = image.resizableImage(withCapInsets: insets)
                 resizableImage.cacheWithDescriptors(descriptors)
                 return resizableImage
@@ -494,19 +507,19 @@ extension UIImage {
 }
 
 public extension UIImage {
-    public static func black() -> UIImage { return UIImage.resizableImage(color:UIColor.black)! }
-    public static func gray() -> UIImage { return UIImage.resizableImage(color:UIColor.gray)! }
-    public static func darkGray() -> UIImage { return UIImage.resizableImage(color:UIColor.darkGray)! }
-    public static func lightGray() -> UIImage { return UIImage.resizableImage(color:UIColor.lightGray)! }
-    public static func white() -> UIImage { return UIImage.resizableImage(color:UIColor.white)! }
-    public static func red() -> UIImage { return UIImage.resizableImage(color:UIColor.red)! }
-    public static func green() -> UIImage { return UIImage.resizableImage(color:UIColor.green)! }
-    public static func blue() -> UIImage { return UIImage.resizableImage(color:UIColor.blue)! }
-    public static func cyan() -> UIImage { return UIImage.resizableImage(color:UIColor.cyan)! }
-    public static func yellow() -> UIImage { return UIImage.resizableImage(color:UIColor.yellow)! }
-    public static func magenta() -> UIImage { return UIImage.resizableImage(color:UIColor.magenta)! }
-    public static func orange() -> UIImage { return UIImage.resizableImage(color:UIColor.orange)! }
-    public static func purple() -> UIImage { return UIImage.resizableImage(color:UIColor.purple)! }
-    public static func brown() -> UIImage { return UIImage.resizableImage(color:UIColor.brown)! }
-    public static func clear() -> UIImage { return UIImage.resizableImage(color:UIColor.clear)! }
+    public static func black() -> UIImage { return UIImage.resizable(color:UIColor.black)! }
+    public static func gray() -> UIImage { return UIImage.resizable(color:UIColor.gray)! }
+    public static func darkGray() -> UIImage { return UIImage.resizable(color:UIColor.darkGray)! }
+    public static func lightGray() -> UIImage { return UIImage.resizable(color:UIColor.lightGray)! }
+    public static func white() -> UIImage { return UIImage.resizable(color:UIColor.white)! }
+    public static func red() -> UIImage { return UIImage.resizable(color:UIColor.red)! }
+    public static func green() -> UIImage { return UIImage.resizable(color:UIColor.green)! }
+    public static func blue() -> UIImage { return UIImage.resizable(color:UIColor.blue)! }
+    public static func cyan() -> UIImage { return UIImage.resizable(color:UIColor.cyan)! }
+    public static func yellow() -> UIImage { return UIImage.resizable(color:UIColor.yellow)! }
+    public static func magenta() -> UIImage { return UIImage.resizable(color:UIColor.magenta)! }
+    public static func orange() -> UIImage { return UIImage.resizable(color:UIColor.orange)! }
+    public static func purple() -> UIImage { return UIImage.resizable(color:UIColor.purple)! }
+    public static func brown() -> UIImage { return UIImage.resizable(color:UIColor.brown)! }
+    public static func clear() -> UIImage { return UIImage.resizable(color:UIColor.clear)! }
 }
