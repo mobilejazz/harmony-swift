@@ -148,7 +148,7 @@ public class Future<T> {
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
     private var failure: ((_ error: Error) -> Void)?
-        
+    
     /// Default initializer
     public init() { }
     
@@ -165,6 +165,16 @@ public class Future<T> {
     /// Future initializer
     public init(_ future: Future<T>) {
         set(future)
+    }
+    
+    /// Future initializer
+    public init(_ observable: Observable<T>, atEvent index: Int = 0) {
+        set(observable, atEvent: index)
+    }
+    
+    /// Future initializer
+    public init(_ observable: Observable<T>, ignoreErrors: Bool = false, atEventPassingTest closure: @escaping (T) -> Bool) {
+        set(observable, ignoreErrors: ignoreErrors, atEventPassingTest: closure)
     }
     
     /// Future initializer
@@ -186,7 +196,7 @@ public class Future<T> {
             self.init(error)
         }
     }
-        
+    
     /// Future initializer
     public convenience init(_ closure: () -> Error) {
         let error = closure()
@@ -214,6 +224,50 @@ public class Future<T> {
             self.set(value)
         }, failure: { error in
             self.set(error)
+        })
+    }
+    
+    /// Sets the future with a given observable at the given event index
+    ///
+    /// - Parameters:
+    ///   - observable: The incoming observable
+    ///   - eventIdx: The event index to set the future. Use 0 to indicate the following event (or the eixsting one if the observer is already resolved). Default is 0.
+    public func set(_ observable: Observable<T>, atEvent eventIdx: Int = 0) {
+        var obs : Observable<T>? = observable.hub.subscribe()
+        var idx = eventIdx
+        obs!.resolve(success: { value in
+            if idx == 0 {
+                self.set(value)
+                obs = nil
+            }
+            idx -= 1
+        }, failure: { error in
+            if idx == 0 {
+                self.set(error)
+                obs = nil
+            }
+            idx -= 1
+        })
+    }
+    
+    /// Sets the future with the given observable when the passing test results true.
+    ///
+    /// - Parameters:
+    ///   - observable: The incoming observable
+    ///   - closure: The test closure
+    ///   - ignoreErrors: if true, all errors will be ignored (and the future is not resolved). Default is false.
+    public func set(_ observable: Observable<T>, ignoreErrors: Bool = false, atEventPassingTest closure: @escaping (T) -> Bool) {
+        var obs : Observable<T>? = observable.hub.subscribe()
+        obs!.resolve(success: { value in
+            if closure(value) {
+                self.set(value)
+                obs = nil
+            }
+        }, failure: { error in
+            if ignoreErrors {
+                self.set(error)
+                obs = nil
+            }
         })
     }
     
@@ -457,3 +511,4 @@ extension Future where T==Void {
         set(Void())
     }
 }
+

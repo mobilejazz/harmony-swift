@@ -10,24 +10,6 @@ import UIKit
 import MJSwiftCore
 import MJCocoaCore
 
-/// Creates and returns a new future, which is resolved 2 seconds after
-func future() -> Future<Int> {
-    return Future() { resolver in
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
-            resolver.set(2)
-        })
-        }.map { $0*2 }
-}
-
-/// Creates and returns a new observable, which is triggered 2 seconds after
-func observable() -> Observable<Int> {
-    return Observable<Int>() { resolver in
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2), execute: {
-            resolver.set(1)
-        })
-        }.map { $0*2 }
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -48,21 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
         }
-    
-        // Observables requires to retain the last item from the chain
-//        observable = obs().map { $0*2 }.recover { _ in Observable(0) }.map { $0*2 }
-//        observable.then { value in
-//            print("observable value: \(value)")
-//        }
-//        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(3), execute: {
-//            // when the last chain item is deallocated, the whole chain falls
-//            self.observable = nil
-//        })
+
+        let obs = Observable<Int>(20)
         
-        // Futures can be chained and finally opened. The chain will be retained until the root future is resolved.
-//        fut().map { $0*2 }.recover { _ in Future(0) }.map { $0*2 }.then { value in
-//            print("future value: \(value)")
-//        }
+        Future<Int>(obs) { value -> Bool in
+            return value > 25
+            }.then { value in
+                print("value: \(value)")
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            obs.set(42)
+            obs.set(18)
+        }
         
         return true
     }

@@ -60,6 +60,11 @@ public struct ObservableResolver<T> {
         self.observable?.set(observable)
     }
     
+    /// Sets the observable with a future
+    public func set(_ future: Future<T>) {
+        observable?.set(future)
+    }
+    
     /// Sets the observable with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
@@ -150,7 +155,7 @@ public class Observable<T> {
             }
         }
     }
-        
+    
     /// The observable result. Using _ prefix as the "result" method returns synchronously the result.
     internal var _result : Result? = nil
     
@@ -188,6 +193,11 @@ public class Observable<T> {
     }
     
     /// Observable initializer
+    public init(_ future: Future<T>) {
+        set(future)
+    }
+    
+    /// Observable initializer
     public init(parent: Any? = nil, _ closure: (ObservableResolver<T>) throws -> Void) {
         self.parent = parent
         do {
@@ -197,7 +207,7 @@ public class Observable<T> {
             set(error)
         }
     }
-
+    
     /// Observable initializer
     public convenience init(_ closure: () -> Error) {
         let error = closure()
@@ -229,6 +239,16 @@ public class Observable<T> {
             self?.set(value)
             }, failure: { [weak self] error in
                 self?.set(error)
+        })
+    }
+    
+    public func set(_ future: Future<T>) {
+        // Current observable does not retain the incoming future
+        // Incoming future will retain the current observable
+        future.resolve(success: { value in
+            self.set(value)
+        }, failure: { error in
+            self.set(error)
         })
     }
     
@@ -326,7 +346,7 @@ public class Observable<T> {
             }
         }
     }
-
+    
     /// Deliver the result syncrhonously. This method might block the calling thread.
     /// Note that the result can only be delivered once if the observable is not reactive.
     public var result : Result {
@@ -369,7 +389,7 @@ public class Observable<T> {
             })
         }
     }
-
+    
     private func send() {
         switch _result! {
         case .error(let error):
@@ -436,3 +456,4 @@ extension Observable where T==Void {
         set(Void())
     }
 }
+
