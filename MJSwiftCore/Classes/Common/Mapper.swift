@@ -56,9 +56,9 @@ extension Mapper {
 }
 
 ///
-/// BlankMapper returns the same value
+/// VoidMapper returns the same value
 ///
-public class BlankMapper <T> : Mapper <T,T> {
+public class VoidMapper <T> : Mapper <T,T> {
     public override func map(_ from: T) -> T {
         return from
     }

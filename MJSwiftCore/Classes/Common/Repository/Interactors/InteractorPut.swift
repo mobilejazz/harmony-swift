@@ -31,7 +31,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ value: T? = nil, query: Query = BlankQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
+        public func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: query, operation: operation))
@@ -39,7 +39,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ value: T?, forId id: K, _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        public func execute<K>(_ value: T?, forId id: K, _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, forId: id, operation: operation))
@@ -67,7 +67,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ value: T? = nil, _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<T> {
+        public func execute(_ value: T? = nil, _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: self.query, operation: operation))
@@ -89,7 +89,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ array: [T] = [], query: Query = BlankQuery(), _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        public func execute(_ array: [T] = [], query: Query = VoidQuery(), _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: query, operation: operation))
@@ -97,7 +97,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
+        public func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, forId: id, operation: operation))
@@ -125,7 +125,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ array: [T] = [], _ operation: Operation = BlankOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        public func execute(_ array: [T] = [], _ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: self.query, operation: operation))

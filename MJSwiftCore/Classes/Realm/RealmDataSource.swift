@@ -72,7 +72,7 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
     @discardableResult
     public func put(_ value: E?, in query: Query) -> Future<E> {
         switch query {
-        case is BlankQuery:
+        case is VoidQuery:
             guard let value = value else {
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
@@ -85,7 +85,7 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
             if value != nil {
                 return Future(CoreError.IllegalArgument("Value parameter must be nil when using an ObjectQuery"))
             }
-            return put(query.object, in: BlankQuery())
+            return put(query.object, in: VoidQuery())
         default:
             fatalError()
         }
@@ -94,19 +94,19 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
     @discardableResult
     public func putAll(_ array: [E], in query: Query) -> Future<[E]> {
         switch query {
-        case is BlankQuery:
+        case is VoidQuery:
             return realmHandler.write { realm -> [O] in
                 let objetcs = array.map { toRealmMapper.map($0, inRealm:realm) }
                 objetcs.forEach { realm.add($0, update: true) }
                 return objetcs
                 }.map { self.toEntityMapper.map($0) }
         case is AllObjectsQuery:
-            return putAll(array, in: BlankQuery())
+            return putAll(array, in: VoidQuery())
         case let query as ArrayQuery<E>:
             if array.count > 0 {
                 return Future(CoreError.IllegalArgument("Parameter array must be empty when using an ArrayQuery"))
             }
-            return putAll(query.array, in: BlankQuery())
+            return putAll(query.array, in: VoidQuery())
         default:
             fatalError()
         }

@@ -368,7 +368,7 @@
 		BA4DF38E820FF6B40FFABF8B1BBCC615 /* Kingfisher.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CFC961416024A4DC165C4B46833091A /* Kingfisher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA8FAFFBC8A71A25E72EF0D06F7963A8 /* RLMCollection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF4A20D8C40CE1C5328D75E4180F36 /* RLMCollection.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		BB249FF02909617C4ACDFD7B3AD698B4 /* object_store.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 189EB010AD8DF4DD92FC841A0CBF654B /* object_store.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.3.2\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
-		BB3B470E167B9B2B80BD2A3FC43A5B82 /* DataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */; };
+		BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */; };
 		BB95EDFDFD96BC2339816EF65A5F89FB /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9196A3C6BB41E82E9074BBDE2B498F /* ErrorHelper.swift */; };
 		BBEFE2F9CEB73DC7BD97FFA66A0D9D4F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AB4650C929C527226C50AAD1B9E7B0 /* Validation.swift */; };
 		BC350472385C93CEA205604A741D0D6C /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6496D66AFBF6420B2E00E1791B890 /* Promise.swift */; };
@@ -412,6 +412,8 @@
 		CFDC2624601206E63FC8D2989E895017 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0704F9FC8B9518C7E555C81E3F79640 /* Repository.swift */; };
 		D1575AAADDCEA395E3828EBAC2A772FA /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29067CBBB9F908C49DCB6DC84B86C10E /* Box.swift */; };
 		D164A1B9031D2B6F8DBBD09096B6F1C2 /* KeychainSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3AD4FDC24AED99C67B86D614AFCFF /* KeychainSetInteractor.swift */; };
+		D20B9D3620FDD044004BB9B1 /* VoidDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20B9D3520FDD044004BB9B1 /* VoidDataSource.swift */; };
+		D20B9D3820FDD0B9004BB9B1 /* VoidRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20B9D3720FDD0B9004BB9B1 /* VoidRepository.swift */; };
 		D231D8AA20B6C21800FB0E3E /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231D8A820B6C21800FB0E3E /* Observable.swift */; };
 		D231D8AB20B6C21800FB0E3E /* ObservableHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231D8A920B6C21800FB0E3E /* ObservableHub.swift */; };
 		D231D8B220B6C69E00FB0E3E /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231D8AC20B6C69C00FB0E3E /* Observable+Extensions.swift */; };
@@ -431,8 +433,8 @@
 		D27CFF6A20E383030036392E /* AnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6720E383020036392E /* AnyGetDataSource.swift */; };
 		D27CFF6B20E383030036392E /* AnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6820E383030036392E /* AnyPutDataSource.swift */; };
 		D27CFF6D20E3838E0036392E /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF6C20E3838E0036392E /* Interactor.swift */; };
-		D27CFF7120E3BABC0036392E /* DataSourceEnsambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */; };
-		D27CFF7320E3C2B40036392E /* RepositoryEnsambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */; };
+		D27CFF7120E3BABC0036392E /* DataSourceAssambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7020E3BABC0036392E /* DataSourceAssambler.swift */; };
+		D27CFF7320E3C2B40036392E /* RepositoryAssambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27CFF7220E3C2B40036392E /* RepositoryAssambler.swift */; };
 		D290E01120B4097900D7C0D6 /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D290E01020B4097900D7C0D6 /* RetryDataSource.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
 		D2A179B820A5C04A00AC588B /* MJFuture+Throws.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */; };
@@ -1006,7 +1008,7 @@
 		6CE59681480489A4EFADAE400E879A7C /* Object.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Object.swift; path = RealmSwift/Object.swift; sourceTree = "<group>"; };
 		6D898B006F3FC970BFDF842B61B8CEF1 /* RLMMigration.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMMigration.mm; path = Realm/RLMMigration.mm; sourceTree = "<group>"; };
 		6DDA8C3948AB821B2D3C9211ABC9D827 /* MJDataProviderDirector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJDataProviderDirector.m; path = MJCocoaCore/Classes/Common/MJDataProviderDirector.m; sourceTree = "<group>"; };
-		6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataSourceRepository.swift; sourceTree = "<group>"; };
+		6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SingleDataSourceRepository.swift; sourceTree = "<group>"; };
 		6E071FCE140966049527BC7B982EE4EF /* ObjC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ObjC.m; path = MJSwiftCore/Classes/Common/ObjC.m; sourceTree = "<group>"; };
 		6E54ED7498DBB4222E4C1AA0686CBAC3 /* FBLPromise+Validate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Validate.m"; path = "Sources/FBLPromises/FBLPromise+Validate.m"; sourceTree = "<group>"; };
 		6EC2329D3F19FC12B6E2877D2602BB9E /* object_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = object_notifier.cpp; path = Realm/ObjectStore/src/impl/object_notifier.cpp; sourceTree = "<group>"; };
@@ -1172,6 +1174,8 @@
 		CFDAA54FA24070B649A87F359D8403DC /* Kingfisher-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-umbrella.h"; sourceTree = "<group>"; };
 		D1DA7665261618522E00AD569992940A /* FBLPromise+Resolve.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Resolve.m"; path = "Sources/FBLPromises/FBLPromise+Resolve.m"; sourceTree = "<group>"; };
 		D203EAB4D303D218AC4967A72321D0AE /* RLMSyncPermission.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMSyncPermission.mm; path = Realm/RLMSyncPermission.mm; sourceTree = "<group>"; };
+		D20B9D3520FDD044004BB9B1 /* VoidDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidDataSource.swift; sourceTree = "<group>"; };
+		D20B9D3720FDD0B9004BB9B1 /* VoidRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidRepository.swift; sourceTree = "<group>"; };
 		D231D8A820B6C21800FB0E3E /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Observable.swift; path = MJSwiftCore/Classes/Future/Observable.swift; sourceTree = "<group>"; };
 		D231D8A920B6C21800FB0E3E /* ObservableHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObservableHub.swift; path = MJSwiftCore/Classes/Future/ObservableHub.swift; sourceTree = "<group>"; };
 		D231D8AC20B6C69C00FB0E3E /* Observable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+Extensions.swift"; path = "MJSwiftCore/Classes/Future/Observable+Extensions.swift"; sourceTree = "<group>"; };
@@ -1192,8 +1196,8 @@
 		D27CFF6720E383020036392E /* AnyGetDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetDataSource.swift; sourceTree = "<group>"; };
 		D27CFF6820E383030036392E /* AnyPutDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutDataSource.swift; sourceTree = "<group>"; };
 		D27CFF6C20E3838E0036392E /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
-		D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceEnsambler.swift; sourceTree = "<group>"; };
-		D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryEnsambler.swift; sourceTree = "<group>"; };
+		D27CFF7020E3BABC0036392E /* DataSourceAssambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceAssambler.swift; sourceTree = "<group>"; };
+		D27CFF7220E3C2B40036392E /* RepositoryAssambler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAssambler.swift; sourceTree = "<group>"; };
 		D290E01020B4097900D7C0D6 /* RetryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
 		D2A179B720A5C04A00AC588B /* MJFuture+Throws.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MJFuture+Throws.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/MJFuture+Throws.swift"; sourceTree = "<group>"; };
 		D2B7EB7420B802F00014A9DA /* Observable+MJFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Observable+MJFuture.swift"; path = "MJSwiftCore/Classes/MJCocoaCore/Observable+MJFuture.swift"; sourceTree = "<group>"; };
@@ -1888,7 +1892,9 @@
 			children = (
 				D252EBD220AAB80F000188A2 /* CoreError.swift */,
 				290287706A57A33D8B8D581891D4ADA5 /* DataSource.swift */,
-				D27CFF7020E3BABC0036392E /* DataSourceEnsambler.swift */,
+				2911624EB2A68EC349EC0295A6955F86 /* Query+KeyValue.swift */,
+				D20B9D3520FDD044004BB9B1 /* VoidDataSource.swift */,
+				D27CFF7020E3BABC0036392E /* DataSourceAssambler.swift */,
 				D2EDF60D20DA94B00063DB89 /* AnyDataSource.swift */,
 				D27CFF6620E383020036392E /* AnyDeleteDataSource.swift */,
 				D27CFF6720E383020036392E /* AnyGetDataSource.swift */,
@@ -1898,15 +1904,15 @@
 				D290E01020B4097900D7C0D6 /* RetryDataSource.swift */,
 				6014B9F708FF136A1CE12FEDFB216255 /* InMemoryDataSource.swift */,
 				12334A2FE64C881EC750BF933EE04D72 /* NetworkStorageRepository.swift */,
-				2911624EB2A68EC349EC0295A6955F86 /* Query+KeyValue.swift */,
 				F0704F9FC8B9518C7E555C81E3F79640 /* Repository.swift */,
-				D27CFF7220E3C2B40036392E /* RepositoryEnsambler.swift */,
+				D20B9D3720FDD0B9004BB9B1 /* VoidRepository.swift */,
+				D27CFF7220E3C2B40036392E /* RepositoryAssambler.swift */,
 				0067933C20DA39E700E7001F /* AnyRepository.swift */,
 				D27CFF6120E37E190036392E /* AnyGetRepository.swift */,
 				D27CFF6220E37E1A0036392E /* AnyPutRepository.swift */,
 				D27CFF6020E37E190036392E /* AnyDeleteRepository.swift */,
 				C81EE480115F9D958687FCB3FDD453A9 /* RepositoryMapper.swift */,
-				6E02DAD9935976B8A090CA1ACA6A8397 /* DataSourceRepository.swift */,
+				6E02DAD9935976B8A090CA1ACA6A8397 /* SingleDataSourceRepository.swift */,
 				6658B3F4D4AFAD8C652ED4CCF35CF961 /* UserDefaultsDataSource.swift */,
 				D2D752DA20B2FF1100386BBF /* RetryRepository.swift */,
 				73761F25D552F5896C1EB34F9AE5D62C /* Interactors */,
@@ -3019,6 +3025,7 @@
 				310A5B202E362B90B193F5EF8F86C56F /* BaseURLRequestAdapter.swift in Sources */,
 				526C5A6976D3D1699E9DB5ABE691D26F /* ContainerViewController.swift in Sources */,
 				3D80FF4D5B280C3C741FA7802371B08F /* DataSource.swift in Sources */,
+				D20B9D3620FDD044004BB9B1 /* VoidDataSource.swift in Sources */,
 				5F42BD60ADE2BAF068413DE672521F8E /* DataSourceMapper.swift in Sources */,
 				2762F44CF05AA8A2E139F72D4672D20A /* DataSourceValidator.swift in Sources */,
 				5EB03BEA62B86B0789DADE8EE21BF2F9 /* DispatchQueueExecutor.swift in Sources */,
@@ -3034,9 +3041,10 @@
 				5532277E1F5C5FC042E8EB30713E10FA /* Future+Extensions.swift in Sources */,
 				076947D7AD725CA34C411FB73BAE19CD /* Future+Functional.swift in Sources */,
 				BC69339E483340C87361D2D75027FCB9 /* Future+MJFuture.swift in Sources */,
-				D27CFF7320E3C2B40036392E /* RepositoryEnsambler.swift in Sources */,
+				D27CFF7320E3C2B40036392E /* RepositoryAssambler.swift in Sources */,
 				2449DF79C7245BFD648545A0681FD2AF /* Future+Operators.swift in Sources */,
 				C6477C4F63C9A874A341BC5062454A6C /* Future+Optionals.swift in Sources */,
+				D20B9D3820FDD0B9004BB9B1 /* VoidRepository.swift in Sources */,
 				C0AED0EFE4986028A026363B2705E658 /* Future+Time.swift in Sources */,
 				1C3F86E9BE37937E4531B58C84E83F82 /* Future+UIKitExtensions.swift in Sources */,
 				D231D8B520B6C69E00FB0E3E /* Observable+Batch.swift in Sources */,
@@ -3077,7 +3085,7 @@
 				6187BA6A8B614E71394BEF724C41E06C /* RealmDataSource.swift in Sources */,
 				D94AE1A82EF11AABEB7DE8E912FECB9B /* RealmFactory.swift in Sources */,
 				D27CFF6420E37E1A0036392E /* AnyGetRepository.swift in Sources */,
-				D27CFF7120E3BABC0036392E /* DataSourceEnsambler.swift in Sources */,
+				D27CFF7120E3BABC0036392E /* DataSourceAssambler.swift in Sources */,
 				D252EBDD20AC0D1B000188A2 /* ClassError.swift in Sources */,
 				D454C3B9C2D6E3D546A34B7EDA5E91C3 /* RealmHandler+Future.swift in Sources */,
 				DDC260200B674FB82DE7CEDFA5440147 /* RealmHandler.swift in Sources */,
@@ -3094,7 +3102,7 @@
 				2C07B06180CE60DE2B273B646CBE5358 /* SecureKey.swift in Sources */,
 				0067933D20DA39E700E7001F /* AnyRepository.swift in Sources */,
 				C908BE1549B66B235EEFDBD58685E717 /* SharedTimer.swift in Sources */,
-				BB3B470E167B9B2B80BD2A3FC43A5B82 /* DataSourceRepository.swift in Sources */,
+				BB3B470E167B9B2B80BD2A3FC43A5B82 /* SingleDataSourceRepository.swift in Sources */,
 				DEFEBA3260809E7E845327D272C5A22E /* String+Extensions.swift in Sources */,
 				761FC36E32CBFA5CBF0CF60633D7505B /* UIBarButtonItem+Extensions.swift in Sources */,
 				D27044C020CA82DB00226F5E /* CodingKeyStrategies.swift in Sources */,
@@ -3420,7 +3428,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -4135,7 +4143,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

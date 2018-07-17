@@ -36,7 +36,7 @@ class RepositoryAssembly: Assembly {
             let storageValidationDataSource = DataSourceValidator(dataSource: storageDataSource,
                                                                   validator: r.resolve(ObjectValidation.self, name: Names.storageValidation)!)
             let networkDataSource = r.resolve(AnyGetDataSource<ItemEntity>.self, name: NetworkAssembly.Names.networkRepository)!
-            let networkStorageRepo = NetworkStorageRepository(network: DataSourceEnsambler(get: networkDataSource),
+            let networkStorageRepo = NetworkStorageRepository(network: DataSourceAssambler(get: networkDataSource),
                                                               storage: storageValidationDataSource)
             
             return RepositoryMapper(repository: networkStorageRepo,

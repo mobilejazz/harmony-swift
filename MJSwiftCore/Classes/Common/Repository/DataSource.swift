@@ -47,8 +47,8 @@ extension Query {
     }
 }
 
-/// Blank query
-public class BlankQuery : Query {
+/// Void query
+public class VoidQuery : Query {
     public init() {}
 }
 
@@ -170,54 +170,3 @@ extension DeleteDataSource {
 ///
 public protocol DataSource : GetDataSource, PutDataSource, DeleteDataSource { }
 
-///
-/// Blank data source superclass implementation
-///
-public class BlankDataSourceBase<T> : TypedDataSource {
-    private let crash : Bool
-    public init(crash : Bool = true) { self.crash = crash }
-    
-    internal func crashOrError(_ query: Query) -> Error {
-        if crash {
-            query.fatalError(.get, self)
-        } else {
-            return CoreError.NotImplemented()
-        }
-    }
-}
-
-///
-/// Blank get data source implementation
-///
-public class BlankGetDataSource<T> : BlankDataSourceBase<T>, GetDataSource {
-    public func get(_ query: Query) -> Future<T> { return Future(crashOrError(query)) }
-    public func getAll(_ query: Query) -> Future<[T]> { return Future(crashOrError(query)) }
-}
-
-///
-/// Blank put data source implementation
-///
-public class BlankPutDataSource<T> : BlankDataSourceBase<T>, PutDataSource {
-    public func put(_ value: T?, in query: Query) -> Future<T> { return Future(crashOrError(query)) }
-    public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(crashOrError(query)) }
-}
-
-///
-/// Blank delete data source implementation
-///
-public class BlankDeleteDataSource<T> : BlankDataSourceBase<T>, DeleteDataSource {
-    public func delete(_ query: Query) -> Future<Void> { return Future(crashOrError(query)) }
-    public func deleteAll(_ query: Query) -> Future<Void> { return Future(crashOrError(query)) }
-}
-
-///
-/// Blank data source implementation
-///
-public class BlankDataSource<T> : BlankDataSourceBase<T>, DataSource {
-    public func get(_ query: Query) -> Future<T> { return Future(crashOrError(query)) }
-    public func getAll(_ query: Query) -> Future<[T]> { return Future(crashOrError(query)) }
-    public func put(_ value: T?, in query: Query) -> Future<T> { return Future(crashOrError(query)) }
-    public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(crashOrError(query)) }
-    public func delete(_ query: Query) -> Future<Void> { return Future(crashOrError(query)) }
-    public func deleteAll(_ query: Query) -> Future<Void> { return Future(crashOrError(query)) }
-}

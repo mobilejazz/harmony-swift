@@ -50,7 +50,7 @@ extension Operation {
 }
 
 /// An empty operation definition
-public class BlankOperation : Operation {
+public class VoidOperation : Operation {
     public init() { }
 }
 
@@ -146,56 +146,3 @@ extension DeleteRepository {
 /// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
 ///
 public protocol Repository : GetRepository, PutRepository, DeleteRepository { }
-
-///
-/// Blank repository superclass implementation
-///
-public class BlankRepositoryBase<T> : TypedRepository {
-    private let crash : Bool
-    public init(crash : Bool = true) { self.crash = crash }
-    
-    internal func crashOrError(_ operation: Operation) -> Error {
-        if crash {
-            operation.fatalError(.get, self)
-        } else {
-            return CoreError.NotImplemented()
-        }
-    }
-}
-
-///
-/// Blank get repository implementation
-///
-public class BlankGetRepository<T> : BlankRepositoryBase<T>, GetRepository {
-    public func get(_ query: Query, operation: Operation) -> Future<T> { return Future(crashOrError(operation)) }
-    public func getAll(_ query: Query, operation: Operation) -> Future<[T]> { return Future(crashOrError(operation)) }
-}
-
-///
-/// Blank put repository implementation
-///
-public class BlankPutRepository<T> : BlankRepositoryBase<T>, PutRepository {
-    public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> { return Future(crashOrError(operation)) }
-    public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> { return Future(crashOrError(operation)) }
-}
-
-///
-/// Blank delete repository implementation
-///
-public class BlankDeleteRepository<T> : BlankRepositoryBase<T>, DeleteRepository {
-    public func delete(_ query: Query, operation: Operation) -> Future<Void> { return Future(crashOrError(operation)) }
-    public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> { return Future(crashOrError(operation)) }
-}
-
-///
-/// Blank repository implementation
-///
-public class BlankRepository<T> : BlankRepositoryBase<T>, Repository {
-    public func get(_ query: Query, operation: Operation) -> Future<T> { return Future(crashOrError(operation)) }
-    public func getAll(_ query: Query, operation: Operation) -> Future<[T]> { return Future(crashOrError(operation)) }
-    public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> { return Future(crashOrError(operation)) }
-    public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> { return Future(crashOrError(operation)) }
-    public func delete(_ query: Query, operation: Operation) -> Future<Void> { return Future(crashOrError(operation)) }
-    public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> { return Future(crashOrError(operation)) }
-}
-

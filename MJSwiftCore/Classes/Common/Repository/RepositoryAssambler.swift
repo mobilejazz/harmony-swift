@@ -17,9 +17,9 @@
 import Foundation
 
 ///
-/// Ensambles a CRUD repository into a single repository object
+/// Assambles a CRUD repository into a single repository object
 ///
-public class RepositoryEnsambler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : Repository where Get.T == T, Put.T == T, Delete.T == T {
+public class RepositoryAssambler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : Repository where Get.T == T, Put.T == T, Delete.T == T {
     
     private let getRepository : Get
     private let putRepository : Put
@@ -66,7 +66,7 @@ public class RepositoryEnsambler <Get : GetRepository, Put: PutRepository, Delet
     }
 }
 
-extension RepositoryEnsambler where Get == Put, Get == Delete {
+extension RepositoryAssambler where Get == Put, Get == Delete {
     /// Initializer for a single Repository
     ///
     /// - Parameter repository: The repository
@@ -75,59 +75,59 @@ extension RepositoryEnsambler where Get == Put, Get == Delete {
     }
 }
 
-extension RepositoryEnsambler where Put == BlankPutRepository<T>, Delete == BlankDeleteRepository<T> {
+extension RepositoryAssambler where Put == VoidPutRepository<T>, Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
     public convenience init(get getRepository: Get) {
-        self.init(get: getRepository, put: BlankPutRepository(), delete: BlankDeleteRepository())
+        self.init(get: getRepository, put: VoidPutRepository(), delete: VoidDeleteRepository())
     }
 }
 
-extension RepositoryEnsambler where Get == BlankGetRepository<T>, Delete == BlankDeleteRepository<T> {
+extension RepositoryAssambler where Get == VoidGetRepository<T>, Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter putRepository: The repository
     public convenience init(put putRepository: Put) {
-        self.init(get: BlankGetRepository(), put: putRepository, delete: BlankDeleteRepository())
+        self.init(get: VoidGetRepository(), put: putRepository, delete: VoidDeleteRepository())
     }
 }
 
-extension RepositoryEnsambler where Get == BlankGetRepository<T>, Put == BlankPutRepository<T> {
+extension RepositoryAssambler where Get == VoidGetRepository<T>, Put == VoidPutRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter deleteRepository: The repository
     public convenience init(delete deleteRepository: Delete) {
-        self.init(get: BlankGetRepository(), put: BlankPutRepository(), delete: deleteRepository)
+        self.init(get: VoidGetRepository(), put: VoidPutRepository(), delete: deleteRepository)
     }
 }
 
-extension RepositoryEnsambler where Get == BlankGetRepository<T> {
+extension RepositoryAssambler where Get == VoidGetRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter putRepository: The repository
     /// - Parameter deleteRepository: The repository
     public convenience init(put putRepository: Put, delete deleteRepository: Delete) {
-        self.init(get: BlankGetRepository(), put: putRepository, delete: deleteRepository)
+        self.init(get: VoidGetRepository(), put: putRepository, delete: deleteRepository)
     }
 }
 
-extension RepositoryEnsambler where Put == BlankPutRepository<T> {
+extension RepositoryAssambler where Put == VoidPutRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
     /// - Parameter deleteRepository: The repository
     public convenience init(get getRepository: Get, delete deleteRepository: Delete) {
-        self.init(get: getRepository, put: BlankPutRepository(), delete: deleteRepository)
+        self.init(get: getRepository, put: VoidPutRepository(), delete: deleteRepository)
     }
 }
 
-extension RepositoryEnsambler where Delete == BlankDeleteRepository<T> {
+extension RepositoryAssambler where Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
     /// - Parameter putRepository: The repository
     public convenience init(get getRepository: Get, put putRepository: Put) {
-        self.init(get: getRepository, put: putRepository, delete: BlankDeleteRepository())
+        self.init(get: getRepository, put: putRepository, delete: VoidDeleteRepository())
     }
 }

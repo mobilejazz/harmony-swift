@@ -17,9 +17,9 @@
 import Foundation
 
 ///
-/// Ensambles a CRUD data source into a single data source object
+/// Assambles a CRUD data source into a single data source object
 ///
-public class DataSourceEnsambler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : DataSource where Get.T == T, Put.T == T, Delete.T == T {
+public class DataSourceAssambler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : DataSource where Get.T == T, Put.T == T, Delete.T == T {
     
     private let getDataSource : Get
     private let putDataSource : Put
@@ -66,7 +66,7 @@ public class DataSourceEnsambler <Get : GetDataSource, Put: PutDataSource, Delet
     }
 }
 
-extension DataSourceEnsambler where Get == Put, Get == Delete {
+extension DataSourceAssambler where Get == Put, Get == Delete {
     /// Initializer for a single DataSource
     ///
     /// - Parameter dataSource: The data source
@@ -75,59 +75,59 @@ extension DataSourceEnsambler where Get == Put, Get == Delete {
     }
 }
 
-extension DataSourceEnsambler where Put == BlankPutDataSource<T>, Delete == BlankDeleteDataSource<T> {
+extension DataSourceAssambler where Put == VoidPutDataSource<T>, Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
     public convenience init(get getDataSource: Get) {
-        self.init(get: getDataSource, put: BlankPutDataSource(), delete: BlankDeleteDataSource())
+        self.init(get: getDataSource, put: VoidPutDataSource(), delete: VoidDeleteDataSource())
     }
 }
 
-extension DataSourceEnsambler where Get == BlankGetDataSource<T>, Delete == BlankDeleteDataSource<T> {
+extension DataSourceAssambler where Get == VoidGetDataSource<T>, Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter putDataSource: The data source
     public convenience init(put putDataSource: Put) {
-        self.init(get: BlankGetDataSource(), put: putDataSource, delete: BlankDeleteDataSource())
+        self.init(get: VoidGetDataSource(), put: putDataSource, delete: VoidDeleteDataSource())
     }
 }
 
-extension DataSourceEnsambler where Get == BlankGetDataSource<T>, Put == BlankPutDataSource<T> {
+extension DataSourceAssambler where Get == VoidGetDataSource<T>, Put == VoidPutDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter deleteDataSource: The data source
     public convenience init(delete deleteDataSource: Delete) {
-        self.init(get: BlankGetDataSource(), put: BlankPutDataSource(), delete: deleteDataSource)
+        self.init(get: VoidGetDataSource(), put: VoidPutDataSource(), delete: deleteDataSource)
     }
 }
 
-extension DataSourceEnsambler where Get == BlankGetDataSource<T> {
+extension DataSourceAssambler where Get == VoidGetDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter putDataSource: The data source
     /// - Parameter deleteDataSource: The data source
     public convenience init(put putDataSource: Put, delete deleteDataSource: Delete) {
-        self.init(get: BlankGetDataSource(), put: putDataSource, delete: deleteDataSource)
+        self.init(get: VoidGetDataSource(), put: putDataSource, delete: deleteDataSource)
     }
 }
 
-extension DataSourceEnsambler where Put == BlankPutDataSource<T> {
+extension DataSourceAssambler where Put == VoidPutDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
     /// - Parameter deleteDataSource: The data source
     public convenience init(get getDataSource: Get, delete deleteDataSource: Delete) {
-        self.init(get: getDataSource, put: BlankPutDataSource(), delete: deleteDataSource)
+        self.init(get: getDataSource, put: VoidPutDataSource(), delete: deleteDataSource)
     }
 }
 
-extension DataSourceEnsambler where Delete == BlankDeleteDataSource<T> {
+extension DataSourceAssambler where Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
     /// - Parameter putDataSource: The data source
     public convenience init(get getDataSource: Get, put putDataSource: Put) {
-        self.init(get: getDataSource, put: putDataSource, delete: BlankDeleteDataSource())
+        self.init(get: getDataSource, put: putDataSource, delete: VoidDeleteDataSource())
     }
 }
