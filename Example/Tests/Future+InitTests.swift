@@ -138,7 +138,7 @@ class FutureInitTests: XCTestCase {
     }
     
     func testFutureDirectClosureValueConstructor() {
-        let future = Future<Int>() { Future(42) }
+        let future = Future<Int>(value: { 42 })
         
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
@@ -166,7 +166,7 @@ class FutureInitTests: XCTestCase {
     }
     
     func testFutureDirectClosureErrorThrowConstructor() {
-        let future = Future<Int>() { throw Test.Error.code42 }
+        let future = Future<Int>(value: { throw Test.Error.code42 })
         
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)

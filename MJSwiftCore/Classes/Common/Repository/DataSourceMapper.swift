@@ -53,20 +53,18 @@ public class DataSourceMapper <D: DataSource,From,To> : DataSource where D.T == 
     
     @discardableResult
     public func put(_ value: From?, in query: Query) -> Future<From> {
-        return Future {
+        return Future(future: {
             var mapped : To? = nil
             if let value = value {
                 mapped = try toToMapper.map(value)
             }
             return dataSource.put(mapped, in: query).map { try self.toFromMapper.map($0) }
-        }
+        })
     }
     
     @discardableResult
     public func putAll(_ array: [From], in query: Query) -> Future<[From]> {
-        return Future {
-            return dataSource.putAll(try toToMapper.map(array), in: query).map { try self.toFromMapper.map($0) }
-        }
+        return Future { dataSource.putAll(try toToMapper.map(array), in: query).map { try self.toFromMapper.map($0) } }
     }
     
     @discardableResult

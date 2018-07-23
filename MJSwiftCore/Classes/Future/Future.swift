@@ -188,7 +188,7 @@ public class Future<T> {
     }
     
     /// Future initializer
-    public convenience init(_ closure: () throws -> Future<T>) {
+    public convenience init(future closure: () throws -> Future<T>) {
         do {
             let future = try closure()
             self.init(future)
@@ -198,14 +198,14 @@ public class Future<T> {
     }
     
     /// Future initializer
-//    public convenience init(_ closure: () throws -> T) {
-//        do {
-//            let value = try closure()
-//            self.init(value)
-//        } catch (let error) {
-//            self.init(error)
-//        }
-//    }
+    public convenience init(value closure: () throws -> T) {
+        do {
+            let value = try closure()
+            self.init(value)
+        } catch (let error) {
+            self.init(error)
+        }
+    }
     
     /// Future initializer
     public convenience init(_ closure: () -> Error) {

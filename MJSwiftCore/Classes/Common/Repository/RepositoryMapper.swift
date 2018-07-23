@@ -53,13 +53,13 @@ public class RepositoryMapper <R: Repository,From,To> : Repository where R.T == 
     
     @discardableResult
     public func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
-        return Future {
+        return Future(future: {
             var mapped : To? = nil
             if let value = value {
                 mapped = try toToMapper.map(value)
             }
             return repository.put(mapped, in: query, operation: operation).map { try self.toFromMapper.map($0) }
-        }
+        })
     }
     
     @discardableResult
