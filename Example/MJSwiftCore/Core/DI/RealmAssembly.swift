@@ -19,12 +19,8 @@ private enum RealmVersion : UInt64 {
 
 private let CurrentAppRealmVersion = RealmVersion.AppRealmVersion1.rawValue
 
-class StorageAssembly: Assembly {
-    
-    struct Names {
-        static let storageRepository = "storage"
-    }
-    
+class RealmAssembly: Assembly {
+
     func assemble(container: Container) {
         
         // Realm
@@ -47,33 +43,7 @@ class StorageAssembly: Assembly {
                                 minimumValidSchemaVersion: CurrentAppRealmVersion,
                                 encryptionKeyName: "SwiftCore")
             }.inObjectScope(.container)
+        
         container.register(RealmHandler.self) { r in RealmHandler(r.resolve(RealmFactory.self)!) }
-
-        // Mappers
-        container.register(Mapper<RealmItem, ItemEntity>.self) { _ in RealmItemToItemEntityMapper() }
-        container.register(RealmMapper<ItemEntity, RealmItem>.self) { _ in ItemEntityToRealmItemMapper() }
-
-        // Storage Services
-        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-            return RealmDataSource(realmHandler: r.resolve(RealmHandler.self)!,
-                                   toEntityMapper: r.resolve(Mapper<RealmItem, ItemEntity>.self)!,
-                                   toRealmMapper: r.resolve(RealmMapper<ItemEntity, RealmItem>.self)!).asAnyDataSource()
-        })
-
-        
-        // In-Memory key value storage
-//        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-//            return InMemoryDataSource<ItemEntity>().asAnyDataSource()
-//        })
-        
-        // User defaults key value storge
-//        container.register(AnyDataSource<ItemEntity>.self, name: Names.storageRepository, factory: { r in
-//            let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
-//            let dataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
-//                                              toToMapper: EncodableToDataMapper<ItemEntity>(),
-//                                              toFromMapper: DataToDecodableMapper<ItemEntity>())
-//
-//            return dataSource.asAnyDataSource()
-//        })
     }
 }

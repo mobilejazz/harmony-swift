@@ -17,6 +17,8 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
         return self.view as! UIKitMVPItemListPresenterView
     }
     
+    lazy var getItemsInteractor = AppAssembler.resolver.resolve(Interactor.GetAll<Item>.self)!
+    
     override func loadView() {
         super.loadView()
         (view as! UIKitMVPItemListView).presenter = self
@@ -31,10 +33,8 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     private func loadItems(_ operation: MJSwiftCore.Operation) {
-        let getItemsInteractor = AppAssembler.resolver.resolve(Interactor.GetAllByQuery<Item>.self)!
-        
         self.itemListView.onShowProgressHud()
-        getItemsInteractor.execute(AllObjectsQuery(), operation).then { items in
+        getItemsInteractor.execute(operation).then { items in
             self.itemListView.onHideProgressHud()
             self.itemListView.onDisplayItems(items)
             }.fail { error in

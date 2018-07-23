@@ -14,9 +14,7 @@
 		908E57AEC31BBAA33302AB7A /* Pods_MJSwiftCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17AC1F8F79E51FD186EF4072 /* Pods_MJSwiftCore_Example.framework */; };
 		A8F77EB7C3F7E5E91E696B10 /* Pods_MJSwiftCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F03CBB74782317E8EB8707C /* Pods_MJSwiftCore_Tests.framework */; };
 		D219D6ED1FCC2E2D00D91CED /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */; };
-		D219D6EE1FCC2E2D00D91CED /* StorageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */; };
-		D219D6EF1FCC2E2D00D91CED /* InteractorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */; };
-		D219D6F01FCC2E2D00D91CED /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */; };
+		D219D6EE1FCC2E2D00D91CED /* RealmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D11FCC2E2D00D91CED /* RealmAssembly.swift */; };
 		D219D6F11FCC2E2D00D91CED /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */; };
 		D219D6F21FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */; };
 		D219D6F31FCC2E2D00D91CED /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */; };
@@ -39,6 +37,7 @@
 		D219D7161FCC2E4300D91CED /* UIKitMVPItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70D1FCC2E4300D91CED /* UIKitMVPItemDetailView.swift */; };
 		D219D7171FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
+		D2B7A6BD2105C31C0022B46C /* ItemAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B7A6BC2105C31C0022B46C /* ItemAssembly.swift */; };
 		D2D9FB5B203DE7E20069AE74 /* Future+InitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */; };
 		D2D9FB5D203DEC8A0069AE74 /* Future+SetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */; };
 		D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */; };
@@ -77,9 +76,7 @@
 		982946972C97C62DC4064E5F /* MJSwiftCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = MJSwiftCore.podspec; path = ../MJSwiftCore.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C1F6569A33968B670F36EA70 /* Pods-MJSwiftCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MJSwiftCore_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MJSwiftCore_Tests/Pods-MJSwiftCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
-		D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAssembly.swift; sourceTree = "<group>"; };
-		D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorAssembly.swift; sourceTree = "<group>"; };
-		D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
+		D219D6D11FCC2E2D00D91CED /* RealmAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmAssembly.swift; sourceTree = "<group>"; };
 		D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		D219D6D61FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRetrier.swift; sourceTree = "<group>"; };
 		D219D6D71FCC2E2D00D91CED /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
@@ -103,6 +100,7 @@
 		D219D70E1FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailPresenter.swift; sourceTree = "<group>"; };
 		D22A0B9E2035C91F0026068F /* MJSwiftCore_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MJSwiftCore_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		D2B7A6BC2105C31C0022B46C /* ItemAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAssembly.swift; sourceTree = "<group>"; };
 		D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+InitTests.swift"; sourceTree = "<group>"; };
 		D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+SetTests.swift"; sourceTree = "<group>"; };
 		D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
@@ -246,10 +244,9 @@
 			isa = PBXGroup;
 			children = (
 				D219D6D01FCC2E2D00D91CED /* AppAssembler.swift */,
-				D219D6D11FCC2E2D00D91CED /* StorageAssembly.swift */,
-				D219D6D21FCC2E2D00D91CED /* InteractorAssembly.swift */,
-				D219D6D31FCC2E2D00D91CED /* RepositoryAssembly.swift */,
+				D219D6D11FCC2E2D00D91CED /* RealmAssembly.swift */,
 				D219D6D41FCC2E2D00D91CED /* NetworkAssembly.swift */,
+				D2B7A6BC2105C31C0022B46C /* ItemAssembly.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -601,18 +598,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D219D6EF1FCC2E2D00D91CED /* InteractorAssembly.swift in Sources */,
 				D219D6F71FCC2E2D00D91CED /* RealmItemMapper.swift in Sources */,
+				D2B7A6BD2105C31C0022B46C /* ItemAssembly.swift in Sources */,
 				D219D6FB1FCC2E2D00D91CED /* Item.swift in Sources */,
 				D219D6F11FCC2E2D00D91CED /* NetworkAssembly.swift in Sources */,
 				D219D7171FCC2E4300D91CED /* UIKitMVPItemDetailPresenter.swift in Sources */,
-				D219D6EE1FCC2E2D00D91CED /* StorageAssembly.swift in Sources */,
+				D219D6EE1FCC2E2D00D91CED /* RealmAssembly.swift in Sources */,
 				D219D6F91FCC2E2D00D91CED /* ItemMapper.swift in Sources */,
 				D219D6F21FCC2E2D00D91CED /* UnauthorizedStatusCodeRetrier.swift in Sources */,
 				D219D6FA1FCC2E2D00D91CED /* ItemEntity.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				D219D7131FCC2E4300D91CED /* UIKitMVPItemListViewController.swift in Sources */,
-				D219D6F01FCC2E2D00D91CED /* RepositoryAssembly.swift in Sources */,
 				D219D6FC1FCC2E2D00D91CED /* Product.swift in Sources */,
 				D219D70F1FCC2E4300D91CED /* SplashViewController.swift in Sources */,
 				D219D7111FCC2E4300D91CED /* ItemCell.swift in Sources */,

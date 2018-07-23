@@ -7,16 +7,18 @@
 //
 
 import UIKit
-
+import MJSwiftCore
 import Swinject
 
 class AppAssembler {
-    static let assembler : Assembler = Assembler([StorageAssembly(),
+    static let assembler : Assembler = Assembler([RealmAssembly(),
                                                   NetworkAssembly(),
-                                                  RepositoryAssembly(),
-                                                  InteractorAssembly()])
+                                                  ItemAssembly()])
     
     static var resolver : Resolver {
         return assembler.resolver
     }
 }
+
+// Make Vastra compliant with ObjectValidation
+extension VastraService : ObjectValidation { }

@@ -50,9 +50,5 @@ class NetworkAssembly: Assembly {
             sessionManager.retrier = r.resolve(RequestRetrier.self)
             return sessionManager
         }
-        
-        // Network Clients
-        container.register(AnyGetDataSource<ItemEntity>.self, name: Names.networkRepository) { r in ItemNetworkDataSource(r.resolve(SessionManager.self)!).asAnyGetDataSource()
-        }
     }
 }
