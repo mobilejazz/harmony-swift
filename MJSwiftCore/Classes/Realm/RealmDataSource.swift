@@ -48,7 +48,7 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
         case let query as IdQuery<String>:
             return realmHandler.read { realm in
                 return realm.object(ofType: O.self, forPrimaryKey: query.id)
-                }.map { self.toEntityMapper.map($0) }
+                }.map { try self.toEntityMapper.map($0) }
         default:
             fatalError()
         }
@@ -59,11 +59,11 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
         case is AllObjectsQuery:
             return realmHandler.read { realm in
                 return Array(realm.objects(O.self))
-                }.map { self.toEntityMapper.map($0) }
+                }.map { try self.toEntityMapper.map($0) }
         case let query as RealmQuery:
             return realmHandler.read { realm in
                 return Array(realm.objects(O.self).filter(query.realmPredicate))
-                }.map { self.toEntityMapper.map($0) }
+                }.map { try self.toEntityMapper.map($0) }
         default:
             fatalError()
         }
@@ -77,10 +77,10 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
             return realmHandler.write { realm in
-                let object = toRealmMapper.map(value, inRealm: realm)
+                let object = try toRealmMapper.map(value, inRealm: realm)
                 realm.add(object)
                 return object
-                }.map { self.toEntityMapper.map($0) }
+                }.map { try self.toEntityMapper.map($0) }
         case let query as ObjectQuery<E>:
             if value != nil {
                 return Future(CoreError.IllegalArgument("Value parameter must be nil when using an ObjectQuery"))
@@ -96,10 +96,10 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
         switch query {
         case is VoidQuery:
             return realmHandler.write { realm -> [O] in
-                let objetcs = array.map { toRealmMapper.map($0, inRealm:realm) }
+                let objetcs = try array.map { try toRealmMapper.map($0, inRealm:realm) }
                 objetcs.forEach { realm.add($0, update: true) }
                 return objetcs
-                }.map { self.toEntityMapper.map($0) }
+                }.map { try self.toEntityMapper.map($0) }
         case is AllObjectsQuery:
             return putAll(array, in: VoidQuery())
         case let query as ArrayQuery<E>:
@@ -127,7 +127,7 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
                 if query.object.id == nil {
                     throw CoreError.IllegalArgument("The object Id must be not nil")
                 }
-                let object = toRealmMapper.map(query.object, inRealm: realm)
+                let object = try toRealmMapper.map(query.object, inRealm: realm)
                 realm.delete(object)
                 return Void()
             }
@@ -141,8 +141,8 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
         switch query {
         case let query as ArrayQuery<E>:
             return realmHandler.write { realm in
-                query.array
-                    .map { toRealmMapper.map($0, inRealm: realm) }
+                try query.array
+                    .map { try toRealmMapper.map($0, inRealm: realm) }
                     .forEach { realm.delete($0) }
                 return Void()
                 }

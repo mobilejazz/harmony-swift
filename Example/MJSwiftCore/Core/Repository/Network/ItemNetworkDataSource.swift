@@ -54,7 +54,7 @@ private extension ItemNetworkDataSource {
         let url = "/items/\(id)"
         return sessionManager.request(url).toFuture().flatMap { json in
             guard let json = json  else {
-                return Future(CoreError.NotFound())
+                throw CoreError.NotFound()
             }
             let future = json.decodeAs(ItemEntity.self, keyDecodingStrategy: .map(ItemEntity.fromNetworkMap)) { item in
                 item.lastUpdate = Date()

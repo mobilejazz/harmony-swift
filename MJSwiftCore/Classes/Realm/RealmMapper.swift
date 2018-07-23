@@ -19,16 +19,16 @@ import RealmSwift
 
 open class RealmMapper<From, To: Object> {
     public init() { }
-    open func map(_ from: From, inRealm realm: Realm) -> To {
+    open func map(_ from: From, inRealm realm: Realm) throws -> To {
         fatalError()
     }
 }
 
 extension RealmMapper {
-    public func map( _ array: Array<From>, inRealm realm: Realm) -> List<To> {
+    public func map( _ array: Array<From>, inRealm realm: Realm) throws -> List<To> {
         let list = List<To>()
         for value in array {
-            let object = map(value, inRealm: realm)
+            let object = try map(value, inRealm: realm)
             list.append(object)
         }
         return list
@@ -36,15 +36,15 @@ extension RealmMapper {
 }
 
 extension Mapper where From : Object {
-    public func map(_ results: Results<From>) -> Array<To> {
-        return results.map { object -> To in
-            return self.map(object)
+    public func map(_ results: Results<From>) throws -> Array<To> {
+        return try results.map { object -> To in
+            return try self.map(object)
         }
     }
     
-    public func map(_ list: List<From>) -> Array<To> {
-        return list.map { object -> To in
-            return self.map(object)
+    public func map(_ list: List<From>) throws -> Array<To> {
+        return try list.map { object -> To in
+            return try self.map(object)
         }
     }
 }

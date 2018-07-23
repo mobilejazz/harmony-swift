@@ -43,26 +43,30 @@ public class RepositoryMapper <R: Repository,From,To> : Repository where R.T == 
     
     public func get(_ query: Query, operation: Operation) -> Future<From> {
         return repository.get(query, operation: operation).map { value in
-            return self.toFromMapper.map(value)
+            return try self.toFromMapper.map(value)
         }
     }
     
     public func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
-         return repository.getAll(query, operation: operation).map { self.toFromMapper.map($0) }
+         return repository.getAll(query, operation: operation).map { try self.toFromMapper.map($0) }
     }
     
     @discardableResult
     public func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
-        var mapped : To? = nil
-        if let value = value {
-            mapped = toToMapper.map(value)
+        return Future {
+            var mapped : To? = nil
+            if let value = value {
+                mapped = try toToMapper.map(value)
+            }
+            return repository.put(mapped, in: query, operation: operation).map { try self.toFromMapper.map($0) }
         }
-        return repository.put(mapped, in: query, operation: operation).map { self.toFromMapper.map($0) }
     }
     
     @discardableResult
     public func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
-        return repository.putAll(toToMapper.map(array), in: query, operation: operation).map { self.toFromMapper.map($0) }
+        return Future {
+            return repository.putAll(try toToMapper.map(array), in: query, operation: operation).map { try self.toFromMapper.map($0) }
+        }
     }
     
     @discardableResult

@@ -19,10 +19,11 @@ import Foundation
 public extension Future {
         
     /// Map the value and return a new future with the value mapped
-    public func map<K>(_ transform: @escaping (T) -> K) -> Future<K> {
+    public func map<K>(_ transform: @escaping (T) throws -> K) -> Future<K> {
         return Future<K>() { resolver in
             resolve(success: { value in
-                resolver.set(transform(value))
+                do { resolver.set(try transform(value)) }
+                catch (let error) { resolver.set(error) }
             }, failure: { error in
                 resolver.set(error)
             })
@@ -41,10 +42,11 @@ public extension Future {
     }
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (T) -> Future<K>) -> Future<K> {
+    public func flatMap<K>(_ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
         return Future<K>() { resolver in
             resolve(success: {value in
-                resolver.set(closure(value))
+                do { resolver.set(try closure(value)) }
+                catch (let error) { resolver.set(error) }
             }, failure: { error in
                 resolver.set(error)
             })

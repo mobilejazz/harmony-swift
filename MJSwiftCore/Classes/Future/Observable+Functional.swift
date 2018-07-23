@@ -19,10 +19,11 @@ import Foundation
 public extension Observable {
         
     /// Map the value and return a new observable with the value mapped
-    public func map<K>(_ transform: @escaping (T) -> K) -> Observable<K> {
+    public func map<K>(_ transform: @escaping (T) throws -> K) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
-                resolver.set(transform(value))
+                do { resolver.set(try transform(value)) }
+                catch (let error) { resolver.set(error) }
             }, failure: { error in
                 resolver.set(error)
             })
@@ -41,10 +42,11 @@ public extension Observable {
     }
     
     /// Intercepts the value if success and returns a new observable of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (T) -> Observable<K>) -> Observable<K> {
+    public func flatMap<K>(_ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: {value in
-                resolver.set(closure(value))
+                do { resolver.set(try closure(value)) }
+                catch (let error) { resolver.set(error) }
             }, failure: { error in
                 resolver.set(error)
             })

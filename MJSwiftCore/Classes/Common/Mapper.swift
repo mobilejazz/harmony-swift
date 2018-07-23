@@ -28,7 +28,7 @@ open class Mapper <From,To> {
     ///
     /// - Parameter from: The original object
     /// - Returns: The new mapped object
-    open func map(_ from: From) -> To {
+    open func map(_ from: From) throws -> To {
         fatalError("Undefined mapper. Class Mapper must be subclassed.")
     }
 }
@@ -38,9 +38,9 @@ extension Mapper {
     ///
     /// - Parameter array: An array of objects
     /// - Returns: An array of mapped objects
-    public func map( _ array: [From]) -> [To] {
-        return array.map { value -> To in
-            return map(value)
+    public func map( _ array: [From]) throws -> [To] {
+        return try array.map { value -> To in
+            return try map(value)
         }
     }
     
@@ -48,28 +48,41 @@ extension Mapper {
     ///
     /// - Parameter dictionary: A dictionary of key-value, where value is typed as "From"
     /// - Returns: A dictionary of mapped values
-    public func map<K>(_ dictionary: [K:From]) -> [K:To] where K:Hashable {
-        return dictionary.mapValues { value in
-            return map(value)
+    public func map<K>(_ dictionary: [K:From]) throws -> [K:To] where K:Hashable {
+        return try dictionary.mapValues { value in
+            return try map(value)
         }
     }
 }
 
 ///
-/// VoidMapper returns the same value
+/// VoidMapper throws a not implemented error
 ///
-public class VoidMapper <T> : Mapper <T,T> {
-    public override func map(_ from: T) -> T {
+public class VoidMapper <From,To> : Mapper <From,To> {
+    public override func map(_ from: From) throws -> To {
+        throw CoreError.NotImplemented()
+    }
+}
+
+///
+/// BlankMapper returns the same value
+///
+public class BlankMapper <T> : Mapper <T,T> {
+    public override func map(_ from: T) throws -> T {
         return from
     }
 }
 
 ///
-/// CastMapper casts the input value to the mapped type
+/// CastMapper tries to casts the input value to the mapped type. Otherwise, throws an CoreError.IllegalArgument error.
 ///
 public class CastMapper <From,To> : Mapper <From,To> {
-    public override func map(_ from: From) -> To {
-        return from as! To
+    public override func map(_ from: From) throws -> To {
+        if let from = from as? To {
+            return from
+        } else {
+            throw CoreError.IllegalArgument("CastMapper failed to map an object of type \(type(of: from)) to \(String(describing: To.self))")
+        }
     }
 }
 
@@ -78,17 +91,17 @@ public class CastMapper <From,To> : Mapper <From,To> {
 ///
 public class ClosureMapper <From,To> : Mapper <From,To> {
     
-    private let closure : (From) -> To
+    private let closure : (From) throws -> To
     
     /// Default initializer
     ///
     /// - Parameter closure: The map closure
-    public init (_ closure : @escaping (From) -> To) {
+    public init (_ closure : @escaping (From) throws -> To) {
         self.closure = closure
         super.init()
     }
     
-    public override func map(_ from: From) -> To {
-        return closure(from)
+    public override func map(_ from: From) throws -> To {
+        return try closure(from)
     }
 }
