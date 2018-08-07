@@ -16,19 +16,40 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Set of methods to manipulate C or Objective-C code from Swift.
+ */
 @interface ObjC : NSObject
 
-+ (NSException*_Nullable)try:(void(^_Nonnull)(void))try;
+/**
+ A try-catch method to catch the exception from Swift.
+
+ @param try The try block
+ @param catch The catch block
+ */
 + (void)try:(void(^_Nonnull)(void))try catch:(void(^_Nonnull)(NSException*_Nonnull))catch;
+
+/**
+ A try-catch method to catch the exception from Swift.
+ 
+ @param try The try block
+ @param catch The catch block
+ @param finally The finally block
+ */
 + (void)try:(void(^_Nonnull)(void))try catch:(void(^_Nonnull)(NSException*_Nonnull))catch finally:(void(^_Nonnull)(void))finally;
 
+/**
+ Returns the build date from the C macro __DATE__.
+
+ @return The build date.
+ */
 + (NSString* _Nonnull)buildDate;
+
+/**
+ Returns the build dtime from the C macro __TIME__.
+
+ @return The build time.
+ */
 + (NSString* _Nonnull)buildTime;
-
-@end
-
-@interface NSException (toNSError)
-
-- (NSError*_Nonnull)toNSError;
 
 @end

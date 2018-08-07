@@ -16,28 +16,7 @@
 
 #import "ObjC.h"
 
-@implementation NSException (toNSError)
-
-- (NSError*)toNSError
-{
-    return [[NSError alloc] initWithDomain:self.name code:0 userInfo:self.userInfo];
-}
-
-@end
-
 @implementation ObjC
-
-+ (NSException*)try:(void(^)(void))try
-{
-    NSException *exception = nil;
-    @try {
-        try ? try() : nil;
-    }
-    @catch (NSException *e) {
-        exception = e;
-    }
-    return exception;
-}
 
 + (void)try:(void(^)(void))try catch:(void(^)(NSException*exception))catch
 {

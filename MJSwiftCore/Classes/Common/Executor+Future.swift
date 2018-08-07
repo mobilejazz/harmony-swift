@@ -39,4 +39,15 @@ extension Executor {
         }
         return future.toFuture().onMainQueue() // Creating a new future to avoid a duplicate call to onSet to the same future
     }
+    
+    /// Submits a closure for its execution.
+    ///
+    /// - Parameter closure: The closure to be executed. An error can be thrown.
+    /// - Returns: A future wrapping the error, if thrown.
+    @discardableResult public func submit(_ closure:  @escaping () throws -> Void) -> Future<Void> {
+        return self.submit { resolver in
+            try closure()
+            resolver.set()
+        }
+    }
 }

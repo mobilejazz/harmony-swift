@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "MJSwiftCore.h"
 #import "ObjC.h"
 
 FOUNDATION_EXPORT double MJSwiftCoreVersionNumber;

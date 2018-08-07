@@ -33,6 +33,8 @@ Pod::Spec.new do |s|
     s.osx.deployment_target = '10.12'
     s.ios.deployment_target = '9.0'
     
+    s.source_files = 'MJSwiftCore/MJSwiftCore.h'
+    
     s.subspec 'Future' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Future/**/*'
     end
