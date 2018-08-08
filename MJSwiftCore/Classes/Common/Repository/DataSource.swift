@@ -49,7 +49,7 @@ extension Query {
 
 /// Void query
 public class VoidQuery : Query {
-    public init() {}
+    public init() { }
 }
 
 /// A query by an id

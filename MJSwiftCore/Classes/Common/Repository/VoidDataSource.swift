@@ -20,6 +20,7 @@ import Foundation
 /// Void get data source implementation
 ///
 public class VoidGetDataSource<T> : GetDataSource {
+    public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
 }
@@ -28,6 +29,7 @@ public class VoidGetDataSource<T> : GetDataSource {
 /// Void put data source implementation
 ///
 public class VoidPutDataSource<T> : PutDataSource {
+    public init() { }
     public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
 }
@@ -36,6 +38,7 @@ public class VoidPutDataSource<T> : PutDataSource {
 /// Void delete data source implementation
 ///
 public class VoidDeleteDataSource<T> : DeleteDataSource {
+    public init() { }
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
     public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
 }
@@ -44,6 +47,7 @@ public class VoidDeleteDataSource<T> : DeleteDataSource {
 /// Void get put data source implementation
 ///
 public class VoidGetPutDataSource<T> : GetDataSource, PutDataSource {
+    public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
@@ -54,6 +58,7 @@ public class VoidGetPutDataSource<T> : GetDataSource, PutDataSource {
 /// Void get delete data source implementation
 ///
 public class VoidGetDeleteDataSource<T> : GetDataSource, DeleteDataSource {
+    public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
@@ -64,6 +69,7 @@ public class VoidGetDeleteDataSource<T> : GetDataSource, DeleteDataSource {
 /// Void put delete data source implementation
 ///
 public class VoidPutDeleteDataSource<T> : PutDataSource, DeleteDataSource {
+    public init() { }
     public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
@@ -74,6 +80,7 @@ public class VoidPutDeleteDataSource<T> : PutDataSource, DeleteDataSource {
 /// Void data source implementation
 ///
 public class VoidDataSource<T> : DataSource {
+    public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
