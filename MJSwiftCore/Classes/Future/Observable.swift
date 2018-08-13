@@ -288,8 +288,6 @@ public class Observable<T> {
     public func clear() -> Observable<T> {
         lock() {
             _result = nil
-            success = nil
-            failure = nil
             state = .blank
         }
         return self
