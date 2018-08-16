@@ -39,6 +39,9 @@ public class OperationQueueExecutor: Executor {
     ///
     /// - Parameter operationQueue: The operation queue
     public init(_ operationQueue: OperationQueue) {
+        if operationQueue.name == nil {
+            operationQueue.name = OperationQueueExecutor.nextExecutorName()
+        }
         self.operationQueue = operationQueue
     }
     
@@ -47,7 +50,7 @@ public class OperationQueueExecutor: Executor {
     /// - Parameters:
     ///   - type: The type of queue
     ///   - name: The name of the queue
-    public convenience init (type : QueueType = .serial, name: String = UUID().uuidString) {
+    public convenience init (type : QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
         let operationQueue = OperationQueue()
         operationQueue.name = name
         switch type {
@@ -57,6 +60,10 @@ public class OperationQueueExecutor: Executor {
             operationQueue.maxConcurrentOperationCount = count
         }
         self.init(operationQueue)
+    }
+    
+    public var name: String {
+        return operationQueue.name!
     }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.7.2'
+    s.version          = '0.7.3'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     
     # This description is used to generate tags and improve search results.
@@ -28,60 +28,60 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/mobilejazz/MJSwiftCore.git', :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/mobilejazzcom'
     
-    s.default_subspecs = 'Common', 'Security'
+    s.default_subspecs = 'Future', 'Common', 'Security'
     
     s.osx.deployment_target = '10.12'
     s.ios.deployment_target = '9.0'
     
-    s.public_header_files = 'MJSwiftCore/MJSwiftCore.h'
+    s.source_files = 'MJSwiftCore/MJSwiftCore.h'
     
     s.subspec 'Future' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Future/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Future/**/*', 'MJSwiftCore/MJSwiftCore.h'
     end
     
     s.subspec 'Common' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Common/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Common/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJSwiftCore/Future'
     end
     
     s.subspec 'Security' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Security/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Security/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.frameworks = 'Security'
         sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Alamofire' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'Alamofire', '~> 4.7.2'
         sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Realm' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Realm/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Realm/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'RealmSwift', '~> 3.3.2'
         sp.dependency 'MJSwiftCore/Common'
         sp.dependency 'MJSwiftCore/Security'
     end
     
     s.subspec 'iOS' do |sp|
-        sp.osx.source_files = 'MJSwiftCore/Classes/iOS/readme-macOS.swift'
-        sp.ios.source_files = 'MJSwiftCore/Classes/iOS/**/*'
+        sp.osx.source_files = 'MJSwiftCore/Classes/iOS/readme-macOS.swift', 'MJSwiftCore/MJSwiftCore.h'
+        sp.ios.source_files = 'MJSwiftCore/Classes/iOS/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.ios.frameworks = 'UIKit'
         sp.ios.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Vastra' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Vastra/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Vastra/**/*', 'MJSwiftCore/MJSwiftCore.h'
     end
     
     s.subspec 'MJCocoaCore' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJCocoaCore/Common', '~> 2.3.8'
         sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Objection' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Objection/**/*'
+        sp.source_files = 'MJSwiftCore/Classes/Objection/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJObjection'
     end
     

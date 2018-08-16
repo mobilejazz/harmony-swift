@@ -7,6 +7,7 @@ PODS:
   - MJObjection (1.6.4)
   - MJSwiftCore (0.7.2):
     - MJSwiftCore/Common (= 0.7.2)
+    - MJSwiftCore/Future (= 0.7.2)
     - MJSwiftCore/Security (= 0.7.2)
   - MJSwiftCore/Alamofire (0.7.2):
     - Alamofire (~> 4.7.2)
@@ -71,7 +72,7 @@ SPEC CHECKSUMS:
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   MJCocoaCore: 48b554ce49ec5845b5f7307c40db98e7f09ad3d3
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
-  MJSwiftCore: bf6e79dd7f947f665768095d1fadb57fbb085976
+  MJSwiftCore: 25eb7af50a6a2aeaebf425b8893b46d33dcb1bd9
   PromisesObjC: 5cb99f8b988db9461cd3025cab5cc17752873a5c
   PromisesSwift: a972cb5ca9780fb7f805e9c2d69e7efd417a0523
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894

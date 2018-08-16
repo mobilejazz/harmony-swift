@@ -11,7 +11,16 @@
 #endif
 
 #import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
 #import "ObjC.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
+#import "MJSwiftCore.h"
 
 FOUNDATION_EXPORT double MJSwiftCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char MJSwiftCoreVersionString[];

@@ -16,7 +16,12 @@
 
 import Foundation
 
+///
+/// Abstract definition of an executor.
+///
 public protocol Executor {
+    /// The executor name
+    var name : String { get }
 
     /// var indicating if the executor is executing
     var executing : Bool { get }
@@ -28,17 +33,17 @@ public protocol Executor {
     func submit(_ closure: @escaping (@escaping () -> Void) -> Void)
 }
 
-///
-/// A direct executor executes on the current queue/thread synchronously.
-///
-public class DirectExecutor : Executor {
-    public private(set) var executing: Bool = false
-    
-    public init() { }
-    
-    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        executing = true
-        closure { /* Nothign to be done */ }
-        executing = false
+fileprivate let lock = NSLock()
+fileprivate var counter : Int = 0
+
+extension Executor {
+    /// Creates a unique executor name
+    ///
+    /// - Returns: An executor name
+    static public func nextExecutorName() -> String {
+        return ScopeLock(lock).sync {
+            counter += 1
+            return "com.mobilejazz.executor.\(counter)"
+        }
     }
 }

@@ -46,7 +46,7 @@ public struct CoreError {
     
     /// Illegal argument error
     public class IllegalArgument : ClassError {
-        public init(_ description: String = "Ilegal Argument") {
+        public init(_ description: String = "Illegal Argument") {
             super.init(domain:CoreError.domain, code: 2, description: description)
         }
     }
@@ -60,7 +60,7 @@ public struct CoreError {
     
     /// Not valid error
     public class NotValid : ClassError {
-        public init(_ description: String = "Object is not valid") {
+        public init(_ description: String = "Object or action not valid") {
             super.init(domain:CoreError.domain, code: 4, description: description)
         }
     }
@@ -73,13 +73,12 @@ public struct CoreError {
     }
 }
 
-
-
 extension CoreError {
 
     /// A base implementation for NSError to ClassError conversion
     public class NSError : Unknown {
-        private let error : Foundation.NSError
+        /// The NSError
+        public let error : Foundation.NSError
         
         /// Default initializer
         ///
@@ -98,9 +97,15 @@ extension CoreError {
     public class OSStatusFailure : Failed {
         /// The OSStatus
         public let status : OSStatus
-        public init(_ status: OSStatus, _ description: String = "") {
+        
+        /// Default initializer
+        ///
+        /// - Parameters:
+        ///   - status: The incoming OSStatus
+        ///   - description: The optional description
+        public init(_ status: OSStatus, _ description: String? = nil) {
             self.status = status
-            super.init(description)
+            super.init(description ?? "OSStatus failure with code \(status)")
         }
         
         public override func userInfo() -> [String : Any] {

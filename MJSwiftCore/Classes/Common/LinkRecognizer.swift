@@ -59,10 +59,10 @@ public class LinkRecognizer {
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        public static let None             = Options(rawValue: 0)
-        public static let AnchoredStart    = Options(rawValue: 1 << 0)
-        public static let AnchoredEnd      = Options(rawValue: 1 << 1)
-        public static let CaseInsensitive  = Options(rawValue: 1 << 2)
+        public static let none             = Options(rawValue: 0)
+        public static let anchoredStart    = Options(rawValue: 1 << 0)
+        public static let anchoredEnd      = Options(rawValue: 1 << 1)
+        public static let caseInsensitive  = Options(rawValue: 1 << 2)
     }
     
     public weak var delegate : LinkRecognizerDelegate?
@@ -72,7 +72,7 @@ public class LinkRecognizer {
     private let options : Options
     private let observers = NSHashTable<AnyObject>.weakObjects()
     
-    public init(scheme: String, options: Options = Options.None) {
+    public init(scheme: String, options: Options = .none) {
         self.scheme = scheme
         self.options = options
     }
@@ -94,14 +94,14 @@ public class LinkRecognizer {
             return Result.unsupportedLink
         }
         
-        let regexOptions = options.contains(.CaseInsensitive) ? NSRegularExpression.Options.caseInsensitive : NSRegularExpression.Options(rawValue: 0)
+        let regexOptions = options.contains(.caseInsensitive) ? NSRegularExpression.Options.caseInsensitive : NSRegularExpression.Options(rawValue: 0)
         
         for (key, pattern) in patterns {
             var patternStr = pattern
-            if options.contains(.CaseInsensitive) {
+            if options.contains(.caseInsensitive) {
                 patternStr = "^\(patternStr)"
             }
-            if options.contains(.AnchoredEnd) {
+            if options.contains(.anchoredEnd) {
                 patternStr = "\(patternStr)$"
             }
             

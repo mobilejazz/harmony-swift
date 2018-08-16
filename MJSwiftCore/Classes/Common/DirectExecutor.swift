@@ -16,36 +16,18 @@
 
 import Foundation
 
-
-
 ///
-/// GCD-based executor
+/// A direct executor executes the closure on the current queue/thread synchronously.
 ///
-public class DispatchQueueExecutor : Executor {
-   
-    public private(set) var executing = false
+public class DirectExecutor : Executor {
+    public private(set) var executing : Bool = false
+    public let name : String = DirectExecutor.nextExecutorName()
     
-    /// The dispatch queue
-    public let queue : DispatchQueue
-    
-    /// Main initializer
-    ///
-    /// - Parameter queue: The dispatch queue
-    public init(_ queue: DispatchQueue = DispatchQueue(label: DispatchQueueExecutor.nextExecutorName())) {
-        self.queue = queue
-    }
-    
-    public var name: String {
-        return queue.label
-    }
+    public init() { }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        queue.async {
-            self.executing = true
-            let sempahore = DispatchSemaphore(value: 0)
-            closure { sempahore.signal() }
-            sempahore.wait()
-            self.executing = false
-        }
+        executing = true
+        closure { /* Nothign to be done */ }
+        executing = false
     }
 }
