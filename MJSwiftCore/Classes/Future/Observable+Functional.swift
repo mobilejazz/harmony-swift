@@ -53,6 +53,17 @@ public extension Observable {
         }
     }
     
+    /// Replaces the current observable value with the new future.
+    /// Note: the observable is chained only if the current is resolved without error.
+    ///
+    /// - Parameter future: The chained observable
+    /// - Returns: The incoming observable chained to the current one
+    public func chain<K>(_ future: Observable<K>) -> Observable<K> {
+        return flatMap { value in
+            return future
+        }
+    }
+    
     /// Intercepts the error (if available) and returns a new observable of type T
     public func recover(_ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in

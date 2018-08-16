@@ -89,7 +89,7 @@ extension ObservableResolver where T==Void {
 ///         func viewDidAppear(_ eventHub: Observable<Int>.Hub) {
 ///             super.viewDidAppear()
 ///             // The instance must be retained, otherwise the then closure won't be called
-///             obs = eventHub.plug().then { value in
+///             obs = eventHub.subscribe().then { value in
 ///                 print("value: \(value)")
 ///                 // Update UI with value
 ///                 }.fail { error in
