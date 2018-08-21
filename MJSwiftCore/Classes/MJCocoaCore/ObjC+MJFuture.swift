@@ -22,7 +22,7 @@ extension ObjC {
     ///
     /// - Parameter closure: The closure where the future is accessed.
     /// - Throws: The MJFuture error if available.
-    static func `try`(_ closure: @escaping () -> Void) throws {
+    public static func `try`(_ closure: @escaping () -> Void) throws {
         var finalError : Error? = nil
         self.try({
             closure()
@@ -43,7 +43,7 @@ extension ObjC {
     /// - Returns: The future's value.
     /// - Throws: The future's error.
     @discardableResult
-    static func `try`<T>(_ future : MJFuture<T>) throws -> T? {
+    public static func `try`<T>(_ future : MJFuture<T>) throws -> T? {
         var value : T?
         try ObjC.try {
             value = future.value()

@@ -437,7 +437,6 @@
 		D250F23FA0B25F5C0BD9D2C60F2E8A49 /* RLMSyncManager_Private.h in Copy . Private Headers */ = {isa = PBXBuildFile; fileRef = FFEFE06D8AE78AF2CD897CFED006E14A /* RLMSyncManager_Private.h */; };
 		D299F35BDF548B24894EC1661BA3C688 /* VastraTimestampStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89222E3128FE0E9DF965D031C9D68462 /* VastraTimestampStrategy.swift */; };
 		D29B2DAA40680D393BE3B29760F932EB /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F8D327B1D3930A8D7E644FCBD0DE0 /* MJSecureKey.m */; };
-		D2A2D1692125BC3900683F0D /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A2D1682125BC3900683F0D /* Promise.swift */; };
 		D30B7A8F1F700DCB56F0C85F475A3361 /* Promise+Resolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375D59B849274008907E74DCDF26B88D /* Promise+Resolve.swift */; };
 		D3388354BC471BE0FD7A7128529C5C47 /* RLMRealmConfiguration_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C5386DA62744FA115BB125DD5539D058 /* RLMRealmConfiguration_Private.h */; };
 		D5AD6E08D87F623E1F6373AC87308771 /* VastraInvalidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72468C63885916C644C744C7A37DA237 /* VastraInvalidationStrategy.swift */; };
@@ -1204,7 +1203,6 @@
 		D2579925C80C1A2C4CC2129050DEFD12 /* Future+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Future+Extensions.swift"; sourceTree = "<group>"; };
 		D262FDD6EB861C4456A6E2D006653DA7 /* UserDefaultsDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataSource.swift; sourceTree = "<group>"; };
 		D27CFC118605F9CC84422ECC8788D0E1 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
-		D2A2D1682125BC3900683F0D /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		D2DC73EC7B69F2CFCA7FDAB5447A5BC6 /* RLMAccessor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMAccessor.h; path = include/RLMAccessor.h; sourceTree = "<group>"; };
 		D2F3D6EC06490C778CBE0603D5BAA585 /* FBLPromise+Timeout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Timeout.h"; path = "Sources/FBLPromises/include/FBLPromise+Timeout.h"; sourceTree = "<group>"; };
 		D3B7DA96354A703F0DAC763FE5C03BBE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1708,7 +1706,6 @@
 			isa = PBXGroup;
 			children = (
 				1F21F31D7F0F8AFC02A4D9BA06D70FFE /* Event.swift */,
-				D2A2D1682125BC3900683F0D /* Promise.swift */,
 				CFB0124CE5957C372F172CCEEA6BB7D8 /* Future.swift */,
 				B85917B45E4929DC2DB791255F1A862B /* Future+Batch.swift */,
 				D2579925C80C1A2C4CC2129050DEFD12 /* Future+Extensions.swift */,
@@ -3324,7 +3321,6 @@
 				66AE96AFC616B80331363344472E9F18 /* VastraStrategy.swift in Sources */,
 				D299F35BDF548B24894EC1661BA3C688 /* VastraTimestampStrategy.swift in Sources */,
 				4D79E912CA04C0A12B9FA7208928CB39 /* VastraValidationStrategy.swift in Sources */,
-				D2A2D1692125BC3900683F0D /* Promise.swift in Sources */,
 				B8ADA0FA5A1B7B2D943CDB2CDACE22B4 /* VoidDataSource.swift in Sources */,
 				39E204D1984E53FAF67F613F4E258E6F /* VoidRepository.swift in Sources */,
 			);
