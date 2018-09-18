@@ -14,16 +14,4 @@ struct Product : Model {
     let id: String?
     let price: Double
     let name: String
-    
-    init() {
-        id = nil
-        price = 0.0
-        name = ""
-    }
-    
-    init(id: String? = nil, price: Double, name: String) {
-        self.id = id
-        self.price = price
-        self.name = name
-    }
 }

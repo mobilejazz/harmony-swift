@@ -29,7 +29,8 @@ open class RealmObject : Object {
             self.id = UUID().uuidString
         }
     }
-    override open static func primaryKey() -> String? {
+    
+    @objc override open class func primaryKey() -> String? {
         return "id"
     }
 }

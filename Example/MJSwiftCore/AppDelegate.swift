@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import MJSwiftCore
 import MJCocoaCore
+import MJSwiftCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,19 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
-        }
-
-        let obs = Observable<Int>(20)
-        
-        Future<Int>(obs) { value -> Bool in
-            return value > 25
-            }.then { value in
-                print("value: \(value)")
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            obs.set(42)
-            obs.set(18)
         }
         
         return true

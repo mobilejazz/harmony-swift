@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'Realm' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Realm/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'RealmSwift', '~> 3.3.2'
+        sp.dependency 'RealmSwift', '~> 3.9.0'
         sp.dependency 'MJSwiftCore/Common'
         sp.dependency 'MJSwiftCore/Security'
     end
