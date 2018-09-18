@@ -16,44 +16,44 @@
 
 import Foundation
 
-/// Creates a new future from all given futures
-public func batch<T>(_ futures : Future<T> ...) -> Future<[T]> {
-    let future = Future<[T]>()
-    var dict : [Int:T] = [:]
-    for (idx, futureT) in futures.enumerated() {
-        futureT.resolve(success: {value in
-            dict[idx] = value
-            if future._result == nil {
-                if dict.count == futures.count {
-                    var array : [T] = []
-                    for idx in 0..<dict.count {
-                        array.append(dict[idx]!)
-                    }
-                    future.set(array)
-                }
-            }
-        }, failure: { error in
-            if future._result == nil {
-                future.set(error)
-            }
-        })
+public struct FutureBatch {
+    
+    /// Creates a new future from all given futures
+    public static func `do`<T>(_ futures : Future<T> ...) -> Future<[T]> {
+        return array(futures)
     }
-    return future
-}
-
-/// Creates a new future zipping the giving futures
-public func zip<T,K>(_ futureT: Future<T>, _ futureK: Future<K>) -> Future<(T,K)> {
-    return futureT.zip(futureK)
-}
-
-/// Creates a new future zipping the giving futures
-public func zip<T,K,L>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>) -> Future<(T,K,L)> {
-    return futureT.zip(futureK, futureL)
-}
-
-/// Creates a new future zipping the giving futures
-public func zip<T,K,L,M>(_ futureT: Future<T>, _ futureK: Future<K>, _ futureL: Future<L>, _ futureM: Future<M>) -> Future<(T,K,L,M)> {
-    return futureT.zip(futureK, futureL, futureM)
+    
+    /// Creates a new future from all given futures
+    public static func array<T>(_ futures : [Future<T>]) -> Future<[T]> {
+        if futures.count == 0 {
+            return Future([])
+        }
+        
+        let lock = NSLock()
+        let future = Future<[T]>()
+        var dict : [Int:T] = [:]
+        for (idx, futureT) in futures.enumerated() {
+            futureT.resolve(success: { value in
+                lock.lock()
+                dict[idx] = value
+                if future.state != .sent {
+                    if dict.count == futures.count {
+                        var array : [T] = []
+                        for idx in 0..<dict.count {
+                            array.append(dict[idx]!)
+                        }
+                        future.set(array)
+                    }
+                }
+                lock.unlock()
+            }, failure: { error in
+                lock.lock()
+                future.set(error)
+                lock.unlock()
+            })
+        }
+        return future
+    }
 }
 
 public extension Future {

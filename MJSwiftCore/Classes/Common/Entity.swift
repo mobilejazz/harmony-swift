@@ -17,5 +17,6 @@
 import Foundation
 
 public protocol Entity {
-    var id : String? {get}
+    associatedtype T : Hashable
+    var id : T? { get}
 }

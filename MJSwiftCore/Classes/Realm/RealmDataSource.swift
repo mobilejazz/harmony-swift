@@ -49,6 +49,10 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
             return realmHandler.read { realm in
                 return realm.object(ofType: O.self, forPrimaryKey: query.id)
                 }.map { try self.toEntityMapper.map($0) }
+        case let query as IdQuery<Int>:
+            return realmHandler.read { realm in
+                return realm.object(ofType: O.self, forPrimaryKey: query.id)
+                }.map { try self.toEntityMapper.map($0) }
         default:
             fatalError()
         }
@@ -116,6 +120,13 @@ public class RealmDataSource <E: Entity, O: Object> : DataSource {
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdQuery<String>:
+            return realmHandler.write { realm in
+                if let object = realm.object(ofType: O.self, forPrimaryKey: query.id) {
+                    realm.delete(object)
+                }
+                return Void()
+            }
+        case let query as IdQuery<Int>:
             return realmHandler.write { realm in
                 if let object = realm.object(ofType: O.self, forPrimaryKey: query.id) {
                     realm.delete(object)
