@@ -23,97 +23,26 @@ public enum MJSwiftCoreAlamofireError : Error {
 
 public extension DataRequest {
     
-    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type [String : AnyObject]
-    public func toFuture() -> Future<[String:AnyObject]?> {
-        return self.then(success: { json in json })
+    /// Inserts the JSON data response into a Future
+    public func toFuture() -> Future<Any> {
+        return self.then(success: { $0 })
     }
     
-    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [String : AnyObject]
-    public func toFutureArray() -> Future<[[String:AnyObject]]> {
-        return self.then(completion: { json in Future(json) })
-    }
-    
-    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type T
+    /// Inserts the JSON data response into a Future with a mapping window
     public func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
-                        completion: @escaping ([String : AnyObject]) -> Future<T>) -> Future<T> {
-        return Future<T> { future in
-            self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
-                switch response.result {
-                case .failure(let error):
-                    future.set(error)
-                case .success(let data):
-                    if let json = data as? [String : AnyObject] {
-                        future.set(completion(json))
-                    } else {
-                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
-                    }
-                }
-            }
-        }
-    }
-    
-    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [T]
-    public func then<T>(queue: DispatchQueue? = nil,
-                        options: JSONSerialization.ReadingOptions = .allowFragments,
-                        completion: @escaping ([[String : AnyObject]]) -> Future<[T]>) -> Future<[T]> {
-        return Future<[T]> { future in
-            self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
-                switch response.result {
-                case .failure(let error):
-                    future.set(error)
-                case .success(let data):
-                    if let json = data as? [[String : AnyObject]] {
-                        future.set(completion(json))
-                    } else {
-                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    /// Converts the response typed as a JSON dictionary [String : AnyObject] into a Future of type T
-    public func then<T>(queue: DispatchQueue? = nil,
-                        options: JSONSerialization.ReadingOptions = .allowFragments,
-                        success: @escaping ([String : AnyObject]) -> T,
+                        success: @escaping (Any) throws -> T,
                         failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
-        return Future<T> { future in
+        return Future<T> { resolver in
             self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
                 switch response.result {
                 case .failure(let error):
-                    future.set(failure(error, response.response))
+                    resolver.set(failure(error, response.response))
                 case .success(let data):
-                    if let json = data as? [String : AnyObject] {
-                        future.set(success(json))
-                    } else {
-                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
-                    }
-                }
-            }
-        }
-    }
-    
-    /// Converts the response typed as a JSON array [[String : AnyObject]] into a Future of type [T]
-    public func then<T>(queue: DispatchQueue? = nil,
-                        options: JSONSerialization.ReadingOptions = .allowFragments,
-                        forEach: @escaping ([String : AnyObject]) -> T,
-                        failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<[T]> {
-        return Future<[T]> { future in
-            self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
-                switch response.result {
-                case .failure(let error):
-                    future.set(failure(error, response.response))
-                case .success(let data):
-                    if let json = data as? [[String : AnyObject]] {
-                        var array : [T] = []
-                        for dic in json {
-                            array.append(forEach(dic))
-                        }
-                        future.set(array)
-                    } else {
-                        future.set(MJSwiftCoreAlamofireError.jsonSerialization)
+                    do {
+                        resolver.set(try success(data))
+                    } catch (let error) {
+                        resolver.set(error)
                     }
                 }
             }

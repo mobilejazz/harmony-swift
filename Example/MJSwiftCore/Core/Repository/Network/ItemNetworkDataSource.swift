@@ -52,8 +52,8 @@ class ItemNetworkDataSource : GetDataSource  {
 private extension ItemNetworkDataSource {
     private func getById(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
-        return sessionManager.request(url).toFuture().flatMap { json in
-            guard let json = json  else {
+        return sessionManager.request(url).toFuture().flatMap { data in
+            guard let json = data as? [String : AnyObject] else {
                 throw CoreError.NotFound()
             }
             let future = json.decodeAs(ItemEntity.self, keyDecodingStrategy: .map(ItemEntity.fromNetworkMap)) { item in
@@ -65,8 +65,8 @@ private extension ItemNetworkDataSource {
     
     private func getAllItems() -> Future<[ItemEntity]> {        
         let url = "/items"
-        return sessionManager.request(url).toFuture().flatMap { json in
-            guard let json = json else {
+        return sessionManager.request(url).toFuture().flatMap { data in
+            guard let json = data as? [String : AnyObject] else {
                 return Future([]) // no json to parse
             }
             guard let results = json["results"] as? [[String: AnyObject]] else {
@@ -82,8 +82,8 @@ private extension ItemNetworkDataSource {
         let url = "/items"
         return sessionManager.request(url,
                                       parameters: ["name" : text])
-            .toFuture().flatMap { json in
-                guard let json = json else {
+            .toFuture().flatMap { data in
+                guard let json = data as? [String: AnyObject] else {
                     return Future([]) // no json to parse
                 }
                 guard let results = json["results"] as? [[String: AnyObject]] else {
