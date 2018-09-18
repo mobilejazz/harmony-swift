@@ -19,6 +19,82 @@ import Foundation
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
+public class GetRepositoryMapper <R: GetRepository,From,To> : GetRepository where R.T == To {
+    
+    public typealias T = From
+    
+    private let repository : R
+    private let toFromMapper: Mapper<To,From>
+    
+    /// Default initializer
+    ///
+    /// - Parameters:
+    ///   - repository: The contained repository
+    ///   - toFromMapper: To to From mapper
+    public init(repository: R,
+                toFromMapper: Mapper<To,From>) {
+        self.repository = repository
+        self.toFromMapper = toFromMapper
+    }
+    
+    public func get(_ query: Query, operation: Operation) -> Future<From> {
+        return repository.get(query, operation: operation).map { value in
+            return try self.toFromMapper.map(value)
+        }
+    }
+    
+    public func getAll(_ query: Query, operation: Operation) -> Future<[From]> {
+        return repository.getAll(query, operation: operation).map { try self.toFromMapper.map($0) }
+    }
+}
+
+///
+/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
+///
+public class PutRepositoryMapper <R: PutRepository,From,To> : PutRepository where R.T == To {
+    
+    public typealias T = From
+    
+    private let repository : R
+    private let toToMapper: Mapper<From,To>
+    private let toFromMapper: Mapper<To,From>
+    
+    /// Default initializer
+    ///
+    /// - Parameters:
+    ///   - repository: The contained repository
+    ///   - toToMapper: From to To mapper
+    ///   - toFromMapper: To to From mapper
+    public init(repository: R,
+                toToMapper: Mapper <From,To>,
+                toFromMapper: Mapper<To,From>) {
+        self.repository = repository
+        self.toToMapper = toToMapper
+        self.toFromMapper = toFromMapper
+    }
+    
+    @discardableResult
+    public func put(_ value: From?, in query: Query, operation: Operation) -> Future<From> {
+        return Future(future: {
+            var mapped : To? = nil
+            if let value = value {
+                mapped = try toToMapper.map(value)
+            }
+            return repository.put(mapped, in: query, operation: operation).map { try self.toFromMapper.map($0) }
+        })
+    }
+    
+    @discardableResult
+    public func putAll(_ array: [From], in query: Query, operation: Operation) -> Future<[From]> {
+        return Future {
+            return repository.putAll(try toToMapper.map(array), in: query, operation: operation).map { try self.toFromMapper.map($0) }
+        }
+    }
+}
+
+///
+/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
+///
 public class RepositoryMapper <R: Repository,From,To> : Repository where R.T == To {
     
     public typealias T = From
@@ -79,3 +155,4 @@ public class RepositoryMapper <R: Repository,From,To> : Repository where R.T == 
         return repository.deleteAll(query, operation: operation)
     }
 }
+
