@@ -39,14 +39,23 @@
 
 - (void)submit:(void (^)(void (^end)(void)))block
 {
-    dispatch_async(_queue, ^{
-        _executing = YES;
-        block(^{
-            dispatch_semaphore_signal(_semaphore);
+    if (_queue)
+    {
+        dispatch_async(_queue, ^{
+            self->_executing = YES;
+            block(^{
+                dispatch_semaphore_signal(self->_semaphore);
+            });
+            dispatch_semaphore_wait(self->_semaphore, DISPATCH_TIME_FOREVER);
+            self->_executing = NO;
         });
-        dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
+    }
+    else
+    {
+        _executing = YES;
+        block(^{ });
         _executing = NO;
-    });
+    }
 }
 
 @end

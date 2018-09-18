@@ -525,7 +525,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJCocoaCore/MJCocoaCore.framework",
@@ -552,7 +552,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MJSwiftCore_Example/Pods-MJSwiftCore_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D655CECD9D2D96C417B8E013 /* [CP] Check Pods Manifest.lock */ = {

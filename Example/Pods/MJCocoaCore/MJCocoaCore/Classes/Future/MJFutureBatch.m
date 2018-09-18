@@ -17,7 +17,7 @@
 #import "MJFutureBatch.h"
 #import "MJFuture.h"
 
-@interface MJFutureResult <T> : NSObject
+@interface MJFutureContextualResult <T> : NSObject
 
 @property (nonatomic, strong) T object;
 @property (nonatomic, strong) NSError *error;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation MJFutureResult
+@implementation MJFutureContextualResult
 
 @end
 
@@ -36,8 +36,8 @@
     void (^_Nullable _completionBlock)(NSError * _Nullable error, id _Nullable context);
 
     NSInteger _counter;
-    NSMutableArray <MJFutureResult*> *_results;
-    MJFutureResult *_errorResult;
+    NSMutableArray <MJFutureContextualResult*> *_results;
+    MJFutureContextualResult *_errorResult;
     
     NSInteger _serialDeliveryIndex;
 }
@@ -86,7 +86,7 @@
     
     if (_serial)
     {
-        MJFutureResult *result = [MJFutureResult new];
+        MJFutureContextualResult *result = [MJFutureContextualResult new];
         [_results addObject:result];
     }
     
@@ -96,27 +96,27 @@
         
         @synchronized (self)
         {
-            _counter--;
+            self->_counter--;
             
-            MJFutureResult *result = nil;
+            MJFutureContextualResult *result = nil;
             
-            if (_serial)
+            if (self->_serial)
             {
-                result = _results[serialIndex];
+                result = self->_results[serialIndex];
                 result.completed = YES;
             }
             else
             {
-                result = [MJFutureResult new];
-                [_results addObject:result];
+                result = [MJFutureContextualResult new];
+                [self->_results addObject:result];
             }
             
             result.object = object;
             result.error = error;
             result.context = context;
             
-            if (!_errorResult && error != nil)
-                _errorResult = result;
+            if (!self->_errorResult && error != nil)
+                self->_errorResult = result;
             
             [self mjz_updateStatus];
         }
@@ -146,7 +146,7 @@
         {
             for (NSInteger i=_serialDeliveryIndex; i<_results.count; ++i)
             {
-                MJFutureResult *result = _results[i];
+                MJFutureContextualResult *result = _results[i];
                 if (result.completed)
                 {
                     _thenBlock(result.object, result.error, result.context);
@@ -160,11 +160,11 @@
         }
         else
         {
-            NSMutableArray <MJFutureResult*> *results = _results;
+            NSMutableArray <MJFutureContextualResult*> *results = _results;
             _results = [NSMutableArray array];
             
-            [results enumerateObjectsUsingBlock:^(MJFutureResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                _thenBlock(obj.object, obj.error, obj.context);
+            [results enumerateObjectsUsingBlock:^(MJFutureContextualResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                self->_thenBlock(obj.object, obj.error, obj.context);
             }];
         }
     }

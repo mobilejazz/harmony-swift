@@ -22,12 +22,12 @@
 @interface MJExecutor : NSObject
 
 /**
- Default initializer
+ Default initializer.
  
- @param queue The queue to be used
+ @param queue The queue to be used, or nil to not use any queue and execute the code directly.
  @return The initialized instance
  */
-- (instancetype _Nonnull)initWithQueue:(dispatch_queue_t _Nonnull)queue;
+- (instancetype _Nonnull)initWithQueue:(dispatch_queue_t _Nullable)queue;
 
 /**
  YES if executing, NO otherwise

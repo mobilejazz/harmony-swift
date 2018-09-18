@@ -15,6 +15,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MJFutureResult.h"
 
 @class MJFutureHub<T>;
 

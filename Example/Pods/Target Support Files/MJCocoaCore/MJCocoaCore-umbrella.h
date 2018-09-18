@@ -22,9 +22,11 @@
 #import "MJSecureKey.h"
 #import "NSString+Additions.h"
 #import "MJCocoaCoreFuture.h"
+#import "MJFuture+Private.h"
 #import "MJFuture.h"
 #import "MJFutureBatch.h"
 #import "MJFutureHub.h"
+#import "MJFutureResult.h"
 
 FOUNDATION_EXPORT double MJCocoaCoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char MJCocoaCoreVersionString[];

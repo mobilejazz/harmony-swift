@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'MJCocoaCore' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/MJCocoaCore/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'MJCocoaCore/Common', '~> 2.3.8'
+        sp.dependency 'MJCocoaCore/Common', '~> 2.3'
         sp.dependency 'MJSwiftCore/Common'
     end
     
