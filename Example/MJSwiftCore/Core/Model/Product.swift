@@ -10,7 +10,7 @@ import UIKit
 
 import MJSwiftCore
 
-struct Product : Model {
+struct Product {
     let id: String?
     let price: Double
     let name: String

@@ -16,6 +16,10 @@
 
 import Foundation
 
-public protocol Model {
-    var id : String? {get}
+///
+/// Note that id can only be either String or Int.
+///
+public protocol RealmEntity {
+    associatedtype T : Hashable
+    var id : T? { get }
 }

@@ -7,7 +7,7 @@ import Foundation
 
 import MJSwiftCore
 
-struct ItemEntity : Entity, VastraTimestampStrategyDataSource, Codable {
+struct ItemEntity : RealmEntity, VastraTimestampStrategyDataSource, Codable {
     var id: String?
     var name: String
     var price: Double

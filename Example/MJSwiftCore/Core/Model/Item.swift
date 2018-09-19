@@ -10,7 +10,7 @@ import UIKit
 
 import MJSwiftCore
 
-struct Item : Model, Codable {
+struct Item : Codable {
     let id: String?
     let name: String
     let price: Double
