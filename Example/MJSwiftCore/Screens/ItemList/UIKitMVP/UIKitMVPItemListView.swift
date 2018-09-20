@@ -21,7 +21,7 @@ class UIKitMVPItemListView: UIView, UIKitMVPItemListPresenterView, UITableViewDa
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
     }
     

@@ -165,7 +165,7 @@ public extension UIImage {
                 context.closePath()
                 context.drawPath(using: .fill)
                 
-                let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImageOrientation.up)
+                let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImage.Orientation.up)
                 image.cacheWithDescriptors(descriptors)
                 return image
             } else {
@@ -188,10 +188,10 @@ public extension UIImage {
             let size = CGSize(width: max(cornerInset.topLeft, cornerInset.bottomLeft) + max(cornerInset.topRight, cornerInset.bottomRight) + 1,
                               height: max(cornerInset.topLeft, cornerInset.topRight) + max(cornerInset.bottomLeft, cornerInset.bottomRight) + 1)
             
-            let insets = UIEdgeInsetsMake(max(cornerInset.topLeft, cornerInset.topRight),
-                                          max(cornerInset.topLeft, cornerInset.bottomLeft),
-                                          max(cornerInset.bottomLeft, cornerInset.bottomRight),
-                                          max(cornerInset.topRight, cornerInset.bottomRight))
+            let insets = UIEdgeInsets.init(top: max(cornerInset.topLeft, cornerInset.topRight),
+                                          left: max(cornerInset.topLeft, cornerInset.bottomLeft),
+                                          bottom: max(cornerInset.bottomLeft, cornerInset.bottomRight),
+                                          right: max(cornerInset.topRight, cornerInset.bottomRight))
             
             guard let image = UIImage.image(color:color, size: size, cornerInset: cornerInset) else {
                 return nil
@@ -324,7 +324,7 @@ public extension UIImage {
         self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
         image.draw(in: CGRect(x: scale*offset.x, y: scale*offset.y, width: scale*image.size.width, height: scale*image.size.height))
         let context = UIGraphicsGetCurrentContext()!
-        let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImageOrientation.up)
+        let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImage.Orientation.up)
         UIGraphicsEndImageContext()
         return image
     }
@@ -399,7 +399,7 @@ public extension UIImage {
             context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: CGGradientDrawingOptions(rawValue:0))
             let cgImage = context.makeImage()!
             UIGraphicsEndImageContext()
-            return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: UIImageOrientation.up)
+            return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: UIImage.Orientation.up)
         }
     }
     
@@ -448,7 +448,7 @@ public extension UIImage {
 }
 
 let cache = NSCache<NSString, UIImage>()
-let observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidReceiveMemoryWarning,
+let observer = NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification,
                                                       object: nil,
                                                       queue: OperationQueue.main) { n in cache.removeAllObjects() }
 

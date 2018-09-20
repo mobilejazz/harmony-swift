@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.8.1'
+    s.version          = '0.8.2'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     
     # This description is used to generate tags and improve search results.

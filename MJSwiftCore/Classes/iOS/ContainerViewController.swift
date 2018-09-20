@@ -25,7 +25,7 @@ import UIKit
 public class ContainerViewController: UIViewController {
     
     private static let animationDuration : Double = 0.40
-    private static let animationOptions = UIViewAnimationOptions(rawValue:(7<<16))
+    private static let animationOptions = UIView.AnimationOptions(rawValue:(7<<16))
     
     public enum Animation {
         case none
@@ -69,15 +69,15 @@ public class ContainerViewController: UIViewController {
             // Storing the new view controller
             self.viewController = viewController
             
-            oldVC.willMove(toParentViewController: nil)
-            self.addChildViewController(newVC)
+            oldVC.willMove(toParent: nil)
+            self.addChild(newVC)
             
             switch (animation) {
             case .none:
                 oldVC.view.removeFromSuperview()
                 self.view.insertSubview(newVC.view, at: 0)
-                oldVC.removeFromParentViewController()
-                newVC.didMove(toParentViewController: self)
+                oldVC.removeFromParent()
+                newVC.didMove(toParent: self)
             case .crossDisolve:
                 self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
                 UIView.animate(withDuration: ContainerViewController.animationDuration,
@@ -88,8 +88,8 @@ public class ContainerViewController: UIViewController {
                 },
                                completion: { (success) in
                                 oldVC.view.removeFromSuperview()
-                                oldVC.removeFromParentViewController()
-                                newVC.didMove(toParentViewController: self)
+                                oldVC.removeFromParent()
+                                newVC.didMove(toParent: self)
                 })
             case .newModalBottom:
                 newVC.view.alpha = 0.0
@@ -104,8 +104,8 @@ public class ContainerViewController: UIViewController {
                 },
                                completion: { (success) in
                                 oldVC.view.removeFromSuperview()
-                                oldVC.removeFromParentViewController()
-                                newVC.didMove(toParentViewController: self)
+                                oldVC.removeFromParent()
+                                newVC.didMove(toParent: self)
                 })
             case .oldModalBottom:
                 let frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
@@ -119,8 +119,8 @@ public class ContainerViewController: UIViewController {
                 },
                                completion: { (success) in
                                 oldVC.view.removeFromSuperview()
-                                oldVC.removeFromParentViewController()
-                                newVC.didMove(toParentViewController: self)
+                                oldVC.removeFromParent()
+                                newVC.didMove(toParent: self)
                 })
             }
         } else {
@@ -131,14 +131,14 @@ public class ContainerViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        if !self.childViewControllers.contains(viewController) {
+        if !self.children.contains(viewController) {
             let subview = viewController.view!
             subview.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             subview.frame = self.view.bounds
             
-            addChildViewController(viewController)
+            addChild(viewController)
             self.view.addSubview(subview)
-            viewController.didMove(toParentViewController: self)
+            viewController.didMove(toParent: self)
         }
     }
     
@@ -147,21 +147,21 @@ public class ContainerViewController: UIViewController {
         self.view.subviews.first?.frame = self.view.bounds
     }
     
-    override public func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController: parent)
+    override public func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
         if parent != nil {
-            addChildViewController(viewController)
+            addChild(viewController)
         } else {
-            viewController.willMove(toParentViewController: nil)
+            viewController.willMove(toParent: nil)
         }
     }
     
-    override public func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
+    override public func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         if parent != nil {
-            viewController.didMove(toParentViewController: self)
+            viewController.didMove(toParent: self)
         } else {
-            viewController.removeFromParentViewController()
+            viewController.removeFromParent()
         }
     }
     

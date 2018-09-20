@@ -125,8 +125,8 @@ public class SharedTimer {
             timer = Timer(fireAt: date, interval: interval, target: self, selector: #selector(fire(timer:)), userInfo: nil, repeats: repeats)
         }
         
-        RunLoop.main.add(timer!, forMode: .commonModes)
-        RunLoop.main.add(timer!, forMode: .UITrackingRunLoopMode)
+        RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
+        RunLoop.main.add(timer!, forMode: RunLoop.Mode.tracking)
     }
     
     private func stopTimer() {

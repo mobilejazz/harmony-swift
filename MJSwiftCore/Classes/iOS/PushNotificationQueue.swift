@@ -33,14 +33,14 @@ public protocol PushNotificationQueueDelegate : class {
     ///   - userInfo: The push notification
     ///   - applicationState: The application state when the push notification was received.
     ///   - queue: The notification queue.
-    func receivedNotification(_ userInfo: [AnyHashable : Any], applicationState: UIApplicationState, queue: PushNotificationQueue)
+    func receivedNotification(_ userInfo: [AnyHashable : Any], applicationState: UIApplication.State, queue: PushNotificationQueue)
 }
 
 private class PushNotificationQueueItem {
     let userInfo : [AnyHashable : Any]
-    let applicationState : UIApplicationState
+    let applicationState : UIApplication.State
     let date : Date = Date()
-    init(userInfo: [AnyHashable : Any], applicationState: UIApplicationState) {
+    init(userInfo: [AnyHashable : Any], applicationState: UIApplication.State) {
         self.userInfo = userInfo
         self.applicationState = applicationState
     }
