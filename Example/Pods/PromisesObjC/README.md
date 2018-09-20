@@ -1,6 +1,10 @@
 [![Apache
 License](https://img.shields.io/github/license/google/promises.svg)](LICENSE)
-[![Travis](https://img.shields.io/travis/google/promises.svg)](https://travis-ci.org/google/promises)
+[![Travis](https://api.travis-ci.org/google/promises.svg?branch=master)](https://travis-ci.org/google/promises)
+
+![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-blue.svg?longCache=true&style=flat)
+![Languages](https://img.shields.io/badge/languages-Swift%20%7C%20ObjC-orange.svg?longCache=true&style=flat)
+![Package Managers](https://img.shields.io/badge/supports-Bazel%20%7C%20SwiftPM%20%7C%20CocoaPods%20%7C%20Carthage-yellow.svg?longCache=true&style=flat)
 
 # Promises
 
@@ -21,18 +25,29 @@ Objective-C and Swift to facilitate writing asynchronous code.
     *   [Adopt](g3doc/index.md#adopt)
 *   [Basics](g3doc/index.md#basics)
     *   [Creating promises](g3doc/index.md#creating-promises)
+        *   [Async](g3doc/index.md#async)
+        *   [Do](g3doc/index.md#do)
+        *   [Pending](g3doc/index.md#pending)
+        *   [Resolved](g3doc/index.md#create-a-resolved-promise)
     *   [Observing fulfillment](g3doc/index.md#observing-fulfillment)
+        *   [Then](g3doc/index.md#then)
     *   [Observing rejection](g3doc/index.md#observing-rejection)
+        *   [Catch](g3doc/index.md#catch)
 *   [Extensions](g3doc/index.md#extensions)
     *   [All](g3doc/index.md#all)
     *   [Always](g3doc/index.md#always)
     *   [Any](g3doc/index.md#any)
+    *   [Await](g3doc/index.md#await)
+    *   [Delay](g3doc/index.md#delay)
+    *   [Race](g3doc/index.md#race)
     *   [Recover](g3doc/index.md#recover)
-    *   [Resolve](g3doc/index.md#resolve)
+    *   [Reduce](g3doc/index.md#reduce)
+    *   [Retry](g3doc/index.md#retry)
     *   [Timeout](g3doc/index.md#timeout)
     *   [Validate](g3doc/index.md#validate)
-    *   [When](g3doc/index.md#when)
+    *   [Wrap](g3doc/index.md#wrap)
 *   [Advanced topics](g3doc/index.md#advanced-topics)
+    *   [Default dispatch queue](g3doc/index.md#default-dispatch-queue)
     *   [Ownership and retain
         cycles](g3doc/index.md#ownership-and-retain-cycles)
     *   [Testing](g3doc/index.md#testing)

@@ -27,10 +27,14 @@ public extension Promise {
   /// - returns: A new pending promise to be resolved with the same resolution as the promise
   ///            returned from the `work` block.
   @discardableResult
-  public func then<Result>(on queue: DispatchQueue = .main,
-                           _ work: @escaping Then<Promise<Result>>) -> Promise<Result> {
-    let promise = Promise<Result>(objCPromise.__onQueue(queue, then: { value in
-      guard let value = Promise<Value>.asValue(value) else { preconditionFailure() }
+  public func then<Result>(
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping Then<Promise<Result>>
+  ) -> Promise<Result> {
+    let promise = Promise<Result>(objCPromise.__onQueue(queue, then: { objCValue in
+      guard let value = Promise<Value>.asValue(objCValue) else {
+        preconditionFailure("Cannot cast \(type(of: objCValue)) to \(Value.self)")
+      }
       do {
         return try work(value).objCPromise
       } catch let error {
@@ -50,10 +54,14 @@ public extension Promise {
   ///   - work:  A block to handle the value that `self` was fulfilled with.
   /// - returns: A new pending promise to be resolved with the value returned from the `work` block.
   @discardableResult
-  public func then<Result>(on queue: DispatchQueue = .main,
-                           _ work: @escaping Then<Result>) -> Promise<Result> {
-    let promise = Promise<Result>(objCPromise.__onQueue(queue, then: { value in
-      guard let value = Promise<Value>.asValue(value) else { preconditionFailure() }
+  public func then<Result>(
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping Then<Result>
+  ) -> Promise<Result> {
+    let promise = Promise<Result>(objCPromise.__onQueue(queue, then: { objCValue in
+      guard let value = Promise<Value>.asValue(objCValue) else {
+        preconditionFailure("Cannot cast \(type(of: objCValue)) to \(Value.self)")
+      }
       do {
         let value = try work(value)
         return value as? NSError ?? Promise<Result>.asAnyObject(value)
@@ -74,9 +82,14 @@ public extension Promise {
   ///   - work:  A block to handle the value that `self` was fulfilled with.
   /// - returns: A new pending promise to be resolved with the value passed into the `work` block.
   @discardableResult
-  public func then(on queue: DispatchQueue = .main, _ work: @escaping Then<Void>) -> Promise {
-    let promise = Promise(objCPromise.__onQueue(queue, then: { value in
-      guard let value = Promise<Value>.asValue(value) else { preconditionFailure() }
+  public func then(
+    on queue: DispatchQueue = .promises,
+    _ work: @escaping Then<Void>
+  ) -> Promise {
+    let promise = Promise(objCPromise.__onQueue(queue, then: { objCValue in
+      guard let value = Promise<Value>.asValue(objCValue) else {
+        preconditionFailure("Cannot cast \(type(of: objCValue)) to \(Value.self)")
+      }
       do {
         try work(value)
         return Promise<Value>.asAnyObject(value)

@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FBLPromise<Value>(RecoverAdditions)
 
+typedef id __nullable (^FBLPromiseRecoverWorkBlock)(NSError *error) NS_SWIFT_UNAVAILABLE("");
+
 /**
  Provides a new promise to recover in case the receiver gets rejected.
 
@@ -27,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A new pending promise to use instead of the rejected one that gets resolved with resolution
          returned from `recovery` block.
  */
-- (FBLPromise *)recover:(nullable id (^)(NSError *))recovery NS_SWIFT_UNAVAILABLE("");
+- (FBLPromise *)recover:(FBLPromiseRecoverWorkBlock)recovery NS_SWIFT_UNAVAILABLE("");
 
 /**
  Provides a new promise to recover in case the receiver gets rejected.
@@ -38,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
          returned from `recovery` block.
  */
 - (FBLPromise *)onQueue:(dispatch_queue_t)queue
-                recover:(nullable id (^)(NSError *))recovery NS_REFINED_FOR_SWIFT;
+                recover:(FBLPromiseRecoverWorkBlock)recovery NS_REFINED_FOR_SWIFT;
 
 @end
 
@@ -48,10 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface FBLPromise<Value>(DotSyntax_RecoverAdditions)
 
-- (FBLPromise * (^)(id __nullable (^)(NSError *)))recover FBL_PROMISES_DOT_SYNTAX
+- (FBLPromise * (^)(FBLPromiseRecoverWorkBlock))recover FBL_PROMISES_DOT_SYNTAX
     NS_SWIFT_UNAVAILABLE("");
-- (FBLPromise * (^)(dispatch_queue_t, id __nullable (^)(NSError *)))recoverOn
-    FBL_PROMISES_DOT_SYNTAX NS_SWIFT_UNAVAILABLE("");
+- (FBLPromise * (^)(dispatch_queue_t, FBLPromiseRecoverWorkBlock))recoverOn FBL_PROMISES_DOT_SYNTAX
+    NS_SWIFT_UNAVAILABLE("");
 
 @end
 

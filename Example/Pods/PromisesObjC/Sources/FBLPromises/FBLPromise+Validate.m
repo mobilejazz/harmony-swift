@@ -20,17 +20,19 @@
 
 @implementation FBLPromise (ValidateAdditions)
 
-- (FBLPromise *)validate:(BOOL (^)(id __nullable))predicate {
-  return [self onQueue:dispatch_get_main_queue() validate:predicate];
+- (FBLPromise*)validate:(FBLPromiseValidateWorkBlock)predicate {
+  return [self onQueue:FBLPromise.defaultDispatchQueue validate:predicate];
 }
 
-- (FBLPromise *)onQueue:(dispatch_queue_t)queue validate:(BOOL (^)(id __nullable))predicate {
+- (FBLPromise*)onQueue:(dispatch_queue_t)queue validate:(FBLPromiseValidateWorkBlock)predicate {
+  NSParameterAssert(queue);
   NSParameterAssert(predicate);
 
   FBLPromiseChainedFulfillBlock chainedFulfill = ^id(id value) {
-    return predicate(value) ? value : [NSError errorWithDomain:FBLPromiseErrorDomain
-                                                          code:FBLPromiseErrorCodeValidationFailure
-                                                      userInfo:nil];
+    return predicate(value) ? value :
+                              [[NSError alloc] initWithDomain:FBLPromiseErrorDomain
+                                                         code:FBLPromiseErrorCodeValidationFailure
+                                                     userInfo:nil];
   };
   return [self chainOnQueue:queue chainedFulfill:chainedFulfill chainedReject:nil];
 }
@@ -39,14 +41,14 @@
 
 @implementation FBLPromise (DotSyntax_ValidateAdditions)
 
-- (FBLPromise* (^)(BOOL (^)(id __nullable)))validate {
-  return ^(BOOL (^predicate)(id __nullable)) {
+- (FBLPromise* (^)(FBLPromiseValidateWorkBlock))validate {
+  return ^(FBLPromiseValidateWorkBlock predicate) {
     return [self validate:predicate];
   };
 }
 
-- (FBLPromise* (^)(dispatch_queue_t, BOOL (^)(id __nullable)))validateOn {
-  return ^(dispatch_queue_t queue, BOOL (^predicate)(id __nullable)) {
+- (FBLPromise* (^)(dispatch_queue_t, FBLPromiseValidateWorkBlock))validateOn {
+  return ^(dispatch_queue_t queue, FBLPromiseValidateWorkBlock predicate) {
     return [self onQueue:queue validate:predicate];
   };
 }

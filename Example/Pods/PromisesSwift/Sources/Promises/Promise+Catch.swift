@@ -18,13 +18,13 @@ public extension Promise {
   public typealias Catch = (Error) -> Void
 
   /// Creates a pending promise which eventually gets resolved with same resolution as `self`.
-  /// If `self` is rejected, then `reject` block is executed asynchronously on the main queue.
+  /// If `self` is rejected, then `reject` block is executed asynchronously on the given queue.
   /// - parameters:
   ///   - queue: A queue to invoke the `reject` block on.
   ///   - reject: A block to handle the error that `self` was rejected with.
   /// - returns: A new pending promise.
   @discardableResult
-  public func `catch`(on queue: DispatchQueue = .main, _ reject: @escaping Catch) -> Promise {
+  public func `catch`(on queue: DispatchQueue = .promises, _ reject: @escaping Catch) -> Promise {
     let promise = Promise(objCPromise.__onQueue(queue, catch: { reject($0 as NSError) }))
     // Keep Swift wrapper alive for chained promise until `ObjCPromise` counterpart is resolved.
     objCPromise.__pendingObjects?.add(promise)

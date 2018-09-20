@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger, FBLPromiseState) {
 
 typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resolution);
 
+static dispatch_queue_t gFBLPromiseDefaultDispatchQueue;
+
 @implementation FBLPromise {
   /** Current state of the promise. */
   FBLPromiseState _state;
@@ -47,6 +49,26 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
   NSMutableArray<FBLPromiseObserver> *_observers;
 }
 
++ (void)initialize {
+  if (self == [FBLPromise class]) {
+    gFBLPromiseDefaultDispatchQueue = dispatch_get_main_queue();
+  }
+}
+
++ (dispatch_queue_t)defaultDispatchQueue {
+  @synchronized(self) {
+    return gFBLPromiseDefaultDispatchQueue;
+  }
+}
+
++ (void)setDefaultDispatchQueue:(dispatch_queue_t)queue {
+  NSParameterAssert(queue);
+
+  @synchronized(self) {
+    gFBLPromiseDefaultDispatchQueue = queue;
+  }
+}
+
 + (instancetype)pendingPromise {
   return [[self alloc] initPending];
 }
@@ -56,15 +78,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 }
 
 - (void)fulfill:(nullable id)value {
-  if ([value isKindOfClass:[self class]]) {
-    [(FBLPromise *)value observeOnQueue:dispatch_get_main_queue()
-        fulfill:^(id __nullable value) {
-          [self fulfill:value];
-        }
-        reject:^(NSError *error) {
-          [self reject:error];
-        }];
-  } else if ([value isKindOfClass:[NSError class]]) {
+  if ([value isKindOfClass:[NSError class]]) {
     [self reject:(NSError *)value];
   } else {
     @synchronized(self) {
@@ -76,7 +90,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
           observer(_state, _value);
         }
         _observers = nil;
-        dispatch_group_leave([self class].dispatchGroup);
+        dispatch_group_leave(FBLPromise.dispatchGroup);
       }
     }
   }
@@ -98,7 +112,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
         observer(_state, _error);
       }
       _observers = nil;
-      dispatch_group_leave([self class].dispatchGroup);
+      dispatch_group_leave(FBLPromise.dispatchGroup);
     }
   }
 }
@@ -122,7 +136,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 - (instancetype)initPending {
   self = [super init];
   if (self) {
-    dispatch_group_enter([self class].dispatchGroup);
+    dispatch_group_enter(FBLPromise.dispatchGroup);
   }
   return self;
 }
@@ -130,16 +144,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 - (instancetype)initWithResolution:(nullable id)resolution {
   self = [super init];
   if (self) {
-    if ([resolution isKindOfClass:[self class]]) {
-      FBLPromise *anotherPromise = (FBLPromise *)resolution;
-      if (anotherPromise.isRejected) {
-        _state = FBLPromiseStateRejected;
-        _error = anotherPromise.error;
-      } else {
-        _state = FBLPromiseStateFulfilled;
-        _value = anotherPromise.value;
-      }
-    } else if ([resolution isKindOfClass:[NSError class]]) {
+    if ([resolution isKindOfClass:[NSError class]]) {
       _state = FBLPromiseStateRejected;
       _error = (NSError *)resolution;
     } else {
@@ -152,7 +157,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 
 - (void)dealloc {
   if (_state == FBLPromiseStatePending) {
-    dispatch_group_leave([self class].dispatchGroup);
+    dispatch_group_leave(FBLPromise.dispatchGroup);
   }
 }
 
@@ -200,7 +205,10 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 - (void)observeOnQueue:(dispatch_queue_t)queue
                fulfill:(FBLPromiseOnFulfillBlock)onFulfill
                 reject:(FBLPromiseOnRejectBlock)onReject {
-  dispatch_group_t dispatchGroup = [self class].dispatchGroup;
+  NSParameterAssert(queue);
+  NSParameterAssert(onFulfill);
+  NSParameterAssert(onReject);
+
   @synchronized(self) {
     switch (_state) {
       case FBLPromiseStatePending: {
@@ -208,7 +216,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
           _observers = [[NSMutableArray alloc] init];
         }
         [_observers addObject:^(FBLPromiseState state, id __nullable resolution) {
-          dispatch_group_async(dispatchGroup, queue, ^{
+          dispatch_group_async(FBLPromise.dispatchGroup, queue, ^{
             switch (state) {
               case FBLPromiseStatePending:
                 break;
@@ -224,14 +232,14 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
         break;
       }
       case FBLPromiseStateFulfilled: {
-        dispatch_group_async(dispatchGroup, queue, ^{
-          onFulfill(_value);
+        dispatch_group_async(FBLPromise.dispatchGroup, queue, ^{
+          onFulfill(self->_value);
         });
         break;
       }
       case FBLPromiseStateRejected: {
-        dispatch_group_async(dispatchGroup, queue, ^{
-          onReject(_error);
+        dispatch_group_async(FBLPromise.dispatchGroup, queue, ^{
+          onReject(self->_error);
         });
         break;
       }
@@ -242,13 +250,30 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 - (FBLPromise *)chainOnQueue:(dispatch_queue_t)queue
               chainedFulfill:(FBLPromiseChainedFulfillBlock)chainedFulfill
                chainedReject:(FBLPromiseChainedRejectBlock)chainedReject {
-  FBLPromise *promise = [[[self class] alloc] initPending];
+  NSParameterAssert(queue);
+
+  FBLPromise *promise = [[FBLPromise alloc] initPending];
+  __auto_type resolver = ^(id __nullable value) {
+    if ([value isKindOfClass:[FBLPromise class]]) {
+      [(FBLPromise *)value observeOnQueue:queue
+          fulfill:^(id __nullable value) {
+            [promise fulfill:value];
+          }
+          reject:^(NSError *error) {
+            [promise reject:error];
+          }];
+    } else {
+      [promise fulfill:value];
+    }
+  };
   [self observeOnQueue:queue
       fulfill:^(id __nullable value) {
-        [promise fulfill:chainedFulfill ? chainedFulfill(value) : value];
+        value = chainedFulfill ? chainedFulfill(value) : value;
+        resolver(value);
       }
       reject:^(NSError *error) {
-        [promise fulfill:chainedReject ? chainedReject(error) : error];
+        id value = chainedReject ? chainedReject(error) : error;
+        resolver(value);
       }];
   return promise;
 }
@@ -257,7 +282,7 @@ typedef void (^FBLPromiseObserver)(FBLPromiseState state, id __nullable resoluti
 
 @implementation FBLPromise (DotSyntaxAdditions)
 
-+ (FBLPromise* (^)(id __nullable))resolve {
++ (FBLPromise* (^)(id __nullable))resolved {
   return ^(id resolution) {
     return [self resolvedWith:resolution];
   };

@@ -52,7 +52,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'Alamofire' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'Alamofire', '~> 4.7.2'
+        sp.dependency 'Alamofire', '~> 4.7.3'
         sp.dependency 'MJSwiftCore/Common'
     end
     

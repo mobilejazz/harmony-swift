@@ -21,10 +21,11 @@
 @implementation FBLPromise (ThenAdditions)
 
 - (FBLPromise *)then:(FBLPromiseThenWorkBlock)work {
-  return [self onQueue:dispatch_get_main_queue() then:work];
+  return [self onQueue:FBLPromise.defaultDispatchQueue then:work];
 }
 
 - (FBLPromise *)onQueue:(dispatch_queue_t)queue then:(FBLPromiseThenWorkBlock)work {
+  NSParameterAssert(queue);
   NSParameterAssert(work);
 
   return [self chainOnQueue:queue chainedFulfill:work chainedReject:nil];
