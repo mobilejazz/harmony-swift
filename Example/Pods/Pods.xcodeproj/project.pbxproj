@@ -12,7 +12,6 @@
 		008D5DDE0942B5C3EC51E6D4557DFD64 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126E2C46D0282F1C68C6225421BFC8BD /* Placeholder.swift */; };
 		00B4542D95132F9C1F32FC9E3C9CF504 /* MJObjection-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F9B03141431C00B63D19E0ACF8A102 /* MJObjection-dummy.m */; };
 		00FC7383B7F4F0727EA9BBC8DC9A44A7 /* CodingKeyStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA534B46FCEBA308D5F6461443C03513 /* CodingKeyStrategies.swift */; };
-		010912F9D6743393D91BC358DF5B93BC /* Future+Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6292E670F485A7BCAC5B3A45AB4672D1 /* Future+Closures.swift */; };
 		014DD8921CA26450F452FBF06CD390F6 /* FBLPromise+Async.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C8124D2055BAD192B0753471A3BF4 /* FBLPromise+Async.m */; };
 		01FD9B82794548CF924EAC099848AC3B /* RLMResults.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = D49821AAF01B916F8469FEB0A4A7DDAD /* RLMResults.h */; };
 		0290E0C45C6CD6B5FF8B84DDAA43FFC2 /* RLMProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 775F00CDA7F976F85CD5894B9BD78C06 /* RLMProperty.h */; };
@@ -981,7 +980,6 @@
 		6134633F2F2D0DB2F89D4447A2FDFFF8 /* JSObjectionInjectorEntry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JSObjectionInjectorEntry.h; path = Source/JSObjectionInjectorEntry.h; sourceTree = "<group>"; };
 		616E0CA0A67DD351FD7EED99CE6D8496 /* ObjC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
 		61E2C21AD30C5D8F74796F91FF9C010E /* ThreadSafeReference.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThreadSafeReference.swift; path = RealmSwift/ThreadSafeReference.swift; sourceTree = "<group>"; };
-		6292E670F485A7BCAC5B3A45AB4672D1 /* Future+Closures.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Future+Closures.swift"; sourceTree = "<group>"; };
 		62FD2704B64629B0A1D6C24CFB92C744 /* FBLPromise+Any.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Any.m"; path = "Sources/FBLPromises/FBLPromise+Any.m"; sourceTree = "<group>"; };
 		633307300F18365C94E3F200FA0D809E /* Promise+Always.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Always.swift"; path = "Sources/Promises/Promise+Always.swift"; sourceTree = "<group>"; };
 		6459769436DB9A6AC03978370FA83136 /* Kingfisher-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kingfisher-dummy.m"; sourceTree = "<group>"; };
@@ -1755,7 +1753,6 @@
 				51BB36C608AFB0A4B1E91AF5C73C3C44 /* Executor+Future.swift */,
 				39F08309F2549007E9A5F6D531BFA0F7 /* Future.swift */,
 				8894592358FA65CB62AAF7D065FDDDA3 /* Future+Batch.swift */,
-				6292E670F485A7BCAC5B3A45AB4672D1 /* Future+Closures.swift */,
 				81DB3BB2183F64A3568080D9597F5BC3 /* Future+Extensions.swift */,
 				BCA7214AF07D50F2F73472C4BED44469 /* Future+Functional.swift */,
 				D4C13E423441300A020BCB7BB688116A /* Future+Operators.swift */,
@@ -3096,7 +3093,6 @@
 				469CD0E8A06E39BB35A6D517B3C5A669 /* Executor.swift in Sources */,
 				090B1AFEC07C3558A1327FEE4C4472AE /* ExecutorFactory.swift in Sources */,
 				6A6839C4219865E12AC7B762D7CA5DA0 /* Future+Batch.swift in Sources */,
-				010912F9D6743393D91BC358DF5B93BC /* Future+Closures.swift in Sources */,
 				816F303A368513C51A6D3C18E9B4A630 /* Future+Extensions.swift in Sources */,
 				51322C69AB95BF8ADE9E858171B3B859 /* Future+Functional.swift in Sources */,
 				4E799380D97E1732AAE097BB85E3C700 /* Future+MJFuture.swift in Sources */,

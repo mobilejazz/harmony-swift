@@ -31,16 +31,16 @@ public class Event : Observable<Void> {
     }
     
     @discardableResult
-    public override func then(_ success: @escaping () -> Void) -> Observable<Void> {
+    public override func then(_ executor : Executor = DirectExecutor(), _ success: @escaping () -> Void) -> Observable<Void> {
         // If observable is reactive, clearing the current stored Void()
         self.clear()
-        return super.then(success)
+        return super.then(executor, success)
     }
     
     @discardableResult
-    public override func fail(_ failure: @escaping (Error) -> Void) -> Observable<Void> {
+    public override func fail(_ executor : Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<Void> {
         // If observable is reactive, clearing the current stored Void()
         self.clear()
-        return super.fail(failure)
+        return super.fail(executor, failure)
     }
 }

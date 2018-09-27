@@ -364,10 +364,12 @@ public class Observable<T> {
     
     /// Main then method
     @discardableResult
-    public func then(_ success: @escaping (T) -> Void) -> Observable<T> {
+    public func then(_ executor : Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                success(value)
+                executor.submit {
+                    success(value)
+                }
                 resolver.set(value)
             }, failure: { error in
                 resolver.set(error)
@@ -377,12 +379,14 @@ public class Observable<T> {
     
     /// Main fail method
     @discardableResult
-    public func fail(_ failure: @escaping (Error) -> Void) -> Observable<T> {
+    public func fail(_ executor : Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                failure(error)
+                executor.submit {
+                    failure(error)
+                }
                 resolver.set(error)
             })
         }
