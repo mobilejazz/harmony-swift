@@ -16,17 +16,17 @@
 
 import Foundation
 
-public struct FutureBatch {
+extension Future {
     
     /// Creates a new future from all given futures
-    public static func `do`<T>(_ futures : Future<T> ...) -> Future<[T]> {
-        return array(futures)
+    public static func batch(_ futures : Future<T> ...) -> Future<[T]> {
+        return Future.batch(futures)
     }
     
     /// Creates a new future from all given futures
-    public static func array<T>(_ futures : [Future<T>]) -> Future<[T]> {
+    public static func batch(_ futures : [Future<T>]) -> Future<[T]> {
         if futures.count == 0 {
-            return Future([])
+            return Future<[T]>([])
         }
         
         let lock = NSLock()
@@ -54,9 +54,6 @@ public struct FutureBatch {
         }
         return future
     }
-}
-
-public extension Future {
     
     /// Creates a new future that holds the tupple of results
     public func zip<K>(_ futureK: Future<K>) -> Future<(T,K)> {

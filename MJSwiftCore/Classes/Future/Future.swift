@@ -411,10 +411,12 @@ public class Future<T> {
     
     /// Main then method
     @discardableResult
-    public func then(_ success: @escaping (T) -> Void) -> Future<T> {
+    public func then(_ executor: Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
-                success(value)
+                executor.submit {
+                    success(value)
+                }
                 resolver.set(value)
             }, failure: { error in
                 resolver.set(error)
@@ -424,12 +426,14 @@ public class Future<T> {
     
     /// Main fail method
     @discardableResult
-    public func fail(_ failure: @escaping (Error) -> Void) -> Future<T> {
+    public func fail(_ executor: Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                failure(error)
+                executor.submit {
+                    failure(error)
+                }
                 resolver.set(error)
             })
         }

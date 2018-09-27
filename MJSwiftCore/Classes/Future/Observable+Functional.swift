@@ -19,11 +19,13 @@ import Foundation
 public extension Observable {
         
     /// Map the value and return a new observable with the value mapped
-    public func map<K>(_ transform: @escaping (T) throws -> K) -> Observable<K> {
+    public func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
-                do { resolver.set(try transform(value)) }
-                catch (let error) { resolver.set(error) }
+                executor.submit {
+                    do { resolver.set(try transform(value)) }
+                    catch (let error) { resolver.set(error) }
+                }
             }, failure: { error in
                 resolver.set(error)
             })
@@ -31,22 +33,26 @@ public extension Observable {
     }
     
     /// Mappes the error and return a new observable with the error mapped
-    public func mapError(_ transform: @escaping (Error) -> Error) -> Observable<T> {
+    public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                resolver.set(transform(error))
+                executor.submit {
+                    resolver.set(transform(error))
+                }
             })
         }
     }
     
     /// Intercepts the value if success and returns a new observable of a mapped type to be chained
-    public func flatMap<K>(_ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
+    public func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: {value in
-                do { resolver.set(try closure(value)) }
-                catch (let error) { resolver.set(error) }
+                executor.submit {
+                    do { resolver.set(try closure(value)) }
+                    catch (let error) { resolver.set(error) }
+                }
             }, failure: { error in
                 resolver.set(error)
             })
@@ -65,16 +71,14 @@ public extension Observable {
     }
     
     /// Intercepts the error (if available) and returns a new observable of type T
-    public func recover(_ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
+    public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 resolver.set(value)
             }, failure: { error in
-                do {
-                    let observable = try closure(error)
-                    resolver.set(observable)
-                } catch (let error) {
-                    resolver.set(error)
+                executor.submit {
+                    do { resolver.set(try closure(error)) }
+                    catch (let error) { resolver.set(error) }
                 }
             })
         }
@@ -82,27 +86,29 @@ public extension Observable {
     
     /// Performs the closure after the then block is called.
     @discardableResult
-    public func onCompletion(_ closure: @escaping () -> Void) -> Observable<T> {
+    public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                closure()
+                executor.submit { closure() }
                 resolver.set(value)
             }, failure: { error in
-                closure()
+                executor.submit { closure() }
                 resolver.set(error)
             })
         }
     }
     
     /// Filters the value and allows to exchange it for a thrown error
-    public func filter(_ closure: @escaping (T) throws -> Void) -> Observable<T> {
+    public func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                do {
-                    try closure(value)
-                    resolver.set(value)
-                } catch (let error) {
-                    resolver.set(error)
+                executor.submit {
+                    do {
+                        try closure(value)
+                        resolver.set(value)
+                    } catch (let error) {
+                        resolver.set(error)
+                    }
                 }
             }, failure: { error in
                 resolver.set(error)

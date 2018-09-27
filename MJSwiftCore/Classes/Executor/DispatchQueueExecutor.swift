@@ -16,12 +16,40 @@
 
 import Foundation
 
-
+///
+/// Main queue executor
+///
+public class MainQueueExecutor : Executor {
+    
+    public let name: String = "com.apple.main-thread"
+    public var executing: Bool = false
+    
+    public init() { }
+    
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
+        DispatchQueue.main.async {
+            self.executing = true
+            let sempahore = DispatchSemaphore(value: 0)
+            closure { sempahore.signal() }
+            sempahore.wait()
+            self.executing = false
+        }
+    }
+}
 
 ///
 /// GCD-based executor
 ///
 public class DispatchQueueExecutor : Executor {
+    
+    /// The queue type
+    ///
+    /// - serialQueue: Serial queue
+    /// - concurrentQueue: Concurrent queue
+    public enum QueueType {
+        case serial
+        case concurrent
+    }
    
     public private(set) var executing = false
     
@@ -31,8 +59,22 @@ public class DispatchQueueExecutor : Executor {
     /// Main initializer
     ///
     /// - Parameter queue: The dispatch queue
-    public init(_ queue: DispatchQueue = DispatchQueue(label: DispatchQueueExecutor.nextExecutorName())) {
+    public init(_ queue: DispatchQueue) {
         self.queue = queue
+    }
+    
+    /// Convenience initializer
+    ///
+    /// - Parameter type: Queue type
+    public convenience init(_ type: QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
+        switch type {
+        case .serial:
+            let queue = DispatchQueue(label: name)
+            self.init(queue)
+        case .concurrent:
+            let queue = DispatchQueue(label: name, attributes: .concurrent)
+            self.init(queue)
+        }
     }
     
     public var name: String {

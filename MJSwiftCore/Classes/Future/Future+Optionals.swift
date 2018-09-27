@@ -64,7 +64,7 @@ public extension Future {
         }
     }
     
-    /// Performs a map of an optional future when the value is defined
+//    / Performs a map of an optional future when the value is defined
     public func unwrappedMap<K,P>(_ closure: @escaping (K) -> P) -> Future<P?> where T == K? {
         return flatMap { value in
             guard let value = value else {

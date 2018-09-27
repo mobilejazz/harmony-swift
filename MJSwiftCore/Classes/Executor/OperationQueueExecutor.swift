@@ -50,7 +50,7 @@ public class OperationQueueExecutor: Executor {
     /// - Parameters:
     ///   - type: The type of queue
     ///   - name: The name of the queue
-    public convenience init (type : QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
+    public convenience init (_ type : QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
         let operationQueue = OperationQueue()
         operationQueue.name = name
         switch type {
