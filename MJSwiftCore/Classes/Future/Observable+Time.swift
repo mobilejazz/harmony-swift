@@ -18,7 +18,12 @@ import Foundation
 
 public extension Observable {
     
-    /// Adds a delay to the then call
+    /// Adds a delay to the then call.
+    ///
+    /// - Parameters:
+    ///   - interval: The delay time
+    ///   - queue: The queue to schedule the delay (by default the Main Queue).
+    /// - Returns: A chained observable.
     public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
         return Observable() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
@@ -32,6 +37,11 @@ public extension Observable {
     }
     
     /// Calls the then block after the given deadline
+    ///
+    /// - Parameters:
+    ///   - deadline: The deadline
+    ///   - queue: The queue to schedule the delay (by default the Main Queue).
+    /// - Returns: A chained observable.
     public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
         return Observable() { resolver in
             queue.asyncAfter(deadline: deadline) {
@@ -46,6 +56,9 @@ public extension Observable {
     
     /// Ensures the observable is called after the given date.
     /// If the date is earlier than now, nothing happens.
+    ///
+    /// - Parameter date: The date.
+    /// - Returns: A chained observable.
     public func after(_ date: Date) -> Observable<T> {
         let interval = date.timeIntervalSince(Date())
         if interval < 0 {

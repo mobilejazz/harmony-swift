@@ -16,47 +16,50 @@
 
 import Foundation
 
-/// Creates a new observable from all given observables
-public func batch<T>(_ observables : Observable<T> ...) -> Observable<[T]> {
-    let observable = Observable<[T]>()
-    var dict : [Int:T] = [:]
-    for (idx, observableT) in observables.enumerated() {
-        observableT.resolve(success: {value in
-            dict[idx] = value
-            if observable._result == nil {
-                if dict.count == observables.count {
+public extension Observable {
+    
+    /// Creates a new observable from a sequence of observables.
+    /// Note that the batch will be delivered once all observables have resolved at least once. After that, the batch will resolve on all new resolves. Each single error will be delivered independently.
+    ///
+    /// - Parameter futures: A sequence of observables.
+    /// - Returns: The observable batch.
+    public static func batch(_ futures : Observable<T> ...) -> Observable<[T]> {
+        return Observable.batch(futures)
+    }
+    
+    /// Creates a new observable from an array of observables.
+    /// Note that the batch will be delivered once all observables have resolved at least once. After that, the batch will resolve on all new resolves. Each single error will be delivered independently.
+    ///
+    /// - Parameter futures: An array of observables.
+    /// - Returns: The observable batch.
+    public static func batch(_ futures : [Observable<T>]) -> Observable<[T]> {
+        if futures.count == 0 {
+            return Observable<[T]>([])
+        }
+        
+        let lock = NSLock()
+        let future = Observable<[T]>()
+        var dict : [Int:T] = [:]
+        for (idx, futureT) in futures.enumerated() {
+            futureT.resolve(success: { value in
+                lock.lock()
+                dict[idx] = value
+                if dict.count == futures.count {
                     var array : [T] = []
                     for idx in 0..<dict.count {
                         array.append(dict[idx]!)
                     }
-                    observable.set(array)
+                    future.set(array)
                 }
-            }
-        }, failure: { error in
-            if observable._result == nil {
-                observable.set(error)
-            }
-        })
+                lock.unlock()
+            }, failure: { error in
+                lock.lock()
+                future.set(error)
+                lock.unlock()
+            })
+        }
+        return future
     }
-    return observable
-}
-
-/// Creates a new observable zipping the giving observables
-public func zip<T,K>(_ observableT: Observable<T>, _ observableK: Observable<K>) -> Observable<(T,K)> {
-    return observableT.zip(observableK)
-}
-
-/// Creates a new observable zipping the giving observables
-public func zip<T,K,L>(_ observableT: Observable<T>, _ observableK: Observable<K>, _ observableL: Observable<L>) -> Observable<(T,K,L)> {
-    return observableT.zip(observableK, observableL)
-}
-
-/// Creates a new observable zipping the giving observables
-public func zip<T,K,L,M>(_ observableT: Observable<T>, _ observableK: Observable<K>, _ observableL: Observable<L>, _ observableM: Observable<M>) -> Observable<(T,K,L,M)> {
-    return observableT.zip(observableK, observableL, observableM)
-}
-
-public extension Observable {
     
     /// Creates a new observable that holds the tupple of results
     public func zip<K>(_ observableK: Observable<K>) -> Observable<(T,K)> {

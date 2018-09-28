@@ -18,7 +18,12 @@ import Foundation
 
 public extension Observable {
         
-    /// Map the value and return a new observable with the value mapped
+    /// Maps the value and return a new observable with the value mapped
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - transform: The map closure
+    /// - Returns: A value-mapped chained observable
     public func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
@@ -32,7 +37,12 @@ public extension Observable {
         }
     }
     
-    /// Mappes the error and return a new observable with the error mapped
+    /// Maps the error and return a new observable with the error mapped
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - transform: The map closure
+    /// - Returns: A error-mapped chained future
     public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
@@ -46,6 +56,11 @@ public extension Observable {
     }
     
     /// Intercepts the value if success and returns a new observable of a mapped type to be chained
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The flatmap closure
+    /// - Returns: A chained observable
     public func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: {value in
@@ -62,15 +77,20 @@ public extension Observable {
     /// Replaces the current observable value with the new future.
     /// Note: the observable is chained only if the current is resolved without error.
     ///
-    /// - Parameter future: The chained observable
+    /// - Parameter observable: The chained observable
     /// - Returns: The incoming observable chained to the current one
-    public func chain<K>(_ future: Observable<K>) -> Observable<K> {
+    public func chain<K>(_ observable: Observable<K>) -> Observable<K> {
         return flatMap { value in
-            return future
+            return observable
         }
     }
     
     /// Intercepts the error (if available) and returns a new observable of type T
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The recover closure
+    /// - Returns: A chained observable
     public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
@@ -84,7 +104,12 @@ public extension Observable {
         }
     }
     
-    /// Performs the closure after the then block is called.
+    /// Notifies completion of the observable in both success or failure state.
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The completion closure
+    /// - Returns: A chained observable
     @discardableResult
     public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
@@ -98,7 +123,12 @@ public extension Observable {
         }
     }
     
-    /// Filters the value and allows to exchange it for a thrown error
+    /// Filters the value and allows to exchange it by a thrown error
+    ///
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The filter closure. Throw an error to replace it's value for an error.
+    /// - Returns: A chained observable
     public func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in

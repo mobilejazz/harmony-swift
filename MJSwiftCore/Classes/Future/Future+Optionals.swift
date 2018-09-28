@@ -21,7 +21,10 @@ import Foundation
 public class NilValueError : Error { public init() {} }
 
 public extension Future {
+    
     /// Unwrapes a future of an optional type, returning a future of a non-optional type
+    ///
+    /// - Returns: A chained future.
     public func unwrap<K>() -> Future<K> where T == K? {
         return flatMap { value in
             guard let value = value else {
@@ -64,7 +67,9 @@ public extension Future {
         }
     }
     
-//    / Performs a map of an optional future when the value is defined
+    /// Performs a map of an optional future when the value is defined.
+    ///
+    /// - Returns: A chained future.
     public func unwrappedMap<K,P>(_ closure: @escaping (K) -> P) -> Future<P?> where T == K? {
         return flatMap { value in
             guard let value = value else {

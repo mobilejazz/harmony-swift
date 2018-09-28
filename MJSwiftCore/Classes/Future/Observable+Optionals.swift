@@ -17,7 +17,10 @@
 import Foundation
 
 public extension Observable {
+    
     /// Unwrapes a observable of an optional type, returning a observable of a non-optional type
+    ///
+    /// - Returns: A chained observable.
     public func unwrap<K>() -> Observable<K> where T == K? {
         return flatMap { value in
             guard let value = value else {
@@ -60,7 +63,9 @@ public extension Observable {
         }
     }
     
-    /// Performs a map of an optional observable when the value is defined
+    /// Performs a map of an optional observable when the value is defined.
+    ///
+    /// - Returns: A chained observable.
     public func unwrappedMap<K,P>(_ closure: @escaping (K) -> P) -> Observable<P?> where T == K? {
         return flatMap { value in
             guard let value = value else {

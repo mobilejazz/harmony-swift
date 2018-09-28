@@ -18,12 +18,18 @@ import Foundation
 
 extension Future {
     
-    /// Creates a new future from all given futures
+    /// Creates a new future from a sequence of futures.
+    ///
+    /// - Parameter futures: A sequence of futures.
+    /// - Returns: The future batch.
     public static func batch(_ futures : Future<T> ...) -> Future<[T]> {
         return Future.batch(futures)
     }
     
-    /// Creates a new future from all given futures
+    /// Creates a new future from an array of futures.
+    ///
+    /// - Parameter futures: An array of futures.
+    /// - Returns: The future batch.
     public static func batch(_ futures : [Future<T>]) -> Future<[T]> {
         if futures.count == 0 {
             return Future<[T]>([])

@@ -409,7 +409,12 @@ public class Future<T> {
         }
     }
     
-    /// Main then method
+    /// Main then method to obtain the promised value.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - success: The then closure.
+    /// - Returns: A chained future
     @discardableResult
     public func then(_ executor: Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
         return Future() { resolver in
@@ -424,7 +429,12 @@ public class Future<T> {
         }
     }
     
-    /// Main fail method
+    /// Main failure method to obtain the promised error.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - failure: The fail closure.
+    /// - Returns: A chained future
     @discardableResult
     public func fail(_ executor: Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future() { resolver in

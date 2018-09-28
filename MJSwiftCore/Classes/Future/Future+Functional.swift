@@ -18,9 +18,11 @@ import Foundation
 
 public extension Future {
         
-    /// Map the value and return a new future with the value mapped
+    /// Maps the value and return a new future with the value mapped
     ///
-    /// - Parameter transform: The map closure
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - transform: The map closure
     /// - Returns: A value-mapped chained future
     public func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Future<K> {
         return Future<K>() { resolver in
@@ -35,9 +37,11 @@ public extension Future {
         }
     }
     
-    /// Mappes the error and return a new future with the error mapped
+    /// Maps the error and return a new future with the error mapped
     ///
-    /// - Parameter transform: The map closure
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - transform: The map closure
     /// - Returns: A error-mapped chained future
     public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future() { resolver in
@@ -53,7 +57,9 @@ public extension Future {
     
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     ///
-    /// - Parameter closure: The flatmap closure
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The flatmap closure
     /// - Returns: A chained future
     public func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
         return Future<K>() { resolver in
@@ -81,7 +87,9 @@ public extension Future {
     
     /// Intercepts the error (if available) and returns a new future of type T
     ///
-    /// - Parameter closure: The recover closure
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The recover closure
     /// - Returns: A chained future
     public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
         return Future() { resolver in
@@ -98,7 +106,9 @@ public extension Future {
     
     /// Notifies completion of the future in both success or failure state.
     ///
-    /// - Parameter closure: The completion closure
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The completion closure
     /// - Returns: A chained future
     @discardableResult
     public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Future<T> {
@@ -115,7 +125,9 @@ public extension Future {
     
     /// Filters the value and allows to exchange it by a thrown error
     ///
-    /// - Parameter closure: The filter closure. Throw an error to replace it's value for an error.
+    /// - Parameters:
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The filter closure. Throw an error to replace it's value for an error.
     /// - Returns: A chained future
     public func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Future<T> {
         return Future() { resolver in

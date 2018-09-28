@@ -362,7 +362,12 @@ public class Observable<T> {
         }
     }
     
-    /// Main then method
+    /// Main then method to obtain the promised value.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - success: The then closure.
+    /// - Returns: A chained observable
     @discardableResult
     public func then(_ executor : Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
@@ -377,7 +382,12 @@ public class Observable<T> {
         }
     }
     
-    /// Main fail method
+    /// Main failure method to obtain the promised error.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - failure: The fail closure.
+    /// - Returns: A chained observable
     @discardableResult
     public func fail(_ executor : Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
