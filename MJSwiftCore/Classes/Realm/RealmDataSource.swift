@@ -17,6 +17,15 @@
 import Foundation
 import RealmSwift
 
+///
+/// Note that id can only be either String or Int.
+///
+public protocol RealmEntity {
+    associatedtype T : Hashable
+    var id : T? { get }
+}
+
+
 public protocol RealmQuery : Query {
     var realmPredicate : NSPredicate { get }
 }
