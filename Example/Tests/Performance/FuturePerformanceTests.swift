@@ -32,7 +32,7 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).on(queue).then { value in
+                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { value in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -57,9 +57,9 @@ class FuturePerformanceTests: XCTestCase {
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).on(queue).then { value in
+                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { value in
                     
-                    }.on(queue).then { value in
+                    }.then(DispatchQueueExecutor(queue)) { value in
                         semaphore.signal()
                         expectation.fulfill()
                 }
@@ -85,11 +85,11 @@ class FuturePerformanceTests: XCTestCase {
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 let future = Future<Bool>(true)
-                future.on(queue).then { value in
+                future.then(DispatchQueueExecutor(queue)) { value in
                     
-                    }.on(queue).then { value in
+                    }.then(DispatchQueueExecutor(queue)) { value in
                         
-                    }.on(queue).then { value in
+                    }.then(DispatchQueueExecutor(queue)) { value in
                         semaphore.signal()
                         expectation.fulfill()
                 }
@@ -112,7 +112,7 @@ class FuturePerformanceTests: XCTestCase {
         for _ in 0..<Constants.iterationCount {
             group.enter()
             let future = Future<Bool>()
-            future.on(queue).then { value in
+            future.then(DispatchQueueExecutor(queue)) { value in
                 group.leave()
             }
             futures.append(future)

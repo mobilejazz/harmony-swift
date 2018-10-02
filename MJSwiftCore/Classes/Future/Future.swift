@@ -143,7 +143,6 @@ public class Future<T> {
     
     // Private variables
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
-    private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
@@ -351,24 +350,6 @@ public class Future<T> {
         onContentSet = closure
     }
     
-    /// Then closure executed in the given queue
-    ///
-    /// - Parameter queue: The dispatch queue to call the then closure
-    /// - Returns: The self instance
-    @discardableResult
-    public func on(_ queue: DispatchQueue?) -> Future<T> {
-        self.queue = queue
-        return self
-    }
-    
-    /// Then closure executed in the main queue
-    ///
-    /// - Returns: The self instance
-    @discardableResult
-    public func onMainQueue() -> Future<T> {
-        return self.on(DispatchQueue.main)
-    }
-    
     /// Then closure: delivers the value or the error
     internal func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
@@ -416,15 +397,17 @@ public class Future<T> {
     ///   - success: The then closure.
     /// - Returns: A chained future
     @discardableResult
-    public func then(_ executor: Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
+    public func then(_ executor: Executor = MainQueueExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
                 executor.submit {
                     success(value)
+                    resolver.set(value)
                 }
-                resolver.set(value)
             }, failure: { error in
-                resolver.set(error)
+                executor.submit {
+                    resolver.set(error)
+                }
             })
         }
     }
@@ -436,15 +419,17 @@ public class Future<T> {
     ///   - failure: The fail closure.
     /// - Returns: A chained future
     @discardableResult
-    public func fail(_ executor: Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
+    public func fail(_ executor: Executor = MainQueueExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit {
+                    resolver.set(value)
+                }
             }, failure: { error in
                 executor.submit {
                     failure(error)
+                    resolver.set(error)
                 }
-                resolver.set(error)
             })
         }
     }
@@ -467,26 +452,13 @@ public class Future<T> {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    failure(error)
-                }
-            } else {
-                failure(error)
-            }
+            failure(error)
         case .value(let value):
             guard let success = success else {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    success(value)
-                }
-                
-            } else {
-                success(value)
-            }
+            success(value)
         }
         
         self.success = nil

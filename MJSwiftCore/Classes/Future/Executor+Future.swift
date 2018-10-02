@@ -37,7 +37,7 @@ extension Executor {
                 future.set(error)
             }
         }
-        return future.toFuture().onMainQueue() // Creating a new future to avoid a duplicate call to onSet to the same future
+        return future.toFuture() // Creating a new future to avoid a duplicate call to onSet to the same future
     }
     
     /// Submits a closure for its execution.

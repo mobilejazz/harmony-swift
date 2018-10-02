@@ -32,7 +32,7 @@ public extension Future {
                     catch (let error) { resolver.set(error) }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
@@ -46,11 +46,9 @@ public extension Future {
     public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit { resolver.set(value) }
             }, failure: { error in
-                executor.submit {
-                    resolver.set(transform(error))
-                }
+                executor.submit { resolver.set(transform(error)) }
             })
         }
     }
@@ -69,7 +67,7 @@ public extension Future {
                     catch (let error) { resolver.set(error) }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
@@ -94,7 +92,7 @@ public extension Future {
     public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
         return Future() { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
                     do { resolver.set(try closure(error)) }
@@ -112,15 +110,20 @@ public extension Future {
     /// - Returns: A chained future
     @discardableResult
     public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Future<T> {
-        return Future() { resolver in
+        let future = Future() { resolver in
             resolve(success: {value in
-                executor.submit { closure() }
-                resolver.set(value)
+                executor.submit {
+                    closure()
+                    resolver.set(value)
+                }
             }, failure: { error in
-                executor.submit { closure() }
-                resolver.set(error)
+                executor.submit {
+                    closure()
+                    resolver.set(error)
+                }
             })
         }
+        return future
     }
     
     /// Filters the value and allows to exchange it by a thrown error
@@ -141,7 +144,7 @@ public extension Future {
                     }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }

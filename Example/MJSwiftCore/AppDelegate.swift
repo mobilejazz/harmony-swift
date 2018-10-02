@@ -50,9 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         Future.batch(future1, future2, future3).map(MainQueueExecutor()) { array -> [Int] in
-            return try array.map(DispatchQueueExecutor(.concurrent)) { value -> Int in
+            return array.map(DispatchQueueExecutor(.concurrent)) { value -> Int in
                 return value + 1
-            }}.on(DispatchQueue.main).then { result in
+            }}.then { result in
                 print("array: \(result)")
         }
         

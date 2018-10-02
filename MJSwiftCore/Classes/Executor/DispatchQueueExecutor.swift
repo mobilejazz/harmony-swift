@@ -27,12 +27,20 @@ public class MainQueueExecutor : Executor {
     public init() { }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        DispatchQueue.main.async {
+        if Thread.isMainThread {
             self.executing = true
             let sempahore = DispatchSemaphore(value: 0)
             closure { sempahore.signal() }
             sempahore.wait()
             self.executing = false
+        } else {
+            DispatchQueue.main.async {
+                self.executing = true
+                let sempahore = DispatchSemaphore(value: 0)
+                closure { sempahore.signal() }
+                sempahore.wait()
+                self.executing = false
+            }
         }
     }
 }

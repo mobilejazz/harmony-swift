@@ -25,7 +25,6 @@ public protocol RealmEntity {
     var id : T? { get }
 }
 
-
 public protocol RealmQuery : Query {
     var realmPredicate : NSPredicate { get }
 }

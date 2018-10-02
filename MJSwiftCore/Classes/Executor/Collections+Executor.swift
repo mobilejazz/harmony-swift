@@ -18,7 +18,7 @@ import Foundation
 
 extension Array {
     
-    /// Multi-thread map method
+    /// Executor-based map method
     ///
     /// - Parameters:
     ///   - executor: The executor to use on each map
@@ -38,7 +38,7 @@ extension Array {
 
 extension Set {
     
-    /// Multi-thread map method
+    /// Executor-based map method
     ///
     /// - Parameters:
     ///   - executor: The executor to use on each map
@@ -58,7 +58,7 @@ extension Set {
 
 extension Dictionary {
     
-    /// Multi-thread map method
+    /// Executor-based map method
     ///
     /// - Parameters:
     ///   - executor: The executor to use on each map
@@ -81,7 +81,7 @@ extension Dictionary {
             }.result.get()
     }
     
-    /// Multi-thread map method
+    /// Executor-based map method
     ///
     /// - Parameters:
     ///   - executor: The executor to use on each map
@@ -94,7 +94,7 @@ extension Dictionary {
         }
     }
     
-    /// Multi-thread map method
+    /// Executor-based map method
     ///
     /// - Parameters:
     ///   - executor: The executor to use on each map
