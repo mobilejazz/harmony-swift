@@ -21,13 +21,13 @@ import Foundation
 // MARK: Collections
 
 public extension Array {
-    public func toObservable() -> Observable<Array<Element>> {
+    public func toObservable() -> Observable<[Element]> {
         return Observable(self)
     }
 }
 
 public extension Dictionary {
-    public func toObservable() -> Observable<Dictionary<Key,Value>> {
+    public func toObservable() -> Observable<[Key:Value]> {
         return Observable(self)
     }
 }
