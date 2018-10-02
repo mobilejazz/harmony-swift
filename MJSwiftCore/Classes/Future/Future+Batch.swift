@@ -140,34 +140,34 @@ extension Future {
     }
     
     /// Collapses a 2-tuple future into a single value future
-    public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
-        return Future<Z>() { future in
+    public func collapse<K,L,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L) -> Z) -> Future<Z> where T == (K,L) {
+        return Future<Z>() { resolver in
             resolve(success: {tuple in
-                future.set(closure(tuple.0, tuple.1))
+                executor.submit { resolver.set(closure(tuple.0, tuple.1)) }
             }, failure: { error in
-                future.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
     
     /// Collapses a 3-tuple future into a single value future
-    public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
-        return Future<Z>() { future in
+    public func collapse<K,L,M,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M) -> Z) -> Future<Z> where T == (K,L,M) {
+        return Future<Z>() { resolver in
             resolve(success: {tuple in
-                future.set(closure(tuple.0, tuple.1, tuple.2))
+                executor.submit { resolver.set(closure(tuple.0, tuple.1, tuple.2)) }
             }, failure: { error in
-                future.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
     
     /// Collapses a 4-tuple future into a single value future
-    public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
-        return Future<Z>() { future in
+    public func collapse<K,L,M,N,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M,N) -> Z) -> Future<Z> where T == (K,L,M,N) {
+        return Future<Z>() { resolver in
             resolve(success: {tuple in
-                future.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
+                executor.submit { resolver.set(closure(tuple.0, tuple.1, tuple.2, tuple.3)) }
             }, failure: { error in
-                future.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }

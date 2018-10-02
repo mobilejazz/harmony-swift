@@ -140,34 +140,34 @@ public extension Observable {
     }
     
     /// Collapses a 2-tuple observable into a single value observable
-    public func collapse<K,L,Z>(_ closure: @escaping (K,L) -> Z) -> Observable<Z> where T == (K,L) {
+    public func collapse<K,L,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L) -> Z) -> Observable<Z> where T == (K,L) {
         return Observable<Z>() { observable in
             resolve(success: {tuple in
-                observable.set(closure(tuple.0, tuple.1))
+                executor.submit { observable.set(closure(tuple.0, tuple.1)) }
             }, failure: { error in
-                observable.set(error)
+                executor.submit { observable.set(error) }
             })
         }
     }
     
     /// Collapses a 3-tuple observable into a single value observable
-    public func collapse<K,L,M,Z>(_ closure: @escaping (K,L,M) -> Z) -> Observable<Z> where T == (K,L,M) {
+    public func collapse<K,L,M,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M) -> Z) -> Observable<Z> where T == (K,L,M) {
         return Observable<Z>() { observable in
             resolve(success: {tuple in
-                observable.set(closure(tuple.0, tuple.1, tuple.2))
+                executor.submit { observable.set(closure(tuple.0, tuple.1, tuple.2)) }
             }, failure: { error in
-                observable.set(error)
+                executor.submit { observable.set(error) }
             })
         }
     }
     
     /// Collapses a 4-tuple observable into a single value observable
-    public func collapse<K,L,M,N,Z>(_ closure: @escaping (K,L,M,N) -> Z) -> Observable<Z> where T == (K,L,M,N) {
+    public func collapse<K,L,M,N,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M,N) -> Z) -> Observable<Z> where T == (K,L,M,N) {
         return Observable<Z>() { observable in
             resolve(success: {tuple in
-                observable.set(closure(tuple.0, tuple.1, tuple.2, tuple.3))
+                executor.submit { observable.set(closure(tuple.0, tuple.1, tuple.2, tuple.3)) }
             }, failure: { error in
-                observable.set(error)
+                executor.submit { observable.set(error) }
             })
         }
     }

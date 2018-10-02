@@ -45,8 +45,8 @@ public extension Future {
     ///
     /// - Parameter closure: The closure that will return a non-nil value.
     /// - Returns: A future with a non-optional type.
-    public func fill<K>(_ closure: @escaping () -> K) -> Future<K>  where T == K? {
-        return flatMap { value in
+    public func fill<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> K) -> Future<K>  where T == K? {
+        return flatMap(executor) { value in
             guard let value = value else {
                 return Future<K>(closure())
             }
@@ -58,8 +58,8 @@ public extension Future {
     ///
     /// - Parameter closure: The closure that will return a non-optional future.
     /// - Returns: A future with a non-optional type.
-    public func flatFill<K>(_ closure: @escaping () -> Future<K>) -> Future<K>  where T == K? {
-        return flatMap { value in
+    public func flatFill<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Future<K>) -> Future<K>  where T == K? {
+        return flatMap(executor) { value in
             guard let value = value else {
                 return Future<K>(closure())
             }
@@ -70,8 +70,8 @@ public extension Future {
     /// Performs a map of an optional future when the value is defined.
     ///
     /// - Returns: A chained future.
-    public func unwrappedMap<K,P>(_ closure: @escaping (K) -> P) -> Future<P?> where T == K? {
-        return flatMap { value in
+    public func unwrappedMap<K,P>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K) -> P) -> Future<P?> where T == K? {
+        return flatMap(executor) { value in
             guard let value = value else {
                 return Future<P?>(nil)
             }
