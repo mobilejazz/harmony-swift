@@ -32,7 +32,7 @@ public extension Observable {
                     catch (let error) { resolver.set(error) }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
@@ -46,11 +46,9 @@ public extension Observable {
     public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit { resolver.set(value) }
             }, failure: { error in
-                executor.submit {
-                    resolver.set(transform(error))
-                }
+                executor.submit { resolver.set(transform(error)) }
             })
         }
     }
@@ -69,7 +67,7 @@ public extension Observable {
                     catch (let error) { resolver.set(error) }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }
@@ -94,7 +92,7 @@ public extension Observable {
     public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
                     do { resolver.set(try closure(error)) }
@@ -114,11 +112,15 @@ public extension Observable {
     public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                executor.submit { closure() }
-                resolver.set(value)
+                executor.submit {
+                    closure()
+                    resolver.set(value)
+                }
             }, failure: { error in
-                executor.submit { closure() }
-                resolver.set(error)
+                executor.submit {
+                    closure()
+                    resolver.set(error)
+                }
             })
         }
     }
@@ -141,7 +143,7 @@ public extension Observable {
                     }
                 }
             }, failure: { error in
-                resolver.set(error)
+                executor.submit { resolver.set(error) }
             })
         }
     }

@@ -482,18 +482,22 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         case .waitingThen:
             switch _result! {
             case .error(let error):
-                return "Future waiting for then closure and error set to: \(error)"
+                return "Future waiting for then closure with error set to: \(error)"
             case .value(let value):
-                return "Future waiting for then closure and value set to: \(value)"
+                return "Future waiting for then closure with value set to: \(value)"
             }
         case .waitingContent:
-            return "Future then closure set. Waiting for value or error."
+            return "Future waiting for value or error."
         case .sent:
-            switch _result! {
-            case .error(let error):
-                return "Future sent with error: \(error)"
-            case .value(let value):
-                return "Future sent with value: \(value)"
+            if let result = _result {
+                switch result {
+                case .error(let error):
+                    return "Future sent with error: \(error)"
+                case .value(let value):
+                    return "Future sent with value: \(value)"
+                }
+            } else {
+                return "Future sent"
             }
         }
     }
