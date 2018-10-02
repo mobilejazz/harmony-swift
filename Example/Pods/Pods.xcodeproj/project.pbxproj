@@ -82,7 +82,7 @@
 		2520C04D73D097451B9BA685616E5E40 /* work_queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D5CF0A38CC222F637BCF1A753D8F92 /* work_queue.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		2530E93CF841D049D9B031F008F36F19 /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A30D322CD487702F5EFA542D28A5D30 /* ScopeLockFuture.swift */; };
 		254D90528314542005DF61DA1B8B2172 /* ObjectiveCSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A51C79E8BA171C3D2CEF4060D2A79 /* ObjectiveCSupport.swift */; };
-		25FBB175BA29AB4D19E812DD0F4E44C2 /* RepositoryAssambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssambler.swift */; };
+		25FBB175BA29AB4D19E812DD0F4E44C2 /* RepositoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssembler.swift */; };
 		268B54A76603F4FD813C6C65B3569040 /* RLMSyncUtil_Private.h in Copy . Private Headers */ = {isa = PBXBuildFile; fileRef = 6C0DDB11283BBE8980EFD9AA797D48DC /* RLMSyncUtil_Private.h */; };
 		27FD68972BF15062F2BED1F902C7BCAF /* RLMRealm+Sync.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 4289BA451C59C70787BB5FC392DD9FA2 /* RLMRealm+Sync.h */; };
 		2815C74DF0BA8E5B3F8A9E1EB30FB059 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C809974692248CB3924D87CB2A31FA /* Realm.swift */; };
@@ -182,7 +182,7 @@
 		5E17489521624E0CF3B56A277942A599 /* partial_sync.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C900E58462FA2E474ECC392E96588AC /* partial_sync.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		5E84B005C8FA502E290A662B288428D3 /* FBLPromise+Catch.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = F095085A5B6E83B93589DBB90AB83C69 /* FBLPromise+Catch.h */; };
 		5EE5FED83B90A606A763CF1114D1D6FB /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF20FF93C3EAB8E8C2CC2A1CFC710E /* ResponseSerialization.swift */; };
-		5F1F6F1F1B6FD857CBA1AED48D9741C4 /* DataSourceAssambler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssambler.swift */; };
+		5F1F6F1F1B6FD857CBA1AED48D9741C4 /* DataSourceAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssembler.swift */; };
 		5F84767519B668BF9D7EBB38C8904E8D /* RLMSyncPermission.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C9BB426C9BBA8A4173C10AD63AC0ABE /* RLMSyncPermission.h */; };
 		5FAD0CCE8E5708798638B3B59AF17A8A /* FBLPromise+Always.m in Sources */ = {isa = PBXBuildFile; fileRef = D42C0F26D53BAE6BF388A9835A5645CC /* FBLPromise+Always.m */; };
 		6029D9879D4C1B8ED6BA4C4C5954C291 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBABEF6198EEFC4AE8A8E3588C07F98 /* Foundation.framework */; };
@@ -835,7 +835,7 @@
 		170D2DE6CBDE2F8D27CC57E1300F1F5D /* Util.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Util.swift; path = RealmSwift/Util.swift; sourceTree = "<group>"; };
 		1731DEC2E94530D888AD93026882F23C /* object_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = object_notifier.cpp; path = Realm/ObjectStore/src/impl/object_notifier.cpp; sourceTree = "<group>"; };
 		189A8BB2B8E88E210FB90D325844BEF8 /* MJSwiftCore-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJSwiftCore-umbrella.h"; sourceTree = "<group>"; };
-		18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssambler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RepositoryAssambler.swift; sourceTree = "<group>"; };
+		18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssembler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RepositoryAssembler.swift; sourceTree = "<group>"; };
 		1A2A0A861FA60104BD50C14C88E3DA96 /* Schema.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Schema.swift; path = RealmSwift/Schema.swift; sourceTree = "<group>"; };
 		1A30D322CD487702F5EFA542D28A5D30 /* ScopeLockFuture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
 		1A850E1412F9BFA9C72B6A53FD4EC738 /* Observable+MJFuture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Observable+MJFuture.swift"; sourceTree = "<group>"; };
@@ -1176,7 +1176,7 @@
 		B9CA4E37EFBC0292E3E5FA3EB728B10D /* Future+Time.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Future+Time.swift"; sourceTree = "<group>"; };
 		BA677436909E3936F70E82CEB02A3E6E /* SortDescriptor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SortDescriptor.swift; path = RealmSwift/SortDescriptor.swift; sourceTree = "<group>"; };
 		BA849F692FFB69C522AD45DDD04AC9DB /* Kingfisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kingfisher.swift; path = Sources/Kingfisher.swift; sourceTree = "<group>"; };
-		BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssambler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataSourceAssambler.swift; sourceTree = "<group>"; };
+		BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssembler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataSourceAssembler.swift; sourceTree = "<group>"; };
 		BB6367E26D1F130DE49B653E86FFCFF5 /* MJFutureResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJFutureResult.m; path = MJCocoaCore/Classes/Future/MJFutureResult.m; sourceTree = "<group>"; };
 		BB87F298726153ABB0871000B4CF9FFA /* SharedTimer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SharedTimer.swift; sourceTree = "<group>"; };
 		BBED85E7B7373B8431EF93D22E5568A8 /* KeychainSetInteractor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = KeychainSetInteractor.swift; sourceTree = "<group>"; };
@@ -1458,14 +1458,14 @@
 				5BA18829BDD7C22A9EC187B16E13B3BF /* AnyPutRepository.swift */,
 				99526220927EA45B551D066157BCEA77 /* AnyRepository.swift */,
 				35FA01E40A859694888F69E0BFC2C25A /* DataSource.swift */,
-				BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssambler.swift */,
+				BB4E4BE6B4BC75E0634F789F41FE33CA /* DataSourceAssembler.swift */,
 				5DDCA113D13BA13F417E77A06C6BD23A /* DataSourceMapper.swift */,
 				E1DC5CE6BDEF2A4933CA070248C6B422 /* DataSourceValidator.swift */,
 				0331BA0AE9EF005243DAEDDBD72513C6 /* InMemoryDataSource.swift */,
 				516839E8E3303D2C3B5CEE791E8411A3 /* NetworkStorageRepository.swift */,
 				42A3BA8C01B9891BFC2ADFC179CC05C7 /* Query+KeyValue.swift */,
 				C0F665E145896F7D55C80191D943C775 /* Repository.swift */,
-				18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssambler.swift */,
+				18C6D9FDF8453B1883EB85582D7C295A /* RepositoryAssembler.swift */,
 				C8AC55A3D7E5670F467B0A744A1C5276 /* RepositoryMapper.swift */,
 				4C209EDC9CFF00733B3B84554BA2E9EB /* RetryDataSource.swift */,
 				5DE479563DF62A1FD3A64BEA06608CD4 /* RetryRepository.swift */,
@@ -2941,6 +2941,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
+				TargetAttributes = {
+					FF4B549044F07C48B57781B8E53A76B2 = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3329,7 +3334,7 @@
 				A731C04034E80DD43DFE5FA96877E4F1 /* ContainerViewController.swift in Sources */,
 				E0D252EBCF7C3E7AC5AB71AC885D9E9E /* CoreError.swift in Sources */,
 				AC32E08597712F5FC65BA2F8D81FFF35 /* DataSource.swift in Sources */,
-				5F1F6F1F1B6FD857CBA1AED48D9741C4 /* DataSourceAssambler.swift in Sources */,
+				5F1F6F1F1B6FD857CBA1AED48D9741C4 /* DataSourceAssembler.swift in Sources */,
 				673F792A5EC4CFC8284E8452A8EC91C3 /* DataSourceMapper.swift in Sources */,
 				9F9878EB501565C92010CB68FD56AA77 /* DataSourceValidator.swift in Sources */,
 				94337F6ADAB81C46A3E929689AB22BD3 /* DirectExecutor.swift in Sources */,
@@ -3391,7 +3396,7 @@
 				BCCC557838A192EBFF7A4D92D5AFF82C /* RealmMapper.swift in Sources */,
 				7FEF2606C4A7A871C3CEB69386491DCD /* RealmObject.swift in Sources */,
 				E4E2FA78AA1D81FCC331B3F989B07C24 /* Repository.swift in Sources */,
-				25FBB175BA29AB4D19E812DD0F4E44C2 /* RepositoryAssambler.swift in Sources */,
+				25FBB175BA29AB4D19E812DD0F4E44C2 /* RepositoryAssembler.swift in Sources */,
 				2EC96407A86A207902EE20B0034B54FD /* RepositoryMapper.swift in Sources */,
 				2B17AFF2C0CF5115BF8C431305643661 /* RetryDataSource.swift in Sources */,
 				B0D858C5428047375D1F18B66CA65A02 /* RetryRepository.swift in Sources */,
