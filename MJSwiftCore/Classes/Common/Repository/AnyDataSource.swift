@@ -16,6 +16,9 @@
 
 import Foundation
 
+///
+/// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
+///
 public class AnyDataSource <T> : DataSource {
     private let box: DataSourceBoxBase<T>
     
