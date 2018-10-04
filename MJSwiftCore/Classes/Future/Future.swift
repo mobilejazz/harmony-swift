@@ -295,7 +295,7 @@ public class Future<T> {
             self.onContentSet = nil
         }
         
-        lock() {
+        lock {
             if let error = error {
                 _result = .error(error)
             } else {
@@ -321,7 +321,7 @@ public class Future<T> {
     /// - Returns: The self instance
     @discardableResult
     public func clear() -> Future<T> {
-        lock() {
+        lock {
             _result = nil
             success = nil
             failure = nil
@@ -358,7 +358,7 @@ public class Future<T> {
             fatalError(FutureError.thenAlreadySet.description)
         }
         
-        lock() {
+        lock {
             self.success = success
             self.failure = failure
             if _result != nil {
@@ -398,7 +398,7 @@ public class Future<T> {
     /// - Returns: A chained future
     @discardableResult
     public func then(_ executor: Executor = MainQueueExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
-        return Future() { resolver in
+        return Future { resolver in
             resolve(success: {value in
                 executor.submit {
                     success(value)
@@ -420,7 +420,7 @@ public class Future<T> {
     /// - Returns: A chained future
     @discardableResult
     public func fail(_ executor: Executor = MainQueueExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
-        return Future() { resolver in
+        return Future { resolver in
             resolve(success: {value in
                 executor.submit {
                     resolver.set(value)
@@ -436,7 +436,7 @@ public class Future<T> {
     
     /// Completes the future (if not completed yet)
     public func complete() {
-        lock() {
+        lock {
             if state != .sent {
                 state = .sent
                 success = nil

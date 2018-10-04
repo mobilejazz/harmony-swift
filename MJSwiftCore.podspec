@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.8.2'
+    s.version          = '0.8.3'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     s.swift_version    = '4.2'
     

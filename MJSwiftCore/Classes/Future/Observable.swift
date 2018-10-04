@@ -260,7 +260,7 @@ public class Observable<T> {
             onContentSet(&value, &error)
         }
         
-        lock() {
+        lock {
             if let error = error {
                 _result = .error(error)
             } else {
@@ -285,7 +285,7 @@ public class Observable<T> {
     /// - Returns: The self instance
     @discardableResult
     public func clear() -> Observable<T> {
-        lock() {
+        lock {
             _result = nil
             state = .blank
         }
@@ -315,7 +315,7 @@ public class Observable<T> {
     /// Then closure: delivers the value or the error
     internal func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
-        lock() {
+        lock {
             self.success = success
             self.failure = failure
             if _result != nil {

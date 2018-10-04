@@ -27,7 +27,9 @@ public class DirectExecutor : Executor {
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         executing = true
-        closure { /* Nothign to be done */ }
+        let sempahore = DispatchSemaphore(value: 0)
+        closure { sempahore.signal() }
+        sempahore.wait()
         executing = false
     }
 }
