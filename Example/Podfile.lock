@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
-  - Kingfisher (4.9.0)
+  - Kingfisher (4.10.0)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.10)
@@ -40,7 +40,7 @@ PODS:
   - Swinject (2.4.1)
 
 DEPENDENCIES:
-  - Kingfisher (~> 4.9.0)
+  - Kingfisher (~> 4.9)
   - MJSwiftCore (from `../`)
   - MJSwiftCore/Alamofire (from `../`)
   - MJSwiftCore/iOS (from `../`)
@@ -48,7 +48,7 @@ DEPENDENCIES:
   - MJSwiftCore/Objection (from `../`)
   - MJSwiftCore/Realm (from `../`)
   - MJSwiftCore/Vastra (from `../`)
-  - PromisesSwift (~> 1.2.3)
+  - PromisesSwift (~> 1.2)
   - Swinject (~> 2.4.1)
 
 SPEC REPOS:
@@ -69,7 +69,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
   MJSwiftCore: 63a088521c716fe683094fe55fe46d22b2531229
@@ -79,6 +79,6 @@ SPEC CHECKSUMS:
   RealmSwift: aa4d11917bfcfaa3ed51f219102a487ecd895447
   Swinject: f7f15a9672e99328c1f07f277091087917215700
 
-PODFILE CHECKSUM: 0d30c00c528c3932ee058ac38a54c2efeb03160b
+PODFILE CHECKSUM: 7509825021aef2f619c162328ff2161d6f1eb7fa
 
 COCOAPODS: 1.6.0.beta.1

@@ -431,7 +431,7 @@ extension Kingfisher where Base: Image {
                 }
 
                 let path = NSBezierPath(roundedRect: rect, byRoundingCorners: corners, radius: radius)
-                path.windingRule = .evenOddWindingRule
+                path.windingRule = .evenOdd
                 path.addClip()
                 base.draw(in: rect)
             #else
