@@ -36,19 +36,13 @@ Pod::Spec.new do |s|
     
     s.source_files = 'MJSwiftCore/MJSwiftCore.h'
     
-    s.subspec 'Executor' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Executor/**/*', 'MJSwiftCore/MJSwiftCore.h'
-    end
-    
     s.subspec 'Future' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Future/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'MJSwiftCore/Executor'
     end
     
     s.subspec 'Common' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Common/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJSwiftCore/Future'
-        sp.dependency 'MJSwiftCore/Executor'
     end
     
     s.subspec 'Security' do |sp|
