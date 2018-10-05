@@ -41,9 +41,9 @@ extension Executor {
     ///
     /// - Returns: An executor name
     static public func nextExecutorName() -> String {
-        return ScopeLock(lock).sync {
-            counter += 1
-            return "com.mobilejazz.executor.\(counter)"
-        }
+        lock.lock()
+        counter += 1
+        defer { lock.unlock() }
+        return "com.mobilejazz.executor.\(counter)"
     }
 }
