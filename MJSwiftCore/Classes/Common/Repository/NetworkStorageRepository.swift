@@ -28,7 +28,7 @@ public class StorageSyncOperation : Operation { public init () { } }
 ///
 /// Generic DataProvider implementation for network an storage operations
 ///
-public class NetworkStorageRepository<N: DataSource,S: DataSource,T> : Repository where N.T == T, S.T == T {
+public class NetworkStorageRepository<N,S,T> : GetRepository, PutRepository, DeleteRepository where N:GetDataSource, N:PutDataSource, N:DeleteDataSource, S:GetDataSource, S:PutDataSource, S:DeleteDataSource, N.T == T, S.T == T {
     
     private let network: N
     private let storage: S

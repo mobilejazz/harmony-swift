@@ -16,7 +16,7 @@
 
 import Foundation
 
-public class UserDefaultsDataSource <T> : DataSource {
+public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource  {
 
     private let userDefaults : UserDefaults
     private let prefix : String

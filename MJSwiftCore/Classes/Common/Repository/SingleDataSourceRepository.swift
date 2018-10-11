@@ -130,7 +130,7 @@ extension DeleteDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDataSourceRepository<D: DataSource,T> : Repository where D.T == T {
+public class SingleDataSourceRepository<D,T> : GetRepository, PutRepository, DeleteRepository where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
     
     private let dataSource : D
     
@@ -170,13 +170,3 @@ public class SingleDataSourceRepository<D: DataSource,T> : Repository where D.T 
         return dataSource.deleteAll(query)
     }
 }
-
-extension DataSource {
-    /// Creates a single data source repository from a data source
-    ///
-    /// - Returns: A SingleDataSourceRepository repository
-    public func toRepository() -> SingleDataSourceRepository<Self,T> {
-        return SingleDataSourceRepository(self)
-    }
-}
-

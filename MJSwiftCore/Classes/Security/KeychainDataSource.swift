@@ -19,7 +19,7 @@ import Foundation
 //
 // Provides a keychain service for a key value interface
 //
-public class KeychainDataSource<T> : DataSource where T : Codable {
+public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource where T : Codable {
     
     private let keychain : Keychain
     

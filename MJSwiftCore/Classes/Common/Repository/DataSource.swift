@@ -42,7 +42,7 @@ public enum DataSourceCRUD : CustomStringConvertible {
 public protocol Query { }
 
 extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : TypedDataSource {
+    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
         Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }
@@ -81,11 +81,14 @@ public class ArrayQuery<T> : Query {
     }
 }
 
-public protocol TypedDataSource {
+public protocol DataSource {
     associatedtype T
 }
 
-public protocol GetDataSource : TypedDataSource {
+///
+/// Interface for a Get data source.
+///
+public protocol GetDataSource : DataSource {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -109,7 +112,10 @@ extension GetDataSource {
     }
 }
 
-public protocol PutDataSource : TypedDataSource {
+///
+/// Interface for a Put data source.
+///
+public protocol PutDataSource : DataSource {
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -137,7 +143,10 @@ extension PutDataSource {
     }
 }
 
-public protocol DeleteDataSource : TypedDataSource {
+///
+/// Interface for a Delete data source.
+///
+public protocol DeleteDataSource : DataSource {
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
@@ -164,9 +173,3 @@ extension DeleteDataSource {
         return deleteAll(IdQuery(id))
     }
 }
-    
-///
-/// Abstract definition of a DataSource
-///
-public protocol DataSource : GetDataSource, PutDataSource, DeleteDataSource { }
-

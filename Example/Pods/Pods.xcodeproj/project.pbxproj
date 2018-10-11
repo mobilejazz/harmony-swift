@@ -223,7 +223,7 @@
 		65A1F01D1E3430F9E5DE706EAF7C83D4 /* RLMPredicateUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92222F33BC29961A196FB514DC7EF327 /* RLMPredicateUtil.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		65F7DBE2134D387A7A9FD950BE728B0C /* FBLPromise+Race.m in Sources */ = {isa = PBXBuildFile; fileRef = 925C8A68A86079DF404540B30B8E2E02 /* FBLPromise+Race.m */; };
 		6639F87594F33091C8FED71D1ECEE620 /* Future+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A72705611EA4F76051DE82FA915A63 /* Future+Extensions.swift */; };
-		664F1C2564170F867EC85D7BB70F08B9 /* UserDefaultsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F01FE4F4DAC453B4F85864C5B932E /* UserDefaultsDataSource.swift */; };
+		664F1C2564170F867EC85D7BB70F08B9 /* DeviceStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F01FE4F4DAC453B4F85864C5B932E /* DeviceStorageDataSource.swift */; };
 		66CCE448DAB752E36445FD69CD761C93 /* KingfisherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5D70D2B5828A4C27A7C4BB222D2BC2 /* KingfisherManager.swift */; };
 		679AADA50A9437DC72F8631D770C1DCF /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C216AC24FAD50D17E4F956DB0CDDA18 /* object.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		6A0C95FED487E0517F32B7CA4128A3B6 /* network_reachability_observer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE214224DC0B92375D72789801517C18 /* network_reachability_observer.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
@@ -959,7 +959,7 @@
 		5A85882102AC187BB5FAFDD6F0308892 /* CodingKeyStrategies.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CodingKeyStrategies.swift; sourceTree = "<group>"; };
 		5B49E7EC37650837B1EFCEE4D8302AE5 /* VastraService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastraService.swift; sourceTree = "<group>"; };
 		5B87DE515EF2196E7D126212FE8D8E84 /* MJSwiftCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MJSwiftCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C1F01FE4F4DAC453B4F85864C5B932E /* UserDefaultsDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataSource.swift; sourceTree = "<group>"; };
+		5C1F01FE4F4DAC453B4F85864C5B932E /* DeviceStorageDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSource.swift; sourceTree = "<group>"; };
 		5C52377309FFF5CACB77CDF5596FDAF4 /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
 		5C57436861D0B6922E1941C9A6512CA3 /* MJCocoaCore-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MJCocoaCore-umbrella.h"; sourceTree = "<group>"; };
 		5CD00A649248D98B2C48297AE649A2D0 /* RLMSyncUser.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMSyncUser.mm; path = Realm/RLMSyncUser.mm; sourceTree = "<group>"; };
@@ -1749,7 +1749,7 @@
 				7E5B5D64D7A8DBEABF8E11C346EB44BF /* RetryDataSource.swift */,
 				0889C781FB78725DCC5466F0EC436EFE /* RetryRepository.swift */,
 				E3941E11DAE2B4A0F976729C4A74FC7A /* SingleDataSourceRepository.swift */,
-				5C1F01FE4F4DAC453B4F85864C5B932E /* UserDefaultsDataSource.swift */,
+				5C1F01FE4F4DAC453B4F85864C5B932E /* DeviceStorageDataSource.swift */,
 				FE955065222791FFBAA1BE42A434ACE8 /* VoidDataSource.swift */,
 				A761D7BBC6306471050D66D394E58D94 /* VoidRepository.swift */,
 				1D40DB81E09D94AAFC468E1AB4D57979 /* Interactors */,
@@ -3336,7 +3336,7 @@
 				AF248C95E0D25A5E10C8328FA169ED79 /* UIResponder+Extensions.swift in Sources */,
 				B90029F368EE90909C36CFFC06D35497 /* UITableView+Extensions.swift in Sources */,
 				01FDC77BEEA4AFEA336FB1017950879A /* UIView+Extensions.swift in Sources */,
-				664F1C2564170F867EC85D7BB70F08B9 /* UserDefaultsDataSource.swift in Sources */,
+				664F1C2564170F867EC85D7BB70F08B9 /* DeviceStorageDataSource.swift in Sources */,
 				751A2AA1D2F30582ED68F9BB70F165A4 /* UserDefaultsGetInteractor.swift in Sources */,
 				1A2F169F31D03B02F3CE0A8125991BE8 /* UserDefaultsSetInteractor.swift in Sources */,
 				5386F045907A3E9E999C17F36033B4CB /* VastraInvalidationStrategy.swift in Sources */,

@@ -32,29 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
-        
-        let future1 = Future<Int>()
-        let future2 = Future<Int>()
-        let future3 = Future<Int>()
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-            future1.set(42)
+
+        let doubleDataSource = DeviceStorageDataSource<Double>(UserDefaults.standard, prefix: "Double")
+        let intDataSource = DeviceStorageDataSource<String>(UserDefaults.standard, prefix: "Double")
+        doubleDataSource.put(3.14159265359, forId: "pi")
+        intDataSource.get("pi").then { pi in
+            print("pi: \(pi)")
+            }.fail { error in
+                print("Error: \(error)")
         }
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(3)) {
-            future2.set(43)
-        }
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
-            future3.set(44)
-        }
         
-        Future.batch(future1, future2, future3).map(MainQueueExecutor()) { array -> [Int] in
-            return array.map(DispatchQueueExecutor(.concurrent)) { value -> Int in
-                return value + 1
-            }}.then { result in
-                print("array: \(result)")
-        }
+        
         
         return true
     }

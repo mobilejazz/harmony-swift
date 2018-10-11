@@ -79,7 +79,7 @@ public class VoidPutDeleteDataSource<T> : PutDataSource, DeleteDataSource {
 ///
 /// Void data source implementation
 ///
-public class VoidDataSource<T> : DataSource {
+public class VoidDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource {
     public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
@@ -87,4 +87,12 @@ public class VoidDataSource<T> : DataSource {
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
     public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
+}
+
+
+func foo() {
+    let dataSource = VoidDataSource<String>()
+    dataSource.get("sampleKey").fail { error in
+        let error = error as? CoreError.NotImplemented
+    }
 }

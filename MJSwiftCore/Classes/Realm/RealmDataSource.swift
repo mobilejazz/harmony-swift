@@ -35,7 +35,7 @@ extension NSPredicate : RealmQuery {
     }
 }
 
-public class RealmDataSource <E: RealmEntity, O: Object> : DataSource {
+public class RealmDataSource <E: RealmEntity, O: Object> : GetDataSource, PutDataSource, DeleteDataSource {
     
     public typealias T = E
     

@@ -19,126 +19,126 @@ import Foundation
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class GetDataSourceMapper <D: GetDataSource,From,To> : GetDataSource where D.T == To {
+public class GetDataSourceMapper <D: GetDataSource,In,Out> : GetDataSource where D.T == In {
     
-    public typealias T = From
+    public typealias T = Out
     
     private let dataSource : D
-    private let toFromMapper: Mapper<To,From>
+    private let toOutMapper: Mapper<In,Out>
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - dataSource: The contained dataSource
-    ///   - toFromMapper: To to From mapper
+    ///   - toOutMapper: In to Out mapper
     public init(dataSource: D,
-                toFromMapper: Mapper<To,From>) {
+                toOutMapper: Mapper<In,Out>) {
         self.dataSource = dataSource
-        self.toFromMapper = toFromMapper
+        self.toOutMapper = toOutMapper
     }
     
-    public func get(_ query: Query) -> Future<From> {
+    public func get(_ query: Query) -> Future<Out> {
         return dataSource.get(query).map { value in
-            return try self.toFromMapper.map(value)
+            return try self.toOutMapper.map(value)
         }
     }
     
-    public func getAll(_ query: Query) -> Future<[From]> {
-        return dataSource.getAll(query).map { try self.toFromMapper.map($0) }
+    public func getAll(_ query: Query) -> Future<[Out]> {
+        return dataSource.getAll(query).map { try self.toOutMapper.map($0) }
     }
 }
 
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class PutDataSourceMapper <D: PutDataSource,From,To> : PutDataSource where D.T == To {
+public class PutDataSourceMapper <D: PutDataSource,In,Out> : PutDataSource where D.T == In {
     
-    public typealias T = From
+    public typealias T = Out
     
     private let dataSource : D
-    private let toToMapper: Mapper<From,To>
-    private let toFromMapper: Mapper<To,From>
+    private let toInMapper: Mapper<Out,In>
+    private let toOutMapper: Mapper<In,Out>
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - dataSource: The contained dataSource
-    ///   - toToMapper: From to To mapper
-    ///   - toFromMapper: To to From mapper
+    ///   - toInMapper: Out to In mapper
+    ///   - toOutMapper: In to Out mapper
     public init(dataSource: D,
-                toToMapper: Mapper <From,To>,
-                toFromMapper: Mapper<To,From>) {
+                toInMapper: Mapper<Out,In>,
+                toOutMapper: Mapper<In,Out>) {
         self.dataSource = dataSource
-        self.toToMapper = toToMapper
-        self.toFromMapper = toFromMapper
+        self.toInMapper = toInMapper
+        self.toOutMapper = toOutMapper
     }
     
     @discardableResult
-    public func put(_ value: From?, in query: Query) -> Future<From> {
+    public func put(_ value: Out?, in query: Query) -> Future<Out> {
         return Future(future: {
-            var mapped : To? = nil
+            var mapped : In? = nil
             if let value = value {
-                mapped = try toToMapper.map(value)
+                mapped = try toInMapper.map(value)
             }
-            return dataSource.put(mapped, in: query).map { try self.toFromMapper.map($0) }
+            return dataSource.put(mapped, in: query).map { try self.toOutMapper.map($0) }
         })
     }
     
     @discardableResult
-    public func putAll(_ array: [From], in query: Query) -> Future<[From]> {
-        return Future { dataSource.putAll(try toToMapper.map(array), in: query).map { try self.toFromMapper.map($0) } }
+    public func putAll(_ array: [Out], in query: Query) -> Future<[Out]> {
+        return Future { dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) } }
     }
 }
 
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class DataSourceMapper <D: DataSource,From,To> : DataSource where D.T == To {
+public class DataSourceMapper <D,In,Out> : GetDataSource, PutDataSource, DeleteDataSource  where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == In {
     
-    public typealias T = From
+    public typealias T = Out
 
     private let dataSource : D
-    private let toToMapper: Mapper<From,To>
-    private let toFromMapper: Mapper<To,From>
+    private let toInMapper: Mapper<Out,In>
+    private let toOutMapper: Mapper<In,Out>
     
     /// Default initializer
     ///
     /// - Parameters:
     ///   - dataSource: The contained dataSource
-    ///   - toToMapper: From to To mapper
-    ///   - toFromMapper: To to From mapper
+    ///   - toInMapper: Out to In mapper
+    ///   - toOutMapper: In to Out mapper
     public init(dataSource: D,
-                toToMapper: Mapper <From,To>,
-                toFromMapper: Mapper<To,From>) {
+                toInMapper: Mapper<Out,In>,
+                toOutMapper: Mapper<In,Out>) {
         self.dataSource = dataSource
-        self.toToMapper = toToMapper
-        self.toFromMapper = toFromMapper
+        self.toInMapper = toInMapper
+        self.toOutMapper = toOutMapper
     }
     
-    public func get(_ query: Query) -> Future<From> {
+    public func get(_ query: Query) -> Future<Out> {
         return dataSource.get(query).map { value in
-            return try self.toFromMapper.map(value)
+            return try self.toOutMapper.map(value)
         }
     }
     
-    public func getAll(_ query: Query) -> Future<[From]> {
-        return dataSource.getAll(query).map { try self.toFromMapper.map($0) }
+    public func getAll(_ query: Query) -> Future<[Out]> {
+        return dataSource.getAll(query).map { try self.toOutMapper.map($0) }
     }
     
     @discardableResult
-    public func put(_ value: From?, in query: Query) -> Future<From> {
+    public func put(_ value: Out?, in query: Query) -> Future<Out> {
         return Future(future: {
-            var mapped : To? = nil
+            var mapped : In? = nil
             if let value = value {
-                mapped = try toToMapper.map(value)
+                mapped = try toInMapper.map(value)
             }
-            return dataSource.put(mapped, in: query).map { try self.toFromMapper.map($0) }
+            return dataSource.put(mapped, in: query).map { try self.toOutMapper.map($0) }
         })
     }
     
     @discardableResult
-    public func putAll(_ array: [From], in query: Query) -> Future<[From]> {
-        return Future { dataSource.putAll(try toToMapper.map(array), in: query).map { try self.toFromMapper.map($0) } }
+    public func putAll(_ array: [Out], in query: Query) -> Future<[Out]> {
+        return Future { dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) } }
     }
     
     @discardableResult
