@@ -88,11 +88,3 @@ public class VoidDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource 
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
     public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
 }
-
-
-func foo() {
-    let dataSource = VoidDataSource<String>()
-    dataSource.get("sampleKey").fail { error in
-        let error = error as? CoreError.NotImplemented
-    }
-}

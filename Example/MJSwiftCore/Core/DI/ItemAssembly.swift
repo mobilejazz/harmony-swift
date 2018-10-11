@@ -51,8 +51,8 @@ class ItemAssembly: Assembly {
         let networkStorageRepo = NetworkStorageRepository(network: networkDataSource,
                                                           storage: storageValidationDataSource)
         let repository = RepositoryMapper(repository: networkStorageRepo,
-                                          toToMapper: EncodableToDecodableMapper<Item, ItemEntity>(), // ItemToItemEntityMapper(),
-                                          toFromMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
+                                          toInMapper: EncodableToDecodableMapper<Item, ItemEntity>(), // ItemToItemEntityMapper(),
+                                          toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
         
         // Interactors
         // container.register(Interactor.GetAllByQuery<Item>.self) { r in Interactor.GetAllByQuery<Item>(DispatchQueueExecutor(), repository) }
