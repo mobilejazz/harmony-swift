@@ -53,10 +53,18 @@ public class VoidQuery : Query {
 }
 
 /// A query by an id
-public class IdQuery <T> where T:Hashable {
+public class IdQuery<T> where T:Hashable {
     public let id : T
     public init(_ id: T) {
         self.id = id
+    }
+}
+
+/// A query by an array of Ids
+public class IdsQuery<T> where T:Hashable {
+    public let ids : [T]
+    public init(_ ids: [T]) {
+        self.ids = ids
     }
 }
 
@@ -67,19 +75,43 @@ public class AllObjectsQuery : Query {
 
 /// Single object query
 public class ObjectQuery<T> : Query {
-    public let object : T
-    public init(_ object : T) {
-        self.object = object
+    public let value : T
+    public init(_ value : T) {
+        self.value = value
     }
 }
 
 /// Array based query
-public class ArrayQuery<T> : Query {
-    public let array : [T]
-    public init(_ array : [T]) {
-        self.array = array
+public class ObjectsQuery<T> : Query {
+    public let values : [T]
+    public init(_ values : [T]) {
+        self.values = values
     }
 }
+
+/// Abstract pagination query
+public class PaginationQuery : Query { }
+
+/// Pagination by offset and limit
+public class PaginationOffsetLimitQuery : PaginationQuery {
+    public let offset : Int
+    public let limit : Int
+    public init(_ offset : Int, _ limit : Int) {
+        self.offset = offset
+        self.limit = limit
+    }
+}
+
+/// Generic query representing insertion of objects. Typically used in PUT functions.
+public class InsertObjectQuery : Query {
+    public init() { }
+}
+
+/// Generic query representing update of objects. Typically used in PUT functions.
+public class UpdateObjectQuery : Query {
+    public init() { }
+}
+
 
 public protocol DataSource {
     associatedtype T

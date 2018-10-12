@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Abstract class to map an object type to another object type
 ///
-open class Mapper <In,Out> {
+open class Mapper <From,To> {
     
     /// Default initializer
     public init() { }
@@ -28,7 +28,7 @@ open class Mapper <In,Out> {
     ///
     /// - Parameter from: The original object
     /// - Returns: The new mapped object
-    open func map(_ from: In) throws -> Out {
+    open func map(_ from: From) throws -> To {
         fatalError("Undefined mapper. Class Mapper must be subclassed.")
     }
 }
@@ -38,17 +38,17 @@ extension Mapper {
     ///
     /// - Parameter array: An array of objects
     /// - Returns: An array of mapped objects
-    public func map( _ array: [In]) throws -> [Out] {
-        return try array.map { value -> Out in
+    public func map( _ array: [From]) throws -> [To] {
+        return try array.map { value -> To in
             return try map(value)
         }
     }
     
     // Mapping method for dictionaries
     ///
-    /// - Parameter dictionary: A dictionary of key-value, where value is typed as "In"
+    /// - Parameter dictionary: A dictionary of key-value, where value is typed as "From"
     /// - Returns: A dictionary of mapped values
-    public func map<K>(_ dictionary: [K:In]) throws -> [K:Out] where K:Hashable {
+    public func map<K>(_ dictionary: [K:From]) throws -> [K:To] where K:Hashable {
         return try dictionary.mapValues { value in
             return try map(value)
         }
@@ -58,8 +58,8 @@ extension Mapper {
 ///
 /// VoidMapper throws a not implemented error
 ///
-public class VoidMapper <In,Out> : Mapper <In,Out> {
-    public override func map(_ from: In) throws -> Out {
+public class VoidMapper <From,To> : Mapper <From,To> {
+    public override func map(_ from: From) throws -> To {
         throw CoreError.NotImplemented()
     }
 }
@@ -76,32 +76,31 @@ public class BlankMapper <T> : Mapper <T,T> {
 ///
 /// CastMapper tries to casts the input value to the mapped type. Otherwise, throws an CoreError.IllegalArgument error.
 ///
-public class CastMapper <In,Out> : Mapper <In,Out> {
-    public override func map(_ from: In) throws -> Out {
-        if let from = from as? Out {
-            return from
-        } else {
-            throw CoreError.IllegalArgument("CastMapper failed to map an object of type \(type(of: from)) to \(String(describing: Out.self))")
+public class CastMapper <From,To> : Mapper <From,To> {
+    public override func map(_ from: From) throws -> To {
+        guard let to = from as? To else {
+            throw CoreError.IllegalArgument("CastMapper failed to map an object of type \(type(of: from)) to \(String(describing: To.self))")
         }
+        return to
     }
 }
 
 ///
 /// Mapper defined by a closure
 ///
-public class CustomMapper <In,Out> : Mapper <In,Out> {
+public class ClosureMapper <From,To> : Mapper <From,To> {
     
-    private let closure : (In) throws -> Out
+    private let closure : (From) throws -> To
     
     /// Default initializer
     ///
     /// - Parameter closure: The map closure
-    public init (_ closure : @escaping (In) throws -> Out) {
+    public init (_ closure : @escaping (From) throws -> To) {
         self.closure = closure
         super.init()
     }
     
-    public override func map(_ from: In) throws -> Out {
+    public override func map(_ from: From) throws -> To {
         return try closure(from)
     }
 }

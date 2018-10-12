@@ -37,6 +37,18 @@ extension IdQuery : KeyQuery {
     }
 }
 
+extension IdsQuery : KeyQuery {
+    public var key : String {
+        get {
+            switch T.self {
+            // TODO
+            default:
+                return "\(ids.hashValue)"
+            }
+        }
+    }
+}
+
 extension AllObjectsQuery : KeyQuery {
     public var key : String { get { return "allObjects" } }
 }

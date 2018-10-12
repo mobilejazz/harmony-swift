@@ -35,15 +35,15 @@ extension RealmMapper {
     }
 }
 
-extension Mapper where In : Object, Out: RealmEntity {
-    public func map(_ results: Results<In>) throws -> [Out] {
-        return try results.map { object -> Out in
+extension Mapper where From : Object, To: RealmEntity {
+    public func map(_ results: Results<From>) throws -> [To] {
+        return try results.map { object -> To in
             return try self.map(object)
         }
     }
     
-    public func map(_ list: List<In>) throws -> [Out] {
-        return try list.map { object -> Out in
+    public func map(_ list: List<From>) throws -> [To] {
+        return try list.map { object -> To in
             return try self.map(object)
         }
     }
