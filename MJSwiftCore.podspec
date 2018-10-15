@@ -43,6 +43,7 @@ Pod::Spec.new do |s|
     s.subspec 'Repository' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Repository/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJSwiftCore/Future'
+        sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Common' do |sp|
