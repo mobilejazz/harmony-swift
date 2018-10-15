@@ -16,103 +16,6 @@
 
 import Foundation
 
-public enum DataSourceCRUD : CustomStringConvertible {
-    case get
-    case getAll
-    case put
-    case putAll
-    case delete
-    case deleteAll
-    case custom(String)
-    
-    public var description: String {
-        switch self {
-        case .get: return "get"
-        case .getAll: return "getAll"
-        case .put: return "put"
-        case .putAll: return "putAll"
-        case .delete: return "delete"
-        case .deleteAll: return "deleteAll"
-        case .custom(let string): return string
-        }
-    }
-}
-
-/// Default query interface
-public protocol Query { }
-
-extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
-        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
-    }
-}
-
-/// Void query
-public class VoidQuery : Query {
-    public init() { }
-}
-
-/// A query by an id
-public class IdQuery<T> where T:Hashable {
-    public let id : T
-    public init(_ id: T) {
-        self.id = id
-    }
-}
-
-/// A query by an array of Ids
-public class IdsQuery<T> where T:Hashable {
-    public let ids : [T]
-    public init(_ ids: [T]) {
-        self.ids = ids
-    }
-}
-
-/// All objects query
-public class AllObjectsQuery : Query {
-    public init() { }
-}
-
-/// Single object query
-public class ObjectQuery<T> : Query {
-    public let value : T
-    public init(_ value : T) {
-        self.value = value
-    }
-}
-
-/// Array based query
-public class ObjectsQuery<T> : Query {
-    public let values : [T]
-    public init(_ values : [T]) {
-        self.values = values
-    }
-}
-
-/// Abstract pagination query
-public class PaginationQuery : Query { }
-
-/// Pagination by offset and limit
-public class PaginationOffsetLimitQuery : PaginationQuery {
-    public let offset : Int
-    public let limit : Int
-    public init(_ offset : Int, _ limit : Int) {
-        self.offset = offset
-        self.limit = limit
-    }
-}
-
-/// Generic query representing insertion of objects. Typically used in PUT functions.
-public class InsertObjectQuery : Query {
-    public init() { }
-}
-
-/// Generic query representing update of objects. Typically used in PUT functions.
-public class UpdateObjectQuery : Query {
-    public init() { }
-}
-
-
 public protocol DataSource {
     associatedtype T
 }
@@ -203,5 +106,33 @@ extension DeleteDataSource {
     @discardableResult
     public func deleteAll<K>(_ id: K) -> Future<Void> where K:Hashable {
         return deleteAll(IdQuery(id))
+    }
+}
+
+public enum DataSourceCRUD : CustomStringConvertible {
+    case get
+    case getAll
+    case put
+    case putAll
+    case delete
+    case deleteAll
+    case custom(String)
+    
+    public var description: String {
+        switch self {
+        case .get: return "get"
+        case .getAll: return "getAll"
+        case .put: return "put"
+        case .putAll: return "putAll"
+        case .delete: return "delete"
+        case .deleteAll: return "deleteAll"
+        case .custom(let string): return string
+        }
+    }
+}
+
+extension Query {
+    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
+        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }

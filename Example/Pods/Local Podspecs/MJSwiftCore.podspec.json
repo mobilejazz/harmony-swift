@@ -18,9 +18,8 @@
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "default_subspecs": [
-    "Future",
-    "Common",
-    "Security"
+    "Repository",
+    "Common"
   ],
   "platforms": {
     "osx": "10.12",
@@ -34,6 +33,21 @@
         "MJSwiftCore/Classes/Future/**/*",
         "MJSwiftCore/MJSwiftCore.h"
       ]
+    },
+    {
+      "name": "Repository",
+      "source_files": [
+        "MJSwiftCore/Classes/Repository/**/*",
+        "MJSwiftCore/MJSwiftCore.h"
+      ],
+      "dependencies": {
+        "MJSwiftCore/Future": [
+
+        ],
+        "MJSwiftCore/Common": [
+
+        ]
+      }
     },
     {
       "name": "Common",

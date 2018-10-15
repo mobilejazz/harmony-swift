@@ -21,6 +21,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 /// Keychain set interactor
 ///
+@available(*, deprecated, message: "Use the KeychainDataSource and Repository pattern instead.")
 public class KeychainSetInteractor {
     
     private let executor : Executor

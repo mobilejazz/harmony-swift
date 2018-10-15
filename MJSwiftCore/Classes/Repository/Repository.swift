@@ -38,20 +38,10 @@ public enum RepositoryCRUD : CustomStringConvertible {
     }
 }
 
-///
-/// An operation defines an abstraction on how data must be fetched (to which DataSource<T> a query must be forwarded).
-///
-public protocol Operation { }
-
 extension Operation {
     public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
         Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
-}
-
-/// An empty operation definition
-public class VoidOperation : Operation {
-    public init() { }
 }
 
 public protocol Repository {

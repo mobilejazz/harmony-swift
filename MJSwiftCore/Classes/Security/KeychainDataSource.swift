@@ -35,7 +35,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             }
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.get, self)
         }
     }
     
@@ -50,7 +50,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             }
             return Future(array)
         default:
-            fatalError()
+            query.fatalError(.getAll, self)
         }
     }
     
@@ -68,7 +68,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.put, self)
         }
     }
     
@@ -84,7 +84,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.putAll, self)
         }
     }
     
@@ -99,7 +99,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.delete, self)
         }
     }
     
@@ -114,7 +114,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.deleteAll, self)
         }
     }
 }
