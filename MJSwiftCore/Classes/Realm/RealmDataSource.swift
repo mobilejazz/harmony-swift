@@ -35,6 +35,20 @@ extension NSPredicate : RealmQuery {
     }
 }
 
+///
+/// Realm based data source.
+///
+/// Entities must conform to the RealmEntity protocol, where the `id` is the realm identifier.
+/// Note that the associated type T can be only either String or Int.
+///
+/// Supported queries:
+/// - get: IdQuery<String>, IdQuery<Int>
+/// - getAll: AllObjectsQuery, RealmQuery (query by predicate)
+/// - put: PutQuery
+/// - putAll: PutQuery
+/// - delete: IdQuery<String>, IdQuery<Int>, ObjectQuery<E>
+/// - deleteAll: ObjectsQuery<E>, AllObjectsQuery, RealmQuery (query by predicate)
+///
 public class RealmDataSource <E: RealmEntity, O: Object> : GetDataSource, PutDataSource, DeleteDataSource {
     
     public typealias T = E
