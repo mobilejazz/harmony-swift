@@ -21,30 +21,61 @@ import Foundation
 ///
 public protocol Query { }
 
+/// Queries conforming to this protocol will be enabled to perfrom put operations on supported data sources.
+public protocol PutQuery : Query { }
+
+/// Protocol to use a query as a key for a key value interface
+public protocol KeyQuery : Query {
+    /// The key associated to the query
+    var key : String { get }
+}
+
 /// Void query
 public class VoidQuery : Query {
     public init() { }
 }
 
 /// A query by an id
-public class IdQuery<T> where T:Hashable {
+public class IdQuery<T> : Query, KeyQuery where T:Hashable {
     public let id : T
     public init(_ id: T) {
         self.id = id
     }
+    public var key : String {
+        get {
+            switch T.self {
+            case is String.Type:
+                return id as! String
+            case is Int.Type:
+                return "\(id as! Int)"
+            default:
+                return "\(id.hashValue)"
+            }
+        }
+    }
 }
 
 /// A query by an array of Ids
-public class IdsQuery<T> where T:Hashable {
+public class IdsQuery<T> : Query, KeyQuery where T:Hashable {
     public let ids : [T]
     public init(_ ids: [T]) {
         self.ids = ids
     }
+    public var key : String {
+        get {
+            switch T.self {
+            // TODO
+            default:
+                return "\(ids.hashValue)"
+            }
+        }
+    }
 }
 
 /// All objects query
-public class AllObjectsQuery : Query {
+public class AllObjectsQuery : Query, PutQuery, KeyQuery {
     public init() { }
+    public var key : String { get { return "allObjects" } }
 }
 
 /// Single object query
@@ -74,14 +105,4 @@ public class PaginationOffsetLimitQuery : PaginationQuery {
         self.offset = offset
         self.limit = limit
     }
-}
-
-/// Generic query representing insertion of objects. Typically used in PUT functions.
-public class InsertObjectQuery : Query {
-    public init() { }
-}
-
-/// Generic query representing update of objects. Typically used in PUT functions.
-public class UpdateObjectQuery : Query {
-    public init() { }
 }

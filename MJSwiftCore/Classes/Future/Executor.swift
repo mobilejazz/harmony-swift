@@ -21,7 +21,7 @@ import Foundation
 ///
 public protocol Executor {
     /// The executor name
-    var name : String { get }
+    var name : String? { get }
 
     /// var indicating if the executor is executing
     var executing : Bool { get }

@@ -31,8 +31,8 @@ public class VastraInvalidationStrategy : VastraStrategy {
     
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         if (object as! VastraInvalidationStrategyDataSource).isObjectInvalid() {
-            return .Invalid
+            return .invalid
         }
-        return .Unknown
+        return .unknown
     }
 }

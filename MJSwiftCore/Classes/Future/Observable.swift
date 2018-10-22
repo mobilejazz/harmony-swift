@@ -350,7 +350,7 @@ public class Observable<T> {
     ///   - success: The then closure.
     /// - Returns: A chained observable
     @discardableResult
-    public func then(_ executor : Executor = MainQueueExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
+    public func then(_ executor : Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 executor.submit {
@@ -372,7 +372,7 @@ public class Observable<T> {
     ///   - failure: The fail closure.
     /// - Returns: A chained observable
     @discardableResult
-    public func fail(_ executor : Executor = MainQueueExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
+    public func fail(_ executor : Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 executor.submit {

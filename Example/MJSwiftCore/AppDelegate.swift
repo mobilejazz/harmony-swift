@@ -32,19 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
-
-        let doubleDataSource = DeviceStorageDataSource<Double>(UserDefaults.standard, prefix: "Double")
-        let intDataSource = DeviceStorageDataSource<String>(UserDefaults.standard, prefix: "Double")
-        doubleDataSource.put(3.14159265359, forId: "pi")
-        intDataSource.get("pi").then { pi in
-            print("pi: \(pi)")
-            }.fail { error in
-                print("Error: \(error)")
-        }
-        
-        
-        
-        
         
         return true
     }

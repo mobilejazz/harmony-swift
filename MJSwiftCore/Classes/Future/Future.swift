@@ -397,7 +397,7 @@ public class Future<T> {
     ///   - success: The then closure.
     /// - Returns: A chained future
     @discardableResult
-    public func then(_ executor: Executor = MainQueueExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
+    public func then(_ executor: Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit {
@@ -419,7 +419,7 @@ public class Future<T> {
     ///   - failure: The fail closure.
     /// - Returns: A chained future
     @discardableResult
-    public func fail(_ executor: Executor = MainQueueExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
+    public func fail(_ executor: Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit {

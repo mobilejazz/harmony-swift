@@ -21,7 +21,7 @@ import Foundation
 ///
 public class DirectExecutor : Executor {
     public private(set) var executing : Bool = false
-    public let name : String = DirectExecutor.nextExecutorName()
+    public let name : String? = "com.mobilejazz.executor.direct"
     
     public init() { }
     
@@ -31,5 +31,35 @@ public class DirectExecutor : Executor {
         closure { sempahore.signal() }
         sempahore.wait()
         executing = false
+    }
+}
+
+///
+/// Executes on the main queue asynchronously.
+/// However, if the submit is called in the main thread, the submitted closure is directly called as in a DirectExecutor.
+///
+public class MainDirectExecutor : Executor {
+    
+    public let name: String? = "com.mobilejazz.executor.main-direct"
+    public var executing: Bool = false
+    
+    public init() { }
+    
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
+        if Thread.isMainThread {
+            self.executing = true
+            let sempahore = DispatchSemaphore(value: 0)
+            closure { sempahore.signal() }
+            sempahore.wait()
+            self.executing = false
+        } else {
+            DispatchQueue.main.async {
+                self.executing = true
+                let sempahore = DispatchSemaphore(value: 0)
+                closure { sempahore.signal() }
+                sempahore.wait()
+                self.executing = false
+            }
+        }
     }
 }

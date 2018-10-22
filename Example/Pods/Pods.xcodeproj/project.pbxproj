@@ -326,7 +326,6 @@
 		9A16BF96B3957E6558CF2C99A86DC6DE /* FBLPromise+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E5710B8A3DB33464D902BF83F377C93 /* FBLPromise+Testing.h */; };
 		9A6B8033570D1FA1427925ACF9555EE2 /* RLMSyncSubscription.mm in Sources */ = {isa = PBXBuildFile; fileRef = C69111780CF5EA297B936EA3684AE9F1 /* RLMSyncSubscription.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		9A7D92DD381CFE37263E5A0108A1E537 /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51357AA4EE21BE741C97DE1F2D139E5A /* UIResponder+Extensions.swift */; };
-		9AB93A745952450E57FDA422C6FA95DF /* Query+KeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BC40957BF62F9E347A5C0C767F8D9F /* Query+KeyValue.swift */; };
 		9ABFE183B83F52B38749C73603521587 /* JSObjectionEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD0FD6CF2A698FAF3AB4399A238960 /* JSObjectionEntry.m */; };
 		9B2D2A86C9526588A25A7A0DF72EFE2B /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25080EB6F90CF48803DB6E01C622EE10 /* Future.swift */; };
 		9C64BDCF5F413B148FD801B19C92B350 /* MJDataProviderDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = 12219904A9175FE45CAB7446E3DC18DE /* MJDataProviderDirector.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1226,7 +1225,6 @@
 		D6247978518DB7A35460C9EA5FEFBFC6 /* RLMRealm_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMRealm_Private.h; path = include/RLMRealm_Private.h; sourceTree = "<group>"; };
 		D6498CE6740213FBF161FB322DDC465F /* Promise+Recover.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Recover.swift"; path = "Sources/Promises/Promise+Recover.swift"; sourceTree = "<group>"; };
 		D6B2E2D67196EACFF499CC3501E520E8 /* RetryDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
-		D6BC40957BF62F9E347A5C0C767F8D9F /* Query+KeyValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Query+KeyValue.swift"; sourceTree = "<group>"; };
 		D8680EA7116CA71F3C5CA7365BE66A34 /* AnyDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnyDataSource.swift; sourceTree = "<group>"; };
 		D87097FDE8DD60BDDDA9487E87E3AD67 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		D8D2D534BAF0F5CC228329CB22D3B06A /* AnimatedImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedImageView.swift; path = Sources/AnimatedImageView.swift; sourceTree = "<group>"; };
@@ -2009,7 +2007,6 @@
 				8B92CD353FB9610AE96CE25BC03E023D /* NetworkStorageRepository.swift */,
 				A445D8C2252673E5B10F431BEC36DFED /* Operation.swift */,
 				F777BF78360C801A4F20EEBA0ABC429F /* Query.swift */,
-				D6BC40957BF62F9E347A5C0C767F8D9F /* Query+KeyValue.swift */,
 				FC4A362CAEACF340BD2EE7FEDA9FD5C5 /* Repository.swift */,
 				56FFF5F23AFE955E87EA6BB676478EF5 /* RepositoryAssembler.swift */,
 				A313EF8F4B6BF074F46654592C920662 /* RepositoryMapper.swift */,
@@ -3230,7 +3227,6 @@
 				48275D88D196B6EABE03D3DB2E77DC89 /* Operation.swift in Sources */,
 				316385C3C012EA0F64435E9AD5E1F37C /* OperationQueueExecutor.swift in Sources */,
 				AEF53E737392A1A160991FCE1B68607C /* PushNotificationQueue.swift in Sources */,
-				9AB93A745952450E57FDA422C6FA95DF /* Query+KeyValue.swift in Sources */,
 				6DCC25346A068C0D7934A5FAF19C3C18 /* Query.swift in Sources */,
 				2B9B8CEE8E3D365E918CBB195DBEBE68 /* readme-macOS.swift in Sources */,
 				5397C6CB57D403B5B89A7CA939C7FEB5 /* RealmDataSource.swift in Sources */,

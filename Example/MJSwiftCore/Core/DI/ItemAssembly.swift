@@ -25,14 +25,14 @@ class ItemAssembly: Assembly {
         }
         
         // Storage (Realm)
-        let storageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
-                                                toEntityMapper: RealmItemToItemEntityMapper(),
-                                                toRealmMapper: ItemEntityToRealmItemMapper())
+//        let storageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
+//                                                toEntityMapper: RealmItemToItemEntityMapper(),
+//                                                toRealmMapper: ItemEntityToRealmItemMapper())
         // Storage (In-Memory)
-//        let storageDataSource = InMemoryDataSource<ItemEntity>()
+        let storageDataSource = InMemoryDataSource<ItemEntity>()
 
         // Storage (UserDefaults)
-//        let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
+//        let userDefaultsDataSource = DeviceStorageDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
 //        let storageDataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
 //                                                 toToMapper: EncodableToDataMapper<ItemEntity>(),
 //                                                 toFromMapper: DataToDecodableMapper<ItemEntity>())

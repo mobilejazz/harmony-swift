@@ -23,6 +23,23 @@ public enum Time {
     case days(Int)
     case weeks(Int)
     case never
+    
+    fileprivate func toSeconds() -> TimeInterval? {
+        switch self {
+        case let .seconds(value):
+            return Double(value)
+        case let .minutes(value):
+            return Double(value * 60)
+        case let .hours(value):
+            return Double(value * 3600)
+        case let .days(value):
+            return Double(value * 86400)
+        case let .weeks(value):
+            return Double(value * 604800)
+        case .never:
+            return nil
+        }
+    }
 }
 
 /// Objects that will be validated using the VastraTimestampStrategy must implement this protocol.
@@ -42,32 +59,20 @@ public class VastraTimestampStrategy: VastraStrategy {
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         let lastUpdate = (object as! VastraTimestampStrategyDataSource).lastUpdate
         if lastUpdate == nil {
-            return .Unknown
+            return .unknown
         }
         
         let expiryTime = (object as! VastraTimestampStrategyDataSource).expiryTimeInterval()
         let diff = Date().timeIntervalSince(lastUpdate!)
         
-        var seconds  = 0
-        switch (expiryTime) {
-        case let .seconds(value):
-            seconds = value
-        case let .minutes(value):
-            seconds = value * 60
-        case let .hours(value):
-            seconds = value * 3600
-        case let .days(value):
-            seconds = value * 86400
-        case let .weeks(value):
-            seconds = value * 604800
-        case .never:
-            return .Invalid
+        guard let seconds  = expiryTime.toSeconds() else {
+            return .invalid
         }
         
-        if diff < Double(seconds) {
-            return .Valid
+        if diff < seconds {
+            return .valid
         } else {
-            return .Invalid
+            return .invalid
         }
     }
 }
