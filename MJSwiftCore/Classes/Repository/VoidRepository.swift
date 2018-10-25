@@ -79,7 +79,7 @@ public class VoidPutDeleteRepository<T> : PutRepository, DeleteRepository {
 ///
 /// Void repository implementation
 ///
-public class VoidRepository<T> : Repository {
+public class VoidRepository<T> : GetRepository, PutRepository, DeleteRepository {
     public init() { }
     public func get(_ query: Query, operation: Operation) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> { return Future(CoreError.NotImplemented()) }

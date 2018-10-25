@@ -21,6 +21,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 /// Generic interactor to get values from the UserDefaults
 ///
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 public class UserDefaultsGetInteractor<T> {
 
     private let executor : Executor
@@ -48,6 +49,7 @@ public class UserDefaultsGetInteractor<T> {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Any {
     /// Main execution method
     ///
@@ -63,6 +65,7 @@ extension UserDefaultsGetInteractor where T == Any {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Any] {
     /// Main execution method
     ///
@@ -78,7 +81,7 @@ extension UserDefaultsGetInteractor where T == [Any] {
     }
 }
 
-
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [String : Any] {
     /// Main execution method
     ///
@@ -94,6 +97,7 @@ extension UserDefaultsGetInteractor where T == [String : Any] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Date {
     /// Main execution method
     ///
@@ -109,6 +113,7 @@ extension UserDefaultsGetInteractor where T == Date {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Date] {
     /// Main execution method
     ///
@@ -121,6 +126,7 @@ extension UserDefaultsGetInteractor where T == [Date] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == URL {
     /// Main execution method
     ///
@@ -136,6 +142,7 @@ extension UserDefaultsGetInteractor where T == URL {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [URL] {
     /// Main execution method
     ///
@@ -148,6 +155,7 @@ extension UserDefaultsGetInteractor where T == [URL] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == String {
     /// Main execution method
     ///
@@ -163,6 +171,7 @@ extension UserDefaultsGetInteractor where T == String {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [String] {
     /// Main execution method
     ///
@@ -178,6 +187,7 @@ extension UserDefaultsGetInteractor where T == [String] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Data {
     /// Main execution method
     ///
@@ -193,6 +203,7 @@ extension UserDefaultsGetInteractor where T == Data {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Data] {
     /// Main execution method
     ///
@@ -205,6 +216,7 @@ extension UserDefaultsGetInteractor where T == [Data] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Bool {
     /// Main execution method
     ///
@@ -217,6 +229,7 @@ extension UserDefaultsGetInteractor where T == Bool {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Bool] {
     /// Main execution method
     ///
@@ -229,6 +242,7 @@ extension UserDefaultsGetInteractor where T == [Bool] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Int {
     /// Main execution method
     ///
@@ -241,6 +255,7 @@ extension UserDefaultsGetInteractor where T == Int {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Int] {
     /// Main execution method
     ///
@@ -253,6 +268,7 @@ extension UserDefaultsGetInteractor where T == [Int] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Float {
     /// Main execution method
     ///
@@ -265,6 +281,7 @@ extension UserDefaultsGetInteractor where T == Float {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Float] {
     /// Main execution method
     ///
@@ -277,6 +294,7 @@ extension UserDefaultsGetInteractor where T == [Float] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == Double {
     /// Main execution method
     ///
@@ -289,6 +307,7 @@ extension UserDefaultsGetInteractor where T == Double {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsGetInteractor where T == [Double] {
     /// Main execution method
     ///

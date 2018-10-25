@@ -19,20 +19,20 @@ class ItemAssembly: Assembly {
         // Network
         let sessionManager = container.resolve(SessionManager.self)!
         let itemNetworkGetDataSource = ItemNetworkDataSource(sessionManager) // <-- Only implements GetDataSource
-        let itemNetworkDataSource = DataSourceAssambler(get: itemNetworkGetDataSource) // <-- Implements DataSource
+        let itemNetworkDataSource = DataSourceAssembler(get: itemNetworkGetDataSource) // <-- Implements DataSource
         let networkDataSource = RetryDataSource(itemNetworkDataSource, retryCount: 1) { error in
             return error._code == NSURLErrorTimedOut && error._domain == NSURLErrorDomain
         }
         
         // Storage (Realm)
-        let storageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
-                                                toEntityMapper: RealmItemToItemEntityMapper(),
-                                                toRealmMapper: ItemEntityToRealmItemMapper())
+//        let storageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
+//                                                toEntityMapper: RealmItemToItemEntityMapper(),
+//                                                toRealmMapper: ItemEntityToRealmItemMapper())
         // Storage (In-Memory)
-//        let storageDataSource = InMemoryDataSource<ItemEntity>()
+        let storageDataSource = InMemoryDataSource<ItemEntity>()
 
         // Storage (UserDefaults)
-//        let userDefaultsDataSource = UserDefaultsDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
+//        let userDefaultsDataSource = DeviceStorageDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
 //        let storageDataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
 //                                                 toToMapper: EncodableToDataMapper<ItemEntity>(),
 //                                                 toFromMapper: DataToDecodableMapper<ItemEntity>())
@@ -51,8 +51,8 @@ class ItemAssembly: Assembly {
         let networkStorageRepo = NetworkStorageRepository(network: networkDataSource,
                                                           storage: storageValidationDataSource)
         let repository = RepositoryMapper(repository: networkStorageRepo,
-                                          toToMapper: EncodableToDecodableMapper<Item, ItemEntity>(), // ItemToItemEntityMapper(),
-                                          toFromMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
+                                          toInMapper: EncodableToDecodableMapper<Item, ItemEntity>(), // ItemToItemEntityMapper(),
+                                          toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
         
         // Interactors
         // container.register(Interactor.GetAllByQuery<Item>.self) { r in Interactor.GetAllByQuery<Item>(DispatchQueueExecutor(), repository) }

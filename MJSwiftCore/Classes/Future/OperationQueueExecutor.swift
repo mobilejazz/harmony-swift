@@ -17,14 +17,28 @@
 import Foundation
 
 ///
+/// OperationQueue Executor extension.
+///
+extension OperationQueue : Executor {
+    
+    public var executing: Bool { return operationCount > 0 }
+    
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
+        addOperation {
+            let sempahore = DispatchSemaphore(value: 0)
+            closure { sempahore.signal() }
+            sempahore.wait()
+        }
+    }
+}
+
+///
 /// OperationQueue based executor
 ///
 public class OperationQueueExecutor: Executor {
     
     /// The operation queue
     public let operationQueue : OperationQueue
-    
-    public var executing: Bool { return operationQueue.operationCount > 0 }
     
     /// The queue type
     ///
@@ -61,18 +75,10 @@ public class OperationQueueExecutor: Executor {
         }
         self.init(operationQueue)
     }
-    
-    public var name: String {
-        return operationQueue.name!
-    }
-    
-    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        operationQueue.addOperation {
-            let sempahore = DispatchSemaphore(value: 0)
-            closure {
-                sempahore.signal()
-            }
-            sempahore.wait()
-        }
-    }
+
+    // MARK: - Executor
+
+    public var executing: Bool { return operationQueue.executing }
+    public var name: String? { return operationQueue.name }
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) { operationQueue.submit(closure) }
 }

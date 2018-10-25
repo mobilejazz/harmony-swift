@@ -17,7 +17,7 @@
 import Foundation
 
 ///
-/// Object acting as a key value observer
+/// Swift object acting as a key value observer
 ///
 public class KeyValueObserver<V> : NSObject where V : Any {
     

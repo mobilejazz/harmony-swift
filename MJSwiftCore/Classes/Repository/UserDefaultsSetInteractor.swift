@@ -21,6 +21,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 /// Generic interactor to set values to the UserDefaults
 ///
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 public class UserDefaultsSetInteractor<T> {
     
     private let executor : Executor
@@ -60,6 +61,7 @@ public class UserDefaultsSetInteractor<T> {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [String : Any] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -70,6 +72,7 @@ extension UserDefaultsSetInteractor where T == [String : Any] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Any {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -80,6 +83,7 @@ extension UserDefaultsSetInteractor where T == Any {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Any] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -90,6 +94,7 @@ extension UserDefaultsSetInteractor where T == [Any] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Data {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -100,6 +105,7 @@ extension UserDefaultsSetInteractor where T == Data {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Data] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -110,6 +116,7 @@ extension UserDefaultsSetInteractor where T == [Data] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == String {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -120,6 +127,7 @@ extension UserDefaultsSetInteractor where T == String {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [String] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -130,6 +138,7 @@ extension UserDefaultsSetInteractor where T == [String] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == NSNumber {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -140,6 +149,7 @@ extension UserDefaultsSetInteractor where T == NSNumber {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [NSNumber] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -150,6 +160,7 @@ extension UserDefaultsSetInteractor where T == [NSNumber] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Date {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -160,6 +171,7 @@ extension UserDefaultsSetInteractor where T == Date {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Date] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -170,6 +182,7 @@ extension UserDefaultsSetInteractor where T == [Date] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Float {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -180,6 +193,7 @@ extension UserDefaultsSetInteractor where T == Float {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Float] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -190,6 +204,7 @@ extension UserDefaultsSetInteractor where T == [Float] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Double {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -200,6 +215,7 @@ extension UserDefaultsSetInteractor where T == Double {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Double] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -210,6 +226,7 @@ extension UserDefaultsSetInteractor where T == [Double] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Int {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -220,6 +237,7 @@ extension UserDefaultsSetInteractor where T == Int {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Int] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -230,6 +248,7 @@ extension UserDefaultsSetInteractor where T == [Int] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == Bool {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -240,6 +259,7 @@ extension UserDefaultsSetInteractor where T == Bool {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [Bool] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -250,6 +270,7 @@ extension UserDefaultsSetInteractor where T == [Bool] {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == URL {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.
@@ -260,6 +281,7 @@ extension UserDefaultsSetInteractor where T == URL {
     }
 }
 
+@available(*, deprecated, message: "Use the DeviceStorageDataSource and Repository pattern instead.")
 extension UserDefaultsSetInteractor where T == [URL] {
     /// Main execution method.
     /// Pass nil to remove the value from the user defaults.

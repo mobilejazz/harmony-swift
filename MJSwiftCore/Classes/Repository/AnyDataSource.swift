@@ -16,14 +16,17 @@
 
 import Foundation
 
-public class AnyDataSource <T> : DataSource {
+///
+/// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
+///
+public class AnyDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource {
     private let box: DataSourceBoxBase<T>
     
     /// Default initializer.
     ///
     /// - Parameters:
     ///   - dataSource: The dataSource to abstract
-    public init<D: DataSource>(_ dataSource: D) where D.T == T {
+    public init<D>(_ dataSource: D) where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
         box = DataSourceBox(dataSource)
     }
     
@@ -52,23 +55,11 @@ public class AnyDataSource <T> : DataSource {
     }
 }
 
-extension DataSource {
-    /// Returns an AnyDataSource abstraction of the current data source
-    ///
-    /// - Returns: An AnyDataSource abstraction
-    public func asAnyDataSource() -> AnyDataSource<T> {
-        if let dataSource = self as? AnyDataSource<T> {
-            return dataSource
-        }
-        return AnyDataSource(self)
-    }
-}
-
 ///
 /// This is an abstract class. Do not use it.
 /// DataSource base class defining a generic type T (which is unrelated to the associated type of the DataSource protocol)
 ///
-internal class DataSourceBoxBase <T>: DataSource {
+internal class DataSourceBoxBase <T>: GetDataSource, PutDataSource, DeleteDataSource {
     
     func get(_ query: Query) -> Future<T> {
         fatalError("This method is abstract.")
@@ -98,7 +89,7 @@ internal class DataSourceBoxBase <T>: DataSource {
 ///
 /// A data source box, which has as generic type a DataSource and links the DataSourceBoxBase type T as the Base.T type.
 ///
-internal class DataSourceBox <Base: DataSource> : DataSourceBoxBase <Base.T> {
+internal class DataSourceBox <Base> : DataSourceBoxBase <Base.T> where Base:GetDataSource, Base:PutDataSource, Base:DeleteDataSource {
     
     private let base: Base
     

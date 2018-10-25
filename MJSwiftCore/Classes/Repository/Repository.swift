@@ -38,27 +38,17 @@ public enum RepositoryCRUD : CustomStringConvertible {
     }
 }
 
-///
-/// An operation defines an abstraction on how data must be fetched (to which DataSource<T> a query must be forwarded).
-///
-public protocol Operation { }
-
 extension Operation {
-    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : TypedRepository {
+    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
         Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }
 
-/// An empty operation definition
-public class VoidOperation : Operation {
-    public init() { }
-}
-
-public protocol TypedRepository {
+public protocol Repository {
     associatedtype T
 }
 
-public protocol GetRepository : TypedRepository {
+public protocol GetRepository : Repository {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -82,7 +72,7 @@ extension GetRepository {
     }
 }
 
-public protocol PutRepository : TypedRepository {
+public protocol PutRepository : Repository {
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -110,7 +100,7 @@ extension PutRepository {
     }
 }
 
-public protocol DeleteRepository : TypedRepository {
+public protocol DeleteRepository : Repository {
     
     /// Delete by query method
     ///
@@ -138,11 +128,3 @@ extension DeleteRepository {
         return deleteAll(IdQuery(id), operation: operation)
     }
 }
-
-///
-/// Abstract definition of a repository.
-/// A Repository<T> is responsible to forward a query to a specific DataSource<T>.
-/// Each repository subclass must extend the Operation struct with its own operations, then override any needed method
-/// from the Repository<T> superclass and forward the query to the desired DataSource<T>.
-///
-public protocol Repository : GetRepository, PutRepository, DeleteRepository { }

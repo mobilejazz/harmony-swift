@@ -36,7 +36,7 @@ public struct RealmHandler {
     /// Read method.
     ///
     /// - Parameter closure: A closure providing a realm to execute read queries.
-    public func read(_ closure: (Realm) throws -> Void) throws {
+    public func read(_ closure: (Realm) throws -> Void) rethrows {
         let realm = realmFactory.realm()
         try closure(realm)
     }

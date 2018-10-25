@@ -16,23 +16,26 @@
 
 import Foundation
 
+private let executingKey = DispatchSpecificKey<Bool>()
+
 ///
-/// Main queue executor
+/// DispatchQueue Executor extension.
 ///
-public class MainQueueExecutor : Executor {
+extension DispatchQueue : Executor {
     
-    public let name: String = "com.apple.main-thread"
-    public var executing: Bool = false
+    public var name: String? { return label }
     
-    public init() { }
+    public var executing: Bool {
+        return getSpecific(key: executingKey) ?? false
+    }
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        DispatchQueue.main.async {
-            self.executing = true
+        async {
+            self.setSpecific(key: executingKey, value: true)
             let sempahore = DispatchSemaphore(value: 0)
             closure { sempahore.signal() }
             sempahore.wait()
-            self.executing = false
+            self.setSpecific(key: executingKey, value: false)
         }
     }
 }
@@ -51,8 +54,6 @@ public class DispatchQueueExecutor : Executor {
         case concurrent
     }
    
-    public private(set) var executing = false
-    
     /// The dispatch queue
     public let queue : DispatchQueue
     
@@ -77,17 +78,9 @@ public class DispatchQueueExecutor : Executor {
         }
     }
     
-    public var name: String {
-        return queue.label
-    }
+    // MARK: - Executor
     
-    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        queue.async {
-            self.executing = true
-            let sempahore = DispatchSemaphore(value: 0)
-            closure { sempahore.signal() }
-            sempahore.wait()
-            self.executing = false
-        }
-    }
+    public var executing : Bool { return queue.executing }
+    public var name: String? { return queue.name }
+    public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) { queue.submit(closure) }
 }

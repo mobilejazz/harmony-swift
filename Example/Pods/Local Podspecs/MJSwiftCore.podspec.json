@@ -1,6 +1,6 @@
 {
   "name": "MJSwiftCore",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "summary": "Mobile Jazz Swift toolkit utilities",
   "swift_version": "4.2",
   "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
@@ -14,11 +14,11 @@
   },
   "source": {
     "git": "https://github.com/mobilejazz/MJSwiftCore.git",
-    "tag": "0.8.2"
+    "tag": "0.9.0"
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "default_subspecs": [
-    "Future",
+    "Repository",
     "Common",
     "Security"
   ],
@@ -29,20 +29,20 @@
   "source_files": "MJSwiftCore/MJSwiftCore.h",
   "subspecs": [
     {
-      "name": "Executor",
-      "source_files": [
-        "MJSwiftCore/Classes/Executor/**/*",
-        "MJSwiftCore/MJSwiftCore.h"
-      ]
-    },
-    {
       "name": "Future",
       "source_files": [
         "MJSwiftCore/Classes/Future/**/*",
         "MJSwiftCore/MJSwiftCore.h"
+      ]
+    },
+    {
+      "name": "Repository",
+      "source_files": [
+        "MJSwiftCore/Classes/Repository/**/*",
+        "MJSwiftCore/MJSwiftCore.h"
       ],
       "dependencies": {
-        "MJSwiftCore/Executor": [
+        "MJSwiftCore/Future": [
 
         ]
       }
@@ -56,9 +56,6 @@
       "dependencies": {
         "MJSwiftCore/Future": [
 
-        ],
-        "MJSwiftCore/Executor": [
-
         ]
       }
     },
@@ -70,7 +67,7 @@
       ],
       "frameworks": "Security",
       "dependencies": {
-        "MJSwiftCore/Common": [
+        "MJSwiftCore/Repository": [
 
         ]
       }
@@ -85,7 +82,7 @@
         "Alamofire": [
           "~> 4.7.3"
         ],
-        "MJSwiftCore/Common": [
+        "MJSwiftCore/Future": [
 
         ]
       }
@@ -100,7 +97,7 @@
         "RealmSwift": [
           "~> 3.9.0"
         ],
-        "MJSwiftCore/Common": [
+        "MJSwiftCore/Repository": [
 
         ],
         "MJSwiftCore/Security": [

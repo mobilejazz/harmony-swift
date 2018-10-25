@@ -47,9 +47,9 @@ public class VastraService {
     public func isObjectValid<T>(_ object: T) -> Bool {
         for strategy in strategies {
             let result = strategy.isObjectValid(object)
-            if result == .Valid {
+            if result == .valid {
                 return true
-            } else if result == .Invalid {
+            } else if result == .invalid {
                 return false
             }
         }

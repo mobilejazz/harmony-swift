@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'MJSwiftCore'
-    s.version          = '0.8.2'
+    s.version          = '0.9.0'
     s.summary          = 'Mobile Jazz Swift toolkit utilities'
     s.swift_version    = '4.2'
     
@@ -29,44 +29,44 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/mobilejazz/MJSwiftCore.git', :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/mobilejazzcom'
     
-    s.default_subspecs = 'Future', 'Common', 'Security'
+    s.default_subspecs = 'Repository', 'Common', 'Security'
     
     s.osx.deployment_target = '10.12'
     s.ios.deployment_target = '9.0'
     
     s.source_files = 'MJSwiftCore/MJSwiftCore.h'
     
-    s.subspec 'Executor' do |sp|
-        sp.source_files = 'MJSwiftCore/Classes/Executor/**/*', 'MJSwiftCore/MJSwiftCore.h'
-    end
-    
     s.subspec 'Future' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Future/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'MJSwiftCore/Executor'
+    end
+    
+    s.subspec 'Repository' do |sp|
+        sp.source_files = 'MJSwiftCore/Classes/Repository/**/*', 'MJSwiftCore/MJSwiftCore.h'
+        sp.dependency 'MJSwiftCore/Future'
+        sp.dependency 'MJSwiftCore/Common'
     end
     
     s.subspec 'Common' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Common/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'MJSwiftCore/Future'
-        sp.dependency 'MJSwiftCore/Executor'
     end
     
     s.subspec 'Security' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Security/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.frameworks = 'Security'
-        sp.dependency 'MJSwiftCore/Common'
+        sp.dependency 'MJSwiftCore/Repository'
     end
     
     s.subspec 'Alamofire' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'Alamofire', '~> 4.7.3'
-        sp.dependency 'MJSwiftCore/Common'
+        sp.dependency 'MJSwiftCore/Future'
     end
     
     s.subspec 'Realm' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Realm/**/*', 'MJSwiftCore/MJSwiftCore.h'
         sp.dependency 'RealmSwift', '~> 3.9.0'
-        sp.dependency 'MJSwiftCore/Common'
+        sp.dependency 'MJSwiftCore/Repository'
         sp.dependency 'MJSwiftCore/Security'
     end
     

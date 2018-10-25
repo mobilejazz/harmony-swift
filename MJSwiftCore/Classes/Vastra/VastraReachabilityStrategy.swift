@@ -37,9 +37,9 @@ public class VastraReachabilityStrategy: VastraStrategy {
     
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         if reachability.isReachable() {
-            return .Unknown
+            return .unknown
         } else {
-            return .Valid
+            return .valid
         }
     }
 }

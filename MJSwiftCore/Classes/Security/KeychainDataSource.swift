@@ -19,7 +19,7 @@ import Foundation
 //
 // Provides a keychain service for a key value interface
 //
-public class KeychainDataSource<T> : DataSource where T : Codable {
+public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource where T : Codable {
     
     private let keychain : Keychain
     
@@ -35,7 +35,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
             }
             return Future(value)
         default:
-            fatalError()
+            query.fatalError(.get, self)
         }
     }
     
@@ -50,7 +50,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
             }
             return Future(array)
         default:
-            fatalError()
+            query.fatalError(.getAll, self)
         }
     }
     
@@ -68,7 +68,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.put, self)
         }
     }
     
@@ -84,7 +84,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.putAll, self)
         }
     }
     
@@ -99,7 +99,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.delete, self)
         }
     }
     
@@ -114,7 +114,7 @@ public class KeychainDataSource<T> : DataSource where T : Codable {
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            fatalError()
+            query.fatalError(.deleteAll, self)
         }
     }
 }

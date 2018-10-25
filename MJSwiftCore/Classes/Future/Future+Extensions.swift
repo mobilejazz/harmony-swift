@@ -21,13 +21,13 @@ import Foundation
 // MARK: Collections
 
 public extension Array {
-    public func toFuture() -> Future<Array<Element>> {
+    public func toFuture() -> Future<[Element]> {
         return Future(self)
     }
 }
 
 public extension Dictionary {
-    public func toFuture() -> Future<Dictionary<Key,Value>> {
+    public func toFuture() -> Future<[Key:Value]> {
         return Future(self)
     }
 }

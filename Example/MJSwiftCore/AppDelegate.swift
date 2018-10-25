@@ -33,29 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
-        let future1 = Future<Int>()
-        let future2 = Future<Int>()
-        let future3 = Future<Int>()
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-            future1.set(42)
-        }
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(3)) {
-            future2.set(43)
-        }
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
-            future3.set(44)
-        }
-        
-        Future.batch(future1, future2, future3).map(MainQueueExecutor()) { array -> [Int] in
-            return try array.map(DispatchQueueExecutor(.concurrent)) { value -> Int in
-                return value + 1
-            }}.on(DispatchQueue.main).then { result in
-                print("array: \(result)")
-        }
-        
         return true
     }
     

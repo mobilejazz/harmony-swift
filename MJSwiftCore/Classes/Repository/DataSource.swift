@@ -16,76 +16,14 @@
 
 import Foundation
 
-public enum DataSourceCRUD : CustomStringConvertible {
-    case get
-    case getAll
-    case put
-    case putAll
-    case delete
-    case deleteAll
-    case custom(String)
-    
-    public var description: String {
-        switch self {
-        case .get: return "get"
-        case .getAll: return "getAll"
-        case .put: return "put"
-        case .putAll: return "putAll"
-        case .delete: return "delete"
-        case .deleteAll: return "deleteAll"
-        case .custom(let string): return string
-        }
-    }
-}
-
-/// Default query interface
-public protocol Query { }
-
-extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : TypedDataSource {
-        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
-    }
-}
-
-/// Void query
-public class VoidQuery : Query {
-    public init() { }
-}
-
-/// A query by an id
-public class IdQuery <T> where T:Hashable {
-    public let id : T
-    public init(_ id: T) {
-        self.id = id
-    }
-}
-
-/// All objects query
-public class AllObjectsQuery : Query {
-    public init() { }
-}
-
-/// Single object query
-public class ObjectQuery<T> : Query {
-    public let object : T
-    public init(_ object : T) {
-        self.object = object
-    }
-}
-
-/// Array based query
-public class ArrayQuery<T> : Query {
-    public let array : [T]
-    public init(_ array : [T]) {
-        self.array = array
-    }
-}
-
-public protocol TypedDataSource {
+public protocol DataSource {
     associatedtype T
 }
 
-public protocol GetDataSource : TypedDataSource {
+///
+/// Interface for a Get data source.
+///
+public protocol GetDataSource : DataSource {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -109,7 +47,10 @@ extension GetDataSource {
     }
 }
 
-public protocol PutDataSource : TypedDataSource {
+///
+/// Interface for a Put data source.
+///
+public protocol PutDataSource : DataSource {
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -137,7 +78,10 @@ extension PutDataSource {
     }
 }
 
-public protocol DeleteDataSource : TypedDataSource {
+///
+/// Interface for a Delete data source.
+///
+public protocol DeleteDataSource : DataSource {
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
@@ -164,9 +108,31 @@ extension DeleteDataSource {
         return deleteAll(IdQuery(id))
     }
 }
-    
-///
-/// Abstract definition of a DataSource
-///
-public protocol DataSource : GetDataSource, PutDataSource, DeleteDataSource { }
 
+public enum DataSourceCRUD : CustomStringConvertible {
+    case get
+    case getAll
+    case put
+    case putAll
+    case delete
+    case deleteAll
+    case custom(String)
+    
+    public var description: String {
+        switch self {
+        case .get: return "get"
+        case .getAll: return "getAll"
+        case .put: return "put"
+        case .putAll: return "putAll"
+        case .delete: return "delete"
+        case .deleteAll: return "deleteAll"
+        case .custom(let string): return string
+        }
+    }
+}
+
+extension Query {
+    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
+        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
+    }
+}

@@ -30,8 +30,8 @@ class ItemNetworkDataSource : GetDataSource  {
     
     func get(_ query: Query) -> Future<ItemEntity> {
         switch query.self {
-        case is IdQuery<String>:
-            return getById((query as! IdQuery<String>).id)
+        case let query as IdQuery<String>:
+            return getById(query.id)
         default:
             query.fatalError(.get, self)
         }

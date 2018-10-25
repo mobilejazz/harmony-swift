@@ -143,7 +143,6 @@ public class Future<T> {
     
     // Private variables
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
-    private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
@@ -296,7 +295,7 @@ public class Future<T> {
             self.onContentSet = nil
         }
         
-        lock() {
+        lock {
             if let error = error {
                 _result = .error(error)
             } else {
@@ -322,7 +321,7 @@ public class Future<T> {
     /// - Returns: The self instance
     @discardableResult
     public func clear() -> Future<T> {
-        lock() {
+        lock {
             _result = nil
             success = nil
             failure = nil
@@ -351,24 +350,6 @@ public class Future<T> {
         onContentSet = closure
     }
     
-    /// Then closure executed in the given queue
-    ///
-    /// - Parameter queue: The dispatch queue to call the then closure
-    /// - Returns: The self instance
-    @discardableResult
-    public func on(_ queue: DispatchQueue?) -> Future<T> {
-        self.queue = queue
-        return self
-    }
-    
-    /// Then closure executed in the main queue
-    ///
-    /// - Returns: The self instance
-    @discardableResult
-    public func onMainQueue() -> Future<T> {
-        return self.on(DispatchQueue.main)
-    }
-    
     /// Then closure: delivers the value or the error
     internal func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
@@ -377,7 +358,7 @@ public class Future<T> {
             fatalError(FutureError.thenAlreadySet.description)
         }
         
-        lock() {
+        lock {
             self.success = success
             self.failure = failure
             if _result != nil {
@@ -409,39 +390,53 @@ public class Future<T> {
         }
     }
     
-    /// Main then method
+    /// Main then method to obtain the promised value.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - success: The then closure.
+    /// - Returns: A chained future
     @discardableResult
-    public func then(_ executor: Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
-        return Future() { resolver in
+    public func then(_ executor: Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
+        return Future { resolver in
             resolve(success: {value in
                 executor.submit {
                     success(value)
+                    resolver.set(value)
                 }
-                resolver.set(value)
             }, failure: { error in
-                resolver.set(error)
+                executor.submit {
+                    resolver.set(error)
+                }
             })
         }
     }
     
-    /// Main fail method
+    /// Main failure method to obtain the promised error.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - failure: The fail closure.
+    /// - Returns: A chained future
     @discardableResult
-    public func fail(_ executor: Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
-        return Future() { resolver in
+    public func fail(_ executor: Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
+        return Future { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit {
+                    resolver.set(value)
+                }
             }, failure: { error in
                 executor.submit {
                     failure(error)
+                    resolver.set(error)
                 }
-                resolver.set(error)
             })
         }
     }
     
     /// Completes the future (if not completed yet)
     public func complete() {
-        lock() {
+        lock {
             if state != .sent {
                 state = .sent
                 success = nil
@@ -457,26 +452,13 @@ public class Future<T> {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    failure(error)
-                }
-            } else {
-                failure(error)
-            }
+            failure(error)
         case .value(let value):
             guard let success = success else {
                 print(FutureError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    success(value)
-                }
-                
-            } else {
-                success(value)
-            }
+            success(value)
         }
         
         self.success = nil
@@ -500,18 +482,22 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
         case .waitingThen:
             switch _result! {
             case .error(let error):
-                return "Future waiting for then closure and error set to: \(error)"
+                return "Future waiting for then closure with error set to: \(error)"
             case .value(let value):
-                return "Future waiting for then closure and value set to: \(value)"
+                return "Future waiting for then closure with value set to: \(value)"
             }
         case .waitingContent:
-            return "Future then closure set. Waiting for value or error."
+            return "Future waiting for value or error."
         case .sent:
-            switch _result! {
-            case .error(let error):
-                return "Future sent with error: \(error)"
-            case .value(let value):
-                return "Future sent with value: \(value)"
+            if let result = _result {
+                switch result {
+                case .error(let error):
+                    return "Future sent with error: \(error)"
+                case .value(let value):
+                    return "Future sent with value: \(value)"
+                }
+            } else {
+                return "Future sent"
             }
         }
     }

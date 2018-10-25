@@ -161,7 +161,6 @@ public class Observable<T> {
     
     // Private variables
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
-    private var queue: DispatchQueue?
     private var semaphore: DispatchSemaphore?
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
@@ -261,7 +260,7 @@ public class Observable<T> {
             onContentSet(&value, &error)
         }
         
-        lock() {
+        lock {
             if let error = error {
                 _result = .error(error)
             } else {
@@ -286,7 +285,7 @@ public class Observable<T> {
     /// - Returns: The self instance
     @discardableResult
     public func clear() -> Observable<T> {
-        lock() {
+        lock {
             _result = nil
             state = .blank
         }
@@ -313,28 +312,10 @@ public class Observable<T> {
         onContentSet = closure
     }
     
-    /// Then closure executed in the given queue
-    ///
-    /// - Parameter queue: The dispatch queue to call the then closure
-    /// - Returns: The self instance
-    @discardableResult
-    public func on(_ queue: DispatchQueue?) -> Observable<T> {
-        self.queue = queue
-        return self
-    }
-    
-    /// Then closure executed in the main queue
-    ///
-    /// - Returns: The self instance
-    @discardableResult
-    public func onMainQueue() -> Observable<T> {
-        return self.on(DispatchQueue.main)
-    }
-    
     /// Then closure: delivers the value or the error
     internal func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
-        lock() {
+        lock {
             self.success = success
             self.failure = failure
             if _result != nil {
@@ -362,32 +343,46 @@ public class Observable<T> {
         }
     }
     
-    /// Main then method
+    /// Main then method to obtain the promised value.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - success: The then closure.
+    /// - Returns: A chained observable
     @discardableResult
-    public func then(_ executor : Executor = DirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
+    public func then(_ executor : Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 executor.submit {
                     success(value)
+                    resolver.set(value)
                 }
-                resolver.set(value)
             }, failure: { error in
-                resolver.set(error)
+                executor.submit {
+                    resolver.set(error)
+                }
             })
         }
     }
     
-    /// Main fail method
+    /// Main failure method to obtain the promised error.
+    ///
+    /// - Parameters:
+    ///   - executor: An optional executor to call the then closure.
+    ///   - failure: The fail closure.
+    /// - Returns: A chained observable
     @discardableResult
-    public func fail(_ executor : Executor = DirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
+    public func fail(_ executor : Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
-                resolver.set(value)
+                executor.submit {
+                    resolver.set(value)
+                }
             }, failure: { error in
                 executor.submit {
                     failure(error)
+                    resolver.set(error)
                 }
-                resolver.set(error)
             })
         }
     }
@@ -399,26 +394,13 @@ public class Observable<T> {
                 print(ObservableError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    failure(error)
-                }
-            } else {
-                failure(error)
-            }
+            failure(error)
         case .value(let value):
             guard let success = success else {
                 print(ObservableError.missingLambda.description)
                 return
             }
-            if let queue = queue, !(queue == DispatchQueue.main && Thread.isMainThread) {
-                queue.async {
-                    success(value)
-                }
-                
-            } else {
-                success(value)
-            }
+            success(value)
         }
     }
     // Private lock method

@@ -25,16 +25,12 @@ public extension RealmHandler {
     /// - Returns: A future that will contain the result of the query, if available.
     public func read<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
         return Future<T>() { resolver in
-            do {
-                try read { realm in
-                    if let value = try closure(realm) {
-                        resolver.set(value)
-                    } else {
-                        resolver.set(CoreError.NotFound())
-                    }
+            try read { realm in
+                if let value = try closure(realm) {
+                    resolver.set(value)
+                } else {
+                    resolver.set(CoreError.NotFound())
                 }
-            } catch let error {
-                resolver.set(error)
             }
         }
     }
@@ -44,17 +40,13 @@ public extension RealmHandler {
     /// - Parameter closure: A closure providing a realm instance to execute write queries. Return must be the result of the query.
     /// - Returns: A future that will contain the result of the query, if available.
     public func write<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
-        return Future<T>() { future in
-            do {
-                try write { realm in
-                    if let value = try closure(realm) {
-                        future.set(value)
-                    } else {
-                        future.set(CoreError.NotFound())
-                    }
+        return Future<T>() { resolver in
+            try write { realm in
+                if let value = try closure(realm) {
+                    resolver.set(value)
+                } else {
+                    resolver.set(CoreError.Failed())
                 }
-            } catch let error {
-                future.set(error)
             }
         }
     }

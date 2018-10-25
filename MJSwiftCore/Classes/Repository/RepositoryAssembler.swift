@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Assambles a CRUD repository into a single repository object
 ///
-public class RepositoryAssambler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : Repository where Get.T == T, Put.T == T, Delete.T == T {
+public class RepositoryAssembler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository where Get.T == T, Put.T == T, Delete.T == T {
     
     private let getRepository : Get
     private let putRepository : Put
@@ -66,7 +66,7 @@ public class RepositoryAssambler <Get : GetRepository, Put: PutRepository, Delet
     }
 }
 
-extension RepositoryAssambler where Get == Put, Get == Delete {
+extension RepositoryAssembler where Get == Put, Get == Delete {
     /// Initializer for a single Repository
     ///
     /// - Parameter repository: The repository
@@ -75,7 +75,7 @@ extension RepositoryAssambler where Get == Put, Get == Delete {
     }
 }
 
-extension RepositoryAssambler where Put == VoidPutRepository<T>, Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Put == VoidPutRepository<T>, Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
@@ -84,7 +84,7 @@ extension RepositoryAssambler where Put == VoidPutRepository<T>, Delete == VoidD
     }
 }
 
-extension RepositoryAssambler where Get == VoidGetRepository<T>, Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Get == VoidGetRepository<T>, Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter putRepository: The repository
@@ -93,7 +93,7 @@ extension RepositoryAssambler where Get == VoidGetRepository<T>, Delete == VoidD
     }
 }
 
-extension RepositoryAssambler where Get == VoidGetRepository<T>, Put == VoidPutRepository<T> {
+extension RepositoryAssembler where Get == VoidGetRepository<T>, Put == VoidPutRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter deleteRepository: The repository
@@ -102,7 +102,7 @@ extension RepositoryAssambler where Get == VoidGetRepository<T>, Put == VoidPutR
     }
 }
 
-extension RepositoryAssambler where Get == VoidGetRepository<T> {
+extension RepositoryAssembler where Get == VoidGetRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter putRepository: The repository
@@ -112,7 +112,7 @@ extension RepositoryAssambler where Get == VoidGetRepository<T> {
     }
 }
 
-extension RepositoryAssambler where Put == VoidPutRepository<T> {
+extension RepositoryAssembler where Put == VoidPutRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
@@ -122,7 +122,7 @@ extension RepositoryAssambler where Put == VoidPutRepository<T> {
     }
 }
 
-extension RepositoryAssambler where Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Delete == VoidDeleteRepository<T> {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository

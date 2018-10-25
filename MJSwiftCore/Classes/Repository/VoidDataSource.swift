@@ -79,7 +79,7 @@ public class VoidPutDeleteDataSource<T> : PutDataSource, DeleteDataSource {
 ///
 /// Void data source implementation
 ///
-public class VoidDataSource<T> : DataSource {
+public class VoidDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource {
     public init() { }
     public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }

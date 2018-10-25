@@ -22,9 +22,9 @@ import Foundation
 /// - Valid: Strategy decides the object is valid
 /// - Invalid: Strategy decides the object is invalid
 public enum VastraStrategyResult {
-    case Unknown
-    case Valid
-    case Invalid
+    case unknown
+    case valid
+    case invalid
 }
 
 ///

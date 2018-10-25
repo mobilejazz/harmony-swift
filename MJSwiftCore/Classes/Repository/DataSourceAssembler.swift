@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Assambles a CRUD data source into a single data source object
 ///
-public class DataSourceAssambler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : DataSource where Get.T == T, Put.T == T, Delete.T == T {
+public class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T, Delete.T == T {
     
     private let getDataSource : Get
     private let putDataSource : Put
@@ -66,7 +66,7 @@ public class DataSourceAssambler <Get : GetDataSource, Put: PutDataSource, Delet
     }
 }
 
-extension DataSourceAssambler where Get == Put, Get == Delete {
+extension DataSourceAssembler where Get == Put, Get == Delete {
     /// Initializer for a single DataSource
     ///
     /// - Parameter dataSource: The data source
@@ -75,7 +75,7 @@ extension DataSourceAssambler where Get == Put, Get == Delete {
     }
 }
 
-extension DataSourceAssambler where Put == VoidPutDataSource<T>, Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Put == VoidPutDataSource<T>, Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
@@ -84,7 +84,7 @@ extension DataSourceAssambler where Put == VoidPutDataSource<T>, Delete == VoidD
     }
 }
 
-extension DataSourceAssambler where Get == VoidGetDataSource<T>, Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Get == VoidGetDataSource<T>, Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter putDataSource: The data source
@@ -93,7 +93,7 @@ extension DataSourceAssambler where Get == VoidGetDataSource<T>, Delete == VoidD
     }
 }
 
-extension DataSourceAssambler where Get == VoidGetDataSource<T>, Put == VoidPutDataSource<T> {
+extension DataSourceAssembler where Get == VoidGetDataSource<T>, Put == VoidPutDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter deleteDataSource: The data source
@@ -102,7 +102,7 @@ extension DataSourceAssambler where Get == VoidGetDataSource<T>, Put == VoidPutD
     }
 }
 
-extension DataSourceAssambler where Get == VoidGetDataSource<T> {
+extension DataSourceAssembler where Get == VoidGetDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter putDataSource: The data source
@@ -112,7 +112,7 @@ extension DataSourceAssambler where Get == VoidGetDataSource<T> {
     }
 }
 
-extension DataSourceAssambler where Put == VoidPutDataSource<T> {
+extension DataSourceAssembler where Put == VoidPutDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
@@ -122,7 +122,7 @@ extension DataSourceAssambler where Put == VoidPutDataSource<T> {
     }
 }
 
-extension DataSourceAssambler where Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Delete == VoidDeleteDataSource<T> {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source

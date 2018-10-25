@@ -131,7 +131,7 @@ final class ActivityIndicator: Indicator {
             activityIndicatorView.style = .spinning
         #else
             #if os(tvOS)
-                let indicatorStyle = UIActivityIndicatorViewStyle.white
+                let indicatorStyle = UIActivityIndicatorView.Style.white
             #else
                 let indicatorStyle = UIActivityIndicatorView.Style.gray
             #endif

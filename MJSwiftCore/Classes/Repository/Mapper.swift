@@ -78,11 +78,10 @@ public class BlankMapper <T> : Mapper <T,T> {
 ///
 public class CastMapper <From,To> : Mapper <From,To> {
     public override func map(_ from: From) throws -> To {
-        if let from = from as? To {
-            return from
-        } else {
+        guard let to = from as? To else {
             throw CoreError.IllegalArgument("CastMapper failed to map an object of type \(type(of: from)) to \(String(describing: To.self))")
         }
+        return to
     }
 }
 

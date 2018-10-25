@@ -93,7 +93,7 @@ open class ImageCache {
     fileprivate var fileManager: FileManager!
     
     ///The disk cache location.
-    open let diskCachePath: String
+    public let diskCachePath: String
   
     /// The default file extension appended to cached files.
     open var pathExtension: String?
@@ -539,7 +539,7 @@ open class ImageCache {
         guard let sharedApplication = Kingfisher<UIApplication>.shared else { return }
 
         func endBackgroundTask(_ task: inout UIBackgroundTaskIdentifier) {
-            sharedApplication.endBackgroundTask(convertToUIBackgroundTaskIdentifier(task.rawValue))
+            sharedApplication.endBackgroundTask(task)
             task = UIBackgroundTaskIdentifier.invalid
         }
         
@@ -724,9 +724,4 @@ extension String {
             return appending("@\(identifier)")
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIBackgroundTaskIdentifier(_ input: Int) -> UIBackgroundTaskIdentifier {
-	return UIBackgroundTaskIdentifier(rawValue: input)
 }
