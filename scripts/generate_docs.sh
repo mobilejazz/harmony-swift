@@ -4,5 +4,5 @@ jazzy --min-acl internal \
   --module-version 0.8.2 \
   --module MJSwiftCore \
   --root-url https://mobilejazz.github.io/MJSwiftCore-Reference/ \
-  --podspec ~../MJSwiftCore.podspec \
-  --output ~../docs 
+  --podspec ../MJSwiftCore.podspec \
+  --output ../docs 
