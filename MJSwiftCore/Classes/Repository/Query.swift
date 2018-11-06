@@ -21,9 +21,6 @@ import Foundation
 ///
 public protocol Query { }
 
-/// Queries conforming to this protocol will be enabled to perfrom put operations on supported data sources.
-public protocol PutQuery : Query { }
-
 /// Protocol to use a query as a key for a key value interface
 public protocol KeyQuery : Query {
     /// The key associated to the query
@@ -73,7 +70,7 @@ public class IdsQuery<T> : Query, KeyQuery where T:Hashable {
 }
 
 /// All objects query
-public class AllObjectsQuery : Query, PutQuery, KeyQuery {
+public class AllObjectsQuery : Query, KeyQuery {
     public init() { }
     public var key : String { get { return "allObjects" } }
 }

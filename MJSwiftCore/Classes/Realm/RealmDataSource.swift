@@ -31,9 +31,10 @@ public protocol RealmQuery : Query {
 
 extension NSPredicate : RealmQuery {
     public var realmPredicate : NSPredicate {
-        get { return self }
+        return self
     }
 }
+
 
 ///
 /// Realm based data source.
@@ -44,8 +45,8 @@ extension NSPredicate : RealmQuery {
 /// Supported queries:
 /// - get: IdQuery<String>, IdQuery<Int>
 /// - getAll: AllObjectsQuery, RealmQuery (query by predicate)
-/// - put: PutQuery
-/// - putAll: PutQuery
+/// - put: Query is not checked. Object is stored directly.
+/// - putAll: Query is not checked. Objects are stored directly.
 /// - delete: IdQuery<String>, IdQuery<Int>, ObjectQuery<E>
 /// - deleteAll: ObjectsQuery<E>, AllObjectsQuery, RealmQuery (query by predicate)
 ///
@@ -97,33 +98,23 @@ public class RealmDataSource <E: RealmEntity, O: Object> : GetDataSource, PutDat
     
     @discardableResult
     public func put(_ value: E?, in query: Query) -> Future<E> {
-        switch query {
-        case is PutQuery:
-            guard let value = value else {
-                return Future(CoreError.IllegalArgument("Value cannot be nil"))
-            }
-            return realmHandler.write { realm in
-                let object = try toRealmMapper.map(value, inRealm: realm)
-                realm.add(object)
-                return object
-                }.map { try self.toEntityMapper.map($0) }
-        default:
-            query.fatalError(.put, self)
+        guard let value = value else {
+            return Future(CoreError.IllegalArgument("Value cannot be nil"))
         }
+        return realmHandler.write { realm in
+            let object = try toRealmMapper.map(value, inRealm: realm)
+            realm.add(object)
+            return object
+            }.map { try self.toEntityMapper.map($0) }
     }
     
     @discardableResult
     public func putAll(_ array: [E], in query: Query) -> Future<[E]> {
-        switch query {
-        case is PutQuery:
-            return realmHandler.write { realm -> [O] in
-                let objetcs = try array.map { try toRealmMapper.map($0, inRealm:realm) }
-                objetcs.forEach { realm.add($0, update: true) }
-                return objetcs
-                }.map { try self.toEntityMapper.map($0) }
-        default:
-            query.fatalError(.putAll, self)
-        }
+        return realmHandler.write { realm -> [O] in
+            let objetcs = try array.map { try toRealmMapper.map($0, inRealm:realm) }
+            objetcs.forEach { realm.add($0, update: true) }
+            return objetcs
+            }.map { try self.toEntityMapper.map($0) }
     }
     
     @discardableResult

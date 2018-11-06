@@ -44,11 +44,12 @@ extension Operation {
     }
 }
 
-public protocol Repository {
-    associatedtype T
-}
+public protocol Repository { }
 
 public protocol GetRepository : Repository {
+    
+    associatedtype T
+    
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -73,6 +74,9 @@ extension GetRepository {
 }
 
 public protocol PutRepository : Repository {
+    
+    associatedtype T
+    
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information

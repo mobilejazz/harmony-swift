@@ -26,19 +26,19 @@ class RealmAssembly: Assembly {
         // Realm
         container.register(RealmFactory.self) { _ in
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-            let configuration = Realm.Configuration.init(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
-                                                         inMemoryIdentifier: nil,
-                                                         syncConfiguration: nil,
-                                                         encryptionKey: nil,
-                                                         readOnly: false,
-                                                         schemaVersion: CurrentAppRealmVersion,
-                                                         migrationBlock: { (migration, version) in
-                                                            // No migration to be done
+            let configuration = Realm.Configuration(fileURL: URL(string:"\(documentsPath)/SwiftCore.realm"),
+                                                    inMemoryIdentifier: nil,
+                                                    syncConfiguration: nil,
+                                                    encryptionKey: nil,
+                                                    readOnly: false,
+                                                    schemaVersion: CurrentAppRealmVersion,
+                                                    migrationBlock: { (migration, version) in
+                                                        // No migration to be done
             },
-                                                         deleteRealmIfMigrationNeeded: false,
-                                                         shouldCompactOnLaunch: nil,
-                                                         objectTypes: [RealmItem.self, // <--- List here realm classes
-                                                                       ])
+                                                    deleteRealmIfMigrationNeeded: false,
+                                                    shouldCompactOnLaunch: nil,
+                                                    objectTypes: [RealmItem.self, // <--- List here realm classes
+                ])
             return RealmFactory(configuration: configuration,
                                 minimumValidSchemaVersion: CurrentAppRealmVersion,
                                 encryptionKeyName: "SwiftCore")

@@ -21,7 +21,7 @@ import Foundation
 ///
 public protocol Operation { }
 
-/// An empty operation definition
-public class VoidOperation : Operation {
+/// The default operation.
+public class DefaultOperation : Operation {
     public init() { }
 }

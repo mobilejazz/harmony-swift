@@ -16,14 +16,15 @@
 
 import Foundation
 
-public protocol DataSource {
-    associatedtype T
-}
+public protocol DataSource { }
 
 ///
 /// Interface for a Get data source.
 ///
 public protocol GetDataSource : DataSource {
+    
+    associatedtype T
+    
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -51,6 +52,9 @@ extension GetDataSource {
 /// Interface for a Put data source.
 ///
 public protocol PutDataSource : DataSource {
+    
+    associatedtype T
+    
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information

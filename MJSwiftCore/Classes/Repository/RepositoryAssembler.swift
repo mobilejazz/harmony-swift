@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Assambles a CRUD repository into a single repository object
 ///
-public class RepositoryAssembler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository where Get.T == T, Put.T == T, Delete.T == T {
+public class RepositoryAssembler <Get : GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository where Get.T == T, Put.T == T {
     
     private let getRepository : Get
     private let putRepository : Put
@@ -75,7 +75,7 @@ extension RepositoryAssembler where Get == Put, Get == Delete {
     }
 }
 
-extension RepositoryAssembler where Put == VoidPutRepository<T>, Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Put == VoidPutRepository<T>, Delete == VoidDeleteRepository {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository
@@ -84,7 +84,7 @@ extension RepositoryAssembler where Put == VoidPutRepository<T>, Delete == VoidD
     }
 }
 
-extension RepositoryAssembler where Get == VoidGetRepository<T>, Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Get == VoidGetRepository<T>, Delete == VoidDeleteRepository {
     /// Initializer for a single Repository
     ///
     /// - Parameter putRepository: The repository
@@ -122,7 +122,7 @@ extension RepositoryAssembler where Put == VoidPutRepository<T> {
     }
 }
 
-extension RepositoryAssembler where Delete == VoidDeleteRepository<T> {
+extension RepositoryAssembler where Delete == VoidDeleteRepository {
     /// Initializer for a single Repository
     ///
     /// - Parameter getRepository: The repository

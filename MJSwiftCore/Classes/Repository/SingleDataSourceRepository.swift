@@ -33,11 +33,11 @@ public class SingleGetDataSourceRepository<D: GetDataSource,T> : GetRepository w
         self.dataSource = dataSource
     }
     
-    public func get(_ query: Query, operation: Operation = VoidOperation()) -> Future<T> {
+    public func get(_ query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.get(query)
     }
     
-    public func getAll(_ query: Query, operation: Operation = VoidOperation()) -> Future<[T]> {
+    public func getAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
 }
@@ -69,12 +69,12 @@ public class SinglePutDataSourceRepository<D: PutDataSource,T> : PutRepository w
     }
     
     @discardableResult
-    public func put(_ value: T?, in query: Query, operation: Operation = VoidOperation()) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
-    public func putAll(_ array: [T], in query: Query, operation: Operation = VoidOperation()) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
 }
@@ -93,7 +93,7 @@ extension PutDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDeleteDataSourceRepository<D: DeleteDataSource,T> : DeleteRepository where D.T == T {
+public class SingleDeleteDataSourceRepository<D: DeleteDataSource> : DeleteRepository {
     
     private let dataSource : D
     
@@ -106,12 +106,12 @@ public class SingleDeleteDataSourceRepository<D: DeleteDataSource,T> : DeleteRep
     }
     
     @discardableResult
-    public func delete(_ query: Query, operation: Operation = VoidOperation()) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public func deleteAll(_ query: Query, operation: Operation = VoidOperation()) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }
@@ -120,7 +120,7 @@ extension DeleteDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleDeleteDataSourceRepository repository
-    public func toDeleteRepository() -> SingleDeleteDataSourceRepository<Self,T> {
+    public func toDeleteRepository() -> SingleDeleteDataSourceRepository<Self> {
         return SingleDeleteDataSourceRepository(self)
     }
 }
@@ -142,31 +142,31 @@ public class SingleDataSourceRepository<D,T> : GetRepository, PutRepository, Del
         self.dataSource = dataSource
     }
     
-    public func get(_ query: Query, operation: Operation = VoidOperation()) -> Future<T> {
+    public func get(_ query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.get(query)
     }
     
-    public func getAll(_ query: Query, operation: Operation = VoidOperation()) -> Future<[T]> {
+    public func getAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
     
     @discardableResult
-    public func put(_ value: T?, in query: Query, operation: Operation = VoidOperation()) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
     
     @discardableResult
-    public func putAll(_ array: [T], in query: Query, operation: Operation = VoidOperation()) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
     
     @discardableResult
-    public func delete(_ query: Query, operation: Operation = VoidOperation()) -> Future<Void> {
+    public func delete(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
     
     @discardableResult
-    public func deleteAll(_ query: Query, operation: Operation = VoidOperation()) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }

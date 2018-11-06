@@ -37,41 +37,8 @@ public class VoidPutDataSource<T> : PutDataSource {
 ///
 /// Void delete data source implementation
 ///
-public class VoidDeleteDataSource<T> : DeleteDataSource {
+public class VoidDeleteDataSource : DeleteDataSource {
     public init() { }
-    public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
-    public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
-}
-
-///
-/// Void get put data source implementation
-///
-public class VoidGetPutDataSource<T> : GetDataSource, PutDataSource {
-    public init() { }
-    public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
-    public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
-    public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
-    public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
-}
-
-///
-/// Void get delete data source implementation
-///
-public class VoidGetDeleteDataSource<T> : GetDataSource, DeleteDataSource {
-    public init() { }
-    public func get(_ query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
-    public func getAll(_ query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
-    public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
-    public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
-}
-
-///
-/// Void put delete data source implementation
-///
-public class VoidPutDeleteDataSource<T> : PutDataSource, DeleteDataSource {
-    public init() { }
-    public func put(_ value: T?, in query: Query) -> Future<T> { return Future(CoreError.NotImplemented()) }
-    public func putAll(_ array: [T], in query: Query) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func delete(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
     public func deleteAll(_ query: Query) -> Future<Void> { return Future(CoreError.NotImplemented()) }
 }

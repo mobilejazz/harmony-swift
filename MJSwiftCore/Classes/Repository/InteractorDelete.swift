@@ -20,18 +20,18 @@ extension Interactor {
     ///
     /// Generic delete object by query interactor
     ///
-    public class DeleteByQuery<T> {
+    public class DeleteByQuery {
         
         private let executor : Executor
-        private let repository: AnyDeleteRepository<T>
+        private let repository: DeleteRepository
         
-        public required init<R>(_ executor: Executor, _ repository: R) where R : DeleteRepository, R.T == T {
+        public required init(_ executor: Executor, _ repository: DeleteRepository) {
             self.executor = executor
-            self.repository = repository.asAnyDeleteRepository()
+            self.repository = repository
         }
         
         @discardableResult
-        public func execute(_ query: Query, operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ query: Query, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(query, operation: operation))
@@ -39,7 +39,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ id: K, operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        public func execute<K>(_ id: K, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(id, operation: operation))
@@ -54,20 +54,20 @@ extension Interactor {
         
         private let query : Query
         private let executor : Executor
-        private let repository: AnyDeleteRepository<T>
+        private let repository: DeleteRepository
         
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : DeleteRepository, R.T == T {
+        public required init(_ executor: Executor, _ repository: DeleteRepository, _ query: Query) {
             self.query = query
             self.executor = executor
-            self.repository = repository.asAnyDeleteRepository()
+            self.repository = repository
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : DeleteRepository, R.T == T {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K : Hashable {
             self.init(executor, repository, IdQuery(id))
         }
         
         @discardableResult
-        public func execute(_ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(self.query, operation: operation))
@@ -81,15 +81,15 @@ extension Interactor {
     public class DeleteAllByQuery<T> {
         
         private let executor : Executor
-        private let repository: AnyDeleteRepository<T>
+        private let repository: DeleteRepository
         
-        public required init<R>(_ executor: Executor, _ repository: R) where R : DeleteRepository, R.T == T {
+        public required init(_ executor: Executor, _ repository: DeleteRepository) {
             self.executor = executor
-            self.repository = repository.asAnyDeleteRepository()
+            self.repository = repository
         }
         
         @discardableResult
-        public func execute(_ query: Query, operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ query: Query, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(query, operation: operation))
@@ -97,7 +97,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ id: K, operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        public func execute<K>(_ id: K, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(id, operation: operation))
@@ -112,20 +112,20 @@ extension Interactor {
         
         private let query : Query
         private let executor : Executor
-        private let repository: AnyDeleteRepository<T>
+        private let repository: DeleteRepository
         
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : DeleteRepository, R.T == T {
+        public required init(_ executor: Executor, _ repository: DeleteRepository, _ query: Query) {
             self.query = query
             self.executor = executor
-            self.repository = repository.asAnyDeleteRepository()
+            self.repository = repository
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : DeleteRepository, R.T == T {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K : Hashable {
             self.init(executor, repository, IdQuery(id))
         }
         
         @discardableResult
-        public func execute(_ operation: Operation = VoidOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(self.query, operation: operation))

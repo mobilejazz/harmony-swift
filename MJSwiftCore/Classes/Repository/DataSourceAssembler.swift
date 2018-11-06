@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Assambles a CRUD data source into a single data source object
 ///
-public class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T, Delete.T == T {
+public class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T {
     
     private let getDataSource : Get
     private let putDataSource : Put
@@ -75,7 +75,7 @@ extension DataSourceAssembler where Get == Put, Get == Delete {
     }
 }
 
-extension DataSourceAssembler where Put == VoidPutDataSource<T>, Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Put == VoidPutDataSource<T>, Delete == VoidDeleteDataSource {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
@@ -84,7 +84,7 @@ extension DataSourceAssembler where Put == VoidPutDataSource<T>, Delete == VoidD
     }
 }
 
-extension DataSourceAssembler where Get == VoidGetDataSource<T>, Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Get == VoidGetDataSource<T>, Delete == VoidDeleteDataSource {
     /// Initializer for a single DataSource
     ///
     /// - Parameter putDataSource: The data source
@@ -122,7 +122,7 @@ extension DataSourceAssembler where Put == VoidPutDataSource<T> {
     }
 }
 
-extension DataSourceAssembler where Delete == VoidDeleteDataSource<T> {
+extension DataSourceAssembler where Delete == VoidDeleteDataSource {
     /// Initializer for a single DataSource
     ///
     /// - Parameter getDataSource: The data source
