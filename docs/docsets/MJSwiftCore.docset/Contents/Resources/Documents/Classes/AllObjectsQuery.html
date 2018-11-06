@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AllObjectsQuery Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/AllObjectsQuery" class="dashAnchor"></a>
+    <a title="AllObjectsQuery Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">MJSwiftCore Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/mobilejazz/MJSwiftCore"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fmobilejazz%2Egithub%2Eio%2FMJSwiftCore%2DReference%2Fdocsets%2FMJSwiftCore%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">MJSwiftCore Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        AllObjectsQuery Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AllObjectsQuery.html">AllObjectsQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyDataSource.html">AnyDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyDeleteDataSource.html">AnyDeleteDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyDeleteRepository.html">AnyDeleteRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyGetDataSource.html">AnyGetDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyGetRepository.html">AnyGetRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyPutDataSource.html">AnyPutDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyPutRepository.html">AnyPutRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnyRepository.html">AnyRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseURLRequestAdapter.html">BaseURLRequestAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BlankMapper.html">BlankMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CastMapper.html">CastMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClassError.html">ClassError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ClosureMapper.html">ClosureMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContainerViewController.html">ContainerViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ContainerViewController/Animation.html">– Animation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataSourceAssembler.html">DataSourceAssembler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataSourceBox.html">DataSourceBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataSourceBoxBase.html">DataSourceBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataSourceMapper.html">DataSourceMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataSourceValidator.html">DataSourceValidator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataToDecodableMapper.html">DataToDecodableMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataToNSCodingMapper.html">DataToNSCodingMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeleteDataSourceBox.html">DeleteDataSourceBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeleteDataSourceBoxBase.html">DeleteDataSourceBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeleteRepositoryBox.html">DeleteRepositoryBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeleteRepositoryBoxBase.html">DeleteRepositoryBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceStorageDataSource.html">DeviceStorageDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DirectExecutor.html">DirectExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DispatchQueueExecutor.html">DispatchQueueExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DispatchQueueExecutor/QueueType.html">– QueueType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EncodableToDataMapper.html">EncodableToDataMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EncodableToDecodableMapper.html">EncodableToDecodableMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Event.html">Event</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExecutorFactory.html">ExecutorFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ExecutorFactory/Scope.html">– Scope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Future/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Future/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetDataSourceBox.html">GetDataSourceBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetDataSourceBoxBase.html">GetDataSourceBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetDataSourceMapper.html">GetDataSourceMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetRepositoryBox.html">GetRepositoryBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetRepositoryBoxBase.html">GetRepositoryBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/GetRepositoryMapper.html">GetRepositoryMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IdQuery.html">IdQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IdsQuery.html">IdsQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/InMemoryDataSource.html">InMemoryDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeyValueObserver.html">KeyValueObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Keychain.html">Keychain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Keychain/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainDataSource.html">KeychainDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainGetInteractor.html">KeychainGetInteractor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/KeychainSetInteractor.html">KeychainSetInteractor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinkRecognizer.html">LinkRecognizer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinkRecognizer/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinkRecognizer/Pattern.html">– Pattern</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LinkRecognizer/Options.html">– Options</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MainDirectExecutor.html">MainDirectExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Mapper.html">Mapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultiRequestAdapter.html">MultiRequestAdapter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultiRequestRetrier.html">MultiRequestRetrier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NSCodingToDataMapper.html">NSCodingToDataMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkOperation.html">NetworkOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkStorageRepository.html">NetworkStorageRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NetworkSyncOperation.html">NetworkSyncOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NilValueError.html">NilValueError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ObjectQuery.html">ObjectQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ObjectsQuery.html">ObjectsQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Observable.html">Observable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Observable/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Observable/Result.html">– Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Observable/Hub.html">– Hub</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OperationQueueExecutor.html">OperationQueueExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/OperationQueueExecutor/QueueType.html">– QueueType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaginationOffsetLimitQuery.html">PaginationOffsetLimitQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:11MJSwiftCore15PaginationQueryC">PaginationQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationQueue.html">PushNotificationQueue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationQueue/Filter.html">– Filter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PushNotificationQueue/Action.html">– Action</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutDataSourceBox.html">PutDataSourceBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutDataSourceBoxBase.html">PutDataSourceBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutDataSourceMapper.html">PutDataSourceMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutRepositoryBox.html">PutRepositoryBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutRepositoryBoxBase.html">PutRepositoryBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PutRepositoryMapper.html">PutRepositoryMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmDataSource.html">RealmDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmFactory.html">RealmFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmMapper.html">RealmMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmObject.html">RealmObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RepositoryAssembler.html">RepositoryAssembler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RepositoryBox.html">RepositoryBox</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RepositoryBoxBase.html">RepositoryBoxBase</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RepositoryMapper.html">RepositoryMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RetryDataSource.html">RetryDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RetryOperation.html">RetryOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RetryRepository.html">RetryRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecureKey.html">SecureKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SharedTimer.html">SharedTimer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleDataSourceRepository.html">SingleDataSourceRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleDeleteDataSourceRepository.html">SingleDeleteDataSourceRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleGetDataSourceRepository.html">SingleGetDataSourceRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SinglePutDataSourceRepository.html">SinglePutDataSourceRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StorageOperation.html">StorageOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StorageSyncOperation.html">StorageSyncOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserDefaultsGetInteractor.html">UserDefaultsGetInteractor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserDefaultsSetInteractor.html">UserDefaultsSetInteractor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VastraInvalidationStrategy.html">VastraInvalidationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VastraReachabilityStrategy.html">VastraReachabilityStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VastraService.html">VastraService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VastraTimestampStrategy.html">VastraTimestampStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VastraValidationStrategy.html">VastraValidationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidDataSource.html">VoidDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidDeleteDataSource.html">VoidDeleteDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidDeleteRepository.html">VoidDeleteRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetDataSource.html">VoidGetDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetDeleteDataSource.html">VoidGetDeleteDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetDeleteRepository.html">VoidGetDeleteRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetPutDataSource.html">VoidGetPutDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetPutRepository.html">VoidGetPutRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidGetRepository.html">VoidGetRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidMapper.html">VoidMapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidOperation.html">VoidOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidPutDataSource.html">VoidPutDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidPutDeleteDataSource.html">VoidPutDeleteDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidPutDeleteRepository.html">VoidPutDeleteRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidPutRepository.html">VoidPutRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidQuery.html">VoidQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidRepository.html">VoidRepository</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:11MJSwiftCore44RealmHandlerDidCommitTransactionNotificationSSvp">RealmHandlerDidCommitTransactionNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:11MJSwiftCore5cacheSo7NSCacheCySo8NSStringCSo7UIImageCGvp">cache</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:11MJSwiftCore21currentFirstResponderSo11UIResponderCSgXwvp">currentFirstResponder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:11MJSwiftCore8observerSo8NSObject_pvp">observer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/DataSourceCRUD.html">DataSourceCRUD</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/GradientDirection.html">GradientDirection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MJSwiftCoreAlamofireError.html">MJSwiftCoreAlamofireError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ObjectionScope.html">ObjectionScope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RepositoryCRUD.html">RepositoryCRUD</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Time.html">Time</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TintStyle.html">TintStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VastraStrategyResult.html">VastraStrategyResult</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGAffineTransform.html">CGAffineTransform</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CGFloat.html">CGFloat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Calendar.html">Calendar</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CharacterSet.html">CharacterSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DataRequest.html">DataRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateComponents.html">DateComponents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateComponentsFormatter.html">DateComponentsFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateInterval.html">DateInterval</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateIntervalFormatter.html">DateIntervalFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Decimal.html">Decimal</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DispatchQueue.html">DispatchQueue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/ISO8601DateFormatter.html">ISO8601DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/IndexPath.html">IndexPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/IndexSet.html">IndexSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSONDecoder.html">JSONDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSONDecoder/KeyDecodingStrategy.html">– KeyDecodingStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSONEncoder.html">JSONEncoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSONEncoder/KeyEncodingStrategy.html">– KeyEncodingStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSObjectionInjector.html">JSObjectionInjector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/JSObjectionModule.html">JSObjectionModule</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Locale.html">Locale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MJFuture.html">MJFuture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSAttributedString.html">NSAttributedString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSCountedSet.html">NSCountedSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSError.html">NSError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableAttributedString.html">NSMutableAttributedString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSMutableOrderedSet.html">NSMutableOrderedSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSNull.html">NSNull</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSOrderedSet.html">NSOrderedSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSPointerArray.html">NSPointerArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSPredicate.html">NSPredicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSPurgeableData.html">NSPurgeableData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSRange.html">NSRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSSortDescriptor.html">NSSortDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NumberFormatter.html">NumberFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/ObjC.html">ObjC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/OperationQueue.html">OperationQueue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Set.html">Set</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TimeZone.html">TimeZone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIBarButtonItem.html">UIBarButtonItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIButton.html">UIButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIEdgeInsets.html">UIEdgeInsets</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIImage.html">UIImage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIResponder.html">UIResponder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UITableView.html">UITableView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UITableViewCell.html">UITableViewCell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIView.html">UIView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIViewController.html">UIViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UInt.html">UInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLComponents.html">URLComponents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLQueryItem.html">URLQueryItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UUID.html">UUID</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11MJSwiftCore1poiyAA6FutureCyx_q_tGADyxG_ADyq_Gtr0_lF">+(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:11MJSwiftCore3lxgoiyAA6FutureCyq_GADyxG_q_xctr0_lF">&lt;^&gt;(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DataSource.html">DataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DeleteDataSource.html">DeleteDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DeleteRepository.html">DeleteRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Executor.html">Executor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GetDataSource.html">GetDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/GetRepository.html">GetRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/KeyQuery.html">KeyQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LinkRecognizerDelegate.html">LinkRecognizerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LinkRecognizerObserver.html">LinkRecognizerObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ObjectValidation.html">ObjectValidation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PushNotificationQueueDelegate.html">PushNotificationQueueDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PutDataSource.html">PutDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:11MJSwiftCore8PutQueryP">PutQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PutRepository.html">PutRepository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Query.html">Query</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RealmEntity.html">RealmEntity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RealmQuery.html">RealmQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Repository.html">Repository</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SharedTimerObserver.html">SharedTimerObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UITableViewCellIdentifier.html">UITableViewCellIdentifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VastraInvalidationStrategyDataSource.html">VastraInvalidationStrategyDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VastraReachability.html">VastraReachability</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VastraStrategy.html">VastraStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VastraTimestampStrategyDataSource.html">VastraTimestampStrategyDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/VastraValidationStrategyDataSource.html">VastraValidationStrategyDataSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError.html">CoreError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/Unknown.html">– Unknown</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/NotFound.html">– NotFound</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/IllegalArgument.html">– IllegalArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/NotImplemented.html">– NotImplemented</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/NotValid.html">– NotValid</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/Failed.html">– Failed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/NSError.html">– NSError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CoreError/OSStatusFailure.html">– OSStatusFailure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CornerInset.html">CornerInset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FutureResolver.html">FutureResolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor.html">Interactor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/DeleteByQuery.html">– DeleteByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/Delete.html">– Delete</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/DeleteAllByQuery.html">– DeleteAllByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/DeleteAll.html">– DeleteAll</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/GetByQuery.html">– GetByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/Get.html">– Get</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/GetAllByQuery.html">– GetAllByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/GetAll.html">– GetAll</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/PutByQuery.html">– PutByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/Put.html">– Put</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/PutAllByQuery.html">– PutAllByQuery</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Interactor/PutAll.html">– PutAll</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MutableCodingKey.html">MutableCodingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ObservableResolver.html">ObservableResolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RealmHandler.html">RealmHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ScopeLock.html">ScopeLock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ScopeLock/Scope.html">– Scope</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AllObjectsQuery</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AllObjectsQuery</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Query.html">Query</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols.html#/s:11MJSwiftCore8PutQueryP">PutQuery</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/KeyQuery.html">KeyQuery</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>All objects query</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11MJSwiftCore15AllObjectsQueryCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11MJSwiftCore15AllObjectsQueryCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:11MJSwiftCore8KeyQueryP3keySSvp"></a>
+                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
+                    <a class="token" href="#/s:11MJSwiftCore8KeyQueryP3keySSvp">key</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/mobilejazz/MJSwiftCore" target="_blank" rel="external">Mobile Jazz</a>. All rights reserved. (Last updated: 2018-10-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

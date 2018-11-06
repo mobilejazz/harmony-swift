@@ -37,6 +37,10 @@ pod 'MJSwiftCore/MJObjection'
 
 Mobile Jazz, info@mobilejazz.com
 
+## API Reference 
+
+[https://mobilejazz.github.io/MJSwiftCore/](https://mobilejazz.github.io/MJSwiftCore/)
+
 ## License
 
 MJSwiftCore is available under the Apache 2.0 license. See the LICENSE file for more info.
