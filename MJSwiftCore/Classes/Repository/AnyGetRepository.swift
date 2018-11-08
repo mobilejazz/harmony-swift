@@ -19,7 +19,7 @@ import Foundation
 ///
 /// A type eraser for the GetRepository type, following Apple's Swift Standard Library approach.
 ///
-public class AnyGetRepository <T> : GetRepository {
+public final class AnyGetRepository <T> : GetRepository {
     
     private let box: GetRepositoryBoxBase<T>
     

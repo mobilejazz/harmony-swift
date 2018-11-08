@@ -17,18 +17,22 @@
 import Foundation
 import Security
 
-// Arguments for the keychain queries
-private let kSecClassStr                = NSString(format: kSecClass)
-private let kSecClassKeyStr             = NSString(format: kSecClassKey)
-private let kSecAttrApplicationTagStr   = NSString(format: kSecAttrApplicationTag)
-private let kSecAttrKeySizeInBitsStr    = NSString(format: kSecAttrKeySizeInBits)
-private let kSecReturnDataStr           = NSString(format: kSecReturnData)
-private let kSecAttrAccessibleStr       = NSString(format: kSecAttrAccessible)
-private let kSecAttrAccessibleAlwaysStr = NSString(format: kSecAttrAccessibleAlways)
-private let kSecValueDataStr            = NSString(format: kSecValueData)
-
+///
 /// Stores securely inside the Keychain an auto-generated data blob (aka. Key).
+///
 public class SecureKey {
+    
+    /// Arguments for the keychain queries
+    private struct kSec {
+        static let `class`              = NSString(format: kSecClass)
+        static let classKey             = NSString(format: kSecClassKey)
+        static let attrApplicationTag   = NSString(format: kSecAttrApplicationTag)
+        static let attrKeySizeInBits    = NSString(format: kSecAttrKeySizeInBits)
+        static let returnData           = NSString(format: kSecReturnData)
+        static let attrAccessible       = NSString(format: kSecAttrAccessible)
+        static let attrAccessibleAlways = NSString(format: kSecAttrAccessibleAlways)
+        static let valueData            = NSString(format: kSecValueData)
+    }
     
     /// The key identifier
     public let identifier : String
@@ -48,95 +52,96 @@ public class SecureKey {
     
     /// Generates a new key and stores it inside the keychain.
     ///
-    /// - Returns: True if succeed, otherwise false.
-    @discardableResult
-    public func reset() -> Bool {
-         if let tag = identifier.data(using: String.Encoding.utf8) {
-            var keyData = Data(count: length)
-            let count = keyData.count
-            let result : Int32 = keyData.withUnsafeMutableBytes { pointer in
-                return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
-            }
-            if result == -1 {
-                NSLog("Error executing SecRandomCopyBytes()")
-            }
-            
-            let query = NSDictionary(objects:[kSecClassKeyStr, tag],
-                                     forKeys:[kSecClassStr, kSecAttrApplicationTagStr])
-            
-            let attributesToUpdate = NSDictionary(objects:[keyData],
-                                                  forKeys:[kSecValueDataStr])
-            
-            let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
-            if status == errSecSuccess {
-                return true
-            }
+    /// - Throws: CoreError.OSStatusFailure if fails.
+    public func reset() throws {
+        guard let tag = identifier.data(using: String.Encoding.utf8) else {
+            throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        return false
+        
+        var keyData = Data(count: length)
+        let count = keyData.count
+        let result : Int32 = keyData.withUnsafeMutableBytes { pointer in
+            return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
+        }
+        if result == -1 {
+            NSLog("Error executing SecRandomCopyBytes()")
+        }
+        
+        let query = NSDictionary(objects:[kSec.classKey, tag],
+                                 forKeys:[kSec.class, kSec.attrApplicationTag])
+        
+        let attributesToUpdate = NSDictionary(objects:[keyData],
+                                              forKeys:[kSec.valueData])
+        
+        let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
+        guard status == errSecSuccess else {
+            throw CoreError.OSStatusFailure(status)
+        }
     }
     
     /// Removes the stored key from the keychain.
     ///
-    /// - Returns: True if succeed, otherwise false.
-    @discardableResult
-    public func clear() -> Bool {
-        if let tag = identifier.data(using: String.Encoding.utf8) {
-            let query = NSDictionary(objects:[kSecClassKeyStr, tag],
-                                     forKeys: [kSecClassStr, kSecAttrApplicationTagStr])
-            
-            let status = SecItemDelete(query as CFDictionary)
-            if status == errSecSuccess {
-                return true
-            }
+    /// - Throws: CoreError.OSStatusFailure if fails.
+    public func clear() throws {
+        guard let tag = identifier.data(using: String.Encoding.utf8) else {
+            throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        return false
+        
+        let query = NSDictionary(objects:[kSec.classKey, tag],
+                                 forKeys: [kSec.class, kSec.attrApplicationTag])
+        
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess else {
+            throw CoreError.OSStatusFailure(status)
+        }
     }
     
     /// Returns the key.
     /// Note that if there is no key previously stored, this method will generate a new key.
     ///
     /// - Returns: The key
-    public func key() -> Data? {
-        if let tag = identifier.data(using: String.Encoding.utf8) {
-            let query = NSDictionary(objects:[kSecClassKeyStr, tag, length, true],
-                                     forKeys: [kSecClassStr, kSecAttrApplicationTagStr, kSecAttrKeySizeInBitsStr, kSecReturnDataStr])
-            
-            var dataRef : CFTypeRef?
-            let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
-            
-            if status == errSecSuccess {
-                let data = dataRef as? Data
-                return data
-            } else if status == -25308 { // errKCInteractionNotAllowed
-                // If reading fails because app is not allowed (device locked)
-                // Fix cannot be applied because we cannot read the current keychain item.
-                NSLog("Failed to fetch Keychain because the device is locked.")
-            } else {
-                // If no pre-existing key from this application
-                
-                var keyData = Data(count: length)
-                let count = keyData.count
-                let result = keyData.withUnsafeMutableBytes { pointer in
-                    return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
-                }
-                
-                if result == -1 {
-                    NSLog("Error executing SecRandomCopyBytes()")
-                }
-                
-                let query = NSDictionary(objects:[kSecClassKeyStr, tag, length, kSecAttrAccessibleAlwaysStr, keyData],
-                                         forKeys:[kSecClassStr, kSecAttrApplicationTagStr, kSecAttrKeySizeInBitsStr, kSecAttrAccessibleStr, kSecValueDataStr])
-                
-                let status = SecItemAdd(query as CFDictionary, nil)
-                
-                if status != errSecSuccess {
-                    NSLog("Failed to insert key data with error: \(status)")
-                    return nil
-                } else {
-                    return keyData
-                }
-            }
+    /// - Throws: CoreError.OSStatusFailure if fails.
+    public func key() throws -> Data {
+        guard let tag = identifier.data(using: String.Encoding.utf8) else {
+            throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        return nil
+        
+        let query = NSDictionary(objects:[kSec.classKey, tag, length, true],
+                                 forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.returnData])
+        
+        var dataRef : CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
+        
+        switch status {
+        case errSecSuccess:
+            let data = dataRef as! Data
+            return data
+        case -25308: // errKCInteractionNotAllowed
+            // If reading fails because app is not allowed (device locked)
+            // Fix cannot be applied because we cannot read the current keychain item.
+            throw CoreError.OSStatusFailure(status, "Failed to fetch Keychain because the device is locked (OSStatus: \(status)).")
+        default:
+            // If no pre-existing key from this application
+            
+            var keyData = Data(count: length)
+            let count = keyData.count
+            let result = keyData.withUnsafeMutableBytes { pointer in
+                return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
+            }
+            
+            if result == -1 {
+                NSLog("Error executing SecRandomCopyBytes()")
+            }
+            
+            let query = NSDictionary(objects:[kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
+                                     forKeys:[kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSecValueData])
+            
+            let status = SecItemAdd(query as CFDictionary, nil)
+            
+            guard status == errSecSuccess else {
+                throw CoreError.OSStatusFailure(status, "Failed to insert key data with OSStatus: \(status)")
+            }
+            return keyData
+        }
     }
 }

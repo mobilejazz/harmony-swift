@@ -16,7 +16,10 @@
 
 import Foundation
 
-public class AnyGetDataSource <T> : GetDataSource {
+///
+/// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
+///
+public final class AnyGetDataSource <T> : GetDataSource {
     private let box: GetDataSourceBoxBase<T>
     
     /// Default initializer.

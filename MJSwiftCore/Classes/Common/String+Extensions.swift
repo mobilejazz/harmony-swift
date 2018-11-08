@@ -22,8 +22,10 @@ private let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n",
 
 public extension String {
     
+    /// Creates a random string of the given length.
+    ///
+    /// - Parameter length: The length of the string.
     public init(randomOfLength length: UInt) {
-        
         var string = ""
         for _ in 0..<length {
             let randomIndex = Int(arc4random() % UInt32(alphabet.count))
@@ -32,10 +34,16 @@ public extension String {
         self = string
     }
     
+    /// Splits the string using the space character into an array of words.
+    ///
+    /// - Returns: An array of words.
     public func words() -> [String] {
         return components(separatedBy: " ")
     }
     
+    /// Returns the first word.
+    ///
+    /// - Returns: The first word.
     public func firstWord() -> String {
         if let first = self.words().first {
             return first
@@ -43,6 +51,9 @@ public extension String {
         return self
     }
     
+    /// Returns the last word.
+    ///
+    /// - Returns: The last word.
     public func lastWord() -> String {
         if let last = self.words().last {
             return last
@@ -50,17 +61,24 @@ public extension String {
         return self
     }
     
+    /// Removes the first word.
+    ///
+    /// - Returns: A string without the first word.
     public func deleteFirstWord() -> String {
         let words = self.words()
-        if words.count > 0 {
-            let first = words.first!
-            if first.count + 1 < self.count {
-                return replacingOccurrences(of: self,
-                                            with: "",
-                                            options: String.CompareOptions.anchored,
-                                            range: Range(NSMakeRange(0, first.count + 1), in: self))
-            }
+        
+        guard words.count > 0 else {
+            return ""
         }
-        return ""
+        
+        let first = words.first!
+        guard first.count + 1 < self.count  else {
+            return ""
+        }
+        
+        return replacingOccurrences(of: self,
+                                    with: "",
+                                    options: String.CompareOptions.anchored,
+                                    range: Range(NSMakeRange(0, first.count + 1), in: self))
     }
 }

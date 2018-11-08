@@ -16,7 +16,10 @@
 
 import Foundation
 
-public class AnyPutDataSource <T> : PutDataSource {
+///
+/// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
+///
+public final class AnyPutDataSource <T> : PutDataSource {
     private let box: PutDataSourceBoxBase<T>
     
     /// Default initializer.

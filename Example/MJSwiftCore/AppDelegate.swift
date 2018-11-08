@@ -10,7 +10,6 @@ import UIKit
 import MJCocoaCore
 import MJSwiftCore
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -31,8 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainVC = storyboard.instantiateInitialViewController()!
             container.set(mainVC, animation: .crossDisolve)
         }
-        
-        
+    
         return true
     }
     

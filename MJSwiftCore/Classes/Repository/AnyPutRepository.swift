@@ -19,7 +19,7 @@ import Foundation
 ///
 /// A type eraser for the PutRepository type, following Apple's Swift Standard Library approach.
 ///
-public class AnyPutRepository <T> : PutRepository {
+public final class AnyPutRepository <T> : PutRepository {
     
     private let box: PutRepositoryBoxBase<T>
     

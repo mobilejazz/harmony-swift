@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Assambles a CRUD data source into a single data source object
 ///
-public class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T {
+public final class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T {
     
     private let getDataSource : Get
     private let putDataSource : Put

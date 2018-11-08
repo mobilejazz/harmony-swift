@@ -25,7 +25,7 @@ private let defaultExecutor = DispatchQueueExecutor()
 public class KeychainGetInteractor {
     
     private let executor : Executor
-    private let keychain : Keychain
+    private let keychain : KeychainService
     private let key : String
     
     /// Default initializer
@@ -34,7 +34,7 @@ public class KeychainGetInteractor {
     ///   - executor: The executor to run the interactor
     ///   - keychain: The keychain instance
     ///   - key: The key to access the user defaults
-    public init(_ executor: Executor, _ keychain: Keychain, _ key : String) {
+    public init(_ executor: Executor, _ keychain: KeychainService, _ key : String) {
         self.executor = executor
         self.keychain = keychain
         self.key = key
@@ -45,7 +45,7 @@ public class KeychainGetInteractor {
     ///
     /// - Parameter key: The key to access the user defaults
     public convenience init(_ key : String) {
-        self.init(defaultExecutor, Keychain(), key)
+        self.init(defaultExecutor, KeychainService(), key)
     }
     
     /// Main execution method

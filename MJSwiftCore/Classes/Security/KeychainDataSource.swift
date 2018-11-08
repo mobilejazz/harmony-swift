@@ -17,13 +17,13 @@
 import Foundation
 
 //
-// Provides a keychain service for a key value interface
+// Provides a keychain service for a key value interface.
 //
 public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource where T : Codable {
     
-    private let keychain : Keychain
+    private let keychain : KeychainService
     
-    public init(_ keychain : Keychain) {
+    public init(_ keychain : KeychainService) {
         self.keychain = keychain
     }
     

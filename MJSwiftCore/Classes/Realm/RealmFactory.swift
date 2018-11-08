@@ -36,7 +36,7 @@ public class RealmFactory {
         var encryptionKey : Data?
         
         if let encryptionKeyName = encryptionKeyName {
-            encryptionKey = SecureKey(identifier: encryptionKeyName).key()
+            encryptionKey = try! SecureKey(identifier: encryptionKeyName).key()
             configuration.encryptionKey = encryptionKey
         } else {
             configuration.encryptionKey = nil
