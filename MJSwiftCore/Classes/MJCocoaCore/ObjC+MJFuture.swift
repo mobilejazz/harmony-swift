@@ -18,11 +18,11 @@ import Foundation
 import MJCocoaCore
 
 extension ObjC {
-    /// Use this method to wrap a sync access to a MJFuture.value and convert the error exception into a swfit error.
+    /// Private method to wrap a sync access to a MJFuture.value and convert the error exception into a swfit error.
     ///
     /// - Parameter closure: The closure where the future is accessed.
     /// - Throws: The MJFuture error if available.
-    public static func `try`(_ closure: @escaping () -> Void) throws {
+    private static func `try`(_ closure: @escaping () -> Void) throws {
         var finalError : Error? = nil
         self.try({
             closure()
