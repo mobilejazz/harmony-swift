@@ -70,6 +70,10 @@ public struct ObservableResolver<T> {
     public func set(value: T?, error: Error?) {
         observable?.set(value: value, error: error)
     }
+    
+    public func onDeinit(_ closure : @escaping () -> Void) {
+        observable?.onDeinit(closure)
+    }
 }
 
 extension ObservableResolver where T==Void {
@@ -161,6 +165,7 @@ public class Observable<T> {
     
     // Private variables
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
+    private var onDeinit: (() -> Void)?
     private var semaphore: DispatchSemaphore?
     private let lock = NSLock()
     private var success: ((_ value: T) -> Void)?
@@ -168,6 +173,10 @@ public class Observable<T> {
     
     /// Returns a hub associated to the current observable
     public private(set) lazy var hub = Hub(self)
+    
+    deinit {
+        onDeinit?()
+    }
     
     /// Default initializer
     public init(parent: Any? = nil) {
@@ -301,6 +310,15 @@ public class Observable<T> {
         onContentSet = { (_,_) in
             closure()
         }
+    }
+    
+    
+    
+    /// Closure called on deinit
+    ///
+    /// - Parameter closure: The closure to be executed on deinit.
+    public func onDeinit(_ closure: @escaping () -> Void) {
+        onDeinit = closure
     }
     
     /// Closure called right after content is set, without waiting the then closure.

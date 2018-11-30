@@ -2,6 +2,8 @@ use_frameworks!
 platform :ios, '9.0'
 
 target 'MJSwiftCore_Example' do
+  
+  pod 'Firebase/Firestore', '~> 5.13.0'
     
   pod 'MJSwiftCore', :path => '../'
   pod 'MJSwiftCore/Security', :path => '../'
