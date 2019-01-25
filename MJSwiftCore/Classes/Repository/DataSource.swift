@@ -120,7 +120,6 @@ public enum DataSourceCRUD : CustomStringConvertible {
     case putAll
     case delete
     case deleteAll
-    case custom(String)
     
     public var description: String {
         switch self {
@@ -130,7 +129,6 @@ public enum DataSourceCRUD : CustomStringConvertible {
         case .putAll: return "putAll"
         case .delete: return "delete"
         case .deleteAll: return "deleteAll"
-        case .custom(let string): return string
         }
     }
 }

@@ -20,7 +20,7 @@ extension Interactor {
     ///
     /// Generic delete object by query interactor
     ///
-    public class DeleteByQuery {
+    public class DeleteByQuery<T> {
         
         private let executor : Executor
         private let repository: DeleteRepository
@@ -62,7 +62,7 @@ extension Interactor {
             self.repository = repository
         }
         
-        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K : Hashable {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K:Hashable {
             self.init(executor, repository, IdQuery(id))
         }
         
@@ -120,7 +120,7 @@ extension Interactor {
             self.repository = repository
         }
         
-        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K : Hashable {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K:Hashable {
             self.init(executor, repository, IdQuery(id))
         }
         

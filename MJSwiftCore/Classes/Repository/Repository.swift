@@ -16,34 +16,6 @@
 
 import Foundation
 
-public enum RepositoryCRUD : CustomStringConvertible {
-    case get
-    case getAll
-    case put
-    case putAll
-    case delete
-    case deleteAll
-    case custom(String)
-    
-    public var description: String {
-        switch self {
-        case .get: return "get"
-        case .getAll: return "getAll"
-        case .put: return "put"
-        case .putAll: return "putAll"
-        case .delete: return "delete"
-        case .deleteAll: return "deleteAll"
-        case .custom(let string): return string
-        }
-    }
-}
-
-extension Operation {
-    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
-        Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
-    }
-}
-
 public protocol Repository { }
 
 public protocol GetRepository : Repository {
@@ -70,6 +42,22 @@ extension GetRepository {
     
     public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
         return getAll(IdQuery(id), operation: operation)
+    }
+    
+    public func toGetByQueryInteractor(_ executor: Executor) -> Interactor.GetByQuery<T> {
+        return Interactor.GetByQuery(executor, self)
+    }
+    
+    public func toGetInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Get<T> where K:Hashable {
+        return Interactor.Get<T>(executor, self, id)
+    }
+    
+    public func toGetAllByQueryInteractor(_ executor: Executor) -> Interactor.GetAllByQuery<T> {
+        return Interactor.GetAllByQuery(executor, self)
+    }
+    
+    public func toGetAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.GetAll<T> where K:Hashable {
+        return Interactor.GetAll<T>(executor, self, id)
     }
 }
 
@@ -102,6 +90,22 @@ extension PutRepository {
     public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
         return putAll(array, in: IdQuery(id), operation: operation)
     }
+    
+    public func toPutByQueryInteractor(_ executor: Executor) -> Interactor.PutByQuery<T> {
+        return Interactor.PutByQuery(executor, self)
+    }
+    
+    public func toPutInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Put<T> where K:Hashable {
+        return Interactor.Put<T>(executor, self, id)
+    }
+    
+    public func toPutAllByQueryInteractor(_ executor: Executor) -> Interactor.PutAllByQuery<T> {
+        return Interactor.PutAllByQuery(executor, self)
+    }
+    
+    public func toPutAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.PutAll<T> where K:Hashable {
+        return Interactor.PutAll<T>(executor, self, id)
+    }
 }
 
 public protocol DeleteRepository : Repository {
@@ -130,5 +134,47 @@ extension DeleteRepository {
     @discardableResult
     public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
         return deleteAll(IdQuery(id), operation: operation)
+    }
+    
+    public func toDeleteByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteByQuery<T> {
+        return Interactor.DeleteByQuery<T>(executor, self)
+    }
+    
+    public func toDeleteInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.Delete<T> where K:Hashable {
+        return Interactor.Delete<T>(executor, self, id)
+    }
+    
+    public func toDeleteAllByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteAllByQuery<T> {
+        return Interactor.DeleteAllByQuery<T>(executor, self)
+    }
+    
+    public func toDeleteAllInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.DeleteAll<T> where K:Hashable {
+        return Interactor.DeleteAll<T>(executor, self, id)
+    }
+}
+
+public enum RepositoryCRUD : CustomStringConvertible {
+    case get
+    case getAll
+    case put
+    case putAll
+    case delete
+    case deleteAll
+    
+    public var description: String {
+        switch self {
+        case .get: return "get"
+        case .getAll: return "getAll"
+        case .put: return "put"
+        case .putAll: return "putAll"
+        case .delete: return "delete"
+        case .deleteAll: return "deleteAll"
+        }
+    }
+}
+
+extension Operation {
+    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
+        Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }

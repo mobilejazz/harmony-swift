@@ -25,7 +25,7 @@ extension Interactor {
         private let executor : Executor
         private let repository: AnyGetRepository<T>
         
-        public required init<R>(_ executor: Executor, _ repository: R) where R : GetRepository, R.T == T {
+        public required init<R>(_ executor: Executor, _ repository: R) where R:GetRepository, R.T == T {
             self.executor = executor
             self.repository = repository.asAnyGetRepository()
         }
@@ -60,7 +60,7 @@ extension Interactor {
             self.repository = repository.asAnyGetRepository()
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : GetRepository, R.T == T {
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:GetRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
         
@@ -115,7 +115,7 @@ extension Interactor {
             self.repository = repository.asAnyGetRepository()
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : GetRepository, R.T == T {
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:GetRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
         

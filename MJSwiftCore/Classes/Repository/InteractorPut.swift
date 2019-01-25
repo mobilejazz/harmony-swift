@@ -25,7 +25,7 @@ extension Interactor {
         private let executor : Executor
         private let repository: AnyPutRepository<T>
         
-        public required init<R>(_ executor: Executor, _ repository: R) where R : PutRepository, R.T == T {
+        public required init<R>(_ executor: Executor, _ repository: R) where R:PutRepository, R.T == T {
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
@@ -56,13 +56,13 @@ extension Interactor {
         private let executor : Executor
         private let repository: AnyPutRepository<T>
         
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : PutRepository, R.T == T {
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R:PutRepository, R.T == T {
             self.query = query
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : PutRepository, R.T == T {
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:PutRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
         
@@ -114,13 +114,13 @@ extension Interactor {
         private let executor : Executor
         private let repository: AnyPutRepository<T>
         
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R : PutRepository, R.T == T {
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R:PutRepository, R.T == T {
             self.query = query
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
         
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K : Hashable, R : PutRepository, R.T == T {
+        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:PutRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
         
