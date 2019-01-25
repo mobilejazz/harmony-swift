@@ -80,14 +80,14 @@ public protocol PutRepository : Repository {
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
     @discardableResult
     func put(_ value: T?, in query: Query, operation: Operation) -> Future<T>
     
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
     @discardableResult
     func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]>
 }
@@ -109,14 +109,14 @@ public protocol DeleteRepository : Repository {
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    /// - Returns: A future of Void type.
     @discardableResult
     func delete(_ query: Query, operation: Operation) -> Future<Void>
     
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
-    /// - Returns: A future of Boolean type. If the operation succeeds, the future will be resolved as true.
+    /// - Returns: A future of Void type.
     @discardableResult
     func deleteAll(_ query: Query, operation: Operation) -> Future<Void>
 }
