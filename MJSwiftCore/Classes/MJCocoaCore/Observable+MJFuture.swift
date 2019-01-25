@@ -435,25 +435,25 @@ public extension Observable where T == Double? {
 // -- -- -- -- -- -- -- - -- -- -- -- -- //
 
 public extension MJFuture where T == NSString {
-    public func toFuture() -> Observable<String?> {
+    public func toObservable() -> Observable<String?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSURL {
-    public func toFuture() -> Observable<URL?> {
+    public func toObservable() -> Observable<URL?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSDate {
-    public func toFuture() -> Observable<Date?> {
+    public func toObservable() -> Observable<Date?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSData {
-    public func toFuture() -> Observable<Data?> {
+    public func toObservable() -> Observable<Data?> {
         return Observable(mjfuture:self)
     }
 }
