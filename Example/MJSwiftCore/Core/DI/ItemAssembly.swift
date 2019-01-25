@@ -55,7 +55,7 @@ class ItemAssembly: Assembly {
                                           toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
         
         // Interactors
-        // container.register(Interactor.GetAllByQuery<Item>.self) { r in Interactor.GetAllByQuery<Item>(DispatchQueueExecutor(), repository) }
-        container.register(Interactor.GetAll<Item>.self) { r in Interactor.GetAll<Item>(DispatchQueueExecutor(), repository, AllObjectsQuery()) }
+        //container.register(Interactor.GetAllByQuery<Item>.self) { _ in repository.toGetAllByQueryInteractor(DispatchQueueExecutor()) }
+        container.register(Interactor.GetAll<Item>.self) { _ in repository.toGetAllInteractor(DispatchQueueExecutor(), AllObjectsQuery()) }
     }
 }
