@@ -1,55 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
-  - BoringSSL (10.0.6):
-    - BoringSSL/Implementation (= 10.0.6)
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Implementation (10.0.6):
-    - BoringSSL/Interface (= 10.0.6)
-  - BoringSSL/Interface (10.0.6)
-  - Firebase/CoreOnly (5.13.0):
-    - FirebaseCore (= 5.1.8)
-  - Firebase/Firestore (5.13.0):
-    - Firebase/CoreOnly
-    - FirebaseFirestore (= 0.15.0)
-  - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (5.1.8):
-    - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseFirestore (0.15.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.1)
-    - FirebaseFirestore/abseil-cpp (= 0.15.0)
-    - "gRPC-C++ (~> 0.0.3)"
-    - leveldb-library (~> 1.20)
-    - nanopb (~> 0.3.8)
-    - Protobuf (~> 3.1)
-  - FirebaseFirestore/abseil-cpp (0.15.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 5.1)
-    - "gRPC-C++ (~> 0.0.3)"
-    - leveldb-library (~> 1.20)
-    - nanopb (~> 0.3.8)
-    - Protobuf (~> 3.1)
-  - GoogleUtilities/Environment (5.3.6)
-  - GoogleUtilities/Logger (5.3.6):
-    - GoogleUtilities/Environment
-  - "gRPC-C++ (0.0.5)":
-    - "gRPC-C++/Implementation (= 0.0.5)"
-    - "gRPC-C++/Interface (= 0.0.5)"
-  - "gRPC-C++/Implementation (0.0.5)":
-    - "gRPC-C++/Interface (= 0.0.5)"
-    - gRPC-Core (= 1.14.0)
-    - nanopb (~> 0.3)
-  - "gRPC-C++/Interface (0.0.5)"
-  - gRPC-Core (1.14.0):
-    - gRPC-Core/Implementation (= 1.14.0)
-    - gRPC-Core/Interface (= 1.14.0)
-  - gRPC-Core/Implementation (1.14.0):
-    - BoringSSL (~> 10.0)
-    - gRPC-Core/Interface (= 1.14.0)
-    - nanopb (~> 0.3)
-  - gRPC-Core/Interface (1.14.0)
-  - Kingfisher (4.10.0)
-  - leveldb-library (1.20)
+  - Kingfisher (5.1.0)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.10)
@@ -81,25 +32,18 @@ PODS:
   - MJSwiftCore/Security (0.9.0):
     - MJSwiftCore/Repository
   - MJSwiftCore/Vastra (0.9.0)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
-  - PromisesObjC (1.2.3)
-  - PromisesSwift (1.2.3):
-    - PromisesObjC (= 1.2.3)
-  - Protobuf (3.6.1)
+  - PromisesObjC (1.2.5)
+  - PromisesSwift (1.2.5):
+    - PromisesObjC (= 1.2.5)
   - Realm (3.9.0):
     - Realm/Headers (= 3.9.0)
   - Realm/Headers (3.9.0)
   - RealmSwift (3.9.0):
     - Realm (= 3.9.0)
-  - Swinject (2.4.1)
+  - Swinject (2.5.0)
 
 DEPENDENCIES:
-  - Firebase/Firestore (~> 5.13.0)
-  - Kingfisher (~> 4.9)
+  - Kingfisher (~> 5.1)
   - MJSwiftCore (from `../`)
   - MJSwiftCore/Alamofire (from `../`)
   - MJSwiftCore/iOS (from `../`)
@@ -109,27 +53,16 @@ DEPENDENCIES:
   - MJSwiftCore/Security (from `../`)
   - MJSwiftCore/Vastra (from `../`)
   - PromisesSwift (~> 1.2)
-  - Swinject (~> 2.4.1)
+  - Swinject (~> 2.5)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - BoringSSL
-    - Firebase
-    - FirebaseAuthInterop
-    - FirebaseCore
-    - FirebaseFirestore
-    - GoogleUtilities
-    - "gRPC-C++"
-    - gRPC-Core
     - Kingfisher
-    - leveldb-library
     - MJCocoaCore
     - MJObjection
-    - nanopb
     - PromisesObjC
     - PromisesSwift
-    - Protobuf
     - Realm
     - RealmSwift
     - Swinject
@@ -140,27 +73,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
-  Firebase: 6df9a6114bc9f106a98fe83d5438d4d9833c2019
-  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: fba2bfaa691c49028309b92e4dd37cc4b5512fbe
-  FirebaseFirestore: 9e9411f13a0aba72d4f631899611d09e43734c48
-  GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
-  "gRPC-C++": 19eec1ffd34de29453f5fab5b4697ad0f240ad51
-  gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
-  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
-  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
   MJSwiftCore: 94c804314151097c418ace6112c10cc7741808ce
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  PromisesObjC: a3a4263d8a9260214267e0b3788d0f83466ad449
-  PromisesSwift: f7f45c21986419e85f7c5b645ed8c6a2c10c04b4
-  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  PromisesObjC: 2b402ef5333bb9b436c74ee1bd7dcb2511b68caf
+  PromisesSwift: 63d93b8cc31b4245ca1014ff5cc24d6ae952a274
   Realm: 3d36f208bf3aff8335dc3298742140182bde4edb
   RealmSwift: aa4d11917bfcfaa3ed51f219102a487ecd895447
-  Swinject: f7f15a9672e99328c1f07f277091087917215700
+  Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: e3ca8322f39ccd1794dfd3850754c44343c44da3
+PODFILE CHECKSUM: 97b875d4a6fc6ce3f00d49cd0d2b3d6d3d435f00
 
 COCOAPODS: 1.6.0.beta.2

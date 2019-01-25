@@ -1,10 +1,8 @@
 use_frameworks!
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'MJSwiftCore_Example' do
   
-  pod 'Firebase/Firestore', '~> 5.13.0'
-    
   pod 'MJSwiftCore', :path => '../'
   pod 'MJSwiftCore/Security', :path => '../'
   pod 'MJSwiftCore/Vastra', :path => '../'
@@ -14,9 +12,8 @@ target 'MJSwiftCore_Example' do
   pod 'MJSwiftCore/MJCocoaCore', :path => '../'
   pod 'MJSwiftCore/Objection', :path => '../'
 
-  pod 'Swinject', '~> 2.4.1'
-  pod 'Kingfisher', '~> 4.9'
-  
+  pod 'Swinject', '~> 2.5'
+  pod 'Kingfisher', '~> 5.1'
   pod 'PromisesSwift', '~> 1.2'
 
   target 'MJSwiftCore_Tests' do
