@@ -93,9 +93,9 @@ public class MockMapper <From,To> : Mapper <From,To> {
 }
 
 ///
-/// BlankMapper returns the same value
+/// IdentityMapper returns the same value
 ///
-public class BlankMapper <T> : Mapper <T,T> {
+public class IdentityMapper <T> : Mapper <T,T> {
     public override func map(_ from: T) throws -> T {
         return from
     }
