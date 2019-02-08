@@ -464,6 +464,7 @@
 		D1BFFF9CCD44B393D6A4235D2B243884 /* InteractorDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD4363B1001D6044685B54BA81DE864 /* InteractorDelete.swift */; };
 		D1E234D6B55499561C243FFA2CC7A2CE /* Observable+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE611DBCE42A111591693C9884E3C6 /* Observable+Time.swift */; };
 		D1E5B1B9103E3C56F61A27AB781B119B /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863C93F88FF2BBFC92C94F42CFF1BCE9 /* DebugHelper.swift */; };
+		D252040F220DBDEC00C79911 /* TimedCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D252040D220DBDE100C79911 /* TimedCacheDataSource.swift */; };
 		D2857DF273CE2EF71A0F452B582E2384 /* FBLPromiseError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CE79BCFD2A333825B143CF3365A596B /* FBLPromiseError.h */; };
 		D348D024C9886C7BB794E90952D1681E /* RLMRealm.h in Headers */ = {isa = PBXBuildFile; fileRef = 35E462A03C359EA266BBAA3EA5F1E456 /* RLMRealm.h */; };
 		D3525D7E831A2F10692B9521731E402E /* RLMSyncSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E28B13EFA8B875406FA57E92E432CDC /* RLMSyncSession.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
@@ -1706,6 +1707,7 @@
 		D15562D0F9059E4A5F3620BDE016E390 /* RealmSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RealmSwift-umbrella.h"; sourceTree = "<group>"; };
 		D1B8FE0301E04E0D79D2EE3E2A92E5A5 /* SynchronizedResolver.Arguments.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SynchronizedResolver.Arguments.swift; path = Sources/SynchronizedResolver.Arguments.swift; sourceTree = "<group>"; };
 		D24057C2D5C1D0DE2253A34CDA53DB44 /* RealmSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RealmSwift-dummy.m"; sourceTree = "<group>"; };
+		D252040D220DBDE100C79911 /* TimedCacheDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedCacheDataSource.swift; sourceTree = "<group>"; };
 		D25E8C525B373665C8895D2C2830318E /* Date.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Date.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Extensions/Date.html; sourceTree = "<group>"; };
 		D2ADE4B53C747C60026F60E8A4C43095 /* Pods-MJSwiftCore_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MJSwiftCore_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		D2B2FB89EDFB372ED7FB163D60579B16 /* Decimal.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Decimal.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Extensions/Decimal.html; sourceTree = "<group>"; };
@@ -2194,6 +2196,7 @@
 				5DEC51757B8BAD6C311B19BB22E4EB0D /* DataSourceValidator.swift */,
 				6F61E79A2137F1D88FFF14D0594DEBCD /* DeviceStorageDataSource.swift */,
 				87A934CE142F5EC83DE9A7ED9244E9ED /* InMemoryDataSource.swift */,
+				D252040D220DBDE100C79911 /* TimedCacheDataSource.swift */,
 				7D7ADCB5023A8EB97D3D9EFA7EC62CFA /* Interactor.swift */,
 				7CD4363B1001D6044685B54BA81DE864 /* InteractorDelete.swift */,
 				59216C2D4C5482785CE5194F97430ABF /* InteractorGet.swift */,
@@ -4322,6 +4325,7 @@
 				571AB9622FBD7DE725F90D5002DFB171 /* MultiRequestRetrier.swift in Sources */,
 				7EE5173B318D42203A91CCBF06075515 /* MutableCodingKey.swift in Sources */,
 				68D8442CC1B26FCE2533112B5088B62D /* NetworkStorageRepository.swift in Sources */,
+				D252040F220DBDEC00C79911 /* TimedCacheDataSource.swift in Sources */,
 				F9BDECB615BE3A651567CA8E782A6D05 /* ObjC+MJFuture.swift in Sources */,
 				FBCBCCE7B8056C588255914E7801CFF8 /* ObjC.m in Sources */,
 				20C9B533DDC6EBEC7E23307C7A8B8A02 /* Observable+Batch.swift in Sources */,
