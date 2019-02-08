@@ -133,3 +133,29 @@ extension Interactor {
         }
     }
 }
+
+extension PutRepository {
+    public func toPutByQueryInteractor(_ executor: Executor) -> Interactor.PutByQuery<T> {
+        return Interactor.PutByQuery(executor, self)
+    }
+    
+    public func toPutInteractor(_ executor: Executor, _ query : Query) -> Interactor.Put<T> {
+        return Interactor.Put<T>(executor, self, query)
+    }
+    
+    public func toPutInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Put<T> where K:Hashable {
+        return Interactor.Put<T>(executor, self, id)
+    }
+    
+    public func toPutAllByQueryInteractor(_ executor: Executor) -> Interactor.PutAllByQuery<T> {
+        return Interactor.PutAllByQuery(executor, self)
+    }
+    
+    public func toPutAllInteractor(_ executor: Executor, _ query : Query) -> Interactor.PutAll<T> {
+        return Interactor.PutAll<T>(executor, self, query)
+    }
+    
+    public func toPutAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.PutAll<T> where K:Hashable {
+        return Interactor.PutAll<T>(executor, self, id)
+    }
+}

@@ -127,3 +127,29 @@ extension Interactor {
         }
     }
 }
+
+extension GetRepository {
+    public func toGetByQueryInteractor(_ executor: Executor) -> Interactor.GetByQuery<T> {
+        return Interactor.GetByQuery(executor, self)
+    }
+    
+    public func toGetInteractor(_ executor: Executor, _ query : Query) -> Interactor.Get<T> {
+        return Interactor.Get<T>(executor, self, query)
+    }
+    
+    public func toGetInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Get<T> where K:Hashable {
+        return Interactor.Get<T>(executor, self, id)
+    }
+    
+    public func toGetAllByQueryInteractor(_ executor: Executor) -> Interactor.GetAllByQuery<T> {
+        return Interactor.GetAllByQuery(executor, self)
+    }
+    
+    public func toGetAllInteractor(_ executor: Executor, _ query : Query) -> Interactor.GetAll<T> {
+        return Interactor.GetAll<T>(executor, self, query)
+    }
+    
+    public func toGetAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.GetAll<T> where K:Hashable {
+        return Interactor.GetAll<T>(executor, self, id)
+    }
+}

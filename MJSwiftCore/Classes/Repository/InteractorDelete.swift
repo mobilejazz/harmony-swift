@@ -133,3 +133,29 @@ extension Interactor {
         }
     }
 }
+
+extension DeleteRepository {
+    public func toDeleteByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteByQuery<T> {
+        return Interactor.DeleteByQuery<T>(executor, self)
+    }
+    
+    public func toDeleteInteractor<T>(_ executor: Executor, _ query : Query) -> Interactor.Delete<T> {
+        return Interactor.Delete<T>(executor, self, query)
+    }
+    
+    public func toDeleteInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.Delete<T> where K:Hashable {
+        return Interactor.Delete<T>(executor, self, id)
+    }
+    
+    public func toDeleteAllByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteAllByQuery<T> {
+        return Interactor.DeleteAllByQuery<T>(executor, self)
+    }
+    
+    public func toDeleteAllInteractor<T>(_ executor: Executor, _ query : Query) -> Interactor.DeleteAll<T> {
+        return Interactor.DeleteAll<T>(executor, self, query)
+    }
+    
+    public func toDeleteAllInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.DeleteAll<T> where K:Hashable {
+        return Interactor.DeleteAll<T>(executor, self, id)
+    }
+}
