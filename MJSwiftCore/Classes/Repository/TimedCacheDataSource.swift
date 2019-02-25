@@ -17,9 +17,9 @@
 import Foundation
 
 fileprivate func print(_ object: String) {
-#if DEBUG
+    #if DEBUG
     Swift.print(object)
-#endif
+    #endif
 }
 
 ///
@@ -54,12 +54,11 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
             if let cached = objects[query.key], isValid(cached.date) {
                 return Future(cached.object)
             }
-            return dataSource.get(query).filter { object in
+            return dataSource.get(query).then { object in
                 self.objects[query.key] = (object, Date())
-                }.recover { error in
+                }.fail { error in
                     self.objects[query.key] = nil
-                    return Future(error)
-                }
+            }
         default:
             print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).get call because \(type(of: query)) doesn't conform to KeyQuery.")
             return dataSource.get(query)
@@ -72,11 +71,10 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
             if let cached = arrays[query.key], isValid(cached.date) {
                 return Future(cached.array)
             }
-            return dataSource.getAll(query).filter { array in
+            return dataSource.getAll(query).then { array in
                 self.arrays[query.key] = (array, Date())
-                }.recover { error in
+                }.fail { error in
                     self.arrays[query.key] = nil
-                    return Future(error)
             }
         default:
             print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).getAll call because \(type(of: query)) doesn't conform to KeyQuery.")
@@ -88,11 +86,11 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
     public func put(_ value: T? = nil, in query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
-            return dataSource.put(value, in: query).filter { object in
-                    self.objects[query.key] = (object, Date())
-                }.recover { error in
-                    return Future(error)
-                }
+            return dataSource.put(value, in: query).then { object in
+                self.objects[query.key] = (object, Date())
+                }.fail { error in
+                    self.objects[query.key] = nil
+            }
         default:
             print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).put call because \(type(of: query)) doesn't conform to KeyQuery.")
             return dataSource.put(value, in: query)
@@ -103,10 +101,10 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
-            return dataSource.putAll(array, in: query).filter { array in
+            return dataSource.putAll(array, in: query).then { array in
                 self.arrays[query.key] = (array, Date())
-                }.recover { error in
-                    return Future(error)
+                }.fail { error in
+                    self.arrays[query.key] = nil
             }
         default:
             print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).putAll call because \(type(of: query)) doesn't conform to KeyQuery.")
@@ -118,7 +116,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
-            return dataSource.delete(query).filter { _ in
+            return dataSource.delete(query).onCompletion {
                 self.objects[query.key] = nil
             }
         default:
@@ -131,7 +129,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
-            return dataSource.delete(query).filter { _ in
+            return dataSource.delete(query).onCompletion {
                 self.arrays[query.key] = nil
             }
         default:
