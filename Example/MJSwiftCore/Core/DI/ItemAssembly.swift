@@ -48,8 +48,8 @@ class ItemAssembly: Assembly {
         let storageValidationDataSource = DataSourceValidator(dataSource: storageDataSource, validator: vastra)
         
         // Repository
-        let networkStorageRepo = NetworkStorageRepository(network: networkDataSource,
-                                                          storage: storageValidationDataSource)
+        let networkStorageRepo = FastSlowRepository(slow: networkDataSource,
+                                                    fast: storageValidationDataSource)
         let repository = RepositoryMapper(repository: networkStorageRepo,
                                           toInMapper: EncodableToDecodableMapper<Item, ItemEntity>(), // ItemToItemEntityMapper(),
                                           toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())

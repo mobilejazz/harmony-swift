@@ -29,10 +29,10 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.loadItems(StorageSyncOperation())
+        self.loadItems()
     }
     
-    private func loadItems(_ operation: MJSwiftCore.Operation) {
+    private func loadItems(_ operation: MJSwiftCore.Operation = FastSyncOperation()) {
         self.itemListView.onShowProgressHud()
         getItemsInteractor.execute(operation).then { items in
             self.itemListView.onHideProgressHud()
@@ -56,7 +56,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
     }
     
     func onEventReloadList() {
-        loadItems(NetworkSyncOperation())
+        loadItems(SlowSyncOperation())
     }
     
     // MARK: Segues
