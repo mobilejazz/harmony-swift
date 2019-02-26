@@ -102,6 +102,34 @@ public extension Future {
         }
     }
     
+    /// Intercepts the error (if available) and returns a new future of type T
+    ///
+    /// - Parameters:
+    ///    - error: The error type to recover only.
+    ///    - executor: An optional executor to execute the closure.
+    ///    - closure: The recover closure
+    /// - Returns: A chained future
+    public func recoverIf<E:Error>(_ errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
+        return Future { resolver in
+            resolve(success: {value in
+                executor.submit { resolver.set(value) }
+            }, failure: { error in
+                executor.submit {
+                    switch error {
+                    case let error as E:
+                        do {
+                            resolver.set(try closure(error))
+                        } catch let error {
+                            resolver.set(error)
+                        }
+                    default:
+                        resolver.set(error)
+                    }
+                }
+            })
+        }
+    }
+    
     /// Notifies completion of the future in both success or failure state.
     ///
     /// - Parameters:
