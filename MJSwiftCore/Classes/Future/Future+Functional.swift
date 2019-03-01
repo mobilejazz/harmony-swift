@@ -109,7 +109,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    public func recoverIf<E:Error>(_ errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
+    public func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
