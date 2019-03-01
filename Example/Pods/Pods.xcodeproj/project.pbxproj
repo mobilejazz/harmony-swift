@@ -240,7 +240,7 @@
 		67714230BD670D9B182D8ADB245BE356 /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755507CA0B13B29FB1D5E81BD7EDC31 /* Future+Batch.swift */; };
 		6784821711BC4A187C3CE7E28D256BBB /* RLMAccessor.h in Copy . Private Headers */ = {isa = PBXBuildFile; fileRef = 6FE5529C604840E356024BC1A9C397F9 /* RLMAccessor.h */; };
 		68195F7E38C9D67BCA0E1C511D7D006B /* RLMPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B0D5D2BFBE4800E32AEC0BC0D471A8D /* RLMPlatform.h */; };
-		68D8442CC1B26FCE2533112B5088B62D /* NetworkStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBF35D0181DE5FCAA2F245AC7458132 /* NetworkStorageRepository.swift */; };
+		68D8442CC1B26FCE2533112B5088B62D /* CacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBF35D0181DE5FCAA2F245AC7458132 /* CacheRepository.swift */; };
 		6A681A652740169D427403B88EA4A5B6 /* RLMObjectBase.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 84977DB1D45312F888591B842B47FAB2 /* RLMObjectBase.h */; };
 		6A6D2EC2051D4A3ED3D533E2B366791E /* RLMCollection.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA58880F6FC97B80AF2E0B62AAE488FF /* RLMCollection.mm */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.9.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		6A96C08D8BBD7D2BC421245BEDF4A86B /* _Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF353FE228FAD208C3C84D3663C1342B /* _Resolver.swift */; };
@@ -1691,7 +1691,7 @@
 		CDDCB499665957B2D57DEF47D8AAD790 /* VastraService.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = VastraService.html; path = docs/Classes/VastraService.html; sourceTree = "<group>"; };
 		CE090136EC8EA6D854007016B16AF30C /* GetDataSourceBoxBase.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = GetDataSourceBoxBase.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/GetDataSourceBoxBase.html; sourceTree = "<group>"; };
 		CE6A44C1801D24DC53F54DF16D3BDF27 /* PutDataSourceBox.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = PutDataSourceBox.html; path = docs/Classes/PutDataSourceBox.html; sourceTree = "<group>"; };
-		CEBF35D0181DE5FCAA2F245AC7458132 /* NetworkStorageRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkStorageRepository.swift; sourceTree = "<group>"; };
+		CEBF35D0181DE5FCAA2F245AC7458132 /* CacheRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CacheRepository.swift; sourceTree = "<group>"; };
 		CF340EFE501F01DEB6B7923CB81E438E /* uuid.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = uuid.cpp; path = Realm/ObjectStore/src/util/uuid.cpp; sourceTree = "<group>"; };
 		CF6DE4A7AFBE122DA82BD5DB0CB3799A /* FBLPromise+Await.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Await.m"; path = "Sources/FBLPromises/FBLPromise+Await.m"; sourceTree = "<group>"; };
 		CF9A4282F510835A59269C08411D6E8C /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Image/Filter.swift; sourceTree = "<group>"; };
@@ -2188,6 +2188,7 @@
 				3DF319A41B4FFC87316BC08345D263EE /* AnyPutDataSource.swift */,
 				DF274591B71C46D25830682A7D946A71 /* AnyPutRepository.swift */,
 				E6757447BE2A972596100861FF25B177 /* AnyRepository.swift */,
+				CEBF35D0181DE5FCAA2F245AC7458132 /* CacheRepository.swift */,
 				91B2735986BBA9C5FEC8A2C3F64B2A67 /* ClassError.swift */,
 				2C823E503417FD546FF3F4FB312C5926 /* CoreError.swift */,
 				7FFD9305441FC30822E42821CEA2054F /* DataSource.swift */,
@@ -2203,7 +2204,6 @@
 				FAEA18B77F16847E8D849F1E06D13BA3 /* Mapper.swift */,
 				86847138AADFDB9C26AC49FB393FC9D8 /* Mapper+Codable.swift */,
 				9E1F6E0D46C44015E0660FC5EC86F9FC /* Mapper+NSCoding.swift */,
-				CEBF35D0181DE5FCAA2F245AC7458132 /* NetworkStorageRepository.swift */,
 				FA0B18BBD2922BDD39B8958877E8E650 /* Operation.swift */,
 				FD2112ABC8FF1646743E18F567554E90 /* Query.swift */,
 				8DF3F3B4D881CF3DA9CFD52513D4F791 /* Repository.swift */,
@@ -4324,7 +4324,7 @@
 				A0F0473F85A42EB0ABF5889C1E8E7714 /* MultiRequestAdapter.swift in Sources */,
 				571AB9622FBD7DE725F90D5002DFB171 /* MultiRequestRetrier.swift in Sources */,
 				7EE5173B318D42203A91CCBF06075515 /* MutableCodingKey.swift in Sources */,
-				68D8442CC1B26FCE2533112B5088B62D /* NetworkStorageRepository.swift in Sources */,
+				68D8442CC1B26FCE2533112B5088B62D /* CacheRepository.swift in Sources */,
 				D252040F220DBDEC00C79911 /* TimedCacheDataSource.swift in Sources */,
 				F9BDECB615BE3A651567CA8E782A6D05 /* ObjC+MJFuture.swift in Sources */,
 				FBCBCCE7B8056C588255914E7801CFF8 /* ObjC.m in Sources */,
