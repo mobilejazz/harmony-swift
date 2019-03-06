@@ -39,9 +39,9 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     private let main: M
     private let cache: C
     
-    public init(slow: M, fast: C) {
-        self.main = slow
-        self.cache = fast
+    public init(main: M, cache: C) {
+        self.main = main
+        self.cache = cache
     }
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
