@@ -19,13 +19,13 @@ import Foundation
 /// MainOperation: Data processing will only use the "main data source".
 public class MainOperation : Operation { public init () { } }
 
-/// MainSyncOperation: Data processing will use the "main data source" and then sync result with the "cache data source" if needed.
+/// MainSyncOperation: Data processing will use the "main data source" and then sync result with the "cache data source".
 public class MainSyncOperation : Operation { public init () { } }
 
 /// CacheOperation: Data processing will only use the "cache data source".
 public class CacheOperation : Operation { public init () { } }
 
-/// CacheSyncOperation: Data processing will use the "cache data source" and sync with the "main data source" if needed.
+/// CacheSyncOperation: Data processing will use the "cache data source" and sync with the "main data source".
 public class CacheSyncOperation : Operation { public init () { } }
 
 ///
@@ -33,6 +33,8 @@ public class CacheSyncOperation : Operation { public init () { } }
 ///
 /// Using the `MainOperation`, `MainSyncOperation`, `CacheOperation` and `CacheSyncOperation`, the end user can access the fast or slow data source.
 /// A typical example of usage is using this repository to alternate between a network-based data source (main data source) and a local cache storage data source (cache data source).
+///
+/// Note that by using the `DefaultOperation`, the CacheRepository will act as a regular cache: behaving as a `CacheSyncOperation` on GET methods and behaving as a `MainSyncOperation` on PUT and DELETE methods.
 ///
 public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteRepository where M:GetDataSource, M:PutDataSource, M:DeleteDataSource, C:GetDataSource, C:PutDataSource, C:DeleteDataSource, M.T == T, C.T == T {
     
@@ -46,6 +48,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
         switch operation {
+        case is DefaultOperation:
+            return get(query, operation: CacheSyncOperation())
         case is MainOperation:
             return main.get(query)
         case is CacheOperation:
@@ -70,6 +74,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
+        case is DefaultOperation:
+            return getAll(query, operation: CacheSyncOperation())
         case is MainOperation:
             return main.getAll(query)
         case is CacheOperation:
@@ -95,6 +101,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
+        case is DefaultOperation:
+            return put(value, in: query, operation: MainSyncOperation())
         case is MainOperation:
             return main.put(value, in: query)
         case is CacheOperation:
@@ -115,6 +123,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
+        case is DefaultOperation:
+            return putAll(array, in: query, operation: MainSyncOperation())
         case is MainOperation:
             return main.putAll(array, in: query)
         case is CacheOperation:
@@ -135,6 +145,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     @discardableResult
     public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
+        case is DefaultOperation:
+            return delete(query, operation: MainSyncOperation())
         case is MainOperation:
             return main.delete(query)
         case is CacheOperation:
@@ -155,6 +167,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
+        case is DefaultOperation:
+            return delete(query, operation: MainSyncOperation())
         case is MainOperation:
             return main.deleteAll(query)
         case is CacheOperation:
