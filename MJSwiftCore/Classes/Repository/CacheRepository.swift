@@ -168,7 +168,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
         case is DefaultOperation:
-            return delete(query, operation: MainSyncOperation())
+            return deleteAll(query, operation: MainSyncOperation())
         case is MainOperation:
             return main.deleteAll(query)
         case is CacheOperation:
