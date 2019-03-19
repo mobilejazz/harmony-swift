@@ -75,6 +75,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
         switch operation {
+        case is DefaultOperation:
+            return get(query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.get(query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
@@ -90,6 +92,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
+        case is DefaultOperation:
+            return getAll(query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.getAll(query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
@@ -106,6 +110,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
+        case is DefaultOperation:
+            return put(value, in: query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.put(value, in: query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
@@ -122,6 +128,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
+        case is DefaultOperation:
+            return putAll(array, in: query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.putAll(array, in: query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
@@ -138,6 +146,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     @discardableResult
     public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
+        case is DefaultOperation:
+            return delete(query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.delete(query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
@@ -154,6 +164,8 @@ public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteReposit
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
+        case is DefaultOperation:
+            return deleteAll(query, operation: RetryOperation(DefaultOperation()))
         case let retryOp as RetryOperation:
             return repository.deleteAll(query, operation: retryOp.operation).recover { error in
                 if retryOp.canRetry(error) {
