@@ -27,17 +27,26 @@ public class BaseURLRequestAdapter: RequestAdapter {
     }
     
     public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-        if urlRequest.url?.scheme != nil {
+        guard let incomingURL = urlRequest.url else {
+            return urlRequest
+        }
+        
+        if incomingURL.scheme != nil {
             return urlRequest
         }
         
         var request = urlRequest
         
-        if let path: String = urlRequest.url?.path {
-            var url = baseURL
-            url.appendPathComponent(path)
-            request.url = url
+        var components = URLComponents()
+        components.scheme = baseURL.scheme
+        components.host = baseURL.host
+        components.path = "\(baseURL.path)\(incomingURL.path)"
+        
+        if let query = incomingURL.query {
+            components.query = query
         }
+        
+        request.url = components.url
         
         return request
     }
