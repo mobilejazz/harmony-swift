@@ -11,6 +11,8 @@
 		00B4542D95132F9C1F32FC9E3C9CF504 /* MJObjection-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BCE56B3577F3F6FC0BB0489B8ED638B /* MJObjection-dummy.m */; };
 		00B741A0718B8EA5037FF06C661A1380 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4849703DAA6BDA84F53CDA0526AA9FEE /* Util.swift */; };
 		00D1167FC424AE6EACF286E5B12722CC /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7911D2E1879797E216E2102C1C290E48 /* RealmConfiguration.swift */; };
+		00EB5FF1223FEDDB003A8B4C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB5FEF223FEDDA003A8B4C /* Logger.swift */; };
+		00EB5FF2223FEDDB003A8B4C /* DeviceConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB5FF0223FEDDA003A8B4C /* DeviceConsoleLogger.swift */; };
 		0129B6E05AFCA1AAD2E70710B14F290E /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C449E0B111719B9018A07E80646E /* UITableView+Extensions.swift */; };
 		014A8D0483D5FA07A9D2AFFE03FE01B5 /* CallbackQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98977E3AD743B314B5913F9130CA57F1 /* CallbackQueue.swift */; };
 		014DD8921CA26450F452FBF06CD390F6 /* FBLPromise+Async.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B2A34C58CD0FCDC4720B0BA63EE357 /* FBLPromise+Async.m */; };
@@ -804,6 +806,8 @@
 /* Begin PBXFileReference section */
 		002A05DD30A2DB7A66CA8EE8664826CF /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0071156B9DA9F8D891BBE8A9AAC6A404 /* FBLPromise+Timeout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Timeout.h"; path = "Sources/FBLPromises/include/FBLPromise+Timeout.h"; sourceTree = "<group>"; };
+		00EB5FEF223FEDDA003A8B4C /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		00EB5FF0223FEDDA003A8B4C /* DeviceConsoleLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConsoleLogger.swift; sourceTree = "<group>"; };
 		00F54C481844A5D1AD5BD6DFE735833C /* AllObjectsQuery.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = AllObjectsQuery.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/AllObjectsQuery.html; sourceTree = "<group>"; };
 		0102D09C0B79B2E5A84906EA33E393E0 /* DataSourceBox.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = DataSourceBox.html; path = docs/Classes/DataSourceBox.html; sourceTree = "<group>"; };
 		016344F8129E0FFBF68E8575A1C9F416 /* MJSwiftCore.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = MJSwiftCore.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -2029,6 +2033,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00EB5FEE223FEDDA003A8B4C /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				00EB5FEF223FEDDA003A8B4C /* Logger.swift */,
+				00EB5FF0223FEDDA003A8B4C /* DeviceConsoleLogger.swift */,
+			);
+			name = Logger;
+			path = MJSwiftCore/Classes/Logger;
+			sourceTree = "<group>";
+		};
 		050CD29C259DE7A44E4A1CD7F5D69B0C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -2245,6 +2259,7 @@
 				2174E98EB5CC4ED3B6AEB6533E7FA002 /* Common */,
 				B82B38EE518EFE435607D42B054F507B /* Future */,
 				38D349DA7EB1C84EAC1CBE9D50714E14 /* iOS */,
+				00EB5FEE223FEDDA003A8B4C /* Logger */,
 				50C587CCB871258C5A06EB72AAF4904B /* MJCocoaCore */,
 				EEA30503093F7CB6803AA2C87589E978 /* Objection */,
 				B2E7029AF218A209BC9C951FC05D612F /* Pod */,
@@ -4299,6 +4314,7 @@
 				7FFA67883E1432644006389B9319B599 /* Future+Functional.swift in Sources */,
 				16B24F147C6EFDE44192083CC1FF09D4 /* Future+MJFuture.swift in Sources */,
 				E51431B453A94DFA284FC09AE39DA69B /* Future+Operators.swift in Sources */,
+				00EB5FF1223FEDDB003A8B4C /* Logger.swift in Sources */,
 				9E22313ED3FD87F0269EB646890FBB5B /* Future+Optionals.swift in Sources */,
 				6D55C85A533AD2B62CD1D02367576F68 /* Future+Time.swift in Sources */,
 				7F9464824EDB99EA9C3BF7EBA8837F1A /* Future+UIKitExtensions.swift in Sources */,
@@ -4371,6 +4387,7 @@
 				B7FCE1EA965D2972791C4D8245E0980F /* VastraReachabilityStrategy.swift in Sources */,
 				4EE017473424E22DF38B5DACDAB9CA1E /* VastraService.swift in Sources */,
 				CDB9714883E54D1B527E2E8EE97D0473 /* VastraStrategy.swift in Sources */,
+				00EB5FF2223FEDDB003A8B4C /* DeviceConsoleLogger.swift in Sources */,
 				EAF5227FDF1BCFE1B57571A3C03BC667 /* VastraTimestampStrategy.swift in Sources */,
 				D6299B9E0B5776BB6AFAD0B003708024 /* VastraValidationStrategy.swift in Sources */,
 				F52F1133115CF6E9F9CA178666A9E455 /* VoidDataSource.swift in Sources */,
