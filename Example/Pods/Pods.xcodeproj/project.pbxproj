@@ -452,6 +452,8 @@
 		D08828316B2A64C54F2218B763FA7BD5 /* Mapper+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D54356442E296931264DCC647B21BF /* Mapper+Codable.swift */; };
 		D1E5B1B9103E3C56F61A27AB781B119B /* DebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D06A9DAC2689788CF663EA51E90F7B /* DebugHelper.swift */; };
 		D2857DF273CE2EF71A0F452B582E2384 /* FBLPromiseError.h in Headers */ = {isa = PBXBuildFile; fileRef = E3B4F67C4E09BA64828E79FD53B075A0 /* FBLPromiseError.h */; };
+		D291C8F4224E35EE00E1A90C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291C8F2224E35EE00E1A90C /* Logger.swift */; };
+		D291C8F5224E35EE00E1A90C /* DeviceConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291C8F3224E35EE00E1A90C /* DeviceConsoleLogger.swift */; };
 		D348D024C9886C7BB794E90952D1681E /* RLMRealm.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFBFE2A8055361B3959B2DAD0426351 /* RLMRealm.h */; };
 		D3555DB3B5171CB1907F5BDD739307AB /* MJObjection-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CB9B01AA3700482CA1B3C4D0574CFEC8 /* MJObjection-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3689AE1035BFA9E3CEF5DD8FD8B3553 /* MJCocoaCoreCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B96DEBC65AD2679376FF17A8E89C36D /* MJCocoaCoreCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1719,6 +1721,8 @@
 		D19C8C87CD2D719642FB02C9601CB3D4 /* RLMSchema.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSchema.h; path = include/RLMSchema.h; sourceTree = "<group>"; };
 		D2208C0EE071A3EE76B8A3BDE4E2CE33 /* MJFutureHub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJFutureHub.m; path = MJCocoaCore/Classes/Future/MJFutureHub.m; sourceTree = "<group>"; };
 		D25E8C525B373665C8895D2C2830318E /* Date.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Date.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Extensions/Date.html; sourceTree = "<group>"; };
+		D291C8F2224E35EE00E1A90C /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		D291C8F3224E35EE00E1A90C /* DeviceConsoleLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConsoleLogger.swift; sourceTree = "<group>"; };
 		D2ADE4B53C747C60026F60E8A4C43095 /* Pods-MJSwiftCore_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MJSwiftCore_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		D2B2FB89EDFB372ED7FB163D60579B16 /* Decimal.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Decimal.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Extensions/Decimal.html; sourceTree = "<group>"; };
 		D325D6F2181083470D6326FE5CBD911E /* RealmQuery.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = RealmQuery.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Protocols/RealmQuery.html; sourceTree = "<group>"; };
@@ -2733,6 +2737,8 @@
 			isa = PBXGroup;
 			children = (
 				C69AC306DF363299C14FC974939413B2 /* CodingKeyStrategies.swift */,
+				D291C8F3224E35EE00E1A90C /* DeviceConsoleLogger.swift */,
+				D291C8F2224E35EE00E1A90C /* Logger.swift */,
 				92A6CB66330566C1A19234CA89A04544 /* Data+Extensions.swift */,
 				542394830005E051652A6BD942047271 /* ErrorHelper.swift */,
 				CD33ABF4F5BDDE44D2DD306321C9AAB9 /* JSONDecoding.swift */,
@@ -4295,7 +4301,9 @@
 				E773B1DD0613502C0D8C832CDEAF1B76 /* JSONDecoding.swift in Sources */,
 				D75326B8059585BA34307AAC6C50D40A /* KeychainDataSource.swift in Sources */,
 				468F1969C74DD5A6A33CAF3054C81CF2 /* KeychainGetInteractor.swift in Sources */,
+				D291C8F4224E35EE00E1A90C /* Logger.swift in Sources */,
 				E56D2B7144617E8CFE0A5331EFBBC296 /* KeychainService.swift in Sources */,
+				D291C8F5224E35EE00E1A90C /* DeviceConsoleLogger.swift in Sources */,
 				175BFC1442452EA5357B01D96193357B /* KeychainSetInteractor.swift in Sources */,
 				F8B805C862D2A8547E3388C621AAC8E5 /* KeyValueObserver.swift in Sources */,
 				5AB2F28C49624BB973DDA4370FC8453E /* LinkRecognizer.swift in Sources */,
