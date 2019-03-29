@@ -35,7 +35,7 @@ public extension UITableView {
     ///   - type: The type of the cell
     ///   - indexPath: The index path
     /// - Returns: The dequeued cell
-    public func dequeueReusableCell<T>(_ type: T.Type, for indexPath: IndexPath) -> T where T:UITableViewCell {
+    func dequeueReusableCell<T>(_ type: T.Type, for indexPath: IndexPath) -> T where T:UITableViewCell {
         return dequeueReusableCell(withIdentifier: T.identifier, for: indexPath) as! T
     }
 }

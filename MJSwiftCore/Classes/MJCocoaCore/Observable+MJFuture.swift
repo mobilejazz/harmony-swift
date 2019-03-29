@@ -24,7 +24,7 @@ import MJCocoaCore
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
 public extension Observable where T : AnyObject {
-    public func toMJFuture() -> MJFuture<T> {
+    func toMJFuture() -> MJFuture<T> {
         let future = MJFuture<T>(reactive: true)
         resolve(success: {value in
             future.set(value)
@@ -36,7 +36,7 @@ public extension Observable where T : AnyObject {
 }
 
 public extension Observable where T : AnyObject {
-    public func toMJFuture<K>() -> MJFuture<K> where T==K? {
+    func toMJFuture<K>() -> MJFuture<K> where T==K? {
         let future = MJFuture<K>(reactive: true)
         resolve(success: {value in
             future.set(value)
@@ -48,7 +48,7 @@ public extension Observable where T : AnyObject {
 }
 
 public extension Observable where T == String {
-    public func toMJFuture() -> MJFuture<NSString> {
+    func toMJFuture() -> MJFuture<NSString> {
         let future = MJFuture<NSString>(reactive: true)
         resolve(success: {value in
             future.set(value as NSString)
@@ -60,7 +60,7 @@ public extension Observable where T == String {
 }
 
 public extension Observable where T == String? {
-    public func toMJFuture() -> MJFuture<NSString> {
+    func toMJFuture() -> MJFuture<NSString> {
         let future = MJFuture<NSString>(reactive: true)
         resolve(success: {value in
             future.set(value as NSString?)
@@ -72,7 +72,7 @@ public extension Observable where T == String? {
 }
 
 public extension Observable where T == Date {
-    public func toMJFuture() -> MJFuture<NSDate> {
+    func toMJFuture() -> MJFuture<NSDate> {
         let future = MJFuture<NSDate>(reactive: true)
         resolve(success: {value in
             future.set(value as NSDate)
@@ -84,7 +84,7 @@ public extension Observable where T == Date {
 }
 
 public extension Observable where T == Date? {
-    public func toMJFuture() -> MJFuture<NSDate> {
+    func toMJFuture() -> MJFuture<NSDate> {
         let future = MJFuture<NSDate>(reactive: true)
         resolve(success: {value in
             future.set(value as NSDate?)
@@ -96,7 +96,7 @@ public extension Observable where T == Date? {
 }
 
 public extension Observable where T == URL {
-    public func toMJFuture() -> MJFuture<NSURL> {
+    func toMJFuture() -> MJFuture<NSURL> {
         let future = MJFuture<NSURL>(reactive: true)
         resolve(success: {value in
             future.set(value as NSURL)
@@ -108,7 +108,7 @@ public extension Observable where T == URL {
 }
 
 public extension Observable where T == URL? {
-    public func toMJFuture() -> MJFuture<NSURL> {
+    func toMJFuture() -> MJFuture<NSURL> {
         let future = MJFuture<NSURL>(reactive: true)
         resolve(success: {value in
             future.set(value as NSURL?)
@@ -120,7 +120,7 @@ public extension Observable where T == URL? {
 }
 
 public extension Observable where T == Data {
-    public func toMJFuture() -> MJFuture<NSData> {
+    func toMJFuture() -> MJFuture<NSData> {
         let future = MJFuture<NSData>(reactive: true)
         resolve(success: {value in
             future.set(value as NSData)
@@ -132,7 +132,7 @@ public extension Observable where T == Data {
 }
 
 public extension Observable where T == Data? {
-    public func toMJFuture() -> MJFuture<NSData> {
+    func toMJFuture() -> MJFuture<NSData> {
         let future = MJFuture<NSData>(reactive: true)
         resolve(success: {value in
             future.set(value as NSData?)
@@ -144,7 +144,7 @@ public extension Observable where T == Data? {
 }
 
 public extension Observable where T == Bool {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             future.set(NSNumber(value: value))
@@ -156,7 +156,7 @@ public extension Observable where T == Bool {
 }
 
 public extension Observable where T == Bool? {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             if let value = value {
@@ -172,7 +172,7 @@ public extension Observable where T == Bool? {
 }
 
 public extension Observable where T == UInt {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             future.set(NSNumber(value: value))
@@ -184,7 +184,7 @@ public extension Observable where T == UInt {
 }
 
 public extension Observable where T == UInt? {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             if let value = value {
@@ -200,7 +200,7 @@ public extension Observable where T == UInt? {
 }
 
 public extension Observable where T == Int {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         self.resolve(success: {(value) in
             future.set(NSNumber(value: value))
@@ -212,7 +212,7 @@ public extension Observable where T == Int {
 }
 
 public extension Observable where T == Int? {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             if let value = value {
@@ -228,7 +228,7 @@ public extension Observable where T == Int? {
 }
 
 public extension Observable where T == Float {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         self.resolve(success: {(value) in
             future.set(NSNumber(value: value))
@@ -240,7 +240,7 @@ public extension Observable where T == Float {
 }
 
 public extension Observable where T == Float? {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             if let value = value {
@@ -256,7 +256,7 @@ public extension Observable where T == Float? {
 }
 
 public extension Observable where T == Double {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         self.resolve(success: {(value) in
             future.set(NSNumber(value: value))
@@ -268,7 +268,7 @@ public extension Observable where T == Double {
 }
 
 public extension Observable where T == Double? {
-    public func toMJFuture() -> MJFuture<NSNumber> {
+    func toMJFuture() -> MJFuture<NSNumber> {
         let future = MJFuture<NSNumber>(reactive: true)
         resolve(success: {value in
             if let value = value {
@@ -290,7 +290,7 @@ public extension Observable where T == Double? {
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
 public extension Observable {
-    public convenience init<K>(mjfuture: MJFuture<K>) where T==K? {
+    convenience init<K>(mjfuture: MJFuture<K>) where T==K? {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -305,7 +305,7 @@ public extension Observable {
 }
 
 public extension Observable where T == String? {
-    public convenience init(mjfuture: MJFuture<NSString>) {
+    convenience init(mjfuture: MJFuture<NSString>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -320,7 +320,7 @@ public extension Observable where T == String? {
 }
 
 public extension Observable where T == Date? {
-    public convenience init(mjfuture: MJFuture<NSDate>) {
+    convenience init(mjfuture: MJFuture<NSDate>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -335,7 +335,7 @@ public extension Observable where T == Date? {
 }
 
 public extension Observable where T == URL? {
-    public convenience init(mjfuture: MJFuture<NSURL>) {
+    convenience init(mjfuture: MJFuture<NSURL>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -350,7 +350,7 @@ public extension Observable where T == URL? {
 }
 
 public extension Observable where T == Data? {
-    public convenience init(mjfuture: MJFuture<NSData>) {
+    convenience init(mjfuture: MJFuture<NSData>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -365,7 +365,7 @@ public extension Observable where T == Data? {
 }
 
 public extension Observable where T == Bool? {
-    public convenience init(mjfuture: MJFuture<NSNumber>) {
+    convenience init(mjfuture: MJFuture<NSNumber>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -381,7 +381,7 @@ public extension Observable where T == Bool? {
 }
 
 public extension Observable where T == Int? {
-    public convenience init(mjfuture: MJFuture<NSNumber>) {
+    convenience init(mjfuture: MJFuture<NSNumber>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -397,7 +397,7 @@ public extension Observable where T == Int? {
 }
 
 public extension Observable where T == Float? {
-    public convenience init(mjfuture: MJFuture<NSNumber>) {
+    convenience init(mjfuture: MJFuture<NSNumber>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -413,7 +413,7 @@ public extension Observable where T == Float? {
 }
 
 public extension Observable where T == Double? {
-    public convenience init(mjfuture: MJFuture<NSNumber>) {
+    convenience init(mjfuture: MJFuture<NSNumber>) {
         if !mjfuture.reactive {
             fatalError("Can't link a non reactive MJFuture<T> to an Observable<T>. Use Future<T> instead.")
         }
@@ -435,25 +435,25 @@ public extension Observable where T == Double? {
 // -- -- -- -- -- -- -- - -- -- -- -- -- //
 
 public extension MJFuture where T == NSString {
-    public func toObservable() -> Observable<String?> {
+    func toObservable() -> Observable<String?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSURL {
-    public func toObservable() -> Observable<URL?> {
+    func toObservable() -> Observable<URL?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSDate {
-    public func toObservable() -> Observable<Date?> {
+    func toObservable() -> Observable<Date?> {
         return Observable(mjfuture:self)
     }
 }
 
 public extension MJFuture where T == NSData {
-    public func toObservable() -> Observable<Data?> {
+    func toObservable() -> Observable<Data?> {
         return Observable(mjfuture:self)
     }
 }

@@ -25,7 +25,7 @@ extension Data {
         var bytes = [UInt8](repeating: 0, count: Int(length))
         let status = SecRandomCopyBytes(kSecRandomDefault, Int(length), &bytes)
         if status == errSecSuccess {
-            self.init(bytes: bytes)
+            self.init(bytes)
         } else {
             return nil
         }
@@ -100,7 +100,7 @@ extension Data {
             bytes.append(map[index1] << 4 | map[index2])
         }
         
-        self.init(bytes: bytes)
+        self.init(bytes)
     }
 }
 

@@ -36,7 +36,7 @@ open class RealmObject : Object {
 }
 
 public extension RealmObject {
-    public static func findId<T>(key: String, value: T, inRealm realm: Realm) -> String? where T: CVarArg {
+    static func findId<T>(key: String, value: T, inRealm realm: Realm) -> String? where T: CVarArg {
         let predicate = NSPredicate(format: "\(key) = %@", value)
         if let object = realm.objects(self).filter(predicate).first {
             return object.id
@@ -45,7 +45,7 @@ public extension RealmObject {
         }
     }
     
-    public static func findId<T>(keyedValues: [String : T], inRealm realm: Realm) -> String? where T: CVarArg {
+    static func findId<T>(keyedValues: [String : T], inRealm realm: Realm) -> String? where T: CVarArg {
         var format = String()
         var args = Array<T>()
         var index = 0

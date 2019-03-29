@@ -23,7 +23,7 @@ public extension RealmHandler {
     ///
     /// - Parameter closure: A closure providing a realm instance to execute read queries. Return must be the result of the query.
     /// - Returns: A future that will contain the result of the query, if available.
-    public func read<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
+    func read<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
         return Future<T>() { resolver in
             try read { realm in
                 if let value = try closure(realm) {
@@ -39,7 +39,7 @@ public extension RealmHandler {
     ///
     /// - Parameter closure: A closure providing a realm instance to execute write queries. Return must be the result of the query.
     /// - Returns: A future that will contain the result of the query, if available.
-    public func write<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
+    func write<T>(_ closure: (Realm) throws -> T?) -> Future<T> {
         return Future<T>() { resolver in
             try write { realm in
                 if let value = try closure(realm) {

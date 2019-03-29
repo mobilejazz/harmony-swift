@@ -59,13 +59,13 @@ Pod::Spec.new do |s|
     
     s.subspec 'Alamofire' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Alamofire/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'Alamofire', '~> 4.7.3'
+        sp.dependency 'Alamofire', '~> 4.8.2'
         sp.dependency 'MJSwiftCore/Future'
     end
     
     s.subspec 'Realm' do |sp|
         sp.source_files = 'MJSwiftCore/Classes/Realm/**/*', 'MJSwiftCore/MJSwiftCore.h'
-        sp.dependency 'RealmSwift', '~> 3.9.0'
+        sp.dependency 'RealmSwift', '~> 3.14'
         sp.dependency 'MJSwiftCore/Repository'
         sp.dependency 'MJSwiftCore/Security'
     end

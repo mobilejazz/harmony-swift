@@ -36,7 +36,7 @@ public extension ObjectValidation {
     ///
     /// - Parameter object: The object to validate.
     /// - Returns: true if valid, false otherwise.
-    public func isArrayValid<T>(_ objects: [T]) -> Bool {
+    func isArrayValid<T>(_ objects: [T]) -> Bool {
         if objects.isEmpty {
             return false
         }

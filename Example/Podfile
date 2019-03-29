@@ -12,8 +12,8 @@ target 'MJSwiftCore_Example' do
   pod 'MJSwiftCore/MJCocoaCore', :path => '../'
   pod 'MJSwiftCore/Objection', :path => '../'
 
-  pod 'Swinject', '~> 2.5'
-  pod 'Kingfisher', '~> 5.1'
+  pod 'Swinject', '~> 2.6'
+  pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'
 
   target 'MJSwiftCore_Tests' do

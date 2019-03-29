@@ -188,7 +188,7 @@ public extension UIViewController {
     /// Returns the first ContainerViewController found in the hierarchy.
     ///
     /// - Returns: The first ContainerViewController found in the hierarchy.
-    public func containerViewController() -> ContainerViewController? {
+    func containerViewController() -> ContainerViewController? {
         var vc : UIViewController? = self
         while vc != nil {
             if let viewController = vc {

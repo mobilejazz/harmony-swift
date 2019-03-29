@@ -123,6 +123,8 @@ public class PushNotificationQueue {
             deliverNotification = filter.contains(.applicationInactive)
         case .background:
             deliverNotification = filter.contains(.applicationBackground)
+        @unknown default:
+            print("Not processing push notification because application state \(item.applicationState) is not supported.")
         }
         
         if deliverNotification {

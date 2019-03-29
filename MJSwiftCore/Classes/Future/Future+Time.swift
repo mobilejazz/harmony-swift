@@ -24,7 +24,7 @@ public extension Future {
     ///   - interval: The delay time
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
-    public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+    func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
         return Future() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
@@ -42,7 +42,7 @@ public extension Future {
     ///   - deadline: The deadline
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
-    public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+    func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
         return Future() { resolver in
             queue.asyncAfter(deadline: deadline) {
                 self.resolve(success: {value in
@@ -59,7 +59,7 @@ public extension Future {
     ///
     /// - Parameter date: The date.
     /// - Returns: A chained future.
-    public func after(_ date: Date) -> Future<T> {
+    func after(_ date: Date) -> Future<T> {
         let interval = date.timeIntervalSince(Date())
         if interval < 0 {
             return self

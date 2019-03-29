@@ -24,7 +24,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - transform: The map closure
     /// - Returns: A value-mapped chained future
-    public func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Future<K> {
+    func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Future<K> {
         return Future<K> { resolver in
             resolve(success: { value in
                 executor.submit {
@@ -43,7 +43,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - transform: The map closure
     /// - Returns: A error-mapped chained future
-    public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Future<T> {
+    func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
@@ -59,7 +59,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The flatmap closure
     /// - Returns: A chained future
-    public func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
+    func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
         return Future<K> { resolver in
             resolve(success: {value in
                 executor.submit {
@@ -77,7 +77,7 @@ public extension Future {
     ///
     /// - Parameter future: The chained future
     /// - Returns: The incoming future chained to the current one
-    public func chain<K>(_ future: Future<K>) -> Future<K> {
+    func chain<K>(_ future: Future<K>) -> Future<K> {
         return flatMap { value in
             return future
         }
@@ -89,7 +89,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
+    func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
@@ -109,7 +109,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    public func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
+    func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
@@ -137,7 +137,7 @@ public extension Future {
     ///    - closure: The completion closure
     /// - Returns: A chained future
     @discardableResult
-    public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Future<T> {
+    func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit {
@@ -159,7 +159,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The filter closure. Throw an error to replace it's value for an error.
     /// - Returns: A chained future
-    public func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Future<T> {
+    func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit {

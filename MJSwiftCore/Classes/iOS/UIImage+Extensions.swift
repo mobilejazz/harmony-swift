@@ -121,7 +121,7 @@ public extension UIImage {
 //        self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
 //    }
     
-    public static func image(color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerInset : CornerInset = CornerInset()) -> UIImage? {
+    static func image(color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerInset : CornerInset = CornerInset()) -> UIImage? {
         let descriptors : [String:String] = [
             "resizable": "false",
             "color":"\(color.rgbaString)",
@@ -174,7 +174,7 @@ public extension UIImage {
         }
     }
     
-    public static func resizable(color: UIColor, cornerInset : CornerInset = CornerInset()) -> UIImage? {
+    static func resizable(color: UIColor, cornerInset : CornerInset = CornerInset()) -> UIImage? {
         
         let descriptors : [String:String] = [
             "resizable": "true",
@@ -203,7 +203,7 @@ public extension UIImage {
         }
     }
     
-    public static func resizable(color: UIColor, radius : CGFloat) -> UIImage?  {
+    static func resizable(color: UIColor, radius : CGFloat) -> UIImage?  {
         return UIImage.resizable(color: color, cornerInset: CornerInset(radius: radius))
     }
     
@@ -214,7 +214,7 @@ public extension UIImage {
 //        self.init(cgImage: image.cgImage!)
 //    }
     
-    public static func image(named: String, tintColor: UIColor, style: TintStyle = .keepingAlpha) -> UIImage? {
+    static func image(named: String, tintColor: UIColor, style: TintStyle = .keepingAlpha) -> UIImage? {
         let descriptors : [String:String] = [
             "name": named,
             "tint.color":"\(tintColor.rgbaString)",
@@ -233,7 +233,7 @@ public extension UIImage {
         }
     }
     
-    public func tintedWithColor(_ color: UIColor, style: TintStyle = .keepingAlpha) -> UIImage {
+    func tintedWithColor(_ color: UIColor, style: TintStyle = .keepingAlpha) -> UIImage {
         let size = CGSize(width: self.size.width * self.scale, height: self.size.height * self.scale)
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()!
@@ -266,7 +266,7 @@ public extension UIImage {
         return image
     }
     
-    public func withCornerInset(_ cornerInset: CornerInset) -> UIImage {
+    func withCornerInset(_ cornerInset: CornerInset) -> UIImage {
         if !isValidCornerInset(cornerInset) {
             return self
         }
@@ -304,7 +304,7 @@ public extension UIImage {
         return self
     }
     
-    public func isValidCornerInset(_ cornerInset: CornerInset) -> Bool {
+    func isValidCornerInset(_ cornerInset: CornerInset) -> Bool {
         if cornerInset.topLeft + cornerInset.topRight > self.size.width {
             return false
         } else if cornerInset.topRight + cornerInset.bottomRight > self.size.height {
@@ -317,7 +317,7 @@ public extension UIImage {
         return true
     }
     
-    public func addImage(_ image: UIImage, offset: CGPoint = CGPoint(x: 0, y: 0)) -> UIImage {
+    func addImage(_ image: UIImage, offset: CGPoint = CGPoint(x: 0, y: 0)) -> UIImage {
         let scale = self.scale
         let size = CGSize(width: self.size.width*scale, height: self.size.height*scale)
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
@@ -329,7 +329,7 @@ public extension UIImage {
         return image
     }
     
-    public func resizeTo(size : CGSize, interpolationQuality: CGInterpolationQuality = .default) -> UIImage {
+    func resizeTo(size : CGSize, interpolationQuality: CGInterpolationQuality = .default) -> UIImage {
         let transform = resizeTransformationToSize(size)
         var drawTransposed = false
         switch imageOrientation {
@@ -366,7 +366,7 @@ public extension UIImage {
 //        self.init(cgImage: image.cgImage!, scale: image.scale, orientation: image.imageOrientation)
 //    }
     
-    public static func image(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
+    static func image(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
         let descriptors : [String:String] = [
             "size" : "\(size)",
             "resizable" : "false",
@@ -403,7 +403,7 @@ public extension UIImage {
         }
     }
     
-    public static func resizable(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
+    static func resizable(gradientColors: [UIColor], size: CGSize, direction: GradientDirection) -> UIImage? {
         if (size.width == 0.0 && direction == .horizontal) ||
             (size.height == 0.0 && direction == .vertical) ||
             (size.height == 0.0 && size.width == 0.0) {
@@ -507,19 +507,19 @@ extension UIImage {
 }
 
 public extension UIImage {
-    public static func black() -> UIImage { return UIImage.resizable(color:UIColor.black)! }
-    public static func gray() -> UIImage { return UIImage.resizable(color:UIColor.gray)! }
-    public static func darkGray() -> UIImage { return UIImage.resizable(color:UIColor.darkGray)! }
-    public static func lightGray() -> UIImage { return UIImage.resizable(color:UIColor.lightGray)! }
-    public static func white() -> UIImage { return UIImage.resizable(color:UIColor.white)! }
-    public static func red() -> UIImage { return UIImage.resizable(color:UIColor.red)! }
-    public static func green() -> UIImage { return UIImage.resizable(color:UIColor.green)! }
-    public static func blue() -> UIImage { return UIImage.resizable(color:UIColor.blue)! }
-    public static func cyan() -> UIImage { return UIImage.resizable(color:UIColor.cyan)! }
-    public static func yellow() -> UIImage { return UIImage.resizable(color:UIColor.yellow)! }
-    public static func magenta() -> UIImage { return UIImage.resizable(color:UIColor.magenta)! }
-    public static func orange() -> UIImage { return UIImage.resizable(color:UIColor.orange)! }
-    public static func purple() -> UIImage { return UIImage.resizable(color:UIColor.purple)! }
-    public static func brown() -> UIImage { return UIImage.resizable(color:UIColor.brown)! }
-    public static func clear() -> UIImage { return UIImage.resizable(color:UIColor.clear)! }
+    static func black() -> UIImage { return UIImage.resizable(color:UIColor.black)! }
+    static func gray() -> UIImage { return UIImage.resizable(color:UIColor.gray)! }
+    static func darkGray() -> UIImage { return UIImage.resizable(color:UIColor.darkGray)! }
+    static func lightGray() -> UIImage { return UIImage.resizable(color:UIColor.lightGray)! }
+    static func white() -> UIImage { return UIImage.resizable(color:UIColor.white)! }
+    static func red() -> UIImage { return UIImage.resizable(color:UIColor.red)! }
+    static func green() -> UIImage { return UIImage.resizable(color:UIColor.green)! }
+    static func blue() -> UIImage { return UIImage.resizable(color:UIColor.blue)! }
+    static func cyan() -> UIImage { return UIImage.resizable(color:UIColor.cyan)! }
+    static func yellow() -> UIImage { return UIImage.resizable(color:UIColor.yellow)! }
+    static func magenta() -> UIImage { return UIImage.resizable(color:UIColor.magenta)! }
+    static func orange() -> UIImage { return UIImage.resizable(color:UIColor.orange)! }
+    static func purple() -> UIImage { return UIImage.resizable(color:UIColor.purple)! }
+    static func brown() -> UIImage { return UIImage.resizable(color:UIColor.brown)! }
+    static func clear() -> UIImage { return UIImage.resizable(color:UIColor.clear)! }
 }

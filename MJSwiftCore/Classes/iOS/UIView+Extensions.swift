@@ -22,13 +22,13 @@ public extension UIView {
     ///
     /// - Parameter nibName: The nib name or nothing to use a nib name with the same name as the view class
     /// - Returns: The view
-    public static func fromNib<T>(nibName: String = String(describing: T.self)) -> T where T:UIView {
+    static func fromNib<T>(nibName: String = String(describing: T.self)) -> T where T:UIView {
         let nib = UINib(nibName: nibName, bundle: nil)
         let view = nib.instantiate(withOwner: nil, options: nil).first! as! T
         return view
     }
     
-    public func subviews(passingTest test: (UIView) -> Bool, views: (UIView) -> Void) {
+    func subviews(passingTest test: (UIView) -> Bool, views: (UIView) -> Void) {
         var subviews : [UIView] = []
         subviews.append(self)
         while subviews.count > 0 {
@@ -41,7 +41,7 @@ public extension UIView {
         }
     }
     
-    public func subviews(passingTest test: (UIView) -> Bool) -> [UIView] {
+    func subviews(passingTest test: (UIView) -> Bool) -> [UIView] {
         var array : [UIView] = []
         subviews(passingTest: test) { view in
             array.append(view)
@@ -49,49 +49,49 @@ public extension UIView {
         return array
     }
     
-    public func subviews<T>(ofType type: T.Type) -> [UIView] where T : UIView {
+    func subviews<T>(ofType type: T.Type) -> [UIView] where T : UIView {
         return subviews { view -> Bool in
             return view.self === type
         }
     }
     
-    public func subviews<T>(ofType type: T.Type, views: (UIView) -> Void) where T : UIView {
+    func subviews<T>(ofType type: T.Type, views: (UIView) -> Void) where T : UIView {
         return subviews(passingTest: { view -> Bool in
             return view.self === type
         }, views: views)
     }
     
-    public func subviews(withTag tag: Int) -> [UIView] {
+    func subviews(withTag tag: Int) -> [UIView] {
         return subviews { view -> Bool in
             return view.tag == tag
         }
     }
     
-    public func subviews(withTag tag: Int, views: (UIView) -> Void) {
+    func subviews(withTag tag: Int, views: (UIView) -> Void) {
         return subviews(passingTest: { view -> Bool in
             return view.tag == tag
         }, views: views)
     }
     
-    public func subviews(withAccessibilityIdentifier id: String) -> [UIView] {
+    func subviews(withAccessibilityIdentifier id: String) -> [UIView] {
         return subviews { view -> Bool in
             return view.accessibilityIdentifier == id
         }
     }
     
-    public func subviews(withAccessibilityIdentifier id: String, views: (UIView) -> Void) {
+    func subviews(withAccessibilityIdentifier id: String, views: (UIView) -> Void) {
         return subviews(passingTest: { view -> Bool in
             return view.accessibilityIdentifier == id
         }, views: views)
     }
     
-    public func allSubviews() -> [UIView] {
+    func allSubviews() -> [UIView] {
         return subviews { view -> Bool in
             return true
         }
     }
     
-    public func toImage() -> UIImage {
+    func toImage() -> UIImage {
         if bounds.size.equalTo(CGSize.zero) {
            return UIImage()
         }

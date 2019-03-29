@@ -19,7 +19,7 @@ import UIKit
 weak var currentFirstResponder : UIResponder? = nil
 
 public extension UIResponder {
-    public func firstResponder() -> UIResponder? {
+    func firstResponder() -> UIResponder? {
         return ScopeLock(UIResponder.self).sync {
             currentFirstResponder = nil
             // From Apple documentation: "If target is nil, the app sends the message to the first responder"

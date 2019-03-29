@@ -24,12 +24,12 @@ public enum MJSwiftCoreAlamofireError : Error {
 public extension DataRequest {
     
     /// Inserts the JSON data response into a Future
-    public func toFuture() -> Future<Any> {
+    func toFuture() -> Future<Any> {
         return self.then(success: { $0 })
     }
     
     /// Inserts the JSON data response into a Future with a mapping window
-    public func then<T>(queue: DispatchQueue? = nil,
+    func then<T>(queue: DispatchQueue? = nil,
                         options: JSONSerialization.ReadingOptions = .allowFragments,
                         success: @escaping (Any) throws -> T,
                         failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {

@@ -61,7 +61,7 @@ public class KeychainService {
     /// - Parameter key: The key.
     /// - Returns: The stored Data or nil.
     public func get(_ key: String) -> Data? {
-        let query = NSDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue, kSec.matchLimitOne],
+        let query = NSDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
                                  forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnData, kSec.matchLimit])
         
         var dataRef : CFTypeRef?
@@ -82,7 +82,7 @@ public class KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     public func set(_ data: Data, forKey key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue],
+        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
                                         forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let deleteStatus = SecItemDelete(query as CFDictionary)
@@ -106,7 +106,7 @@ public class KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     public func delete(_ key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue],
+        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
                                         forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let status = SecItemDelete(query as CFDictionary)
@@ -124,7 +124,7 @@ public extension KeychainService {
     ///
     /// - Parameter key: The key.
     /// - Returns: The type stored in the keychain or nil.
-    public func get<T>(_ key: String) ->T? where T:Decodable {
+    func get<T>(_ key: String) ->T? where T:Decodable {
         guard let data : Data = get(key) else {
             return nil
         }
@@ -142,7 +142,7 @@ public extension KeychainService {
     ///   - value: The Encodable conforming value.
     ///   - key: The key.
     /// - Returns: The operation result.
-    public func set<T>(_ value: T, forKey key: String) -> Result where T:Encodable {
+    func set<T>(_ value: T, forKey key: String) -> Result where T:Encodable {
         do {
             let data = try PropertyListEncoder().encode(value)
             return set(data, forKey: key)
@@ -155,7 +155,7 @@ public extension KeychainService {
     ///
     /// - Parameter key: The key.
     /// - Returns: The NSCoding conforming type stored in the keychain or nil.
-    public func get<T>(_ key: String) -> T? where T: NSCoding {
+    func get<T>(_ key: String) -> T? where T: NSCoding {
         if let data : Data = get(key) {
             if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {
                 return (value as! T)
@@ -173,7 +173,7 @@ public extension KeychainService {
     ///   - key: The key.
     /// - Returns: The operation result.
     @discardableResult
-    public func set<T>(_ value: T, forKey key: String) -> Result where T: NSCoding {
+    func set<T>(_ value: T, forKey key: String) -> Result where T: NSCoding {
         let data = NSKeyedArchiver.archivedData(withRootObject: value)
         return set(data, forKey: key)
     }

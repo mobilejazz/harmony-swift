@@ -21,67 +21,67 @@ import Foundation
 // MARK: Collections
 
 public extension Array {
-    public func toObservable() -> Observable<[Element]> {
+    func toObservable() -> Observable<[Element]> {
         return Observable(self)
     }
 }
 
 public extension Dictionary {
-    public func toObservable() -> Observable<[Key:Value]> {
+    func toObservable() -> Observable<[Key:Value]> {
         return Observable(self)
     }
 }
 
 public extension Set {
-    public func toObservable() -> Observable<Set<Element>> {
+    func toObservable() -> Observable<Set<Element>> {
         return Observable(self)
     }
 }
 
 public extension IndexPath {
-    public func toObservable() -> Observable<IndexPath> {
+    func toObservable() -> Observable<IndexPath> {
         return Observable(self)
     }
 }
 
 public extension IndexSet {
-    public func toObservable() -> Observable<IndexSet> {
+    func toObservable() -> Observable<IndexSet> {
         return Observable(self)
     }
 }
 
 public extension NSCountedSet {
-    public func toObservable() -> Observable<NSCountedSet> {
+    func toObservable() -> Observable<NSCountedSet> {
         return Observable(self)
     }
 }
 
 public extension NSOrderedSet {
-    public func toObservable() -> Observable<NSOrderedSet> {
+    func toObservable() -> Observable<NSOrderedSet> {
         return Observable(self)
     }
 }
 
 public extension NSMutableOrderedSet {
-    public func toObservable() -> Observable<NSMutableOrderedSet> {
+    func toObservable() -> Observable<NSMutableOrderedSet> {
         return Observable(self)
     }
 }
 
 public extension NSPurgeableData {
-    public func toObservable() -> Observable<NSPurgeableData> {
+    func toObservable() -> Observable<NSPurgeableData> {
         return Observable(self)
     }
 }
 
 public extension NSPointerArray {
-    public func toObservable() -> Observable<NSPointerArray> {
+    func toObservable() -> Observable<NSPointerArray> {
         return Observable(self)
     }
 }
 
 public extension NSNull {
-    public func toObservable() -> Observable<NSNull> {
+    func toObservable() -> Observable<NSNull> {
         return Observable(self)
     }
 }
@@ -89,25 +89,25 @@ public extension NSNull {
 // MARK: Strings and Text
 
 public extension String {
-    public func toObservable() -> Observable<String> {
+    func toObservable() -> Observable<String> {
         return Observable(self)
     }
 }
 
 public extension NSAttributedString {
-    public func toObservable() -> Observable<NSAttributedString> {
+    func toObservable() -> Observable<NSAttributedString> {
         return Observable(self)
     }
 }
 
 public extension NSMutableAttributedString {
-    public func toObservable() -> Observable<NSMutableAttributedString> {
+    func toObservable() -> Observable<NSMutableAttributedString> {
         return Observable(self)
     }
 }
 
 public extension CharacterSet {
-    public func toObservable() -> Observable<CharacterSet> {
+    func toObservable() -> Observable<CharacterSet> {
         return Observable(self)
     }
 }
@@ -117,43 +117,43 @@ public extension CharacterSet {
 // MARK: Numbers
 
 public extension Bool {
-    public func toObservable() -> Observable<Bool> {
+    func toObservable() -> Observable<Bool> {
         return Observable(self)
     }
 }
 
 public extension UInt {
-    public func toObservable() -> Observable<UInt> {
+    func toObservable() -> Observable<UInt> {
         return Observable(self)
     }
 }
 
 public extension Int {
-    public func toObservable() -> Observable<Int> {
+    func toObservable() -> Observable<Int> {
         return Observable(self)
     }
 }
 
 public extension Decimal {
-    public func toObservable() -> Observable<Decimal> {
+    func toObservable() -> Observable<Decimal> {
         return Observable(self)
     }
 }
 
 public extension Float {
-    public func toObservable() -> Observable<Float> {
+    func toObservable() -> Observable<Float> {
         return Observable(self)
     }
 }
 
 public extension Double {
-    public func toObservable() -> Observable<Double> {
+    func toObservable() -> Observable<Double> {
         return Observable(self)
     }
 }
 
 public extension NumberFormatter {
-    public func toObservable() -> Observable<NumberFormatter> {
+    func toObservable() -> Observable<NumberFormatter> {
         return Observable(self)
     }
 }
@@ -161,7 +161,7 @@ public extension NumberFormatter {
 // MARK: Binary Data
 
 public extension Data {
-    public func toObservable() -> Observable<Data> {
+    func toObservable() -> Observable<Data> {
         return Observable(self)
     }
 }
@@ -169,19 +169,19 @@ public extension Data {
 // MARK: URLs
 
 public extension URL {
-    public func toObservable() -> Observable<URL> {
+    func toObservable() -> Observable<URL> {
         return Observable(self)
     }
 }
 
 public extension URLComponents {
-    public func toObservable() -> Observable<URLComponents> {
+    func toObservable() -> Observable<URLComponents> {
         return Observable(self)
     }
 }
 
 public extension URLQueryItem {
-    public func toObservable() -> Observable<URLQueryItem> {
+    func toObservable() -> Observable<URLQueryItem> {
         return Observable(self)
     }
 }
@@ -189,7 +189,7 @@ public extension URLQueryItem {
 // MARK: Unique Identifiers
 
 public extension UUID {
-    public func toObservable() -> Observable<UUID> {
+    func toObservable() -> Observable<UUID> {
         return Observable(self)
     }
 }
@@ -197,13 +197,13 @@ public extension UUID {
 // MARK: Geometry
 
 public extension CGFloat {
-    public func toObservable() -> Observable<CGFloat> {
+    func toObservable() -> Observable<CGFloat> {
         return Observable(self)
     }
 }
 
 public extension CGAffineTransform {
-    public func toObservable() -> Observable<CGAffineTransform> {
+    func toObservable() -> Observable<CGAffineTransform> {
         return Observable(self)
     }
 }
@@ -211,7 +211,7 @@ public extension CGAffineTransform {
 // MARK: Ranges
 
 public extension NSRange {
-    public func toObservable() -> Observable<NSRange> {
+    func toObservable() -> Observable<NSRange> {
         return Observable(self)
     }
 }
@@ -221,32 +221,32 @@ public extension NSRange {
 // MARK: Dates
 
 public extension Date {
-    public func toObservable() -> Observable<Date> {
+    func toObservable() -> Observable<Date> {
         return Observable(self)
     }
 }
 
 @available(iOS 10.0, *)
 public extension DateInterval {
-    public func toObservable() -> Observable<DateInterval> {
+    func toObservable() -> Observable<DateInterval> {
         return Observable(self)
     }
 }
 
 public extension DateComponents {
-    public func toObservable() -> Observable<DateComponents> {
+    func toObservable() -> Observable<DateComponents> {
         return Observable(self)
     }
 }
 
 public extension Calendar {
-    public func toObservable() -> Observable<Calendar> {
+    func toObservable() -> Observable<Calendar> {
         return Observable(self)
     }
 }
 
 public extension TimeZone {
-    public func toObservable() -> Observable<TimeZone> {
+    func toObservable() -> Observable<TimeZone> {
         return Observable(self)
     }
 }
@@ -254,26 +254,26 @@ public extension TimeZone {
 // MARK: Date Formatting
 
 public extension DateFormatter {
-    public func toObservable() -> Observable<DateFormatter> {
+    func toObservable() -> Observable<DateFormatter> {
         return Observable(self)
     }
 }
 
 public extension DateComponentsFormatter {
-    public func toObservable() -> Observable<DateComponentsFormatter> {
+    func toObservable() -> Observable<DateComponentsFormatter> {
         return Observable(self)
     }
 }
 
 public extension DateIntervalFormatter {
-    public func toObservable() -> Observable<DateIntervalFormatter> {
+    func toObservable() -> Observable<DateIntervalFormatter> {
         return Observable(self)
     }
 }
 
 @available(iOS 10.0, *)
 public extension ISO8601DateFormatter {
-    public func toObservable() -> Observable<ISO8601DateFormatter> {
+    func toObservable() -> Observable<ISO8601DateFormatter> {
         return Observable(self)
     }
 }
@@ -281,7 +281,7 @@ public extension ISO8601DateFormatter {
 // MARK: Locale
 
 public extension Locale {
-    public func toObservable() -> Observable<Locale> {
+    func toObservable() -> Observable<Locale> {
         return Observable(self)
     }
 }
@@ -291,7 +291,7 @@ public extension Locale {
 // MARK: Filtering
 
 public extension NSPredicate {
-    public func toObservable() -> Observable<NSPredicate> {
+    func toObservable() -> Observable<NSPredicate> {
         return Observable(self)
     }
 }
@@ -299,7 +299,7 @@ public extension NSPredicate {
 // MARK: Sorting
 
 public extension NSSortDescriptor {
-    public func toObservable() -> Observable<NSSortDescriptor> {
+    func toObservable() -> Observable<NSSortDescriptor> {
         return Observable(self)
     }
 }

@@ -16,6 +16,8 @@ set -e
 source_root="$(dirname "$0")"
 
 # You can override the version of the core library
+: ${REALM_BASE_URL:="https://static.realm.io/downloads"} # set it if you need to use a remote repo
+
 : ${REALM_CORE_VERSION:=$(sed -n 's/^REALM_CORE_VERSION=\(.*\)$/\1/p' ${source_root}/dependencies.list)} # set to "current" to always use the current build
 
 : ${REALM_SYNC_VERSION:=$(sed -n 's/^REALM_SYNC_VERSION=\(.*\)$/\1/p' ${source_root}/dependencies.list)}
@@ -148,7 +150,11 @@ build_combined() {
         destination="iPhone 6"
     elif [[ "$os" == "watchos"  ]]; then
         os_name="$os"
-        destination="Apple Watch - 42mm"
+        if (( $(xcode_version_major) >= 10 )); then
+            destination="Apple Watch Series 3 - 42mm"
+        else
+            destination="Apple Watch - 42mm"
+        fi
     elif [[ "$os" == "appletvos"  ]]; then
         os_name="tvos"
         if (( $(xcode_version_major) >= 9 )); then
@@ -185,6 +191,8 @@ build_combined() {
     LIPO_OUTPUT="$out_path/$product_name/$module_name"
     xcrun lipo -create "$simulator_path/$binary_path" "$os_path/$binary_path" -output "$LIPO_OUTPUT"
 
+    # Verify that the combined library has bitcode and we didn't accidentally
+    # remove it somewhere along the line
     if [[ "$destination" != "" && "$config" == "Release" ]]; then
         sh build.sh binary-has-bitcode "$LIPO_OUTPUT"
     fi
@@ -313,16 +321,16 @@ download_common() {
 
     if [ "$download_type" == "core" ]; then
         version=$REALM_CORE_VERSION
-        url="https://static.realm.io/downloads/core/realm-core-${version}.tar.xz"
+        url="${REALM_BASE_URL}/core/realm-core-${version}.tar.xz"
     elif [ "$download_type" == "sync" ]; then
         version=$REALM_SYNC_VERSION
-        url="https://static.realm.io/downloads/sync/realm-sync-cocoa-${version}.tar.xz"
+        url="${REALM_BASE_URL}/sync/realm-sync-cocoa-${version}.tar.xz"
     else
         echo "Unknown dowload_type: $download_type"
         exit 1
     fi
 
-    echo "Downloading dependency: ${download_type} ${version}"
+    echo "Downloading dependency: ${download_type} ${version} from ${url}"
 
     if [ -z "$TMPDIR" ]; then
         TMPDIR='/tmp'
@@ -506,8 +514,8 @@ case "$COMMAND" in
 
     "ios-swift")
         sh build.sh ios-dynamic
-        build_combined RealmSwift RealmSwift iphoneos iphonesimulator '' "/swift-$REALM_SWIFT_VERSION"
-        cp -R build/ios/Realm.framework build/ios/swift-$REALM_SWIFT_VERSION
+        build_combined RealmSwift RealmSwift iphoneos iphonesimulator '' "/swift-$REALM_XCODE_VERSION"
+        cp -R build/ios/Realm.framework build/ios/swift-$REALM_XCODE_VERSION
         exit 0
         ;;
 
@@ -518,8 +526,8 @@ case "$COMMAND" in
 
     "watchos-swift")
         sh build.sh watchos
-        build_combined RealmSwift RealmSwift watchos watchsimulator '' "/swift-$REALM_SWIFT_VERSION"
-        cp -R build/watchos/Realm.framework build/watchos/swift-$REALM_SWIFT_VERSION
+        build_combined RealmSwift RealmSwift watchos watchsimulator '' "/swift-$REALM_XCODE_VERSION"
+        cp -R build/watchos/Realm.framework build/watchos/swift-$REALM_XCODE_VERSION
         exit 0
         ;;
 
@@ -530,8 +538,8 @@ case "$COMMAND" in
 
     "tvos-swift")
         sh build.sh tvos
-        build_combined RealmSwift RealmSwift appletvos appletvsimulator '' "/swift-$REALM_SWIFT_VERSION"
-        cp -R build/tvos/Realm.framework build/tvos/swift-$REALM_SWIFT_VERSION
+        build_combined RealmSwift RealmSwift appletvos appletvsimulator '' "/swift-$REALM_XCODE_VERSION"
+        cp -R build/tvos/Realm.framework build/tvos/swift-$REALM_XCODE_VERSION
         exit 0
         ;;
 
@@ -544,7 +552,7 @@ case "$COMMAND" in
     "osx-swift")
         sh build.sh osx
         xc "-scheme 'RealmSwift' -configuration $CONFIGURATION build"
-        destination="build/osx/swift-$REALM_SWIFT_VERSION"
+        destination="build/osx/swift-$REALM_XCODE_VERSION"
         clean_retrieve "build/DerivedData/Realm/Build/Products/$CONFIGURATION/RealmSwift.framework" "$destination" "RealmSwift.framework"
         cp -R build/osx/Realm.framework "$destination"
         exit 0
@@ -708,6 +716,12 @@ case "$COMMAND" in
           fi
         fi
 
+        sh build.sh verify-cocoapods-ios
+        sh build.sh verify-cocoapods-osx
+        sh build.sh verify-cocoapods-watchos
+
+        # https://github.com/CocoaPods/CocoaPods/issues/7708
+        export EXPANDED_CODE_SIGN_IDENTITY=''
         cd examples/installation
         sh build.sh test-ios-objc-cocoapods
         sh build.sh test-ios-objc-cocoapods-dynamic
@@ -716,6 +730,18 @@ case "$COMMAND" in
         sh build.sh test-osx-swift-cocoapods
         sh build.sh test-watchos-objc-cocoapods
         sh build.sh test-watchos-swift-cocoapods
+        ;;
+
+    verify-cocoapods-*)
+        PLATFORM=$(echo $COMMAND | cut -d - -f 3)
+        # https://github.com/CocoaPods/CocoaPods/issues/7708
+        export EXPANDED_CODE_SIGN_IDENTITY=''
+        cd examples/installation
+        sh build.sh test-$PLATFORM-objc-cocoapods
+        sh build.sh test-$PLATFORM-swift-cocoapods
+        if [[ $PLATFORM = "ios" ]]; then
+            sh build.sh test-ios-objc-cocoapods-dynamic
+        fi
         ;;
 
     "verify-osx-encryption")
@@ -851,7 +877,7 @@ case "$COMMAND" in
         sh build.sh prelaunch-simulator
         workspace="examples/ios/swift/RealmExamples.xcworkspace"
         if [[ ! -d "$workspace" ]]; then
-            workspace="${workspace/swift/swift-$REALM_SWIFT_VERSION}"
+            workspace="${workspace/swift/swift-$REALM_XCODE_VERSION}"
         fi
 
         xc "-workspace $workspace -scheme Simple -configuration $CONFIGURATION -destination 'name=iPhone 6' build ${CODESIGN_PARAMS}"
@@ -883,7 +909,7 @@ case "$COMMAND" in
     "examples-tvos-swift")
         workspace="examples/tvos/swift/RealmExamples.xcworkspace"
         if [[ ! -d "$workspace" ]]; then
-            workspace="${workspace/swift/swift-$REALM_SWIFT_VERSION}"
+            workspace="${workspace/swift/swift-$REALM_XCODE_VERSION}"
         fi
 
         if (( $(xcode_version_major) >= 9 )); then
@@ -1047,8 +1073,10 @@ EOM
         else
             export sha=$GITHUB_PR_SOURCE_BRANCH
             export CONFIGURATION=$configuration
-            export REALM_EXTRA_BUILD_ARGUMENTS='GCC_GENERATE_DEBUGGING_SYMBOLS=NO REALM_PREFIX_HEADER=Realm/RLMPrefix.h'
-            sh build.sh prelaunch-simulator
+            export REALM_EXTRA_BUILD_ARGUMENTS='GCC_GENERATE_DEBUGGING_SYMBOLS=NO -allowProvisioningUpdates'
+            if [[ ${target} != *"osx"* ]];then
+                sh build.sh prelaunch-simulator
+            fi
 
             source $(brew --prefix nvm)/nvm.sh
             export REALM_NODE_PATH="$(nvm which 8)"
@@ -1153,6 +1181,24 @@ EOM
         sh build.sh prelaunch-simulator
         sh build.sh watchos
 
+        # If we're building the obj-c library with an Xcode version older than
+        # 10, we need to also build the arm64_32 slice with Xcode 10 and lipo
+        # it in
+        if (( $(xcode_version_major) < 10 )); then
+            (
+                REALM_XCODE_VERSION=10.0
+                REALM_SWIFT_VERSION=
+                set_xcode_and_swift_versions
+                sh build.sh prelaunch-simulator
+                xc "-scheme Realm -configuration $CONFIGURATION -sdk watchos ARCHS='arm64_32'"
+                cp build/DerivedData/Realm/Build/Products/Release-watchos/Realm.framework/*.bcsymbolmap build/watchos/Realm.framework
+                xcrun lipo \
+                  -create build/watchos/Realm.framework/Realm build/DerivedData/Realm/Build/Products/Release-watchos/Realm.framework/Realm \
+                  -output build/watchos-tmp
+                mv build/watchos-tmp build/watchos/Realm.framework/Realm
+            )
+        fi
+
         cd build/watchos
         zip --symlinks -r realm-framework-watchos.zip Realm.framework
         ;;
@@ -1167,7 +1213,7 @@ EOM
 
     package-*-swift)
         PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        for version in 8.3.3 9.0 9.1 9.2 9.3; do
+        for version in 9.2 9.3 9.4 10.0 10.1 10.2; do
             REALM_XCODE_VERSION=$version
             REALM_SWIFT_VERSION=
             set_xcode_and_swift_versions
@@ -1176,74 +1222,20 @@ EOM
         done
 
         cd build/$PLATFORM
-        ln -s swift-4.0 swift-3.2
-        ln -s swift-4.0.2 swift-3.2.2
-        ln -s swift-4.0.2 swift-3.2.3
-        ln -s swift-4.0.2 swift-4.0.3
-        ln -s swift-4.1 swift-3.3
-        ln -s swift-4.1 swift-4.1.2
-        zip --symlinks -r realm-swift-framework-$PLATFORM.zip swift-3.1 swift-3.2 swift-3.2.2 swift-3.2.3 swift-3.3 swift-4.0 swift-4.0.2 swift-4.0.3 swift-4.1 swift-4.1.2
-        ;;
-
-    package-*-swift-3.2)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.0 swift-3.2
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-3.2.zip swift-3.2
-        ;;
-
-    package-*-swift-3.2.2)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.0.2 swift-3.2.2
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-3.2.2.zip swift-3.2.2
-        ;;
-
-    package-*-swift-3.2.3)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.0.2 swift-3.2.3
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-3.2.3.zip swift-3.2.3
-        ;;
-
-    package-*-swift-3.3)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.1 swift-3.3
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-3.3.zip swift-3.3
-        ;;
-
-    package-*-swift-4.0.3)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.0.2 swift-4.0.3
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-4.0.3.zip swift-4.0.3
-        ;;
-
-    package-*-swift-4.1.2)
-        PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        mkdir -p build/$PLATFORM
-        cd build/$PLATFORM
-        ln -s swift-4.1 swift-4.1.2
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-4.1.2.zip swift-4.1.2
+        zip --symlinks -r realm-swift-framework-$PLATFORM.zip swift-9.2 swift-9.2 swift-9.4 swift-10.0 swift-10.1 swift-10.2
         ;;
 
     package-*-swift-*)
         PLATFORM=$(echo $COMMAND | cut -d - -f 2)
-        REALM_SWIFT_VERSION=$(echo $COMMAND | cut -d - -f 4)
-        REALM_XCODE_VERSION=
+        REALM_XCODE_VERSION=$(echo $COMMAND | cut -d - -f 4)
+        REALM_SWIFT_VERSION=
 
         set_xcode_and_swift_versions
         sh build.sh prelaunch-simulator
         sh build.sh $PLATFORM-swift
 
         cd build/$PLATFORM
-        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-$REALM_SWIFT_VERSION.zip swift-$REALM_SWIFT_VERSION
+        zip --symlinks -r realm-swift-framework-$PLATFORM-swift-$REALM_XCODE_VERSION.zip swift-$REALM_XCODE_VERSION
         ;;
 
     "package-release")
@@ -1421,20 +1413,21 @@ EOF
 
     "add-empty-changelog")
         empty_section=$(cat <<EOS
-x.x.x Release notes (yyyy-MM-dd)
+x.y.z Release notes (yyyy-MM-dd)
 =============================================================
-
-### Breaking Changes
-
-* None.
-
 ### Enhancements
-
 * None.
 
-### Bugfixes
-
+### Fixed
+* <How to hit and notice issue? what was the impact?> ([#????](https://github.com/realm/realm-js/issues/????), since v?.?.?)
 * None.
+
+<!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+
+### Compatibility
+* File format: Generates Realms with format v9 (Reads and upgrades all previous formats)
+* Realm Object Server: 3.11.0 or later.
+* APIs are backwards compatible with all previous releases in the 3.x.y series.
 EOS)
         changelog=$(cat CHANGELOG.md)
         echo "$empty_section" > CHANGELOG.md

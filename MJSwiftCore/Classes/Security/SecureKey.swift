@@ -58,13 +58,8 @@ public class SecureKey {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
         
-        var keyData = Data(count: length)
-        let count = keyData.count
-        let result : Int32 = keyData.withUnsafeMutableBytes { pointer in
-            return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
-        }
-        if result == -1 {
-            NSLog("Error executing SecRandomCopyBytes()")
+        guard let keyData = Data(randomOfLength: UInt(length)) else {
+            throw CoreError.Failed("Failed to generate random key")
         }
         
         let query = NSDictionary(objects:[kSec.classKey, tag],
@@ -122,15 +117,9 @@ public class SecureKey {
             throw CoreError.OSStatusFailure(status, "Failed to fetch Keychain because the device is locked (OSStatus: \(status)).")
         default:
             // If no pre-existing key from this application
-            
-            var keyData = Data(count: length)
-            let count = keyData.count
-            let result = keyData.withUnsafeMutableBytes { pointer in
-                return SecRandomCopyBytes(kSecRandomDefault, count, pointer)
-            }
-            
-            if result == -1 {
-                NSLog("Error executing SecRandomCopyBytes()")
+
+            guard let keyData = Data(randomOfLength: UInt(length)) else {
+                throw CoreError.Failed("Failed to generate random key")
             }
             
             let query = NSDictionary(objects:[kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
@@ -145,3 +134,15 @@ public class SecureKey {
         }
     }
 }
+
+//public extension Data {
+//    init?(randomOfLength length: Int) {
+//        var bytes = [UInt8](repeating: 0, count: length)
+//        let status = SecRandomCopyBytes(kSecRandomDefault, length, &bytes)
+//        if status == errSecSuccess {
+//            self.init(bytes)
+//        } else {
+//            return nil
+//        }
+//    }
+//}

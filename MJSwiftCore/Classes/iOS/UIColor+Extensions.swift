@@ -34,14 +34,14 @@ private let BlueLum : CGFloat   = 0.1140
 
 public extension UIColor {
     
-    public convenience init(rgb value: UInt32) {
+    convenience init(rgb value: UInt32) {
         let red = (CGFloat)((value & RedMask) >> RedShift)
         let green = (CGFloat)((value & GreenMask) >> GreenShift)
         let blue = (CGFloat)((value & BlueMask) >> BlueShift)
         self.init(red: red/ColorSize, green: green/ColorSize, blue: blue/ColorSize, alpha: 1.0)
     }
     
-    public convenience init(rgba value: UInt32) {
+    convenience init(rgba value: UInt32) {
         let red = (CGFloat)((value & RedMask) >> RedShift)
         let green = (CGFloat)((value & GreenMask) >> GreenShift)
         let blue = (CGFloat)((value & BlueMask) >> BlueShift)
@@ -49,7 +49,7 @@ public extension UIColor {
         self.init(red: red/ColorSize, green: green/ColorSize, blue: blue/ColorSize, alpha: alpha/ColorSize)
     }
     
-    public convenience init?(rgb string: String) {
+    convenience init?(rgb string: String) {
         var value : UInt32 = 0
         let scanner = Scanner(string: string)
         if scanner.scanHexInt32(&value) {
@@ -59,7 +59,7 @@ public extension UIColor {
         }
     }
     
-    public convenience init?(rgba string: String) {
+    convenience init?(rgba string: String) {
         var value : UInt32 = 0
         let scanner = Scanner(string: string)
         if scanner.scanHexInt32(&value) {
@@ -69,15 +69,15 @@ public extension UIColor {
         }
     }
     
-    public convenience init(red255: CGFloat, blue255: CGFloat, green255: CGFloat) {
+    convenience init(red255: CGFloat, blue255: CGFloat, green255: CGFloat) {
         self.init(red: red255/ColorSize, green: blue255/ColorSize, blue: green255/ColorSize, alpha: 1.0)
     }
     
-    public convenience init(red255: CGFloat, blue255: CGFloat, green255: CGFloat, alpha255: CGFloat) {
+    convenience init(red255: CGFloat, blue255: CGFloat, green255: CGFloat, alpha255: CGFloat) {
         self.init(red: red255/ColorSize, green: blue255/ColorSize, blue: green255/ColorSize, alpha: alpha255/ColorSize)
     }
     
-    public var rgbValue : UInt32 {
+    var rgbValue : UInt32 {
         get {
             if let components = self.cgColor.components {
                 let count = self.cgColor.numberOfComponents
@@ -95,7 +95,7 @@ public extension UIColor {
         }
     }
     
-    public var rgbaValue : UInt32 {
+    var rgbaValue : UInt32 {
         get {
             if let components = self.cgColor.components {
                 let count = self.cgColor.numberOfComponents
@@ -115,21 +115,21 @@ public extension UIColor {
         }
     }
     
-    public var rgbString : String {
+    var rgbString : String {
         get {
             let value = rgbValue
             return String(format:"%2X", value)
         }
     }
     
-    public var rgbaString : String {
+    var rgbaString : String {
         get {
             let value = rgbaValue
             return String(format:"%2X", value)
         }
     }
     
-    public func toGray() -> UIColor {
+    func toGray() -> UIColor {
         if let components = self.cgColor.components {
             let count = self.cgColor.numberOfComponents
             if count == 4 {
@@ -142,7 +142,7 @@ public extension UIColor {
         return UIColor.gray
     }
     
-    public func withSaturation(saturation: CGFloat) -> UIColor {
+    func withSaturation(saturation: CGFloat) -> UIColor {
         var h : CGFloat = 0
         var s : CGFloat = 0
         var b : CGFloat = 0
@@ -151,7 +151,7 @@ public extension UIColor {
         return UIColor(hue: h, saturation: saturation, brightness: b, alpha: a)
     }
     
-    public func withBrightness(brightness: CGFloat) -> UIColor {
+    func withBrightness(brightness: CGFloat) -> UIColor {
         var h : CGFloat = 0
         var s : CGFloat = 0
         var b : CGFloat = 0
@@ -160,7 +160,7 @@ public extension UIColor {
         return UIColor(hue: h, saturation: s, brightness: brightness, alpha: a)
     }
     
-    public func lighter(ratio: CGFloat) -> UIColor {
+    func lighter(ratio: CGFloat) -> UIColor {
         if let components = self.cgColor.components {
             let count = self.cgColor.numberOfComponents
             
@@ -187,7 +187,7 @@ public extension UIColor {
         return self
     }
     
-    public func darker(ratio: CGFloat) -> UIColor {
+    func darker(ratio: CGFloat) -> UIColor {
         if let components = self.cgColor.components {
             let count = self.cgColor.numberOfComponents
             
@@ -214,7 +214,7 @@ public extension UIColor {
         return self
     }
     
-    public func isLightColor() -> Bool {
+    func isLightColor() -> Bool {
         if let components = self.cgColor.components {
             let count = self.cgColor.numberOfComponents
             if count == 4 {
@@ -227,7 +227,7 @@ public extension UIColor {
         return false
     }
     
-    public func isDarkColor() -> Bool {
+    func isDarkColor() -> Bool {
         return !isLightColor()
     }
 }

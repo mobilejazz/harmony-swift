@@ -43,7 +43,7 @@ public struct RLMIterator<Element: RealmCollectionValue>: IteratorProtocol {
             }
             return unsafeBitCast(next, to: Optional<Element>.self)
         }
-        return next as! Element?
+        return dynamicBridgeCast(fromObjectiveC: next as Any)
     }
 }
 
@@ -134,8 +134,13 @@ private func forceCast<A, U>(_ from: A, to type: U.Type) -> U {
     return from as! U
 }
 
-/// A type which can be stored in a Realm List or Results
 #if swift(>=3.4) && (swift(>=4.1.50) || !swift(>=4))
+/// A type which can be stored in a Realm List or Results.
+///
+/// Declaring additional types as conforming to this protocol will not make them
+/// actually work. Most of the logic for how to store values in Realm is not
+/// implemented in Swift and there is currently no extension mechanism for
+/// supporting more types.
 public protocol RealmCollectionValue: Equatable {
     /// :nodoc:
     static func _rlmArray() -> RLMArray<AnyObject>
@@ -143,6 +148,12 @@ public protocol RealmCollectionValue: Equatable {
     static func _nilValue() -> Self
 }
 #else
+/// A type which can be stored in a Realm List or Results
+///
+/// Declaring additional types as conforming to this protocol will not make them
+/// actually work. Most of the logic for how to store values in Realm is not
+/// implemented in Swift and there is currently no extension mechanism for
+/// supporting more types.
 public protocol RealmCollectionValue {
     /// :nodoc:
     static func _rlmArray() -> RLMArray<AnyObject>
@@ -506,13 +517,13 @@ public extension RealmCollection where Element: MinMaxType {
     /**
      Returns the minimum (lowest) value of the collection, or `nil` if the collection is empty.
      */
-    public func min() -> Element? {
+    func min() -> Element? {
         return min(ofProperty: "self")
     }
     /**
      Returns the maximum (highest) value of the collection, or `nil` if the collection is empty.
      */
-    public func max() -> Element? {
+    func max() -> Element? {
         return max(ofProperty: "self")
     }
 }
@@ -521,13 +532,13 @@ public extension RealmCollection where Element: OptionalProtocol, Element.Wrappe
     /**
      Returns the minimum (lowest) value of the collection, or `nil` if the collection is empty.
      */
-    public func min() -> Element.Wrapped? {
+    func min() -> Element.Wrapped? {
         return min(ofProperty: "self")
     }
     /**
      Returns the maximum (highest) value of the collection, or `nil` if the collection is empty.
      */
-    public func max() -> Element.Wrapped? {
+    func max() -> Element.Wrapped? {
         return max(ofProperty: "self")
     }
 }
@@ -536,13 +547,13 @@ public extension RealmCollection where Element: AddableType {
     /**
      Returns the sum of the values in the collection, or `nil` if the collection is empty.
      */
-    public func sum() -> Element {
+    func sum() -> Element {
         return sum(ofProperty: "self")
     }
     /**
      Returns the average of all of the values in the collection.
      */
-    public func average() -> Double? {
+    func average() -> Double? {
         return average(ofProperty: "self")
     }
 }
@@ -551,13 +562,13 @@ public extension RealmCollection where Element: OptionalProtocol, Element.Wrappe
     /**
      Returns the sum of the values in the collection, or `nil` if the collection is empty.
      */
-    public func sum() -> Element.Wrapped {
+    func sum() -> Element.Wrapped {
         return sum(ofProperty: "self")
     }
     /**
      Returns the average of all of the values in the collection.
      */
-    public func average() -> Double? {
+    func average() -> Double? {
         return average(ofProperty: "self")
     }
 }
@@ -571,7 +582,7 @@ public extension RealmCollection where Element: Comparable {
 
      - parameter ascending: The direction to sort in.
      */
-    public func sorted(ascending: Bool = true) -> Results<Element> {
+    func sorted(ascending: Bool = true) -> Results<Element> {
         return sorted(byKeyPath: "self", ascending: ascending)
     }
 }
@@ -585,7 +596,7 @@ public extension RealmCollection where Element: OptionalProtocol, Element.Wrappe
 
      - parameter ascending: The direction to sort in.
      */
-    public func sorted(ascending: Bool = true) -> Results<Element> {
+    func sorted(ascending: Bool = true) -> Results<Element> {
         return sorted(byKeyPath: "self", ascending: ascending)
     }
 }

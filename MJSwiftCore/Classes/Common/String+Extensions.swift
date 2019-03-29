@@ -25,7 +25,7 @@ public extension String {
     /// Creates a random string of the given length.
     ///
     /// - Parameter length: The length of the string.
-    public init(randomOfLength length: UInt) {
+    init(randomOfLength length: UInt) {
         var string = ""
         for _ in 0..<length {
             let randomIndex = Int(arc4random() % UInt32(alphabet.count))
@@ -37,14 +37,14 @@ public extension String {
     /// Splits the string using the space character into an array of words.
     ///
     /// - Returns: An array of words.
-    public func words() -> [String] {
+    func words() -> [String] {
         return components(separatedBy: " ")
     }
     
     /// Returns the first word.
     ///
     /// - Returns: The first word.
-    public func firstWord() -> String {
+    func firstWord() -> String {
         if let first = self.words().first {
             return first
         }
@@ -54,7 +54,7 @@ public extension String {
     /// Returns the last word.
     ///
     /// - Returns: The last word.
-    public func lastWord() -> String {
+    func lastWord() -> String {
         if let last = self.words().last {
             return last
         }
@@ -64,7 +64,7 @@ public extension String {
     /// Removes the first word.
     ///
     /// - Returns: A string without the first word.
-    public func deleteFirstWord() -> String {
+    func deleteFirstWord() -> String {
         let words = self.words()
         
         guard words.count > 0 else {

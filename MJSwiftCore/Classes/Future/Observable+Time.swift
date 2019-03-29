@@ -24,7 +24,7 @@ public extension Observable {
     ///   - interval: The delay time
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained observable.
-    public func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
+    func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
         return Observable() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
@@ -42,7 +42,7 @@ public extension Observable {
     ///   - deadline: The deadline
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained observable.
-    public func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
+    func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Observable<T> {
         return Observable() { resolver in
             queue.asyncAfter(deadline: deadline) {
                 self.resolve(success: {value in
@@ -59,7 +59,7 @@ public extension Observable {
     ///
     /// - Parameter date: The date.
     /// - Returns: A chained observable.
-    public func after(_ date: Date) -> Observable<T> {
+    func after(_ date: Date) -> Observable<T> {
         let interval = date.timeIntervalSince(Date())
         if interval < 0 {
             return self

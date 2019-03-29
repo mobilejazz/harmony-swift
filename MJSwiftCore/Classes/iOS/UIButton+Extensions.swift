@@ -17,17 +17,17 @@
 import UIKit
 
 public extension UIButton {
-    public func setBackgroundColor(_ color: UIColor, radius: CGFloat = 0.0, for state: UIControl.State) {
+    func setBackgroundColor(_ color: UIColor, radius: CGFloat = 0.0, for state: UIControl.State) {
         let image = UIImage.resizable(color: color, radius: radius)
         setBackgroundImage(image, for: state)
     }
     
-    public func setBackgroundColor(_ color: UIColor, cornerInset: CornerInset, for state: UIControl.State) {
+    func setBackgroundColor(_ color: UIColor, cornerInset: CornerInset, for state: UIControl.State) {
         let image = UIImage.resizable(color: color, cornerInset: cornerInset)
         setBackgroundImage(image, for: state)
     }
     
-    @objc public func alignImageAndTitleVertically(padding: CGFloat = 6.0) {
+    @objc func alignImageAndTitleVertically(padding: CGFloat = 6.0) {
         let imageSize = self.imageView!.frame.size
         let titleSize = self.titleLabel!.frame.size
         let totalHeight = imageSize.height + titleSize.height + padding

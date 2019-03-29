@@ -17,7 +17,7 @@
 import Foundation
 
 public extension Dictionary where Key == String, Value == AnyObject {
-    public func decodeAs<T>(_ type : T.Type,
+    func decodeAs<T>(_ type : T.Type,
                             keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T where T : Decodable {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
@@ -26,7 +26,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
         return object
     }
     
-    public func decodeAs<T>(_ type : T.Type,
+    func decodeAs<T>(_ type : T.Type,
                             keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
                             completion: (inout T) -> Void = { _ in }) -> Future<T> where T : Decodable {
         do {
@@ -40,7 +40,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
 }
 
 public extension Array where Element == [String : AnyObject] {
-    public func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T] where T : Decodable {
+    func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T] where T : Decodable {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
@@ -48,7 +48,7 @@ public extension Array where Element == [String : AnyObject] {
         return array
     }
     
-    public func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
+    func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
                             forEach: (inout T) -> Void = { _ in },
                             completion: (inout [T]) -> Void = { _ in }) -> Future<[T]> where T : Decodable {
         do {

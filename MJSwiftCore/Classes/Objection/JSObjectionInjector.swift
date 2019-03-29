@@ -19,27 +19,27 @@ import MJObjection
 
 public extension JSObjectionInjector {
     /// Swift injection method
-    public func get<T>(_ type: T.Type) -> T {
+    func get<T>(_ type: T.Type) -> T {
         return getObject(type) as! T
     }
     /// Swift injection method
-    public func get<T>(_ type: T.Type, named name: String) -> T {
+    func get<T>(_ type: T.Type, named name: String) -> T {
         return getObject(type, named: name) as! T
     }
     /// Swift injection method
-    public func get<T>(_ type: T.Type, argumentList: [Any]) -> T {
+    func get<T>(_ type: T.Type, argumentList: [Any]) -> T {
         return getObject(type, argumentList: argumentList) as! T
     }
     /// Swift injection method
-    public func get<T>(_ type: T.Type, named name: String, argumentList: [Any]) -> T {
+    func get<T>(_ type: T.Type, named name: String, argumentList: [Any]) -> T {
         return getObject(type, named: name, argumentList: argumentList) as! T
     }
     /// Swift injection method
-    public func get<T>(_ type: T.Type, arguments: CVaListPointer) -> T {
+    func get<T>(_ type: T.Type, arguments: CVaListPointer) -> T {
         return getObject(type, arguments: arguments) as! T
     }
     /// Swift injection method
-    public func get<T>(_ type: T.Type, named name: String, arguments: CVaListPointer) -> T {
+    func get<T>(_ type: T.Type, named name: String, arguments: CVaListPointer) -> T {
         return getObject(type, named: name, arguments: arguments) as! T
     }
 }

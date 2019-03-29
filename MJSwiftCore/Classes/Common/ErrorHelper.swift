@@ -17,14 +17,14 @@
 import Foundation
 
 public extension NSError {
-    public static func domain(_ string: String = "", base: String = "\(Bundle.main.bundleIdentifier!)") -> String {
+    static func domain(_ string: String = "", base: String = "\(Bundle.main.bundleIdentifier!)") -> String {
         if string.count > 0 {
             return base + "." + string
         }
         return base
     }
     
-    public convenience init(_ message: String,
+    convenience init(_ message: String,
                             reason: String? = nil,
                             domain: String = NSError.domain(),
                             code: Int = 0,
@@ -37,7 +37,7 @@ public extension NSError {
         self.init(domain: domain, code: code, userInfo: userInfoDict)
     }
     
-    public convenience init(_ message: String,
+    convenience init(_ message: String,
                             reason: String? = nil,
                             subdomain: String,
                             code: Int = 0,

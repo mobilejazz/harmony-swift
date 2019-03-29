@@ -23,7 +23,7 @@ public enum ObjectionScope {
 }
 
 internal extension ObjectionScope {
-    internal func scope() -> JSObjectionScope {
+    func scope() -> JSObjectionScope {
         switch self {
         case .normal:
             return JSObjectionScopeNormal
@@ -35,31 +35,31 @@ internal extension ObjectionScope {
 
 public extension JSObjectionModule {
     // Swift binding method
-    public func bind<T>(_ type: T.Type, to provider: JSObjectionProvider) where T:AnyObject {
+    func bind<T>(_ type: T.Type, to provider: JSObjectionProvider) where T:AnyObject {
         bindProvider(provider, to: type as AnyClass)
     }
     /// Swift binding method
-    public func bind(_ type: Protocol, to provider: JSObjectionProvider) {
+    func bind(_ type: Protocol, to provider: JSObjectionProvider) {
         bindProvider(provider, to: type)
     }
     /// Swift binding method
-    public func bind<T>(_ type: T.Type, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject {
+    func bind<T>(_ type: T.Type, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject {
         bindBlock({ closure($0!) }, to: type as AnyClass, in: scope.scope())
     }
     /// Swift binding method
-    public func bind(_ type: Protocol, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
+    func bind(_ type: Protocol, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
         bindBlock({ closure($0!) }, to: type, in: scope.scope())
     }
     /// Swift binding method
-    public func bind<T>(_ type: T.Type, scope: ObjectionScope = .normal, named name: String, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject {
+    func bind<T>(_ type: T.Type, scope: ObjectionScope = .normal, named name: String, _ closure: @escaping (JSObjectionInjector) -> T) where T:AnyObject {
         bindBlock({ closure($0!) }, to: type as AnyClass, in: scope.scope(), named: name)
     }
     /// Swift binding method
-    public func bind(_ type: Protocol, named name: String, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
+    func bind(_ type: Protocol, named name: String, scope: ObjectionScope = .normal, _ closure: @escaping (JSObjectionInjector) -> AnyObject) {
         bindBlock({ closure($0!) }, to: type, in: scope.scope(), named: name)
     }
     /// Swift eager singletons
-    public func registerEagerSingleton<T>(_ type: T.Type) where T:AnyObject {
+    func registerEagerSingleton<T>(_ type: T.Type) where T:AnyObject {
         registerEagerSingleton(type as AnyClass)
     }
 }

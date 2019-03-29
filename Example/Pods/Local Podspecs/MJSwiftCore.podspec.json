@@ -1,6 +1,6 @@
 {
   "name": "MJSwiftCore",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "summary": "Mobile Jazz Swift toolkit utilities",
   "swift_version": "4.2",
   "description": "Mobile Jazz Swift toolkit utilities for macOS and iOS.",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/mobilejazz/MJSwiftCore.git",
-    "tag": "0.9.0"
+    "tag": "0.9.1"
   },
   "social_media_url": "https://twitter.com/mobilejazzcom",
   "default_subspecs": [
@@ -83,7 +83,7 @@
       ],
       "dependencies": {
         "Alamofire": [
-          "~> 4.7.3"
+          "~> 4.8.2"
         ],
         "MJSwiftCore/Future": [
 
@@ -98,7 +98,7 @@
       ],
       "dependencies": {
         "RealmSwift": [
-          "~> 3.9.0"
+          "~> 3.14"
         ],
         "MJSwiftCore/Repository": [
 

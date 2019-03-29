@@ -40,7 +40,7 @@ import Foundation
 ///         }
 ///     }
 ///
-open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvertible, Equatable, Hashable {
+open class ClassError : Error, CustomStringConvertible {
     
     /// The error's domain
     public let domain : String
@@ -69,21 +69,6 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
         return description
     }
    
-    /// Debug description
-    public var debugDescription: String {
-        return "Error Code <\(code)>: \(description) - User Info: \(userInfo)"
-    }
-    
-    /// Two ClassError are the same if code and domain are the same.
-    public static func ==(lhs: ClassError, rhs: ClassError) -> Bool {
-        return lhs.code == rhs.code && lhs.domain == rhs.domain
-    }
-    
-    /// Hash method
-    public var hashValue: Int {
-        return "\(domain).\(code)".hashValue
-    }
-    
     /// Subclasses can override this method to return a custom user info for NSError transformation
     open func userInfo() -> [String:Any] {
         return [NSLocalizedDescriptionKey : description]
@@ -94,5 +79,27 @@ open class ClassError : Error, CustomStringConvertible, CustomDebugStringConvert
     /// - Returns: An NSError instnace
     public func toNSError(domain: String? = nil) -> NSError {
         return NSError(domain: domain ?? self.domain, code: code, userInfo: userInfo())
+    }
+}
+
+extension ClassError : Hashable {
+    /// Hash method
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(domain)
+        hasher.combine(code)
+    }
+}
+
+extension ClassError : Equatable {
+    /// Two ClassError are the same if code and domain are the same.
+    public static func ==(lhs: ClassError, rhs: ClassError) -> Bool {
+        return lhs.code == rhs.code && lhs.domain == rhs.domain
+    }
+}
+
+extension ClassError : CustomDebugStringConvertible {
+    /// Debug description
+    public var debugDescription: String {
+        return "Error Code <\(code)>: \(description)"
     }
 }

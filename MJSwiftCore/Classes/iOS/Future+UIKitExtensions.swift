@@ -17,13 +17,13 @@
 import UIKit
 
 public extension UIEdgeInsets {
-    public func toFuture() -> Future<UIEdgeInsets> {
+    func toFuture() -> Future<UIEdgeInsets> {
         return Future(self)
     }
 }
 
 public extension UIImage {
-    public func toFuture() -> Future<UIImage> {
+    func toFuture() -> Future<UIImage> {
         return Future(self)
     }
 }

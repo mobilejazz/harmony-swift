@@ -24,7 +24,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - transform: The map closure
     /// - Returns: A value-mapped chained observable
-    public func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Observable<K> {
+    func map<K>(_ executor: Executor = DirectExecutor(), _ transform: @escaping (T) throws -> K) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
@@ -43,7 +43,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - transform: The map closure
     /// - Returns: A error-mapped chained future
-    public func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
+    func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit { resolver.set(value) }
@@ -59,7 +59,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The flatmap closure
     /// - Returns: A chained observable
-    public func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
+    func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
@@ -77,7 +77,7 @@ public extension Observable {
     ///
     /// - Parameter observable: The chained observable
     /// - Returns: The incoming observable chained to the current one
-    public func chain<K>(_ observable: Observable<K>) -> Observable<K> {
+    func chain<K>(_ observable: Observable<K>) -> Observable<K> {
         return flatMap { value in
             return observable
         }
@@ -89,7 +89,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained observable
-    public func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
+    func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit { resolver.set(value) }
@@ -109,7 +109,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained observable
-    public func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
+    func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
@@ -137,7 +137,7 @@ public extension Observable {
     ///    - closure: The completion closure
     /// - Returns: A chained observable
     @discardableResult
-    public func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Observable<T> {
+    func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
@@ -159,7 +159,7 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The filter closure. Throw an error to replace it's value for an error.
     /// - Returns: A chained observable
-    public func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Observable<T> {
+    func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
