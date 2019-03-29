@@ -1,37 +1,37 @@
 PODS:
   - Alamofire (4.8.2)
+  - Harmony (1.0):
+    - Harmony/Common (= 1.0)
+    - Harmony/Repository (= 1.0)
+    - Harmony/Security (= 1.0)
+  - Harmony/Alamofire (1.0):
+    - Alamofire (~> 4.8.2)
+    - Harmony/Future
+  - Harmony/Common (1.0):
+    - Harmony/Future
+  - Harmony/Future (1.0)
+  - Harmony/iOS (1.0):
+    - Harmony/Common
+  - Harmony/MJCocoaCore (1.0):
+    - Harmony/Common
+    - MJCocoaCore/Common (~> 2.3)
+  - Harmony/Objection (1.0):
+    - MJObjection
+  - Harmony/Realm (1.0):
+    - Harmony/Repository
+    - Harmony/Security
+    - RealmSwift (~> 3.14)
+  - Harmony/Repository (1.0):
+    - Harmony/Common
+    - Harmony/Future
+  - Harmony/Security (1.0):
+    - Harmony/Repository
+  - Harmony/Vastra (1.0)
   - Kingfisher (5.3.1)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.10)
   - MJObjection (1.6.4)
-  - MJSwiftCore (0.9.1):
-    - MJSwiftCore/Common (= 0.9.1)
-    - MJSwiftCore/Repository (= 0.9.1)
-    - MJSwiftCore/Security (= 0.9.1)
-  - MJSwiftCore/Alamofire (0.9.1):
-    - Alamofire (~> 4.8.2)
-    - MJSwiftCore/Future
-  - MJSwiftCore/Common (0.9.1):
-    - MJSwiftCore/Future
-  - MJSwiftCore/Future (0.9.1)
-  - MJSwiftCore/iOS (0.9.1):
-    - MJSwiftCore/Common
-  - MJSwiftCore/MJCocoaCore (0.9.1):
-    - MJCocoaCore/Common (~> 2.3)
-    - MJSwiftCore/Common
-  - MJSwiftCore/Objection (0.9.1):
-    - MJObjection
-  - MJSwiftCore/Realm (0.9.1):
-    - MJSwiftCore/Repository
-    - MJSwiftCore/Security
-    - RealmSwift (~> 3.14)
-  - MJSwiftCore/Repository (0.9.1):
-    - MJSwiftCore/Common
-    - MJSwiftCore/Future
-  - MJSwiftCore/Security (0.9.1):
-    - MJSwiftCore/Repository
-  - MJSwiftCore/Vastra (0.9.1)
   - PromisesObjC (1.2.7)
   - PromisesSwift (1.2.7):
     - PromisesObjC (= 1.2.7)
@@ -43,15 +43,15 @@ PODS:
   - Swinject (2.6.0)
 
 DEPENDENCIES:
+  - Harmony (from `../`)
+  - Harmony/Alamofire (from `../`)
+  - Harmony/iOS (from `../`)
+  - Harmony/MJCocoaCore (from `../`)
+  - Harmony/Objection (from `../`)
+  - Harmony/Realm (from `../`)
+  - Harmony/Security (from `../`)
+  - Harmony/Vastra (from `../`)
   - Kingfisher (~> 5.3)
-  - MJSwiftCore (from `../`)
-  - MJSwiftCore/Alamofire (from `../`)
-  - MJSwiftCore/iOS (from `../`)
-  - MJSwiftCore/MJCocoaCore (from `../`)
-  - MJSwiftCore/Objection (from `../`)
-  - MJSwiftCore/Realm (from `../`)
-  - MJSwiftCore/Security (from `../`)
-  - MJSwiftCore/Vastra (from `../`)
   - PromisesSwift (~> 1.2)
   - Swinject (~> 2.6)
 
@@ -68,21 +68,21 @@ SPEC REPOS:
     - Swinject
 
 EXTERNAL SOURCES:
-  MJSwiftCore:
+  Harmony:
     :path: "../"
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Harmony: 5627b19c141128d0f8cfe0f06df6d6a59df86449
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
-  MJSwiftCore: b390ebfb51adc86aab946da8bab5336958bddd61
   PromisesObjC: 7b28ddd1e78cce8f80f1ada927d2217663a9c672
   PromisesSwift: b27f410f9ea693753cfd4cfd8ac1c60a471f137b
   Realm: 221b25919bb5a010a3c597d707f8df3492dcd93a
   RealmSwift: 28f22dfa6a27b9a778cfb09471558b6afcf1022c
   Swinject: 48a96cda93633cf2860697b4ce76ab5db9ebaca2
 
-PODFILE CHECKSUM: 5c617e063cbe9ba4399893e1434a628d8be6e7c1
+PODFILE CHECKSUM: 7eb1b540003517247a8487c95e6309b8a16d8644
 
 COCOAPODS: 1.6.0.beta.2

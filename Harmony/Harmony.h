@@ -13,21 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+#ifndef Harmony_h
+#define Harmony_h
 
-import XCTest
-@testable import Harmony
+// This file is empty.
 
-class FutureDeallocTests: XCTestCase {
-    
-    func testFuturePendingDealloc() {
-        weak var weakFuture: Future<Int>? = nil
-        autoreleasepool {
-            XCTAssertNil(weakFuture)
-            let future = Future<Int>()
-            weakFuture = future
-            XCTAssertNotNil(weakFuture)
-        }
-        XCTAssertNil(weakFuture)
-    }
-    
-}
+#endif /* Harmony_h */

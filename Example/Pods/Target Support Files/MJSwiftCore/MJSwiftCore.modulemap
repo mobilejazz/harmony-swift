@@ -1,6 +1,0 @@
-framework module MJSwiftCore {
-  umbrella header "MJSwiftCore-umbrella.h"
-
-  export *
-  module * { export * }
-}

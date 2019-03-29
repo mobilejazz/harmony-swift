@@ -16,7 +16,7 @@
 
 import UIKit
 import XCTest
-@testable import MJSwiftCore
+@testable import Harmony
 
 class FuturePerformanceTests: XCTestCase {
 

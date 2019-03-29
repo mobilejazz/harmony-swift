@@ -15,7 +15,7 @@
 //
 
 import XCTest
-@testable import MJSwiftCore
+@testable import Harmony
 
 class FutureThenTests: XCTestCase {
     

@@ -1,22 +1,22 @@
 use_frameworks!
 platform :ios, '10.0'
 
-target 'MJSwiftCore_Example' do
+target 'Harmony_Example' do
   
-  pod 'MJSwiftCore', :path => '../'
-  pod 'MJSwiftCore/Security', :path => '../'
-  pod 'MJSwiftCore/Vastra', :path => '../'
-  pod 'MJSwiftCore/Alamofire', :path => '../'
-  pod 'MJSwiftCore/iOS', :path => '../'
-  pod 'MJSwiftCore/Realm', :path => '../'
-  pod 'MJSwiftCore/MJCocoaCore', :path => '../'
-  pod 'MJSwiftCore/Objection', :path => '../'
+  pod 'Harmony', :path => '../'
+  pod 'Harmony/Security', :path => '../'
+  pod 'Harmony/Vastra', :path => '../'
+  pod 'Harmony/Alamofire', :path => '../'
+  pod 'Harmony/iOS', :path => '../'
+  pod 'Harmony/Realm', :path => '../'
+  pod 'Harmony/MJCocoaCore', :path => '../'
+  pod 'Harmony/Objection', :path => '../'
 
   pod 'Swinject', '~> 2.6'
   pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'
 
-  target 'MJSwiftCore_Tests' do
+  target 'Harmony_Tests' do
     inherit! :search_paths
   end
 end
