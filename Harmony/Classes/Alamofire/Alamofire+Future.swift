@@ -17,7 +17,7 @@
 import Foundation
 import Alamofire
 
-public enum MJSwiftCoreAlamofireError : Error {
+public enum HarmonyAlamofireError : Error {
     case jsonSerialization
 }
 

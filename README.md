@@ -1,9 +1,9 @@
-# MJSwiftCore
+# Harmony
 
-[![CI Status](http://img.shields.io/travis/mobilejazz/MJSwiftCore.svg?style=flat)](https://travis-ci.org/mobilejazz/MJSwiftCore)
-[![Version](https://img.shields.io/cocoapods/v/MJSwiftCore.svg?style=flat)](http://cocoapods.org/pods/MJSwiftCore)
-[![License](https://img.shields.io/cocoapods/l/MJSwiftCore.svg?style=flat)](http://cocoapods.org/pods/MJSwiftCore)
-[![Platform](https://img.shields.io/cocoapods/p/MJSwiftCore.svg?style=flat)](http://cocoapods.org/pods/MJSwiftCore)
+[![CI Status](http://img.shields.io/travis/mobilejazz/harmony-ios.svg?style=flat)](https://travis-ci.org/mobilejazz/harmony-ios)
+[![Version](https://img.shields.io/cocoapods/v/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
+[![License](https://img.shields.io/cocoapods/l/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
+[![Platform](https://img.shields.io/cocoapods/p/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
 
 ## Example
 
@@ -13,24 +13,24 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-MJSwiftCore is available through [CocoaPods](http://cocoapods.org). To install
+Harmony is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'MJSwiftCore'
+pod 'Harmony'
 ```
 ### Subspecs
 
 ```ruby
-pod 'MJSwiftCore/Future'
-pod 'MJSwiftCore/Common'
-pod 'MJSwiftCore/Security'
-pod 'MJSwiftCore/iOS'
-pod 'MJSwiftCore/Realm'
-pod 'MJSwiftCore/Alamofire'
-pod 'MJSwiftCore/Vastra'
-pod 'MJSwiftCore/MJCocoaCore'
-pod 'MJSwiftCore/MJObjection'
+pod 'Harmony/Future'
+pod 'Harmony/Common'
+pod 'Harmony/Security'
+pod 'Harmony/iOS'
+pod 'Harmony/Realm'
+pod 'Harmony/Alamofire'
+pod 'Harmony/Vastra'
+pod 'Harmony/MJCocoaCore'
+pod 'Harmony/MJObjection'
 ```
 
 ## Author
@@ -39,8 +39,8 @@ Mobile Jazz, info@mobilejazz.com
 
 ## API Reference 
 
-[https://mobilejazz.github.io/MJSwiftCore/](https://mobilejazz.github.io/MJSwiftCore/)
+[https://mobilejazz.github.io/harmony-ios/](https://mobilejazz.github.io/harmony-ios/)
 
 ## License
 
-MJSwiftCore is available under the Apache 2.0 license. See the LICENSE file for more info.
+Harmony is available under the Apache 2.0 license. See the LICENSE file for more info.

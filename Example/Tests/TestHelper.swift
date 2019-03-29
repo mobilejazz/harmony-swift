@@ -38,7 +38,7 @@ public struct Test {
         case code13 = 13
         case code42 = 42
         public static var errorDomain: String {
-            return "com.mobilejazz.MJSWiftCore"
+            return "com.mobilejazz.Harmony"
         }
         public var errorCode: Int { return rawValue }
         public var errorUserInfo: [String: Any] { return [:] }
