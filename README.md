@@ -1,9 +1,9 @@
 # Harmony
 
 [![CI Status](http://img.shields.io/travis/mobilejazz/harmony-ios.svg?style=flat)](https://travis-ci.org/mobilejazz/harmony-ios)
-[![Version](https://img.shields.io/cocoapods/v/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
-[![License](https://img.shields.io/cocoapods/l/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
-[![Platform](https://img.shields.io/cocoapods/p/harmony-ios.svg?style=flat)](http://cocoapods.org/pods/harmony-ios)
+[![Version](https://img.shields.io/cocoapods/v/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
+[![License](https://img.shields.io/cocoapods/l/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
+[![Platform](https://img.shields.io/cocoapods/p/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
 
 ## Example
 
