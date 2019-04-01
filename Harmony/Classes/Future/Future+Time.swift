@@ -25,6 +25,10 @@ public extension Future {
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
     func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+        if interval == 0.0 {
+            return self
+        }
+        
         return Future() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
@@ -33,6 +37,26 @@ public extension Future {
                     resolver.set(error)
                 })
             }
+        }
+    }
+    
+    /// Adds a sync delay (blocks current thread) after the future is resolved.
+    ///
+    /// - Parameters:
+    ///   - interval: The delay time
+    /// - Returns: A chained future.
+    func withBlockingDelay(_ interval: TimeInterval) -> Future<T> {
+        if interval == 0.0 {
+            return self
+        }
+        
+        return Future() { resolver in
+            Thread.sleep(forTimeInterval: interval)
+            self.resolve(success: {value in
+                resolver.set(value)
+            }, failure: { error in
+                resolver.set(error)
+            })
         }
     }
     

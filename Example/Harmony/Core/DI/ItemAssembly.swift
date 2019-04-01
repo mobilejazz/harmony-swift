@@ -19,7 +19,7 @@ class ItemAssembly: Assembly {
         // Network
         let sessionManager = container.resolve(SessionManager.self)!
         let itemNetworkGetDataSource = ItemNetworkDataSource(sessionManager) // <-- Only implements GetDataSource
-        let itemNetworkDataSource = DataSourceAssembler(get: itemNetworkGetDataSource) // <-- Implements DataSource
+        let itemNetworkDataSource = DelayDataSource(DataSourceAssembler(get: itemNetworkGetDataSource), delay: 2) // <-- Implements DataSource
         let networkDataSource = RetryDataSource(itemNetworkDataSource, retryCount: 1) { error in
             return error._code == NSURLErrorTimedOut && error._domain == NSURLErrorDomain
         }
