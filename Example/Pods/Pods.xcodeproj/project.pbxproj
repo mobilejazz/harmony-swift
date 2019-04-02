@@ -474,7 +474,7 @@
 		CF5617D2068CEE6D5C538FD73D0F1692 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E44516186C46D8D9DAD11ED1F30E0 /* Box.swift */; };
 		CF63DBEDD2861BC9B9434C5EEE9EF55E /* RLMRealm+Sync.h in Headers */ = {isa = PBXBuildFile; fileRef = 15F725D32F7436FB4E1CA71A03598BA8 /* RLMRealm+Sync.h */; };
 		D04E1DCFCD5584753AF3510B27402D42 /* FBLPromise+Race.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 8C4FD3F17DC592F938C24EC145ED7B07 /* FBLPromise+Race.h */; };
-		D250F3C52252482A0044E549 /* DelayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250F3C42252482A0044E549 /* DelayDataSource.swift */; };
+		D250F3C52252482A0044E549 /* DebugDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D250F3C42252482A0044E549 /* DebugDataSource.swift */; };
 		D25BBF6CBA5B9420864543015B4587B6 /* ObjectScope.Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD051B495E7A38316BF5448D8D716FC0 /* ObjectScope.Standard.swift */; };
 		D29700A2741B8F4EE2E042CA29F85A80 /* MJSecureKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A398F9F9D9F3BA350DF87829ECB30E6 /* MJSecureKey.m */; };
 		D3817FAB898D3C6A19AE674961A7FD15 /* MJDataProviderDirector.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CF71E82F0BC40FD6921DF5D11A173F2 /* MJDataProviderDirector.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1727,7 +1727,7 @@
 		D21EF01CA25E21761706C4BA411838B9 /* VoidRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VoidRepository.swift; sourceTree = "<group>"; };
 		D2208C0EE071A3EE76B8A3BDE4E2CE33 /* MJFutureHub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJFutureHub.m; path = MJCocoaCore/Classes/Future/MJFutureHub.m; sourceTree = "<group>"; };
 		D248D277629C652E2F0B4C62D6A66409 /* highlight.css */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.css; name = highlight.css; path = docs/css/highlight.css; sourceTree = "<group>"; };
-		D250F3C42252482A0044E549 /* DelayDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayDataSource.swift; sourceTree = "<group>"; };
+		D250F3C42252482A0044E549 /* DebugDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataSource.swift; sourceTree = "<group>"; };
 		D45D4B12B3CCF152BF5EF3C1EB0D2C93 /* network_reachability_observer.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = network_reachability_observer.cpp; path = Realm/ObjectStore/src/sync/impl/apple/network_reachability_observer.cpp; sourceTree = "<group>"; };
 		D46F8B2E57CEB0175D749F1E0840DC9D /* OperationQueueExecutor.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = OperationQueueExecutor.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/OperationQueueExecutor.html; sourceTree = "<group>"; };
 		D471542E8440B3F4A8D11AD3FF3EA73E /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
@@ -3039,7 +3039,7 @@
 				9A1A4A5AC54CF56A048003834B68248B /* ClassError.swift */,
 				648EB629E545ECFE6353ED3027D694A3 /* CoreError.swift */,
 				2D363F1DFC64FB6C16596BD14990BD16 /* DataSource.swift */,
-				D250F3C42252482A0044E549 /* DelayDataSource.swift */,
+				D250F3C42252482A0044E549 /* DebugDataSource.swift */,
 				6506D913DF7BCE9F8621D8B0F54D53C6 /* DataSourceAssembler.swift */,
 				C1B58225BBB50D81D2DE41B207E7367D /* DataSourceMapper.swift */,
 				CA87C272DD34726D6FD0E9D83607F97C /* DataSourceValidator.swift */,
@@ -4601,7 +4601,7 @@
 				D3F9A15559813B5B1D0CF1D360D2AF5F /* Future+Extensions.swift in Sources */,
 				12E9C3B8170783DF03C86DCA0F9C6B44 /* Future+Functional.swift in Sources */,
 				E6A850746DFB1703DFAAD911B2DC1377 /* Future+MJFuture.swift in Sources */,
-				D250F3C52252482A0044E549 /* DelayDataSource.swift in Sources */,
+				D250F3C52252482A0044E549 /* DebugDataSource.swift in Sources */,
 				FBA616C2656FD1D955B0E6046ECAF357 /* Future+Operators.swift in Sources */,
 				19DC813C40A6E2A3ED50E9E24B05D65D /* Future+Optionals.swift in Sources */,
 				3A72E8AEA3D5471CEC631F20155DA72C /* Future+Time.swift in Sources */,

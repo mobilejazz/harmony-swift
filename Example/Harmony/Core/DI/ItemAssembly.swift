@@ -19,29 +19,34 @@ class ItemAssembly: Assembly {
         // Network
         let sessionManager = container.resolve(SessionManager.self)!
         let itemNetworkGetDataSource = ItemNetworkDataSource(sessionManager) // <-- Only implements GetDataSource
-        let itemNetworkDataSource = DelayDataSource(DataSourceAssembler(get: itemNetworkGetDataSource), delay: 2) // <-- Implements DataSource
+        let itemNetworkDataSource = DebugDataSource(DataSourceAssembler(get: itemNetworkGetDataSource),
+                                                    delay: .sync(2),
+                                                    logger: DeviceConsoleLogger()) // <-- Implements DataSource
         let networkDataSource = RetryDataSource(itemNetworkDataSource, retryCount: 1) { error in
             return error._code == NSURLErrorTimedOut && error._domain == NSURLErrorDomain
         }
         
         // Storage (Realm)
-//        let storageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
+//        let baseStorageDataSource = RealmDataSource(realmHandler: container.resolve(RealmHandler.self)!,
 //                                                toEntityMapper: RealmItemToItemEntityMapper(),
 //                                                toRealmMapper: ItemEntityToRealmItemMapper())
         // Storage (In-Memory)
-        let storageDataSource = InMemoryDataSource<ItemEntity>()
+        let baseStorageDataSource = InMemoryDataSource<ItemEntity>()
 
         // Storage (UserDefaults)
 //        let userDefaultsDataSource = DeviceStorageDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
-//        let storageDataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
+//        let baseStorageDataSource = DataSourceMapper(dataSource: userDefaultsDataSource,
 //                                                 toInMapper: EncodableToDataMapper<ItemEntity>(),
 //                                                 toOutMapper: DataToDecodableMapper<ItemEntity>())
         
         // Storage (Keychain)
 //        let keychainDataSource = KeychainDataSource<Data>(KeychainService("com.mobilejazz.storage.item"))
-//        let storageDataSource = DataSourceMapper(dataSource: keychainDataSource,
+//        let baseStorageDataSource = DataSourceMapper(dataSource: keychainDataSource,
 //                                                 toInMapper: EncodableToDataMapper<ItemEntity>(),
 //                                                 toOutMapper: DataToDecodableMapper<ItemEntity>())
+        
+        
+        let storageDataSource = DebugDataSource(baseStorageDataSource, logger: DeviceConsoleLogger())
         
         // Vastra
         let vastra = VastraService([VastraTimestampStrategy()])

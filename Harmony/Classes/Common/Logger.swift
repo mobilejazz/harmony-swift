@@ -65,3 +65,9 @@ public extension Logger {
         self.log(level: .error, tag: tag, message: message)
     }
 }
+
+/// Logger that does nothing.
+public class VoidLogger : Logger {
+    public init() {}
+    public func log(level: LogLevel, tag: String?, message: String) { }
+}
