@@ -21,7 +21,8 @@ class ItemAssembly: Assembly {
         let itemNetworkGetDataSource = ItemNetworkDataSource(sessionManager) // <-- Only implements GetDataSource
         let itemNetworkDataSource = DebugDataSource(DataSourceAssembler(get: itemNetworkGetDataSource),
                                                     delay: .sync(2),
-                                                    logger: DeviceConsoleLogger()) // <-- Implements DataSource
+                                                    error: .error(CoreError.Failed("Debug Fail"), probability: 0.02),
+                                                    logger: DeviceConsoleLogger())
         let networkDataSource = RetryDataSource(itemNetworkDataSource, retryCount: 1) { error in
             return error._code == NSURLErrorTimedOut && error._domain == NSURLErrorDomain
         }
