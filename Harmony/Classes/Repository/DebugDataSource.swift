@@ -40,7 +40,13 @@ public enum DebugDataSourceError {
 }
 
 private class DebugDataSourceToken {
-    let id = String(randomOfLength: 8).uppercased()
+    
+    let id : String = {
+        let base = String(randomOfLength: 8)
+        let seed = DispatchTime.now()
+        return String("\(base)::\(seed.uptimeNanoseconds)".md5().suffix(8)).uppercased()
+    }()
+    
     private var startTime : DispatchTime?
     private var endTime : DispatchTime?
     

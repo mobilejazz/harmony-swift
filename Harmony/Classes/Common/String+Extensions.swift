@@ -15,6 +15,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 private let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
                         "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -80,5 +81,25 @@ public extension String {
                                     with: "",
                                     options: String.CompareOptions.anchored,
                                     range: Range(NSMakeRange(0, first.count + 1), in: self))
+    }
+    
+    /// MD5 Hash
+    ///
+    /// - Returns: A MD5 Hashed string
+    func md5() -> String {
+        guard let data = self.data(using: .utf8) else {
+            return self
+        }
+        var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+        #if swift(>=5.0)
+        _ = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
+            return CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
+        }
+        #else
+        _ = data.withUnsafeBytes { bytes in
+            return CC_MD5(bytes, CC_LONG(data.count), &digest)
+        }
+        #endif
+        return digest.map { String(format: "%02x", $0) }.joined()
     }
 }
