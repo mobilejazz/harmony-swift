@@ -17,7 +17,7 @@
 import Foundation
 import RealmSwift
 
-open class RealmMapper <In:RealmEntity, Out:Object> {
+open class RealmMapper <In, Out:Object> {
     public init() { }
     open func map(_ from: In, inRealm realm: Realm) throws -> Out {
         fatalError()
@@ -35,7 +35,7 @@ extension RealmMapper {
     }
 }
 
-extension Mapper where From : Object, To: RealmEntity {
+extension Mapper where From : Object {
     public func map(_ results: Results<From>) throws -> [To] {
         return try results.map { object -> To in
             return try self.map(object)
