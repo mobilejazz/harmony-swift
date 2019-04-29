@@ -24,7 +24,11 @@ public extension Future {
     ///   - interval: The delay time
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
-    func withDelay(_ interval: TimeInterval, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+    func withDelay(_ interval: TimeInterval, queue: DispatchQueue) -> Future<T> {
+        if interval == 0.0 {
+            return self
+        }
+        
         return Future() { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
                 self.resolve(success: {value in
@@ -36,13 +40,33 @@ public extension Future {
         }
     }
     
+    /// Adds a sync delay (blocks current thread) after the future is resolved.
+    ///
+    /// - Parameters:
+    ///   - interval: The delay time
+    /// - Returns: A chained future.
+    func withBlockingDelay(_ interval: TimeInterval) -> Future<T> {
+        if interval == 0.0 {
+            return self
+        }
+        
+        return Future() { resolver in
+            Thread.sleep(forTimeInterval: interval)
+            self.resolve(success: {value in
+                resolver.set(value)
+            }, failure: { error in
+                resolver.set(error)
+            })
+        }
+    }
+    
     /// Calls the then block after the given deadline
     ///
     /// - Parameters:
     ///   - deadline: The deadline
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
-    func after(_ deadline: DispatchTime, queue: DispatchQueue = DispatchQueue.main) -> Future<T> {
+    func after(_ deadline: DispatchTime, queue: DispatchQueue) -> Future<T> {
         return Future() { resolver in
             queue.asyncAfter(deadline: deadline) {
                 self.resolve(success: {value in
@@ -59,12 +83,12 @@ public extension Future {
     ///
     /// - Parameter date: The date.
     /// - Returns: A chained future.
-    func after(_ date: Date) -> Future<T> {
+    func after(_ date: Date, queue: DispatchQueue) -> Future<T> {
         let interval = date.timeIntervalSince(Date())
-        if interval < 0 {
+        if interval <= 0 {
             return self
         } else {
-            return withDelay(interval)
+            return withDelay(interval, queue: queue)
         }
     }
 }

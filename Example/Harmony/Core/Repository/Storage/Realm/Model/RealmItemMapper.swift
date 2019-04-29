@@ -25,13 +25,18 @@ class RealmItemToItemEntityMapper: Mapper<RealmItem, ItemEntity> {
 
 class ItemEntityToRealmItemMapper: RealmMapper <ItemEntity, RealmItem> {
     override func map(_ from: ItemEntity, inRealm realm: Realm) -> RealmItem {
-        let id = from.id != nil ? from.id : RealmItem.findId(key: "name", value: from.name, inRealm: realm)
+        var id = from.id
+        if id == nil {
+            let dbObject : RealmItem? = RealmItem.find(key: "name", value: from.name, inRealm: realm)
+            id = dbObject?.id
+        }
         let object = RealmItem(id)
         object.name = from.name
         object.price = from.price
         object.count = from.count
         object.imageURL = from.imageURL!.absoluteString
         object.lastUpdate = from.lastUpdate
+
         return object
     }
 }

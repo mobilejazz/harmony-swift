@@ -17,14 +17,6 @@
 import Foundation
 import RealmSwift
 
-///
-/// Note that id can only be either String or Int.
-///
-public protocol RealmEntity {
-    associatedtype T : Hashable
-    var id : T? { get }
-}
-
 public protocol RealmQuery : Query {
     var realmPredicate : NSPredicate { get }
 }
@@ -34,7 +26,6 @@ extension NSPredicate : RealmQuery {
         return self
     }
 }
-
 
 ///
 /// Realm based data source.
@@ -50,7 +41,7 @@ extension NSPredicate : RealmQuery {
 /// - delete: IdQuery<String>, IdQuery<Int>, ObjectQuery<E>
 /// - deleteAll: ObjectsQuery<E>, AllObjectsQuery, RealmQuery (query by predicate)
 ///
-public class RealmDataSource <E: RealmEntity, O: Object> : GetDataSource, PutDataSource, DeleteDataSource {
+public class RealmDataSource <E, O: Object> : GetDataSource, PutDataSource, DeleteDataSource {
     
     public typealias T = E
     
@@ -136,9 +127,6 @@ public class RealmDataSource <E: RealmEntity, O: Object> : GetDataSource, PutDat
             }
         case let query as ObjectQuery<E>:
             return realmHandler.write { realm in
-                if query.value.id == nil {
-                    throw CoreError.IllegalArgument("The object Id must be not nil")
-                }
                 let object = try toRealmMapper.map(query.value, inRealm: realm)
                 realm.delete(object)
                 return Void()

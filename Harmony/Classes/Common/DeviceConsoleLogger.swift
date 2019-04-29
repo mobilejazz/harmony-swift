@@ -20,9 +20,11 @@ import Foundation
 /// Prints to the system console
 public class DeviceConsoleLogger: Logger {
     
+    public init() { }
+    
     public func log(level: LogLevel, tag: String?, message: String) {
         if let tag = tag {
-            Swift.print("\(levelStringRepresentation(of: level)) - [\(tag)]:, \(message)")
+            Swift.print("\(levelStringRepresentation(of: level)) - [\(tag)]: \(message)")
         } else {
             Swift.print("\(levelStringRepresentation(of: level)): \(message)")
         }

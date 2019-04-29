@@ -17,35 +17,17 @@
 import Foundation
 import RealmSwift
 
-open class RealmObject : Object {
-    
-    @objc dynamic public var id : String = ""
-    
-    public convenience init(_ id: String?) {
-        self.init()
-        if let id = id {
-            self.id = id
-        } else {
-            self.id = UUID().uuidString
-        }
-    }
-    
-    @objc override open class func primaryKey() -> String? {
-        return "id"
-    }
-}
-
-public extension RealmObject {
-    static func findId<T>(key: String, value: T, inRealm realm: Realm) -> String? where T: CVarArg {
+public extension Object {
+    static func find<T,K>(key: String, value: T, inRealm realm: Realm) -> K? where T: CVarArg, K:Object {
         let predicate = NSPredicate(format: "\(key) = %@", value)
-        if let object = realm.objects(self).filter(predicate).first {
-            return object.id
+        if let object = realm.objects(self).filter(predicate).first as? K {
+            return object
         } else {
             return nil
         }
     }
     
-    static func findId<T>(keyedValues: [String : T], inRealm realm: Realm) -> String? where T: CVarArg {
+    static func find<T,K>(keyedValues: [String : T], inRealm realm: Realm) -> K? where T: CVarArg, K:Object {
         var format = String()
         var args = Array<T>()
         var index = 0
@@ -60,8 +42,8 @@ public extension RealmObject {
         }
         
         let predicate = NSPredicate(format: format, argumentArray: args)
-        if let object = realm.objects(self).filter(predicate).first {
-            return object.id
+        if let object = realm.objects(self).filter(predicate).first as? K {
+            return object
         } else {
             return nil
         }

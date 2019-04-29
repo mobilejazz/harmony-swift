@@ -7,7 +7,7 @@ import Foundation
 
 import Harmony
 
-struct ItemEntity : RealmEntity, VastraTimestampStrategyDataSource, Codable {
+struct ItemEntity : VastraTimestampStrategyDataSource, Codable {
     var id: String?
     var name: String
     var price: Double
