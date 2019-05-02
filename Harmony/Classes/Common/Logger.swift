@@ -17,14 +17,14 @@
 import Foundation
 
 /// Information that gets logged can be labeled as one of the following informative labels.
-@objc(HMLogLevel) public enum LogLevel: Int {
+@objc(MJLogLevel) public enum LogLevel: Int {
     case info
     case warning
     case error
 }
 
 /// Abstracts concrete implementations of a logger system.
-@objc(HMLogger) public protocol Logger {
+@objc(MJLogger) public protocol Logger {
     
     /// Logs a String object using a given level
     ///
