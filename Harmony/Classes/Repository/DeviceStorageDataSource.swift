@@ -16,33 +16,60 @@
 
 import Foundation
 
+public enum DeviceStorageType {
+    case regular
+    case prefix(String)
+    case rootKey(String)
+    
+    fileprivate func key(_ key: String) -> String {
+        switch self {
+        case .prefix(let prefix):
+            switch prefix.count {
+            case 0:
+                return key
+            default:
+                return prefix + "." + key
+            }
+        default:
+            return key
+        }
+    }
+}
+
 public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource  {
 
     private let userDefaults : UserDefaults
-    private let prefix : String
+    private let storageType : DeviceStorageType
     
-    public init(_ userDefaults: UserDefaults = UserDefaults.standard, prefix: String = "") {
+    public init(_ userDefaults: UserDefaults = UserDefaults.standard, storageType: DeviceStorageType = .regular) {
         self.userDefaults = userDefaults
-        self.prefix = prefix
+        self.storageType = storageType
     }
     
-    private func addPrefixTo(_ key: String?) -> String? {
-        guard let key = key else {
-            return nil
-        }
-        switch prefix.count {
-        case 0:
-            return key
+    public init(_ userDefaults: UserDefaults = UserDefaults.standard, prefix: String) {
+        self.userDefaults = userDefaults
+        self.storageType = .prefix(prefix)
+    }
+    
+    private func rootKey() -> String? {
+        switch storageType {
+        case .rootKey(let rootKey):
+            return "\(rootKey)<\(String(describing:T.self))>"
         default:
-            return prefix + "." + key
+            return nil
         }
     }
     
     public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
-            let key = query.key
+            let key = storageType.key(query.key)
             guard let value : T = {
+                
+                if let rootKey = rootKey() {
+                    return userDefaults.dictionary(forKey: rootKey)?[key] as? T
+                }
+                
                 switch T.self {
                 case is Int.Type:
                     return userDefaults.integer(forKey: key) as? T
@@ -95,10 +122,18 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
-            guard let array = userDefaults.array(forKey: query.key) as? [T] else {
-                return Future(CoreError.NotFound())
+            let key = storageType.key(query.key)
+            if let rootKey = rootKey() {
+                guard let array = userDefaults.dictionary(forKey: rootKey)?[key] as? [T] else {
+                    return Future(CoreError.NotFound())
+                }
+                return Future(array)
+            } else {
+                guard let array = userDefaults.array(forKey: key) as? [T] else {
+                    return Future(CoreError.NotFound())
+                }
+                return Future(array)
             }
-            return Future(array)
         default:
             query.fatalError(.getAll, self)
         }
@@ -111,7 +146,15 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             guard let value = value else {
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
-            userDefaults.set(value, forKey: query.key)
+            let key = storageType.key(query.key)
+            
+            if let rootKey = rootKey() {
+                var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
+                root[key] = value
+                userDefaults.set(root, forKey: rootKey)
+            } else {
+                userDefaults.set(value, forKey: key)
+            }
             userDefaults.synchronize()
             return Future(value)
         default:
@@ -123,7 +166,14 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
-            userDefaults.set(array, forKey: query.key)
+            let key = storageType.key(query.key)
+            if let rootKey = rootKey() {
+                var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
+                root[key] = array
+                userDefaults.set(root, forKey: rootKey)
+            } else {
+                userDefaults.set(array, forKey: key)
+            }
             userDefaults.synchronize()
             return Future(array)
         default:
@@ -135,7 +185,14 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
-            userDefaults.removeObject(forKey: query.key)
+            let key = storageType.key(query.key)
+            if let rootKey = rootKey() {
+                var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
+                root.removeValue(forKey: key)
+                userDefaults.set(root, forKey: rootKey)
+            } else {
+                userDefaults.removeObject(forKey: key)
+            }
             userDefaults.synchronize()
             return Future(Void())
         default:
@@ -146,8 +203,23 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
+        case is AllObjectsQuery:
+            if let rootKey = rootKey() {
+                userDefaults.removeObject(forKey: rootKey)
+                userDefaults.synchronize()
+                return Future(Void())
+            } else {
+                query.fatalError(.deleteAll, self)
+            }
         case let query as KeyQuery:
-            userDefaults.removeObject(forKey: query.key)
+            let key = storageType.key(query.key)
+            if let rootKey = rootKey() {
+                var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
+                root.removeValue(forKey: key)
+                userDefaults.set(root, forKey: rootKey)
+            } else {
+                userDefaults.removeObject(forKey: key)
+            }
             userDefaults.synchronize()
             return Future(Void())
         default:

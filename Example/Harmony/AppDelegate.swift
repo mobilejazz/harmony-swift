@@ -31,6 +31,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.set(mainVC, animation: .crossDisolve)
         }
         
+        let dataSource1 = DeviceStorageDataSource<Int>(UserDefaults.standard, storageType: .rootKey("test"))
+        dataSource1.get("key1").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource1.getAll("key2").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource1.put(42, forId: "key1")
+        dataSource1.putAll([1,2,3], forId: "key2")
+        dataSource1.get("key1").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource1.getAll("key2").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        
+        let dataSource2 = DeviceStorageDataSource<String>(UserDefaults.standard, storageType: .rootKey("test"))
+        dataSource2.get("key3").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource2.getAll("key4").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource2.put("Hello World", forId: "key3")
+        dataSource2.putAll(["a","b","c"], forId: "key4")
+        dataSource2.get("key3").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        dataSource2.getAll("key4").then { print("value: \($0)") }.fail { print("error: \($0)") }
+        
+        print("User Defaults: \(UserDefaults.standard.asJSONString())")
+        
+        dataSource1.deleteAll(AllObjectsQuery())
+        dataSource2.deleteAll(AllObjectsQuery())
+        
+        print("User Defaults: \(UserDefaults.standard.asJSONString())")
+        
         return true
     }
     

@@ -37,6 +37,7 @@
 		D2A5FECD224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEB5224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift */; };
 		D2A5FEDA224E3C3100693305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FED6224E3C3100693305 /* Main.storyboard */; };
 		D2A5FEDB224E3C3100693305 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FED8224E3C3100693305 /* LaunchScreen.xib */; };
+		D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A64B229C8CE600FE6D97 /* UserDefaults+Extension.swift */; };
 		D2D9FB5B203DE7E20069AE74 /* Future+InitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */; };
 		D2D9FB5D203DEC8A0069AE74 /* Future+SetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */; };
 		D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */; };
@@ -102,6 +103,7 @@
 		D2A5FECE224E3BD000693305 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Harmony/Info.plist; sourceTree = SOURCE_ROOT; };
 		D2A5FED7224E3C3100693305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Harmony/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		D2A5FED9224E3C3100693305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Harmony/Base.lproj/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
+		D2D1A64B229C8CE600FE6D97 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+InitTests.swift"; sourceTree = "<group>"; };
 		D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+SetTests.swift"; sourceTree = "<group>"; };
 		D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				D2A5FE8B224E3BC200693305 /* Core */,
 				D2A5FEA6224E3BC200693305 /* Screens */,
 				D23CDCAF2253716B001C1914 /* AppDelegate.swift */,
+				D2D1A64B229C8CE600FE6D97 /* UserDefaults+Extension.swift */,
 				D2A5FE89224E3BB000693305 /* Images.xcassets */,
 				D2A5FED8224E3C3100693305 /* LaunchScreen.xib */,
 				D2A5FED6224E3C3100693305 /* Main.storyboard */,
@@ -625,6 +628,7 @@
 				D2A5FECA224E3BC200693305 /* UIKitMVPItemListPresenter.swift in Sources */,
 				D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */,
 				D2A5FEC4224E3BC200693305 /* Product.swift in Sources */,
+				D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */,
 				D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
