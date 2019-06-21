@@ -37,7 +37,7 @@ public enum DeviceStorageType {
 }
 
 public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource  {
-
+    
     private let userDefaults : UserDefaults
     private let storageType : DeviceStorageType
     
@@ -121,6 +121,45 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
+        case is AllObjectsQuery:
+            switch storageType {
+            case .regular:
+                query.fatalError(.getAll, self)
+            case .rootKey(let rootKey):
+                guard let dict = userDefaults.dictionary(forKey: rootKey) else {
+                    return Future(CoreError.NotFound())
+                }
+                // Dict can be composed of components of type T or [T].
+                // Let's add it all together in an array.
+                var array = [T]()
+                dict.forEach { (key, value) in
+                    if let value = value as? T {
+                        array.append(value)
+                    } else if let values = value as? [T] {
+                        array.append(contentsOf: values)
+                    } else {
+                        // Ignore the value as its type doesn't match
+                    }
+                }
+                return Future(array)
+            case .prefix(let prefix):
+                var array = [T]()
+                userDefaults.dictionaryRepresentation().forEach { (key, value) in
+                    // Let's search for keys with the given prefix
+                    guard key.hasPrefix(prefix) else { return }
+                    
+                    // value now can be composed of type T or [T] or any other type.
+                    // Let's add it all together in an array if base type is T.
+                    if let value = value as? T {
+                        array.append(value)
+                    } else if let values = value as? [T] {
+                        array.append(contentsOf: values)
+                    } else {
+                        // Ignore the value as its type doesn't match
+                    }
+                }
+                return Future(array)
+            }
         case let query as KeyQuery:
             let key = storageType.key(query.key)
             if let rootKey = rootKey() {
@@ -147,7 +186,6 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
             let key = storageType.key(query.key)
-            
             if let rootKey = rootKey() {
                 var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
                 root[key] = value
@@ -204,12 +242,30 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
         case is AllObjectsQuery:
-            if let rootKey = rootKey() {
+            switch storageType {
+            case .regular:
+                query.fatalError(.deleteAll, self)
+            case .rootKey(let rootKey):
                 userDefaults.removeObject(forKey: rootKey)
                 userDefaults.synchronize()
                 return Future(Void())
-            } else {
-                query.fatalError(.deleteAll, self)
+            case .prefix(let prefix):
+                var array = [T]()
+                userDefaults.dictionaryRepresentation().forEach { (key, value) in
+                    // Let's search for keys with the given prefix
+                    guard key.hasPrefix(prefix) else { return }
+                    
+                    // value now can be composed of type T or [T] or any other type.
+                    // Let's delete the object if its type match
+                    if let value = value as? T {
+                        userDefaults.removeObject(forKey: key)
+                    } else if let values = value as? [T] {
+                        userDefaults.removeObject(forKey: key)
+                    } else {
+                        // Ignore the value as its type doesn't match
+                    }
+                }
+                return Future(Void())
             }
         case let query as KeyQuery:
             let key = storageType.key(query.key)
@@ -227,3 +283,4 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
         }
     }
 }
+

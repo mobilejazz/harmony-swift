@@ -17,7 +17,7 @@
 import Foundation
 
 public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource  {
-
+    
     private var objects : [String : T] = [:]
     private var arrays : [String : [T]] = [:]
     
