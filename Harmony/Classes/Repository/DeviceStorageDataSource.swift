@@ -250,16 +250,15 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 userDefaults.synchronize()
                 return Future(Void())
             case .prefix(let prefix):
-                var array = [T]()
                 userDefaults.dictionaryRepresentation().forEach { (key, value) in
                     // Let's search for keys with the given prefix
                     guard key.hasPrefix(prefix) else { return }
                     
                     // value now can be composed of type T or [T] or any other type.
                     // Let's delete the object if its type match
-                    if let value = value as? T {
+                    if let _ = value as? T {
                         userDefaults.removeObject(forKey: key)
-                    } else if let values = value as? [T] {
+                    } else if let _ = value as? [T] {
                         userDefaults.removeObject(forKey: key)
                     } else {
                         // Ignore the value as its type doesn't match

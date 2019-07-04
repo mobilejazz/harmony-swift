@@ -22,7 +22,7 @@
 		D2A5FEBE224E3BC200693305 /* RealmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */; };
 		D2A5FEBF224E3BC200693305 /* ItemAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */; };
 		D2A5FEC0224E3BC200693305 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */; };
-		D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRetrier.swift */; };
+		D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */; };
 		D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */; };
 		D2A5FEC3224E3BC200693305 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA4224E3BC200693305 /* Item.swift */; };
 		D2A5FEC4224E3BC200693305 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA5224E3BC200693305 /* Product.swift */; };
@@ -87,7 +87,7 @@
 		D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmAssembly.swift; sourceTree = "<group>"; };
 		D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAssembly.swift; sourceTree = "<group>"; };
 		D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
-		D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRetrier.swift; sourceTree = "<group>"; };
+		D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRequestRetrier.swift; sourceTree = "<group>"; };
 		D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
 		D2A5FEA4224E3BC200693305 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		D2A5FEA5224E3BC200693305 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -328,7 +328,7 @@
 		D2A5FEA0224E3BC200693305 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRetrier.swift */,
+				D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */,
 				D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */,
 			);
 			path = Managers;
@@ -619,7 +619,7 @@
 				D2A5FEBF224E3BC200693305 /* ItemAssembly.swift in Sources */,
 				D2A5FEB9224E3BC200693305 /* RealmItemMapper.swift in Sources */,
 				D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */,
-				D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRetrier.swift in Sources */,
+				D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */,
 				D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */,
 				D2A5FEB8224E3BC200693305 /* RealmItem.swift in Sources */,
 				D2A5FEBA224E3BC200693305 /* ItemQueryExtensions.swift in Sources */,

@@ -41,7 +41,7 @@ class NetworkAssembly: Assembly {
         
         // Alamofire Request Retrier and Adapter
         container.register(RequestAdapter.self) { r in MultiRequestAdapter([BaseURLRequestAdapter(URL(string:"http://demo5266963.mockable.io/api")!)]) }
-        container.register(RequestRetrier.self) { r in MultiRequestRetrier([UnauthorizedStatusCodeRetrier()]) }
+        container.register(RequestRetrier.self) { r in MultiRequestRetrier([UnauthorizedStatusCodeRequestRetrier()]) }
         
         // Alamofire Session Manager
         container.register(SessionManager.self) { r in

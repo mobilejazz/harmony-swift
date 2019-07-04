@@ -38,7 +38,11 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case is AllObjectsQuery:
-            return Future(Array(objects.values))
+            var array = Array(objects.values)
+            arrays.values.forEach { a in
+                array.append(contentsOf: a)
+            }
+            return Future(array)
         case let query as KeyQuery:
             if let value = arrays[query.key] {
                 return Future(value)
@@ -90,6 +94,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
         switch query {
         case is AllObjectsQuery:
             objects.removeAll()
+            arrays.removeAll()
             return Future(Void())
         case let query as KeyQuery:
             arrays[query.key] = nil

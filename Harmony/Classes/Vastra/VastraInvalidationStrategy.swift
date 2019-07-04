@@ -28,6 +28,7 @@ public protocol VastraInvalidationStrategyDataSource  {
 /// - If the object is invalid, returns .Invalid
 /// - Otherwise returns .Unknown
 public class VastraInvalidationStrategy : VastraStrategy {
+    public init() {}
     
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         if (object as! VastraInvalidationStrategyDataSource).isObjectInvalid() {
