@@ -30,6 +30,8 @@ public protocol VastraInvalidationStrategyDataSource  {
 public class VastraInvalidationStrategy : VastraStrategy {
     public init() {}
     
+    public init() { }
+
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         if (object as! VastraInvalidationStrategyDataSource).isObjectInvalid() {
             return .invalid
