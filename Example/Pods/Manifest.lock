@@ -1,32 +1,33 @@
 PODS:
   - Alamofire (4.8.2)
-  - Harmony (1.0.1):
-    - Harmony/Common (= 1.0.1)
-    - Harmony/Repository (= 1.0.1)
-    - Harmony/Security (= 1.0.1)
-  - Harmony/Alamofire (1.0.1):
+  - Harmony (1.0.2):
+    - Harmony/Common (= 1.0.2)
+    - Harmony/Repository (= 1.0.2)
+    - Harmony/Security (= 1.0.2)
+  - Harmony/Alamofire (1.0.2):
     - Alamofire (~> 4.8.2)
-    - Harmony/Future
-  - Harmony/Common (1.0.1):
-    - Harmony/Future
-  - Harmony/Future (1.0.1)
-  - Harmony/iOS (1.0.1):
     - Harmony/Common
-  - Harmony/MJCocoaCore (1.0.1):
+    - Harmony/Future
+  - Harmony/Common (1.0.2):
+    - Harmony/Future
+  - Harmony/Future (1.0.2)
+  - Harmony/iOS (1.0.2):
+    - Harmony/Common
+  - Harmony/MJCocoaCore (1.0.2):
     - Harmony/Common
     - MJCocoaCore/Common (~> 2.3)
-  - Harmony/Objection (1.0.1):
+  - Harmony/Objection (1.0.2):
     - MJObjection
-  - Harmony/Realm (1.0.1):
+  - Harmony/Realm (1.0.2):
     - Harmony/Repository
     - Harmony/Security
     - RealmSwift (~> 3.14)
-  - Harmony/Repository (1.0.1):
+  - Harmony/Repository (1.0.2):
     - Harmony/Common
     - Harmony/Future
-  - Harmony/Security (1.0.1):
+  - Harmony/Security (1.0.2):
     - Harmony/Repository
-  - Harmony/Vastra (1.0.1)
+  - Harmony/Vastra (1.0.2)
   - Kingfisher (5.3.1)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
@@ -78,7 +79,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Harmony: 40af44c1f638c536ccad7800d4f230c524a47521
+  Harmony: ff35d4513406a0f7413d2b77b2990e93d3776685
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687

@@ -61,6 +61,7 @@ Pod::Spec.new do |s|
         sp.source_files = 'Harmony/Classes/Alamofire/**/*', 'Harmony/Harmony.h'
         sp.dependency 'Alamofire', '~> 4.8.2'
         sp.dependency 'Harmony/Future'
+        sp.dependency 'Harmony/Common'
     end
     
     s.subspec 'Realm' do |sp|
