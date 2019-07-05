@@ -10,6 +10,7 @@
 		28AF537B2163B833EC6C0B4B /* Pods_Harmony_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3C4C5394749FA7C6E0804C /* Pods_Harmony_Tests.framework */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
 		D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23CDCAF2253716B001C1914 /* AppDelegate.swift */; };
+		D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274014922CF68E500CA9054 /* Alamofire+Future.swift */; };
 		D2A5FE8A224E3BB000693305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FE89224E3BB000693305 /* Images.xcassets */; };
 		D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */; };
 		D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE90224E3BC200693305 /* ItemQuery.swift */; };
@@ -74,6 +75,7 @@
 		D22A0B9E2035C91F0026068F /* Harmony_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Harmony_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D23CDCAF2253716B001C1914 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D274014922CF68E500CA9054 /* Alamofire+Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
 		D291C8F6224E373400E1A90C /* Harmony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = Harmony.podspec; path = ../Harmony.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D2A5FE89224E3BB000693305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Harmony/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			children = (
 				D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */,
 				D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */,
+				D274014922CF68E500CA9054 /* Alamofire+Future.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				D2A5FEBD224E3BC200693305 /* AppAssembler.swift in Sources */,
 				D2A5FECD224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift in Sources */,
 				D2A5FEC7224E3BC200693305 /* ItemCell.swift in Sources */,
+				D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */,
 				D2A5FEBF224E3BC200693305 /* ItemAssembly.swift in Sources */,
 				D2A5FEB9224E3BC200693305 /* RealmItemMapper.swift in Sources */,
 				D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */,

@@ -22,22 +22,16 @@ public enum HarmonyAlamofireError : Error {
 }
 
 public extension DataRequest {
-    
-    /// Inserts the JSON data response into a Future
-    func toFuture() -> Future<Any> {
-        return self.then(success: { $0 })
-    }
-    
     /// Inserts the JSON data response into a Future with a mapping window
     func then<T>(queue: DispatchQueue? = nil,
-                        options: JSONSerialization.ReadingOptions = .allowFragments,
-                        success: @escaping (Any) throws -> T,
-                        failure: @escaping (Error, HTTPURLResponse?) -> Error = { (error, _) in error }) -> Future<T> {
+                 options: JSONSerialization.ReadingOptions = .allowFragments,
+                 success: @escaping (Any) throws -> T,
+                 failure: @escaping (Error, HTTPURLResponse?, Data?) -> Error = { (error, _, _) in error }) -> Future<T> {
         return Future<T> { resolver in
             self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
                 switch response.result {
                 case .failure(let error):
-                    resolver.set(failure(error, response.response))
+                    resolver.set(failure(error, response.response, response.data))
                 case .success(let data):
                     do {
                         resolver.set(try success(data))
