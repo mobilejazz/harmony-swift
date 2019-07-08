@@ -20,7 +20,7 @@ extension Interactor {
     ///
     /// Generic delete object by query interactor
     ///
-    public class DeleteByQuery<T> {
+    public class DeleteByQuery {
         
         private let executor : Executor
         private let repository: DeleteRepository
@@ -50,7 +50,7 @@ extension Interactor {
     ///
     /// Generic delete object interactor
     ///
-    public class Delete<T> {
+    public class Delete {
         
         private let query : Query
         private let executor : Executor
@@ -78,7 +78,7 @@ extension Interactor {
     ///
     /// Generic delete objects interactor
     ///
-    public class DeleteAllByQuery<T> {
+    public class DeleteAllByQuery {
         
         private let executor : Executor
         private let repository: DeleteRepository
@@ -108,7 +108,7 @@ extension Interactor {
     ///
     /// Generic delete objects interactor
     ///
-    public class DeleteAll<T> {
+    public class DeleteAll {
         
         private let query : Query
         private let executor : Executor
@@ -135,27 +135,27 @@ extension Interactor {
 }
 
 extension DeleteRepository {
-    public func toDeleteByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteByQuery<T> {
-        return Interactor.DeleteByQuery<T>(executor, self)
+    public func toDeleteByQueryInteractor(_ executor: Executor) -> Interactor.DeleteByQuery {
+        return Interactor.DeleteByQuery(executor, self)
     }
     
-    public func toDeleteInteractor<T>(_ executor: Executor, _ query : Query) -> Interactor.Delete<T> {
-        return Interactor.Delete<T>(executor, self, query)
+    public func toDeleteInteractor(_ executor: Executor, _ query : Query) -> Interactor.Delete {
+        return Interactor.Delete(executor, self, query)
     }
     
-    public func toDeleteInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.Delete<T> where K:Hashable {
-        return Interactor.Delete<T>(executor, self, id)
+    public func toDeleteInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Delete where K:Hashable {
+        return Interactor.Delete(executor, self, id)
     }
     
-    public func toDeleteAllByQueryInteractor<T>(_ executor: Executor) -> Interactor.DeleteAllByQuery<T> {
-        return Interactor.DeleteAllByQuery<T>(executor, self)
+    public func toDeleteAllByQueryInteractor(_ executor: Executor) -> Interactor.DeleteAllByQuery {
+        return Interactor.DeleteAllByQuery(executor, self)
     }
     
-    public func toDeleteAllInteractor<T>(_ executor: Executor, _ query : Query) -> Interactor.DeleteAll<T> {
-        return Interactor.DeleteAll<T>(executor, self, query)
+    public func toDeleteAllInteractor(_ executor: Executor, _ query : Query) -> Interactor.DeleteAll {
+        return Interactor.DeleteAll(executor, self, query)
     }
     
-    public func toDeleteAllInteractor<T,K>(_ executor: Executor, _ id : K) -> Interactor.DeleteAll<T> where K:Hashable {
-        return Interactor.DeleteAll<T>(executor, self, id)
+    public func toDeleteAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.DeleteAll where K:Hashable {
+        return Interactor.DeleteAll(executor, self, id)
     }
 }
