@@ -121,6 +121,8 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
+        case let query as IdsQuery<String>:
+            return Future.batch(query.ids.map { get(IdQuery($0)) })
         case is AllObjectsQuery:
             switch storageType {
             case .regular:
@@ -203,6 +205,11 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
+        case let query as IdsQuery<String>:
+            guard array.count == query.ids.count else {
+                return Future(CoreError.IllegalArgument("Array lenght must be equal to query.ids length"))
+            }
+            return Future.batch(array.enumerated().map { put($0.element, in: IdQuery(query.ids[$0.offset])) })
         case let query as KeyQuery:
             let key = storageType.key(query.key)
             if let rootKey = rootKey() {
@@ -241,6 +248,8 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
+        case let query as IdsQuery<String>:
+            return Future.batch(query.ids.map { delete(IdQuery($0)) }).map { _ in Void() }
         case is AllObjectsQuery:
             switch storageType {
             case .regular:

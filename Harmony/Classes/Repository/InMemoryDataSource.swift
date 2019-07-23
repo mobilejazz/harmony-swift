@@ -43,6 +43,8 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 array.append(contentsOf: a)
             }
             return Future(array)
+        case let query as IdsQuery<String>:
+            return Future(objects.filter { query.ids.contains($0.key) }.map { $0.value })
         case let query as KeyQuery:
             if let value = arrays[query.key] {
                 return Future(value)
@@ -70,6 +72,14 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
+        case let query as IdsQuery<String>:
+            guard array.count == query.ids.count else {
+                return Future(CoreError.IllegalArgument("Array lenght must be equal to query.ids length"))
+            }
+            array.enumerated().forEach { (offset, element) in
+                objects[query.ids[offset]] = element
+            }
+            return Future(array)
         case let query as KeyQuery:
             arrays[query.key] = array
             return Future(array)
@@ -92,6 +102,11 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {
+        case let query as IdsQuery<String>:
+            query.ids.forEach { key in
+                objects[key] = nil
+            }
+            return Future(Void())
         case is AllObjectsQuery:
             objects.removeAll()
             arrays.removeAll()

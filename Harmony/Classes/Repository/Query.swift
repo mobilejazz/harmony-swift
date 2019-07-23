@@ -53,26 +53,17 @@ public class IdQuery<T> : Query, KeyQuery where T:Hashable {
 }
 
 /// A query by an array of Ids
-public class IdsQuery<T> : Query, KeyQuery where T:Hashable {
+public class IdsQuery<T> : Query where T:Hashable {
     public let ids : [T]
     public init(_ ids: [T]) {
         self.ids = ids
-    }
-    public var key : String {
-        get {
-            switch T.self {
-            // TODO
-            default:
-                return "\(ids.hashValue)"
-            }
-        }
     }
 }
 
 /// All objects query
 public class AllObjectsQuery : Query, KeyQuery {
     public init() { }
-    public var key : String { get { return "allObjects" } }
+    public var key: String { return "allObjects" }
 }
 
 /// Single object query
@@ -80,6 +71,13 @@ public class ObjectQuery<T> : Query {
     public let value : T
     public init(_ value : T) {
         self.value = value
+    }
+}
+
+// ObjectQuery is KeyQuery when T is hashable
+extension ObjectQuery : KeyQuery where T:Hashable {
+    public var key: String {
+        return "\(value.hashValue)"
     }
 }
 
