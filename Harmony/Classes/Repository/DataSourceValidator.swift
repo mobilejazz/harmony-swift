@@ -16,39 +16,6 @@
 
 import Foundation
 
-/// Object validation interface
-public protocol ObjectValidation {
-    /// Validates an object
-    func isObjectValid<T>(_ object: T) -> Bool
-    
-    /// Validates an array of objects
-    func isArrayValid<T>(_ objects: [T]) -> Bool
-}
-
-public extension ObjectValidation {
-    
-    /// Validator method for arrays
-    ///
-    /// The validation process iterates over the array and is considered valid if all objects are valid.
-    /// Note that:
-    ///   - An empty array is considered invalid
-    ///   - A nil instance is considered invalid
-    ///
-    /// - Parameter object: The object to validate.
-    /// - Returns: true if valid, false otherwise.
-    func isArrayValid<T>(_ objects: [T]) -> Bool {
-        if objects.isEmpty {
-            return false
-        }
-        for object in objects {
-            if !isObjectValid(object) {
-                return false
-            }
-        }
-        return true
-    }
-}
-
 ///
 /// Performs validation on the contained repository.
 /// Note that validation only occur in the get and getAll methods.
