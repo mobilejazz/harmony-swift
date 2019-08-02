@@ -501,6 +501,7 @@
 		D25B6CAA2F87542B78415F414DB2EEEE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA49C1057389AEAAD6F92AC2162E225 /* Accelerate.framework */; };
 		D2AA05D59E8ACE24F5F09E2DDA8AB269 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060504E0156DA2AB171EE63502A7FFB8 /* ClassError.swift */; };
 		D2C8BC9C948ACE8051D07C0904FF1F89 /* FBLPromise+Race.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = EEB9A44045D484EE1D42B8502549E0C1 /* FBLPromise+Race.h */; };
+		D2F5B7F822F0707000B7371A /* ObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */; };
 		D34CDFE85808815863C5B44FF3F88108 /* RealmHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4AF09189559684976EAD8692F9D73 /* RealmHandler.swift */; };
 		D35619F4B969705A52D65CE3EEDB718D /* UIButton+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9243276B35F87EE6C86E2D6CF3507AC /* UIButton+Kingfisher.swift */; };
 		D37FEEAFA932B1DD246FF10AB19E808F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D172E2AB89B4685CCF934CA596D3BB08 /* Statement.swift */; };
@@ -1814,6 +1815,7 @@
 		D25A994522E6F6BB00820058 /* FileSystemStorageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSource.swift; sourceTree = "<group>"; };
 		D25F2B7A8EB3C3B60E84CFCBA42103EA /* VoidGetPutRepository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = VoidGetPutRepository.html; path = docs/Classes/VoidGetPutRepository.html; sourceTree = "<group>"; };
 		D2C33116A46AC1386C1FC6DA81C1753A /* Keychain.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Keychain.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/Keychain.html; sourceTree = "<group>"; };
+		D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectValidation.swift; sourceTree = "<group>"; };
 		D373F7C8F965E617F2A676C3732793AA /* RLMSyncConfiguration_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSyncConfiguration_Private.h; path = include/RLMSyncConfiguration_Private.h; sourceTree = "<group>"; };
 		D37AC451BB2097B3F147FFF8672230B2 /* VoidGetDeleteRepository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = VoidGetDeleteRepository.html; path = docs/Classes/VoidGetDeleteRepository.html; sourceTree = "<group>"; };
 		D3887A9D406BCAB30671A2FD2A26EDE9 /* PromisesSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PromisesSwift-umbrella.h"; sourceTree = "<group>"; };
@@ -2875,6 +2877,7 @@
 				B96724BE8B7B3D7F8B4899732AB77B9A /* Mapper.swift */,
 				363FBE62B36D9706456857906213E959 /* Mapper+Codable.swift */,
 				B8B684E0188A7FB555911C7AC6D8664A /* Mapper+NSCoding.swift */,
+				D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */,
 				92A3719FC9C21B5C13994308B8DE8B72 /* Operation.swift */,
 				360B86A32BC7CFDDCB78DEB8ADAF365E /* Query.swift */,
 				23F1562FA28B0E7FDA2D5281F37EF9A9 /* Repository.swift */,
@@ -4784,6 +4787,7 @@
 				23F9D435C20E0925A32134047DA449C8 /* Observable+Extensions.swift in Sources */,
 				6F8B3397FC4800E49A08246ACDE0A5D9 /* Observable+Functional.swift in Sources */,
 				947C2386A4D4B78B3425DCC045D89544 /* Observable+MJFuture.swift in Sources */,
+				D2F5B7F822F0707000B7371A /* ObjectValidation.swift in Sources */,
 				B62CF6B871628CB4B5DB13873954DE32 /* Observable+Optionals.swift in Sources */,
 				8E36670DA8713A2AD9C9C6005532140A /* Observable+Time.swift in Sources */,
 				29136ABA429256EA96983E137006C1F8 /* Observable.swift in Sources */,

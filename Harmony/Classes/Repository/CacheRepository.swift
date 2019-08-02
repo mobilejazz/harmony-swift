@@ -26,7 +26,25 @@ public class MainSyncOperation : Operation { public init () { } }
 public class CacheOperation : Operation { public init () { } }
 
 /// CacheSyncOperation: Data processing will use the "cache data source" and sync with the "main data source".
-public class CacheSyncOperation : Operation { public init () { } }
+///
+/// If fallback returns true, then in case of network error, the repository will return the cached
+/// data independently of it's validity.
+public class CacheSyncOperation : Operation {
+    fileprivate let fallback : (Error) -> Bool
+    
+    /// Main initializer
+    ///
+    /// - Parameter fallback: The fallback closure containg the error. Default value returns false.
+    public init(fallback: @escaping (Error) -> Bool = { _ in false }) {
+        self.fallback = fallback
+    }
+    /// Convenience initializer
+    ///
+    /// - Parameter fallback: The fallback behavior.
+    public convenience init(fallback: Bool) {
+        self.init(fallback: { _ in fallback })
+    }
+}
 
 ///
 /// Repository containing two data sources: a fast-access data source and a slow-access data source.
@@ -38,12 +56,20 @@ public class CacheSyncOperation : Operation { public init () { } }
 ///
 public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteRepository where M:GetDataSource, M:PutDataSource, M:DeleteDataSource, C:GetDataSource, C:PutDataSource, C:DeleteDataSource, M.T == T, C.T == T {
     
-    private let main: M
-    private let cache: C
+    private let main : M
+    private let cache : C
+    private let validator : ObjectValidation
     
-    public init(main: M, cache: C) {
+    /// Main initializer
+    ///
+    /// - Parameters:
+    ///   - main: The main data source
+    ///   - cache: The cache data source
+    ///   - validator: The cache validator object. Default value is an all-object is valid validator.
+    public init(main: M, cache: C, validator: ObjectValidation = DefaultObjectValidation()) {
         self.main = main
         self.cache = cache
+        self.validator = validator
     }
     
     public func get(_ query: Query, operation: Operation) -> Future<T> {
@@ -58,14 +84,28 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             return main.get(query).flatMap { entity in
                 return self.cache.put(entity, in: query)
             }
-        case is CacheSyncOperation:
-            return cache.get(query).recover { error in
-                switch error {
-                case is CoreError.NotValid, is CoreError.NotFound:
-                    return self.get(query, operation: MainSyncOperation())
-                default:
-                    return Future(error)
+        case let op as CacheSyncOperation:
+            return cache
+                .get(query)
+                .filter { value in
+                    if !self.validator.isObjectValid(value) {
+                        throw CoreError.NotValid()
+                    }
                 }
+                .recover { error in
+                    switch error {
+                    case is CoreError.NotValid, is CoreError.NotFound:
+                        return self.get(query, operation: MainSyncOperation())
+                            .recover { error in
+                                if op.fallback(error) {
+                                    return self.cache.get(query)
+                                } else {
+                                    return Future(error)
+                                }
+                        }
+                    default:
+                        return Future(error)
+                    }
             }
         default:
             operation.fatalError(.get, self)
@@ -84,14 +124,28 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             return main.getAll(query).flatMap { entities in
                 return self.cache.putAll(entities, in: query)
             }
-        case is CacheSyncOperation:
-            return cache.getAll(query).recover { error in
-                switch error {
-                case is CoreError.NotValid, is CoreError.NotFound:
-                    return self.getAll(query, operation: MainSyncOperation())
-                default:
-                    return Future(error)
+        case let op as CacheSyncOperation:
+            return cache
+                .getAll(query)
+                .filter { array in
+                    if !self.validator.isArrayValid(array) {
+                        throw CoreError.NotValid()
+                    }
                 }
+                .recover { error in
+                    switch error {
+                    case is CoreError.NotValid, is CoreError.NotFound:
+                        return self.getAll(query, operation: MainSyncOperation())
+                            .recover { error in
+                                if op.fallback(error) {
+                                    return self.cache.getAll(query)
+                                } else {
+                                    return Future(error)
+                                }
+                        }
+                    default:
+                        return Future(error)
+                    }
             }
         default:
             operation.fatalError(.getAll, self)
