@@ -33,6 +33,13 @@ import Foundation
     ///   - tag: An additional label to help categorise logs.
     ///   - message: The message to be logged.
     func log(level: LogLevel, tag: String?, message: String)
+    
+    /// Logs a key-value pair
+    ///
+    /// - Parameters:
+    ///   - key: They key
+    ///   - value: The value
+    func log(key: String, value: Any?)
 }
 
 // MARK: - Default implementations
@@ -69,5 +76,6 @@ public extension Logger {
 /// Logger that does nothing.
 public class VoidLogger : Logger {
     public init() {}
-    public func log(level: LogLevel, tag: String?, message: String) { }
+    public func log(level: LogLevel, tag: String?, message: String) {}
+    public func log(key: String, value: Any?) {}
 }

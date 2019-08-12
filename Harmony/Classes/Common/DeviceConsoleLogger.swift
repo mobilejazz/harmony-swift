@@ -29,6 +29,14 @@ public class DeviceConsoleLogger: Logger {
             Swift.print("\(levelStringRepresentation(of: level)): \(message)")
         }
     }
+    
+    public func log(key: String, value: Any?) {
+        if let value = value {
+            log(level: .info, tag: "KEY", message: "\(key): \(value)")
+        } else {
+            log(level: .info, tag: "KEY", message: "\(key): <nil>")
+        }
+    }
 }
 
 // MARK: - Helpers
