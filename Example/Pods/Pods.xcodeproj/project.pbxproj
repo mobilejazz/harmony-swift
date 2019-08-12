@@ -497,7 +497,6 @@
 		CEEAD5A038E8C84EC758B47A50D77FFB /* RLMObject.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = DA41AED999BD7D2CCC7FAAA04FDC21ED /* RLMObject.h */; };
 		CF9400A6C8FB5BBFB6D0DF846C6E727B /* VastraValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF357D23D36487F504A0D3C01A1F65F8 /* VastraValidationStrategy.swift */; };
 		D0B2E9A5C03AF940153F73C0D6C52429 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECCA55F6E51A7DFF29ED3E92881FA0 /* Coding.swift */; };
-		D25A994722E6F6D300820058 /* FileSystemStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25A994522E6F6BB00820058 /* FileSystemStorageDataSource.swift */; };
 		D25B6CAA2F87542B78415F414DB2EEEE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA49C1057389AEAAD6F92AC2162E225 /* Accelerate.framework */; };
 		D2AA05D59E8ACE24F5F09E2DDA8AB269 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060504E0156DA2AB171EE63502A7FFB8 /* ClassError.swift */; };
 		D2C8BC9C948ACE8051D07C0904FF1F89 /* FBLPromise+Race.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = EEB9A44045D484EE1D42B8502549E0C1 /* FBLPromise+Race.h */; };
@@ -1812,7 +1811,6 @@
 		D18E1E73E9063F92F462D842CB4C6987 /* FBLPromise+Do.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Do.m"; path = "Sources/FBLPromises/FBLPromise+Do.m"; sourceTree = "<group>"; };
 		D1EC9C8D55ADC9910348D78527C00562 /* DataToNSCodingMapper.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = DataToNSCodingMapper.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/DataToNSCodingMapper.html; sourceTree = "<group>"; };
 		D258096A10573DFB36B66B3C00698946 /* IdsQuery.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = IdsQuery.html; path = docs/Classes/IdsQuery.html; sourceTree = "<group>"; };
-		D25A994522E6F6BB00820058 /* FileSystemStorageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSource.swift; sourceTree = "<group>"; };
 		D25F2B7A8EB3C3B60E84CFCBA42103EA /* VoidGetPutRepository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = VoidGetPutRepository.html; path = docs/Classes/VoidGetPutRepository.html; sourceTree = "<group>"; };
 		D2C33116A46AC1386C1FC6DA81C1753A /* Keychain.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Keychain.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/Keychain.html; sourceTree = "<group>"; };
 		D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectValidation.swift; sourceTree = "<group>"; };
@@ -2868,7 +2866,6 @@
 				BD2B6B494B5CD4057F0188289FADBFBB /* DataSourceValidator.swift */,
 				01480FF19F4F5881F7CD4AF687944F54 /* DebugDataSource.swift */,
 				F50A5A99D942680F2D70239688E0DB27 /* DeviceStorageDataSource.swift */,
-				D25A994522E6F6BB00820058 /* FileSystemStorageDataSource.swift */,
 				9AAC5C8E9F60209890BB3C18CCA7638D /* InMemoryDataSource.swift */,
 				B07C527D5DE8DE8A05C9AF615C632C2A /* Interactor.swift */,
 				9646DC10388759EEDFC8C9895AD8ABE0 /* InteractorDelete.swift */,
@@ -4755,7 +4752,6 @@
 				DD9E62D02BF9CAF55BEA987DB37B594B /* Future+Operators.swift in Sources */,
 				2D68B900D9295965564047096CF143B2 /* Future+Optionals.swift in Sources */,
 				FE29CA727BC063DB27DE1FDCF66CD5B5 /* Future+Time.swift in Sources */,
-				D25A994722E6F6D300820058 /* FileSystemStorageDataSource.swift in Sources */,
 				1FCDCE2D6137B0D49337EA77ADF1C782 /* Future+UIKitExtensions.swift in Sources */,
 				6388AB9F53FF16DE0FEAF4AD57F59BAB /* Future.swift in Sources */,
 				75961DC193A3DAC5AF6D5166AFCA4B0D /* Harmony-dummy.m in Sources */,
