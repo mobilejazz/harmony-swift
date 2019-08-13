@@ -31,7 +31,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ query: Query, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ query: Query, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(query, operation: operation))
@@ -39,7 +39,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ id: K, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(id, operation: operation))
@@ -89,7 +89,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ query: Query, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        public func execute(_ query: Query, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(query, operation: operation))
@@ -97,7 +97,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ id: K, operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
+        public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(id, operation: operation))
