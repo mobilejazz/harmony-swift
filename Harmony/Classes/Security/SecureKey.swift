@@ -100,13 +100,10 @@ public class SecureKey {
         guard let tag = identifier.data(using: String.Encoding.utf8) else {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        
         let query = NSDictionary(objects:[kSec.classKey, tag, length, true],
                                  forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.returnData])
-        
         var dataRef : CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
-        
         switch status {
         case errSecSuccess:
             let data = dataRef as! Data
@@ -123,10 +120,8 @@ public class SecureKey {
             }
             
             let query = NSDictionary(objects:[kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
-                                     forKeys:[kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSecValueData])
-            
+                                     forKeys:[kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSec.valueData])
             let status = SecItemAdd(query as CFDictionary, nil)
-            
             guard status == errSecSuccess else {
                 throw CoreError.OSStatusFailure(status, "Failed to insert key data with OSStatus: \(status)")
             }
