@@ -44,12 +44,18 @@ private extension DeviceConsoleLogger {
     
     func levelStringRepresentation(of level: LogLevel) -> String {
         switch level {
+            case .trace:
+                return "TRACE"
+            case .debug:
+                return "DEBUG"
             case .info:
                 return "INFO"
             case .warning:
                 return "WARNING"
             case .error:
                 return "ERROR"
+            case .fatal:
+                return "FATAL"
         }
     }
 }
