@@ -319,10 +319,10 @@ public extension UIImage {
     
     func addImage(_ image: UIImage, offset: CGPoint = CGPoint(x: 0, y: 0)) -> UIImage {
         let scale = self.scale
-        let size = CGSize(width: self.size.width*scale, height: self.size.height*scale)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
         self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        image.draw(in: CGRect(x: scale*offset.x, y: scale*offset.y, width: scale*image.size.width, height: scale*image.size.height))
+        image.draw(in: CGRect(x: offset.x, y: offset.y,
+                              width: (scale/image.scale)*image.size.width, height: (scale/image.scale)*image.size.height))
         let context = UIGraphicsGetCurrentContext()!
         let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: UIImage.Orientation.up)
         UIGraphicsEndImageContext()
@@ -339,9 +339,11 @@ public extension UIImage {
             drawTransposed = false
         }
         
+        let scale = self.scale
+        
         let cgImage = self.cgImage!
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height).integral
-        let transposedRect = CGRect(x: 0, y: 0, width: size.height, height: size.width)
+        let rect = CGRect(x: 0, y: 0, width: size.width*scale, height: size.height*scale).integral
+        let transposedRect = CGRect(x: 0, y: 0, width: size.height*scale, height: size.width*scale)
         if let context = CGContext(data: nil,
                                    width: (Int)(rect.size.width),
                                    height: (Int)(rect.size.height),
@@ -352,7 +354,7 @@ public extension UIImage {
             context.concatenate(transform)
             context.interpolationQuality = interpolationQuality
             context.draw(cgImage, in: drawTransposed ? transposedRect : rect)
-            let image = UIImage(cgImage: context.makeImage()!)
+            let image = UIImage(cgImage: context.makeImage()!, scale: scale, orientation: self.imageOrientation)
             return image
         }
         
