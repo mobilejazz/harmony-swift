@@ -43,7 +43,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
     /// Convenience initializer. Returns nil if the document directory is not reachable.
     ///
     /// - Parameters:
-    ///   - fileManager: Teh FileManager
+    ///   - fileManager: The FileManager
     ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the documents directory
     convenience init?(fileManager: FileManager, relativePath: String) {
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
