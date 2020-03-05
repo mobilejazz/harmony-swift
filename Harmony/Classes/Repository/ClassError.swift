@@ -82,6 +82,14 @@ open class ClassError : Error, CustomStringConvertible {
     }
 }
 
+extension ClassError : LocalizedError {
+    /// A localized message describing what error occurred.
+    public var errorDescription: String? {
+        return description
+    }
+}
+
+
 extension ClassError : Hashable {
     /// Hash method
     public func hash(into hasher: inout Hasher) {
