@@ -43,13 +43,13 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
     /// Convenience initializer. Returns nil if the document directory is not reachable.
     ///
     /// - Parameters:
-    ///   - fileManager: The FileManager
     ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the documents directory
     convenience init?(fileManager: FileManager, relativePath: String) {
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
-        self.init(fileManager: fileManager, directory: documentsURL.appendingPathComponent(relativePath))
+        let url = documentsURL.appendingPathComponent(relativePath)
+        self.init(fileManager: fileManager, directory: url)
     }
     
     func get(_ query: Query) -> Future<Data> {
@@ -92,6 +92,15 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
                 }
                 r.set(Future.batch(futures))
             }
+        case let query as KeyQuery:
+            let path = directory.appendingPathComponent(query.key).path
+            guard let data = fileManager.contents(atPath: path) else {
+                return Future(CoreError.NotFound("Data not found at path: \(path)"))
+            }
+            guard let array = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] else {
+                return Future(CoreError.NotFound("Data not found at path: \(path)"))
+            }
+            return Future(array)
         default:
             query.fatalError(.getAll, self)
         }
@@ -116,30 +125,45 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
     }
     
     func putAll(_ array: [Data], in query: Query) -> Future<[Data]> {
-        guard let idsQuery = query as? IdsQuery<String> else {
-            query.fatalError(.putAll, self)
-        }
-        guard array.count == idsQuery.ids.count else {
-            query.fatalError(.putAll, self)
-        }
-        return Future { r in
-            try idsQuery.ids.enumerated().forEach { (offset, id) in
-                let fileURL = directory.appendingPathComponent(id)
+        switch query {
+        case let query as IdsQuery<String>:
+            guard array.count == query.ids.count else {
+                query.fatalError(.putAll, self)
+            }
+            return Future { r in
+                try query.ids.enumerated().forEach { (offset, id) in
+                    let fileURL = directory.appendingPathComponent(id)
+                    let folderURL = fileURL.deletingLastPathComponent()
+                    if fileManager.fileExists(atPath: folderURL.path) == false {
+                        try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
+                    }
+                    try array[offset].write(to: fileURL)
+                }
+                r.set(array)
+            }
+        case let query as KeyQuery:
+            return Future { r in
+                let fileURL = directory.appendingPathComponent(query.key)
                 let folderURL = fileURL.deletingLastPathComponent()
                 if fileManager.fileExists(atPath: folderURL.path) == false {
                     try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
                 }
-                try array[offset].write(to: fileURL)
+                let data = NSKeyedArchiver.archivedData(withRootObject: array)
+                try data.write(to: fileURL)
+                r.set(array)
             }
-            r.set(array)
+        default:
+            query.fatalError(.getAll, self)
+
         }
+        
     }
 
     func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as KeyQuery:
             return Future {
-                try fileManager.removeItem(at: directory.appendingPathComponent(query.key))
+                try? fileManager.removeItem(at: directory.appendingPathComponent(query.key))
             }
         default:
             query.fatalError(.delete, self)
@@ -151,21 +175,29 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
         case let query as IdsQuery<String>:
             let futures : [Future<Void>] = query.ids.map { id in
                 return Future {
-                    try fileManager.removeItem(at: directory.appendingPathComponent(id))
+                    try? fileManager.removeItem(at: directory.appendingPathComponent(id))
                 }
             }
             return Future.batch(futures).map { _ in Void() }
         case is AllObjectsQuery:
             return Future {
-                try fileManager
-                    .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey])
-                    .filter { url in
-                        // Filter out folders
-                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! }
-                        catch { return false }
-                    }.forEach { url in
-                        try fileManager.removeItem(at: url)
-                }
+                
+                // Deleting everything!
+                try fileManager.removeItem(at: directory)
+                
+//                try fileManager
+//                    .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey])
+//                    .filter { url in
+//                        // Filter out folders
+//                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! }
+//                        catch { return false }
+//                    }.forEach { url in
+//                        try? fileManager.removeItem(at: url)
+//                }
+            }
+        case let query as KeyQuery:
+            return Future {
+                try? fileManager.removeItem(at: directory.appendingPathComponent(query.key))
             }
         default:
             query.fatalError(.deleteAll, self)
