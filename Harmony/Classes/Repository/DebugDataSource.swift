@@ -109,9 +109,9 @@ public class DebugDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
     
     private func log(_ method: DataSourceCRUD, _ token: DebugDataSourceToken, _ message: String) {
         if let time = token.time() {
-            logger.print(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id) in <\(time)>s]: \(message)")
+            logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id) in <\(time)>s]: \(message)")
         } else {
-            logger.print(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id)]: \(message)")
+            logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id)]: \(message)")
         }
     }
     
