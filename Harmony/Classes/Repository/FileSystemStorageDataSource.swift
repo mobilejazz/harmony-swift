@@ -27,35 +27,61 @@ import Foundation
 class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSource {
     typealias T = Data
     
-    private let fileManager : FileManager
-    private let directory : URL
+    enum FileNameEncoding {
+        case none
+        case sha256
+        case md5
+        case custom((String) -> String)
+    }
     
+    private let fileManager : FileManager
+    public let directory : URL
+    public let fileNameEncoding: FileNameEncoding
+
     /// Main initializer
     ///
     /// - Parameters:
     ///   - fileManager: The FileManager
     ///   - directory: The directory where to store data
-    init(fileManager: FileManager, directory: URL) {
+    init(fileManager: FileManager, directory: URL, fileNameEncoding: FileNameEncoding = .sha256) {
         self.fileManager = fileManager
         self.directory = directory
+        self.fileNameEncoding = fileNameEncoding
     }
     
     /// Convenience initializer. Returns nil if the document directory is not reachable.
     ///
     /// - Parameters:
     ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the documents directory
-    convenience init?(fileManager: FileManager, relativePath: String) {
+    convenience init?(fileManager: FileManager, relativePath: String, fileNameEncoding: FileNameEncoding = .sha256) {
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
         let url = documentsURL.appendingPathComponent(relativePath)
-        self.init(fileManager: fileManager, directory: url)
+        self.init(fileManager: fileManager, directory: url, fileNameEncoding: fileNameEncoding)
+    }
+    
+    private func fileName(_ key: String) -> String {
+        switch fileNameEncoding {
+        case .none:
+            return key
+        case .sha256:
+            return key.sha256()
+        case .md5:
+            return key.md5()
+        case .custom(let encoder):
+            return encoder(key)
+        }
+    }
+    
+    private func fileURL(_ key: String) -> URL {
+        return directory.appendingPathComponent(fileName(key))
     }
     
     func get(_ query: Query) -> Future<Data> {
         switch query {
         case let query as KeyQuery:
-            let path = directory.appendingPathComponent(query.key).path
+            let path = fileURL(query.key).path
             guard let data = fileManager.contents(atPath: path) else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
@@ -69,7 +95,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
         switch query {
         case let query as IdsQuery<String>:
             let futures : [Future<Data>] = query.ids.map { id in
-                let path = directory.appendingPathComponent(id).path
+                let path = fileURL(id).path
                 guard let data = fileManager.contents(atPath: path) else {
                     return Future(CoreError.NotFound("Data not found at path: \(path)"))
                 }
@@ -93,7 +119,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
                 r.set(Future.batch(futures))
             }
         case let query as KeyQuery:
-            let path = directory.appendingPathComponent(query.key).path
+            let path = fileURL(query.key).path
             guard let data = fileManager.contents(atPath: path) else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
@@ -114,7 +140,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
             query.fatalError(.put, self)
         }
         return Future { r in
-            let fileURL = directory.appendingPathComponent(keyQuery.key)
+            let fileURL = self.fileURL(keyQuery.key)
             let folderURL = fileURL.deletingLastPathComponent()
             if fileManager.fileExists(atPath: folderURL.path) == false {
                 try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
@@ -132,7 +158,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
             }
             return Future { r in
                 try query.ids.enumerated().forEach { (offset, id) in
-                    let fileURL = directory.appendingPathComponent(id)
+                    let fileURL = self.fileURL(id)
                     let folderURL = fileURL.deletingLastPathComponent()
                     if fileManager.fileExists(atPath: folderURL.path) == false {
                         try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
@@ -143,7 +169,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
             }
         case let query as KeyQuery:
             return Future { r in
-                let fileURL = directory.appendingPathComponent(query.key)
+                let fileURL = self.fileURL(query.key)
                 let folderURL = fileURL.deletingLastPathComponent()
                 if fileManager.fileExists(atPath: folderURL.path) == false {
                     try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
@@ -163,7 +189,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
         switch query {
         case let query as KeyQuery:
             return Future {
-                try? fileManager.removeItem(at: directory.appendingPathComponent(query.key))
+                try? fileManager.removeItem(at: fileURL(query.key))
             }
         default:
             query.fatalError(.delete, self)
@@ -175,7 +201,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
         case let query as IdsQuery<String>:
             let futures : [Future<Void>] = query.ids.map { id in
                 return Future {
-                    try? fileManager.removeItem(at: directory.appendingPathComponent(id))
+                    try? fileManager.removeItem(at: fileURL(id))
                 }
             }
             return Future.batch(futures).map { _ in Void() }
@@ -197,7 +223,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
             }
         case let query as KeyQuery:
             return Future {
-                try? fileManager.removeItem(at: directory.appendingPathComponent(query.key))
+                try? fileManager.removeItem(at: fileURL(query.key))
             }
         default:
             query.fatalError(.deleteAll, self)

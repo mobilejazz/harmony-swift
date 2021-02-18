@@ -15,6 +15,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 extension Data {
 
@@ -102,5 +103,36 @@ extension Data {
         
         self.init(bytes)
     }
+
+    public func sha256() -> String {
+        return digest().hexEncodedString()
+    }
+    
+    private func digest() -> Data {
+        let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
+        var hash = [UInt8](repeating: 0, count: digestLength)
+        CC_SHA256((self as NSData).bytes, UInt32(self.count), &hash)
+        return NSData(bytes: hash, length: digestLength) as Data
+    }
+    
+    private  func hexStringFromData(input: NSData) -> String {
+        var bytes = [UInt8](repeating: 0, count: input.length)
+        input.getBytes(&bytes, length: input.length)
+        
+        var hexString = ""
+        for byte in bytes {
+            hexString += String(format:"%02x", UInt8(byte))
+        }
+        
+        return hexString
+    }
 }
 
+public extension String {
+    func sha256() -> String{
+        if let stringData = self.data(using: String.Encoding.utf8) {
+            return stringData.sha256()
+        }
+        return ""
+    }
+}
