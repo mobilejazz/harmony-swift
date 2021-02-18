@@ -48,6 +48,12 @@ public class GetRepositoryMapper <R: GetRepository,In,Out> : GetRepository where
     }
 }
 
+extension GetRepository {
+    func withMapping<K>(_ toOutMapper: Mapper<T,K>) -> GetRepositoryMapper<Self,T,K> {
+        return GetRepositoryMapper(repository: self, toOutMapper: toOutMapper)
+    }
+}
+
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
@@ -89,6 +95,12 @@ public class PutRepositoryMapper <R: PutRepository,Out,In> : PutRepository where
         return Future {
             return repository.putAll(try toInMapper.map(array), in: query, operation: operation).map { try self.toOutMapper.map($0) }
         }
+    }
+}
+
+extension PutRepository {
+    func withMapping<K>(in toInMapper: Mapper<K,T>, out toOutMapper: Mapper<T,K>) -> PutRepositoryMapper<Self,T,K> {
+        return PutRepositoryMapper(repository: self, toInMapper: toInMapper, toOutMapper: toOutMapper)
     }
 }
 

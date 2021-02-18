@@ -31,7 +31,7 @@ public class URLLoggerRequestAdapter: RequestAdapter {
     
     public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         let curl = urlRequest.curl(pretty: true)
-        logger.print(tag: tag, "\(curl)")
+        logger.info(tag: tag, "\(curl)")
         return urlRequest
     }
 }

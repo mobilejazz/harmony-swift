@@ -48,6 +48,12 @@ public class GetDataSourceMapper <D: GetDataSource,In,Out> : GetDataSource where
     }
 }
 
+extension GetDataSource {
+    func withMapping<K>(_ toOutMapper: Mapper<T,K>) -> GetDataSourceMapper<Self,T,K> {
+        return GetDataSourceMapper(dataSource: self, toOutMapper: toOutMapper)
+    }
+}
+
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
@@ -87,6 +93,12 @@ public class PutDataSourceMapper <D: PutDataSource,In,Out> : PutDataSource where
     @discardableResult
     public func putAll(_ array: [Out], in query: Query) -> Future<[Out]> {
         return Future { dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) } }
+    }
+}
+
+extension PutDataSource {
+    func withMapping<K>(in toInMapper: Mapper<K,T>, out toOutMapper: Mapper<T,K>) -> PutDataSourceMapper<Self,T,K> {
+        return PutDataSourceMapper(dataSource: self, toInMapper: toInMapper, toOutMapper: toOutMapper)
     }
 }
 

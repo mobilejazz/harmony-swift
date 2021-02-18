@@ -18,9 +18,12 @@ import Foundation
 
 /// Information that gets logged can be labeled as one of the following informative labels.
 @objc(MJLogLevel) public enum LogLevel: Int {
+    case trace
+    case debug
     case info
     case warning
     case error
+    case fatal
 }
 
 /// Abstracts concrete implementations of a logger system.
@@ -45,12 +48,30 @@ import Foundation
 // MARK: - Default implementations
 public extension Logger {
     
+    /// Logs a String message using an trace level.
+    ///
+    /// - Parameters:
+    ///   - tag: An additional label to help categorise logs.
+    ///   - message: String to be logged
+    func trace(tag: String? = nil, _ message: String) {
+        self.log(level: .trace, tag: tag, message: message)
+    }
+    
+    /// Logs a String message using an debug level.
+    ///
+    /// - Parameters:
+    ///   - tag: An additional label to help categorise logs.
+    ///   - message: String to be logged
+    func debug(tag: String? = nil, _ message: String) {
+        self.log(level: .debug, tag: tag, message: message)
+    }
+    
     /// Logs a String message using an info level.
     ///
     /// - Parameters:
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
-    func print(tag: String? = nil, _ message: String) {
+    func info(tag: String? = nil, _ message: String) {
         self.log(level: .info, tag: tag, message: message)
     }
     
@@ -70,6 +91,24 @@ public extension Logger {
     ///   - message: String to be logged
     func error(tag: String? = nil, _ message: String) {
         self.log(level: .error, tag: tag, message: message)
+    }
+    
+    /// Logs a String message using a fatal level.
+    ///
+    /// - Parameters:
+    ///   - tag: An additional label to help categorise logs.
+    ///   - message: String to be logged
+    func fatal(tag: String? = nil, _ message: String) {
+        self.log(level: .fatal, tag: tag, message: message)
+    }
+    
+    /// Logs a key-value pair
+    ///
+    /// - Parameters:
+    ///   - key: They key
+    ///   - value: The value
+    func log(key: String, value: Any?) {
+        self.info("\(key)=\(value ?? "-")")        
     }
 }
 

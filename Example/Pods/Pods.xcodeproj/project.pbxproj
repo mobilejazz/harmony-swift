@@ -499,6 +499,7 @@
 		D0B2E9A5C03AF940153F73C0D6C52429 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74ECCA55F6E51A7DFF29ED3E92881FA0 /* Coding.swift */; };
 		D25B6CAA2F87542B78415F414DB2EEEE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA49C1057389AEAAD6F92AC2162E225 /* Accelerate.framework */; };
 		D2AA05D59E8ACE24F5F09E2DDA8AB269 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060504E0156DA2AB171EE63502A7FFB8 /* ClassError.swift */; };
+		D2B0B40323FFC49E00904755 /* FileSystemStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B0B40223FFC49E00904755 /* FileSystemStorageDataSource.swift */; };
 		D2C8BC9C948ACE8051D07C0904FF1F89 /* FBLPromise+Race.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = EEB9A44045D484EE1D42B8502549E0C1 /* FBLPromise+Race.h */; };
 		D2F5B7F822F0707000B7371A /* ObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */; };
 		D34CDFE85808815863C5B44FF3F88108 /* RealmHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4AF09189559684976EAD8692F9D73 /* RealmHandler.swift */; };
@@ -1812,6 +1813,7 @@
 		D1EC9C8D55ADC9910348D78527C00562 /* DataToNSCodingMapper.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = DataToNSCodingMapper.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/DataToNSCodingMapper.html; sourceTree = "<group>"; };
 		D258096A10573DFB36B66B3C00698946 /* IdsQuery.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = IdsQuery.html; path = docs/Classes/IdsQuery.html; sourceTree = "<group>"; };
 		D25F2B7A8EB3C3B60E84CFCBA42103EA /* VoidGetPutRepository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = VoidGetPutRepository.html; path = docs/Classes/VoidGetPutRepository.html; sourceTree = "<group>"; };
+		D2B0B40223FFC49E00904755 /* FileSystemStorageDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSource.swift; sourceTree = "<group>"; };
 		D2C33116A46AC1386C1FC6DA81C1753A /* Keychain.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Keychain.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Classes/Keychain.html; sourceTree = "<group>"; };
 		D2F5B7F622F0706D00B7371A /* ObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectValidation.swift; sourceTree = "<group>"; };
 		D373F7C8F965E617F2A676C3732793AA /* RLMSyncConfiguration_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSyncConfiguration_Private.h; path = include/RLMSyncConfiguration_Private.h; sourceTree = "<group>"; };
@@ -2866,6 +2868,7 @@
 				BD2B6B494B5CD4057F0188289FADBFBB /* DataSourceValidator.swift */,
 				01480FF19F4F5881F7CD4AF687944F54 /* DebugDataSource.swift */,
 				F50A5A99D942680F2D70239688E0DB27 /* DeviceStorageDataSource.swift */,
+				D2B0B40223FFC49E00904755 /* FileSystemStorageDataSource.swift */,
 				9AAC5C8E9F60209890BB3C18CCA7638D /* InMemoryDataSource.swift */,
 				B07C527D5DE8DE8A05C9AF615C632C2A /* Interactor.swift */,
 				9646DC10388759EEDFC8C9895AD8ABE0 /* InteractorDelete.swift */,
@@ -4720,6 +4723,7 @@
 				896A61D46409362C7EADD1A5DA9F8BD1 /* Alamofire+Future.swift in Sources */,
 				053B8BDA549AB2A535FAA941A889A641 /* AnyDataSource.swift in Sources */,
 				C3B183AEDB43E24B1A70140FD810CBB8 /* AnyGetDataSource.swift in Sources */,
+				D2B0B40323FFC49E00904755 /* FileSystemStorageDataSource.swift in Sources */,
 				F6B0D6AD33294D67815D7BDDDBD403E1 /* AnyGetRepository.swift in Sources */,
 				35C0307C96DA8E546457D28D54DE472F /* AnyPutDataSource.swift in Sources */,
 				2F7C939E323977CA5D2CFFE1E94EA861 /* AnyPutRepository.swift in Sources */,
