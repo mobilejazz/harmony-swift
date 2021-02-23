@@ -23,23 +23,14 @@ public class MainOperation : Operation { public init () { } }
 public class MainSyncOperation : Operation { public init () { } }
 
 /// CacheOperation: Data processing will only use the "cache data source".
-///
-/// If fallback returns true the repository will return the cached
-/// data independently of it's validity.
 public class CacheOperation : Operation {
-    fileprivate let fallback : (Error) -> Bool
+    fileprivate let ignoreValidation: Bool
     
     /// Main initializer
     ///
-    /// - Parameter fallback: The fallback closure containg the error. Default value returns false.
-    public init(fallback: @escaping (Error) -> Bool = { _ in false }) {
-        self.fallback = fallback
-    }
-    /// Convenience initializer
-    ///
-    /// - Parameter fallback: The fallback behavior.
-    public convenience init(fallback: Bool) {
-        self.init(fallback: { _ in fallback })
+    /// - Parameter ignoreValidation: A flag indicating if validation must be ignored.
+    public init(ignoreValidation: Bool = false) {
+        self.ignoreValidation = ignoreValidation
     }
 }
 
@@ -102,9 +93,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                 .get(query)
                 .filter { value in
                     if !self.validator.isObjectValid(value) {
-                        let error = CoreError.NotValid()
-                        if !op.fallback(error) {
-                            throw error
+                        if !op.ignoreValidation {
+                            throw CoreError.NotValid()
                         }
                     }
                 }
@@ -153,9 +143,8 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                 .getAll(query)
                 .filter { array in
                     if !self.validator.isArrayValid(array) {
-                        let error = CoreError.NotValid()
-                        if !op.fallback(error) {
-                            throw error
+                        if !op.ignoreValidation {
+                            throw CoreError.NotValid()
                         }
                     }
                 }
