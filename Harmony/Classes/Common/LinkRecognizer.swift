@@ -59,7 +59,7 @@ public class LinkRecognizer {
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        public static let none             = Options(rawValue: 0)
+        public static let none             = Options([])
         public static let anchoredStart    = Options(rawValue: 1 << 0)
         public static let anchoredEnd      = Options(rawValue: 1 << 1)
         public static let caseInsensitive  = Options(rawValue: 1 << 2)
