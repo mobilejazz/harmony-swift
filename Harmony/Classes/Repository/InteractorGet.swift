@@ -16,11 +16,15 @@
 
 import Foundation
 
+
+
+
+
 extension Interactor {
     ///
     /// Generic get object interactor
     ///
-    public class GetByQuery<T> {
+    public class GetByQuery<T>: GetByQueryInteractorProtocol {
         
         private let executor : Executor
         private let repository: AnyGetRepository<T>
@@ -37,18 +41,26 @@ extension Interactor {
             }
         }
         
+        public func execute() -> Future<T> {
+            return execute(VoidQuery(), DefaultOperation(), in: nil)
+        }
+        
         public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(id, operation: operation))
             }
         }
+        
+        public func execute<K>(_ id: K) -> Future<T> where K:Hashable {
+            return execute(id, DefaultOperation(), in: nil)
+        }
     }
     
     ///
     /// Generic get object interactor with a prefilled query
     ///
-    public class Get<T> {
+    public class Get<T>: GetInteractorProtocol {
         
         private let query : Query
         private let executor : Executor
@@ -70,12 +82,16 @@ extension Interactor {
                 resolver.set(self.repository.get(self.query, operation: operation))
             }
         }
+        
+        public func execute() -> Future<T> {
+            return execute(DefaultOperation(), in: nil)
+        }
     }
     
     ///
     /// Generic get objects interactor
     ///
-    public class GetAllByQuery<T> {
+    public class GetAllByQuery<T>: GetAllByQueryInteractorProtocol {
         
         private let executor : Executor
         private let repository: AnyGetRepository<T>
@@ -92,19 +108,27 @@ extension Interactor {
             }
         }
         
+        public func execute() -> Future<[T]> {
+            return execute(AllObjectsQuery(), DefaultOperation(), in: nil)
+        }
+        
         public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.getAll(id, operation: operation))
             }
         }
+        
+        public func execute<K>(_ id: K) -> Future<[T]> where K:Hashable {
+            return execute(id, DefaultOperation(), in: nil)
+        }
     }
     
     ///
     /// Generic get all objects interactor
     ///
-    public class GetAll<T> {
-        
+    public class GetAll<T>: GetAllInteractorProtocol {
+                
         private let query : Query
         private let executor : Executor
         private let repository: AnyGetRepository<T>
@@ -124,6 +148,10 @@ extension Interactor {
             return executor.submit { resolver in
                 resolver.set(self.repository.getAll(self.query, operation: operation))
             }
+        }
+        
+        public func execute() -> Future<[T]> {
+            return execute(DefaultOperation(), in: nil)
         }
     }
 }

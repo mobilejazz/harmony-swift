@@ -12,6 +12,7 @@
 		003902025EAF280BEC15AA7006AAA453 /* MJAppLinkRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FBDCFE03E18F2FE42B5FC870ADB16 /* MJAppLinkRecognizer.m */; };
 		005C1D982AF319A1952A419C80DCCA30 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C2FE8BCDE8B18B7680385F4124881 /* Helpers.swift */; };
 		0090EA71BDEE0B23FE7BD93650B18BC2 /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA066FD45846B8E71BBF7BA05DD3B592 /* ErrorHelper.swift */; };
+		009753B625E64463006A36C4 /* InteractorGetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009753B525E64463006A36C4 /* InteractorGetProtocol.swift */; };
 		010DC60B1331F704B56AF5E1BB549984 /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D83184A6264E2888C520ECD72E00FBB /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015DA084601A75BDF93E92C46A2EC211 /* fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74E3F4F313568529ED21789D2C9CAD24 /* fifo.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.14.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		01E6C3BA6DBF900C9B75710E865ACB38 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96724BE8B7B3D7F8B4899732AB77B9A /* Mapper.swift */; };
@@ -843,6 +844,7 @@
 
 /* Begin PBXFileReference section */
 		00366FC0ED3C59593FE80417B1A7636D /* Repository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = Repository.html; path = docs/Protocols/Repository.html; sourceTree = "<group>"; };
+		009753B525E64463006A36C4 /* InteractorGetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorGetProtocol.swift; sourceTree = "<group>"; };
 		00BA652072EB897CC295BCEFDD68D505 /* Failed.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Failed.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Structs/CoreError/Failed.html; sourceTree = "<group>"; };
 		00EC74B9CFA7928055A2FDAFAA803078 /* Scope.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = Scope.html; path = docs/Classes/ExecutorFactory/Scope.html; sourceTree = "<group>"; };
 		00F8E43D9C9072B46B5858E12DD91602 /* Promise+Testing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Testing.swift"; path = "Sources/Promises/Promise+Testing.swift"; sourceTree = "<group>"; };
@@ -2870,6 +2872,7 @@
 				B07C527D5DE8DE8A05C9AF615C632C2A /* Interactor.swift */,
 				9646DC10388759EEDFC8C9895AD8ABE0 /* InteractorDelete.swift */,
 				A2D1B81719C61A0F7C8F8E6B6EB57ACD /* InteractorGet.swift */,
+				009753B525E64463006A36C4 /* InteractorGetProtocol.swift */,
 				9A2A5666E1A3ACADB3E94C3E6433B5C8 /* InteractorPut.swift */,
 				B96724BE8B7B3D7F8B4899732AB77B9A /* Mapper.swift */,
 				363FBE62B36D9706456857906213E959 /* Mapper+Codable.swift */,
@@ -4768,6 +4771,7 @@
 				8F6C626704EA81A7B531C9A7C593CC17 /* KeychainService.swift in Sources */,
 				68F556FD115F88D1567A3E6E96A13032 /* KeychainSetInteractor.swift in Sources */,
 				30144F236BEAA8551829C482082ED434 /* KeyValueObserver.swift in Sources */,
+				009753B625E64463006A36C4 /* InteractorGetProtocol.swift in Sources */,
 				98F99C7B43C42B0025E35C1DEADCC19C /* LinkRecognizer.swift in Sources */,
 				1DB343FC38D11EAA8F732C4283304F5A /* Logger.swift in Sources */,
 				A64FBF687161E46D2909272BF03B9F41 /* Mapper+Codable.swift in Sources */,
