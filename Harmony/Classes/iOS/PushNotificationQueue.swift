@@ -60,7 +60,7 @@ public class PushNotificationQueue {
         }
         
         /// Never filter. Deliver all incoming notifications.
-        public static let never = Filter(rawValue:0)
+        public static let never = Filter([])
         /// Filter notifications received in the background. Deliver otherwise.
         public static let applicationBackground = Filter(rawValue:1<<0)
         /// Filter notifications received when inactive. Deliver otherwise.

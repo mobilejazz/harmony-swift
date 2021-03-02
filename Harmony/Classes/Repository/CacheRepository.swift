@@ -23,7 +23,17 @@ public class MainOperation : Operation { public init () { } }
 public class MainSyncOperation : Operation { public init () { } }
 
 /// CacheOperation: Data processing will only use the "cache data source".
-public class CacheOperation : Operation { public init () { } }
+public class CacheOperation : Operation {
+    fileprivate let ignoreValidation: Bool
+    
+    /// Main initializer
+    ///
+    /// - Parameter ignoreValidation: A flag indicating if validation must be ignored.
+    public init(ignoreValidation: Bool = false) {
+        self.ignoreValidation = ignoreValidation
+    }
+}
+
 
 /// CacheSyncOperation: Data processing will use the "cache data source" and sync with the "main data source".
 ///
@@ -78,17 +88,27 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             return get(query, operation: CacheSyncOperation())
         case is MainOperation:
             return main.get(query)
-        case is CacheOperation:
-            return cache.get(query)
+        case let op as CacheOperation:
+            return cache
+                .get(query)
+                .filter { value in
+                    if !self.validator.isObjectValid(value) {
+                        if !op.ignoreValidation {
+                            throw CoreError.NotValid()
+                        }
+                    }
+                }
         case is MainSyncOperation:
             return main.get(query).flatMap { entity in
                 return self.cache.put(entity, in: query)
             }
         case let op as CacheSyncOperation:
+            var cachedValue: T!
             return cache
                 .get(query)
                 .filter { value in
                     if !self.validator.isObjectValid(value) {
+                        cachedValue = value
                         throw CoreError.NotValid()
                     }
                 }
@@ -98,7 +118,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                         return self.get(query, operation: MainSyncOperation())
                             .recover { error in
                                 if op.fallback(error) {
-                                    return self.cache.get(query)
+                                    return Future(cachedValue)
                                 } else {
                                     return Future(error)
                                 }
@@ -118,16 +138,26 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             return getAll(query, operation: CacheSyncOperation())
         case is MainOperation:
             return main.getAll(query)
-        case is CacheOperation:
-            return cache.getAll(query)
+        case let op as CacheOperation:
+            return cache
+                .getAll(query)
+                .filter { array in
+                    if !self.validator.isArrayValid(array) {
+                        if !op.ignoreValidation {
+                            throw CoreError.NotValid()
+                        }
+                    }
+                }
         case is MainSyncOperation:
             return main.getAll(query).flatMap { entities in
                 return self.cache.putAll(entities, in: query)
             }
         case let op as CacheSyncOperation:
+            var cachedValues: [T]!
             return cache
                 .getAll(query)
                 .filter { array in
+                    cachedValues = array
                     if !self.validator.isArrayValid(array) {
                         throw CoreError.NotValid()
                     }
@@ -138,7 +168,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                         return self.getAll(query, operation: MainSyncOperation())
                             .recover { error in
                                 if op.fallback(error) {
-                                    return self.cache.getAll(query)
+                                    return Future(cachedValues)
                                 } else {
                                     return Future(error)
                                 }
