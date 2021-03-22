@@ -130,11 +130,11 @@
             </objects>
             <point key="canvasLocation" x="744.79999999999995" y="435.83208395802103"/>
         </scene>
-        <!--KitMVP Item Detail View Controller-->
+        <!--Item Detail View Controller-->
         <scene sceneID="le3-4E-1ad">
             <objects>
-                <viewController id="5Dj-0d-YkJ" customClass="UIKitMVPItemDetailViewController" customModule="Harmony_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Px5-dw-ktP" customClass="UIKitMVPItemDetailView" customModule="Harmony_Example" customModuleProvider="target">
+                <viewController id="5Dj-0d-YkJ" customClass="ItemDetailViewController" customModule="Harmony_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Px5-dw-ktP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -180,13 +180,13 @@
                             <constraint firstItem="JPT-pq-3zx" firstAttribute="trailing" secondItem="beM-wz-Pnm" secondAttribute="trailing" id="dxe-K5-GXm"/>
                             <constraint firstItem="beM-wz-Pnm" firstAttribute="bottom" secondItem="wFl-YD-52y" secondAttribute="bottom" constant="20" id="p92-0f-EWZ"/>
                         </constraints>
-                        <connections>
-                            <outlet property="imageView" destination="JPT-pq-3zx" id="Gm8-NJ-gpS"/>
-                            <outlet property="nameLabel" destination="DZv-XO-xhb" id="wTA-ph-8Gf"/>
-                            <outlet property="priceLabel" destination="wFl-YD-52y" id="uUu-Mk-dBS"/>
-                            <outlet property="unitsLabel" destination="9UG-Yi-JzG" id="NSv-rG-DZq"/>
-                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="JPT-pq-3zx" id="5Xe-ws-DZz"/>
+                        <outlet property="nameLabel" destination="DZv-XO-xhb" id="zxP-4g-fy3"/>
+                        <outlet property="priceLabel" destination="wFl-YD-52y" id="DoG-We-IfB"/>
+                        <outlet property="unitsLabel" destination="9UG-Yi-JzG" id="zCK-cq-5lI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3h4-m9-tmc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,7 +13,6 @@ target 'Harmony_Example' do
   pod 'Harmony/MJCocoaCore', :path => '../'
   pod 'Harmony/Objection', :path => '../'
 
-  pod 'Swinject', '~> 2.6'
   pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'
   

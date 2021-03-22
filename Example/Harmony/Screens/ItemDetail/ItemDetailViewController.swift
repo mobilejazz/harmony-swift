@@ -1,5 +1,5 @@
 //
-//  UIKitMVPItemDetailView.swift
+//  UIKitMVPItemDetailViewController.swift
 //  SwiftCore
 //
 //  Created by Joan Martin on 16/11/2017.
@@ -7,20 +7,30 @@
 //
 
 import UIKit
-import Kingfisher
 
-class UIKitMVPItemDetailView: UIView, UIKitMVPItemDetailPresenterView {
+class ItemDetailViewController: UIViewController, ItemDetailPresenterView {
     
-    var presenter: UIKitMVPItemDetailPresenter?
+    lazy var presenter = applicationComponent.itemComponent.itemDetailPresenter(view: self)
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    // MARK: UIKitMVPItemDetailPresenterView
+    // Temp item to obtain it from previous screen.
+    // This could be improved.
+    var item : Item?
     
-    func onDisplayItem(_ item: Item) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onSelectedItem(item!)
+    }
+    
+    // MARK: ItemDetailPresenterView
+    
+    func onDisplay(_ item: Item) {
+        self.title = item.name
+        
         nameLabel.text = item.name
         unitsLabel.text = "\(item.count) units"
         priceLabel.text = "\(item.price)€"

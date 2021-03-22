@@ -11,6 +11,7 @@ import Alamofire
 
 protocol ItemComponent {
     func itemListPresenter(view: ItemListPresenterView) -> ItemListPresenter
+    func itemDetailPresenter(view: ItemDetailPresenterView) -> ItemDetailPresenter
 }
 
 class ItemDefaultModule: ItemComponent {
@@ -70,5 +71,9 @@ class ItemDefaultModule: ItemComponent {
     
     func itemListPresenter(view: ItemListPresenterView) -> ItemListPresenter {
         return ItemListDefaultPresenter(view, self.getAllItemsInteractor())
+    }
+    
+    func itemDetailPresenter(view: ItemDetailPresenterView) -> ItemDetailPresenter {
+        return ItemDetailDefaultPresenter(view)
     }
 }

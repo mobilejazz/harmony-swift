@@ -65,10 +65,10 @@ class ItemListViewController: UIViewController, ItemListPresenterView, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segue.item.detail" {
-            let detailPresenter = segue.destination as! UIKitMVPItemDetailPresenter
+            let detailPresenter = segue.destination as! ItemDetailViewController
             let item = sender as! Item
             
-            detailPresenter.onConfigureItem(item)
+            detailPresenter.item = item
         }
     }
     
