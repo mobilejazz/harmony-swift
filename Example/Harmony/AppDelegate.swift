@@ -10,6 +10,8 @@ import UIKit
 import MJCocoaCore
 import Harmony
 
+let applicationComponent: ApplicationComponent = ApplicationDefaultModule()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

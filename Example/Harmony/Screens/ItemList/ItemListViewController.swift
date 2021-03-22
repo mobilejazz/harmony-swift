@@ -1,34 +1,37 @@
 //
-//  ItemListView.swift
+//  ViewController.swift
 //  SwiftCore
 //
-//  Created by Joan Martin on 03/11/2017.
+//  Created by Joan Martin on 13/10/2017.
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
 import UIKit
-import Kingfisher
+import Harmony
 
-class UIKitMVPItemListView: UIView, UIKitMVPItemListPresenterView, UITableViewDataSource, UITableViewDelegate {
-    
-    var presenter: UIKitMVPItemListPresenter?
+class ItemListViewController: UIViewController, ItemListPresenterView, UITableViewDataSource, UITableViewDelegate {
+
+    lazy var presenter = applicationComponent.itemComponent.itemListPresenter(view: self)
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var items : [Item] = []
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.onEventLoadList()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 68
     }
     
-    // MARK: IBActions
-    
-    @IBAction func onReloadAction(_ sender: Any) {
-        presenter?.onEventReloadList()
+    @IBAction func reloadButtonAction(_ sender: Any) {
+        presenter.onActionReloadList()
     }
     
     // MARK: ItemListPresenterView
@@ -43,9 +46,30 @@ class UIKitMVPItemListView: UIView, UIKitMVPItemListPresenterView, UITableViewDa
         tableView.isHidden = false
     }
     
-    func onDisplayItems(_ items: [Item]) {
+    func onDisplay(items: [Item]) {
         self.items = items
         tableView.reloadData()
+    }
+    
+    func onNavigateTo(item: Item) {
+        performSegue(withIdentifier: "segue.item.detail", sender: item)
+    }
+    
+    func onDisplayFailedToFetchItems(_ error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segue.item.detail" {
+            let detailPresenter = segue.destination as! UIKitMVPItemDetailPresenter
+            let item = sender as! Item
+            
+            detailPresenter.onConfigureItem(item)
+        }
     }
     
     // MARK: UITableViewDataSource
@@ -79,6 +103,6 @@ class UIKitMVPItemListView: UIView, UIKitMVPItemListPresenterView, UITableViewDa
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.onEventSelectItem(items[indexPath.row])
+        presenter.onActionSelected(item: items[indexPath.row])
     }
 }

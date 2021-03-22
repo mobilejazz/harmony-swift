@@ -12,28 +12,21 @@
 		D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23CDCAF2253716B001C1914 /* AppDelegate.swift */; };
 		D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274014922CF68E500CA9054 /* Alamofire+Future.swift */; };
 		D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */; };
+		D2A30D8E2608B9F8008FEFBB /* ApplicationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D8D2608B9F8008FEFBB /* ApplicationProvider.swift */; };
+		D2A30D922608BA48008FEFBB /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D912608BA48008FEFBB /* ItemProvider.swift */; };
+		D2A30DA72608C363008FEFBB /* ItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30DA62608C363008FEFBB /* ItemListPresenter.swift */; };
 		D2A5FE8A224E3BB000693305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FE89224E3BB000693305 /* Images.xcassets */; };
 		D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */; };
 		D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE90224E3BC200693305 /* ItemQuery.swift */; };
-		D2A5FEB8224E3BC200693305 /* RealmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE94224E3BC200693305 /* RealmItem.swift */; };
-		D2A5FEB9224E3BC200693305 /* RealmItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE95224E3BC200693305 /* RealmItemMapper.swift */; };
-		D2A5FEBA224E3BC200693305 /* ItemQueryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE96224E3BC200693305 /* ItemQueryExtensions.swift */; };
 		D2A5FEBB224E3BC200693305 /* ItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE98224E3BC200693305 /* ItemMapper.swift */; };
 		D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9A224E3BC200693305 /* ItemEntity.swift */; };
-		D2A5FEBD224E3BC200693305 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9C224E3BC200693305 /* AppAssembler.swift */; };
-		D2A5FEBE224E3BC200693305 /* RealmAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */; };
-		D2A5FEBF224E3BC200693305 /* ItemAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */; };
-		D2A5FEC0224E3BC200693305 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */; };
 		D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */; };
 		D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */; };
 		D2A5FEC3224E3BC200693305 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA4224E3BC200693305 /* Item.swift */; };
-		D2A5FEC4224E3BC200693305 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA5224E3BC200693305 /* Product.swift */; };
 		D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEA8224E3BC200693305 /* SplashViewController.swift */; };
 		D2A5FEC6224E3BC200693305 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FEA9224E3BC200693305 /* SplashViewController.xib */; };
 		D2A5FEC7224E3BC200693305 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEAC224E3BC200693305 /* ItemCell.swift */; };
-		D2A5FEC8224E3BC200693305 /* UIKitMVPItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEAE224E3BC200693305 /* UIKitMVPItemListView.swift */; };
-		D2A5FEC9224E3BC200693305 /* UIKitMVPItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEAF224E3BC200693305 /* UIKitMVPItemListViewController.swift */; };
-		D2A5FECA224E3BC200693305 /* UIKitMVPItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEB0224E3BC200693305 /* UIKitMVPItemListPresenter.swift */; };
+		D2A5FEC9224E3BC200693305 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEAF224E3BC200693305 /* ItemListViewController.swift */; };
 		D2A5FECB224E3BC200693305 /* UIKitMVPItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEB3224E3BC200693305 /* UIKitMVPItemDetailViewController.swift */; };
 		D2A5FECC224E3BC200693305 /* UIKitMVPItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEB4224E3BC200693305 /* UIKitMVPItemDetailView.swift */; };
 		D2A5FECD224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FEB5224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift */; };
@@ -79,28 +72,21 @@
 		D274014922CF68E500CA9054 /* Alamofire+Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
 		D291C8F6224E373400E1A90C /* Harmony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = Harmony.podspec; path = ../Harmony.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemsInteractor.swift; sourceTree = "<group>"; };
+		D2A30D8D2608B9F8008FEFBB /* ApplicationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationProvider.swift; sourceTree = "<group>"; };
+		D2A30D912608BA48008FEFBB /* ItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemProvider.swift; sourceTree = "<group>"; };
+		D2A30DA62608C363008FEFBB /* ItemListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListPresenter.swift; sourceTree = "<group>"; };
 		D2A5FE89224E3BB000693305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Harmony/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemNetworkDataSource.swift; sourceTree = "<group>"; };
 		D2A5FE90224E3BC200693305 /* ItemQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemQuery.swift; sourceTree = "<group>"; };
-		D2A5FE94224E3BC200693305 /* RealmItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmItem.swift; sourceTree = "<group>"; };
-		D2A5FE95224E3BC200693305 /* RealmItemMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmItemMapper.swift; sourceTree = "<group>"; };
-		D2A5FE96224E3BC200693305 /* ItemQueryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemQueryExtensions.swift; sourceTree = "<group>"; };
 		D2A5FE98224E3BC200693305 /* ItemMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemMapper.swift; sourceTree = "<group>"; };
 		D2A5FE9A224E3BC200693305 /* ItemEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemEntity.swift; sourceTree = "<group>"; };
-		D2A5FE9C224E3BC200693305 /* AppAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
-		D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmAssembly.swift; sourceTree = "<group>"; };
-		D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAssembly.swift; sourceTree = "<group>"; };
-		D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorizedStatusCodeRequestRetrier.swift; sourceTree = "<group>"; };
 		D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2RetryHandler.swift; sourceTree = "<group>"; };
 		D2A5FEA4224E3BC200693305 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		D2A5FEA5224E3BC200693305 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		D2A5FEA8224E3BC200693305 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D2A5FEA9224E3BC200693305 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		D2A5FEAC224E3BC200693305 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
-		D2A5FEAE224E3BC200693305 /* UIKitMVPItemListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemListView.swift; sourceTree = "<group>"; };
-		D2A5FEAF224E3BC200693305 /* UIKitMVPItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemListViewController.swift; sourceTree = "<group>"; };
-		D2A5FEB0224E3BC200693305 /* UIKitMVPItemListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemListPresenter.swift; sourceTree = "<group>"; };
+		D2A5FEAF224E3BC200693305 /* ItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		D2A5FEB3224E3BC200693305 /* UIKitMVPItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailViewController.swift; sourceTree = "<group>"; };
 		D2A5FEB4224E3BC200693305 /* UIKitMVPItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailView.swift; sourceTree = "<group>"; };
 		D2A5FEB5224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitMVPItemDetailPresenter.swift; sourceTree = "<group>"; };
@@ -236,15 +222,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		D2A30D842608B7A7008FEFBB /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				D2A30D852608B7C5008FEFBB /* Interactors */,
-				D2A5FEA3224E3BC200693305 /* Model */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		D2A30D852608B7C5008FEFBB /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,29 +230,72 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		D2A30D8C2608B9AA008FEFBB /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				D2A30D9D2608C1E8008FEFBB /* Item */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		D2A30D9D2608C1E8008FEFBB /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				D2A30D9F2608C204008FEFBB /* Domain */,
+				D2A30D9E2608C1FA008FEFBB /* Data */,
+				D2A30D912608BA48008FEFBB /* ItemProvider.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		D2A30D9E2608C1FA008FEFBB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D2A5FE8F224E3BC200693305 /* Queries */,
+				D2A5FE99224E3BC200693305 /* Entities */,
+				D2A5FE8D224E3BC200693305 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		D2A30D9F2608C204008FEFBB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D2A5FEA3224E3BC200693305 /* Model */,
+				D2A5FE97224E3BC200693305 /* Mappers */,
+				D2A30D852608B7C5008FEFBB /* Interactors */,
+				D2A30DA52608C34B008FEFBB /* Presenters */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D2A30DA22608C2AD008FEFBB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D274014922CF68E500CA9054 /* Alamofire+Future.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		D2A30DA52608C34B008FEFBB /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				D2A30DA62608C363008FEFBB /* ItemListPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 		D2A5FE8B224E3BC200693305 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D2A30D842608B7A7008FEFBB /* Domain */,
-				D2A5FE8C224E3BC200693305 /* Data */,
-				D2A5FE9B224E3BC200693305 /* DI */,
-				D2A5FEA0224E3BC200693305 /* Managers */,
+				D2A30DA22608C2AD008FEFBB /* Utils */,
+				D2A30D8C2608B9AA008FEFBB /* Features */,
+				D2A5FEA0224E3BC200693305 /* App */,
+				D2A30D8D2608B9F8008FEFBB /* ApplicationProvider.swift */,
 			);
 			name = Core;
 			path = Harmony/Core;
 			sourceTree = SOURCE_ROOT;
-		};
-		D2A5FE8C224E3BC200693305 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FE8D224E3BC200693305 /* Network */,
-				D2A5FE8F224E3BC200693305 /* Queries */,
-				D2A5FE91224E3BC200693305 /* Storage */,
-				D2A5FE97224E3BC200693305 /* Mappers */,
-				D2A5FE99224E3BC200693305 /* Entities */,
-			);
-			path = Data;
-			sourceTree = "<group>";
 		};
 		D2A5FE8D224E3BC200693305 /* Network */ = {
 			isa = PBXGroup;
@@ -291,32 +311,6 @@
 				D2A5FE90224E3BC200693305 /* ItemQuery.swift */,
 			);
 			path = Queries;
-			sourceTree = "<group>";
-		};
-		D2A5FE91224E3BC200693305 /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FE92224E3BC200693305 /* Realm */,
-			);
-			path = Storage;
-			sourceTree = "<group>";
-		};
-		D2A5FE92224E3BC200693305 /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FE93224E3BC200693305 /* Model */,
-				D2A5FE96224E3BC200693305 /* ItemQueryExtensions.swift */,
-			);
-			path = Realm;
-			sourceTree = "<group>";
-		};
-		D2A5FE93224E3BC200693305 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FE94224E3BC200693305 /* RealmItem.swift */,
-				D2A5FE95224E3BC200693305 /* RealmItemMapper.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D2A5FE97224E3BC200693305 /* Mappers */ = {
@@ -335,32 +329,19 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		D2A5FE9B224E3BC200693305 /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FE9C224E3BC200693305 /* AppAssembler.swift */,
-				D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */,
-				D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */,
-				D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */,
-			);
-			path = DI;
-			sourceTree = "<group>";
-		};
-		D2A5FEA0224E3BC200693305 /* Managers */ = {
+		D2A5FEA0224E3BC200693305 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				D2A5FEA1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift */,
 				D2A5FEA2224E3BC200693305 /* OAuth2RetryHandler.swift */,
-				D274014922CF68E500CA9054 /* Alamofire+Future.swift */,
 			);
-			path = Managers;
+			path = App;
 			sourceTree = "<group>";
 		};
 		D2A5FEA3224E3BC200693305 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				D2A5FEA4224E3BC200693305 /* Item.swift */,
-				D2A5FEA5224E3BC200693305 /* Product.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,28 +369,10 @@
 		D2A5FEAA224E3BC200693305 /* ItemList */ = {
 			isa = PBXGroup;
 			children = (
-				D2A5FEAB224E3BC200693305 /* Views */,
-				D2A5FEAD224E3BC200693305 /* UIKitMVP */,
+				D2A5FEAC224E3BC200693305 /* ItemCell.swift */,
+				D2A5FEAF224E3BC200693305 /* ItemListViewController.swift */,
 			);
 			path = ItemList;
-			sourceTree = "<group>";
-		};
-		D2A5FEAB224E3BC200693305 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FEAC224E3BC200693305 /* ItemCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		D2A5FEAD224E3BC200693305 /* UIKitMVP */ = {
-			isa = PBXGroup;
-			children = (
-				D2A5FEAE224E3BC200693305 /* UIKitMVPItemListView.swift */,
-				D2A5FEAF224E3BC200693305 /* UIKitMVPItemListViewController.swift */,
-				D2A5FEB0224E3BC200693305 /* UIKitMVPItemListPresenter.swift */,
-			);
-			path = UIKitMVP;
 			sourceTree = "<group>";
 		};
 		D2A5FEB1224E3BC200693305 /* ItemDetail */ = {
@@ -628,29 +591,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */,
-				D2A5FEBE224E3BC200693305 /* RealmAssembly.swift in Sources */,
 				D2A5FEBB224E3BC200693305 /* ItemMapper.swift in Sources */,
 				D2A5FECC224E3BC200693305 /* UIKitMVPItemDetailView.swift in Sources */,
-				D2A5FEC0224E3BC200693305 /* NetworkAssembly.swift in Sources */,
 				D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */,
-				D2A5FEC8224E3BC200693305 /* UIKitMVPItemListView.swift in Sources */,
+				D2A30D8E2608B9F8008FEFBB /* ApplicationProvider.swift in Sources */,
 				D2A5FEC3224E3BC200693305 /* Item.swift in Sources */,
-				D2A5FEBD224E3BC200693305 /* AppAssembler.swift in Sources */,
+				D2A30DA72608C363008FEFBB /* ItemListPresenter.swift in Sources */,
 				D2A5FECD224E3BC200693305 /* UIKitMVPItemDetailPresenter.swift in Sources */,
 				D2A5FEC7224E3BC200693305 /* ItemCell.swift in Sources */,
 				D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */,
-				D2A5FEBF224E3BC200693305 /* ItemAssembly.swift in Sources */,
-				D2A5FEB9224E3BC200693305 /* RealmItemMapper.swift in Sources */,
 				D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */,
 				D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */,
 				D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */,
-				D2A5FEB8224E3BC200693305 /* RealmItem.swift in Sources */,
-				D2A5FEBA224E3BC200693305 /* ItemQueryExtensions.swift in Sources */,
-				D2A5FEC9224E3BC200693305 /* UIKitMVPItemListViewController.swift in Sources */,
+				D2A5FEC9224E3BC200693305 /* ItemListViewController.swift in Sources */,
+				D2A30D922608BA48008FEFBB /* ItemProvider.swift in Sources */,
 				D2A5FECB224E3BC200693305 /* UIKitMVPItemDetailViewController.swift in Sources */,
-				D2A5FECA224E3BC200693305 /* UIKitMVPItemListPresenter.swift in Sources */,
 				D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */,
-				D2A5FEC4224E3BC200693305 /* Product.swift in Sources */,
 				D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */,
 				D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */,
 				D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */,
