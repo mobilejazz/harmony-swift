@@ -37,15 +37,17 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
     private let fileManager : FileManager
     public let directory : URL
     public let fileNameEncoding: FileNameEncoding
+    private let writingOptions: Data.WritingOptions
 
     /// Main initializer
     ///
     /// - Parameters:
     ///   - fileManager: The FileManager
     ///   - directory: The directory where to store data
-    init(fileManager: FileManager, directory: URL, fileNameEncoding: FileNameEncoding = .sha256) {
+    init(fileManager: FileManager, directory: URL, writingOptions: Data.WritingOptions = [], fileNameEncoding: FileNameEncoding = .sha256) {
         self.fileManager = fileManager
         self.directory = directory
+        self.writingOptions = writingOptions
         self.fileNameEncoding = fileNameEncoding
     }
     
@@ -53,12 +55,12 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
     ///
     /// - Parameters:
     ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the documents directory
-    convenience init?(fileManager: FileManager, relativePath: String, fileNameEncoding: FileNameEncoding = .sha256) {
+    convenience init?(fileManager: FileManager, relativePath: String, writingOptions: Data.WritingOptions = [], fileNameEncoding: FileNameEncoding = .sha256) {
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
         let url = documentsURL.appendingPathComponent(relativePath)
-        self.init(fileManager: fileManager, directory: url, fileNameEncoding: fileNameEncoding)
+        self.init(fileManager: fileManager, directory: url, writingOptions: writingOptions, fileNameEncoding: fileNameEncoding)
     }
     
     private func fileName(_ key: String) -> String {
@@ -145,7 +147,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
             if fileManager.fileExists(atPath: folderURL.path) == false {
                 try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
             }
-            try data.write(to: fileURL)
+            try data.write(to: fileURL, options: writingOptions)
             r.set(data)
         }
     }
@@ -163,7 +165,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
                     if fileManager.fileExists(atPath: folderURL.path) == false {
                         try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
                     }
-                    try array[offset].write(to: fileURL)
+                    try array[offset].write(to: fileURL, options: writingOptions)
                 }
                 r.set(array)
             }
@@ -175,7 +177,7 @@ class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSour
                     try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
                 }
                 let data = NSKeyedArchiver.archivedData(withRootObject: array)
-                try data.write(to: fileURL)
+                try data.write(to: fileURL, options: writingOptions)
                 r.set(array)
             }
         default:
