@@ -32,7 +32,16 @@ class ItemAssembly: Assembly {
 //                                                toEntityMapper: RealmItemToItemEntityMapper(),
 //                                                toRealmMapper: ItemEntityToRealmItemMapper())
         // Storage (In-Memory)
-        let baseStorageDataSource = InMemoryDataSource<ItemEntity>()
+//        let baseStorageDataSource = InMemoryDataSource<ItemEntity>()
+        
+        // Storage (FileSystem)
+        let fileSystemDataSource = FileSystemStorageDataSource(fileManager: FileManager.default,
+                                                                 relativePath: "data",
+                                                                 writingOptions: .noFileProtection,
+                                                                 fileNameEncoding: .none)!
+        let baseStorageDataSource = DataSourceMapper(dataSource: fileSystemDataSource,
+                                                     toInMapper: EncodableToDataMapper<ItemEntity>(),
+                                                     toOutMapper: DataToDecodableMapper<ItemEntity>())
 
         // Storage (UserDefaults)
 //        let userDefaultsDataSource = DeviceStorageDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
@@ -60,7 +69,9 @@ class ItemAssembly: Assembly {
                                           toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>()) // ItemEntityToItemMapper())
         
         // Interactors
-        //container.register(Interactor.GetAllByQuery<Item>.self) { _ in repository.toGetAllByQueryInteractor(DispatchQueueExecutor()) }
-        container.register(Interactor.GetAll<Item>.self) { _ in repository.toGetAllInteractor(DispatchQueueExecutor(), AllObjectsQuery()) }
+        container.register(GetAllItemsInteractor.self) { _ in
+            GetAllItemsInteractor(executor: DispatchQueueExecutor(),
+                                  getItems: Interactor.GetAllByQuery<Item>(DispatchQueueExecutor(), repository))
+        }
     }
 }

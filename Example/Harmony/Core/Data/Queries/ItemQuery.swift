@@ -15,3 +15,7 @@ struct SearchItemsQuery: Query {
         self.text = text
     }
 }
+
+struct AllItemsQuery: KeyQuery {
+    let key: String = "all-items"
+}
