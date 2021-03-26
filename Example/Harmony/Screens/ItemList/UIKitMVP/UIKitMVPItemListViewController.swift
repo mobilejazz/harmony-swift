@@ -17,7 +17,7 @@ class UIKitMVPItemListViewController: UIViewController, UIKitMVPItemListPresente
         return self.view as! UIKitMVPItemListPresenterView
     }
     
-    lazy var getItemsInteractor = AppAssembler.resolver.resolve(Interactor.GetAll<Item>.self)!
+    lazy var getItemsInteractor = AppAssembler.resolver.resolve(GetAllItemsInteractor.self)!
     
     override func loadView() {
         super.loadView()

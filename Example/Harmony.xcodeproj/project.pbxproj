@@ -11,6 +11,7 @@
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
 		D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23CDCAF2253716B001C1914 /* AppDelegate.swift */; };
 		D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274014922CF68E500CA9054 /* Alamofire+Future.swift */; };
+		D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */; };
 		D2A5FE8A224E3BB000693305 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5FE89224E3BB000693305 /* Images.xcassets */; };
 		D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */; };
 		D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5FE90224E3BC200693305 /* ItemQuery.swift */; };
@@ -77,6 +78,7 @@
 		D23CDCAF2253716B001C1914 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D274014922CF68E500CA9054 /* Alamofire+Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
 		D291C8F6224E373400E1A90C /* Harmony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = Harmony.podspec; path = ../Harmony.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemsInteractor.swift; sourceTree = "<group>"; };
 		D2A5FE89224E3BB000693305 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Harmony/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		D2A5FE8E224E3BC200693305 /* ItemNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemNetworkDataSource.swift; sourceTree = "<group>"; };
 		D2A5FE90224E3BC200693305 /* ItemQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemQuery.swift; sourceTree = "<group>"; };
@@ -234,19 +236,36 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D2A30D842608B7A7008FEFBB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D2A30D852608B7C5008FEFBB /* Interactors */,
+				D2A5FEA3224E3BC200693305 /* Model */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D2A30D852608B7C5008FEFBB /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
 		D2A5FE8B224E3BC200693305 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D2A5FE8C224E3BC200693305 /* Repository */,
+				D2A30D842608B7A7008FEFBB /* Domain */,
+				D2A5FE8C224E3BC200693305 /* Data */,
 				D2A5FE9B224E3BC200693305 /* DI */,
 				D2A5FEA0224E3BC200693305 /* Managers */,
-				D2A5FEA3224E3BC200693305 /* Model */,
 			);
 			name = Core;
 			path = Harmony/Core;
 			sourceTree = SOURCE_ROOT;
 		};
-		D2A5FE8C224E3BC200693305 /* Repository */ = {
+		D2A5FE8C224E3BC200693305 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				D2A5FE8D224E3BC200693305 /* Network */,
@@ -255,7 +274,7 @@
 				D2A5FE97224E3BC200693305 /* Mappers */,
 				D2A5FE99224E3BC200693305 /* Entities */,
 			);
-			path = Repository;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		D2A5FE8D224E3BC200693305 /* Network */ = {
@@ -320,8 +339,8 @@
 			isa = PBXGroup;
 			children = (
 				D2A5FE9C224E3BC200693305 /* AppAssembler.swift */,
-				D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */,
 				D2A5FE9E224E3BC200693305 /* ItemAssembly.swift */,
+				D2A5FE9D224E3BC200693305 /* RealmAssembly.swift */,
 				D2A5FE9F224E3BC200693305 /* NetworkAssembly.swift */,
 			);
 			path = DI;
@@ -633,6 +652,7 @@
 				D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */,
 				D2A5FEC4224E3BC200693305 /* Product.swift in Sources */,
 				D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */,
+				D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */,
 				D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -39,7 +39,7 @@ class ItemNetworkDataSource : GetDataSource  {
     
     func getAll(_ query: Query) -> Future<[ItemEntity]> {
         switch query.self {
-        case is AllObjectsQuery:
+        case is AllItemsQuery, is AllObjectsQuery:
             return getAllItems()
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
@@ -66,10 +66,7 @@ private extension ItemNetworkDataSource {
     private func getAllItems() -> Future<[ItemEntity]> {        
         let url = "/items"
         return sessionManager.request(url).toFuture().flatMap { data in
-            guard let json = data as? [String : AnyObject] else {
-                return Future([]) // no json to parse
-            }
-            guard let results = json["results"] as? [[String: AnyObject]] else {
+            guard let results = data as? [[String: AnyObject]] else {
                 return Future([]) // or pass error if desired
             }
             return results.decodeAs(keyDecodingStrategy: .map(ItemEntity.fromNetworkMap), forEach: { item in

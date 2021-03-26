@@ -40,7 +40,7 @@ class NetworkAssembly: Assembly {
 //        container.register(OAuth2RetryHandler.self) { r in OAuth2RetryHandler(oauth2:r.resolve(OAuth2.self)!) }.inObjectScope(.container)
         
         // Alamofire Request Retrier and Adapter
-        container.register(RequestAdapter.self) { r in MultiRequestAdapter([BaseURLRequestAdapter(URL(string:"http://demo5266963.mockable.io/api")!)]) }
+        container.register(RequestAdapter.self) { r in MultiRequestAdapter([BaseURLRequestAdapter(URL(string:"https://demo0962411.mockable.io")!)]) }
         container.register(RequestRetrier.self) { r in MultiRequestRetrier([UnauthorizedStatusCodeRequestRetrier()]) }
         
         // Alamofire Session Manager
