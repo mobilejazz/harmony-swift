@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Harmony'
-    s.version          = '1.0.7'
+    s.version          = '1.1.0'
     s.summary          = 'Mobile Jazz Harmony Core'
     s.swift_version    = '5'
     
