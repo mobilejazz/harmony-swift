@@ -64,12 +64,16 @@ Pod::Spec.new do |s|
         sp.dependency 'Harmony/Common'
     end
     
-    s.subspec 'Realm' do |sp|
-        sp.source_files = 'Harmony/Classes/Realm/**/*', 'Harmony/Harmony.h'
-        sp.dependency 'RealmSwift', '~> 3.14'
-        sp.dependency 'Harmony/Repository'
-        sp.dependency 'Harmony/Security'
-    end
+    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+    # Realm susbspec removed as it is no longer maintained by Mobile Jazz #
+    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+    
+    #s.subspec 'Realm' do |sp|
+    #    sp.source_files = 'Harmony/Classes/Realm/**/*', 'Harmony/Harmony.h'
+    #    sp.dependency 'RealmSwift', '~> 3.14'
+    #    sp.dependency 'Harmony/Repository'
+    #    sp.dependency 'Harmony/Security'
+    #end
     
     s.subspec 'iOS' do |sp|
         sp.osx.source_files = 'Harmony/Classes/iOS/readme-macOS.swift', 'Harmony/Harmony.h'
