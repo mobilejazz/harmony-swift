@@ -118,7 +118,11 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                         return self.get(query, operation: MainSyncOperation())
                             .recover { error in
                                 if op.fallback(error) {
-                                    return Future(cachedValue)
+                                    if let cached = cachedValue {
+                                        return Future(cached)
+                                    } else {
+                                        return Future(CoreError.NotFound())
+                                    }
                                 } else {
                                     return Future(error)
                                 }
@@ -168,7 +172,11 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                         return self.getAll(query, operation: MainSyncOperation())
                             .recover { error in
                                 if op.fallback(error) {
-                                    return Future(cachedValues)
+                                    if let cached = cachedValues {
+                                        return Future(cached)
+                                    } else {
+                                        return Future(CoreError.NotFound())
+                                    }
                                 } else {
                                     return Future(error)
                                 }
