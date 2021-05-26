@@ -23,12 +23,12 @@ class ItemDetailViewController: UIViewController, ItemDetailPresenterView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.onSelectedItem(item!)
+        presenter.onActionSelectedItem(item!)
     }
     
     // MARK: ItemDetailPresenterView
     
-    func onDisplay(_ item: Item) {
+    func onDisplayItem(_ item: Item) {
         self.title = item.name
         
         nameLabel.text = item.name

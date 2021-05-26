@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol ItemDetailPresenterView: class {
-    func onDisplay(_ item: Item)
+protocol ItemDetailPresenterView: AnyObject {
+    func onDisplayItem(_ item: Item)
 }
 
 protocol ItemDetailPresenter {
-    func onSelectedItem(_ item: Item)
+    func onActionSelectedItem(_ item: Item)
 }
 
 class ItemDetailDefaultPresenter: ItemDetailPresenter {
@@ -23,7 +23,7 @@ class ItemDetailDefaultPresenter: ItemDetailPresenter {
         self.view = view
     }
     
-    func onSelectedItem(_ item: Item) {
-        view?.onDisplay(item)
+    func onActionSelectedItem(_ item: Item) {
+        view?.onDisplayItem(item)
     }
 }

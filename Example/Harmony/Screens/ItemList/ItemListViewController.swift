@@ -36,22 +36,22 @@ class ItemListViewController: UIViewController, ItemListPresenterView, UITableVi
     
     // MARK: ItemListPresenterView
     
-    func onShowProgressHud() {
-        activityIndicator.startAnimating()
-        tableView.isHidden = true
+    func onDisplayProgressHud(show: Bool) {
+        if show {
+            activityIndicator.startAnimating()
+            tableView.isHidden = true
+        } else {
+            activityIndicator.stopAnimating()
+            tableView.isHidden = false
+        }
     }
     
-    func onHideProgressHud() {
-        activityIndicator.stopAnimating()
-        tableView.isHidden = false
-    }
-    
-    func onDisplay(items: [Item]) {
+    func onDisplayItems(_ items: [Item]) {
         self.items = items
         tableView.reloadData()
     }
     
-    func onNavigateTo(item: Item) {
+    func onNavigateToItem(_ item: Item) {
         performSegue(withIdentifier: "segue.item.detail", sender: item)
     }
     

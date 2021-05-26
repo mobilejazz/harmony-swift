@@ -8,12 +8,11 @@
 
 import Harmony
 
-protocol ItemListPresenterView: class {
-    func onShowProgressHud()
-    func onHideProgressHud()
+protocol ItemListPresenterView: AnyObject {
+    func onDisplayProgressHud(show: Bool)
     
-    func onDisplay(items: [Item])
-    func onNavigateTo(item: Item)
+    func onDisplayItems(_ items: [Item])
+    func onNavigateToItem(_ item: Item)
     func onDisplayFailedToFetchItems(_ error: Error)
 }
 
@@ -33,27 +32,27 @@ class ItemListDefaultPresenter: ItemListPresenter {
     }
     
     func onEventLoadList() {
-        view?.onShowProgressHud()
+        view?.onDisplayProgressHud(show: true)
         getItems.execute().then { items in
-            self.view?.onHideProgressHud()
-            self.view?.onDisplay(items: items)
+            self.view?.onDisplayProgressHud(show: false)
+            self.view?.onDisplayItems(items)
         }.fail { error in
-            self.view?.onHideProgressHud()
+            self.view?.onDisplayProgressHud(show: false)
             self.view?.onDisplayFailedToFetchItems(error)
         }
     }
     
     func onActionSelected(item: Item) {
-        view?.onNavigateTo(item: item)
+        view?.onNavigateToItem(item)
     }
     
     func onActionReloadList() {
-        view?.onShowProgressHud()
+        view?.onDisplayProgressHud(show: true)
         self.getItems.execute(MainSyncOperation()).then { items in
-            self.view?.onHideProgressHud()
-            self.view?.onDisplay(items: items)
+            self.view?.onDisplayProgressHud(show: false)
+            self.view?.onDisplayItems(items)
         }.fail { error in
-            self.view?.onHideProgressHud()
+            self.view?.onDisplayProgressHud(show: false)
             self.view?.onDisplayFailedToFetchItems(error)
         }
     }
