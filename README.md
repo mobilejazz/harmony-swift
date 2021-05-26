@@ -21,16 +21,22 @@ pod 'Harmony'
 ```
 ### Subspecs
 
+Available subspecs:
+
 ```ruby
 pod 'Harmony/Future'
 pod 'Harmony/Common'
 pod 'Harmony/Security'
 pod 'Harmony/iOS'
-pod 'Harmony/Realm'
 pod 'Harmony/Alamofire'
 pod 'Harmony/Vastra'
 pod 'Harmony/MJCocoaCore'
 pod 'Harmony/MJObjection'
+```
+
+Deprecated subscpecs:
+```ruby
+pod 'Harmony/Realm'
 ```
 
 ## Author
