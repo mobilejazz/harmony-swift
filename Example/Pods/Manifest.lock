@@ -1,33 +1,33 @@
 PODS:
   - Alamofire (4.8.2)
-  - Harmony (1.0.2):
-    - Harmony/Common (= 1.0.2)
-    - Harmony/Repository (= 1.0.2)
-    - Harmony/Security (= 1.0.2)
-  - Harmony/Alamofire (1.0.2):
+  - Harmony (1.0.6):
+    - Harmony/Common (= 1.0.6)
+    - Harmony/Repository (= 1.0.6)
+    - Harmony/Security (= 1.0.6)
+  - Harmony/Alamofire (1.0.6):
     - Alamofire (~> 4.8.2)
     - Harmony/Common
     - Harmony/Future
-  - Harmony/Common (1.0.2):
+  - Harmony/Common (1.0.6):
     - Harmony/Future
-  - Harmony/Future (1.0.2)
-  - Harmony/iOS (1.0.2):
+  - Harmony/Future (1.0.6)
+  - Harmony/iOS (1.0.6):
     - Harmony/Common
-  - Harmony/MJCocoaCore (1.0.2):
+  - Harmony/MJCocoaCore (1.0.6):
     - Harmony/Common
     - MJCocoaCore/Common (~> 2.3)
-  - Harmony/Objection (1.0.2):
+  - Harmony/Objection (1.0.6):
     - MJObjection
-  - Harmony/Realm (1.0.2):
+  - Harmony/Realm (1.0.6):
     - Harmony/Repository
     - Harmony/Security
     - RealmSwift (~> 3.14)
-  - Harmony/Repository (1.0.2):
+  - Harmony/Repository (1.0.6):
     - Harmony/Common
     - Harmony/Future
-  - Harmony/Security (1.0.2):
+  - Harmony/Security (1.0.6):
     - Harmony/Repository
-  - Harmony/Vastra (1.0.2)
+  - Harmony/Vastra (1.0.6)
   - Kingfisher (5.3.1)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
@@ -44,7 +44,6 @@ PODS:
   - SQLite.swift (0.11.5):
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
-  - Swinject (2.6.0)
 
 DEPENDENCIES:
   - Harmony (from `../`)
@@ -58,10 +57,9 @@ DEPENDENCIES:
   - Kingfisher (~> 5.3)
   - PromisesSwift (~> 1.2)
   - SQLite.swift
-  - Swinject (~> 2.6)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Kingfisher
     - MJCocoaCore
@@ -71,7 +69,6 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SQLite.swift
-    - Swinject
 
 EXTERNAL SOURCES:
   Harmony:
@@ -79,7 +76,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Harmony: ff35d4513406a0f7413d2b77b2990e93d3776685
+  Harmony: 515c661249bfaa7aa1db7169ae058fa0b3209ce5
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
@@ -88,8 +85,7 @@ SPEC CHECKSUMS:
   Realm: 221b25919bb5a010a3c597d707f8df3492dcd93a
   RealmSwift: 28f22dfa6a27b9a778cfb09471558b6afcf1022c
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
-  Swinject: 48a96cda93633cf2860697b4ce76ab5db9ebaca2
 
-PODFILE CHECKSUM: 4528b778804b28de47db71665246be910b783969
+PODFILE CHECKSUM: 8f0357ec85d8b65300e8209060da8519efaed61b
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.9.3
