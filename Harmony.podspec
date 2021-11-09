@@ -97,6 +97,10 @@ Pod::Spec.new do |s|
         sp.dependency 'MJObjection'
     end
     
+    s.subspec 'Testing' do |sp|
+        sp.source_files = 'Harmony/Classes/Testing/**/*', 'Harmony/Harmony.h'
+    end
+    
     # s.resource_bundles = {
     #   'Harmony' => ['Harmony/Assets/*.png']
     # }

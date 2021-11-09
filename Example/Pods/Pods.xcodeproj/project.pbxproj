@@ -12,6 +12,9 @@
 		003902025EAF280BEC15AA7006AAA453 /* MJAppLinkRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 962FBDCFE03E18F2FE42B5FC870ADB16 /* MJAppLinkRecognizer.m */; };
 		005C1D982AF319A1952A419C80DCCA30 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C2FE8BCDE8B18B7680385F4124881 /* Helpers.swift */; };
 		0090EA71BDEE0B23FE7BD93650B18BC2 /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA066FD45846B8E71BBF7BA05DD3B592 /* ErrorHelper.swift */; };
+		00CB1D1B273A83EC004B6DFD /* UUIDObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB1D18273A83EC004B6DFD /* UUIDObjectMother.swift */; };
+		00CB1D1C273A83EC004B6DFD /* BoolObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB1D19273A83EC004B6DFD /* BoolObjectMother.swift */; };
+		00CB1D1D273A83EC004B6DFD /* StringObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB1D1A273A83EC004B6DFD /* StringObjectMother.swift */; };
 		010DC60B1331F704B56AF5E1BB549984 /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D83184A6264E2888C520ECD72E00FBB /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		015DA084601A75BDF93E92C46A2EC211 /* fifo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74E3F4F313568529ED21789D2C9CAD24 /* fifo.cpp */; settings = {COMPILER_FLAGS = "-DREALM_HAVE_CONFIG -DREALM_COCOA_VERSION='@\"3.14.0\"' -D__ASSERTMACROS__ -DREALM_ENABLE_SYNC"; }; };
 		01E6C3BA6DBF900C9B75710E865ACB38 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96724BE8B7B3D7F8B4899732AB77B9A /* Mapper.swift */; };
@@ -845,6 +848,9 @@
 /* Begin PBXFileReference section */
 		00366FC0ED3C59593FE80417B1A7636D /* Repository.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = Repository.html; path = docs/Protocols/Repository.html; sourceTree = "<group>"; };
 		00BA652072EB897CC295BCEFDD68D505 /* Failed.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html.documentation; name = Failed.html; path = docs/docsets/MJSwiftCore.docset/Contents/Resources/Documents/Structs/CoreError/Failed.html; sourceTree = "<group>"; };
+		00CB1D18273A83EC004B6DFD /* UUIDObjectMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
+		00CB1D19273A83EC004B6DFD /* BoolObjectMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolObjectMother.swift; sourceTree = "<group>"; };
+		00CB1D1A273A83EC004B6DFD /* StringObjectMother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		00EC74B9CFA7928055A2FDAFAA803078 /* Scope.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = Scope.html; path = docs/Classes/ExecutorFactory/Scope.html; sourceTree = "<group>"; };
 		00F8E43D9C9072B46B5858E12DD91602 /* Promise+Testing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Promise+Testing.swift"; path = "Sources/Promises/Promise+Testing.swift"; sourceTree = "<group>"; };
 		0117226A073B26379C123B8770835EB0 /* VastraStrategy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VastraStrategy.swift; sourceTree = "<group>"; };
@@ -2116,6 +2122,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00CB1D0C273A834F004B6DFD /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				00CB1D0D273A8358004B6DFD /* Classes */,
+			);
+			name = Testing;
+			sourceTree = "<group>";
+		};
+		00CB1D0D273A8358004B6DFD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				00CB1D17273A83EC004B6DFD /* Testing */,
+			);
+			name = Classes;
+			path = Harmony/Classes;
+			sourceTree = "<group>";
+		};
+		00CB1D17273A83EC004B6DFD /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				00CB1D18273A83EC004B6DFD /* UUIDObjectMother.swift */,
+				00CB1D19273A83EC004B6DFD /* BoolObjectMother.swift */,
+				00CB1D1A273A83EC004B6DFD /* StringObjectMother.swift */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
 		04D826BE24E4E5452206298509F0E675 /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -3032,6 +3065,7 @@
 		D46167E369225BEBE78B4A9F0CB6F114 /* Harmony */ = {
 			isa = PBXGroup;
 			children = (
+				00CB1D0C273A834F004B6DFD /* Testing */,
 				1826F79ACD6614611BE792D750A1573F /* Harmony.h */,
 				B2EB77A4D5C6CE1A615F20CB52EC8596 /* Alamofire */,
 				C59DA272DAE82B2E5CC50E07683AF55D /* Common */,
@@ -4757,6 +4791,7 @@
 				4668302DB1088928D0C369C103A27A3B /* Future+Batch.swift in Sources */,
 				3F337A3DAE159BB6E099CD15EE98A129 /* Future+Extensions.swift in Sources */,
 				F69FADDA1571A6BF30764384B8FD0825 /* Future+Functional.swift in Sources */,
+				00CB1D1B273A83EC004B6DFD /* UUIDObjectMother.swift in Sources */,
 				43F381C6A3DB82BAA96CFA59F4778A62 /* Future+MJFuture.swift in Sources */,
 				DD9E62D02BF9CAF55BEA987DB37B594B /* Future+Operators.swift in Sources */,
 				2D68B900D9295965564047096CF143B2 /* Future+Optionals.swift in Sources */,
@@ -4799,6 +4834,7 @@
 				FEA84601A547E2C79A40DC71D698919A /* ObservableHub.swift in Sources */,
 				B581857B673B227822845BD0D7038733 /* Operation.swift in Sources */,
 				71AE84FAAE8B5CBA7BD239E9586A8889 /* OperationQueueExecutor.swift in Sources */,
+				00CB1D1C273A83EC004B6DFD /* BoolObjectMother.swift in Sources */,
 				DBA9E548796A0EA404249D5ED9DDCDAF /* PushNotificationQueue.swift in Sources */,
 				D7C0F112DA150A5B62161DD4ED463D0B /* Query.swift in Sources */,
 				DFA67137F339E5DD339D63C921487540 /* readme-macOS.swift in Sources */,
@@ -4809,6 +4845,7 @@
 				9F56C2BCFC4C23D6355EC3A135804F47 /* RealmMapper.swift in Sources */,
 				5D7CAA433143F6043E3CC140C8619231 /* Repository.swift in Sources */,
 				40393A797F162CB10065D7258C849504 /* RepositoryAssembler.swift in Sources */,
+				00CB1D1D273A83EC004B6DFD /* StringObjectMother.swift in Sources */,
 				FEC8317FEEC579DD9FAF8575F814B643 /* RepositoryMapper.swift in Sources */,
 				0BA1600ED332AA1F30B80A9E0C9B1557 /* RetryDataSource.swift in Sources */,
 				546A5F0C8101C7CBCC3E75F2F3E6F94B /* RetryRepository.swift in Sources */,
