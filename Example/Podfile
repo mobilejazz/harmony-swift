@@ -9,10 +9,10 @@ target 'Harmony_Example' do
   pod 'Harmony/Vastra', :path => '../'
   pod 'Harmony/Alamofire', :path => '../'
   pod 'Harmony/iOS', :path => '../'
-  pod 'Harmony/Realm', :path => '../'
   pod 'Harmony/MJCocoaCore', :path => '../'
   pod 'Harmony/Objection', :path => '../'
-
+  pod 'Harmony/Testing', :path => '../'
+  
   pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'
   

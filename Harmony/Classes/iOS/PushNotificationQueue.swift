@@ -17,7 +17,7 @@
 import UIKit
 
 /// The delegate object
-public protocol PushNotificationQueueDelegate : class {
+public protocol PushNotificationQueueDelegate : AnyObject {
     
     /// Action for a new incoming push notification.
     ///

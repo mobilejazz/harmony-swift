@@ -35,18 +35,6 @@ public extension Observable where T : AnyObject {
     }
 }
 
-public extension Observable where T : AnyObject {
-    func toMJFuture<K>() -> MJFuture<K> where T==K? {
-        let future = MJFuture<K>(reactive: true)
-        resolve(success: {value in
-            future.set(value)
-        }, failure: { error in
-            future.set(error)
-        })
-        return future
-    }
-}
-
 public extension Observable where T == String {
     func toMJFuture() -> MJFuture<NSString> {
         let future = MJFuture<NSString>(reactive: true)

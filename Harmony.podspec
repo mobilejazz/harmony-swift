@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Harmony'
-    s.version          = '1.1.0'
+    s.version          = '1.1.3'
     s.summary          = 'Mobile Jazz Harmony Core'
     s.swift_version    = '5'
     
@@ -95,6 +95,10 @@ Pod::Spec.new do |s|
     s.subspec 'Objection' do |sp|
         sp.source_files = 'Harmony/Classes/Objection/**/*', 'Harmony/Harmony.h'
         sp.dependency 'MJObjection'
+    end
+    
+    s.subspec 'Testing' do |sp|
+        sp.source_files = 'Harmony/Classes/Testing/**/*', 'Harmony/Harmony.h'
     end
     
     # s.resource_bundles = {

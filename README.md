@@ -1,9 +1,30 @@
-# Harmony
+<p align="center">
+  <a href="https://harmony.mobilejazz.com">
+    <img src="https://raw.githubusercontent.com/mobilejazz/metadata/master/images/icons/harmony.svg" alt="MJ Harmony logo" width="80" height="80">
+  </a>
 
-[![CI Status](http://img.shields.io/travis/mobilejazz/harmony-ios.svg?style=flat)](https://travis-ci.org/mobilejazz/harmony-ios)
-[![Version](https://img.shields.io/cocoapods/v/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
-[![License](https://img.shields.io/cocoapods/l/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
-[![Platform](https://img.shields.io/cocoapods/p/Harmony.svg?style=flat)](http://cocoapods.org/pods/Harmony)
+  <h3 align="center">Harmony Swift</h3>
+
+  <p align="center">
+    Harmony is a <em>framework</em> developed by <a href="https://mobilejazz.com">Mobile Jazz</a> that specifies best practices, software architectural patterns and other software development related guidelines.
+    <br />
+    <br />
+    <a href="https://harmony.mobilejazz.com">Documentation</a>
+    ·
+    <a href="https://github.com/mobilejazz/harmony-kotlin">Kotlin</a>
+    ·
+    <a href="https://github.com/mobilejazz/harmony-typescript">TypeScript</a>
+    ·
+    <a href="https://github.com/mobilejazz/harmony-php">PHP</a>
+  </p>
+  
+  <p align="center">
+    <a href="https://travis-ci.org/mobilejazz/harmony-ios"><img alt="CI Status" src="http://img.shields.io/travis/mobilejazz/harmony-ios.svg?style=flat)"></a>
+    <a href="http://cocoapods.org/pods/Harmony"><img alt="Version" src="https://img.shields.io/cocoapods/v/Harmony.svg?style=flat"></a>
+    <a href="http://cocoapods.org/pods/Harmony"><img alt="License" src="https://img.shields.io/cocoapods/l/Harmony.svg?style=flat"></a>
+    <a href="http://cocoapods.org/pods/Harmony"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Harmony.svg?style=flat"></a>
+  </p>
+</p>
 
 ## Example
 

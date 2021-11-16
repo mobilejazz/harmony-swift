@@ -35,18 +35,6 @@ public extension Future where T : AnyObject {
     }
 }
 
-public extension Future where T : AnyObject {
-    func toMJFuture<K>() -> MJFuture<K> where T==K? {
-        let future = MJFuture<K>()
-        resolve(success: {value in
-            future.set(value)
-        }, failure: { error in
-            future.set(error)
-        })
-        return future
-    }
-}
-
 public extension Future where T == String {
     func toMJFuture() -> MJFuture<NSString> {
         let future = MJFuture<NSString>()
