@@ -99,6 +99,7 @@ Pod::Spec.new do |s|
     
     s.subspec 'Testing' do |sp|
         sp.source_files = 'Harmony/Classes/Testing/**/*', 'Harmony/Harmony.h'
+        sp.dependency 'Harmony/Repository'
     end
     
     # s.resource_bundles = {
