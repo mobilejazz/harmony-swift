@@ -85,7 +85,7 @@ public extension Interactor {
         }
 
         @discardableResult
-        override  public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
 
             self.spyOperation.append(operation)
 
@@ -165,7 +165,7 @@ public extension Interactor {
         }
 
         @discardableResult
-        override  public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
 
             self.spyOperation.append(operation)
 
