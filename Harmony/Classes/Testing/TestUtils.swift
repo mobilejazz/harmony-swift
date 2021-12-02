@@ -16,7 +16,7 @@
 
 
 /* These functions are internal to only be retrieved using '@testable import Harmony'. */
-
+#if DEBUG
 enum TestUtils<T> {
     static func result(expectedResult: Result<T, Error>) -> Future<T> {
         switch expectedResult {
@@ -27,3 +27,4 @@ enum TestUtils<T> {
         }
     }
 }
+#endif

@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#if DEBUG
+
 import Foundation
 
 /* These functions are internal to only be retrieved using '@testable import Harmony'. */
@@ -21,3 +23,4 @@ import Foundation
 func randomBool() -> Bool {
     return Int.random(in: 0...1) != 0
 }
+#endif

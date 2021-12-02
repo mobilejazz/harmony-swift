@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#if DEBUG
+
 public extension Interactor {
 
     class MockPutByQuery<T>: PutByQuery<T> {
@@ -190,3 +192,4 @@ public extension Interactor {
         }
     }
 }
+#endif
