@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#if DEBUG
+
 public extension Interactor {
     
     class MockGetByQuery<T>: GetByQuery<T> {
@@ -178,3 +180,4 @@ public extension Interactor {
         }
     }
 }
+#endif

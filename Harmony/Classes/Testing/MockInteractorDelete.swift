@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+#if DEBUG
+
 public extension Interactor {
     
     class MockDeleteByQuery: DeleteByQuery {
@@ -181,3 +183,4 @@ public extension Interactor {
         }
     }
 }
+#endif
