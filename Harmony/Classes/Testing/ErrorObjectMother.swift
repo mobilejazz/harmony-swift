@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+#if DEBUG
 import Foundation
 
 /* These functions are internal to only be retrieved using '@testable import Harmony'. */
@@ -21,3 +22,4 @@ import Foundation
 func anyError() -> Error {
     CoreError.Failed()
 }
+#endif
