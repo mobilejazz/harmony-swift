@@ -1,6 +1,0 @@
-framework module MJObjection {
-  umbrella header "MJObjection-umbrella.h"
-
-  export *
-  module * { export * }
-}

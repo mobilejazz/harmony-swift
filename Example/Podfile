@@ -5,13 +5,7 @@ target 'Harmony_Example' do
   project 'Harmony.xcodeproj'
   
   pod 'Harmony', :path => '../'
-  pod 'Harmony/Security', :path => '../'
-  pod 'Harmony/Vastra', :path => '../'
-  pod 'Harmony/Alamofire', :path => '../'
-  pod 'Harmony/iOS', :path => '../'
-  pod 'Harmony/MJCocoaCore', :path => '../'
-  pod 'Harmony/Objection', :path => '../'
-  pod 'Harmony/Testing', :path => '../'
+  pod 'HarmonyAlamofire', :path => '../'
   
   pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'

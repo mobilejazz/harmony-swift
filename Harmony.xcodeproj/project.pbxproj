@@ -1,0 +1,1761 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
+		59B7A87F27A82971001F5D8F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A82F27A82971001F5D8F /* Query.swift */; };
+		59B7A88027A82971001F5D8F /* AnyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83027A82971001F5D8F /* AnyDataSource.swift */; };
+		59B7A88127A82971001F5D8F /* CacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83127A82971001F5D8F /* CacheRepository.swift */; };
+		59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */; };
+		59B7A88327A82971001F5D8F /* UserDefaultsSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83327A82971001F5D8F /* UserDefaultsSetInteractor.swift */; };
+		59B7A88427A82971001F5D8F /* DeviceStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */; };
+		59B7A88527A82971001F5D8F /* VoidDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83527A82971001F5D8F /* VoidDataSource.swift */; };
+		59B7A88627A82971001F5D8F /* InteractorDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83627A82971001F5D8F /* InteractorDelete.swift */; };
+		59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83727A82971001F5D8F /* AnyRepository.swift */; };
+		59B7A88827A82971001F5D8F /* VoidRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83827A82971001F5D8F /* VoidRepository.swift */; };
+		59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83927A82971001F5D8F /* AnyPutRepository.swift */; };
+		59B7A88A27A82971001F5D8F /* Mapper+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83A27A82971001F5D8F /* Mapper+Codable.swift */; };
+		59B7A88B27A82971001F5D8F /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83B27A82971001F5D8F /* RetryDataSource.swift */; };
+		59B7A88C27A82971001F5D8F /* CoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83C27A82971001F5D8F /* CoreError.swift */; };
+		59B7A88D27A82971001F5D8F /* RepositoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83D27A82971001F5D8F /* RepositoryMapper.swift */; };
+		59B7A88E27A82971001F5D8F /* AnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83E27A82971001F5D8F /* AnyPutDataSource.swift */; };
+		59B7A88F27A82971001F5D8F /* InMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83F27A82971001F5D8F /* InMemoryDataSource.swift */; };
+		59B7A89027A82971001F5D8F /* FileSystemStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84027A82971001F5D8F /* FileSystemStorageDataSource.swift */; };
+		59B7A89127A82971001F5D8F /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84127A82971001F5D8F /* Interactor.swift */; };
+		59B7A89227A82971001F5D8F /* SingleDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84227A82971001F5D8F /* SingleDataSourceRepository.swift */; };
+		59B7A89327A82971001F5D8F /* RetryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84327A82971001F5D8F /* RetryRepository.swift */; };
+		59B7A89427A82971001F5D8F /* AnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84427A82971001F5D8F /* AnyGetRepository.swift */; };
+		59B7A89527A82971001F5D8F /* DataSourceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84527A82971001F5D8F /* DataSourceValidator.swift */; };
+		59B7A89627A82971001F5D8F /* UserDefaultsGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84627A82971001F5D8F /* UserDefaultsGetInteractor.swift */; };
+		59B7A89727A82971001F5D8F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84727A82971001F5D8F /* Repository.swift */; };
+		59B7A89827A82971001F5D8F /* AnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84827A82971001F5D8F /* AnyGetDataSource.swift */; };
+		59B7A89927A82971001F5D8F /* Mapper+NSCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84927A82971001F5D8F /* Mapper+NSCoding.swift */; };
+		59B7A89A27A82971001F5D8F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84A27A82971001F5D8F /* DataSource.swift */; };
+		59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84B27A82971001F5D8F /* InteractorGet.swift */; };
+		59B7A89C27A82971001F5D8F /* InteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84C27A82971001F5D8F /* InteractorPut.swift */; };
+		59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84D27A82971001F5D8F /* DataSourceMapper.swift */; };
+		59B7A89E27A82971001F5D8F /* RepositoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84E27A82971001F5D8F /* RepositoryAssembler.swift */; };
+		59B7A89F27A82971001F5D8F /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84F27A82971001F5D8F /* Mapper.swift */; };
+		59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85027A82971001F5D8F /* DebugDataSource.swift */; };
+		59B7A8A127A82971001F5D8F /* TimedCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85127A82971001F5D8F /* TimedCacheDataSource.swift */; };
+		59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85227A82971001F5D8F /* ObjectValidation.swift */; };
+		59B7A8A327A82971001F5D8F /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85327A82971001F5D8F /* ClassError.swift */; };
+		59B7A8A427A82971001F5D8F /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85427A82971001F5D8F /* Operation.swift */; };
+		59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85627A82971001F5D8F /* MutableCodingKey.swift */; };
+		59B7A8A627A82971001F5D8F /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85727A82971001F5D8F /* String+Extensions.swift */; };
+		59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85827A82971001F5D8F /* ScopeLockFuture.swift */; };
+		59B7A8A827A82971001F5D8F /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
+		59B7A8A927A82971001F5D8F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85A27A82971001F5D8F /* Logger.swift */; };
+		59B7A8AA27A82971001F5D8F /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85B27A82971001F5D8F /* ErrorHelper.swift */; };
+		59B7A8AB27A82971001F5D8F /* CodingKeyStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85C27A82971001F5D8F /* CodingKeyStrategies.swift */; };
+		59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85D27A82971001F5D8F /* KeyValueObserver.swift */; };
+		59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85E27A82971001F5D8F /* JSONDecoding.swift */; };
+		59B7A8AE27A82971001F5D8F /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85F27A82971001F5D8F /* Data+Extensions.swift */; };
+		59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86027A82971001F5D8F /* DeviceConsoleLogger.swift */; };
+		59B7A8B027A82971001F5D8F /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86127A82971001F5D8F /* ScopeLock.swift */; };
+		59B7A8B127A82971001F5D8F /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86327A82971001F5D8F /* Executor.swift */; };
+		59B7A8B227A82971001F5D8F /* ObservableHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86427A82971001F5D8F /* ObservableHub.swift */; };
+		59B7A8B327A82971001F5D8F /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86527A82971001F5D8F /* Future.swift */; };
+		59B7A8B427A82971001F5D8F /* Observable+Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86627A82971001F5D8F /* Observable+Optionals.swift */; };
+		59B7A8B527A82971001F5D8F /* OperationQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86727A82971001F5D8F /* OperationQueueExecutor.swift */; };
+		59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86827A82971001F5D8F /* Collections+Executor.swift */; };
+		59B7A8B727A82971001F5D8F /* Observable+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86927A82971001F5D8F /* Observable+Batch.swift */; };
+		59B7A8B827A82971001F5D8F /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86A27A82971001F5D8F /* Future+Batch.swift */; };
+		59B7A8B927A82971001F5D8F /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
+		59B7A8BA27A82971001F5D8F /* Future+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86C27A82971001F5D8F /* Future+Extensions.swift */; };
+		59B7A8BB27A82971001F5D8F /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86D27A82971001F5D8F /* Observable+Extensions.swift */; };
+		59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86E27A82971001F5D8F /* DirectExecutor.swift */; };
+		59B7A8BD27A82971001F5D8F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86F27A82971001F5D8F /* Observable.swift */; };
+		59B7A8BE27A82971001F5D8F /* Future+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87027A82971001F5D8F /* Future+Operators.swift */; };
+		59B7A8BF27A82971001F5D8F /* Observable+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87127A82971001F5D8F /* Observable+Time.swift */; };
+		59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87227A82971001F5D8F /* Observable+Functional.swift */; };
+		59B7A8C127A82971001F5D8F /* Future+Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87327A82971001F5D8F /* Future+Functional.swift */; };
+		59B7A8C227A82971001F5D8F /* Executor+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87427A82971001F5D8F /* Executor+Future.swift */; };
+		59B7A8C327A82971001F5D8F /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87527A82971001F5D8F /* DispatchQueueExecutor.swift */; };
+		59B7A8C427A82971001F5D8F /* Future+Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87627A82971001F5D8F /* Future+Optionals.swift */; };
+		59B7A8C527A82971001F5D8F /* ExecutorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87727A82971001F5D8F /* ExecutorFactory.swift */; };
+		59B7A8C627A82971001F5D8F /* VastraReachabilityStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87927A82971001F5D8F /* VastraReachabilityStrategy.swift */; };
+		59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87A27A82971001F5D8F /* VastraService.swift */; };
+		59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87B27A82971001F5D8F /* VastraInvalidationStrategy.swift */; };
+		59B7A8C927A82971001F5D8F /* VastraTimestampStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87C27A82971001F5D8F /* VastraTimestampStrategy.swift */; };
+		59B7A8CA27A82971001F5D8F /* VastraStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87D27A82971001F5D8F /* VastraStrategy.swift */; };
+		59B7A8CB27A82971001F5D8F /* VastraValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87E27A82971001F5D8F /* VastraValidationStrategy.swift */; };
+		59B7AA1827A83966001F5D8F /* KeychainSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1327A83966001F5D8F /* KeychainSetInteractor.swift */; };
+		59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1427A83966001F5D8F /* KeychainService.swift */; };
+		59B7AA1A27A83966001F5D8F /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1527A83966001F5D8F /* KeychainDataSource.swift */; };
+		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
+		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
+		59B7AA2627A844AB001F5D8F /* URLLoggerRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA2127A844AA001F5D8F /* URLLoggerRequestAdapter.swift */; };
+		59B7AA2727A844AB001F5D8F /* MultiRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA2227A844AA001F5D8F /* MultiRequestAdapter.swift */; };
+		59B7AA2827A844AB001F5D8F /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA2327A844AA001F5D8F /* Alamofire+Future.swift */; };
+		59B7AA2927A844AB001F5D8F /* MultiRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA2427A844AA001F5D8F /* MultiRequestRetrier.swift */; };
+		59B7AA2A27A844AB001F5D8F /* BaseURLRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA2527A844AA001F5D8F /* BaseURLRequestAdapter.swift */; };
+		59CA457D27A86B7900983B42 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; };
+		59CA457E27A86B7900983B42 /* Security.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		59B7A81E27A827F7001F5D8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59B7A80927A827F6001F5D8F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59B7A81127A827F6001F5D8F;
+			remoteInfo = Harmony;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		59CA457F27A86B7900983B42 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				59CA457E27A86B7900983B42 /* Security.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		59B7A81227A827F6001F5D8F /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarmonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B7A82F27A82971001F5D8F /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		59B7A83027A82971001F5D8F /* AnyDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyDataSource.swift; sourceTree = "<group>"; };
+		59B7A83127A82971001F5D8F /* CacheRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheRepository.swift; sourceTree = "<group>"; };
+		59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceAssembler.swift; sourceTree = "<group>"; };
+		59B7A83327A82971001F5D8F /* UserDefaultsSetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetInteractor.swift; sourceTree = "<group>"; };
+		59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSource.swift; sourceTree = "<group>"; };
+		59B7A83527A82971001F5D8F /* VoidDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidDataSource.swift; sourceTree = "<group>"; };
+		59B7A83627A82971001F5D8F /* InteractorDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorDelete.swift; sourceTree = "<group>"; };
+		59B7A83727A82971001F5D8F /* AnyRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyRepository.swift; sourceTree = "<group>"; };
+		59B7A83827A82971001F5D8F /* VoidRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidRepository.swift; sourceTree = "<group>"; };
+		59B7A83927A82971001F5D8F /* AnyPutRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutRepository.swift; sourceTree = "<group>"; };
+		59B7A83A27A82971001F5D8F /* Mapper+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mapper+Codable.swift"; sourceTree = "<group>"; };
+		59B7A83B27A82971001F5D8F /* RetryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryDataSource.swift; sourceTree = "<group>"; };
+		59B7A83C27A82971001F5D8F /* CoreError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreError.swift; sourceTree = "<group>"; };
+		59B7A83D27A82971001F5D8F /* RepositoryMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryMapper.swift; sourceTree = "<group>"; };
+		59B7A83E27A82971001F5D8F /* AnyPutDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyPutDataSource.swift; sourceTree = "<group>"; };
+		59B7A83F27A82971001F5D8F /* InMemoryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryDataSource.swift; sourceTree = "<group>"; };
+		59B7A84027A82971001F5D8F /* FileSystemStorageDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSource.swift; sourceTree = "<group>"; };
+		59B7A84127A82971001F5D8F /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		59B7A84227A82971001F5D8F /* SingleDataSourceRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleDataSourceRepository.swift; sourceTree = "<group>"; };
+		59B7A84327A82971001F5D8F /* RetryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetryRepository.swift; sourceTree = "<group>"; };
+		59B7A84427A82971001F5D8F /* AnyGetRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetRepository.swift; sourceTree = "<group>"; };
+		59B7A84527A82971001F5D8F /* DataSourceValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceValidator.swift; sourceTree = "<group>"; };
+		59B7A84627A82971001F5D8F /* UserDefaultsGetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsGetInteractor.swift; sourceTree = "<group>"; };
+		59B7A84727A82971001F5D8F /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		59B7A84827A82971001F5D8F /* AnyGetDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGetDataSource.swift; sourceTree = "<group>"; };
+		59B7A84927A82971001F5D8F /* Mapper+NSCoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mapper+NSCoding.swift"; sourceTree = "<group>"; };
+		59B7A84A27A82971001F5D8F /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		59B7A84B27A82971001F5D8F /* InteractorGet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorGet.swift; sourceTree = "<group>"; };
+		59B7A84C27A82971001F5D8F /* InteractorPut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorPut.swift; sourceTree = "<group>"; };
+		59B7A84D27A82971001F5D8F /* DataSourceMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceMapper.swift; sourceTree = "<group>"; };
+		59B7A84E27A82971001F5D8F /* RepositoryAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAssembler.swift; sourceTree = "<group>"; };
+		59B7A84F27A82971001F5D8F /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		59B7A85027A82971001F5D8F /* DebugDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugDataSource.swift; sourceTree = "<group>"; };
+		59B7A85127A82971001F5D8F /* TimedCacheDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimedCacheDataSource.swift; sourceTree = "<group>"; };
+		59B7A85227A82971001F5D8F /* ObjectValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectValidation.swift; sourceTree = "<group>"; };
+		59B7A85327A82971001F5D8F /* ClassError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassError.swift; sourceTree = "<group>"; };
+		59B7A85427A82971001F5D8F /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		59B7A85627A82971001F5D8F /* MutableCodingKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableCodingKey.swift; sourceTree = "<group>"; };
+		59B7A85727A82971001F5D8F /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		59B7A85827A82971001F5D8F /* ScopeLockFuture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeLockFuture.swift; sourceTree = "<group>"; };
+		59B7A85927A82971001F5D8F /* LinkRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkRecognizer.swift; sourceTree = "<group>"; };
+		59B7A85A27A82971001F5D8F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		59B7A85B27A82971001F5D8F /* ErrorHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHelper.swift; sourceTree = "<group>"; };
+		59B7A85C27A82971001F5D8F /* CodingKeyStrategies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodingKeyStrategies.swift; sourceTree = "<group>"; };
+		59B7A85D27A82971001F5D8F /* KeyValueObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueObserver.swift; sourceTree = "<group>"; };
+		59B7A85E27A82971001F5D8F /* JSONDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoding.swift; sourceTree = "<group>"; };
+		59B7A85F27A82971001F5D8F /* Data+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		59B7A86027A82971001F5D8F /* DeviceConsoleLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConsoleLogger.swift; sourceTree = "<group>"; };
+		59B7A86127A82971001F5D8F /* ScopeLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeLock.swift; sourceTree = "<group>"; };
+		59B7A86327A82971001F5D8F /* Executor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Executor.swift; sourceTree = "<group>"; };
+		59B7A86427A82971001F5D8F /* ObservableHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableHub.swift; sourceTree = "<group>"; };
+		59B7A86527A82971001F5D8F /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
+		59B7A86627A82971001F5D8F /* Observable+Optionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Optionals.swift"; sourceTree = "<group>"; };
+		59B7A86727A82971001F5D8F /* OperationQueueExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationQueueExecutor.swift; sourceTree = "<group>"; };
+		59B7A86827A82971001F5D8F /* Collections+Executor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Executor.swift"; sourceTree = "<group>"; };
+		59B7A86927A82971001F5D8F /* Observable+Batch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Batch.swift"; sourceTree = "<group>"; };
+		59B7A86A27A82971001F5D8F /* Future+Batch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Batch.swift"; sourceTree = "<group>"; };
+		59B7A86B27A82971001F5D8F /* Future+Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Time.swift"; sourceTree = "<group>"; };
+		59B7A86C27A82971001F5D8F /* Future+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Extensions.swift"; sourceTree = "<group>"; };
+		59B7A86D27A82971001F5D8F /* Observable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Extensions.swift"; sourceTree = "<group>"; };
+		59B7A86E27A82971001F5D8F /* DirectExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectExecutor.swift; sourceTree = "<group>"; };
+		59B7A86F27A82971001F5D8F /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		59B7A87027A82971001F5D8F /* Future+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Operators.swift"; sourceTree = "<group>"; };
+		59B7A87127A82971001F5D8F /* Observable+Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Time.swift"; sourceTree = "<group>"; };
+		59B7A87227A82971001F5D8F /* Observable+Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Functional.swift"; sourceTree = "<group>"; };
+		59B7A87327A82971001F5D8F /* Future+Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Functional.swift"; sourceTree = "<group>"; };
+		59B7A87427A82971001F5D8F /* Executor+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Executor+Future.swift"; sourceTree = "<group>"; };
+		59B7A87527A82971001F5D8F /* DispatchQueueExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExecutor.swift; sourceTree = "<group>"; };
+		59B7A87627A82971001F5D8F /* Future+Optionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+Optionals.swift"; sourceTree = "<group>"; };
+		59B7A87727A82971001F5D8F /* ExecutorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutorFactory.swift; sourceTree = "<group>"; };
+		59B7A87927A82971001F5D8F /* VastraReachabilityStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraReachabilityStrategy.swift; sourceTree = "<group>"; };
+		59B7A87A27A82971001F5D8F /* VastraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraService.swift; sourceTree = "<group>"; };
+		59B7A87B27A82971001F5D8F /* VastraInvalidationStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraInvalidationStrategy.swift; sourceTree = "<group>"; };
+		59B7A87C27A82971001F5D8F /* VastraTimestampStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraTimestampStrategy.swift; sourceTree = "<group>"; };
+		59B7A87D27A82971001F5D8F /* VastraStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraStrategy.swift; sourceTree = "<group>"; };
+		59B7A87E27A82971001F5D8F /* VastraValidationStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VastraValidationStrategy.swift; sourceTree = "<group>"; };
+		59B7A8CE27A82991001F5D8F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		59B7A8CF27A8299B001F5D8F /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		59B7A8D027A8299B001F5D8F /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		59B7A8D127A8299B001F5D8F /* Harmony.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Harmony.podspec; sourceTree = "<group>"; };
+		59B7A8D327A829A6001F5D8F /* Structs.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Structs.html; sourceTree = "<group>"; };
+		59B7A8D427A829A6001F5D8F /* Enums.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Enums.html; sourceTree = "<group>"; };
+		59B7A8D527A829A6001F5D8F /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		59B7A8D627A829A6001F5D8F /* Functions.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Functions.html; sourceTree = "<group>"; };
+		59B7A8D727A829A6001F5D8F /* search.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = search.json; sourceTree = "<group>"; };
+		59B7A8D927A829A6001F5D8F /* highlight.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = highlight.css; sourceTree = "<group>"; };
+		59B7A8DA27A829A6001F5D8F /* jazzy.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = jazzy.css; sourceTree = "<group>"; };
+		59B7A8DC27A829A6001F5D8F /* VoidGetPutDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetPutDataSource.html; sourceTree = "<group>"; };
+		59B7A8DD27A829A6001F5D8F /* RealmMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmMapper.html; sourceTree = "<group>"; };
+		59B7A8DE27A829A6001F5D8F /* NetworkStorageRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NetworkStorageRepository.html; sourceTree = "<group>"; };
+		59B7A8DF27A829A6001F5D8F /* Future.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Future.html; sourceTree = "<group>"; };
+		59B7A8E027A829A6001F5D8F /* UserDefaultsGetInteractor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UserDefaultsGetInteractor.html; sourceTree = "<group>"; };
+		59B7A8E127A829A6001F5D8F /* ObjectQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObjectQuery.html; sourceTree = "<group>"; };
+		59B7A8E227A829A6001F5D8F /* VoidDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidDataSource.html; sourceTree = "<group>"; };
+		59B7A8E327A829A6001F5D8F /* UserDefaultsSetInteractor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UserDefaultsSetInteractor.html; sourceTree = "<group>"; };
+		59B7A8E427A829A6001F5D8F /* DirectExecutor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DirectExecutor.html; sourceTree = "<group>"; };
+		59B7A8E527A829A6001F5D8F /* Mapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Mapper.html; sourceTree = "<group>"; };
+		59B7A8E627A829A6001F5D8F /* AnyDeleteRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyDeleteRepository.html; sourceTree = "<group>"; };
+		59B7A8E727A829A6001F5D8F /* DataSourceAssambler.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceAssambler.html; sourceTree = "<group>"; };
+		59B7A8E827A829A6001F5D8F /* PutRepositoryBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutRepositoryBox.html; sourceTree = "<group>"; };
+		59B7A8E927A829A6001F5D8F /* InMemoryDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = InMemoryDataSource.html; sourceTree = "<group>"; };
+		59B7A8EA27A829A6001F5D8F /* AnyGetDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyGetDataSource.html; sourceTree = "<group>"; };
+		59B7A8EB27A829A6001F5D8F /* VoidPutRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidPutRepository.html; sourceTree = "<group>"; };
+		59B7A8EC27A829A6001F5D8F /* VastraInvalidationStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraInvalidationStrategy.html; sourceTree = "<group>"; };
+		59B7A8ED27A829A6001F5D8F /* VoidPutDeleteDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidPutDeleteDataSource.html; sourceTree = "<group>"; };
+		59B7A8EE27A829A6001F5D8F /* GetDataSourceMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetDataSourceMapper.html; sourceTree = "<group>"; };
+		59B7A8EF27A829A6001F5D8F /* DeleteDataSourceBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteDataSourceBox.html; sourceTree = "<group>"; };
+		59B7A8F027A829A6001F5D8F /* RepositoryMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryMapper.html; sourceTree = "<group>"; };
+		59B7A8F127A829A6001F5D8F /* VoidQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidQuery.html; sourceTree = "<group>"; };
+		59B7A8F227A829A6001F5D8F /* CastMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CastMapper.html; sourceTree = "<group>"; };
+		59B7A8F327A829A6001F5D8F /* DeleteRepositoryBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteRepositoryBoxBase.html; sourceTree = "<group>"; };
+		59B7A8F427A829A6001F5D8F /* SinglePutDataSourceRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SinglePutDataSourceRepository.html; sourceTree = "<group>"; };
+		59B7A8F527A829A6001F5D8F /* VoidGetDeleteDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetDeleteDataSource.html; sourceTree = "<group>"; };
+		59B7A8F627A829A6001F5D8F /* AnyPutDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyPutDataSource.html; sourceTree = "<group>"; };
+		59B7A8F727A829A6001F5D8F /* VoidGetRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetRepository.html; sourceTree = "<group>"; };
+		59B7A8F827A829A6001F5D8F /* PutDataSourceMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutDataSourceMapper.html; sourceTree = "<group>"; };
+		59B7A8F927A829A6001F5D8F /* GetRepositoryBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetRepositoryBoxBase.html; sourceTree = "<group>"; };
+		59B7A8FA27A829A6001F5D8F /* StorageOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = StorageOperation.html; sourceTree = "<group>"; };
+		59B7A8FB27A829A6001F5D8F /* Observable.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Observable.html; sourceTree = "<group>"; };
+		59B7A8FC27A829A6001F5D8F /* DataSourceBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceBox.html; sourceTree = "<group>"; };
+		59B7A8FD27A829A6001F5D8F /* NSCodingToDataMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSCodingToDataMapper.html; sourceTree = "<group>"; };
+		59B7A8FE27A829A6001F5D8F /* DataSourceBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceBoxBase.html; sourceTree = "<group>"; };
+		59B7A8FF27A829A6001F5D8F /* VoidPutDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidPutDataSource.html; sourceTree = "<group>"; };
+		59B7A90027A829A6001F5D8F /* AnyGetRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyGetRepository.html; sourceTree = "<group>"; };
+		59B7A90127A829A6001F5D8F /* VoidMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidMapper.html; sourceTree = "<group>"; };
+		59B7A90227A829A6001F5D8F /* AnyDeleteDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyDeleteDataSource.html; sourceTree = "<group>"; };
+		59B7A90327A829A6001F5D8F /* RetryOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RetryOperation.html; sourceTree = "<group>"; };
+		59B7A90427A829A6001F5D8F /* SingleDeleteDataSourceRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SingleDeleteDataSourceRepository.html; sourceTree = "<group>"; };
+		59B7A90527A829A6001F5D8F /* VoidRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidRepository.html; sourceTree = "<group>"; };
+		59B7A90627A829A6001F5D8F /* RepositoryAssambler.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryAssambler.html; sourceTree = "<group>"; };
+		59B7A90727A829A6001F5D8F /* PutRepositoryBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutRepositoryBoxBase.html; sourceTree = "<group>"; };
+		59B7A90827A829A6001F5D8F /* MultiRequestAdapter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MultiRequestAdapter.html; sourceTree = "<group>"; };
+		59B7A90927A829A6001F5D8F /* ContainerViewController.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ContainerViewController.html; sourceTree = "<group>"; };
+		59B7A90A27A829A6001F5D8F /* Keychain.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Keychain.html; sourceTree = "<group>"; };
+		59B7A90B27A829A6001F5D8F /* VoidGetPutRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetPutRepository.html; sourceTree = "<group>"; };
+		59B7A90C27A829A6001F5D8F /* StorageSyncOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = StorageSyncOperation.html; sourceTree = "<group>"; };
+		59B7A90D27A829A6001F5D8F /* RealmObject.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmObject.html; sourceTree = "<group>"; };
+		59B7A90F27A829A6001F5D8F /* Animation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Animation.html; sourceTree = "<group>"; };
+		59B7A91027A829A6001F5D8F /* VastraTimestampStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraTimestampStrategy.html; sourceTree = "<group>"; };
+		59B7A91127A829A6001F5D8F /* SharedTimer.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SharedTimer.html; sourceTree = "<group>"; };
+		59B7A91227A829A6001F5D8F /* PutRepositoryMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutRepositoryMapper.html; sourceTree = "<group>"; };
+		59B7A91327A829A6001F5D8F /* VoidGetDeleteRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetDeleteRepository.html; sourceTree = "<group>"; };
+		59B7A91427A829A6001F5D8F /* VoidGetDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidGetDataSource.html; sourceTree = "<group>"; };
+		59B7A91527A829A6001F5D8F /* AnyPutRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyPutRepository.html; sourceTree = "<group>"; };
+		59B7A91627A829A6001F5D8F /* GetDataSourceBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetDataSourceBox.html; sourceTree = "<group>"; };
+		59B7A91727A829A6001F5D8F /* VastraValidationStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraValidationStrategy.html; sourceTree = "<group>"; };
+		59B7A91927A829A6001F5D8F /* Pattern.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Pattern.html; sourceTree = "<group>"; };
+		59B7A91A27A829A6001F5D8F /* Options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Options.html; sourceTree = "<group>"; };
+		59B7A91B27A829A6001F5D8F /* Result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Result.html; sourceTree = "<group>"; };
+		59B7A91D27A829A6001F5D8F /* QueueType.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = QueueType.html; sourceTree = "<group>"; };
+		59B7A91E27A829A6001F5D8F /* GetRepositoryMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetRepositoryMapper.html; sourceTree = "<group>"; };
+		59B7A92027A829A6001F5D8F /* Action.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Action.html; sourceTree = "<group>"; };
+		59B7A92127A829A6001F5D8F /* Filter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Filter.html; sourceTree = "<group>"; };
+		59B7A92227A829A6001F5D8F /* DataToDecodableMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataToDecodableMapper.html; sourceTree = "<group>"; };
+		59B7A92327A829A6001F5D8F /* DataSourceMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceMapper.html; sourceTree = "<group>"; };
+		59B7A92427A829A6001F5D8F /* DataSourceValidator.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceValidator.html; sourceTree = "<group>"; };
+		59B7A92527A829A6001F5D8F /* VoidPutDeleteRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidPutDeleteRepository.html; sourceTree = "<group>"; };
+		59B7A92627A829A6001F5D8F /* PushNotificationQueue.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PushNotificationQueue.html; sourceTree = "<group>"; };
+		59B7A92727A829A6001F5D8F /* ExecutorFactory.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ExecutorFactory.html; sourceTree = "<group>"; };
+		59B7A92827A829A6001F5D8F /* DataToNSCodingMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataToNSCodingMapper.html; sourceTree = "<group>"; };
+		59B7A92927A829A6001F5D8F /* VoidDeleteRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidDeleteRepository.html; sourceTree = "<group>"; };
+		59B7A92A27A829A6001F5D8F /* AnyDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyDataSource.html; sourceTree = "<group>"; };
+		59B7A92B27A829A6001F5D8F /* IdsQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = IdsQuery.html; sourceTree = "<group>"; };
+		59B7A92C27A829A6001F5D8F /* PaginationOffsetLimitQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PaginationOffsetLimitQuery.html; sourceTree = "<group>"; };
+		59B7A92D27A829A6001F5D8F /* DeleteDataSourceBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteDataSourceBoxBase.html; sourceTree = "<group>"; };
+		59B7A92E27A829A6001F5D8F /* Event.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Event.html; sourceTree = "<group>"; };
+		59B7A92F27A829A6001F5D8F /* SingleGetDataSourceRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SingleGetDataSourceRepository.html; sourceTree = "<group>"; };
+		59B7A93027A829A6001F5D8F /* RealmFactory.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmFactory.html; sourceTree = "<group>"; };
+		59B7A93127A829A6001F5D8F /* ObjectsQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObjectsQuery.html; sourceTree = "<group>"; };
+		59B7A93227A829A6001F5D8F /* UserDefaultsDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UserDefaultsDataSource.html; sourceTree = "<group>"; };
+		59B7A93327A829A6001F5D8F /* KeychainSetInteractor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeychainSetInteractor.html; sourceTree = "<group>"; };
+		59B7A93427A829A6001F5D8F /* NilValueError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NilValueError.html; sourceTree = "<group>"; };
+		59B7A93527A829A6001F5D8F /* KeychainDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeychainDataSource.html; sourceTree = "<group>"; };
+		59B7A93627A829A6001F5D8F /* KeychainGetInteractor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeychainGetInteractor.html; sourceTree = "<group>"; };
+		59B7A93727A829A6001F5D8F /* RetryDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RetryDataSource.html; sourceTree = "<group>"; };
+		59B7A93827A829A6001F5D8F /* ArrayQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ArrayQuery.html; sourceTree = "<group>"; };
+		59B7A93927A829A6001F5D8F /* SingleDataSourceRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SingleDataSourceRepository.html; sourceTree = "<group>"; };
+		59B7A93A27A829A6001F5D8F /* GetDataSourceBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetDataSourceBoxBase.html; sourceTree = "<group>"; };
+		59B7A93B27A829A6001F5D8F /* NetworkOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NetworkOperation.html; sourceTree = "<group>"; };
+		59B7A93C27A829A6001F5D8F /* OperationQueueExecutor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = OperationQueueExecutor.html; sourceTree = "<group>"; };
+		59B7A93D27A829A6001F5D8F /* VoidOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidOperation.html; sourceTree = "<group>"; };
+		59B7A93F27A829A6001F5D8F /* Result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Result.html; sourceTree = "<group>"; };
+		59B7A94027A829A6001F5D8F /* DeviceStorageDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeviceStorageDataSource.html; sourceTree = "<group>"; };
+		59B7A94127A829A6001F5D8F /* RealmDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmDataSource.html; sourceTree = "<group>"; };
+		59B7A94227A829A6001F5D8F /* EncodableToDecodableMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EncodableToDecodableMapper.html; sourceTree = "<group>"; };
+		59B7A94327A829A6001F5D8F /* EncodableToDataMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EncodableToDataMapper.html; sourceTree = "<group>"; };
+		59B7A94427A829A6001F5D8F /* GetRepositoryBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetRepositoryBox.html; sourceTree = "<group>"; };
+		59B7A94527A829A6001F5D8F /* MainDirectExecutor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MainDirectExecutor.html; sourceTree = "<group>"; };
+		59B7A94627A829A6001F5D8F /* DataSourceAssembler.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceAssembler.html; sourceTree = "<group>"; };
+		59B7A94727A829A6001F5D8F /* MultiRequestRetrier.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MultiRequestRetrier.html; sourceTree = "<group>"; };
+		59B7A94827A829A6001F5D8F /* PutDataSourceBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutDataSourceBox.html; sourceTree = "<group>"; };
+		59B7A94A27A829A6001F5D8F /* Hub.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Hub.html; sourceTree = "<group>"; };
+		59B7A94B27A829A6001F5D8F /* Result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Result.html; sourceTree = "<group>"; };
+		59B7A94C27A829A6001F5D8F /* State.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = State.html; sourceTree = "<group>"; };
+		59B7A94D27A829A6001F5D8F /* RetryRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RetryRepository.html; sourceTree = "<group>"; };
+		59B7A94E27A829A6001F5D8F /* MainQueueExecutor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MainQueueExecutor.html; sourceTree = "<group>"; };
+		59B7A95027A829A6001F5D8F /* QueueType.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = QueueType.html; sourceTree = "<group>"; };
+		59B7A95127A829A6001F5D8F /* BaseURLRequestAdapter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BaseURLRequestAdapter.html; sourceTree = "<group>"; };
+		59B7A95227A829A6001F5D8F /* ClosureMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ClosureMapper.html; sourceTree = "<group>"; };
+		59B7A95427A829A6001F5D8F /* Scope.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Scope.html; sourceTree = "<group>"; };
+		59B7A95527A829A6001F5D8F /* KeyValueObserver.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeyValueObserver.html; sourceTree = "<group>"; };
+		59B7A95627A829A6001F5D8F /* ClassError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ClassError.html; sourceTree = "<group>"; };
+		59B7A95727A829A6001F5D8F /* DispatchQueueExecutor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DispatchQueueExecutor.html; sourceTree = "<group>"; };
+		59B7A95827A829A6001F5D8F /* AllObjectsQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AllObjectsQuery.html; sourceTree = "<group>"; };
+		59B7A95927A829A6001F5D8F /* VoidDeleteDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VoidDeleteDataSource.html; sourceTree = "<group>"; };
+		59B7A95A27A829A6001F5D8F /* LinkRecognizer.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = LinkRecognizer.html; sourceTree = "<group>"; };
+		59B7A95B27A829A6001F5D8F /* VastraReachabilityStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraReachabilityStrategy.html; sourceTree = "<group>"; };
+		59B7A95C27A829A6001F5D8F /* AnyRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = AnyRepository.html; sourceTree = "<group>"; };
+		59B7A95D27A829A6001F5D8F /* RepositoryBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryBoxBase.html; sourceTree = "<group>"; };
+		59B7A95E27A829A6001F5D8F /* SecureKey.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SecureKey.html; sourceTree = "<group>"; };
+		59B7A95F27A829A6001F5D8F /* RepositoryBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryBox.html; sourceTree = "<group>"; };
+		59B7A96127A829A6001F5D8F /* Result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Result.html; sourceTree = "<group>"; };
+		59B7A96227A829A6001F5D8F /* State.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = State.html; sourceTree = "<group>"; };
+		59B7A96327A829A6001F5D8F /* VastraService.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraService.html; sourceTree = "<group>"; };
+		59B7A96427A829A6001F5D8F /* RepositoryAssembler.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryAssembler.html; sourceTree = "<group>"; };
+		59B7A96527A829A6001F5D8F /* PutDataSourceBoxBase.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutDataSourceBoxBase.html; sourceTree = "<group>"; };
+		59B7A96627A829A6001F5D8F /* BlankMapper.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BlankMapper.html; sourceTree = "<group>"; };
+		59B7A96727A829A6001F5D8F /* NetworkSyncOperation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NetworkSyncOperation.html; sourceTree = "<group>"; };
+		59B7A96827A829A6001F5D8F /* IdQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = IdQuery.html; sourceTree = "<group>"; };
+		59B7A96927A829A6001F5D8F /* DeleteRepositoryBox.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteRepositoryBox.html; sourceTree = "<group>"; };
+		59B7A96B27A829A6001F5D8F /* jquery.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
+		59B7A96C27A829A6001F5D8F /* jazzy.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jazzy.js; sourceTree = "<group>"; };
+		59B7A96E27A829A6001F5D8F /* ObjectionScope.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObjectionScope.html; sourceTree = "<group>"; };
+		59B7A96F27A829A6001F5D8F /* RepositoryCRUD.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RepositoryCRUD.html; sourceTree = "<group>"; };
+		59B7A97027A829A6001F5D8F /* TintStyle.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = TintStyle.html; sourceTree = "<group>"; };
+		59B7A97127A829A6001F5D8F /* DataSourceCRUD.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSourceCRUD.html; sourceTree = "<group>"; };
+		59B7A97227A829A6001F5D8F /* VastraStrategyResult.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraStrategyResult.html; sourceTree = "<group>"; };
+		59B7A97327A829A6001F5D8F /* Time.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Time.html; sourceTree = "<group>"; };
+		59B7A97427A829A6001F5D8F /* MJSwiftCoreAlamofireError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MJSwiftCoreAlamofireError.html; sourceTree = "<group>"; };
+		59B7A97527A829A6001F5D8F /* BinarySearchType.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = BinarySearchType.html; sourceTree = "<group>"; };
+		59B7A97627A829A6001F5D8F /* GradientDirection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GradientDirection.html; sourceTree = "<group>"; };
+		59B7A97727A829A6001F5D8F /* Global Variables.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Global Variables.html"; sourceTree = "<group>"; };
+		59B7A97827A829A6001F5D8F /* Extensions.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Extensions.html; sourceTree = "<group>"; };
+		59B7A97A27A829A6001F5D8F /* ObjC.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObjC.html; sourceTree = "<group>"; };
+		59B7A97B27A829A6001F5D8F /* OperationQueue.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = OperationQueue.html; sourceTree = "<group>"; };
+		59B7A97C27A829A6001F5D8F /* DateIntervalFormatter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DateIntervalFormatter.html; sourceTree = "<group>"; };
+		59B7A97D27A829A6001F5D8F /* NSPurgeableData.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSPurgeableData.html; sourceTree = "<group>"; };
+		59B7A97E27A829A6001F5D8F /* NSMutableAttributedString.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSMutableAttributedString.html; sourceTree = "<group>"; };
+		59B7A97F27A829A6001F5D8F /* NSRange.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSRange.html; sourceTree = "<group>"; };
+		59B7A98027A829A6001F5D8F /* UIImage.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIImage.html; sourceTree = "<group>"; };
+		59B7A98127A829A6001F5D8F /* UITableView.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UITableView.html; sourceTree = "<group>"; };
+		59B7A98227A829A6001F5D8F /* CharacterSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CharacterSet.html; sourceTree = "<group>"; };
+		59B7A98327A829A6001F5D8F /* DateComponentsFormatter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DateComponentsFormatter.html; sourceTree = "<group>"; };
+		59B7A98427A829A6001F5D8F /* Calendar.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Calendar.html; sourceTree = "<group>"; };
+		59B7A98527A829A6001F5D8F /* URLQueryItem.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = URLQueryItem.html; sourceTree = "<group>"; };
+		59B7A98627A829A6001F5D8F /* DateComponents.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DateComponents.html; sourceTree = "<group>"; };
+		59B7A98727A829A6001F5D8F /* NumberFormatter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NumberFormatter.html; sourceTree = "<group>"; };
+		59B7A98827A829A6001F5D8F /* UIView.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIView.html; sourceTree = "<group>"; };
+		59B7A98927A829A6001F5D8F /* UUID.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UUID.html; sourceTree = "<group>"; };
+		59B7A98B27A829A6001F5D8F /* KeyEncodingStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeyEncodingStrategy.html; sourceTree = "<group>"; };
+		59B7A98C27A829A6001F5D8F /* NSError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSError.html; sourceTree = "<group>"; };
+		59B7A98D27A829A6001F5D8F /* DataRequest.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataRequest.html; sourceTree = "<group>"; };
+		59B7A98E27A829A6001F5D8F /* Decimal.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Decimal.html; sourceTree = "<group>"; };
+		59B7A98F27A829A6001F5D8F /* Int.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Int.html; sourceTree = "<group>"; };
+		59B7A99027A829A6001F5D8F /* IndexPath.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = IndexPath.html; sourceTree = "<group>"; };
+		59B7A99127A829A6001F5D8F /* NSMutableOrderedSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSMutableOrderedSet.html; sourceTree = "<group>"; };
+		59B7A99227A829A6001F5D8F /* URL.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = URL.html; sourceTree = "<group>"; };
+		59B7A99327A829A6001F5D8F /* UIBarButtonItem.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIBarButtonItem.html; sourceTree = "<group>"; };
+		59B7A99427A829A6001F5D8F /* Float.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Float.html; sourceTree = "<group>"; };
+		59B7A99527A829A6001F5D8F /* UIViewController.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIViewController.html; sourceTree = "<group>"; };
+		59B7A99627A829A6001F5D8F /* TimeZone.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = TimeZone.html; sourceTree = "<group>"; };
+		59B7A99827A829A6001F5D8F /* KeyDecodingStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeyDecodingStrategy.html; sourceTree = "<group>"; };
+		59B7A99927A829A6001F5D8F /* NSAttributedString.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSAttributedString.html; sourceTree = "<group>"; };
+		59B7A99A27A829A6001F5D8F /* IndexSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = IndexSet.html; sourceTree = "<group>"; };
+		59B7A99B27A829A6001F5D8F /* JSONDecoder.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = JSONDecoder.html; sourceTree = "<group>"; };
+		59B7A99C27A829A6001F5D8F /* Data.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Data.html; sourceTree = "<group>"; };
+		59B7A99D27A829A6001F5D8F /* String.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = String.html; sourceTree = "<group>"; };
+		59B7A99E27A829A6001F5D8F /* UInt.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UInt.html; sourceTree = "<group>"; };
+		59B7A99F27A829A6001F5D8F /* DateFormatter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DateFormatter.html; sourceTree = "<group>"; };
+		59B7A9A027A829A6001F5D8F /* Locale.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Locale.html; sourceTree = "<group>"; };
+		59B7A9A127A829A6001F5D8F /* CGFloat.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CGFloat.html; sourceTree = "<group>"; };
+		59B7A9A227A829A6001F5D8F /* Double.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Double.html; sourceTree = "<group>"; };
+		59B7A9A327A829A6001F5D8F /* UIResponder.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIResponder.html; sourceTree = "<group>"; };
+		59B7A9A427A829A6001F5D8F /* NSCountedSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSCountedSet.html; sourceTree = "<group>"; };
+		59B7A9A527A829A6001F5D8F /* Array.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Array.html; sourceTree = "<group>"; };
+		59B7A9A627A829A6001F5D8F /* NSSortDescriptor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSSortDescriptor.html; sourceTree = "<group>"; };
+		59B7A9A727A829A6001F5D8F /* Dictionary.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Dictionary.html; sourceTree = "<group>"; };
+		59B7A9A827A829A6001F5D8F /* UITableViewCell.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UITableViewCell.html; sourceTree = "<group>"; };
+		59B7A9A927A829A6001F5D8F /* JSObjectionModule.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = JSObjectionModule.html; sourceTree = "<group>"; };
+		59B7A9AA27A829A6001F5D8F /* UIButton.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIButton.html; sourceTree = "<group>"; };
+		59B7A9AB27A829A6001F5D8F /* NSPointerArray.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSPointerArray.html; sourceTree = "<group>"; };
+		59B7A9AC27A829A6001F5D8F /* URLComponents.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = URLComponents.html; sourceTree = "<group>"; };
+		59B7A9AD27A829A6001F5D8F /* NSPredicate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSPredicate.html; sourceTree = "<group>"; };
+		59B7A9AE27A829A6001F5D8F /* MJFuture.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MJFuture.html; sourceTree = "<group>"; };
+		59B7A9AF27A829A6001F5D8F /* Bool.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Bool.html; sourceTree = "<group>"; };
+		59B7A9B027A829A6001F5D8F /* ISO8601DateFormatter.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ISO8601DateFormatter.html; sourceTree = "<group>"; };
+		59B7A9B127A829A6001F5D8F /* UIEdgeInsets.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIEdgeInsets.html; sourceTree = "<group>"; };
+		59B7A9B227A829A6001F5D8F /* CGAffineTransform.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CGAffineTransform.html; sourceTree = "<group>"; };
+		59B7A9B327A829A6001F5D8F /* Set.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Set.html; sourceTree = "<group>"; };
+		59B7A9B427A829A6001F5D8F /* Date.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Date.html; sourceTree = "<group>"; };
+		59B7A9B527A829A6001F5D8F /* JSONEncoder.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = JSONEncoder.html; sourceTree = "<group>"; };
+		59B7A9B627A829A6001F5D8F /* DateInterval.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DateInterval.html; sourceTree = "<group>"; };
+		59B7A9B727A829A6001F5D8F /* DispatchQueue.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DispatchQueue.html; sourceTree = "<group>"; };
+		59B7A9B827A829A6001F5D8F /* NSNull.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSNull.html; sourceTree = "<group>"; };
+		59B7A9B927A829A6001F5D8F /* JSObjectionInjector.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = JSObjectionInjector.html; sourceTree = "<group>"; };
+		59B7A9BA27A829A6001F5D8F /* UIColor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UIColor.html; sourceTree = "<group>"; };
+		59B7A9BB27A829A6001F5D8F /* NSOrderedSet.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSOrderedSet.html; sourceTree = "<group>"; };
+		59B7A9BD27A829A6001F5D8F /* carat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carat.png; sourceTree = "<group>"; };
+		59B7A9BE27A829A6001F5D8F /* dash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash.png; sourceTree = "<group>"; };
+		59B7A9BF27A829A6001F5D8F /* gh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gh.png; sourceTree = "<group>"; };
+		59B7A9C027A829A6001F5D8F /* undocumented.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = undocumented.json; sourceTree = "<group>"; };
+		59B7A9C127A829A6001F5D8F /* badge.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = badge.svg; sourceTree = "<group>"; };
+		59B7A9C327A829A6001F5D8F /* Interactor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Interactor.html; sourceTree = "<group>"; };
+		59B7A9C427A829A6001F5D8F /* ObservableResolver.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObservableResolver.html; sourceTree = "<group>"; };
+		59B7A9C527A829A6001F5D8F /* CornerInset.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CornerInset.html; sourceTree = "<group>"; };
+		59B7A9C627A829A6001F5D8F /* FutureResolver.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = FutureResolver.html; sourceTree = "<group>"; };
+		59B7A9C727A829A6001F5D8F /* ScopeLock.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ScopeLock.html; sourceTree = "<group>"; };
+		59B7A9C927A829A6001F5D8F /* Scope.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Scope.html; sourceTree = "<group>"; };
+		59B7A9CA27A829A6001F5D8F /* CoreError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = CoreError.html; sourceTree = "<group>"; };
+		59B7A9CC27A829A6001F5D8F /* OSStatusFailure.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = OSStatusFailure.html; sourceTree = "<group>"; };
+		59B7A9CD27A829A6001F5D8F /* IllegalArgument.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = IllegalArgument.html; sourceTree = "<group>"; };
+		59B7A9CE27A829A6001F5D8F /* NSError.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NSError.html; sourceTree = "<group>"; };
+		59B7A9CF27A829A6001F5D8F /* Unknown.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Unknown.html; sourceTree = "<group>"; };
+		59B7A9D027A829A6001F5D8F /* NotImplemented.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NotImplemented.html; sourceTree = "<group>"; };
+		59B7A9D127A829A6001F5D8F /* Failed.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Failed.html; sourceTree = "<group>"; };
+		59B7A9D227A829A6001F5D8F /* NotFound.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NotFound.html; sourceTree = "<group>"; };
+		59B7A9D327A829A6001F5D8F /* NotValid.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = NotValid.html; sourceTree = "<group>"; };
+		59B7A9D427A829A6001F5D8F /* MutableCodingKey.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = MutableCodingKey.html; sourceTree = "<group>"; };
+		59B7A9D527A829A6001F5D8F /* RealmHandler.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmHandler.html; sourceTree = "<group>"; };
+		59B7A9D727A829A6001F5D8F /* PutAll.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutAll.html; sourceTree = "<group>"; };
+		59B7A9D827A829A6001F5D8F /* PutByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutByQuery.html; sourceTree = "<group>"; };
+		59B7A9D927A829A6001F5D8F /* GetAll.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetAll.html; sourceTree = "<group>"; };
+		59B7A9DA27A829A6001F5D8F /* DeleteAllByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteAllByQuery.html; sourceTree = "<group>"; };
+		59B7A9DB27A829A6001F5D8F /* GetByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetByQuery.html; sourceTree = "<group>"; };
+		59B7A9DC27A829A6001F5D8F /* DeleteAll.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteAll.html; sourceTree = "<group>"; };
+		59B7A9DD27A829A6001F5D8F /* DeleteByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteByQuery.html; sourceTree = "<group>"; };
+		59B7A9DE27A829A6001F5D8F /* Put.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Put.html; sourceTree = "<group>"; };
+		59B7A9DF27A829A6001F5D8F /* GetAllByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetAllByQuery.html; sourceTree = "<group>"; };
+		59B7A9E027A829A6001F5D8F /* PutAllByQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutAllByQuery.html; sourceTree = "<group>"; };
+		59B7A9E127A829A6001F5D8F /* Delete.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Delete.html; sourceTree = "<group>"; };
+		59B7A9E227A829A6001F5D8F /* Get.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Get.html; sourceTree = "<group>"; };
+		59B7A9E327A829A6001F5D8F /* Classes.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Classes.html; sourceTree = "<group>"; };
+		59B7A9E527A829A6001F5D8F /* MJSwiftCore.tgz */ = {isa = PBXFileReference; lastKnownFileType = file; path = MJSwiftCore.tgz; sourceTree = "<group>"; };
+		59B7A9E627A829A6001F5D8F /* MJSwiftCore.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MJSwiftCore.xml; sourceTree = "<group>"; };
+		59B7A9E727A829A6001F5D8F /* MJSwiftCore.docset */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MJSwiftCore.docset; sourceTree = "<group>"; };
+		59B7A9E827A829A6001F5D8F /* Protocols.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Protocols.html; sourceTree = "<group>"; };
+		59B7A9EA27A829A6001F5D8F /* PushNotificationQueueDelegate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PushNotificationQueueDelegate.html; sourceTree = "<group>"; };
+		59B7A9EB27A829A6001F5D8F /* ObjectValidation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ObjectValidation.html; sourceTree = "<group>"; };
+		59B7A9EC27A829A6001F5D8F /* DeleteRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteRepository.html; sourceTree = "<group>"; };
+		59B7A9ED27A829A6001F5D8F /* Operation.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Operation.html; sourceTree = "<group>"; };
+		59B7A9EE27A829A6001F5D8F /* SharedTimerObserver.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = SharedTimerObserver.html; sourceTree = "<group>"; };
+		59B7A9EF27A829A6001F5D8F /* VastraInvalidationStrategyDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraInvalidationStrategyDataSource.html; sourceTree = "<group>"; };
+		59B7A9F027A829A6001F5D8F /* VastraStrategy.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraStrategy.html; sourceTree = "<group>"; };
+		59B7A9F127A829A6001F5D8F /* DeleteDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DeleteDataSource.html; sourceTree = "<group>"; };
+		59B7A9F227A829A6001F5D8F /* VastraReachability.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraReachability.html; sourceTree = "<group>"; };
+		59B7A9F327A829A6001F5D8F /* VastraTimestampStrategyDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraTimestampStrategyDataSource.html; sourceTree = "<group>"; };
+		59B7A9F427A829A6001F5D8F /* UITableViewCellIdentifier.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = UITableViewCellIdentifier.html; sourceTree = "<group>"; };
+		59B7A9F527A829A6001F5D8F /* TypedDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = TypedDataSource.html; sourceTree = "<group>"; };
+		59B7A9F627A829A6001F5D8F /* LinkRecognizerDelegate.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = LinkRecognizerDelegate.html; sourceTree = "<group>"; };
+		59B7A9F727A829A6001F5D8F /* KeyQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = KeyQuery.html; sourceTree = "<group>"; };
+		59B7A9F827A829A6001F5D8F /* GetRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetRepository.html; sourceTree = "<group>"; };
+		59B7A9F927A829A6001F5D8F /* VastraValidationStrategyDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = VastraValidationStrategyDataSource.html; sourceTree = "<group>"; };
+		59B7A9FA27A829A6001F5D8F /* RealmQuery.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmQuery.html; sourceTree = "<group>"; };
+		59B7A9FB27A829A6001F5D8F /* Repository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Repository.html; sourceTree = "<group>"; };
+		59B7A9FC27A829A6001F5D8F /* Query.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Query.html; sourceTree = "<group>"; };
+		59B7A9FD27A829A6001F5D8F /* PutRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutRepository.html; sourceTree = "<group>"; };
+		59B7A9FE27A829A6001F5D8F /* GetDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = GetDataSource.html; sourceTree = "<group>"; };
+		59B7A9FF27A829A6001F5D8F /* RealmEntity.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = RealmEntity.html; sourceTree = "<group>"; };
+		59B7AA0027A829A6001F5D8F /* TypedRepository.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = TypedRepository.html; sourceTree = "<group>"; };
+		59B7AA0127A829A6001F5D8F /* Executor.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Executor.html; sourceTree = "<group>"; };
+		59B7AA0227A829A6001F5D8F /* PutDataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = PutDataSource.html; sourceTree = "<group>"; };
+		59B7AA0327A829A6001F5D8F /* LinkRecognizerObserver.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = LinkRecognizerObserver.html; sourceTree = "<group>"; };
+		59B7AA0427A829A6001F5D8F /* DataSource.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = DataSource.html; sourceTree = "<group>"; };
+		59B7AA1327A83966001F5D8F /* KeychainSetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSetInteractor.swift; sourceTree = "<group>"; };
+		59B7AA1427A83966001F5D8F /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		59B7AA1527A83966001F5D8F /* KeychainDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainDataSource.swift; sourceTree = "<group>"; };
+		59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainGetInteractor.swift; sourceTree = "<group>"; };
+		59B7AA1727A83966001F5D8F /* SecureKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureKey.swift; sourceTree = "<group>"; };
+		59B7AA1E27A83AC1001F5D8F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		59B7AA2127A844AA001F5D8F /* URLLoggerRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLLoggerRequestAdapter.swift; sourceTree = "<group>"; };
+		59B7AA2227A844AA001F5D8F /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestAdapter.swift; sourceTree = "<group>"; };
+		59B7AA2327A844AA001F5D8F /* Alamofire+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
+		59B7AA2427A844AA001F5D8F /* MultiRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestRetrier.swift; sourceTree = "<group>"; };
+		59B7AA2527A844AA001F5D8F /* BaseURLRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLRequestAdapter.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		59B7A80F27A827F6001F5D8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59CA457D27A86B7900983B42 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59B7A81927A827F7001F5D8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		59B7A80827A827F6001F5D8F = {
+			isa = PBXGroup;
+			children = (
+				59B7A8D227A829A6001F5D8F /* docs */,
+				59B7A8D127A8299B001F5D8F /* Harmony.podspec */,
+				59B7A8CF27A8299B001F5D8F /* LICENSE */,
+				59B7A8D027A8299B001F5D8F /* Package.swift */,
+				59B7A8CE27A82991001F5D8F /* README.md */,
+				59B7A82C27A82971001F5D8F /* Sources */,
+				59B7A8CC27A8297A001F5D8F /* Tests */,
+				59B7A81327A827F6001F5D8F /* Products */,
+				59B7AA1D27A83AC1001F5D8F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		59B7A81327A827F6001F5D8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A81227A827F6001F5D8F /* Harmony.framework */,
+				59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		59B7A82C27A82971001F5D8F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA2027A841DF001F5D8F /* Alamofire */,
+				59B7A82D27A82971001F5D8F /* Core */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		59B7A82D27A82971001F5D8F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A85527A82971001F5D8F /* Common */,
+				59B7AA0527A82EEF001F5D8F /* Data */,
+				59B7AA0627A82EF6001F5D8F /* Domain */,
+				59B7A86227A82971001F5D8F /* Future */,
+				59B7AA1227A83966001F5D8F /* Security */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		59B7A82E27A82971001F5D8F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A83127A82971001F5D8F /* CacheRepository.swift */,
+				59B7A83727A82971001F5D8F /* AnyRepository.swift */,
+				59B7A83827A82971001F5D8F /* VoidRepository.swift */,
+				59B7A83927A82971001F5D8F /* AnyPutRepository.swift */,
+				59B7A83D27A82971001F5D8F /* RepositoryMapper.swift */,
+				59B7A84227A82971001F5D8F /* SingleDataSourceRepository.swift */,
+				59B7A84327A82971001F5D8F /* RetryRepository.swift */,
+				59B7A84427A82971001F5D8F /* AnyGetRepository.swift */,
+				59B7A84727A82971001F5D8F /* Repository.swift */,
+				59B7A84E27A82971001F5D8F /* RepositoryAssembler.swift */,
+				59B7A85227A82971001F5D8F /* ObjectValidation.swift */,
+				59B7A85427A82971001F5D8F /* Operation.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		59B7A85527A82971001F5D8F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA1127A838D2001F5D8F /* ScopeLock */,
+				59B7AA1027A83161001F5D8F /* Logger */,
+				59B7AA0F27A8314D001F5D8F /* Extensions */,
+				59B7AA0C27A82F82001F5D8F /* Error */,
+				59B7A85627A82971001F5D8F /* MutableCodingKey.swift */,
+				59B7A85927A82971001F5D8F /* LinkRecognizer.swift */,
+				59B7A85C27A82971001F5D8F /* CodingKeyStrategies.swift */,
+				59B7A85D27A82971001F5D8F /* KeyValueObserver.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		59B7A86227A82971001F5D8F /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A86327A82971001F5D8F /* Executor.swift */,
+				59B7A86427A82971001F5D8F /* ObservableHub.swift */,
+				59B7A86527A82971001F5D8F /* Future.swift */,
+				59B7A86627A82971001F5D8F /* Observable+Optionals.swift */,
+				59B7A86727A82971001F5D8F /* OperationQueueExecutor.swift */,
+				59B7A86827A82971001F5D8F /* Collections+Executor.swift */,
+				59B7A86927A82971001F5D8F /* Observable+Batch.swift */,
+				59B7A86A27A82971001F5D8F /* Future+Batch.swift */,
+				59B7A86B27A82971001F5D8F /* Future+Time.swift */,
+				59B7A86C27A82971001F5D8F /* Future+Extensions.swift */,
+				59B7A86D27A82971001F5D8F /* Observable+Extensions.swift */,
+				59B7A86E27A82971001F5D8F /* DirectExecutor.swift */,
+				59B7A86F27A82971001F5D8F /* Observable.swift */,
+				59B7A87027A82971001F5D8F /* Future+Operators.swift */,
+				59B7A87127A82971001F5D8F /* Observable+Time.swift */,
+				59B7A87227A82971001F5D8F /* Observable+Functional.swift */,
+				59B7A87327A82971001F5D8F /* Future+Functional.swift */,
+				59B7A87427A82971001F5D8F /* Executor+Future.swift */,
+				59B7A87527A82971001F5D8F /* DispatchQueueExecutor.swift */,
+				59B7A87627A82971001F5D8F /* Future+Optionals.swift */,
+				59B7A87727A82971001F5D8F /* ExecutorFactory.swift */,
+			);
+			path = Future;
+			sourceTree = "<group>";
+		};
+		59B7A87827A82971001F5D8F /* Validator */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A87927A82971001F5D8F /* VastraReachabilityStrategy.swift */,
+				59B7A87A27A82971001F5D8F /* VastraService.swift */,
+				59B7A87B27A82971001F5D8F /* VastraInvalidationStrategy.swift */,
+				59B7A87C27A82971001F5D8F /* VastraTimestampStrategy.swift */,
+				59B7A87D27A82971001F5D8F /* VastraStrategy.swift */,
+				59B7A87E27A82971001F5D8F /* VastraValidationStrategy.swift */,
+			);
+			path = Validator;
+			sourceTree = "<group>";
+		};
+		59B7A8CC27A8297A001F5D8F /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A8CD27A8297A001F5D8F /* HarmonyTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		59B7A8CD27A8297A001F5D8F /* HarmonyTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HarmonyTests;
+			sourceTree = "<group>";
+		};
+		59B7A8D227A829A6001F5D8F /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A8D327A829A6001F5D8F /* Structs.html */,
+				59B7A8D427A829A6001F5D8F /* Enums.html */,
+				59B7A8D527A829A6001F5D8F /* index.html */,
+				59B7A8D627A829A6001F5D8F /* Functions.html */,
+				59B7A8D727A829A6001F5D8F /* search.json */,
+				59B7A8D827A829A6001F5D8F /* css */,
+				59B7A8DB27A829A6001F5D8F /* Classes */,
+				59B7A96A27A829A6001F5D8F /* js */,
+				59B7A96D27A829A6001F5D8F /* Enums */,
+				59B7A97727A829A6001F5D8F /* Global Variables.html */,
+				59B7A97827A829A6001F5D8F /* Extensions.html */,
+				59B7A97927A829A6001F5D8F /* Extensions */,
+				59B7A9BC27A829A6001F5D8F /* img */,
+				59B7A9C027A829A6001F5D8F /* undocumented.json */,
+				59B7A9C127A829A6001F5D8F /* badge.svg */,
+				59B7A9C227A829A6001F5D8F /* Structs */,
+				59B7A9E327A829A6001F5D8F /* Classes.html */,
+				59B7A9E427A829A6001F5D8F /* docsets */,
+				59B7A9E827A829A6001F5D8F /* Protocols.html */,
+				59B7A9E927A829A6001F5D8F /* Protocols */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		59B7A8D827A829A6001F5D8F /* css */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A8D927A829A6001F5D8F /* highlight.css */,
+				59B7A8DA27A829A6001F5D8F /* jazzy.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		59B7A8DB27A829A6001F5D8F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A8DC27A829A6001F5D8F /* VoidGetPutDataSource.html */,
+				59B7A8DD27A829A6001F5D8F /* RealmMapper.html */,
+				59B7A8DE27A829A6001F5D8F /* NetworkStorageRepository.html */,
+				59B7A8DF27A829A6001F5D8F /* Future.html */,
+				59B7A8E027A829A6001F5D8F /* UserDefaultsGetInteractor.html */,
+				59B7A8E127A829A6001F5D8F /* ObjectQuery.html */,
+				59B7A8E227A829A6001F5D8F /* VoidDataSource.html */,
+				59B7A8E327A829A6001F5D8F /* UserDefaultsSetInteractor.html */,
+				59B7A8E427A829A6001F5D8F /* DirectExecutor.html */,
+				59B7A8E527A829A6001F5D8F /* Mapper.html */,
+				59B7A8E627A829A6001F5D8F /* AnyDeleteRepository.html */,
+				59B7A8E727A829A6001F5D8F /* DataSourceAssambler.html */,
+				59B7A8E827A829A6001F5D8F /* PutRepositoryBox.html */,
+				59B7A8E927A829A6001F5D8F /* InMemoryDataSource.html */,
+				59B7A8EA27A829A6001F5D8F /* AnyGetDataSource.html */,
+				59B7A8EB27A829A6001F5D8F /* VoidPutRepository.html */,
+				59B7A8EC27A829A6001F5D8F /* VastraInvalidationStrategy.html */,
+				59B7A8ED27A829A6001F5D8F /* VoidPutDeleteDataSource.html */,
+				59B7A8EE27A829A6001F5D8F /* GetDataSourceMapper.html */,
+				59B7A8EF27A829A6001F5D8F /* DeleteDataSourceBox.html */,
+				59B7A8F027A829A6001F5D8F /* RepositoryMapper.html */,
+				59B7A8F127A829A6001F5D8F /* VoidQuery.html */,
+				59B7A8F227A829A6001F5D8F /* CastMapper.html */,
+				59B7A8F327A829A6001F5D8F /* DeleteRepositoryBoxBase.html */,
+				59B7A8F427A829A6001F5D8F /* SinglePutDataSourceRepository.html */,
+				59B7A8F527A829A6001F5D8F /* VoidGetDeleteDataSource.html */,
+				59B7A8F627A829A6001F5D8F /* AnyPutDataSource.html */,
+				59B7A8F727A829A6001F5D8F /* VoidGetRepository.html */,
+				59B7A8F827A829A6001F5D8F /* PutDataSourceMapper.html */,
+				59B7A8F927A829A6001F5D8F /* GetRepositoryBoxBase.html */,
+				59B7A8FA27A829A6001F5D8F /* StorageOperation.html */,
+				59B7A8FB27A829A6001F5D8F /* Observable.html */,
+				59B7A8FC27A829A6001F5D8F /* DataSourceBox.html */,
+				59B7A8FD27A829A6001F5D8F /* NSCodingToDataMapper.html */,
+				59B7A8FE27A829A6001F5D8F /* DataSourceBoxBase.html */,
+				59B7A8FF27A829A6001F5D8F /* VoidPutDataSource.html */,
+				59B7A90027A829A6001F5D8F /* AnyGetRepository.html */,
+				59B7A90127A829A6001F5D8F /* VoidMapper.html */,
+				59B7A90227A829A6001F5D8F /* AnyDeleteDataSource.html */,
+				59B7A90327A829A6001F5D8F /* RetryOperation.html */,
+				59B7A90427A829A6001F5D8F /* SingleDeleteDataSourceRepository.html */,
+				59B7A90527A829A6001F5D8F /* VoidRepository.html */,
+				59B7A90627A829A6001F5D8F /* RepositoryAssambler.html */,
+				59B7A90727A829A6001F5D8F /* PutRepositoryBoxBase.html */,
+				59B7A90827A829A6001F5D8F /* MultiRequestAdapter.html */,
+				59B7A90927A829A6001F5D8F /* ContainerViewController.html */,
+				59B7A90A27A829A6001F5D8F /* Keychain.html */,
+				59B7A90B27A829A6001F5D8F /* VoidGetPutRepository.html */,
+				59B7A90C27A829A6001F5D8F /* StorageSyncOperation.html */,
+				59B7A90D27A829A6001F5D8F /* RealmObject.html */,
+				59B7A90E27A829A6001F5D8F /* ContainerViewController */,
+				59B7A91027A829A6001F5D8F /* VastraTimestampStrategy.html */,
+				59B7A91127A829A6001F5D8F /* SharedTimer.html */,
+				59B7A91227A829A6001F5D8F /* PutRepositoryMapper.html */,
+				59B7A91327A829A6001F5D8F /* VoidGetDeleteRepository.html */,
+				59B7A91427A829A6001F5D8F /* VoidGetDataSource.html */,
+				59B7A91527A829A6001F5D8F /* AnyPutRepository.html */,
+				59B7A91627A829A6001F5D8F /* GetDataSourceBox.html */,
+				59B7A91727A829A6001F5D8F /* VastraValidationStrategy.html */,
+				59B7A91827A829A6001F5D8F /* LinkRecognizer */,
+				59B7A91C27A829A6001F5D8F /* DispatchQueueExecutor */,
+				59B7A91E27A829A6001F5D8F /* GetRepositoryMapper.html */,
+				59B7A91F27A829A6001F5D8F /* PushNotificationQueue */,
+				59B7A92227A829A6001F5D8F /* DataToDecodableMapper.html */,
+				59B7A92327A829A6001F5D8F /* DataSourceMapper.html */,
+				59B7A92427A829A6001F5D8F /* DataSourceValidator.html */,
+				59B7A92527A829A6001F5D8F /* VoidPutDeleteRepository.html */,
+				59B7A92627A829A6001F5D8F /* PushNotificationQueue.html */,
+				59B7A92727A829A6001F5D8F /* ExecutorFactory.html */,
+				59B7A92827A829A6001F5D8F /* DataToNSCodingMapper.html */,
+				59B7A92927A829A6001F5D8F /* VoidDeleteRepository.html */,
+				59B7A92A27A829A6001F5D8F /* AnyDataSource.html */,
+				59B7A92B27A829A6001F5D8F /* IdsQuery.html */,
+				59B7A92C27A829A6001F5D8F /* PaginationOffsetLimitQuery.html */,
+				59B7A92D27A829A6001F5D8F /* DeleteDataSourceBoxBase.html */,
+				59B7A92E27A829A6001F5D8F /* Event.html */,
+				59B7A92F27A829A6001F5D8F /* SingleGetDataSourceRepository.html */,
+				59B7A93027A829A6001F5D8F /* RealmFactory.html */,
+				59B7A93127A829A6001F5D8F /* ObjectsQuery.html */,
+				59B7A93227A829A6001F5D8F /* UserDefaultsDataSource.html */,
+				59B7A93327A829A6001F5D8F /* KeychainSetInteractor.html */,
+				59B7A93427A829A6001F5D8F /* NilValueError.html */,
+				59B7A93527A829A6001F5D8F /* KeychainDataSource.html */,
+				59B7A93627A829A6001F5D8F /* KeychainGetInteractor.html */,
+				59B7A93727A829A6001F5D8F /* RetryDataSource.html */,
+				59B7A93827A829A6001F5D8F /* ArrayQuery.html */,
+				59B7A93927A829A6001F5D8F /* SingleDataSourceRepository.html */,
+				59B7A93A27A829A6001F5D8F /* GetDataSourceBoxBase.html */,
+				59B7A93B27A829A6001F5D8F /* NetworkOperation.html */,
+				59B7A93C27A829A6001F5D8F /* OperationQueueExecutor.html */,
+				59B7A93D27A829A6001F5D8F /* VoidOperation.html */,
+				59B7A93E27A829A6001F5D8F /* Keychain */,
+				59B7A94027A829A6001F5D8F /* DeviceStorageDataSource.html */,
+				59B7A94127A829A6001F5D8F /* RealmDataSource.html */,
+				59B7A94227A829A6001F5D8F /* EncodableToDecodableMapper.html */,
+				59B7A94327A829A6001F5D8F /* EncodableToDataMapper.html */,
+				59B7A94427A829A6001F5D8F /* GetRepositoryBox.html */,
+				59B7A94527A829A6001F5D8F /* MainDirectExecutor.html */,
+				59B7A94627A829A6001F5D8F /* DataSourceAssembler.html */,
+				59B7A94727A829A6001F5D8F /* MultiRequestRetrier.html */,
+				59B7A94827A829A6001F5D8F /* PutDataSourceBox.html */,
+				59B7A94927A829A6001F5D8F /* Observable */,
+				59B7A94D27A829A6001F5D8F /* RetryRepository.html */,
+				59B7A94E27A829A6001F5D8F /* MainQueueExecutor.html */,
+				59B7A94F27A829A6001F5D8F /* OperationQueueExecutor */,
+				59B7A95127A829A6001F5D8F /* BaseURLRequestAdapter.html */,
+				59B7A95227A829A6001F5D8F /* ClosureMapper.html */,
+				59B7A95327A829A6001F5D8F /* ExecutorFactory */,
+				59B7A95527A829A6001F5D8F /* KeyValueObserver.html */,
+				59B7A95627A829A6001F5D8F /* ClassError.html */,
+				59B7A95727A829A6001F5D8F /* DispatchQueueExecutor.html */,
+				59B7A95827A829A6001F5D8F /* AllObjectsQuery.html */,
+				59B7A95927A829A6001F5D8F /* VoidDeleteDataSource.html */,
+				59B7A95A27A829A6001F5D8F /* LinkRecognizer.html */,
+				59B7A95B27A829A6001F5D8F /* VastraReachabilityStrategy.html */,
+				59B7A95C27A829A6001F5D8F /* AnyRepository.html */,
+				59B7A95D27A829A6001F5D8F /* RepositoryBoxBase.html */,
+				59B7A95E27A829A6001F5D8F /* SecureKey.html */,
+				59B7A95F27A829A6001F5D8F /* RepositoryBox.html */,
+				59B7A96027A829A6001F5D8F /* Future */,
+				59B7A96327A829A6001F5D8F /* VastraService.html */,
+				59B7A96427A829A6001F5D8F /* RepositoryAssembler.html */,
+				59B7A96527A829A6001F5D8F /* PutDataSourceBoxBase.html */,
+				59B7A96627A829A6001F5D8F /* BlankMapper.html */,
+				59B7A96727A829A6001F5D8F /* NetworkSyncOperation.html */,
+				59B7A96827A829A6001F5D8F /* IdQuery.html */,
+				59B7A96927A829A6001F5D8F /* DeleteRepositoryBox.html */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		59B7A90E27A829A6001F5D8F /* ContainerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A90F27A829A6001F5D8F /* Animation.html */,
+			);
+			path = ContainerViewController;
+			sourceTree = "<group>";
+		};
+		59B7A91827A829A6001F5D8F /* LinkRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A91927A829A6001F5D8F /* Pattern.html */,
+				59B7A91A27A829A6001F5D8F /* Options.html */,
+				59B7A91B27A829A6001F5D8F /* Result.html */,
+			);
+			path = LinkRecognizer;
+			sourceTree = "<group>";
+		};
+		59B7A91C27A829A6001F5D8F /* DispatchQueueExecutor */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A91D27A829A6001F5D8F /* QueueType.html */,
+			);
+			path = DispatchQueueExecutor;
+			sourceTree = "<group>";
+		};
+		59B7A91F27A829A6001F5D8F /* PushNotificationQueue */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A92027A829A6001F5D8F /* Action.html */,
+				59B7A92127A829A6001F5D8F /* Filter.html */,
+			);
+			path = PushNotificationQueue;
+			sourceTree = "<group>";
+		};
+		59B7A93E27A829A6001F5D8F /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A93F27A829A6001F5D8F /* Result.html */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		59B7A94927A829A6001F5D8F /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A94A27A829A6001F5D8F /* Hub.html */,
+				59B7A94B27A829A6001F5D8F /* Result.html */,
+				59B7A94C27A829A6001F5D8F /* State.html */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
+		59B7A94F27A829A6001F5D8F /* OperationQueueExecutor */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A95027A829A6001F5D8F /* QueueType.html */,
+			);
+			path = OperationQueueExecutor;
+			sourceTree = "<group>";
+		};
+		59B7A95327A829A6001F5D8F /* ExecutorFactory */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A95427A829A6001F5D8F /* Scope.html */,
+			);
+			path = ExecutorFactory;
+			sourceTree = "<group>";
+		};
+		59B7A96027A829A6001F5D8F /* Future */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A96127A829A6001F5D8F /* Result.html */,
+				59B7A96227A829A6001F5D8F /* State.html */,
+			);
+			path = Future;
+			sourceTree = "<group>";
+		};
+		59B7A96A27A829A6001F5D8F /* js */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A96B27A829A6001F5D8F /* jquery.min.js */,
+				59B7A96C27A829A6001F5D8F /* jazzy.js */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		59B7A96D27A829A6001F5D8F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A96E27A829A6001F5D8F /* ObjectionScope.html */,
+				59B7A96F27A829A6001F5D8F /* RepositoryCRUD.html */,
+				59B7A97027A829A6001F5D8F /* TintStyle.html */,
+				59B7A97127A829A6001F5D8F /* DataSourceCRUD.html */,
+				59B7A97227A829A6001F5D8F /* VastraStrategyResult.html */,
+				59B7A97327A829A6001F5D8F /* Time.html */,
+				59B7A97427A829A6001F5D8F /* MJSwiftCoreAlamofireError.html */,
+				59B7A97527A829A6001F5D8F /* BinarySearchType.html */,
+				59B7A97627A829A6001F5D8F /* GradientDirection.html */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		59B7A97927A829A6001F5D8F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A97A27A829A6001F5D8F /* ObjC.html */,
+				59B7A97B27A829A6001F5D8F /* OperationQueue.html */,
+				59B7A97C27A829A6001F5D8F /* DateIntervalFormatter.html */,
+				59B7A97D27A829A6001F5D8F /* NSPurgeableData.html */,
+				59B7A97E27A829A6001F5D8F /* NSMutableAttributedString.html */,
+				59B7A97F27A829A6001F5D8F /* NSRange.html */,
+				59B7A98027A829A6001F5D8F /* UIImage.html */,
+				59B7A98127A829A6001F5D8F /* UITableView.html */,
+				59B7A98227A829A6001F5D8F /* CharacterSet.html */,
+				59B7A98327A829A6001F5D8F /* DateComponentsFormatter.html */,
+				59B7A98427A829A6001F5D8F /* Calendar.html */,
+				59B7A98527A829A6001F5D8F /* URLQueryItem.html */,
+				59B7A98627A829A6001F5D8F /* DateComponents.html */,
+				59B7A98727A829A6001F5D8F /* NumberFormatter.html */,
+				59B7A98827A829A6001F5D8F /* UIView.html */,
+				59B7A98927A829A6001F5D8F /* UUID.html */,
+				59B7A98A27A829A6001F5D8F /* JSONEncoder */,
+				59B7A98C27A829A6001F5D8F /* NSError.html */,
+				59B7A98D27A829A6001F5D8F /* DataRequest.html */,
+				59B7A98E27A829A6001F5D8F /* Decimal.html */,
+				59B7A98F27A829A6001F5D8F /* Int.html */,
+				59B7A99027A829A6001F5D8F /* IndexPath.html */,
+				59B7A99127A829A6001F5D8F /* NSMutableOrderedSet.html */,
+				59B7A99227A829A6001F5D8F /* URL.html */,
+				59B7A99327A829A6001F5D8F /* UIBarButtonItem.html */,
+				59B7A99427A829A6001F5D8F /* Float.html */,
+				59B7A99527A829A6001F5D8F /* UIViewController.html */,
+				59B7A99627A829A6001F5D8F /* TimeZone.html */,
+				59B7A99727A829A6001F5D8F /* JSONDecoder */,
+				59B7A99927A829A6001F5D8F /* NSAttributedString.html */,
+				59B7A99A27A829A6001F5D8F /* IndexSet.html */,
+				59B7A99B27A829A6001F5D8F /* JSONDecoder.html */,
+				59B7A99C27A829A6001F5D8F /* Data.html */,
+				59B7A99D27A829A6001F5D8F /* String.html */,
+				59B7A99E27A829A6001F5D8F /* UInt.html */,
+				59B7A99F27A829A6001F5D8F /* DateFormatter.html */,
+				59B7A9A027A829A6001F5D8F /* Locale.html */,
+				59B7A9A127A829A6001F5D8F /* CGFloat.html */,
+				59B7A9A227A829A6001F5D8F /* Double.html */,
+				59B7A9A327A829A6001F5D8F /* UIResponder.html */,
+				59B7A9A427A829A6001F5D8F /* NSCountedSet.html */,
+				59B7A9A527A829A6001F5D8F /* Array.html */,
+				59B7A9A627A829A6001F5D8F /* NSSortDescriptor.html */,
+				59B7A9A727A829A6001F5D8F /* Dictionary.html */,
+				59B7A9A827A829A6001F5D8F /* UITableViewCell.html */,
+				59B7A9A927A829A6001F5D8F /* JSObjectionModule.html */,
+				59B7A9AA27A829A6001F5D8F /* UIButton.html */,
+				59B7A9AB27A829A6001F5D8F /* NSPointerArray.html */,
+				59B7A9AC27A829A6001F5D8F /* URLComponents.html */,
+				59B7A9AD27A829A6001F5D8F /* NSPredicate.html */,
+				59B7A9AE27A829A6001F5D8F /* MJFuture.html */,
+				59B7A9AF27A829A6001F5D8F /* Bool.html */,
+				59B7A9B027A829A6001F5D8F /* ISO8601DateFormatter.html */,
+				59B7A9B127A829A6001F5D8F /* UIEdgeInsets.html */,
+				59B7A9B227A829A6001F5D8F /* CGAffineTransform.html */,
+				59B7A9B327A829A6001F5D8F /* Set.html */,
+				59B7A9B427A829A6001F5D8F /* Date.html */,
+				59B7A9B527A829A6001F5D8F /* JSONEncoder.html */,
+				59B7A9B627A829A6001F5D8F /* DateInterval.html */,
+				59B7A9B727A829A6001F5D8F /* DispatchQueue.html */,
+				59B7A9B827A829A6001F5D8F /* NSNull.html */,
+				59B7A9B927A829A6001F5D8F /* JSObjectionInjector.html */,
+				59B7A9BA27A829A6001F5D8F /* UIColor.html */,
+				59B7A9BB27A829A6001F5D8F /* NSOrderedSet.html */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		59B7A98A27A829A6001F5D8F /* JSONEncoder */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A98B27A829A6001F5D8F /* KeyEncodingStrategy.html */,
+			);
+			path = JSONEncoder;
+			sourceTree = "<group>";
+		};
+		59B7A99727A829A6001F5D8F /* JSONDecoder */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A99827A829A6001F5D8F /* KeyDecodingStrategy.html */,
+			);
+			path = JSONDecoder;
+			sourceTree = "<group>";
+		};
+		59B7A9BC27A829A6001F5D8F /* img */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9BD27A829A6001F5D8F /* carat.png */,
+				59B7A9BE27A829A6001F5D8F /* dash.png */,
+				59B7A9BF27A829A6001F5D8F /* gh.png */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
+		59B7A9C227A829A6001F5D8F /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9C327A829A6001F5D8F /* Interactor.html */,
+				59B7A9C427A829A6001F5D8F /* ObservableResolver.html */,
+				59B7A9C527A829A6001F5D8F /* CornerInset.html */,
+				59B7A9C627A829A6001F5D8F /* FutureResolver.html */,
+				59B7A9C727A829A6001F5D8F /* ScopeLock.html */,
+				59B7A9C827A829A6001F5D8F /* ScopeLock */,
+				59B7A9CA27A829A6001F5D8F /* CoreError.html */,
+				59B7A9CB27A829A6001F5D8F /* CoreError */,
+				59B7A9D427A829A6001F5D8F /* MutableCodingKey.html */,
+				59B7A9D527A829A6001F5D8F /* RealmHandler.html */,
+				59B7A9D627A829A6001F5D8F /* Interactor */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		59B7A9C827A829A6001F5D8F /* ScopeLock */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9C927A829A6001F5D8F /* Scope.html */,
+			);
+			path = ScopeLock;
+			sourceTree = "<group>";
+		};
+		59B7A9CB27A829A6001F5D8F /* CoreError */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9CC27A829A6001F5D8F /* OSStatusFailure.html */,
+				59B7A9CD27A829A6001F5D8F /* IllegalArgument.html */,
+				59B7A9CE27A829A6001F5D8F /* NSError.html */,
+				59B7A9CF27A829A6001F5D8F /* Unknown.html */,
+				59B7A9D027A829A6001F5D8F /* NotImplemented.html */,
+				59B7A9D127A829A6001F5D8F /* Failed.html */,
+				59B7A9D227A829A6001F5D8F /* NotFound.html */,
+				59B7A9D327A829A6001F5D8F /* NotValid.html */,
+			);
+			path = CoreError;
+			sourceTree = "<group>";
+		};
+		59B7A9D627A829A6001F5D8F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9D727A829A6001F5D8F /* PutAll.html */,
+				59B7A9D827A829A6001F5D8F /* PutByQuery.html */,
+				59B7A9D927A829A6001F5D8F /* GetAll.html */,
+				59B7A9DA27A829A6001F5D8F /* DeleteAllByQuery.html */,
+				59B7A9DB27A829A6001F5D8F /* GetByQuery.html */,
+				59B7A9DC27A829A6001F5D8F /* DeleteAll.html */,
+				59B7A9DD27A829A6001F5D8F /* DeleteByQuery.html */,
+				59B7A9DE27A829A6001F5D8F /* Put.html */,
+				59B7A9DF27A829A6001F5D8F /* GetAllByQuery.html */,
+				59B7A9E027A829A6001F5D8F /* PutAllByQuery.html */,
+				59B7A9E127A829A6001F5D8F /* Delete.html */,
+				59B7A9E227A829A6001F5D8F /* Get.html */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		59B7A9E427A829A6001F5D8F /* docsets */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9E527A829A6001F5D8F /* MJSwiftCore.tgz */,
+				59B7A9E627A829A6001F5D8F /* MJSwiftCore.xml */,
+				59B7A9E727A829A6001F5D8F /* MJSwiftCore.docset */,
+			);
+			path = docsets;
+			sourceTree = "<group>";
+		};
+		59B7A9E927A829A6001F5D8F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A9EA27A829A6001F5D8F /* PushNotificationQueueDelegate.html */,
+				59B7A9EB27A829A6001F5D8F /* ObjectValidation.html */,
+				59B7A9EC27A829A6001F5D8F /* DeleteRepository.html */,
+				59B7A9ED27A829A6001F5D8F /* Operation.html */,
+				59B7A9EE27A829A6001F5D8F /* SharedTimerObserver.html */,
+				59B7A9EF27A829A6001F5D8F /* VastraInvalidationStrategyDataSource.html */,
+				59B7A9F027A829A6001F5D8F /* VastraStrategy.html */,
+				59B7A9F127A829A6001F5D8F /* DeleteDataSource.html */,
+				59B7A9F227A829A6001F5D8F /* VastraReachability.html */,
+				59B7A9F327A829A6001F5D8F /* VastraTimestampStrategyDataSource.html */,
+				59B7A9F427A829A6001F5D8F /* UITableViewCellIdentifier.html */,
+				59B7A9F527A829A6001F5D8F /* TypedDataSource.html */,
+				59B7A9F627A829A6001F5D8F /* LinkRecognizerDelegate.html */,
+				59B7A9F727A829A6001F5D8F /* KeyQuery.html */,
+				59B7A9F827A829A6001F5D8F /* GetRepository.html */,
+				59B7A9F927A829A6001F5D8F /* VastraValidationStrategyDataSource.html */,
+				59B7A9FA27A829A6001F5D8F /* RealmQuery.html */,
+				59B7A9FB27A829A6001F5D8F /* Repository.html */,
+				59B7A9FC27A829A6001F5D8F /* Query.html */,
+				59B7A9FD27A829A6001F5D8F /* PutRepository.html */,
+				59B7A9FE27A829A6001F5D8F /* GetDataSource.html */,
+				59B7A9FF27A829A6001F5D8F /* RealmEntity.html */,
+				59B7AA0027A829A6001F5D8F /* TypedRepository.html */,
+				59B7AA0127A829A6001F5D8F /* Executor.html */,
+				59B7AA0227A829A6001F5D8F /* PutDataSource.html */,
+				59B7AA0327A829A6001F5D8F /* LinkRecognizerObserver.html */,
+				59B7AA0427A829A6001F5D8F /* DataSource.html */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		59B7AA0527A82EEF001F5D8F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A87827A82971001F5D8F /* Validator */,
+				59B7AA0D27A82FC4001F5D8F /* Operation */,
+				59B7AA0A27A82F5C001F5D8F /* Mapper */,
+				59B7AA0927A82F42001F5D8F /* DataSource */,
+				59B7AA0727A82F15001F5D8F /* Query */,
+				59B7A82E27A82971001F5D8F /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		59B7AA0627A82EF6001F5D8F /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA0E27A82FD8001F5D8F /* Interactor */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		59B7AA0727A82F15001F5D8F /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A82F27A82971001F5D8F /* Query.swift */,
+			);
+			path = Query;
+			sourceTree = "<group>";
+		};
+		59B7AA0927A82F42001F5D8F /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A85127A82971001F5D8F /* TimedCacheDataSource.swift */,
+				59B7A85027A82971001F5D8F /* DebugDataSource.swift */,
+				59B7A84A27A82971001F5D8F /* DataSource.swift */,
+				59B7A84827A82971001F5D8F /* AnyGetDataSource.swift */,
+				59B7A84527A82971001F5D8F /* DataSourceValidator.swift */,
+				59B7A84027A82971001F5D8F /* FileSystemStorageDataSource.swift */,
+				59B7A83F27A82971001F5D8F /* InMemoryDataSource.swift */,
+				59B7A83E27A82971001F5D8F /* AnyPutDataSource.swift */,
+				59B7A83B27A82971001F5D8F /* RetryDataSource.swift */,
+				59B7A83527A82971001F5D8F /* VoidDataSource.swift */,
+				59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */,
+				59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */,
+				59B7A83027A82971001F5D8F /* AnyDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		59B7AA0A27A82F5C001F5D8F /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A84F27A82971001F5D8F /* Mapper.swift */,
+				59B7A83A27A82971001F5D8F /* Mapper+Codable.swift */,
+				59B7A84D27A82971001F5D8F /* DataSourceMapper.swift */,
+				59B7A84927A82971001F5D8F /* Mapper+NSCoding.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		59B7AA0C27A82F82001F5D8F /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A85B27A82971001F5D8F /* ErrorHelper.swift */,
+				59B7A85327A82971001F5D8F /* ClassError.swift */,
+				59B7A83C27A82971001F5D8F /* CoreError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		59B7AA0D27A82FC4001F5D8F /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
+		59B7AA0E27A82FD8001F5D8F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A84627A82971001F5D8F /* UserDefaultsGetInteractor.swift */,
+				59B7A83327A82971001F5D8F /* UserDefaultsSetInteractor.swift */,
+				59B7A84127A82971001F5D8F /* Interactor.swift */,
+				59B7A84B27A82971001F5D8F /* InteractorGet.swift */,
+				59B7A84C27A82971001F5D8F /* InteractorPut.swift */,
+				59B7A83627A82971001F5D8F /* InteractorDelete.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		59B7AA0F27A8314D001F5D8F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A85E27A82971001F5D8F /* JSONDecoding.swift */,
+				59B7A85F27A82971001F5D8F /* Data+Extensions.swift */,
+				59B7A85727A82971001F5D8F /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		59B7AA1027A83161001F5D8F /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A86027A82971001F5D8F /* DeviceConsoleLogger.swift */,
+				59B7A85A27A82971001F5D8F /* Logger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		59B7AA1127A838D2001F5D8F /* ScopeLock */ = {
+			isa = PBXGroup;
+			children = (
+				59B7A85827A82971001F5D8F /* ScopeLockFuture.swift */,
+				59B7A86127A82971001F5D8F /* ScopeLock.swift */,
+			);
+			path = ScopeLock;
+			sourceTree = "<group>";
+		};
+		59B7AA1227A83966001F5D8F /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA1327A83966001F5D8F /* KeychainSetInteractor.swift */,
+				59B7AA1427A83966001F5D8F /* KeychainService.swift */,
+				59B7AA1527A83966001F5D8F /* KeychainDataSource.swift */,
+				59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */,
+				59B7AA1727A83966001F5D8F /* SecureKey.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		59B7AA1D27A83AC1001F5D8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA1E27A83AC1001F5D8F /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59B7AA2027A841DF001F5D8F /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				59B7AA2327A844AA001F5D8F /* Alamofire+Future.swift */,
+				59B7AA2527A844AA001F5D8F /* BaseURLRequestAdapter.swift */,
+				59B7AA2227A844AA001F5D8F /* MultiRequestAdapter.swift */,
+				59B7AA2427A844AA001F5D8F /* MultiRequestRetrier.swift */,
+				59B7AA2127A844AA001F5D8F /* URLLoggerRequestAdapter.swift */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		59B7A80D27A827F6001F5D8F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		59B7A81127A827F6001F5D8F /* Harmony */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony" */;
+			buildPhases = (
+				59B7A80D27A827F6001F5D8F /* Headers */,
+				59B7A80E27A827F6001F5D8F /* Sources */,
+				59B7A80F27A827F6001F5D8F /* Frameworks */,
+				59B7A81027A827F6001F5D8F /* Resources */,
+				59CA457F27A86B7900983B42 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Harmony;
+			productName = Harmony;
+			productReference = 59B7A81227A827F6001F5D8F /* Harmony.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		59B7A81B27A827F7001F5D8F /* HarmonyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59B7A82927A827F7001F5D8F /* Build configuration list for PBXNativeTarget "HarmonyTests" */;
+			buildPhases = (
+				59B7A81827A827F7001F5D8F /* Sources */,
+				59B7A81927A827F7001F5D8F /* Frameworks */,
+				59B7A81A27A827F7001F5D8F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				59B7A81F27A827F7001F5D8F /* PBXTargetDependency */,
+			);
+			name = HarmonyTests;
+			productName = HarmonyTests;
+			productReference = 59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		59B7A80927A827F6001F5D8F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					59B7A81127A827F6001F5D8F = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					59B7A81B27A827F7001F5D8F = {
+						CreatedOnToolsVersion = 13.1;
+					};
+				};
+			};
+			buildConfigurationList = 59B7A80C27A827F6001F5D8F /* Build configuration list for PBXProject "Harmony" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 59B7A80827A827F6001F5D8F;
+			productRefGroup = 59B7A81327A827F6001F5D8F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				59B7A81127A827F6001F5D8F /* Harmony */,
+				59B7A81B27A827F7001F5D8F /* HarmonyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		59B7A81027A827F6001F5D8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59B7A81A27A827F7001F5D8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		59B7A80E27A827F6001F5D8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59B7A8A827A82971001F5D8F /* LinkRecognizer.swift in Sources */,
+				59B7A8B927A82971001F5D8F /* Future+Time.swift in Sources */,
+				59B7A88327A82971001F5D8F /* UserDefaultsSetInteractor.swift in Sources */,
+				59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */,
+				59B7AA2827A844AB001F5D8F /* Alamofire+Future.swift in Sources */,
+				59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */,
+				59B7A89927A82971001F5D8F /* Mapper+NSCoding.swift in Sources */,
+				59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */,
+				59B7A8C527A82971001F5D8F /* ExecutorFactory.swift in Sources */,
+				59B7A8CB27A82971001F5D8F /* VastraValidationStrategy.swift in Sources */,
+				59B7A8C627A82971001F5D8F /* VastraReachabilityStrategy.swift in Sources */,
+				59B7AA1A27A83966001F5D8F /* KeychainDataSource.swift in Sources */,
+				59B7A8C127A82971001F5D8F /* Future+Functional.swift in Sources */,
+				59B7A88A27A82971001F5D8F /* Mapper+Codable.swift in Sources */,
+				59B7A89127A82971001F5D8F /* Interactor.swift in Sources */,
+				59B7A8AB27A82971001F5D8F /* CodingKeyStrategies.swift in Sources */,
+				59B7A89727A82971001F5D8F /* Repository.swift in Sources */,
+				59B7A89427A82971001F5D8F /* AnyGetRepository.swift in Sources */,
+				59B7AA2727A844AB001F5D8F /* MultiRequestAdapter.swift in Sources */,
+				59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */,
+				59B7A88E27A82971001F5D8F /* AnyPutDataSource.swift in Sources */,
+				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
+				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
+				59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */,
+				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
+				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
+				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
+				59B7A8C227A82971001F5D8F /* Executor+Future.swift in Sources */,
+				59B7A89F27A82971001F5D8F /* Mapper.swift in Sources */,
+				59B7A8B227A82971001F5D8F /* ObservableHub.swift in Sources */,
+				59B7A88827A82971001F5D8F /* VoidRepository.swift in Sources */,
+				59B7A8A627A82971001F5D8F /* String+Extensions.swift in Sources */,
+				59B7A8A327A82971001F5D8F /* ClassError.swift in Sources */,
+				59B7AA1827A83966001F5D8F /* KeychainSetInteractor.swift in Sources */,
+				59B7A88F27A82971001F5D8F /* InMemoryDataSource.swift in Sources */,
+				59B7A88B27A82971001F5D8F /* RetryDataSource.swift in Sources */,
+				59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */,
+				59B7AA2627A844AB001F5D8F /* URLLoggerRequestAdapter.swift in Sources */,
+				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
+				59B7A88D27A82971001F5D8F /* RepositoryMapper.swift in Sources */,
+				59B7A8B327A82971001F5D8F /* Future.swift in Sources */,
+				59B7A8AE27A82971001F5D8F /* Data+Extensions.swift in Sources */,
+				59B7A88427A82971001F5D8F /* DeviceStorageDataSource.swift in Sources */,
+				59B7AA2927A844AB001F5D8F /* MultiRequestRetrier.swift in Sources */,
+				59B7A8B727A82971001F5D8F /* Observable+Batch.swift in Sources */,
+				59B7A88127A82971001F5D8F /* CacheRepository.swift in Sources */,
+				59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */,
+				59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */,
+				59B7A8A927A82971001F5D8F /* Logger.swift in Sources */,
+				59B7AA2A27A844AB001F5D8F /* BaseURLRequestAdapter.swift in Sources */,
+				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
+				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
+				59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */,
+				59B7A88527A82971001F5D8F /* VoidDataSource.swift in Sources */,
+				59B7A8A427A82971001F5D8F /* Operation.swift in Sources */,
+				59B7A8CA27A82971001F5D8F /* VastraStrategy.swift in Sources */,
+				59B7A8B427A82971001F5D8F /* Observable+Optionals.swift in Sources */,
+				59B7A88027A82971001F5D8F /* AnyDataSource.swift in Sources */,
+				59B7A8C427A82971001F5D8F /* Future+Optionals.swift in Sources */,
+				59B7A8BA27A82971001F5D8F /* Future+Extensions.swift in Sources */,
+				59B7A88627A82971001F5D8F /* InteractorDelete.swift in Sources */,
+				59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */,
+				59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */,
+				59B7A8A127A82971001F5D8F /* TimedCacheDataSource.swift in Sources */,
+				59B7A89827A82971001F5D8F /* AnyGetDataSource.swift in Sources */,
+				59B7A8B027A82971001F5D8F /* ScopeLock.swift in Sources */,
+				59B7A89C27A82971001F5D8F /* InteractorPut.swift in Sources */,
+				59B7A8BD27A82971001F5D8F /* Observable.swift in Sources */,
+				59B7A88C27A82971001F5D8F /* CoreError.swift in Sources */,
+				59B7A8B527A82971001F5D8F /* OperationQueueExecutor.swift in Sources */,
+				59B7A8BE27A82971001F5D8F /* Future+Operators.swift in Sources */,
+				59B7A89227A82971001F5D8F /* SingleDataSourceRepository.swift in Sources */,
+				59B7A8B827A82971001F5D8F /* Future+Batch.swift in Sources */,
+				59B7A89027A82971001F5D8F /* FileSystemStorageDataSource.swift in Sources */,
+				59B7A8BB27A82971001F5D8F /* Observable+Extensions.swift in Sources */,
+				59B7A8C927A82971001F5D8F /* VastraTimestampStrategy.swift in Sources */,
+				59B7A8AA27A82971001F5D8F /* ErrorHelper.swift in Sources */,
+				59B7A8C327A82971001F5D8F /* DispatchQueueExecutor.swift in Sources */,
+				59B7A89627A82971001F5D8F /* UserDefaultsGetInteractor.swift in Sources */,
+				59B7A87F27A82971001F5D8F /* Query.swift in Sources */,
+				59B7A8BF27A82971001F5D8F /* Observable+Time.swift in Sources */,
+				59B7A89A27A82971001F5D8F /* DataSource.swift in Sources */,
+				59B7A89527A82971001F5D8F /* DataSourceValidator.swift in Sources */,
+				59B7A8B127A82971001F5D8F /* Executor.swift in Sources */,
+				59B7A89327A82971001F5D8F /* RetryRepository.swift in Sources */,
+				59B7A89E27A82971001F5D8F /* RepositoryAssembler.swift in Sources */,
+				59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59B7A81827A827F7001F5D8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		59B7A81F27A827F7001F5D8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59B7A81127A827F6001F5D8F /* Harmony */;
+			targetProxy = 59B7A81E27A827F7001F5D8F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		59B7A82427A827F7001F5D8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		59B7A82527A827F7001F5D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		59B7A82727A827F7001F5D8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		59B7A82827A827F7001F5D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		59B7A82A27A827F7001F5D8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		59B7A82B27A827F7001F5D8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		59B7A80C27A827F6001F5D8F /* Build configuration list for PBXProject "Harmony" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59B7A82427A827F7001F5D8F /* Debug */,
+				59B7A82527A827F7001F5D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59B7A82727A827F7001F5D8F /* Debug */,
+				59B7A82827A827F7001F5D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59B7A82927A827F7001F5D8F /* Build configuration list for PBXNativeTarget "HarmonyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59B7A82A27A827F7001F5D8F /* Debug */,
+				59B7A82B27A827F7001F5D8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 59B7A80927A827F6001F5D8F /* Project object */;
+}

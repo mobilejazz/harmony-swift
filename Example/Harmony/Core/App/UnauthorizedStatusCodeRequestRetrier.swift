@@ -9,7 +9,6 @@
 import UIKit
 
 import Alamofire
-import Harmony
 
 class UnauthorizedStatusCodeRequestRetrier: RequestRetrier {
     

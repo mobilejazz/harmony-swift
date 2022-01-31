@@ -34,7 +34,6 @@
 		D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A64B229C8CE600FE6D97 /* UserDefaults+Extension.swift */; };
 		D2D9FB5B203DE7E20069AE74 /* Future+InitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */; };
 		D2D9FB5D203DEC8A0069AE74 /* Future+SetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */; };
-		D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */; };
 		D2D9FB64203DEC990069AE74 /* GCDPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */; };
 		D2D9FB65203DEC990069AE74 /* PromisesPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */; };
 		D2D9FB66203DEC990069AE74 /* FuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */; };
@@ -94,7 +93,6 @@
 		D2D1A64B229C8CE600FE6D97 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D2D9FB5A203DE7E20069AE74 /* Future+InitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future+InitTests.swift"; sourceTree = "<group>"; };
 		D2D9FB5C203DEC8A0069AE74 /* Future+SetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+SetTests.swift"; sourceTree = "<group>"; };
-		D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJFuturePerformanceTests.swift; sourceTree = "<group>"; };
 		D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDPerformanceTests.swift; sourceTree = "<group>"; };
 		D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromisesPerformanceTest.swift; sourceTree = "<group>"; };
 		D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuturePerformanceTests.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 		D2D9FB5E203DEC990069AE74 /* Performance */ = {
 			isa = PBXGroup;
 			children = (
-				D2D9FB5F203DEC990069AE74 /* MJFuturePerformanceTests.swift */,
 				D2D9FB60203DEC990069AE74 /* GCDPerformanceTests.swift */,
 				D2D9FB61203DEC990069AE74 /* PromisesPerformanceTest.swift */,
 				D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */,
@@ -505,22 +502,18 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Harmony/Harmony.framework",
+				"${BUILT_PRODUCTS_DIR}/HarmonyAlamofire/HarmonyAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MJCocoaCore/MJCocoaCore.framework",
-				"${BUILT_PRODUCTS_DIR}/MJObjection/MJObjection.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Harmony.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HarmonyAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJCocoaCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJObjection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
@@ -599,7 +592,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2D9FB63203DEC990069AE74 /* MJFuturePerformanceTests.swift in Sources */,
 				D2D9FB6A203DF2A30069AE74 /* Future+ThenTests.swift in Sources */,
 				D2D9FB68203DEE9A0069AE74 /* Future+DeallocTests.swift in Sources */,
 				D2D9FB66203DEC990069AE74 /* FuturePerformanceTests.swift in Sources */,

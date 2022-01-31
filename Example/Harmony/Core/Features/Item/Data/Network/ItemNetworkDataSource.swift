@@ -5,8 +5,8 @@
 
 import Foundation
 
-import Alamofire
 import Harmony
+import Alamofire
 
 extension ItemEntity {
     fileprivate static var fromNetworkMap : [String : String] {

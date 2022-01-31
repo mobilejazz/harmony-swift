@@ -6,9 +6,9 @@
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
-
-import Alamofire
 import Harmony
+import HarmonyAlamofire
+import Alamofire
 
 public extension DataRequest {
     /// Inserts the JSON data response into a Future
