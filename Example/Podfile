@@ -5,8 +5,8 @@ target 'Harmony_Example' do
   project 'Harmony.xcodeproj'
   
   pod 'Harmony', :path => '../'
-  pod 'HarmonyAlamofire', :path => '../'
-  
+
+  pod 'Alamofire', '~> 4.8.2'
   pod 'Kingfisher', '~> 5.3'
   pod 'PromisesSwift', '~> 1.2'
   

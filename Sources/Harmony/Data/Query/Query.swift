@@ -33,7 +33,7 @@ public class VoidQuery : Query {
 }
 
 /// A query by an id
-public class IdQuery<T> : Query, KeyQuery where T:Hashable {
+open class IdQuery<T> : Query, KeyQuery where T:Hashable {
     public let id : T
     public init(_ id: T) {
         self.id = id
@@ -53,7 +53,7 @@ public class IdQuery<T> : Query, KeyQuery where T:Hashable {
 }
 
 /// A query by an array of Ids
-public class IdsQuery<T> : Query where T:Hashable {
+open class IdsQuery<T> : Query where T:Hashable {
     public let ids : [T]
     public init(_ ids: [T]) {
         self.ids = ids
@@ -90,10 +90,10 @@ public class ObjectsQuery<T> : Query {
 }
 
 /// Abstract pagination query
-public class PaginationQuery : Query { }
+open class PaginationQuery : Query { }
 
 /// Pagination by offset and limit
-public class PaginationOffsetLimitQuery : PaginationQuery {
+open class PaginationOffsetLimitQuery : PaginationQuery {
     public let offset : Int
     public let limit : Int
     public init(_ offset : Int, _ limit : Int) {

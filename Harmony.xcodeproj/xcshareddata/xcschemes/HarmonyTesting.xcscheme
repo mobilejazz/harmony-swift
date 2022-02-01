@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59CA450F27A86B3E00983B42"
-               BuildableName = "Harmony copy.framework"
-               BlueprintName = "HarmonyAlamofire"
+               BlueprintIdentifier = "59E518AC27A9349000A18D72"
+               BuildableName = "HarmonyTesting.framework"
+               BlueprintName = "HarmonyTesting"
                ReferencedContainer = "container:Harmony.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59CA450F27A86B3E00983B42"
-            BuildableName = "Harmony copy.framework"
-            BlueprintName = "HarmonyAlamofire"
+            BlueprintIdentifier = "59E518AC27A9349000A18D72"
+            BuildableName = "HarmonyTesting.framework"
+            BlueprintName = "HarmonyTesting"
             ReferencedContainer = "container:Harmony.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

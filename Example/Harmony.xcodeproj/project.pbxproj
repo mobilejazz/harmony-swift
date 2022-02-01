@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28AF537B2163B833EC6C0B4B /* Pods_Harmony_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3C4C5394749FA7C6E0804C /* Pods_Harmony_Tests.framework */; };
+		5962B12B27A95230008B0EFF /* MultiRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */; };
+		5962B12C27A95230008B0EFF /* URLLoggerRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */; };
+		5962B12D27A95230008B0EFF /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12827A95230008B0EFF /* Alamofire+Future.swift */; };
+		5962B12E27A95230008B0EFF /* MultiRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */; };
+		5962B12F27A95230008B0EFF /* BaseURLRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */; };
+		9C04814BF1013F284093DDE1 /* Pods_Harmony_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3540F60CC991FD8F3A9C3329 /* Pods_Harmony_Example.framework */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
 		D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23CDCAF2253716B001C1914 /* AppDelegate.swift */; };
-		D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274014922CF68E500CA9054 /* Alamofire+Future.swift */; };
 		D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */; };
 		D2A30D8E2608B9F8008FEFBB /* ApplicationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D8D2608B9F8008FEFBB /* ApplicationProvider.swift */; };
 		D2A30D922608BA48008FEFBB /* ItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A30D912608BA48008FEFBB /* ItemProvider.swift */; };
@@ -39,7 +43,7 @@
 		D2D9FB66203DEC990069AE74 /* FuturePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB62203DEC990069AE74 /* FuturePerformanceTests.swift */; };
 		D2D9FB68203DEE9A0069AE74 /* Future+DeallocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB67203DEE9A0069AE74 /* Future+DeallocTests.swift */; };
 		D2D9FB6A203DF2A30069AE74 /* Future+ThenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D9FB69203DF2A30069AE74 /* Future+ThenTests.swift */; };
-		FB2E13C7365C2551A218225B /* Pods_Harmony_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19AE815CE691FC451E29B5A4 /* Pods_Harmony_Example.framework */; };
+		EE1CAB43F410A2FCAA8B0923 /* Pods_Harmony_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09FF7289E20678A6E8DF19A /* Pods_Harmony_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,20 +58,24 @@
 
 /* Begin PBXFileReference section */
 		1867765D8101E13AA1A34DF9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		19AE815CE691FC451E29B5A4 /* Pods_Harmony_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Harmony_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B3307F60C372818A04F786E /* Pods-Harmony_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Harmony_Tests/Pods-Harmony_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		291B699DD5DD1B0C680CA3CD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		3C3C4C5394749FA7C6E0804C /* Pods_Harmony_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Harmony_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E0C7CF0AAB1806D30913074 /* Pods-Harmony_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Harmony_Tests/Pods-Harmony_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A9337E9BF8D4BAC136CDA76 /* Pods-Harmony_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Harmony_Tests/Pods-Harmony_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		3540F60CC991FD8F3A9C3329 /* Pods_Harmony_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Harmony_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EE762930EB8F17CD8641C23 /* Pods-Harmony_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Example.debug.xcconfig"; path = "Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/MultiRequestAdapter.swift"; sourceTree = "<group>"; };
+		5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLLoggerRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/URLLoggerRequestAdapter.swift"; sourceTree = "<group>"; };
+		5962B12827A95230008B0EFF /* Alamofire+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Alamofire+Future.swift"; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/Alamofire+Future.swift"; sourceTree = "<group>"; };
+		5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiRequestRetrier.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/MultiRequestRetrier.swift"; sourceTree = "<group>"; };
+		5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseURLRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/BaseURLRequestAdapter.swift"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Harmony_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACE51AFB9204008FA782 /* Harmony_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Harmony_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96F94FC2C290C88828F146D1 /* Pods-Harmony_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example.release.xcconfig"; sourceTree = "<group>"; };
-		9F2F4C61EFD7B6AEBFF0F344 /* Pods-Harmony_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		662500F3BFC094E72462843C /* Pods-Harmony_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Example.release.xcconfig"; path = "Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A09FF7289E20678A6E8DF19A /* Pods_Harmony_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Harmony_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B335DD9C541079FE969BC2A6 /* Pods-Harmony_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Tests.release.xcconfig"; path = "Target Support Files/Pods-Harmony_Tests/Pods-Harmony_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		D22A0B9E2035C91F0026068F /* Harmony_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Harmony_Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		D22A0BA52035CD580026068F /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		D23CDCAF2253716B001C1914 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D274014922CF68E500CA9054 /* Alamofire+Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
 		D291C8F6224E373400E1A90C /* Harmony.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; name = Harmony.podspec; path = ../Harmony.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D2A30D862608B7CE008FEFBB /* GetAllItemsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllItemsInteractor.swift; sourceTree = "<group>"; };
 		D2A30D8D2608B9F8008FEFBB /* ApplicationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationProvider.swift; sourceTree = "<group>"; };
@@ -105,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB2E13C7365C2551A218225B /* Pods_Harmony_Example.framework in Frameworks */,
+				9C04814BF1013F284093DDE1 /* Pods_Harmony_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AF537B2163B833EC6C0B4B /* Pods_Harmony_Tests.framework in Frameworks */,
+				EE1CAB43F410A2FCAA8B0923 /* Pods_Harmony_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,8 +135,8 @@
 				607FACD21AFB9204008FA782 /* Example for Harmony */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
-				85FD6761179C6CF4C225D864 /* Pods */,
-				791C6BB9343EB15E76D80444 /* Frameworks */,
+				992929BF7E03D17F975B1460 /* Pods */,
+				8F8BF6F5687EC8153A1A8585 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,24 +206,25 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		791C6BB9343EB15E76D80444 /* Frameworks */ = {
+		8F8BF6F5687EC8153A1A8585 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				19AE815CE691FC451E29B5A4 /* Pods_Harmony_Example.framework */,
-				3C3C4C5394749FA7C6E0804C /* Pods_Harmony_Tests.framework */,
+				3540F60CC991FD8F3A9C3329 /* Pods_Harmony_Example.framework */,
+				A09FF7289E20678A6E8DF19A /* Pods_Harmony_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		85FD6761179C6CF4C225D864 /* Pods */ = {
+		992929BF7E03D17F975B1460 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9F2F4C61EFD7B6AEBFF0F344 /* Pods-Harmony_Example.debug.xcconfig */,
-				96F94FC2C290C88828F146D1 /* Pods-Harmony_Example.release.xcconfig */,
-				4E0C7CF0AAB1806D30913074 /* Pods-Harmony_Tests.debug.xcconfig */,
-				1B3307F60C372818A04F786E /* Pods-Harmony_Tests.release.xcconfig */,
+				3EE762930EB8F17CD8641C23 /* Pods-Harmony_Example.debug.xcconfig */,
+				662500F3BFC094E72462843C /* Pods-Harmony_Example.release.xcconfig */,
+				2A9337E9BF8D4BAC136CDA76 /* Pods-Harmony_Tests.debug.xcconfig */,
+				B335DD9C541079FE969BC2A6 /* Pods-Harmony_Tests.release.xcconfig */,
 			);
 			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		D2A30D852608B7C5008FEFBB /* Interactors */ = {
@@ -268,7 +277,11 @@
 		D2A30DA22608C2AD008FEFBB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				D274014922CF68E500CA9054 /* Alamofire+Future.swift */,
+				5962B12827A95230008B0EFF /* Alamofire+Future.swift */,
+				5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */,
+				5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */,
+				5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */,
+				5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -397,11 +410,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Harmony_Example" */;
 			buildPhases = (
-				D655CECD9D2D96C417B8E013 /* [CP] Check Pods Manifest.lock */,
+				D2EE8E28835A54D9D9144C0E /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				03C9AEE3DA12D5762EDCE73E /* [CP] Embed Pods Frameworks */,
+				6CBD4C25A6608C0F846776F3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -416,7 +429,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "Harmony_Tests" */;
 			buildPhases = (
-				FFE16D9A6616A820091B460A /* [CP] Check Pods Manifest.lock */,
+				B745D6C028C7B6E6DCAC6B74 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -495,15 +508,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03C9AEE3DA12D5762EDCE73E /* [CP] Embed Pods Frameworks */ = {
+		6CBD4C25A6608C0F846776F3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Harmony/Harmony.framework",
-				"${BUILT_PRODUCTS_DIR}/HarmonyAlamofire/HarmonyAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesSwift/Promises.framework",
@@ -511,8 +524,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Harmony.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HarmonyAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promises.framework",
@@ -523,36 +536,44 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D655CECD9D2D96C417B8E013 /* [CP] Check Pods Manifest.lock */ = {
+		B745D6C028C7B6E6DCAC6B74 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Harmony_Example-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Harmony_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFE16D9A6616A820091B460A /* [CP] Check Pods Manifest.lock */ = {
+		D2EE8E28835A54D9D9144C0E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Harmony_Tests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Harmony_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -566,14 +587,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5962B12E27A95230008B0EFF /* MultiRequestRetrier.swift in Sources */,
 				D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */,
+				5962B12B27A95230008B0EFF /* MultiRequestAdapter.swift in Sources */,
 				D2A5FEBB224E3BC200693305 /* ItemMapper.swift in Sources */,
 				D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */,
 				D2A30D8E2608B9F8008FEFBB /* ApplicationProvider.swift in Sources */,
 				D2A5FEC3224E3BC200693305 /* Item.swift in Sources */,
 				D2A30DA72608C363008FEFBB /* ItemListPresenter.swift in Sources */,
+				5962B12C27A95230008B0EFF /* URLLoggerRequestAdapter.swift in Sources */,
 				D2A5FEC7224E3BC200693305 /* ItemCell.swift in Sources */,
-				D274014A22CF68E500CA9054 /* Alamofire+Future.swift in Sources */,
 				D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */,
 				D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */,
 				D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */,
@@ -583,7 +606,9 @@
 				D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */,
 				D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */,
 				D2A30DC12608CB74008FEFBB /* ItemDetailPresenter.swift in Sources */,
+				5962B12D27A95230008B0EFF /* Alamofire+Future.swift in Sources */,
 				D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */,
+				5962B12F27A95230008B0EFF /* BaseURLRequestAdapter.swift in Sources */,
 				D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -742,7 +767,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F2F4C61EFD7B6AEBFF0F344 /* Pods-Harmony_Example.debug.xcconfig */;
+			baseConfigurationReference = 3EE762930EB8F17CD8641C23 /* Pods-Harmony_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -761,7 +786,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96F94FC2C290C88828F146D1 /* Pods-Harmony_Example.release.xcconfig */;
+			baseConfigurationReference = 662500F3BFC094E72462843C /* Pods-Harmony_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -779,7 +804,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E0C7CF0AAB1806D30913074 /* Pods-Harmony_Tests.debug.xcconfig */;
+			baseConfigurationReference = 2A9337E9BF8D4BAC136CDA76 /* Pods-Harmony_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 9YHGX7ST8H;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -803,7 +828,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B3307F60C372818A04F786E /* Pods-Harmony_Tests.release.xcconfig */;
+			baseConfigurationReference = B335DD9C541079FE969BC2A6 /* Pods-Harmony_Tests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 9YHGX7ST8H;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -20,7 +20,7 @@ extension Interactor {
     ///
     /// Generic put object by query interactor
     ///
-    public class PutByQuery<T> {
+    open class PutByQuery<T> {
         
         private let executor : Executor
         private let repository: AnyPutRepository<T>
@@ -31,7 +31,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: query, operation: operation))
@@ -39,7 +39,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ value: T?, forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        open func execute<K>(_ value: T?, forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, forId: id, operation: operation))
@@ -50,8 +50,8 @@ extension Interactor {
     ///
     /// Generic put object interactor
     ///
-    public class Put<T> {
-        
+    open class Put<T> {
+
         private let query : Query
         private let executor : Executor
         private let repository: AnyPutRepository<T>
@@ -67,7 +67,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ value: T? = nil, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(_ value: T? = nil, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: self.query, operation: operation))
@@ -78,7 +78,7 @@ extension Interactor {
     ///
     /// Generic put objects by query interactor
     ///
-    public class PutAllByQuery<T> {
+    open class PutAllByQuery<T> {
         
         private let executor : Executor
         private let repository: AnyPutRepository<T>
@@ -89,7 +89,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ array: [T] = [], query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(_ array: [T] = [], query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: query, operation: operation))
@@ -97,7 +97,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
+        open func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, forId: id, operation: operation))
@@ -108,7 +108,7 @@ extension Interactor {
     ///
     /// Generic put objects interactor
     ///
-    public class PutAll<T> {
+    open class PutAll<T> {
         
         private let query : Query
         private let executor : Executor
@@ -125,7 +125,7 @@ extension Interactor {
         }
         
         @discardableResult
-        public func execute(_ array: [T] = [], _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(_ array: [T] = [], _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: self.query, operation: operation))

@@ -1,7 +1,6 @@
 PODS:
+  - Alamofire (4.8.2)
   - Harmony (2.0.0)
-  - HarmonyAlamofire (2.0.0):
-    - Harmony (~> 2.0.0)
   - Kingfisher (5.3.1)
   - PromisesObjC (1.2.7)
   - PromisesSwift (1.2.7):
@@ -11,14 +10,15 @@ PODS:
   - SQLite.swift/standard (0.11.5)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.8.2)
   - Harmony (from `../`)
-  - HarmonyAlamofire (from `../`)
   - Kingfisher (~> 5.3)
   - PromisesSwift (~> 1.2)
   - SQLite.swift
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Kingfisher
     - PromisesObjC
     - PromisesSwift
@@ -27,17 +27,15 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Harmony:
     :path: "../"
-  HarmonyAlamofire:
-    :path: "../"
 
 SPEC CHECKSUMS:
-  Harmony: a527fea714bf3f7814856204264699b6b7e424fd
-  HarmonyAlamofire: d76aaaa872e83faca05943aed07a0f2f477cf69c
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Harmony: e904906d1a2f252897694187f2552423c3401218
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   PromisesObjC: 7b28ddd1e78cce8f80f1ada927d2217663a9c672
   PromisesSwift: b27f410f9ea693753cfd4cfd8ac1c60a471f137b
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
 
-PODFILE CHECKSUM: e77834ae8891dcd04f01f70dfe029179eaaad20e
+PODFILE CHECKSUM: a14c4ff1775f75b7c1a7e0ff6d5dda58856955ad
 
 COCOAPODS: 1.11.2

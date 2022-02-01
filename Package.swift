@@ -13,29 +13,18 @@ let package = Package(
             targets: ["Harmony"]
         ),
         .library(
-            name: "HarmonyAlamofire",
-            targets: ["HarmonyAlamofire"]
-        ),
-    ],
-    dependencies: [
-        .package(
-            url: "https://github.com/Alamofire/Alamofire.git",
-            .exact("4.8.2")
+            name: "HarmonyTesting",
+            targets: ["HarmonyTesting"]
         )
     ],
     targets: [
         .target(
             name: "Harmony",
-            dependencies: [],
-            path: "Sources/Core"
+            dependencies: []
         ),
         .target(
-            name: "HarmonyAlamofire",
-            dependencies: [
-                .product(name: "Alamofire", package: "Alamofire"),
-                .target(name: "Harmony"),
-            ],
-            path: "Sources/Alamofire"
+            name: "HarmonyTesting",
+            dependencies: [.target(name: "Harmony")]
         ),
         .testTarget(
             name: "HarmonyTests",

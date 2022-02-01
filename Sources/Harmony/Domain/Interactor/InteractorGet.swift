@@ -20,7 +20,7 @@ extension Interactor {
     ///
     /// Generic get object interactor
     ///
-    public class GetByQuery<T> {
+    open class GetByQuery<T> {
         
         private let executor : Executor
         private let repository: AnyGetRepository<T>
@@ -30,14 +30,14 @@ extension Interactor {
             self.repository = repository.asAnyGetRepository()
         }
         
-        public func execute(_ query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(_ query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(query, operation: operation))
             }
         }
         
-        public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(id, operation: operation))
@@ -48,7 +48,7 @@ extension Interactor {
     ///
     /// Generic get object interactor with a prefilled query
     ///
-    public class Get<T> {
+    open class Get<T> {
         
         private let query : Query
         private let executor : Executor
@@ -64,7 +64,7 @@ extension Interactor {
             self.init(executor, repository, IdQuery(id))
         }
         
-        public func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.get(self.query, operation: operation))
@@ -75,7 +75,7 @@ extension Interactor {
     ///
     /// Generic get objects interactor
     ///
-    public class GetAllByQuery<T> {
+    open class GetAllByQuery<T> {
         
         private let executor : Executor
         private let repository: AnyGetRepository<T>
@@ -85,14 +85,14 @@ extension Interactor {
             self.repository = repository.asAnyGetRepository()
         }
         
-        public func execute(_ query: Query = AllObjectsQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(_ query: Query = AllObjectsQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.getAll(query, operation: operation))
             }
         }
         
-        public func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
+        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.getAll(id, operation: operation))
@@ -103,7 +103,7 @@ extension Interactor {
     ///
     /// Generic get all objects interactor
     ///
-    public class GetAll<T> {
+    open class GetAll<T> {
         
         private let query : Query
         private let executor : Executor
@@ -119,7 +119,7 @@ extension Interactor {
             self.init(executor, repository, IdQuery(id))
         }
         
-        public func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.getAll(self.query, operation: operation))
