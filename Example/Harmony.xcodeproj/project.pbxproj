@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5962B12B27A95230008B0EFF /* MultiRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */; };
-		5962B12C27A95230008B0EFF /* URLLoggerRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */; };
-		5962B12D27A95230008B0EFF /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12827A95230008B0EFF /* Alamofire+Future.swift */; };
-		5962B12E27A95230008B0EFF /* MultiRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */; };
-		5962B12F27A95230008B0EFF /* BaseURLRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */; };
+		5901221327AA837800D4D9CD /* URLLoggerRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901220D27AA837800D4D9CD /* URLLoggerRequestAdapter.swift */; };
+		5901221427AA837800D4D9CD /* BaseURLRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */; };
+		5901221527AA837800D4D9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901220F27AA837800D4D9CD /* ContainerViewController.swift */; };
+		5901221627AA837800D4D9CD /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221027AA837800D4D9CD /* Alamofire+Future.swift */; };
+		5901221727AA837800D4D9CD /* MultiRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */; };
+		5901221827AA837900D4D9CD /* MultiRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */; };
 		9C04814BF1013F284093DDE1 /* Pods_Harmony_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3540F60CC991FD8F3A9C3329 /* Pods_Harmony_Example.framework */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
 		D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23CDCAF2253716B001C1914 /* AppDelegate.swift */; };
@@ -62,11 +63,12 @@
 		2A9337E9BF8D4BAC136CDA76 /* Pods-Harmony_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Harmony_Tests/Pods-Harmony_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		3540F60CC991FD8F3A9C3329 /* Pods_Harmony_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Harmony_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE762930EB8F17CD8641C23 /* Pods-Harmony_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Harmony_Example.debug.xcconfig"; path = "Target Support Files/Pods-Harmony_Example/Pods-Harmony_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/MultiRequestAdapter.swift"; sourceTree = "<group>"; };
-		5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLLoggerRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/URLLoggerRequestAdapter.swift"; sourceTree = "<group>"; };
-		5962B12827A95230008B0EFF /* Alamofire+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Alamofire+Future.swift"; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/Alamofire+Future.swift"; sourceTree = "<group>"; };
-		5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiRequestRetrier.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/MultiRequestRetrier.swift"; sourceTree = "<group>"; };
-		5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseURLRequestAdapter.swift; path = "../../../../../harmony-swift copy/Harmony/Classes/Alamofire/BaseURLRequestAdapter.swift"; sourceTree = "<group>"; };
+		5901220D27AA837800D4D9CD /* URLLoggerRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLLoggerRequestAdapter.swift; sourceTree = "<group>"; };
+		5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLRequestAdapter.swift; sourceTree = "<group>"; };
+		5901220F27AA837800D4D9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		5901221027AA837800D4D9CD /* Alamofire+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
+		5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestRetrier.swift; sourceTree = "<group>"; };
+		5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestAdapter.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Harmony_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACE51AFB9204008FA782 /* Harmony_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Harmony_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -223,7 +225,6 @@
 				2A9337E9BF8D4BAC136CDA76 /* Pods-Harmony_Tests.debug.xcconfig */,
 				B335DD9C541079FE969BC2A6 /* Pods-Harmony_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -277,11 +278,12 @@
 		D2A30DA22608C2AD008FEFBB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				5962B12827A95230008B0EFF /* Alamofire+Future.swift */,
-				5962B12A27A95230008B0EFF /* BaseURLRequestAdapter.swift */,
-				5962B12627A95230008B0EFF /* MultiRequestAdapter.swift */,
-				5962B12927A95230008B0EFF /* MultiRequestRetrier.swift */,
-				5962B12727A95230008B0EFF /* URLLoggerRequestAdapter.swift */,
+				5901221027AA837800D4D9CD /* Alamofire+Future.swift */,
+				5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */,
+				5901220F27AA837800D4D9CD /* ContainerViewController.swift */,
+				5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */,
+				5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */,
+				5901220D27AA837800D4D9CD /* URLLoggerRequestAdapter.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -587,28 +589,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5962B12E27A95230008B0EFF /* MultiRequestRetrier.swift in Sources */,
+				5901221727AA837800D4D9CD /* MultiRequestRetrier.swift in Sources */,
 				D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */,
-				5962B12B27A95230008B0EFF /* MultiRequestAdapter.swift in Sources */,
 				D2A5FEBB224E3BC200693305 /* ItemMapper.swift in Sources */,
+				5901221427AA837800D4D9CD /* BaseURLRequestAdapter.swift in Sources */,
 				D2A5FEB6224E3BC200693305 /* ItemNetworkDataSource.swift in Sources */,
 				D2A30D8E2608B9F8008FEFBB /* ApplicationProvider.swift in Sources */,
 				D2A5FEC3224E3BC200693305 /* Item.swift in Sources */,
 				D2A30DA72608C363008FEFBB /* ItemListPresenter.swift in Sources */,
-				5962B12C27A95230008B0EFF /* URLLoggerRequestAdapter.swift in Sources */,
 				D2A5FEC7224E3BC200693305 /* ItemCell.swift in Sources */,
 				D2A5FEBC224E3BC200693305 /* ItemEntity.swift in Sources */,
 				D2A5FEC1224E3BC200693305 /* UnauthorizedStatusCodeRequestRetrier.swift in Sources */,
 				D2A5FEC2224E3BC200693305 /* OAuth2RetryHandler.swift in Sources */,
+				5901221327AA837800D4D9CD /* URLLoggerRequestAdapter.swift in Sources */,
 				D2A5FEC9224E3BC200693305 /* ItemListViewController.swift in Sources */,
 				D2A30D922608BA48008FEFBB /* ItemProvider.swift in Sources */,
 				D2A5FECB224E3BC200693305 /* ItemDetailViewController.swift in Sources */,
 				D2A5FEB7224E3BC200693305 /* ItemQuery.swift in Sources */,
+				5901221827AA837900D4D9CD /* MultiRequestAdapter.swift in Sources */,
+				5901221527AA837800D4D9CD /* ContainerViewController.swift in Sources */,
 				D2D1A64C229C8CE600FE6D97 /* UserDefaults+Extension.swift in Sources */,
 				D2A30DC12608CB74008FEFBB /* ItemDetailPresenter.swift in Sources */,
-				5962B12D27A95230008B0EFF /* Alamofire+Future.swift in Sources */,
+				5901221627AA837800D4D9CD /* Alamofire+Future.swift in Sources */,
 				D2A30D872608B7CE008FEFBB /* GetAllItemsInteractor.swift in Sources */,
-				5962B12F27A95230008B0EFF /* BaseURLRequestAdapter.swift in Sources */,
 				D2A5FEC5224E3BC200693305 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
