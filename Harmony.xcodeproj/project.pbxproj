@@ -17,7 +17,6 @@
 		5932E95E27A9473400253261 /* MockInteractorGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191F27A9462600A18D72 /* MockInteractorGet.swift */; };
 		5932E95F27A9473400253261 /* MockInteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192027A9462600A18D72 /* MockInteractorPut.swift */; };
 		5962B12327A951D8008B0EFF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; };
-		5962B12427A951D8008B0EFF /* Security.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		59881E7C27A9DC9500D92121 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59881E7B27A9DC9500D92121 /* TestUtils.swift */; };
 		59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
 		59B7A87F27A82971001F5D8F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A82F27A82971001F5D8F /* Query.swift */; };
@@ -101,6 +100,98 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
+		D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
+		D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
+		D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84D27A82971001F5D8F /* DataSourceMapper.swift */; };
+		D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86027A82971001F5D8F /* DeviceConsoleLogger.swift */; };
+		D2D2163A27AC280A00A104B8 /* Mapper+NSCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84927A82971001F5D8F /* Mapper+NSCoding.swift */; };
+		D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85E27A82971001F5D8F /* JSONDecoding.swift */; };
+		D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87727A82971001F5D8F /* ExecutorFactory.swift */; };
+		D2D2163D27AC280A00A104B8 /* VastraValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87E27A82971001F5D8F /* VastraValidationStrategy.swift */; };
+		D2D2163E27AC280A00A104B8 /* VastraReachabilityStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87927A82971001F5D8F /* VastraReachabilityStrategy.swift */; };
+		D2D2163F27AC280A00A104B8 /* KeychainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1527A83966001F5D8F /* KeychainDataSource.swift */; };
+		D2D2164027AC280A00A104B8 /* Future+Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87327A82971001F5D8F /* Future+Functional.swift */; };
+		D2D2164127AC280A00A104B8 /* Mapper+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83A27A82971001F5D8F /* Mapper+Codable.swift */; };
+		D2D2164227AC280A00A104B8 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84127A82971001F5D8F /* Interactor.swift */; };
+		D2D2164327AC280A00A104B8 /* CodingKeyStrategies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85C27A82971001F5D8F /* CodingKeyStrategies.swift */; };
+		D2D2164427AC280A00A104B8 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84727A82971001F5D8F /* Repository.swift */; };
+		D2D2164527AC280A00A104B8 /* AnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84427A82971001F5D8F /* AnyGetRepository.swift */; };
+		D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87227A82971001F5D8F /* Observable+Functional.swift */; };
+		D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83E27A82971001F5D8F /* AnyPutDataSource.swift */; };
+		D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85627A82971001F5D8F /* MutableCodingKey.swift */; };
+		D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
+		D2D2164A27AC280A00A104B8 /* DataSourceAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */; };
+		D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86E27A82971001F5D8F /* DirectExecutor.swift */; };
+		D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83727A82971001F5D8F /* AnyRepository.swift */; };
+		D2D2164D27AC280A00A104B8 /* ObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85227A82971001F5D8F /* ObjectValidation.swift */; };
+		D2D2164E27AC280A00A104B8 /* Executor+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87427A82971001F5D8F /* Executor+Future.swift */; };
+		D2D2164F27AC280A00A104B8 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84F27A82971001F5D8F /* Mapper.swift */; };
+		D2D2165027AC280A00A104B8 /* ObservableHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86427A82971001F5D8F /* ObservableHub.swift */; };
+		D2D2165127AC280A00A104B8 /* VoidRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83827A82971001F5D8F /* VoidRepository.swift */; };
+		D2D2165227AC280A00A104B8 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85727A82971001F5D8F /* String+Extensions.swift */; };
+		D2D2165327AC280A00A104B8 /* ClassError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85327A82971001F5D8F /* ClassError.swift */; };
+		D2D2165427AC280A00A104B8 /* KeychainSetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1327A83966001F5D8F /* KeychainSetInteractor.swift */; };
+		D2D2165527AC280A00A104B8 /* InMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83F27A82971001F5D8F /* InMemoryDataSource.swift */; };
+		D2D2165627AC280A00A104B8 /* RetryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83B27A82971001F5D8F /* RetryDataSource.swift */; };
+		D2D2165727AC280A00A104B8 /* VastraInvalidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87B27A82971001F5D8F /* VastraInvalidationStrategy.swift */; };
+		D2D2165827AC280A00A104B8 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1427A83966001F5D8F /* KeychainService.swift */; };
+		D2D2165927AC280A00A104B8 /* RepositoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83D27A82971001F5D8F /* RepositoryMapper.swift */; };
+		D2D2165A27AC280A00A104B8 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86527A82971001F5D8F /* Future.swift */; };
+		D2D2165B27AC280A00A104B8 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85F27A82971001F5D8F /* Data+Extensions.swift */; };
+		D2D2165C27AC280A00A104B8 /* DeviceStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */; };
+		D2D2165D27AC280A00A104B8 /* Observable+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86927A82971001F5D8F /* Observable+Batch.swift */; };
+		D2D2165E27AC280A00A104B8 /* CacheRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83127A82971001F5D8F /* CacheRepository.swift */; };
+		D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87A27A82971001F5D8F /* VastraService.swift */; };
+		D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84B27A82971001F5D8F /* InteractorGet.swift */; };
+		D2D2166127AC280A00A104B8 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85A27A82971001F5D8F /* Logger.swift */; };
+		D2D2166227AC280A00A104B8 /* Collections+Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86827A82971001F5D8F /* Collections+Executor.swift */; };
+		D2D2166327AC280A00A104B8 /* DebugDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85027A82971001F5D8F /* DebugDataSource.swift */; };
+		D2D2166427AC280A00A104B8 /* AnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83927A82971001F5D8F /* AnyPutRepository.swift */; };
+		D2D2166527AC280A00A104B8 /* VoidDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83527A82971001F5D8F /* VoidDataSource.swift */; };
+		D2D2166627AC280A00A104B8 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85427A82971001F5D8F /* Operation.swift */; };
+		D2D2166727AC280A00A104B8 /* VastraStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87D27A82971001F5D8F /* VastraStrategy.swift */; };
+		D2D2166827AC280A00A104B8 /* Observable+Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86627A82971001F5D8F /* Observable+Optionals.swift */; };
+		D2D2166927AC280A00A104B8 /* AnyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83027A82971001F5D8F /* AnyDataSource.swift */; };
+		D2D2166A27AC280A00A104B8 /* Future+Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87627A82971001F5D8F /* Future+Optionals.swift */; };
+		D2D2166B27AC280A00A104B8 /* Future+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86C27A82971001F5D8F /* Future+Extensions.swift */; };
+		D2D2166C27AC280A00A104B8 /* InteractorDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83627A82971001F5D8F /* InteractorDelete.swift */; };
+		D2D2166D27AC280A00A104B8 /* KeyValueObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85D27A82971001F5D8F /* KeyValueObserver.swift */; };
+		D2D2166E27AC280A00A104B8 /* ScopeLockFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85827A82971001F5D8F /* ScopeLockFuture.swift */; };
+		D2D2166F27AC280A00A104B8 /* TimedCacheDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85127A82971001F5D8F /* TimedCacheDataSource.swift */; };
+		D2D2167027AC280A00A104B8 /* AnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84827A82971001F5D8F /* AnyGetDataSource.swift */; };
+		D2D2167127AC280A00A104B8 /* ScopeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86127A82971001F5D8F /* ScopeLock.swift */; };
+		D2D2167227AC280A00A104B8 /* InteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84C27A82971001F5D8F /* InteractorPut.swift */; };
+		D2D2167327AC280A00A104B8 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86F27A82971001F5D8F /* Observable.swift */; };
+		D2D2167427AC280A00A104B8 /* CoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83C27A82971001F5D8F /* CoreError.swift */; };
+		D2D2167527AC280A00A104B8 /* OperationQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86727A82971001F5D8F /* OperationQueueExecutor.swift */; };
+		D2D2167627AC280A00A104B8 /* Future+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87027A82971001F5D8F /* Future+Operators.swift */; };
+		D2D2167727AC280A00A104B8 /* SingleDataSourceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84227A82971001F5D8F /* SingleDataSourceRepository.swift */; };
+		D2D2167827AC280A00A104B8 /* Future+Batch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86A27A82971001F5D8F /* Future+Batch.swift */; };
+		D2D2167927AC280A00A104B8 /* FileSystemStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84027A82971001F5D8F /* FileSystemStorageDataSource.swift */; };
+		D2D2167A27AC280A00A104B8 /* Observable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86D27A82971001F5D8F /* Observable+Extensions.swift */; };
+		D2D2167B27AC280A00A104B8 /* VastraTimestampStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87C27A82971001F5D8F /* VastraTimestampStrategy.swift */; };
+		D2D2167C27AC280A00A104B8 /* ErrorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85B27A82971001F5D8F /* ErrorHelper.swift */; };
+		D2D2167D27AC280A00A104B8 /* DispatchQueueExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87527A82971001F5D8F /* DispatchQueueExecutor.swift */; };
+		D2D2167E27AC280A00A104B8 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A82F27A82971001F5D8F /* Query.swift */; };
+		D2D2167F27AC280A00A104B8 /* Observable+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A87127A82971001F5D8F /* Observable+Time.swift */; };
+		D2D2168027AC280A00A104B8 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84A27A82971001F5D8F /* DataSource.swift */; };
+		D2D2168127AC280A00A104B8 /* DataSourceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84527A82971001F5D8F /* DataSourceValidator.swift */; };
+		D2D2168227AC280A00A104B8 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86327A82971001F5D8F /* Executor.swift */; };
+		D2D2168327AC280A00A104B8 /* RetryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84327A82971001F5D8F /* RetryRepository.swift */; };
+		D2D2168427AC280A00A104B8 /* RepositoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84E27A82971001F5D8F /* RepositoryAssembler.swift */; };
+		D2D2168527AC280A00A104B8 /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
+		D2D2168727AC280A00A104B8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; };
+		D2D2169227AC291200A104B8 /* MockInteractorDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192127A9462600A18D72 /* MockInteractorDelete.swift */; };
+		D2D2169327AC291200A104B8 /* MockInteractorGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191F27A9462600A18D72 /* MockInteractorGet.swift */; };
+		D2D2169427AC291200A104B8 /* MockInteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192027A9462600A18D72 /* MockInteractorPut.swift */; };
+		D2D2169527AC291200A104B8 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59881E7B27A9DC9500D92121 /* TestUtils.swift */; };
+		D2D2169627AC291200A104B8 /* UUIDObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */; };
+		D2D2169727AC291200A104B8 /* BoolObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191D27A9460A00A18D72 /* BoolObjectMother.swift */; };
+		D2D2169827AC291200A104B8 /* DoubleObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191C27A9460A00A18D72 /* DoubleObjectMother.swift */; };
+		D2D2169927AC291200A104B8 /* ErrorObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191A27A9460A00A18D72 /* ErrorObjectMother.swift */; };
+		D2D2169A27AC291200A104B8 /* StringObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192227A9462F00A18D72 /* StringObjectMother.swift */; };
+		D2D2169B27AC291200A104B8 /* IntegerObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191B27A9460A00A18D72 /* IntegerObjectModel.swift */; };
+		D2D216A327AC293600A104B8 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2D2168E27AC280A00A104B8 /* Harmony.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,21 +202,14 @@
 			remoteGlobalIDString = 59B7A81127A827F6001F5D8F;
 			remoteInfo = Harmony;
 		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5962B12527A951D8008B0EFF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5962B12427A951D8008B0EFF /* Security.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
+		D2D216A527AC293600A104B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59B7A80927A827F6001F5D8F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2D2163327AC280A00A104B8;
+			remoteInfo = "Harmony-macOS";
 		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
@@ -510,6 +594,8 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
+		D2D2168E27AC280A00A104B8 /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2D216A227AC291200A104B8 /* HarmonyTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarmonyTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,6 +620,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2168627AC280A00A104B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2D2168727AC280A00A104B8 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2169C27AC291200A104B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2D216A327AC293600A104B8 /* Harmony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +664,8 @@
 				59B7A81227A827F6001F5D8F /* Harmony.framework */,
 				59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */,
 				59E5190927A9349000A18D72 /* HarmonyTesting.framework */,
+				D2D2168E27AC280A00A104B8 /* Harmony.framework */,
+				D2D216A227AC291200A104B8 /* HarmonyTesting.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1369,24 +1473,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D2D2163427AC280A00A104B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2169027AC291200A104B8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		59B7A81127A827F6001F5D8F /* Harmony */ = {
+		59B7A81127A827F6001F5D8F /* Harmony-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony" */;
+			buildConfigurationList = 59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony-iOS" */;
 			buildPhases = (
 				59B7A80D27A827F6001F5D8F /* Headers */,
 				59B7A80E27A827F6001F5D8F /* Sources */,
 				59B7A80F27A827F6001F5D8F /* Frameworks */,
 				59B7A81027A827F6001F5D8F /* Resources */,
-				5962B12527A951D8008B0EFF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Harmony;
+			name = "Harmony-iOS";
 			productName = Harmony;
 			productReference = 59B7A81227A827F6001F5D8F /* Harmony.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1409,9 +1526,9 @@
 			productReference = 59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		59E518AC27A9349000A18D72 /* HarmonyTesting */ = {
+		59E518AC27A9349000A18D72 /* HarmonyTesting-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59E5190627A9349000A18D72 /* Build configuration list for PBXNativeTarget "HarmonyTesting" */;
+			buildConfigurationList = 59E5190627A9349000A18D72 /* Build configuration list for PBXNativeTarget "HarmonyTesting-iOS" */;
 			buildPhases = (
 				59E518AD27A9349000A18D72 /* Headers */,
 				59E518AE27A9349000A18D72 /* Sources */,
@@ -1422,9 +1539,46 @@
 			);
 			dependencies = (
 			);
-			name = HarmonyTesting;
+			name = "HarmonyTesting-iOS";
 			productName = Harmony;
 			productReference = 59E5190927A9349000A18D72 /* HarmonyTesting.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D2D2163327AC280A00A104B8 /* Harmony-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2D2168B27AC280A00A104B8 /* Build configuration list for PBXNativeTarget "Harmony-macOS" */;
+			buildPhases = (
+				D2D2163427AC280A00A104B8 /* Headers */,
+				D2D2163527AC280A00A104B8 /* Sources */,
+				D2D2168627AC280A00A104B8 /* Frameworks */,
+				D2D2168827AC280A00A104B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Harmony-macOS";
+			productName = Harmony;
+			productReference = D2D2168E27AC280A00A104B8 /* Harmony.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D2D2168F27AC291200A104B8 /* HarmonyTesting-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2D2169F27AC291200A104B8 /* Build configuration list for PBXNativeTarget "HarmonyTesting-macOS" */;
+			buildPhases = (
+				D2D2169027AC291200A104B8 /* Headers */,
+				D2D2169127AC291200A104B8 /* Sources */,
+				D2D2169C27AC291200A104B8 /* Frameworks */,
+				D2D2169E27AC291200A104B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2D216A627AC293600A104B8 /* PBXTargetDependency */,
+			);
+			name = "HarmonyTesting-macOS";
+			productName = Harmony;
+			productReference = D2D216A227AC291200A104B8 /* HarmonyTesting.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1458,9 +1612,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				59B7A81127A827F6001F5D8F /* Harmony */,
+				59B7A81127A827F6001F5D8F /* Harmony-iOS */,
 				59B7A81B27A827F7001F5D8F /* HarmonyTests */,
-				59E518AC27A9349000A18D72 /* HarmonyTesting */,
+				59E518AC27A9349000A18D72 /* HarmonyTesting-iOS */,
+				D2D2163327AC280A00A104B8 /* Harmony-macOS */,
+				D2D2168F27AC291200A104B8 /* HarmonyTesting-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1481,6 +1637,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		59E5190327A9349000A18D72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2168827AC280A00A104B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2169E27AC291200A104B8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1601,13 +1771,122 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D2D2163527AC280A00A104B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */,
+				D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */,
+				D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */,
+				D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */,
+				D2D2163A27AC280A00A104B8 /* Mapper+NSCoding.swift in Sources */,
+				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,
+				D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */,
+				D2D2163D27AC280A00A104B8 /* VastraValidationStrategy.swift in Sources */,
+				D2D2163E27AC280A00A104B8 /* VastraReachabilityStrategy.swift in Sources */,
+				D2D2163F27AC280A00A104B8 /* KeychainDataSource.swift in Sources */,
+				D2D2164027AC280A00A104B8 /* Future+Functional.swift in Sources */,
+				D2D2164127AC280A00A104B8 /* Mapper+Codable.swift in Sources */,
+				D2D2164227AC280A00A104B8 /* Interactor.swift in Sources */,
+				D2D2164327AC280A00A104B8 /* CodingKeyStrategies.swift in Sources */,
+				D2D2164427AC280A00A104B8 /* Repository.swift in Sources */,
+				D2D2164527AC280A00A104B8 /* AnyGetRepository.swift in Sources */,
+				D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */,
+				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
+				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
+				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
+				D2D2164A27AC280A00A104B8 /* DataSourceAssembler.swift in Sources */,
+				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
+				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
+				D2D2164D27AC280A00A104B8 /* ObjectValidation.swift in Sources */,
+				D2D2164E27AC280A00A104B8 /* Executor+Future.swift in Sources */,
+				D2D2164F27AC280A00A104B8 /* Mapper.swift in Sources */,
+				D2D2165027AC280A00A104B8 /* ObservableHub.swift in Sources */,
+				D2D2165127AC280A00A104B8 /* VoidRepository.swift in Sources */,
+				D2D2165227AC280A00A104B8 /* String+Extensions.swift in Sources */,
+				D2D2165327AC280A00A104B8 /* ClassError.swift in Sources */,
+				D2D2165427AC280A00A104B8 /* KeychainSetInteractor.swift in Sources */,
+				D2D2165527AC280A00A104B8 /* InMemoryDataSource.swift in Sources */,
+				D2D2165627AC280A00A104B8 /* RetryDataSource.swift in Sources */,
+				D2D2165727AC280A00A104B8 /* VastraInvalidationStrategy.swift in Sources */,
+				D2D2165827AC280A00A104B8 /* KeychainService.swift in Sources */,
+				D2D2165927AC280A00A104B8 /* RepositoryMapper.swift in Sources */,
+				D2D2165A27AC280A00A104B8 /* Future.swift in Sources */,
+				D2D2165B27AC280A00A104B8 /* Data+Extensions.swift in Sources */,
+				D2D2165C27AC280A00A104B8 /* DeviceStorageDataSource.swift in Sources */,
+				D2D2165D27AC280A00A104B8 /* Observable+Batch.swift in Sources */,
+				D2D2165E27AC280A00A104B8 /* CacheRepository.swift in Sources */,
+				D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */,
+				D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */,
+				D2D2166127AC280A00A104B8 /* Logger.swift in Sources */,
+				D2D2166227AC280A00A104B8 /* Collections+Executor.swift in Sources */,
+				D2D2166327AC280A00A104B8 /* DebugDataSource.swift in Sources */,
+				D2D2166427AC280A00A104B8 /* AnyPutRepository.swift in Sources */,
+				D2D2166527AC280A00A104B8 /* VoidDataSource.swift in Sources */,
+				D2D2166627AC280A00A104B8 /* Operation.swift in Sources */,
+				D2D2166727AC280A00A104B8 /* VastraStrategy.swift in Sources */,
+				D2D2166827AC280A00A104B8 /* Observable+Optionals.swift in Sources */,
+				D2D2166927AC280A00A104B8 /* AnyDataSource.swift in Sources */,
+				D2D2166A27AC280A00A104B8 /* Future+Optionals.swift in Sources */,
+				D2D2166B27AC280A00A104B8 /* Future+Extensions.swift in Sources */,
+				D2D2166C27AC280A00A104B8 /* InteractorDelete.swift in Sources */,
+				D2D2166D27AC280A00A104B8 /* KeyValueObserver.swift in Sources */,
+				D2D2166E27AC280A00A104B8 /* ScopeLockFuture.swift in Sources */,
+				D2D2166F27AC280A00A104B8 /* TimedCacheDataSource.swift in Sources */,
+				D2D2167027AC280A00A104B8 /* AnyGetDataSource.swift in Sources */,
+				D2D2167127AC280A00A104B8 /* ScopeLock.swift in Sources */,
+				D2D2167227AC280A00A104B8 /* InteractorPut.swift in Sources */,
+				D2D2167327AC280A00A104B8 /* Observable.swift in Sources */,
+				D2D2167427AC280A00A104B8 /* CoreError.swift in Sources */,
+				D2D2167527AC280A00A104B8 /* OperationQueueExecutor.swift in Sources */,
+				D2D2167627AC280A00A104B8 /* Future+Operators.swift in Sources */,
+				D2D2167727AC280A00A104B8 /* SingleDataSourceRepository.swift in Sources */,
+				D2D2167827AC280A00A104B8 /* Future+Batch.swift in Sources */,
+				D2D2167927AC280A00A104B8 /* FileSystemStorageDataSource.swift in Sources */,
+				D2D2167A27AC280A00A104B8 /* Observable+Extensions.swift in Sources */,
+				D2D2167B27AC280A00A104B8 /* VastraTimestampStrategy.swift in Sources */,
+				D2D2167C27AC280A00A104B8 /* ErrorHelper.swift in Sources */,
+				D2D2167D27AC280A00A104B8 /* DispatchQueueExecutor.swift in Sources */,
+				D2D2167E27AC280A00A104B8 /* Query.swift in Sources */,
+				D2D2167F27AC280A00A104B8 /* Observable+Time.swift in Sources */,
+				D2D2168027AC280A00A104B8 /* DataSource.swift in Sources */,
+				D2D2168127AC280A00A104B8 /* DataSourceValidator.swift in Sources */,
+				D2D2168227AC280A00A104B8 /* Executor.swift in Sources */,
+				D2D2168327AC280A00A104B8 /* RetryRepository.swift in Sources */,
+				D2D2168427AC280A00A104B8 /* RepositoryAssembler.swift in Sources */,
+				D2D2168527AC280A00A104B8 /* KeychainGetInteractor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2D2169127AC291200A104B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2D2169227AC291200A104B8 /* MockInteractorDelete.swift in Sources */,
+				D2D2169327AC291200A104B8 /* MockInteractorGet.swift in Sources */,
+				D2D2169427AC291200A104B8 /* MockInteractorPut.swift in Sources */,
+				D2D2169527AC291200A104B8 /* TestUtils.swift in Sources */,
+				D2D2169627AC291200A104B8 /* UUIDObjectMother.swift in Sources */,
+				D2D2169727AC291200A104B8 /* BoolObjectMother.swift in Sources */,
+				D2D2169827AC291200A104B8 /* DoubleObjectMother.swift in Sources */,
+				D2D2169927AC291200A104B8 /* ErrorObjectMother.swift in Sources */,
+				D2D2169A27AC291200A104B8 /* StringObjectMother.swift in Sources */,
+				D2D2169B27AC291200A104B8 /* IntegerObjectModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		59B7A81F27A827F7001F5D8F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 59B7A81127A827F6001F5D8F /* Harmony */;
+			target = 59B7A81127A827F6001F5D8F /* Harmony-iOS */;
 			targetProxy = 59B7A81E27A827F7001F5D8F /* PBXContainerItemProxy */;
+		};
+		D2D216A627AC293600A104B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2D2163327AC280A00A104B8 /* Harmony-macOS */;
+			targetProxy = D2D216A527AC293600A104B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1665,6 +1944,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1723,6 +2003,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1756,8 +2037,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Harmony;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1786,8 +2068,9 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = Harmony;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1860,7 +2143,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTesting;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HarmonyTesting;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1890,7 +2173,133 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTesting;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HarmonyTesting;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D2D2168C27AC280A00A104B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
+				PRODUCT_NAME = Harmony;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D2D2168D27AC280A00A104B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.Harmony;
+				PRODUCT_NAME = Harmony;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D2D216A027AC291200A104B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTesting;
+				PRODUCT_NAME = HarmonyTesting;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D2D216A127AC291200A104B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9YHGX7ST8H;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTesting;
+				PRODUCT_NAME = HarmonyTesting;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1910,7 +2319,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony" */ = {
+		59B7A82627A827F7001F5D8F /* Build configuration list for PBXNativeTarget "Harmony-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59B7A82727A827F7001F5D8F /* Debug */,
@@ -1928,11 +2337,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		59E5190627A9349000A18D72 /* Build configuration list for PBXNativeTarget "HarmonyTesting" */ = {
+		59E5190627A9349000A18D72 /* Build configuration list for PBXNativeTarget "HarmonyTesting-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59E5190727A9349000A18D72 /* Debug */,
 				59E5190827A9349000A18D72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2D2168B27AC280A00A104B8 /* Build configuration list for PBXNativeTarget "Harmony-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2D2168C27AC280A00A104B8 /* Debug */,
+				D2D2168D27AC280A00A104B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2D2169F27AC291200A104B8 /* Build configuration list for PBXNativeTarget "HarmonyTesting-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2D216A027AC291200A104B8 /* Debug */,
+				D2D216A127AC291200A104B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

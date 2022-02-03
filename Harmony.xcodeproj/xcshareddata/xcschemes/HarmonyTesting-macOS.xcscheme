@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59B7A81127A827F6001F5D8F"
-               BuildableName = "Harmony.framework"
-               BlueprintName = "Harmony"
+               BlueprintIdentifier = "D2D2168F27AC291200A104B8"
+               BuildableName = "HarmonyTesting.framework"
+               BlueprintName = "HarmonyTesting-macOS"
                ReferencedContainer = "container:Harmony.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59B7A81B27A827F7001F5D8F"
-               BuildableName = "HarmonyTests.xctest"
-               BlueprintName = "HarmonyTests"
-               ReferencedContainer = "container:Harmony.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -60,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59B7A81127A827F6001F5D8F"
-            BuildableName = "Harmony.framework"
-            BlueprintName = "Harmony"
+            BlueprintIdentifier = "D2D2168F27AC291200A104B8"
+            BuildableName = "HarmonyTesting.framework"
+            BlueprintName = "HarmonyTesting-macOS"
             ReferencedContainer = "container:Harmony.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
