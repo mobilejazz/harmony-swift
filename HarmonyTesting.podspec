@@ -33,6 +33,6 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '12.0'
 
     s.source_files = 'Sources/HarmonyTesting/**/*'
-    s.dependency 'Harmony' '~> 2.0.0'
+    s.dependency 'Harmony', '2.0.0'
 
 end
