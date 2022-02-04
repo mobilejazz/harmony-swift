@@ -155,10 +155,10 @@ public extension KeychainService {
     ///
     /// - Parameter key: The key.
     /// - Returns: The NSCoding conforming type stored in the keychain or nil.
-    func get<T>(_ key: String) -> T? where T: NSCoding {
+    func get<T>(_ key: String) -> T? where T: NSCoding, T: NSObject {
         if let data : Data = get(key) {
-            if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {
-                return (value as! T)
+            if let value = try? NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: data) {
+                return value
             } else {
                 return nil
             }
@@ -173,8 +173,8 @@ public extension KeychainService {
     ///   - key: The key.
     /// - Returns: The operation result.
     @discardableResult
-    func set<T>(_ value: T, forKey key: String) -> Result where T: NSCoding {
-        let data = NSKeyedArchiver.archivedData(withRootObject: value)
+    func set<T>(_ value: T, forKey key: String) throws -> Result where T: NSCoding {
+        let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
         return set(data, forKey: key)
     }
 }

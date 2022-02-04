@@ -18,12 +18,12 @@ import Foundation
 
 public class NSCodingToDataMapper <T:NSCoding> : Mapper <T, Data> {
     public override func map(_ from: T) -> Data {
-        return NSKeyedArchiver.archivedData(withRootObject: from)
+        return try! NSKeyedArchiver.archivedData(withRootObject: from, requiringSecureCoding: false)
     }
 }
 
-public class DataToNSCodingMapper <T:NSCoding> : Mapper <Data, T> {
+public class DataToNSCodingMapper <T:NSCoding> : Mapper <Data, T> where T:NSObject {
     public override func map(_ from: Data) -> T {
-        return NSKeyedUnarchiver.unarchiveObject(with: from) as! T
+        return try! NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: from)!
     }
 }

@@ -77,11 +77,13 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
         switch query {
         case let query as KeyQuery:
             let nsarray = array as NSArray
-            switch keychain.set(nsarray, forKey: query.key) {
-            case .success:
-                return Future(array)
-            case .failed(let status):
-                return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
+            return Future { r in
+                switch try keychain.set(nsarray, forKey: query.key) {
+                case .success:
+                    r.set(array)
+                case .failed(let status):
+                    throw CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))")
+                }
             }
         default:
             query.fatalError(.putAll, self)

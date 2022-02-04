@@ -119,7 +119,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                         throw CoreError.NotFound("Data not found at path: \(url.path)")
                     }
                     // Attempting to unarchive in case it was an array
-                    if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
+                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] {
                         // it was an array!
                         array.append(contentsOf: datas)
                     } else {
@@ -134,7 +134,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             guard let data = fileManager.contents(atPath: path) else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
-            guard let array = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] else {
+            guard let array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
             return Future(array)
@@ -185,7 +185,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                 if fileManager.fileExists(atPath: folderURL.path) == false {
                     try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
                 }
-                let data = NSKeyedArchiver.archivedData(withRootObject: array)
+                let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
                 try data.write(to: fileURL, options: writingOptions)
                 r.set(array)
             }
