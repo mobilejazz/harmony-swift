@@ -1,35 +1,7 @@
 PODS:
   - Alamofire (4.8.2)
-  - Harmony (1.1.3):
-    - Harmony/Common (= 1.1.3)
-    - Harmony/Repository (= 1.1.3)
-    - Harmony/Security (= 1.1.3)
-  - Harmony/Alamofire (1.1.3):
-    - Alamofire (~> 4.8.2)
-    - Harmony/Common
-    - Harmony/Future
-  - Harmony/Common (1.1.3):
-    - Harmony/Future
-  - Harmony/Future (1.1.3)
-  - Harmony/iOS (1.1.3):
-    - Harmony/Common
-  - Harmony/MJCocoaCore (1.1.3):
-    - Harmony/Common
-    - MJCocoaCore/Common (~> 2.3)
-  - Harmony/Objection (1.1.3):
-    - MJObjection
-  - Harmony/Repository (1.1.3):
-    - Harmony/Common
-    - Harmony/Future
-  - Harmony/Security (1.1.3):
-    - Harmony/Repository
-  - Harmony/Testing (1.1.3)
-  - Harmony/Vastra (1.1.3)
+  - Harmony (2.0.0)
   - Kingfisher (5.3.1)
-  - MJCocoaCore/Common (2.3.10):
-    - MJCocoaCore/Future
-  - MJCocoaCore/Future (2.3.10)
-  - MJObjection (1.6.4)
   - PromisesObjC (1.2.7)
   - PromisesSwift (1.2.7):
     - PromisesObjC (= 1.2.7)
@@ -38,14 +10,8 @@ PODS:
   - SQLite.swift/standard (0.11.5)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.8.2)
   - Harmony (from `../`)
-  - Harmony/Alamofire (from `../`)
-  - Harmony/iOS (from `../`)
-  - Harmony/MJCocoaCore (from `../`)
-  - Harmony/Objection (from `../`)
-  - Harmony/Security (from `../`)
-  - Harmony/Testing (from `../`)
-  - Harmony/Vastra (from `../`)
   - Kingfisher (~> 5.3)
   - PromisesSwift (~> 1.2)
   - SQLite.swift
@@ -54,8 +20,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - Kingfisher
-    - MJCocoaCore
-    - MJObjection
     - PromisesObjC
     - PromisesSwift
     - SQLite.swift
@@ -66,14 +30,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Harmony: f784af447c5c006a22b74fbde1092283b3a591fa
+  Harmony: e904906d1a2f252897694187f2552423c3401218
   Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
-  MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
-  MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
   PromisesObjC: 7b28ddd1e78cce8f80f1ada927d2217663a9c672
   PromisesSwift: b27f410f9ea693753cfd4cfd8ac1c60a471f137b
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
 
-PODFILE CHECKSUM: 84dfb5c443197425bb3b33fdfa091b5fe0cf1666
+PODFILE CHECKSUM: a14c4ff1775f75b7c1a7e0ff6d5dda58856955ad
 
 COCOAPODS: 1.11.2

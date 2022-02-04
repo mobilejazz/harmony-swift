@@ -1,6 +1,0 @@
-framework module MJCocoaCore {
-  umbrella header "MJCocoaCore-umbrella.h"
-
-  export *
-  module * { export * }
-}

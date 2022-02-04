@@ -1,6 +1,0 @@
-framework module Harmony {
-  umbrella header "Harmony-umbrella.h"
-
-  export *
-  module * { export * }
-}

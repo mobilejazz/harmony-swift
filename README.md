@@ -30,35 +30,37 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
 ## Installation
+
+### CocoaPods
 
 Harmony is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Harmony'
+pod 'Harmony', '~> 2.0.0'
 ```
-### Subspecs
+For unit test, you can use the following pod:
+```ruby
+pod 'HarmonyTesting', '~> 2.0.0'
+```
 
-Available subspecs:
+### Carthage
 
 ```ruby
-pod 'Harmony/Future'
-pod 'Harmony/Common'
-pod 'Harmony/Security'
-pod 'Harmony/iOS'
-pod 'Harmony/Alamofire'
-pod 'Harmony/Vastra'
-pod 'Harmony/MJCocoaCore'
-pod 'Harmony/MJObjection'
+github "mobilejazz/harmony-swift" "2.0.0"
 ```
 
-Deprecated subscpecs:
+Resolve dependencies `carthage update --use-xcframeworks --platform iOS` and add `Harmony.xcframework` to your project. For unit test, add `HarmonyTesting.xcframework` in your build phase of your testing target.
+
+### Swift Package Manager
+
 ```ruby
-pod 'Harmony/Realm'
+dependencies: [
+    .package(url: "https://github.com/mobilejazz/harmony-swift", .upToNextMajor(from: "2.0.0"))
+]
 ```
+This package includes two libraries: `Harmony` and `HarmonyTesting`.
 
 ## Author
 
@@ -66,7 +68,7 @@ Mobile Jazz, info@mobilejazz.com
 
 ## API Reference 
 
-[https://mobilejazz.github.io/harmony-ios/](https://mobilejazz.github.io/harmony-ios/)
+[https://harmony.mobilejazz.com/docs/introduction](https://harmony.mobilejazz.com/docs/introduction)
 
 ## License
 
