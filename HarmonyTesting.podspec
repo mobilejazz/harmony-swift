@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
     #   * Finally, don't worry about the indent, CocoaPods strips it!
 
     s.description      = <<-DESC
-    Mobile Jazz Harmony Repository
+    Mobile Jazz Harmony Testing Repository
     DESC
 
     s.homepage         = 'https://github.com/mobilejazz/harmony-ios'

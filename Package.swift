@@ -5,8 +5,10 @@ import PackageDescription
 
 let package = Package(
     name: "Harmony",
-    platforms: [.iOS(.v12),
-                .macOS(.v10_12)],
+    platforms: [
+        .iOS(.v12),
+        .macOS(.v10_12)
+    ],
     products: [
         .library(
             name: "Harmony",
