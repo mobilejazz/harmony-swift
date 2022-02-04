@@ -7,7 +7,7 @@ let package = Package(
     name: "Harmony",
     platforms: [
         .iOS(.v12),
-        .macOS(.v10_12)
+        .macOS(.v10_15)
     ],
     products: [
         .library(

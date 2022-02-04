@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     s.source           = { :git => 'https://github.com/mobilejazz/harmony-ios.git', :tag => s.version.to_s }
     s.social_media_url = 'https://twitter.com/mobilejazzcom'
 
-    s.osx.deployment_target = '10.12'
+    s.osx.deployment_target = '10.15'
     s.ios.deployment_target = '12.0'
     
     s.source_files = 'Sources/Harmony/**/*'
