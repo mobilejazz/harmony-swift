@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005E289327BC0393000B78D2 /* MemoryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E289227BC0393000B78D2 /* MemoryReporter.swift */; };
+		005E289427BC0393000B78D2 /* MemoryReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E289227BC0393000B78D2 /* MemoryReporter.swift */; };
 		5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */; };
 		5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191D27A9460A00A18D72 /* BoolObjectMother.swift */; };
 		5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191C27A9460A00A18D72 /* DoubleObjectMother.swift */; };
@@ -212,6 +214,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		005E289227BC0393000B78D2 /* MemoryReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryReporter.swift; sourceTree = "<group>"; };
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
 		59881E7B27A9DC9500D92121 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		59B7A81227A827F6001F5D8F /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -717,6 +720,7 @@
 				59B7AA0F27A8314D001F5D8F /* Extensions */,
 				59B7AA0C27A82F82001F5D8F /* Error */,
 				59B7A85927A82971001F5D8F /* LinkRecognizer.swift */,
+				005E289227BC0393000B78D2 /* MemoryReporter.swift */,
 				59B7A85D27A82971001F5D8F /* KeyValueObserver.swift */,
 			);
 			path = Common;
@@ -1688,6 +1692,7 @@
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
 				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
 				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
+				005E289327BC0393000B78D2 /* MemoryReporter.swift in Sources */,
 				59B7A8C227A82971001F5D8F /* Executor+Future.swift in Sources */,
 				59B7A89F27A82971001F5D8F /* Mapper.swift in Sources */,
 				59B7A8B227A82971001F5D8F /* ObservableHub.swift in Sources */,
@@ -1799,6 +1804,7 @@
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
 				D2D2164D27AC280A00A104B8 /* ObjectValidation.swift in Sources */,
+				005E289427BC0393000B78D2 /* MemoryReporter.swift in Sources */,
 				D2D2164E27AC280A00A104B8 /* Executor+Future.swift in Sources */,
 				D2D2164F27AC280A00A104B8 /* Mapper.swift in Sources */,
 				D2D2165027AC280A00A104B8 /* ObservableHub.swift in Sources */,
