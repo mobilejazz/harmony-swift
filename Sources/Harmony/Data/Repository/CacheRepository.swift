@@ -24,7 +24,7 @@ public class MainSyncOperation : Operation { public init () { } }
 
 /// CacheOperation: Data processing will only use the "cache data source".
 public class CacheOperation : Operation {
-    fileprivate let ignoreValidation: Bool
+    public let ignoreValidation: Bool
     
     /// Main initializer
     ///
@@ -40,7 +40,7 @@ public class CacheOperation : Operation {
 /// If fallback returns true, then in case of network error, the repository will return the cached
 /// data independently of it's validity.
 public class CacheSyncOperation : Operation {
-    fileprivate let fallback : (Error) -> Bool
+    public let fallback : (Error) -> Bool
     
     /// Main initializer
     ///
