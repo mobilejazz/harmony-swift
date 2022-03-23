@@ -38,17 +38,17 @@ Harmony is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Harmony', '~> 2.0.1'
+pod 'Harmony', '~> 2.0.2'
 ```
 For unit test, you can use the following pod:
 ```ruby
-pod 'HarmonyTesting', '~> 2.0.1'
+pod 'HarmonyTesting', '~> 2.0.2'
 ```
 
 ### Carthage
 
 ```ruby
-github "mobilejazz/harmony-swift" "2.0.1"
+github "mobilejazz/harmony-swift" "2.0.2"
 ```
 
 Resolve dependencies `carthage update --use-xcframeworks --platform iOS` and add `Harmony.xcframework` to your project. For unit test, add `HarmonyTesting.xcframework` in your build phase of your testing target.
@@ -57,7 +57,7 @@ Resolve dependencies `carthage update --use-xcframeworks --platform iOS` and add
 
 ```ruby
 dependencies: [
-    .package(url: "https://github.com/mobilejazz/harmony-swift", .upToNextMajor(from: "2.0.1"))
+    .package(url: "https://github.com/mobilejazz/harmony-swift", .upToNextMajor(from: "2.0.2"))
 ]
 ```
 This package includes two libraries: `Harmony` and `HarmonyTesting`.
