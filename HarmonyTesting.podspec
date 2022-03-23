@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'HarmonyTesting'
-    s.version          = '2.0.1'
+    s.version          = '2.0.2'
     s.summary          = 'Mobile Jazz Harmony Testing'
     s.swift_version    = '5'
 
@@ -33,6 +33,6 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '12.0'
 
     s.source_files = 'Sources/HarmonyTesting/**/*'
-    s.dependency 'Harmony', '2.0.1'
+    s.dependency 'Harmony', '2.0.2'
 
 end
