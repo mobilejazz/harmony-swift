@@ -9,8 +9,8 @@ import Foundation
 import Nimble
 import XCTest
 
-class InMemoryDataSourcesTests: XCTestCase {
+class InMemoryDataSourceTests: XCTestCase {
     func test() {
-        expect(1) == 1
+        expect(1) == 2
     }
 }
