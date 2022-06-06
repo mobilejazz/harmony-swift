@@ -62,6 +62,14 @@ dependencies: [
 ```
 This package includes two libraries: `Harmony` and `HarmonyTesting`.
 
+## Development
+
+First of all, run to resolve the dependencies.
+
+```ruby
+carthage update --use-xcframeworks --platform [iOS|macOS] --no-use-binaries
+```
+
 ## Author
 
 Mobile Jazz, info@mobilejazz.com
