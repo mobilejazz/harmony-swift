@@ -18,6 +18,9 @@
 		5932E95F27A9473400253261 /* MockInteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192027A9462600A18D72 /* MockInteractorPut.swift */; };
 		5962B12327A951D8008B0EFF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; };
 		59881E7C27A9DC9500D92121 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59881E7B27A9DC9500D92121 /* TestUtils.swift */; };
+		59A418C4284E224200E33F2D /* InMemoryDataSourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */; };
+		59A418C6284E240300E33F2D /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A418C5284E240300E33F2D /* Nimble.xcframework */; };
+		59A418C7284E255200E33F2D /* HarmonyTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E5190927A9349000A18D72 /* HarmonyTesting.framework */; };
 		59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
 		59B7A87F27A82971001F5D8F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A82F27A82971001F5D8F /* Query.swift */; };
 		59B7A88027A82971001F5D8F /* AnyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A83027A82971001F5D8F /* AnyDataSource.swift */; };
@@ -214,6 +217,8 @@
 /* Begin PBXFileReference section */
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
 		59881E7B27A9DC9500D92121 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourcesTests.swift; sourceTree = "<group>"; };
+		59A418C5284E240300E33F2D /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
 		59B7A81227A827F6001F5D8F /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarmonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B7A82F27A82971001F5D8F /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
@@ -611,6 +616,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59A418C6284E240300E33F2D /* Nimble.xcframework in Frameworks */,
+				59A418C7284E255200E33F2D /* HarmonyTesting.framework in Frameworks */,
 				59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,6 +764,7 @@
 		59B7A8CD27A8297A001F5D8F /* HarmonyTests */ = {
 			isa = PBXGroup;
 			children = (
+				59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1367,6 +1375,7 @@
 		59B7AA1D27A83AC1001F5D8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				59A418C5284E240300E33F2D /* Nimble.xcframework */,
 				59B7AA1E27A83AC1001F5D8F /* Security.framework */,
 			);
 			name = Frameworks;
@@ -1596,6 +1605,7 @@
 					};
 					59B7A81B27A827F7001F5D8F = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -1751,6 +1761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59A418C4284E224200E33F2D /* InMemoryDataSourcesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2081,6 +2092,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YHGX7ST8H;
@@ -2094,6 +2106,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobilejazz.HarmonyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2103,6 +2116,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YHGX7ST8H;
