@@ -170,4 +170,41 @@ class FutureTests: XCTestCase {
         expect(try? future.result.get()) == anyValue
         expect(future.state) == Future.State.sent
     }
+    
+    @available(iOS 13.0, *)
+    func test_async_to_future() throws {
+        // Given
+        let anyValue = Int.random(in: Int.min...Int.max)
+        
+        // when
+        let value: Int = try withFuture {
+            try await Task.sleep(nanoseconds: 25 * TIME_1_MILLISECOND_IN_NANOSECONDS)
+            return anyValue
+        }.result.get()
+        
+        // Then
+        expect(value) == anyValue
+    }
+    
+    @available(iOS 13.0, *)
+    func test_future_to_async() throws {
+        // Given
+        let anyValue = Int.random(in: Int.min...Int.max)
+        let future = Future<Int>()
+        let expectation = expectation(description: "")
+        
+        // when
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.25) {
+            future.set(anyValue)
+        }
+        Task {
+            let value = try await future.async()
+            
+            // Then
+            expect(value) == anyValue
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
 }

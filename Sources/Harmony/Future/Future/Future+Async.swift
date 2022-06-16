@@ -17,13 +17,28 @@
 import Foundation
 
 extension Future {
-    @available(iOS 13.0.0, *)
+    
     /// Returns the future's value using the async/await pattern
     /// - Returns: Returns the value, or throws an error.
-    func async() async throws -> T {
+    @available(iOS 13.0.0, *)
+    public func async() async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
             self.then { continuation.resume(returning: $0) }
                 .fail { continuation.resume(throwing: $0) }
+        }
+    }
+}
+
+/// Encapsulates an async function into a Future
+/// - Parameter body: The async body to call the function
+/// - Returns: The future
+@available(iOS 13.0, *)
+public func withFuture<T>(body: @escaping () async throws -> T) -> Future<T> {
+    return Future { r in
+        Task {
+            try Task.checkCancellation()
+            let value = try await body()
+            r.set(value)
         }
     }
 }

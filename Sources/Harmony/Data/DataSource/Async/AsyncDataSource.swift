@@ -27,3 +27,5 @@ public protocol AsyncGetDataSource : AsyncDataSource {
     /// - Returns: A Future of the repository's type
     func getAll(_ query: Query) async throws -> [T]
 }
+
+// TODO: implement put & delete

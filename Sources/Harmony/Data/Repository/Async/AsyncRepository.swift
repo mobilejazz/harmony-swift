@@ -27,3 +27,5 @@ public protocol AsyncGetRepository : AsyncRepository {
     /// - Returns: A Future of the repository's type
     func getAll(_ query: Query, operation: Operation) async throws -> [T]
 }
+
+// TODO: implement put & delete

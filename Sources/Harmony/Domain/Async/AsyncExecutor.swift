@@ -7,19 +7,35 @@
 
 import Foundation
 
+/// Abstract definition of an async executor.
 @available(iOS 13.0.0, *)
 public protocol AsyncExecutor {
     associatedtype T
     func submit(operation: @escaping () async throws -> T) async throws -> T
 }
 
+/// Direct execution of the operation block.
 @available(iOS 13.0.0, *)
-public actor AsyncDicrectExecutor<T>: AsyncExecutor {
+public class AsyncDicrectExecutor<T>: AsyncExecutor {
     public func submit(operation: @escaping () async throws -> T) async throws -> T {
         try await operation()
     }
 }
 
+
+/// Calls in the main thread (main actor) the operation block.
+@available(iOS 13.0.0, *)
+public class AsyncMainExecutor<T>: AsyncExecutor {
+    public func submit(operation: @escaping () async throws -> T) async throws -> T {
+        let task = Task { @MainActor in
+            return try await operation()
+        }
+        return try await task.value
+    }
+}
+
+/// Synchronizes a block execution of async calls.
+/// Concurrent calls of `submit` will result in serial exeution of their block code.
 @available(iOS 13.0.0, *)
 public actor AsyncAtomicExecutor<T>: AsyncExecutor  {
     private enum Status {
@@ -27,6 +43,8 @@ public actor AsyncAtomicExecutor<T>: AsyncExecutor  {
         case executing(Task<T,Error>)
     }
     private var status: Status = .idle
+    
+    public init() {}
     
     public func submit(operation: @escaping () async throws -> T) async throws -> T {
         switch status {

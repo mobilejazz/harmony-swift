@@ -24,3 +24,5 @@ public class AsyncGetDataSourceWrapper<D,T>: AsyncGetDataSource where D: GetData
         try await self.dataSource.getAll(query).async()
     }
 }
+
+// TODO: implement put & delete
