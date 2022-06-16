@@ -18,7 +18,6 @@
 		5932E95F27A9473400253261 /* MockInteractorPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192027A9462600A18D72 /* MockInteractorPut.swift */; };
 		5962B12327A951D8008B0EFF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7AA1E27A83AC1001F5D8F /* Security.framework */; };
 		59881E7C27A9DC9500D92121 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59881E7B27A9DC9500D92121 /* TestUtils.swift */; };
-		59A418C4284E224200E33F2D /* InMemoryDataSourcesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */; };
 		59A418C6284E240300E33F2D /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59A418C5284E240300E33F2D /* Nimble.xcframework */; };
 		59A418C7284E255200E33F2D /* HarmonyTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59E5190927A9349000A18D72 /* HarmonyTesting.framework */; };
 		59B7A81D27A827F7001F5D8F /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
@@ -103,6 +102,7 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
+		D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C13F2285B090500E4F2CA /* FutureTests.swift */; };
 		D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
 		D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
 		D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A84D27A82971001F5D8F /* DataSourceMapper.swift */; };
@@ -217,7 +217,6 @@
 /* Begin PBXFileReference section */
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
 		59881E7B27A9DC9500D92121 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
-		59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourcesTests.swift; sourceTree = "<group>"; };
 		59A418C5284E240300E33F2D /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
 		59B7A81227A827F6001F5D8F /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59B7A81C27A827F7001F5D8F /* HarmonyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarmonyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -599,6 +598,7 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
+		D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		D2D2168E27AC280A00A104B8 /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D216A227AC291200A104B8 /* HarmonyTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarmonyTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -764,7 +764,7 @@
 		59B7A8CD27A8297A001F5D8F /* HarmonyTests */ = {
 			isa = PBXGroup;
 			children = (
-				59A418C3284E224200E33F2D /* InMemoryDataSourcesTests.swift */,
+				D28C13F2285B090500E4F2CA /* FutureTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1761,7 +1761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59A418C4284E224200E33F2D /* InMemoryDataSourcesTests.swift in Sources */,
+				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
