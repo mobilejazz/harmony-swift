@@ -1,0 +1,7 @@
+lane :tests do
+    run_tests(
+        project: "Harmony.xcodeproj",
+        devices: ["iPhone 13"],
+        scheme: "HarmonyTesting-iOS"
+    )
+end
