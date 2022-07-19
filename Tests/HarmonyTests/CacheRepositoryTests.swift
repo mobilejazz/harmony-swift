@@ -60,18 +60,16 @@ class CacheRepositoryTests: XCTestCase {
     
     func test_getValue_withMain_withEmptyMain() throws {
         // Given
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: nil, cacheData: nil)
         let operation = MainOperation()
         
-        // When
-        do {
-            _ = try cacheRepository.get(query, operation: operation).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.NotFound.self))
+        expect {
+            // When
+            try self.cacheRepository.get(query, operation: operation).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.cacheSpy.getCalls.count).to(equal(0))
         expect(self.mainSpy.getCalls.count).to(equal(1))
         expect(self.mainSpy.getCalls[0]).to(be(query))
@@ -80,7 +78,7 @@ class CacheRepositoryTests: XCTestCase {
     func test_getValue_withMain_withMainValue() throws {
         // Given
         let value = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: (query, value), cacheData: nil)
         let operation = MainOperation()
         
@@ -96,18 +94,16 @@ class CacheRepositoryTests: XCTestCase {
     
     func test_getValue_withCache_withEmptyCache() throws {
         // Given
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: nil, cacheData: nil)
         let operation = CacheOperation()
         
-        // When
-        do {
-            _ = try cacheRepository.get(query, operation: operation).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.NotFound.self))
+        expect {
+            // When
+            try self.cacheRepository.get(query, operation: operation).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.mainSpy.getCalls.count).to(equal(0))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
         expect(self.cacheSpy.getCalls[0]).to(be(query))
@@ -116,7 +112,7 @@ class CacheRepositoryTests: XCTestCase {
     func test_getValue_withCache_withCacheValue() throws {
         // Given
         let value = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: nil, cacheData: (query, value))
         let operation = CacheOperation()
         
@@ -133,7 +129,7 @@ class CacheRepositoryTests: XCTestCase {
     func test_getValue_withCacheSync_withEmptyCache_withMainValue() throws {
         // Given
         let value = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: (query, value), cacheData: nil)
         let operation = CacheSyncOperation()
         
@@ -152,7 +148,7 @@ class CacheRepositoryTests: XCTestCase {
     func test_getValue_withCacheSync_withValidCacheValue() throws {
         // Given
         let value = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: nil, cacheData: (query, value))
         let operation = CacheSyncOperation()
         
@@ -170,7 +166,7 @@ class CacheRepositoryTests: XCTestCase {
         // Given
         let validValue = Int.random()
         let invalidValue = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: (query, validValue), cacheData: (query, invalidValue), objectValid: false)
         let operation = CacheSyncOperation()
         
@@ -191,18 +187,16 @@ class CacheRepositoryTests: XCTestCase {
     func test_getValue_withCacheSync_withInvalidCacheValue_withEmptyMain() throws {
         // Given
         let invalidValue = Int.random()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         try setup(mainData: nil, cacheData: (query, invalidValue), objectValid: false)
         let operation = CacheSyncOperation()
         
-        // When
-        do {
-            _ = try cacheRepository.get(query, operation: operation).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.NotFound.self))
+        expect {
+            // When
+            try self.cacheRepository.get(query, operation: operation).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.mainSpy.getCalls.count).to(equal(1))
         expect(self.mainSpy.getCalls[0]).to(be(query))
         expect(self.cacheSpy.getCalls.count).to(equal(1))

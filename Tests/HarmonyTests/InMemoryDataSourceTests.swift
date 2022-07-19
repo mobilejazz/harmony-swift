@@ -28,8 +28,8 @@ class InMemoryDataSourceTests: XCTestCase {
     func test_put_value() throws {
         // Given
         let dataSoruce = provideEmptyDataSource()
-        let query = IdQuery("id")
-        let value = 42
+        let query = IdQuery(String(randomOfLength: 8))
+        let value = Int.random()
         
         // When
         _ = try dataSoruce.put(value, in: query).result.get()
@@ -42,34 +42,32 @@ class InMemoryDataSourceTests: XCTestCase {
     func test_delete_value() throws {
         // Given
         let dataSoruce = provideEmptyDataSource()
-        let query = IdQuery("id")
-        let value = 42
+        let query = IdQuery(String(randomOfLength: 8))
+        let value = Int.random()
         _ = try dataSoruce.put(value, in: query).result.get()
         
         // When
         try dataSoruce.delete(query).result.get()
-        do {
-            // Then
-            _ = try dataSoruce.get(query).result.get()
-            XCTAssert(false)
-        } catch {
-            expect(error).to(beAnInstanceOf(CoreError.NotFound.self))
+        
+        // Then
+        expect {
+            try dataSoruce.get(query).result.get()
         }
+        .to(throwError(errorType: CoreError.NotFound.self))
+        
     }
     
     func test_get_value_not_found() throws {
         // Given
         let dataSoruce = provideEmptyDataSource()
-        let query = IdQuery("id")
+        let query = IdQuery(String(randomOfLength: 8))
         
-        // When
-        do {
-            _ = try dataSoruce.get(query).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.NotFound.self))
+        expect {
+            // When
+            try dataSoruce.get(query).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.NotFound.self))
     }
     
     func test_get_non_valid_query() throws {
@@ -77,14 +75,12 @@ class InMemoryDataSourceTests: XCTestCase {
         let dataSoruce = provideEmptyDataSource()
         let query = VoidQuery()
         
-        // When
-        do {
-            _ = try dataSoruce.get(query).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.QueryNotSupported.self))
+        expect {
+            // When
+            try dataSoruce.get(query).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_put_non_valid_query() throws {
@@ -93,15 +89,12 @@ class InMemoryDataSourceTests: XCTestCase {
         let query = VoidQuery()
         let value = Int.random()
         
-        // When
-        do {
-            _ = try dataSoruce.put(value, in: query).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.QueryNotSupported.self))
+        expect {
+            // When
+            try dataSoruce.put(value, in: query).result.get()
         }
-        
+        // Then
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_delete_non_valid_query() throws {
@@ -109,13 +102,11 @@ class InMemoryDataSourceTests: XCTestCase {
         let dataSoruce = provideEmptyDataSource()
         let query = VoidQuery()
         
-        // When
-        do {
-            _ = try dataSoruce.delete(query).result.get()
-            XCTAssert(false)
-        } catch {
-            // Then
-            expect(error).to(beAnInstanceOf(CoreError.QueryNotSupported.self))
+        expect {
+            // When
+            try dataSoruce.delete(query).result.get()
         }
+        // Then
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
 }
