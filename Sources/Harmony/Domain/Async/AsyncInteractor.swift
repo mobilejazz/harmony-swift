@@ -25,4 +25,18 @@ public actor GetInteractor<T>: AsyncInteractor {
     }
 }
 
+@available(iOS 13.0.0, *)
+public actor GetAllInteractor<T>: AsyncInteractor {
+    
+    private let repository: AsyncAnyGetRepository<T>
+    
+    public init<R>(_ repository: R) where R:AsyncGetRepository, R.T == T {
+        self.repository = AsyncAnyGetRepository(repository)
+    }
+
+    public func execute(_ query: Query = VoidQuery(), _ operation: Operation = DefaultOperation()) async throws -> [T] {
+        try await self.repository.getAll(query, operation: operation)
+    }
+}
+
 // TODO: implement put & delete
