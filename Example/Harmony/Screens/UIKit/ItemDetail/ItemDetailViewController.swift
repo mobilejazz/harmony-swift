@@ -8,10 +8,8 @@
 
 import UIKit
 
-class ItemDetailViewController: UIViewController, ItemDetailPresenterView {
-    
-    lazy var presenter = applicationComponent.itemComponent.itemDetailPresenter(view: self)
-    
+class ItemDetailViewController: UIViewController {
+        
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
@@ -20,11 +18,6 @@ class ItemDetailViewController: UIViewController, ItemDetailPresenterView {
     // Temp item to obtain it from previous screen.
     // This could be improved.
     var item : Item?
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter.onActionSelectedItem(item!)
-    }
     
     // MARK: ItemDetailPresenterView
     
