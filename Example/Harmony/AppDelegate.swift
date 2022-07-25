@@ -17,7 +17,7 @@ enum ApplicationUI {
     case SwiftUI
 }
 // Modify this property to change the UI implementation!
-let applicationUI: ApplicationUI = .SwiftUI
+let applicationUI: ApplicationUI = .UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
