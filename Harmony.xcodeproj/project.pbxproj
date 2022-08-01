@@ -121,6 +121,16 @@
 		D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */; };
 		D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */; };
 		D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA33285B2DB90012C820 /* Nanoseconds.swift */; };
+        D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
+		D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
+		D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
+		D2067A3E285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
+		D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */; };
+		D2067A43285C61DD00A1047E /* MockObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A41285C61CE00A1047E /* MockObjectValidation.swift */; };
+		D2067A44285C61DD00A1047E /* MockObjectValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A41285C61CE00A1047E /* MockObjectValidation.swift */; };
+		D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
+		D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
+		D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */; };
 		D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C13F2285B090500E4F2CA /* FutureTests.swift */; };
 		D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
 		D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
@@ -628,7 +638,13 @@
 		D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutorTests.swift; sourceTree = "<group>"; };
 		D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTestExpectation.swift; sourceTree = "<group>"; };
 		D261AA33285B2DB90012C820 /* Nanoseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nanoseconds.swift; sourceTree = "<group>"; };
-		D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
+		D2067A39285C5F8000A1047E /* DataSourceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSpy.swift; sourceTree = "<group>"; };
+		D2067A3C285C600B00A1047E /* RepositorySpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySpy.swift; sourceTree = "<group>"; };
+		D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRepositoryTests.swift; sourceTree = "<group>"; };
+		D2067A41285C61CE00A1047E /* MockObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectValidation.swift; sourceTree = "<group>"; };
+		D2067A45285C628D00A1047E /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
+		D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourceTests.swift; sourceTree = "<group>"; };
+        D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		D2D2168E27AC280A00A104B8 /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D216A227AC291200A104B8 /* HarmonyTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarmonyTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -789,6 +805,8 @@
 			children = (
 				D28C13F2285B090500E4F2CA /* FutureTests.swift */,
 				D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */,
+                D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
+				D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1352,6 +1370,7 @@
 				59B7A85E27A82971001F5D8F /* JSONDecoding.swift */,
 				59B7A85F27A82971001F5D8F /* Data+Extensions.swift */,
 				59B7A85727A82971001F5D8F /* String+Extensions.swift */,
+				D2067A45285C628D00A1047E /* Number+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1399,6 +1418,7 @@
 			isa = PBXGroup;
 			children = (
 				59881E7B27A9DC9500D92121 /* TestUtils.swift */,
+				D2067A38285C5F6E00A1047E /* Data */,
 				59E5191E27A9462100A18D72 /* Interactor */,
 				59E5191927A945F300A18D72 /* ObjectMother */,
 			);
@@ -1552,6 +1572,16 @@
 				D261AA33285B2DB90012C820 /* Nanoseconds.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+        D2067A38285C5F6E00A1047E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
+				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
+				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1768,6 +1798,7 @@
 				59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */,
 				59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */,
 				D2313996285395CE0014FFA9 /* AsyncInteractor.swift in Sources */,
+                D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */,
 				59B7A89927A82971001F5D8F /* Mapper+NSCoding.swift in Sources */,
 				59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */,
 				59B7A8C527A82971001F5D8F /* ExecutorFactory.swift in Sources */,
@@ -1858,10 +1889,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
 				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
 				D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */,
 				D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */,
 				D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */,
+                D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1871,8 +1904,11 @@
 			files = (
 				5932E95D27A9473400253261 /* MockInteractorDelete.swift in Sources */,
 				5932E95E27A9473400253261 /* MockInteractorGet.swift in Sources */,
+				D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */,
 				5932E95F27A9473400253261 /* MockInteractorPut.swift in Sources */,
 				59881E7C27A9DC9500D92121 /* TestUtils.swift in Sources */,
+				D2067A43285C61DD00A1047E /* MockObjectValidation.swift in Sources */,
+				D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */,
 				5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */,
 				5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */,
 				5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */,
@@ -1891,6 +1927,7 @@
 				D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */,
 				D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */,
 				D2313997285395CE0014FFA9 /* AsyncInteractor.swift in Sources */,
+                D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */,
 				D2D2163A27AC280A00A104B8 /* Mapper+NSCoding.swift in Sources */,
 				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,
 				D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */,
@@ -1983,8 +2020,11 @@
 			files = (
 				D2D2169227AC291200A104B8 /* MockInteractorDelete.swift in Sources */,
 				D2D2169327AC291200A104B8 /* MockInteractorGet.swift in Sources */,
+				D2067A3E285C600B00A1047E /* RepositorySpy.swift in Sources */,
 				D2D2169427AC291200A104B8 /* MockInteractorPut.swift in Sources */,
 				D2D2169527AC291200A104B8 /* TestUtils.swift in Sources */,
+				D2067A44285C61DD00A1047E /* MockObjectValidation.swift in Sources */,
+				D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */,
 				D2D2169627AC291200A104B8 /* UUIDObjectMother.swift in Sources */,
 				D2D2169727AC291200A104B8 /* BoolObjectMother.swift in Sources */,
 				D2D2169827AC291200A104B8 /* DoubleObjectMother.swift in Sources */,

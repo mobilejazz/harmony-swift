@@ -31,7 +31,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             }
             return Future(value)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -51,7 +51,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             }
             return Future(CoreError.NotFound())
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -65,7 +65,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             objects[query.key] = value
             return Future(value)
         default:
-            query.fatalError(.put, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -84,7 +84,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             arrays[query.key] = array
             return Future(array)
         default:
-            query.fatalError(.putAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -95,7 +95,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             objects[query.key] = nil
             return Future(Void())
         default:
-            query.fatalError(.delete, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -115,7 +115,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             arrays[query.key] = nil
             return Future(Void())
         default:
-            query.fatalError(.deleteAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
 }

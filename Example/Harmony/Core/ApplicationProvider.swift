@@ -26,7 +26,7 @@ class ApplicationDefaultModule: ApplicationComponent {
         let sessionManager = SessionManager()
         sessionManager.adapter = MultiRequestAdapter(
             // The mockable.io account is hosted by @vilanovi (Joan)
-            [BaseURLRequestAdapter(URL(string:"https://demo0962411.mockable.io")!)]
+            [BaseURLRequestAdapter(URL(string:"https://demo3068405.mockable.io")!)]
         )
         sessionManager.retrier = MultiRequestRetrier(
             [UnauthorizedStatusCodeRequestRetrier()]

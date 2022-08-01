@@ -71,6 +71,12 @@ public struct CoreError {
             super.init(domain:CoreError.domain, code: 5, description: description)
         }
     }
+    
+    public class QueryNotSupported: ClassError {
+        public init(_ description: String = "Query not supported") {
+            super.init(domain:CoreError.domain, code: 6, description: description)
+        }
+    }
 }
 
 extension CoreError {

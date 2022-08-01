@@ -3,13 +3,21 @@
 //  Harmony
 //
 //  Created by Joan Martin on 11/27/2017.
-//  Copyright (c) 2017 Joan Martin. All rights reserved.
+//  Copyright (c) 2017 Mobile Jazz. All rights reserved.
 //
 
 import UIKit
 import Harmony
+import SwiftUI
 
 let applicationComponent: ApplicationComponent = ApplicationDefaultModule()
+
+enum ApplicationUI {
+    case UIKit
+    case SwiftUI
+}
+// Modify this property to change the UI implementation!
+let applicationUI: ApplicationUI = .SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,17 +26,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var observable : Observable<Int>!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let splash = SplashViewController()
-        let container = ContainerViewController(splash)
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = container
-        window?.makeKeyAndVisible()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainVC = storyboard.instantiateInitialViewController()!
-            container.set(mainVC, animation: .crossDisolve)
+        switch applicationUI {
+        case .UIKit:
+            let splash = SplashViewController()
+            let container = ContainerViewController(splash)
+            
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = container
+            window?.makeKeyAndVisible()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainVC = storyboard.instantiateInitialViewController()!
+                container.set(mainVC, animation: .crossDisolve)
+            }
+        case .SwiftUI:
+            let splash = SplashView()
+            let container = ContainerViewController(UIHostingController(rootView: splash))
+            
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = container
+            window?.makeKeyAndVisible()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                let main = NavigationView {
+                    ItemListView(viewState: ItemListViewState())
+                }
+                container.set(UIHostingController(rootView: main), animation: .crossDisolve)
+            }
         }
         
         return true
