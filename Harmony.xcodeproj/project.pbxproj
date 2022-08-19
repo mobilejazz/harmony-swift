@@ -23,6 +23,14 @@
 		008DA60F28AF7B890005F551 /* AsyncDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA60D28AF7B890005F551 /* AsyncDeleteRepository.swift */; };
 		008DA61128AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61028AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift */; };
 		008DA61228AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61028AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift */; };
+		008DA61428AF7F080005F551 /* AsyncPutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61328AF7F080005F551 /* AsyncPutInteractor.swift */; };
+		008DA61528AF7F080005F551 /* AsyncPutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61328AF7F080005F551 /* AsyncPutInteractor.swift */; };
+		008DA61728AF7F170005F551 /* AsyncDeleteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61628AF7F170005F551 /* AsyncDeleteInteractor.swift */; };
+		008DA61828AF7F170005F551 /* AsyncDeleteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61628AF7F170005F551 /* AsyncDeleteInteractor.swift */; };
+		008DA61A28AF7FD30005F551 /* AsyncAnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */; };
+		008DA61B28AF7FD30005F551 /* AsyncAnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */; };
+		008DA61F28AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */; };
+		008DA62028AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */; };
 		5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */; };
 		5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191D27A9460A00A18D72 /* BoolObjectMother.swift */; };
 		5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191C27A9460A00A18D72 /* DoubleObjectMother.swift */; };
@@ -268,6 +276,10 @@
 		008DA60A28AF799B0005F551 /* AsyncDeleteDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteDataSourceWrapper.swift; sourceTree = "<group>"; };
 		008DA60D28AF7B890005F551 /* AsyncDeleteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteRepository.swift; sourceTree = "<group>"; };
 		008DA61028AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteRepositotyWrapper.swift; sourceTree = "<group>"; };
+		008DA61328AF7F080005F551 /* AsyncPutInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutInteractor.swift; sourceTree = "<group>"; };
+		008DA61628AF7F170005F551 /* AsyncDeleteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteInteractor.swift; sourceTree = "<group>"; };
+		008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyPutRepository.swift; sourceTree = "<group>"; };
+		008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyDeleteRepository.swift; sourceTree = "<group>"; };
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
 		59881E7B27A9DC9500D92121 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		59A418C5284E240300E33F2D /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
@@ -1594,6 +1606,8 @@
 				D231398D285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift */,
 				008DA61028AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift */,
 				D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */,
+				008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */,
+				008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */,
 			);
 			path = Async;
 			sourceTree = "<group>";
@@ -1602,6 +1616,8 @@
 			isa = PBXGroup;
 			children = (
 				D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */,
+				008DA61328AF7F080005F551 /* AsyncPutInteractor.swift */,
+				008DA61628AF7F170005F551 /* AsyncDeleteInteractor.swift */,
 				D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */,
 			);
 			path = Async;
@@ -1848,6 +1864,7 @@
 				59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */,
 				008DA61128AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift in Sources */,
 				59B7A88E27A82971001F5D8F /* AnyPutDataSource.swift in Sources */,
+				008DA61428AF7F080005F551 /* AsyncPutInteractor.swift in Sources */,
 				008DA60228AF726F0005F551 /* AsyncPutRepository.swift in Sources */,
 				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
@@ -1871,6 +1888,7 @@
 				D231399F28539B370014FFA9 /* Future+Async.swift in Sources */,
 				59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */,
 				008DA60828AF77FD0005F551 /* AsyncDeleteDataSource.swift in Sources */,
+				008DA61F28AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */,
 				D2313985285391310014FFA9 /* AsyncGetDataSource.swift in Sources */,
 				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
 				59B7A88D27A82971001F5D8F /* RepositoryMapper.swift in Sources */,
@@ -1889,11 +1907,13 @@
 				59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */,
 				59B7A88527A82971001F5D8F /* VoidDataSource.swift in Sources */,
 				59B7A8A427A82971001F5D8F /* Operation.swift in Sources */,
+				008DA61A28AF7FD30005F551 /* AsyncAnyPutRepository.swift in Sources */,
 				59B7A8CA27A82971001F5D8F /* VastraStrategy.swift in Sources */,
 				59B7A8B427A82971001F5D8F /* Observable+Optionals.swift in Sources */,
 				59B7A88027A82971001F5D8F /* AnyDataSource.swift in Sources */,
 				59B7A8C427A82971001F5D8F /* Future+Optionals.swift in Sources */,
 				59B7A8BA27A82971001F5D8F /* Future+Extensions.swift in Sources */,
+				008DA61728AF7F170005F551 /* AsyncDeleteInteractor.swift in Sources */,
 				59B7A88627A82971001F5D8F /* InteractorDelete.swift in Sources */,
 				59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */,
 				59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */,
@@ -1985,6 +2005,7 @@
 				D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */,
 				008DA61228AF7C790005F551 /* AsyncDeleteRepositotyWrapper.swift in Sources */,
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
+				008DA61528AF7F080005F551 /* AsyncPutInteractor.swift in Sources */,
 				008DA60328AF726F0005F551 /* AsyncPutRepository.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
@@ -2008,6 +2029,7 @@
 				D23139A028539B370014FFA9 /* Future+Async.swift in Sources */,
 				D2D2165727AC280A00A104B8 /* VastraInvalidationStrategy.swift in Sources */,
 				008DA60928AF77FD0005F551 /* AsyncDeleteDataSource.swift in Sources */,
+				008DA62028AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */,
 				D2313986285391310014FFA9 /* AsyncGetDataSource.swift in Sources */,
 				D2D2165827AC280A00A104B8 /* KeychainService.swift in Sources */,
 				D2D2165927AC280A00A104B8 /* RepositoryMapper.swift in Sources */,
@@ -2026,11 +2048,13 @@
 				D2D2166427AC280A00A104B8 /* AnyPutRepository.swift in Sources */,
 				D2D2166527AC280A00A104B8 /* VoidDataSource.swift in Sources */,
 				D2D2166627AC280A00A104B8 /* Operation.swift in Sources */,
+				008DA61B28AF7FD30005F551 /* AsyncAnyPutRepository.swift in Sources */,
 				D2D2166727AC280A00A104B8 /* VastraStrategy.swift in Sources */,
 				D2D2166827AC280A00A104B8 /* Observable+Optionals.swift in Sources */,
 				D2D2166927AC280A00A104B8 /* AnyDataSource.swift in Sources */,
 				D2D2166A27AC280A00A104B8 /* Future+Optionals.swift in Sources */,
 				D2D2166B27AC280A00A104B8 /* Future+Extensions.swift in Sources */,
+				008DA61828AF7F170005F551 /* AsyncDeleteInteractor.swift in Sources */,
 				D2D2166C27AC280A00A104B8 /* InteractorDelete.swift in Sources */,
 				D2D2166D27AC280A00A104B8 /* KeyValueObserver.swift in Sources */,
 				D2D2166E27AC280A00A104B8 /* ScopeLockFuture.swift in Sources */,
