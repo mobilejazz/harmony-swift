@@ -18,14 +18,12 @@ public protocol AsyncGetDataSource : AsyncDataSource {
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A Future containing the fetched object or an error .notFound if not found
+    /// - Returns: The fetched object or it throws if not found
     func get(_ query: Query) async throws -> T
     
     /// Main get method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A Future of the repository's type
+    /// - Returns: An array of values or it throws if not found
     func getAll(_ query: Query) async throws -> [T]
 }
-
-// TODO: implement put & delete
