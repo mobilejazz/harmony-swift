@@ -102,26 +102,7 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
-		D2313985285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
-		D2313986285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
-		D2313988285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
-		D2313989285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
-		D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
-		D231398C285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
-		D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
-		D231398F285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
-		D2313996285395CE0014FFA9 /* AsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncInteractor.swift */; };
-		D2313997285395CE0014FFA9 /* AsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncInteractor.swift */; };
-		D23139992853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
-		D231399A2853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
-		D231399F28539B370014FFA9 /* Future+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231399E28539B370014FFA9 /* Future+Async.swift */; };
-		D23139A028539B370014FFA9 /* Future+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231399E28539B370014FFA9 /* Future+Async.swift */; };
-		D23139A22853ADFA0014FFA9 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */; };
-		D23139A32853ADFA0014FFA9 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */; };
-		D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */; };
-		D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */; };
-		D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA33285B2DB90012C820 /* Nanoseconds.swift */; };
-        D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
+		D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
 		D2067A3E285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
@@ -131,6 +112,25 @@
 		D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
 		D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
 		D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */; };
+		D2313985285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
+		D2313986285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
+		D2313988285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
+		D2313989285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
+		D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
+		D231398C285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
+		D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
+		D231398F285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
+		D2313996285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */; };
+		D2313997285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */; };
+		D23139992853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
+		D231399A2853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
+		D231399F28539B370014FFA9 /* Future+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231399E28539B370014FFA9 /* Future+Async.swift */; };
+		D23139A028539B370014FFA9 /* Future+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231399E28539B370014FFA9 /* Future+Async.swift */; };
+		D23139A22853ADFA0014FFA9 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */; };
+		D23139A32853ADFA0014FFA9 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */; };
+		D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */; };
+		D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */; };
+		D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA33285B2DB90012C820 /* Nanoseconds.swift */; };
 		D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C13F2285B090500E4F2CA /* FutureTests.swift */; };
 		D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
 		D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
@@ -627,24 +627,24 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
-		D2313984285391310014FFA9 /* AsyncDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSource.swift; sourceTree = "<group>"; };
-		D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSourceWrapper.swift; sourceTree = "<group>"; };
-		D231398A285394460014FFA9 /* AsyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepository.swift; sourceTree = "<group>"; };
-		D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepositoryWrapper.swift; sourceTree = "<group>"; };
-		D2313995285395CE0014FFA9 /* AsyncInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncInteractor.swift; sourceTree = "<group>"; };
-		D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyGetRepository.swift; sourceTree = "<group>"; };
-		D231399E28539B370014FFA9 /* Future+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+Async.swift"; sourceTree = "<group>"; };
-		D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutor.swift; sourceTree = "<group>"; };
-		D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutorTests.swift; sourceTree = "<group>"; };
-		D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTestExpectation.swift; sourceTree = "<group>"; };
-		D261AA33285B2DB90012C820 /* Nanoseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nanoseconds.swift; sourceTree = "<group>"; };
 		D2067A39285C5F8000A1047E /* DataSourceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSpy.swift; sourceTree = "<group>"; };
 		D2067A3C285C600B00A1047E /* RepositorySpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySpy.swift; sourceTree = "<group>"; };
 		D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRepositoryTests.swift; sourceTree = "<group>"; };
 		D2067A41285C61CE00A1047E /* MockObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectValidation.swift; sourceTree = "<group>"; };
 		D2067A45285C628D00A1047E /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
 		D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourceTests.swift; sourceTree = "<group>"; };
-        D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
+		D2313984285391310014FFA9 /* AsyncDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSource.swift; sourceTree = "<group>"; };
+		D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSourceWrapper.swift; sourceTree = "<group>"; };
+		D231398A285394460014FFA9 /* AsyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepository.swift; sourceTree = "<group>"; };
+		D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepositoryWrapper.swift; sourceTree = "<group>"; };
+		D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAsyncInteractor.swift; sourceTree = "<group>"; };
+		D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyGetRepository.swift; sourceTree = "<group>"; };
+		D231399E28539B370014FFA9 /* Future+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+Async.swift"; sourceTree = "<group>"; };
+		D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutor.swift; sourceTree = "<group>"; };
+		D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutorTests.swift; sourceTree = "<group>"; };
+		D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTestExpectation.swift; sourceTree = "<group>"; };
+		D261AA33285B2DB90012C820 /* Nanoseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nanoseconds.swift; sourceTree = "<group>"; };
+		D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		D2D2168E27AC280A00A104B8 /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D216A227AC291200A104B8 /* HarmonyTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarmonyTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -805,7 +805,7 @@
 			children = (
 				D28C13F2285B090500E4F2CA /* FutureTests.swift */,
 				D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */,
-                D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
+				D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
 				D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */,
 			);
 			path = HarmonyTests;
@@ -1500,6 +1500,16 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		D2067A38285C5F6E00A1047E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
+				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
+				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		D2313990285395520014FFA9 /* Future */ = {
 			isa = PBXGroup;
 			children = (
@@ -1559,7 +1569,7 @@
 		D2313994285395AF0014FFA9 /* Async */ = {
 			isa = PBXGroup;
 			children = (
-				D2313995285395CE0014FFA9 /* AsyncInteractor.swift */,
+				D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */,
 				D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */,
 			);
 			path = Async;
@@ -1572,16 +1582,6 @@
 				D261AA33285B2DB90012C820 /* Nanoseconds.swift */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-        D2067A38285C5F6E00A1047E /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
-				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
-				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1797,8 +1797,8 @@
 				59B7A8B927A82971001F5D8F /* Future+Time.swift in Sources */,
 				59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */,
 				59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */,
-				D2313996285395CE0014FFA9 /* AsyncInteractor.swift in Sources */,
-                D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */,
+				D2313996285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */,
+				D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */,
 				59B7A89927A82971001F5D8F /* Mapper+NSCoding.swift in Sources */,
 				59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */,
 				59B7A8C527A82971001F5D8F /* ExecutorFactory.swift in Sources */,
@@ -1894,7 +1894,7 @@
 				D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */,
 				D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */,
 				D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */,
-                D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
+				D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1926,8 +1926,8 @@
 				D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */,
 				D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */,
 				D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */,
-				D2313997285395CE0014FFA9 /* AsyncInteractor.swift in Sources */,
-                D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */,
+				D2313997285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */,
+				D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */,
 				D2D2163A27AC280A00A104B8 /* Mapper+NSCoding.swift in Sources */,
 				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,
 				D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */,
