@@ -17,10 +17,10 @@ public class AsyncGetDataSourceWrapper<D,T>: AsyncGetDataSource where D: GetData
     }
     
     public func get(_ query: Query) async throws -> T {
-        try await self.dataSource.get(query).async()
+        try await dataSource.get(query).async()
     }
 
     public func getAll(_ query: Query) async throws -> [T] {
-        try await self.dataSource.getAll(query).async()
+        try await dataSource.getAll(query).async()
     }
 }
