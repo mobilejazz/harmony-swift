@@ -112,8 +112,8 @@
 		D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
 		D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A45285C628D00A1047E /* Number+Extensions.swift */; };
 		D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */; };
-		D2313985285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
-		D2313986285391310014FFA9 /* AsyncDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncDataSource.swift */; };
+		D2313985285391310014FFA9 /* AsyncGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncGetDataSource.swift */; };
+		D2313986285391310014FFA9 /* AsyncGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncGetDataSource.swift */; };
 		D2313988285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
 		D2313989285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
 		D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
@@ -633,7 +633,7 @@
 		D2067A41285C61CE00A1047E /* MockObjectValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObjectValidation.swift; sourceTree = "<group>"; };
 		D2067A45285C628D00A1047E /* Number+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Number+Extensions.swift"; sourceTree = "<group>"; };
 		D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourceTests.swift; sourceTree = "<group>"; };
-		D2313984285391310014FFA9 /* AsyncDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSource.swift; sourceTree = "<group>"; };
+		D2313984285391310014FFA9 /* AsyncGetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetDataSource.swift; sourceTree = "<group>"; };
 		D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSourceWrapper.swift; sourceTree = "<group>"; };
 		D231398A285394460014FFA9 /* AsyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepository.swift; sourceTree = "<group>"; };
 		D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepositoryWrapper.swift; sourceTree = "<group>"; };
@@ -1533,7 +1533,7 @@
 		D23139912853955D0014FFA9 /* Async */ = {
 			isa = PBXGroup;
 			children = (
-				D2313984285391310014FFA9 /* AsyncDataSource.swift */,
+				D2313984285391310014FFA9 /* AsyncGetDataSource.swift */,
 				D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */,
 			);
 			path = Async;
@@ -1831,7 +1831,7 @@
 				59B7A88B27A82971001F5D8F /* RetryDataSource.swift in Sources */,
 				D231399F28539B370014FFA9 /* Future+Async.swift in Sources */,
 				59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */,
-				D2313985285391310014FFA9 /* AsyncDataSource.swift in Sources */,
+				D2313985285391310014FFA9 /* AsyncGetDataSource.swift in Sources */,
 				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
 				59B7A88D27A82971001F5D8F /* RepositoryMapper.swift in Sources */,
 				59B7A8B327A82971001F5D8F /* Future.swift in Sources */,
@@ -1960,7 +1960,7 @@
 				D2D2165627AC280A00A104B8 /* RetryDataSource.swift in Sources */,
 				D23139A028539B370014FFA9 /* Future+Async.swift in Sources */,
 				D2D2165727AC280A00A104B8 /* VastraInvalidationStrategy.swift in Sources */,
-				D2313986285391310014FFA9 /* AsyncDataSource.swift in Sources */,
+				D2313986285391310014FFA9 /* AsyncGetDataSource.swift in Sources */,
 				D2D2165827AC280A00A104B8 /* KeychainService.swift in Sources */,
 				D2D2165927AC280A00A104B8 /* RepositoryMapper.swift in Sources */,
 				D2D2165A27AC280A00A104B8 /* Future.swift in Sources */,
