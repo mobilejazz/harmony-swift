@@ -116,10 +116,10 @@
 		D2313986285391310014FFA9 /* AsyncGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313984285391310014FFA9 /* AsyncGetDataSource.swift */; };
 		D2313988285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
 		D2313989285391BF0014FFA9 /* AsyncDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */; };
-		D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
-		D231398C285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
-		D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
-		D231398F285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
+		D231398B285394460014FFA9 /* AsyncGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncGetRepository.swift */; };
+		D231398C285394460014FFA9 /* AsyncGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncGetRepository.swift */; };
+		D231398E285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift */; };
+		D231398F285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift */; };
 		D2313996285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */; };
 		D2313997285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */; };
 		D23139992853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
@@ -635,8 +635,8 @@
 		D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDataSourceTests.swift; sourceTree = "<group>"; };
 		D2313984285391310014FFA9 /* AsyncGetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetDataSource.swift; sourceTree = "<group>"; };
 		D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSourceWrapper.swift; sourceTree = "<group>"; };
-		D231398A285394460014FFA9 /* AsyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepository.swift; sourceTree = "<group>"; };
-		D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepositoryWrapper.swift; sourceTree = "<group>"; };
+		D231398A285394460014FFA9 /* AsyncGetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetRepository.swift; sourceTree = "<group>"; };
+		D231398D285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetRepositoryWrapper.swift; sourceTree = "<group>"; };
 		D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetInteractor.swift; sourceTree = "<group>"; };
 		D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyGetRepository.swift; sourceTree = "<group>"; };
 		D231399E28539B370014FFA9 /* Future+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+Async.swift"; sourceTree = "<group>"; };
@@ -1559,8 +1559,8 @@
 		D2313993285395780014FFA9 /* Async */ = {
 			isa = PBXGroup;
 			children = (
-				D231398A285394460014FFA9 /* AsyncRepository.swift */,
-				D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */,
+				D231398A285394460014FFA9 /* AsyncGetRepository.swift */,
+				D231398D285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift */,
 				D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */,
 			);
 			path = Async;
@@ -1838,11 +1838,11 @@
 				59B7A8AE27A82971001F5D8F /* Data+Extensions.swift in Sources */,
 				59B7A88427A82971001F5D8F /* DeviceStorageDataSource.swift in Sources */,
 				59B7A8B727A82971001F5D8F /* Observable+Batch.swift in Sources */,
-				D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */,
+				D231398B285394460014FFA9 /* AsyncGetRepository.swift in Sources */,
 				59B7A88127A82971001F5D8F /* CacheRepository.swift in Sources */,
 				59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */,
 				59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */,
-				D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */,
+				D231398E285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift in Sources */,
 				59B7A8A927A82971001F5D8F /* Logger.swift in Sources */,
 				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
 				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
@@ -1967,11 +1967,11 @@
 				D2D2165B27AC280A00A104B8 /* Data+Extensions.swift in Sources */,
 				D2D2165C27AC280A00A104B8 /* DeviceStorageDataSource.swift in Sources */,
 				D2D2165D27AC280A00A104B8 /* Observable+Batch.swift in Sources */,
-				D231398C285394460014FFA9 /* AsyncRepository.swift in Sources */,
+				D231398C285394460014FFA9 /* AsyncGetRepository.swift in Sources */,
 				D2D2165E27AC280A00A104B8 /* CacheRepository.swift in Sources */,
 				D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */,
 				D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */,
-				D231398F285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */,
+				D231398F285394E90014FFA9 /* AsyncGetRepositoryWrapper.swift in Sources */,
 				D2D2166127AC280A00A104B8 /* Logger.swift in Sources */,
 				D2D2166227AC280A00A104B8 /* Collections+Executor.swift in Sources */,
 				D2D2166327AC280A00A104B8 /* DebugDataSource.swift in Sources */,
