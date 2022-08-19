@@ -120,8 +120,8 @@
 		D231398C285394460014FFA9 /* AsyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398A285394460014FFA9 /* AsyncRepository.swift */; };
 		D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
 		D231398F285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */; };
-		D2313996285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */; };
-		D2313997285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */; };
+		D2313996285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */; };
+		D2313997285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */; };
 		D23139992853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
 		D231399A2853962F0014FFA9 /* AsyncAnyGetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */; };
 		D231399F28539B370014FFA9 /* Future+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = D231399E28539B370014FFA9 /* Future+Async.swift */; };
@@ -637,7 +637,7 @@
 		D2313987285391BF0014FFA9 /* AsyncDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDataSourceWrapper.swift; sourceTree = "<group>"; };
 		D231398A285394460014FFA9 /* AsyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepository.swift; sourceTree = "<group>"; };
 		D231398D285394E90014FFA9 /* AsyncRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncRepositoryWrapper.swift; sourceTree = "<group>"; };
-		D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAsyncInteractor.swift; sourceTree = "<group>"; };
+		D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncGetInteractor.swift; sourceTree = "<group>"; };
 		D23139982853962F0014FFA9 /* AsyncAnyGetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyGetRepository.swift; sourceTree = "<group>"; };
 		D231399E28539B370014FFA9 /* Future+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Future+Async.swift"; sourceTree = "<group>"; };
 		D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutor.swift; sourceTree = "<group>"; };
@@ -1569,7 +1569,7 @@
 		D2313994285395AF0014FFA9 /* Async */ = {
 			isa = PBXGroup;
 			children = (
-				D2313995285395CE0014FFA9 /* GetAsyncInteractor.swift */,
+				D2313995285395CE0014FFA9 /* AsyncGetInteractor.swift */,
 				D23139A12853ADFA0014FFA9 /* AsyncExecutor.swift */,
 			);
 			path = Async;
@@ -1797,7 +1797,7 @@
 				59B7A8B927A82971001F5D8F /* Future+Time.swift in Sources */,
 				59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */,
 				59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */,
-				D2313996285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */,
+				D2313996285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */,
 				D2067A47285C640300A1047E /* Number+Extensions.swift in Sources */,
 				59B7A89927A82971001F5D8F /* Mapper+NSCoding.swift in Sources */,
 				59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */,
@@ -1926,7 +1926,7 @@
 				D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */,
 				D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */,
 				D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */,
-				D2313997285395CE0014FFA9 /* GetAsyncInteractor.swift in Sources */,
+				D2313997285395CE0014FFA9 /* AsyncGetInteractor.swift in Sources */,
 				D2067A48285C640500A1047E /* Number+Extensions.swift in Sources */,
 				D2D2163A27AC280A00A104B8 /* Mapper+NSCoding.swift in Sources */,
 				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,

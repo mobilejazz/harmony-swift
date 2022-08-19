@@ -12,7 +12,7 @@ import Foundation
 protocol AsyncInteractor { }
 
 @available(iOS 13.0.0, *)
-public actor GetInteractor<T>: AsyncInteractor {
+public actor AsyncGetInteractor<T>: AsyncInteractor {
     
     private let repository: AsyncAnyGetRepository<T>
     
@@ -38,5 +38,3 @@ public actor GetAllInteractor<T>: AsyncInteractor {
         try await self.repository.getAll(query, operation: operation)
     }
 }
-
-// TODO: implement put & delete
