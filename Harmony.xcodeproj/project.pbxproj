@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		008DA5FC28AF6C1C0005F551 /* AssyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AssyncPutDataSource.swift */; };
-		008DA5FD28AF6C1C0005F551 /* AssyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AssyncPutDataSource.swift */; };
+		008DA5FC28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */; };
+		008DA5FD28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */; };
 		008DA5FF28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */; };
 		008DA60028AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */; };
 		008DA60228AF726F0005F551 /* AsyncPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA60128AF726F0005F551 /* AsyncPutRepository.swift */; };
@@ -252,7 +252,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008DA5FB28AF6C1C0005F551 /* AssyncPutDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssyncPutDataSource.swift; sourceTree = "<group>"; };
+		008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutDataSource.swift; sourceTree = "<group>"; };
 		008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssyncPutDataSourceWrapper.swift; sourceTree = "<group>"; };
 		008DA60128AF726F0005F551 /* AsyncPutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutRepository.swift; sourceTree = "<group>"; };
 		008DA60428AF73A60005F551 /* AsyncPutRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutRepositoryWrapper.swift; sourceTree = "<group>"; };
@@ -1546,7 +1546,7 @@
 			isa = PBXGroup;
 			children = (
 				D2313984285391310014FFA9 /* AsyncGetDataSource.swift */,
-				008DA5FB28AF6C1C0005F551 /* AssyncPutDataSource.swift */,
+				008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */,
 				008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */,
 				D2313987285391BF0014FFA9 /* AsyncGetDataSourceWrapper.swift */,
 			);
@@ -1838,7 +1838,7 @@
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
 				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
 				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
-				008DA5FC28AF6C1C0005F551 /* AssyncPutDataSource.swift in Sources */,
+				008DA5FC28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */,
 				59B7A8C227A82971001F5D8F /* Executor+Future.swift in Sources */,
 				59B7A89F27A82971001F5D8F /* Mapper.swift in Sources */,
 				59B7A8B227A82971001F5D8F /* ObservableHub.swift in Sources */,
@@ -1971,7 +1971,7 @@
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
 				D2D2164D27AC280A00A104B8 /* ObjectValidation.swift in Sources */,
-				008DA5FD28AF6C1C0005F551 /* AssyncPutDataSource.swift in Sources */,
+				008DA5FD28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */,
 				D2D2164E27AC280A00A104B8 /* Executor+Future.swift in Sources */,
 				D2D2164F27AC280A00A104B8 /* Mapper.swift in Sources */,
 				D2D2165027AC280A00A104B8 /* ObservableHub.swift in Sources */,
