@@ -21,16 +21,10 @@ class ApplicationDefaultModule: ApplicationComponent {
     private lazy var logger: Logger = DeviceConsoleLogger()
     private lazy var backgroundExecutor: Executor = DispatchQueueExecutor()
     
-    private lazy var apiClient: SessionManager = {
+    private lazy var apiClient: Session = {
         // Alamofire Session Manager
-        let sessionManager = SessionManager()
-        sessionManager.adapter = MultiRequestAdapter(
-            // The mockable.io account is hosted by @vilanovi (Joan)
-            [BaseURLRequestAdapter(URL(string:"https://demo3068405.mockable.io")!)]
-        )
-        sessionManager.retrier = MultiRequestRetrier(
-            [UnauthorizedStatusCodeRequestRetrier()]
-        )
+        let sessionManager = Session(interceptor: BaseURLRequestAdapter(URL(string:"https://demo3068405.mockable.io")!,
+                                                                        [UnauthorizedStatusCodeRequestRetrier()]))
         return sessionManager
     }()
     

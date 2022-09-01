@@ -17,22 +17,26 @@
 import Foundation
 import Alamofire
 
-public class BaseURLRequestAdapter: RequestAdapter {
-    
+public class BaseURLRequestAdapter: RequestInterceptor {
+        
     // Example of usage of a bearer token
     public let baseURL : URL
+    private var retriers : [RequestRetrier] = []
     
-    public init(_ baseURL: URL) {
+    public init(_ baseURL: URL, _ retriers : [RequestRetrier]) {
         self.baseURL = baseURL
+        self.retriers = retriers
     }
     
-    public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         guard let incomingURL = urlRequest.url else {
-            return urlRequest
+            completion(.success(urlRequest))
+            return
         }
         
         if incomingURL.scheme != nil {
-            return urlRequest
+            completion(.success(urlRequest))
+            return
         }
         
         var request = urlRequest
@@ -48,6 +52,26 @@ public class BaseURLRequestAdapter: RequestAdapter {
         
         request.url = components.url
         
-        return request
+        completion(.success(request))
+    }
+    
+    public func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        should(0, session, retry: request, with: error, completion: completion)
+    }
+    
+    private func should(_ index: Int, _ manager: Session, retry request: Request, with error: Error, completion: @escaping (RetryResult) -> Void) {
+        if index < retriers.count {
+            let retrier = retriers[index]
+            retrier.retry(request, for: manager, dueTo: error) { retryResult in
+                switch retryResult {
+                case .retry, .retryWithDelay(_), .doNotRetry:
+                    completion(retryResult)
+                case .doNotRetryWithError(_):
+                    self.should(index+1, manager, retry: request, with: error, completion: completion)
+                }
+            }
+        } else {
+            completion(.doNotRetry)
+        }
     }
 }

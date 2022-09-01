@@ -22,6 +22,7 @@ import Harmony
 /// Logs CURLS of incoming requests
 ///
 public class URLLoggerRequestAdapter: RequestAdapter {
+    
     private let logger: Logger
     private let tag: String?
     
@@ -30,10 +31,10 @@ public class URLLoggerRequestAdapter: RequestAdapter {
         self.tag = tag
     }
     
-    public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         let curl = urlRequest.curl(pretty: true)
         logger.info(tag: tag, "\(curl)")
-        return urlRequest
+        return completion(.success(urlRequest))
     }
 }
 

@@ -25,14 +25,9 @@ public class MultiRequestAdapter : RequestAdapter {
         self.adapters = adapters
     }
     
-    public func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-        
-        var request = urlRequest
-        
+    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         for adapter in adapters {
-            request = try adapter.adapt(request)
+            adapter.adapt(urlRequest, for: session, completion: completion)
         }
-        
-        return request
     }
 }

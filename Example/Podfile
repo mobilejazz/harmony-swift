@@ -6,9 +6,9 @@ target 'Harmony_Example' do
   
   pod 'Harmony', :path => '../'
 
-  pod 'Alamofire', '~> 4.8.2'
-  pod 'Kingfisher', '~> 7.0'
-  pod 'PromisesSwift', '~> 1.2'
+  pod 'Alamofire', '~> 5.6.2'
+  pod 'Kingfisher', '~> 7.3.2'
+  pod 'PromisesSwift', '~> 2.1.1'
   
   pod 'SQLite.swift'
 
