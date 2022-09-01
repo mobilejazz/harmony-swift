@@ -28,6 +28,7 @@ class ItemListViewState: ObservableObject, ItemListPresenterView {
     
     func onDisplayItems(_ items: [Item]) {
         self.items = items
+        self.error = nil
     }
     
     func onNavigateToItem(_ item: Item) {

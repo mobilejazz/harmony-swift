@@ -22,9 +22,9 @@ class ItemNetworkDataSource : GetDataSource  {
     
     typealias T = ItemEntity
     
-    var sessionManager : SessionManager
+    var sessionManager : Session
     
-    required init(_ sessionManager: SessionManager) {
+    required init(_ sessionManager: Session) {
         self.sessionManager = sessionManager
     }
     
@@ -52,7 +52,7 @@ class ItemNetworkDataSource : GetDataSource  {
 private extension ItemNetworkDataSource {
     private func getById(_ id: String) -> Future<ItemEntity> {
         let url = "/items/\(id)"
-        return sessionManager.request(url).toFuture().flatMap { data in
+        return sessionManager.request(url).toFuture().flatMap { data -> Future<ItemEntity> in
             guard let json = data as? [String : AnyObject] else {
                 throw CoreError.NotFound()
             }
@@ -65,7 +65,7 @@ private extension ItemNetworkDataSource {
     
     private func getAllItems() -> Future<[ItemEntity]> {        
         let url = "/items"
-        return sessionManager.request(url).toFuture().flatMap { data in
+        return sessionManager.request(url).toFuture().flatMap { data -> Future<[ItemEntity]> in
             guard let results = data as? [[String: AnyObject]] else {
                 return Future([]) // or pass error if desired
             }
@@ -79,7 +79,7 @@ private extension ItemNetworkDataSource {
         let url = "/items"
         return sessionManager.request(url,
                                       parameters: ["name" : text])
-            .toFuture().flatMap { data in
+        .toFuture().flatMap { data -> Future<[ItemEntity]> in
                 guard let json = data as? [String: AnyObject] else {
                     return Future([]) // no json to parse
                 }

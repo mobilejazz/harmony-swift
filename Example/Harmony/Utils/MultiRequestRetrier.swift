@@ -25,22 +25,25 @@ public class MultiRequestRetrier: RequestRetrier {
         self.retriers = retriers
     }
     
-    public func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
-        should(0, manager, retry: request, with: error, completion: completion)
+    public func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        should(0, session, retry: request, with: error, completion: completion)
     }
     
-    private func should(_ index: Int, _ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
+    private func should(_ index: Int, _ manager: Session, retry request: Request, with error: Error, completion: @escaping (RetryResult) -> Void) {
         if index < retriers.count {
             let retrier = retriers[index]
-            retrier.should(manager, retry: request, with: error) { retry, timeDelay in
-                if retry {
-                    completion(true, timeDelay)
-                } else {
+            retrier.retry(request, for: manager, dueTo: error) { retryResult in
+                switch retryResult {                    
+                case .retry, .retryWithDelay(_):
+                    completion(retryResult)
+                case .doNotRetry:
+                    break
+                case .doNotRetryWithError(_):
                     self.should(index+1, manager, retry: request, with: error, completion: completion)
                 }
             }
         } else {
-            completion(false, 0.0)
+            completion(.doNotRetry)
         }
     }
 }

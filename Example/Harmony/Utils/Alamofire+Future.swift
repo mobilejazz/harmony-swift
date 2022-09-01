@@ -29,7 +29,7 @@ public extension DataRequest {
                  success: @escaping (Any) throws -> T,
                  failure: @escaping (Error, HTTPURLResponse?, Data?) -> Error = { (error, _, _) in error }) -> Future<T> {
         return Future<T> { resolver in
-            self.validate().response(queue: queue, responseSerializer: DataRequest.jsonResponseSerializer(options: options)) { response in
+            self.validate().response(queue: queue ?? .main, responseSerializer: JSONResponseSerializer(options: options)) { response in
                 switch response.result {
                 case .failure(let error):
                     resolver.set(failure(error, response.response, response.data))
