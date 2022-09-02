@@ -201,6 +201,18 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
 
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
+        case let query as IdsQuery<String>:
+            let futures : [Future<Void>] = query.ids.map { id in
+                return Future {
+                    try? fileManager.removeItem(at: fileURL(id))
+                }
+            }
+            return Future.batch(futures).map { _ in Void() }
+        case is AllObjectsQuery:
+            return Future {
+                // Deleting everything!
+                try fileManager.removeItem(at: directory)
+            }
         case let query as KeyQuery:
             return Future {
                 try? fileManager.removeItem(at: fileURL(query.key))
@@ -211,36 +223,6 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
     }
     
     public func deleteAll(_ query: Query) -> Future<Void> {
-        switch query {
-        case let query as IdsQuery<String>:
-            let futures : [Future<Void>] = query.ids.map { id in
-                return Future {
-                    try? fileManager.removeItem(at: fileURL(id))
-                }
-            }
-            return Future.batch(futures).map { _ in Void() }
-        case is AllObjectsQuery:
-            return Future {
-                
-                // Deleting everything!
-                try fileManager.removeItem(at: directory)
-                
-//                try fileManager
-//                    .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey])
-//                    .filter { url in
-//                        // Filter out folders
-//                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! }
-//                        catch { return false }
-//                    }.forEach { url in
-//                        try? fileManager.removeItem(at: url)
-//                }
-            }
-        case let query as KeyQuery:
-            return Future {
-                try? fileManager.removeItem(at: fileURL(query.key))
-            }
-        default:
-            query.fatalError(.deleteAll, self)
-        }
+        delete(query)
     }
 }

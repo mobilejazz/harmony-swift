@@ -62,6 +62,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             guard let value = value else {
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
+            arrays.removeValue(forKey: query.key)
             objects[query.key] = value
             return Future(value)
         default:
@@ -77,10 +78,12 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.IllegalArgument("Array lenght must be equal to query.ids length"))
             }
             array.enumerated().forEach { (offset, element) in
+                arrays.removeValue(forKey: query.ids[offset])
                 objects[query.ids[offset]] = element
             }
             return Future(array)
         case let query as KeyQuery:
+            objects.removeValue(forKey: query.key)
             arrays[query.key] = array
             return Future(array)
         default:
@@ -91,8 +94,17 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
+        case is AllObjectsQuery:
+            objects.removeAll()
+            arrays.removeAll()
+            return Future(Void())
+        case let query as IdsQuery<String>:
+            query.ids.forEach { key in
+                clearAll(key: key)
+            }
+            return Future(Void())
         case let query as KeyQuery:
-            objects[query.key] = nil
+            clearAll(key: query.key)
             return Future(Void())
         default:
             return Future(CoreError.QueryNotSupported())
@@ -101,21 +113,11 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
     
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
-        switch query {
-        case let query as IdsQuery<String>:
-            query.ids.forEach { key in
-                objects[key] = nil
-            }
-            return Future(Void())
-        case is AllObjectsQuery:
-            objects.removeAll()
-            arrays.removeAll()
-            return Future(Void())
-        case let query as KeyQuery:
-            arrays[query.key] = nil
-            return Future(Void())
-        default:
-            return Future(CoreError.QueryNotSupported())
-        }
+        delete(query)
+    }
+    
+    private func clearAll(key: String) {
+        objects.removeValue(forKey: key)
+        arrays.removeValue(forKey: key)
     }
 }
