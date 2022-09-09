@@ -187,17 +187,23 @@ class FutureTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test_future_to_async() async throws {
+    func test_future_to_async() throws {
         // Given
         let expectedValue = Int.random(in: Int.min...Int.max)
         let future = Future<Int>()
+        let expectation = expectation(description: "Future Timeout")
         
         Task {
             try await Task.sleep(nanoseconds: TIME_1_SECOND_IN_NANOSECONDS * UInt64(0.25))
             future.set(expectedValue)
         }
-                
-        let producedValue = try await future.async()
-        expect(producedValue).to(equal(expectedValue))
+        
+        Task {
+            let producedValue = try await future.async()
+            expect(producedValue).to(equal(expectedValue))
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1)
     }
 }
