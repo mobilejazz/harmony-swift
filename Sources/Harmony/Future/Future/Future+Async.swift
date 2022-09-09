@@ -36,7 +36,6 @@ extension Future {
 public func withFuture<T>(body: @escaping () async throws -> T) -> Future<T> {
     return Future { r in
         Task {
-            try Task.checkCancellation()
             let value = try await body()
             r.set(value)
         }
