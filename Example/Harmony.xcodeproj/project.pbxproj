@@ -11,7 +11,6 @@
 		5901221427AA837800D4D9CD /* BaseURLRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */; };
 		5901221527AA837800D4D9CD /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901220F27AA837800D4D9CD /* ContainerViewController.swift */; };
 		5901221627AA837800D4D9CD /* Alamofire+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221027AA837800D4D9CD /* Alamofire+Future.swift */; };
-		5901221727AA837800D4D9CD /* MultiRequestRetrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */; };
 		5901221827AA837900D4D9CD /* MultiRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */; };
 		C6C7A18A7961D31E1921FEBC /* Pods_Harmony_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E50C73A54D07B7A6EC055D /* Pods_Harmony_Tests.framework */; };
 		D22A0BA62035CD580026068F /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A0BA52035CD580026068F /* TestHelper.swift */; };
@@ -70,7 +69,6 @@
 		5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLRequestAdapter.swift; sourceTree = "<group>"; };
 		5901220F27AA837800D4D9CD /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		5901221027AA837800D4D9CD /* Alamofire+Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Future.swift"; sourceTree = "<group>"; };
-		5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestRetrier.swift; sourceTree = "<group>"; };
 		5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiRequestAdapter.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Harmony_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACE51AFB9204008FA782 /* Harmony_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Harmony_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,7 +341,6 @@
 				5901220E27AA837800D4D9CD /* BaseURLRequestAdapter.swift */,
 				5901220F27AA837800D4D9CD /* ContainerViewController.swift */,
 				5901221227AA837800D4D9CD /* MultiRequestAdapter.swift */,
-				5901221127AA837800D4D9CD /* MultiRequestRetrier.swift */,
 				5901220D27AA837800D4D9CD /* URLLoggerRequestAdapter.swift */,
 				D2477DF7288EE0D10005F826 /* EmptyNavigationLink.swift */,
 				D2477DF9288EE1150005F826 /* LazyView.swift */,
@@ -614,7 +611,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5901221727AA837800D4D9CD /* MultiRequestRetrier.swift in Sources */,
 				D2477DF2288ED4680005F826 /* ItemListView.swift in Sources */,
 				D2477DF6288ED85D0005F826 /* ItemListViewState.swift in Sources */,
 				D23CDCB02253716B001C1914 /* AppDelegate.swift in Sources */,

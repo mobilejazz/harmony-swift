@@ -11,11 +11,11 @@ import UIKit
 import Alamofire
 
 class UnauthorizedStatusCodeRequestRetrier: RequestRetrier {
-    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
         if request.response?.statusCode == 401 {
             // TODO: Logout user
         }
-        completion(false, 0)
+        completion(.doNotRetry)
     }
 }
 

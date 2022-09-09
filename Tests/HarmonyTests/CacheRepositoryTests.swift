@@ -72,7 +72,7 @@ class CacheRepositoryTests: XCTestCase {
         .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.cacheSpy.getCalls.count).to(equal(0))
         expect(self.mainSpy.getCalls.count).to(equal(1))
-        expect(self.mainSpy.getCalls[0]).to(be(query))
+        expect(self.mainSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withMain_withMainValue() throws {
@@ -89,7 +89,7 @@ class CacheRepositoryTests: XCTestCase {
         expect(result).to(equal(value))
         expect(self.cacheSpy.getCalls.count).to(equal(0))
         expect(self.mainSpy.getCalls.count).to(equal(1))
-        expect(self.mainSpy.getCalls[0]).to(be(query))
+        expect(self.mainSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCache_withEmptyCache() throws {
@@ -106,7 +106,7 @@ class CacheRepositoryTests: XCTestCase {
         .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.mainSpy.getCalls.count).to(equal(0))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
-        expect(self.cacheSpy.getCalls[0]).to(be(query))
+        expect(self.cacheSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCache_withCacheValue() throws {
@@ -123,7 +123,7 @@ class CacheRepositoryTests: XCTestCase {
         expect(result).to(equal(value))
         expect(self.mainSpy.getCalls.count).to(equal(0))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
-        expect(self.cacheSpy.getCalls[0]).to(be(query))
+        expect(self.cacheSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCacheSync_withEmptyCache_withMainValue() throws {
@@ -139,10 +139,10 @@ class CacheRepositoryTests: XCTestCase {
         // Then
         expect(result).to(equal(value))
         expect(self.mainSpy.getCalls.count).to(equal(1))
-        expect(self.mainSpy.getCalls[0]).to(be(query))
+        expect(self.mainSpy.getCalls[0] as! IdQuery<String>).to(be(query))
         expect(self.cacheSpy.putCalls.count).to(equal(1))
         expect(self.cacheSpy.putCalls[0].value).to(equal(value))
-        expect(self.cacheSpy.putCalls[0].query).to(be(query))
+        expect(self.cacheSpy.putCalls[0].query as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCacheSync_withValidCacheValue() throws {
@@ -159,7 +159,7 @@ class CacheRepositoryTests: XCTestCase {
         expect(result).to(equal(value))
         expect(self.mainSpy.getCalls.count).to(equal(0))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
-        expect(self.cacheSpy.getCalls[0]).to(be(query))
+        expect(self.cacheSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCacheSync_withInvalidCacheValue_withMainValue() throws {
@@ -176,12 +176,12 @@ class CacheRepositoryTests: XCTestCase {
         // Then
         expect(result).to(equal(validValue))
         expect(self.mainSpy.getCalls.count).to(equal(1))
-        expect(self.mainSpy.getCalls[0]).to(be(query))
+        expect(self.mainSpy.getCalls[0] as! IdQuery<String>).to(be(query))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
-        expect(self.cacheSpy.getCalls[0]).to(be(query))
+        expect(self.cacheSpy.getCalls[0] as! IdQuery<String>).to(be(query))
         expect(self.cacheSpy.putCalls.count).to(equal(1))
         expect(self.cacheSpy.putCalls[0].value).to(equal(validValue))
-        expect(self.cacheSpy.putCalls[0].query).to(be(query))
+        expect(self.cacheSpy.putCalls[0].query as! IdQuery<String>).to(be(query))
     }
     
     func test_getValue_withCacheSync_withInvalidCacheValue_withEmptyMain() throws {
@@ -198,9 +198,9 @@ class CacheRepositoryTests: XCTestCase {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self))
         expect(self.mainSpy.getCalls.count).to(equal(1))
-        expect(self.mainSpy.getCalls[0]).to(be(query))
+        expect(self.mainSpy.getCalls[0] as! IdQuery<String>).to(be(query))
         expect(self.cacheSpy.getCalls.count).to(equal(1))
-        expect(self.cacheSpy.getCalls[0]).to(be(query))
+        expect(self.cacheSpy.getCalls[0] as! IdQuery<String>).to(be(query))
     }
 }
 

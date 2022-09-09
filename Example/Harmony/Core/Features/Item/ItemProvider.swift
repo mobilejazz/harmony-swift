@@ -15,10 +15,10 @@ protocol ItemComponent {
 
 class ItemDefaultModule: ItemComponent {
     private let executor: Executor
-    private let apiClient: SessionManager
+    private let apiClient: Session
     private let storage: AnyDataSource<Data>
     
-    init(executor: Executor, apiClient: SessionManager, storage: AnyDataSource<Data>) {
+    init(executor: Executor, apiClient: Session, storage: AnyDataSource<Data>) {
         self.executor = executor
         self.apiClient = apiClient
         self.storage = storage
