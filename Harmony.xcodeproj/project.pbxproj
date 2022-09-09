@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		008DA5FC28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */; };
 		008DA5FD28AF6C1C0005F551 /* AsyncPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */; };
-		008DA5FF28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */; };
-		008DA60028AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */; };
+		008DA5FF28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift */; };
+		008DA60028AF709E0005F551 /* AsyncPutDataSourceWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA5FE28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift */; };
 		008DA60228AF726F0005F551 /* AsyncPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA60128AF726F0005F551 /* AsyncPutRepository.swift */; };
 		008DA60328AF726F0005F551 /* AsyncPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA60128AF726F0005F551 /* AsyncPutRepository.swift */; };
 		008DA60528AF73A60005F551 /* AsyncPutRepositoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA60428AF73A60005F551 /* AsyncPutRepositoryWrapper.swift */; };
@@ -269,7 +269,7 @@
 
 /* Begin PBXFileReference section */
 		008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutDataSource.swift; sourceTree = "<group>"; };
-		008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssyncPutDataSourceWrapper.swift; sourceTree = "<group>"; };
+		008DA5FE28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutDataSourceWrapper.swift; sourceTree = "<group>"; };
 		008DA60128AF726F0005F551 /* AsyncPutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutRepository.swift; sourceTree = "<group>"; };
 		008DA60428AF73A60005F551 /* AsyncPutRepositoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPutRepositoryWrapper.swift; sourceTree = "<group>"; };
 		008DA60728AF77FD0005F551 /* AsyncDeleteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteDataSource.swift; sourceTree = "<group>"; };
@@ -1572,7 +1572,7 @@
 				D2313984285391310014FFA9 /* AsyncGetDataSource.swift */,
 				008DA5FB28AF6C1C0005F551 /* AsyncPutDataSource.swift */,
 				008DA60728AF77FD0005F551 /* AsyncDeleteDataSource.swift */,
-				008DA5FE28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift */,
+				008DA5FE28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift */,
 				D2313987285391BF0014FFA9 /* AsyncGetDataSourceWrapper.swift */,
 				008DA60A28AF799B0005F551 /* AsyncDeleteDataSourceWrapper.swift */,
 			);
@@ -1851,7 +1851,7 @@
 				59B7A8AD27A82971001F5D8F /* JSONDecoding.swift in Sources */,
 				59B7A8C527A82971001F5D8F /* ExecutorFactory.swift in Sources */,
 				59B7A8CB27A82971001F5D8F /* VastraValidationStrategy.swift in Sources */,
-				008DA5FF28AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */,
+				008DA5FF28AF709E0005F551 /* AsyncPutDataSourceWrapper.swift in Sources */,
 				59B7A8C627A82971001F5D8F /* VastraReachabilityStrategy.swift in Sources */,
 				59B7AA1A27A83966001F5D8F /* KeychainDataSource.swift in Sources */,
 				59B7A8C127A82971001F5D8F /* Future+Functional.swift in Sources */,
@@ -1992,7 +1992,7 @@
 				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,
 				D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */,
 				D2D2163D27AC280A00A104B8 /* VastraValidationStrategy.swift in Sources */,
-				008DA60028AF709E0005F551 /* AssyncPutDataSourceWrapper.swift in Sources */,
+				008DA60028AF709E0005F551 /* AsyncPutDataSourceWrapper.swift in Sources */,
 				D2D2163E27AC280A00A104B8 /* VastraReachabilityStrategy.swift in Sources */,
 				D2D2163F27AC280A00A104B8 /* KeychainDataSource.swift in Sources */,
 				D2D2164027AC280A00A104B8 /* Future+Functional.swift in Sources */,

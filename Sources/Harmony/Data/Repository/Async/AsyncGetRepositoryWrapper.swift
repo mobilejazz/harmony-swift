@@ -24,5 +24,3 @@ public class AsyncGetRepositoryWrapper<R,T>: AsyncGetRepository where R: GetRepo
         try await repository.getAll(query, operation: operation).async()
     }
 }
-
-// TODO: implement put & delete
