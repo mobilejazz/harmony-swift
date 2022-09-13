@@ -89,6 +89,7 @@ public protocol DeleteRepository : Repository {
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Void type.
+    @available(*, deprecated, message: "Use delete with AllObjectsQuery to remove all entries or with any other Query to remove one or more entries")
     @discardableResult
     func deleteAll(_ query: Query, operation: Operation) -> Future<Void>
 }
@@ -99,6 +100,7 @@ extension DeleteRepository {
         return delete(IdQuery(id), operation: operation)
     }
     
+    @available(*, deprecated, message: "Use delete instead")
     @discardableResult
     public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
         return deleteAll(IdQuery(id), operation: operation)

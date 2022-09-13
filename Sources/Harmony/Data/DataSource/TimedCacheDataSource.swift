@@ -87,6 +87,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
         switch query {
         case let query as KeyQuery:
             return dataSource.put(value, in: query).then { object in
+                self.arrays[query.key] =  nil
                 self.objects[query.key] = (object, Date())
                 }.fail { error in
                     self.objects[query.key] = nil
@@ -102,6 +103,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
         switch query {
         case let query as KeyQuery:
             return dataSource.putAll(array, in: query).then { array in
+                self.objects[query.key] = nil
                 self.arrays[query.key] = (array, Date())
                 }.fail { error in
                     self.arrays[query.key] = nil
@@ -118,6 +120,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
         case let query as KeyQuery:
             return dataSource.delete(query).onCompletion {
                 self.objects[query.key] = nil
+                self.arrays[query.key] = nil
             }
         default:
             print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).delete call because \(type(of: query)) doesn't conform to KeyQuery.")
@@ -127,15 +130,7 @@ public class TimedCacheDataSource<T,D> : GetDataSource, PutDataSource, DeleteDat
     
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
-        switch query {
-        case let query as KeyQuery:
-            return dataSource.delete(query).onCompletion {
-                self.arrays[query.key] = nil
-            }
-        default:
-            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).deleteAll call because \(type(of: query)) doesn't conform to KeyQuery.")
-            return dataSource.deleteAll(query)
-        }
+        delete(query)
     }
 }
 
