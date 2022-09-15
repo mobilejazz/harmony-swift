@@ -31,6 +31,12 @@
 		008DA61B28AF7FD30005F551 /* AsyncAnyPutRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */; };
 		008DA61F28AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */; };
 		008DA62028AF87070005F551 /* AsyncAnyDeleteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */; };
+		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
+		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
+		24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */; };
+		24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD7028CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift */; };
+		24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD7228CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift */; };
+		24C7BD7528CA11B30046F15C /* TimedCacheDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */; };
 		5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */; };
 		5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191D27A9460A00A18D72 /* BoolObjectMother.swift */; };
 		5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E5191C27A9460A00A18D72 /* DoubleObjectMother.swift */; };
@@ -280,6 +286,12 @@
 		008DA61628AF7F170005F551 /* AsyncDeleteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDeleteInteractor.swift; sourceTree = "<group>"; };
 		008DA61928AF7FD30005F551 /* AsyncAnyPutRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyPutRepository.swift; sourceTree = "<group>"; };
 		008DA61E28AF87070005F551 /* AsyncAnyDeleteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyDeleteRepository.swift; sourceTree = "<group>"; };
+		24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSourceTests.swift; sourceTree = "<group>"; };
+		24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceTester.swift; sourceTree = "<group>"; };
+		24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceRegularTests.swift; sourceTree = "<group>"; };
+		24C7BD7028CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourcePrefixTests.swift; sourceTree = "<group>"; };
+		24C7BD7228CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceRootKeyTests.swift; sourceTree = "<group>"; };
+		24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedCacheDataSourceTests.swift; sourceTree = "<group>"; };
 		59881E7A27A9D6D700D92121 /* HarmonyTesting.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HarmonyTesting.podspec; sourceTree = "<group>"; };
 		59881E7B27A9DC9500D92121 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		59A418C5284E240300E33F2D /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
@@ -843,6 +855,12 @@
 				D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */,
 				D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
 				D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */,
+				24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */,
+				24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */,
+				24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */,
+				24C7BD7028CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift */,
+				24C7BD7228CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift */,
+				24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1950,11 +1968,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
+				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
 				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
 				D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */,
 				D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */,
 				D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */,
 				D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
+				24C7BD7528CA11B30046F15C /* TimedCacheDataSourceTests.swift in Sources */,
+				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
+				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
+				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
+				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

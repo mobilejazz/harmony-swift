@@ -51,7 +51,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
         self.storageType = .prefix(prefix)
     }
     
-    private func rootKey() -> String? {
+    private func getRootKey() -> String? {
         switch storageType {
         case .rootKey(let rootKey):
             return "\(rootKey)<\(String(describing:T.self))>"
@@ -66,53 +66,16 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             let key = storageType.key(query.key)
             guard let value : T = {
                 
-                if let rootKey = rootKey() {
+                if let rootKey = getRootKey() {
                     return userDefaults.dictionary(forKey: rootKey)?[key] as? T
                 }
                 
-                switch T.self {
-                case is Int.Type:
-                    return userDefaults.integer(forKey: key) as? T
-                case is [Int].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is Double.Type:
-                    return userDefaults.double(forKey: key) as? T
-                case is [Double].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is Bool.Type:
-                    return userDefaults.bool(forKey: key) as? T
-                case is [Bool].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is Float.Type:
-                    return userDefaults.float(forKey: key) as? T
-                case is [Float].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is Data.Type:
-                    return userDefaults.data(forKey: key) as? T
-                case is [Data].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is String.Type:
-                    return userDefaults.string(forKey: key) as? T
-                case is [String].Type:
-                    return userDefaults.stringArray(forKey: key) as? T
-                case is URL.Type:
-                    return userDefaults.url(forKey: key) as? T
-                case is [URL].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is Date.Type:
-                    return userDefaults.object(forKey: key) as? T
-                case is [Date].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is [Any].Type:
-                    return userDefaults.array(forKey: key) as? T
-                case is [String:Any].Type:
-                    return userDefaults.dictionary(forKey: key) as? T
-                default:
-                    return userDefaults.object(forKey: key) as? T
-                }
+                return userDefaults.object(forKey: key) as? T
+                
                 }() else {
                     return Future(CoreError.NotFound())
             }
+            
             return Future(value)
         default:
             query.fatalError(.get, self)
@@ -127,7 +90,9 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             switch storageType {
             case .regular:
                 query.fatalError(.getAll, self)
-            case .rootKey(let rootKey):
+            case .rootKey(_):
+                let rootKey = getRootKey()! // Will always be present in this case
+                    
                 guard let dict = userDefaults.dictionary(forKey: rootKey) else {
                     return Future(CoreError.NotFound())
                 }
@@ -164,7 +129,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             }
         case let query as KeyQuery:
             let key = storageType.key(query.key)
-            if let rootKey = rootKey() {
+            if let rootKey = getRootKey() {
                 guard let array = userDefaults.dictionary(forKey: rootKey)?[key] as? [T] else {
                     return Future(CoreError.NotFound())
                 }
@@ -188,7 +153,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 return Future(CoreError.IllegalArgument("Value cannot be nil"))
             }
             let key = storageType.key(query.key)
-            if let rootKey = rootKey() {
+            if let rootKey = getRootKey() {
                 var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
                 root[key] = value
                 userDefaults.set(root, forKey: rootKey)
@@ -212,7 +177,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             return Future.batch(array.enumerated().map { put($0.element, in: IdQuery(query.ids[$0.offset])) })
         case let query as KeyQuery:
             let key = storageType.key(query.key)
-            if let rootKey = rootKey() {
+            if let rootKey = getRootKey() {
                 var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
                 root[key] = array
                 userDefaults.set(root, forKey: rootKey)
@@ -229,32 +194,14 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
-        case let query as KeyQuery:
-            let key = storageType.key(query.key)
-            if let rootKey = rootKey() {
-                var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
-                root.removeValue(forKey: key)
-                userDefaults.set(root, forKey: rootKey)
-            } else {
-                userDefaults.removeObject(forKey: key)
-            }
-            userDefaults.synchronize()
-            return Future(Void())
-        default:
-            query.fatalError(.delete, self)
-        }
-    }
-    
-    @discardableResult
-    public func deleteAll(_ query: Query) -> Future<Void> {
-        switch query {
         case let query as IdsQuery<String>:
             return Future.batch(query.ids.map { delete(IdQuery($0)) }).map { _ in Void() }
         case is AllObjectsQuery:
             switch storageType {
             case .regular:
                 query.fatalError(.deleteAll, self)
-            case .rootKey(let rootKey):
+            case .rootKey(_):
+                let rootKey = getRootKey()! // Will always be present in this case
                 userDefaults.removeObject(forKey: rootKey)
                 userDefaults.synchronize()
                 return Future(Void())
@@ -277,7 +224,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             }
         case let query as KeyQuery:
             let key = storageType.key(query.key)
-            if let rootKey = rootKey() {
+            if let rootKey = getRootKey() {
                 var root = userDefaults.dictionary(forKey: rootKey) ?? [String : Any]()
                 root.removeValue(forKey: key)
                 userDefaults.set(root, forKey: rootKey)
@@ -287,8 +234,13 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             userDefaults.synchronize()
             return Future(Void())
         default:
-            query.fatalError(.deleteAll, self)
+            query.fatalError(.delete, self)
         }
+    }
+    
+    @discardableResult
+    public func deleteAll(_ query: Query) -> Future<Void> {
+        delete(query)
     }
 }
 

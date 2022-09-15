@@ -97,6 +97,7 @@ public protocol DeleteDataSource : DataSource {
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Void type.
+    @available(*, deprecated, message: "Use delete with AllObjectsQuery to remove all entries or with any other Query to remove one or more entries")
     @discardableResult
     func deleteAll(_ query: Query) -> Future<Void>
 }
@@ -107,6 +108,7 @@ extension DeleteDataSource {
         return delete(IdQuery(id))
     }
     
+    @available(*, deprecated, message: "Use delete instead")
     @discardableResult
     public func deleteAll<K>(_ id: K) -> Future<Void> where K:Hashable {
         return deleteAll(IdQuery(id))

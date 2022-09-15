@@ -1,28 +1,21 @@
 //
-// Copyright 2022 Mobile Jazz SL
+//  TimedCacheDataSourceTests.swift
+//  HarmonyTests
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+//  Created by Fran Montiel on 8/9/22.
 //
 
+import Foundation
 import Foundation
 import Nimble
 import XCTest
 import Harmony
 
-class InMemoryDataSourceTests: XCTestCase {
+// TODO: Improve TimedCacheDataSourceTests to take into account expiration date. Use a spy to check wether the value is obtained from cache or not.
+class TimedCacheDataSourceTests: XCTestCase {
     
-    private func provideEmptyDataSource() -> InMemoryDataSource<Int> {
-        return InMemoryDataSource<Int>()
+    private func provideEmptyDataSource() -> TimedCacheDataSource<Int, InMemoryDataSource<Int>> {
+        return TimedCacheDataSource(InMemoryDataSource<Int>())
     }
     
     func test_put_value() throws {
