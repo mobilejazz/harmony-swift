@@ -21,12 +21,12 @@ class GetNetworkDataSource<T: Decodable>: GetDataSource {
     
     @discardableResult
     func get(_ query: Query) -> Future<T> {
-        return execute(validate(query))
+        return execute(validate(query)).map{$0.first!}
     }
     
     @discardableResult
     func getAll(_ query: Query) -> Future<[T]> {
-        return Future()
+        return execute(validate(query))
     }
     
     private func validate(_ query: Query) -> NetworkQuery? {
@@ -36,22 +36,26 @@ class GetNetworkDataSource<T: Decodable>: GetDataSource {
         return query
     }
     
-    fileprivate func resolve(_ resolver: FutureResolver<T> ,_ response: AFDataResponse<Data?>) {
-        if response.error == nil {
-            do {
-                resolver.set(try JSONDecoder().decode(T.self, from: response.data!))
-            } catch let error as NSError {
-                resolver.set(error)
+    @discardableResult
+    private func execute(_ query: NetworkQuery?) -> Future<[T]> {
+        return Future { resolver in
+            query?.buildRequest().validate().response { [self] response in
+                resolve(resolver, response)
             }
         }
     }
     
-    @discardableResult
-    private func execute(_ query: NetworkQuery?) -> Future<T> {
-        return Future { resolver in
-            query?.buildRequest().response { [self] response in
-                resolve(resolver, response)
-            }
+    fileprivate func decode(_ response: AFDataResponse<Data?>) throws -> [T] {
+        return try JSONDecoder().decode([T].self, from: response.data!)
+    }
+    
+    fileprivate func resolve(_ resolver: FutureResolver<[T]> ,_ response: AFDataResponse<Data?>) {
+        guard response.error == nil else { return }
+        
+        do {
+            resolver.set(try decode(response))
+        } catch let error as NSError {
+            resolver.set(error)
         }
     }
 }
