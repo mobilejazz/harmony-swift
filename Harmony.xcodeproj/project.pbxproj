@@ -109,6 +109,11 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
+		AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE15EE428D4783E003053B9 /* Alamofire.xcframework */; };
+		AEE15EE728D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
+		AEE15EE828D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
+		AEE15EEB28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */; };
+		AEE15EEC28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */; };
 		D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
@@ -622,6 +627,9 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
+		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
+		AEE15EE628D47867003053B9 /* NetworkQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQuery.swift; sourceTree = "<group>"; };
+		AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSource.swift; sourceTree = "<group>"; };
 		D2067A39285C5F8000A1047E /* DataSourceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSpy.swift; sourceTree = "<group>"; };
 		D2067A3C285C600B00A1047E /* RepositorySpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySpy.swift; sourceTree = "<group>"; };
 		D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRepositoryTests.swift; sourceTree = "<group>"; };
@@ -639,6 +647,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5962B12327A951D8008B0EFF /* Security.framework in Frameworks */,
+				AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1316,7 @@
 			isa = PBXGroup;
 			children = (
 				59B7A82F27A82971001F5D8F /* Query.swift */,
+				AEE15EE628D47867003053B9 /* NetworkQuery.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -1327,6 +1337,7 @@
 				59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */,
 				59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */,
 				59B7A83027A82971001F5D8F /* AnyDataSource.swift */,
+				AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1415,6 +1426,7 @@
 		59B7AA1D27A83AC1001F5D8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AEE15EE428D4783E003053B9 /* Alamofire.xcframework */,
 				59A418C5284E240300E33F2D /* Nimble.xcframework */,
 				59B7AA1E27A83AC1001F5D8F /* Security.framework */,
 			);
@@ -1740,6 +1752,7 @@
 				59B7A88A27A82971001F5D8F /* Mapper+Codable.swift in Sources */,
 				59B7A89127A82971001F5D8F /* Interactor.swift in Sources */,
 				59B7A8AB27A82971001F5D8F /* CodingKeyStrategies.swift in Sources */,
+				AEE15EE728D47867003053B9 /* NetworkQuery.swift in Sources */,
 				59B7A89727A82971001F5D8F /* Repository.swift in Sources */,
 				59B7A89427A82971001F5D8F /* AnyGetRepository.swift in Sources */,
 				59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */,
@@ -1770,6 +1783,7 @@
 				59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */,
 				59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */,
 				59B7A8A927A82971001F5D8F /* Logger.swift in Sources */,
+				AEE15EEB28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */,
 				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
 				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
 				59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */,
@@ -1865,6 +1879,7 @@
 				D2D2164127AC280A00A104B8 /* Mapper+Codable.swift in Sources */,
 				D2D2164227AC280A00A104B8 /* Interactor.swift in Sources */,
 				D2D2164327AC280A00A104B8 /* CodingKeyStrategies.swift in Sources */,
+				AEE15EE828D47867003053B9 /* NetworkQuery.swift in Sources */,
 				D2D2164427AC280A00A104B8 /* Repository.swift in Sources */,
 				D2D2164527AC280A00A104B8 /* AnyGetRepository.swift in Sources */,
 				D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */,
@@ -1895,6 +1910,7 @@
 				D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */,
 				D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */,
 				D2D2166127AC280A00A104B8 /* Logger.swift in Sources */,
+				AEE15EEC28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */,
 				D2D2166227AC280A00A104B8 /* Collections+Executor.swift in Sources */,
 				D2D2166327AC280A00A104B8 /* DebugDataSource.swift in Sources */,
 				D2D2166427AC280A00A104B8 /* AnyPutRepository.swift in Sources */,
