@@ -32,6 +32,9 @@ class NetworkQuery: Query {
         self.headers = headers
         self.key = key
     }
+}
+
+extension NetworkQuery {
     
     private func getMethod(name: String) -> HTTPMethod {
         switch name {
@@ -45,9 +48,6 @@ class NetworkQuery: Query {
             return .get
         }
     }
-}
-
-extension NetworkQuery {
     
     func buildRequest() -> DataRequest {
         

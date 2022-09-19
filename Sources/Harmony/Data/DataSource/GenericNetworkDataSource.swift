@@ -21,42 +21,55 @@ class GetNetworkDataSource<T: Decodable>: GetDataSource {
     
     @discardableResult
     func get(_ query: Query) -> Future<T> {
-        return execute(validate(query)).map{$0.first!}
+        guard let query = validate(query) else { fatalError() }
+        
+        return Future { resolver in
+            query.buildRequest().validate().response { [weak self] response in
+                guard let self = self else { return }
+                guard response.error == nil else { return }
+                
+                do {
+                    resolver.set(try self.decode(response))
+                } catch let error as NSError {
+                    resolver.set(error)
+                }
+            }
+        }
     }
     
     @discardableResult
-    func getAll(_ query: Query) -> Future<[T]> {
-        return execute(validate(query))
+    func getAll(_ query: Query) -> Future<[T]> {        
+        guard let query = validate(query) else { fatalError() }
+        
+        return Future { resolver in            
+            query.buildRequest().validate().response { [weak self] response in
+                guard let self = self else { return }
+                guard response.error == nil else { return }
+                
+                do {
+                    resolver.set(try self.decode(response))
+                } catch let error as NSError {
+                    resolver.set(error)
+                }
+            }
+        }
     }
-    
-    private func validate(_ query: Query) -> NetworkQuery? {
+         
+    fileprivate func validate(_ query: Query) -> NetworkQuery? {
         guard query is NetworkQuery else { fatalError("Query is not a Network Query") }
         guard let query = query as? NetworkQuery else { fatalError("Query cast exception")}
         
         return query
     }
     
-    @discardableResult
-    private func execute(_ query: NetworkQuery?) -> Future<[T]> {
-        return Future { resolver in
-            query?.buildRequest().validate().response { [self] response in
-                resolve(resolver, response)
-            }
-        }
-    }
-    
     fileprivate func decode(_ response: AFDataResponse<Data?>) throws -> [T] {
-        return try JSONDecoder().decode([T].self, from: response.data!)
+        guard let data = response.data else { fatalError("Decoding Error") }
+        return try JSONDecoder().decode([T].self, from: data)
     }
     
-    fileprivate func resolve(_ resolver: FutureResolver<[T]> ,_ response: AFDataResponse<Data?>) {
-        guard response.error == nil else { return }
-        
-        do {
-            resolver.set(try decode(response))
-        } catch let error as NSError {
-            resolver.set(error)
-        }
+    fileprivate func decode(_ response: AFDataResponse<Data?>) throws -> T {
+        guard let data = response.data else { fatalError("Decoding Error") }
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
     
