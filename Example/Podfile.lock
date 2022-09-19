@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.6.2)
-  - Harmony (2.0.2)
+  - Harmony (2.0.2):
+    - Alamofire (~> 5.6.2)
   - Kingfisher (7.3.2)
   - PromisesObjC (2.1.1)
   - PromisesSwift (2.1.1):
@@ -30,7 +31,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
-  Harmony: d12326c8f0ba64e35a002b6fc42e9111377dc36f
+  Harmony: 972cf723f2916388c508fbd095ebd11a39aa487a
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   PromisesSwift: 99fddfe4a0ec88a56486644c0da106694c92a604
@@ -38,4 +39,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b7ed6de1edd55522f5ced841111c3aa6c7beeab7
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

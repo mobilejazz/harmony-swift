@@ -34,5 +34,6 @@ Pod::Spec.new do |s|
     
     s.source_files = 'Sources/Harmony/**/*'
     s.frameworks = 'Security'
+    s.dependency 'Alamofire', '~> 5.6.2'
 
 end
