@@ -17,20 +17,23 @@
 import Foundation
 import Alamofire
 
-class NetworkQuery: Query {
+open class NetworkQuery: KeyQuery {
         
     private let path: String
     private let method: String
     private let params: [String: Any]
     private let headers: [String: String]
-    private let key: String?
+
+    public let key: String
     
-    init(method: String, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String) {
+    public init(method: String, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
         self.method = method
         self.path = path
         self.params = params
         self.headers = headers
-        self.key = key
+
+        // TODO provide a meaningful default value
+        self.key = key ?? "default value"
     }
 }
 
@@ -49,9 +52,9 @@ extension NetworkQuery {
         }
     }
     
-    func buildRequest() -> DataRequest {
+    open func request(url: String) -> DataRequest {
         
-        let path = self.path
+        let path = "\(url)\(self.path)"
         let method = getMethod(name: self.method)
         let parameters = self.params
         let encoding = URLEncoding.default

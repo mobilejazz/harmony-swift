@@ -9,13 +9,20 @@
 import Foundation
 import Harmony
 
-struct SearchItemsQuery: Query {
+class SearchItemsQuery: NetworkQuery {
     let text : String
     init(_ text: String) {
         self.text = text
+        super.init(method: "GET", path: "items", params: ["name":text], key: "all-items")
     }
 }
 
-struct AllItemsQuery: KeyQuery {
-    let key: String = "all-items"
+class AllItemsQuery: NetworkQuery {
+    init() {
+        super.init(method: "GET", path: "items", key: "all-items")
+    }
 }
+
+
+
+

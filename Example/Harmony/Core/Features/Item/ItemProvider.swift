@@ -15,17 +15,15 @@ protocol ItemComponent {
 
 class ItemDefaultModule: ItemComponent {
     private let executor: Executor
-    private let apiClient: Session
     private let storage: AnyDataSource<Data>
     
     init(executor: Executor, apiClient: Session, storage: AnyDataSource<Data>) {
         self.executor = executor
-        self.apiClient = apiClient
         self.storage = storage
     }
     
     private lazy var networkDataSource: AnyDataSource<ItemEntity> = {
-        let baseDataSource = ItemNetworkDataSource(self.apiClient)
+        let baseDataSource = GetNetworkDataSource<ItemEntity>(url: "https://demo3068405.mockable.io/")
         
         // To debug the UI upon random API behavior, adding this intermediate layer
         let itemNetworkDataSource = DebugDataSource(DataSourceAssembler(get: baseDataSource),

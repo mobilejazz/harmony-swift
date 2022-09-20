@@ -17,15 +17,20 @@
 import Foundation
 import Alamofire
 
-class GetNetworkDataSource<T: Decodable>: GetDataSource {
+open class GetNetworkDataSource<T: Decodable>: GetDataSource {
+
+    private var url: String
+
+    public init(url: String) {
+        self.url = url
+    }
     
     @discardableResult
-    func get(_ query: Query) -> Future<T> {
+    open func get(_ query: Query) -> Future<T> {
         guard let query = validate(query) else { fatalError() }
         
         return Future { resolver in
-            query.buildRequest().validate().response { [weak self] response in
-                guard let self = self else { return }
+            query.request(url: self.url).validate().response { response in
                 guard response.error == nil else { return }
                 
                 do {
@@ -38,12 +43,11 @@ class GetNetworkDataSource<T: Decodable>: GetDataSource {
     }
     
     @discardableResult
-    func getAll(_ query: Query) -> Future<[T]> {        
+    open func getAll(_ query: Query) -> Future<[T]> {
         guard let query = validate(query) else { fatalError() }
         
         return Future { resolver in            
-            query.buildRequest().validate().response { [weak self] response in
-                guard let self = self else { return }
+            query.request(url: self.url).validate().response {  response in
                 guard response.error == nil else { return }
                 
                 do {
