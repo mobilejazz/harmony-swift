@@ -13,13 +13,13 @@ class SearchItemsQuery: NetworkQuery {
     let text : String
     init(_ text: String) {
         self.text = text
-        super.init(method: "GET", path: "items", params: ["name":text], key: "all-items")
+        super.init(method: .get, path: "items", params: ["name":text], key: "all-items")
     }
 }
 
 class AllItemsQuery: NetworkQuery {
     init() {
-        super.init(method: "GET", path: "items", key: "all-items")
+        super.init(method: .get, path: "items", key: "all-items")
     }
 }
 

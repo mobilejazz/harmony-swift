@@ -18,44 +18,57 @@ import Foundation
 import Alamofire
 
 open class NetworkQuery: KeyQuery {
-        
+
+    public enum Method {
+        case get
+        case delete
+        case content(type: ContentType<Any>)
+        case post(type: ContentType<Any>)
+        case put(type: ContentType<Any>)
+    }
+
+    public enum ContentType<T> {
+        case FormUrlEncoded(params: [String:String])
+        case Json(entity: T)
+    }
+
     private let path: String
-    private let method: String
+    private let method: Method
     private let params: [String: Any]
     private let headers: [String: String]
 
     public let key: String
     
-    public init(method: String, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
+    public init(method: Method, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
         self.method = method
         self.path = path
         self.params = params
         self.headers = headers
 
-        // TODO provide a meaningful default value
-        self.key = key ?? "default value"
+        self.key = key ?? "\(path) ? \(params.map { key, value -> String in "\(key) = \(value)" }.joined(separator: "&"))"
     }
 }
 
 extension NetworkQuery {
     
-    private func getMethod(name: String) -> HTTPMethod {
-        switch name {
-        case "GET":
+    private func get(method: Method) -> HTTPMethod {
+        switch method {
+        case .get:
             return .get
-        case "POST":
-            return .post
-        case "DELETE":
+        case .delete:
             return .delete
+        case .post(type: .FormUrlEncoded(params: [:])):
+            return .post
         default:
             return .get
         }
     }
+
     
     open func request(url: String) -> DataRequest {
         
         let path = "\(url)\(self.path)"
-        let method = getMethod(name: self.method)
+        let method = get(method: self.method)
         let parameters = self.params
         let encoding = URLEncoding.default
         let headers = HTTPHeaders(self.headers)
