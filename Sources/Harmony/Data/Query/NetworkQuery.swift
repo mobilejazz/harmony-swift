@@ -19,12 +19,26 @@ import Alamofire
 
 open class NetworkQuery: KeyQuery {
 
-    public enum Method {
+    public enum Method: Equatable {
         case get
         case delete
-        case content(type: ContentType<Any>)
         case post(type: ContentType<Any>)
         case put(type: ContentType<Any>)
+
+        public static func ==(lhs: NetworkQuery.Method, rhs: NetworkQuery.Method) -> Bool {
+            switch (lhs, rhs) {
+            case (.get, .get):
+                return true
+            case(.delete, .delete):
+                return true
+            case (.post,.post):
+                return true
+            case (.put,.put):
+                return true
+            default:
+                return false
+            }
+        }
     }
 
     public enum ContentType<T> {
@@ -33,10 +47,10 @@ open class NetworkQuery: KeyQuery {
     }
 
     private let path: String
-    private let method: Method
     private let params: [String: Any]
     private let headers: [String: String]
 
+    public let method: Method
     public let key: String
     
     public init(method: Method, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
@@ -57,14 +71,13 @@ extension NetworkQuery {
             return .get
         case .delete:
             return .delete
-        case .post(type: .FormUrlEncoded(params: [:])):
+        case .post:
             return .post
         default:
             return .get
         }
     }
 
-    
     open func request(url: String) -> DataRequest {
         
         let path = "\(url)\(self.path)"
@@ -75,5 +88,4 @@ extension NetworkQuery {
 
         return AF.request(path, method: method, parameters: parameters, encoding: encoding, headers: headers)
     }
-   
 }
