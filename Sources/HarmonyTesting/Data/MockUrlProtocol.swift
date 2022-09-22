@@ -10,11 +10,11 @@ class MockUrlProtocol: URLProtocol {
     private weak var activeTask: URLSessionTask?
 
     override class public func canInit(with request: URLRequest) -> Bool {
-        true
+        return true
     }
 
     override class public func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
-        true
+        return false
     }
 
     private lazy var session: URLSession = {
