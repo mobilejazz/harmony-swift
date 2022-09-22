@@ -109,6 +109,10 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
+		AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */; };
+		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
+		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
+		AEDA916D28DC9EDA00BE09D9 /* GenericNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */; };
 		AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE15EE428D4783E003053B9 /* Alamofire.xcframework */; };
 		AEE15EE728D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
 		AEE15EE828D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
@@ -627,6 +631,9 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
+		AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProtocol.swift; sourceTree = "<group>"; };
+		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
+		AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
 		AEE15EE628D47867003053B9 /* NetworkQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQuery.swift; sourceTree = "<group>"; };
 		AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -757,6 +764,7 @@
 		59B7A85527A82971001F5D8F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AEDA916228DC9A3800BE09D9 /* Network */,
 				59E5191527A9366500A18D72 /* JSON */,
 				59B7AA1127A838D2001F5D8F /* ScopeLock */,
 				59B7AA1027A83161001F5D8F /* Logger */,
@@ -813,6 +821,7 @@
 				24C7BD7228CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift */,
 				24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */,
 				003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */,
+				AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1518,12 +1527,21 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		AEDA916228DC9A3800BE09D9 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		D2067A38285C5F6E00A1047E /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
 				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
 				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
+				AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1786,6 +1804,7 @@
 				AEE15EEB28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */,
 				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
 				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
+				AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */,
 				59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */,
 				59B7A88527A82971001F5D8F /* VoidDataSource.swift in Sources */,
 				59B7A8A427A82971001F5D8F /* Operation.swift in Sources */,
@@ -1827,6 +1846,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEDA916D28DC9EDA00BE09D9 /* GenericNetworkDataSourceTests.swift in Sources */,
 				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
 				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
 				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
@@ -1837,6 +1857,7 @@
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
+				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1845,6 +1866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5932E95D27A9473400253261 /* MockInteractorDelete.swift in Sources */,
+				AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 				5932E95E27A9473400253261 /* MockInteractorGet.swift in Sources */,
 				D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */,
 				5932E95F27A9473400253261 /* MockInteractorPut.swift in Sources */,
