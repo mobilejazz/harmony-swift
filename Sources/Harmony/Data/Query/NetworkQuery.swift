@@ -78,7 +78,7 @@ extension NetworkQuery {
         }
     }
 
-    open func request(url: String) -> DataRequest {
+    open func request(url: String, session: Session) -> DataRequest {
         
         let path = "\(url)\(self.path)"
         let method = get(method: self.method)
@@ -86,6 +86,6 @@ extension NetworkQuery {
         let encoding = URLEncoding.default
         let headers = HTTPHeaders(self.headers)
 
-        return AF.request(path, method: method, parameters: parameters, encoding: encoding, headers: headers)
+        return session.request(path, method: method, parameters: parameters, encoding: encoding, headers: headers)
     }
 }

@@ -23,7 +23,7 @@ class ItemDefaultModule: ItemComponent {
     }
     
     private lazy var networkDataSource: AnyDataSource<ItemEntity> = {
-        let baseDataSource = GetNetworkDataSource<ItemEntity>(url: "https://demo3068405.mockable.io/")
+        let baseDataSource = GetNetworkDataSource<ItemEntity>(url: "https://demo3068405.mockable.io/", session: Session.default)
         
         // To debug the UI upon random API behavior, adding this intermediate layer
         let itemNetworkDataSource = DebugDataSource(DataSourceAssembler(get: baseDataSource),

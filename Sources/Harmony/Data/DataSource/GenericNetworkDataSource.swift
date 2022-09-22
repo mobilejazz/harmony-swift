@@ -20,9 +20,11 @@ import Alamofire
 open class GetNetworkDataSource<T: Decodable>: GetDataSource {
 
     private var url: String
+    private var session: Session
 
-    public init(url: String) {
+    public init(url: String, session: Session) {
         self.url = url
+        self.session = session
     }
     
     @discardableResult
@@ -30,7 +32,7 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
         guard let query = validate(query) else { fatalError() }
         
         return Future { resolver in
-            query.request(url: self.url).validate().response { response in
+            query.request(url: self.url, session: self.session).validate().response { response in
                 guard response.error == nil else { return }
                 
                 do {
@@ -47,7 +49,7 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
         guard let query = validate(query) else { fatalError() }
         
         return Future { resolver in            
-            query.request(url: self.url).validate().response { response in
+            query.request(url: self.url, session: self.session).validate().response { response in
                 guard response.error == nil else { return }
                 
                 do {
