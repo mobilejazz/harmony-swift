@@ -29,9 +29,10 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     
     @discardableResult
     open func get(_ query: Query) -> Future<T> {
-        guard let query = validate(query) else { fatalError() }
         
         return Future { resolver in
+            guard let query = validate(query) else { return resolver.set(CoreError.QueryNotSupported()) }
+            
             query.request(url: self.url, session: self.session).validate().response { response in
                 guard response.error == nil else { return }
                 
@@ -45,10 +46,11 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     }
     
     @discardableResult
-    open func getAll(_ query: Query) -> Future<[T]> {
-        guard let query = validate(query) else { fatalError() }
+    open func getAll(_ query: Query) -> Future<[T]> {                        
         
-        return Future { resolver in            
+        return Future { resolver in
+            guard let query = validate(query) else { return resolver.set(CoreError.QueryNotSupported()) }
+            
             query.request(url: self.url, session: self.session).validate().response { response in
                 guard response.error == nil else { return }
                 
@@ -60,22 +62,28 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
             }
         }
     }
-         
+    
+    @discardableResult
     fileprivate func validate(_ query: Query) -> NetworkQuery? {
-        guard query is NetworkQuery else { fatalError("Query is not a Network Query") }
-        guard let query = query as? NetworkQuery else { fatalError("Query cast exception")}
-        guard query.method == NetworkQuery.Method.get else { fatalError("Query should have get method") }
+        
+        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("Query cast exception")
+            return nil
+        }
+        
+        guard query.method == NetworkQuery.Method.get else { _ = CoreError.QueryNotSupported("Not get query")
+            return nil
+        }
 
         return query
     }
     
     fileprivate func decode(_ response: AFDataResponse<Data?>) throws -> [T] {
-        guard let data = response.data else { fatalError("Decoding Error") }
+        guard let data = response.data else { throw CoreError.DecodingFailed() }
         return try JSONDecoder().decode([T].self, from: data)
     }
     
     fileprivate func decode(_ response: AFDataResponse<Data?>) throws -> T {
-        guard let data = response.data else { fatalError("Decoding Error") }
+        guard let data = response.data else { throw CoreError.DecodingFailed() }
         return try JSONDecoder().decode(T.self, from: data)
     }
 }

@@ -84,7 +84,7 @@ extension NetworkQuery {
         let method = get(method: self.method)
         let parameters = self.params
         let encoding = URLEncoding.default
-        let headers = HTTPHeaders(self.headers)
+        let headers = HTTPHeaders(self.headers)                
 
         return session.request(path, method: method, parameters: parameters, encoding: encoding, headers: headers)
     }

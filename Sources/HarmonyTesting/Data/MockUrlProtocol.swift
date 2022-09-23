@@ -14,7 +14,7 @@ class MockUrlProtocol: URLProtocol {
     }
 
     override class public func requestIsCacheEquivalent(_ a: URLRequest, to b: URLRequest) -> Bool {
-        return false
+        return true
     }
 
     private lazy var session: URLSession = {
