@@ -7,6 +7,9 @@ import Alamofire
 
 class MockUrlProtocol: URLProtocol {
 
+    public static var mockedRequest: URLRequest?
+    public static var mockedResponse: URLResponse?
+    
     private weak var activeTask: URLSessionTask?
 
     override class public func canInit(with request: URLRequest) -> Bool {

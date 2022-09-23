@@ -47,22 +47,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         expectError(dataSource, query, expectation, CoreError.DecodingFailed())
     }
-    
-    func test_success() {
-        let dataSource = provideEmptyDataSource(url: baseUrl)
-        let query = NetworkQuery(method: .get, path: self.path)
-        
-        let expectation = XCTestExpectation(description: "Success")
-        
-        dataSource.getAll(query).then { entities in
-            let result = entities
-            expectation.fulfill()
-        }.fail { error in
-            let err = error
-        }
-        
-        wait(for: [expectation], timeout: 1.0)
-    }
         
     private func expectError(
         _ dataSource: GetNetworkDataSource<GenericNetworkDataSourceTests.MockEntity>,
@@ -81,8 +65,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     
     private func provideEmptyDataSource(url: String) -> GetNetworkDataSource<MockEntity> {
         let configuration = URLSessionConfiguration.af.default
-        configuration.protocolClasses = [MockUrlProtocol.self]
-        
+        configuration.protocolClasses = [MockUrlProtocol.self]        
         return GetNetworkDataSource<MockEntity>(
             url: url, session: Alamofire.Session(configuration: configuration))
     }
