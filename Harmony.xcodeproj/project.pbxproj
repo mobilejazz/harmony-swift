@@ -109,9 +109,9 @@
 		59B7AA1B27A83966001F5D8F /* KeychainGetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1627A83966001F5D8F /* KeychainGetInteractor.swift */; };
 		59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7AA1727A83966001F5D8F /* SecureKey.swift */; };
 		59E5191427A934B400A18D72 /* Harmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59B7A81227A827F6001F5D8F /* Harmony.framework */; };
-		AE76561B28E1783800A24487 /* MockDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* MockDecoder.swift */; };
-		AE76561C28E1783800A24487 /* MockDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* MockDecoder.swift */; };
-		AE76561D28E17C2000A24487 /* MockDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* MockDecoder.swift */; };
+		AE76561B28E1783800A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
+		AE76561C28E1783800A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
+		AE76561D28E17C2000A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
 		AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */; };
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
@@ -634,7 +634,7 @@
 		59E5192127A9462600A18D72 /* MockInteractorDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorDelete.swift; sourceTree = "<group>"; };
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
-		AE76561A28E1783800A24487 /* MockDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDecoder.swift; sourceTree = "<group>"; };
+		AE76561A28E1783800A24487 /* DecoderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderSpy.swift; sourceTree = "<group>"; };
 		AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceTests.swift; sourceTree = "<group>"; };
@@ -1546,7 +1546,7 @@
 				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
 				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
 				AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */,
-				AE76561A28E1783800A24487 /* MockDecoder.swift */,
+				AE76561A28E1783800A24487 /* DecoderSpy.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1837,7 +1837,7 @@
 				59B7A8AA27A82971001F5D8F /* ErrorHelper.swift in Sources */,
 				59B7A8C327A82971001F5D8F /* DispatchQueueExecutor.swift in Sources */,
 				59B7A87F27A82971001F5D8F /* Query.swift in Sources */,
-				AE76561B28E1783800A24487 /* MockDecoder.swift in Sources */,
+				AE76561B28E1783800A24487 /* DecoderSpy.swift in Sources */,
 				59B7A8BF27A82971001F5D8F /* Observable+Time.swift in Sources */,
 				59B7A89A27A82971001F5D8F /* DataSource.swift in Sources */,
 				59B7A89527A82971001F5D8F /* DataSourceValidator.swift in Sources */,
@@ -1852,7 +1852,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE76561D28E17C2000A24487 /* MockDecoder.swift in Sources */,
+				AE76561D28E17C2000A24487 /* DecoderSpy.swift in Sources */,
 				AEDA916D28DC9EDA00BE09D9 /* GenericNetworkDataSourceTests.swift in Sources */,
 				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
 				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
@@ -1926,7 +1926,7 @@
 				D2D2165227AC280A00A104B8 /* String+Extensions.swift in Sources */,
 				D2D2165327AC280A00A104B8 /* ClassError.swift in Sources */,
 				D2D2165427AC280A00A104B8 /* KeychainSetInteractor.swift in Sources */,
-				AE76561C28E1783800A24487 /* MockDecoder.swift in Sources */,
+				AE76561C28E1783800A24487 /* DecoderSpy.swift in Sources */,
 				D2D2165527AC280A00A104B8 /* InMemoryDataSource.swift in Sources */,
 				D2D2165627AC280A00A104B8 /* RetryDataSource.swift in Sources */,
 				D2D2165727AC280A00A104B8 /* VastraInvalidationStrategy.swift in Sources */,

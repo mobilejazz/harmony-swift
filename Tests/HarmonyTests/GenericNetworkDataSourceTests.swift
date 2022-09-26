@@ -61,8 +61,12 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
         let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json" : "application/json; charset=utf-8"])
         
-        let dataSource = provideDataSource(url: url, request: request, response: response)
+        let decoder = DecoderSpy()
+        
+        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
+                
+        expectAFError(dataSource, query, AFError.invalidURL(url: url))        
     }
     
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
@@ -125,6 +129,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         configuration.protocolClasses = [MockUrlProtocol.self]
         let session = Alamofire.Session(configuration: configuration)
             
-        return GetNetworkDataSource<MockEntity>(url: url, session: session, decoder: decoder ?? MockDecoder())
+        return GetNetworkDataSource<MockEntity>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }        
 }
