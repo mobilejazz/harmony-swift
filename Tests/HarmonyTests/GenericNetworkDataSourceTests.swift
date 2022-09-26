@@ -66,7 +66,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                 
-        expectAFError(dataSource, query, AFError.invalidURL(url: url))        
+        expectError(dataSource, query, CoreError.DecodingFailed())
     }
     
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {

@@ -10,6 +10,8 @@ import Foundation
 @available(iOS 13.0, *)
 class DecoderSpy: JSONDecoder {
     
+    public var decodeCalledCount = 0
+    
     override var dateDecodingStrategy: DateDecodingStrategy {
         get {
             super.dateDecodingStrategy
@@ -80,6 +82,8 @@ class DecoderSpy: JSONDecoder {
     }
 
     override func decode<T>(_ type: T.Type, from: Input) throws -> T where T: Decodable {
+        //decodeCalledCount += 1
+        //return try T(from: type as! Decoder)
         try super.decode(type, from: from)
     }
 }
