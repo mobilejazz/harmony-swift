@@ -54,6 +54,17 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectAFError(dataSource, query, AFError.invalidURL(url: url))
     }
     
+    func test_decoding_failure() {
+        let url = "www.google.com"
+        let statusCode = 200
+        
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json" : "application/json; charset=utf-8"])
+        
+        let dataSource = provideDataSource(url: url, request: request, response: response)
+        let query = NetworkQuery(method: .get, path: url)
+    }
+    
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
         
         return URLRequest(url: URL(fileURLWithPath: url), cachePolicy: cachePolicy,timeoutInterval: timeout)
@@ -102,7 +113,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
     private func provideDataSource(
         url: String,
         request: URLRequest? = nil,
-        response: URLResponse? = nil) -> GetNetworkDataSource<MockEntity> {
+        response: URLResponse? = nil,
+        decoder: JSONDecoder? = nil) -> GetNetworkDataSource<MockEntity> {
         
         let configuration = URLSessionConfiguration.af.default
         
@@ -113,8 +125,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         configuration.protocolClasses = [MockUrlProtocol.self]
         let session = Alamofire.Session(configuration: configuration)
             
-        let decoder = MockDecoder()
-            
-        return GetNetworkDataSource<MockEntity>(url: url, session: session, decoder: decoder)
+        return GetNetworkDataSource<MockEntity>(url: url, session: session, decoder: decoder ?? MockDecoder())
     }        
 }
