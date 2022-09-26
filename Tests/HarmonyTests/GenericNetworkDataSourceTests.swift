@@ -22,7 +22,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     private struct MockEntity: Decodable, Equatable {}
     
     func test_query_not_supported() {
-        let dataSource = provideEmptyDataSource(url: baseUrl)
+        let dataSource = provideDataSource(url: baseUrl)
         let query = AllObjectsQuery()
         
         let expectation = XCTestExpectation(description: "All Objects Query")
@@ -31,7 +31,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_query_method_not_supported() {
-        let dataSource = provideEmptyDataSource(url: baseUrl)
+        let dataSource = provideDataSource(url: baseUrl)
         let query = NetworkQuery(method: .delete, path: self.path)
         
         let expectation = XCTestExpectation(description: "Method Not Supported")
@@ -40,13 +40,32 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_decoding_error() {
-        let dataSource = provideEmptyDataSource(url: "www.")
+        let dataSource = provideDataSource(url: "www.")
         let query = NetworkQuery(method: .get, path: self.path)
         
         let expectation = XCTestExpectation(description: "Decoding Failed")
         
         expectError(dataSource, query, expectation, CoreError.DecodingFailed())
     }
+    
+    //    func test() {
+    //        let request = URLRequest(url: URL(fileURLWithPath: baseUrl), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 1.0)
+    //
+    //        let response = HTTPURLResponse(url: URL(fileURLWithPath: baseUrl), statusCode: 200, httpVersion: "HTTP/2.0", headerFields: [:])
+    //
+    //        let dataSource = provideDataSource(url: baseUrl, request: request, response: response)
+    //        let query = NetworkQuery(method: .get, path: self.path)
+    //
+    //        let expectation = XCTestExpectation(description: "Decoding Failed")
+    //
+    //        dataSource.getAll(query).then { entities in
+    //            let t = entities
+    //        }.fail { error in
+    //            let e = error
+    //        }
+    //
+    //        wait(for: [expectation], timeout: 1.0)
+    //    }
         
     private func expectError(
         _ dataSource: GetNetworkDataSource<GenericNetworkDataSourceTests.MockEntity>,
@@ -63,12 +82,22 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    private func provideEmptyDataSource(url: String) -> GetNetworkDataSource<MockEntity> {
+    private func provideDataSource(
+        url: String,
+        request: URLRequest? = nil,
+        response: URLResponse? = nil) -> GetNetworkDataSource<MockEntity> {
+        
         let configuration = URLSessionConfiguration.af.default
-        configuration.protocolClasses = [MockUrlProtocol.self]        
+        
+        MockUrlProtocol.mockedRequest = request
+        MockUrlProtocol.mockedResponse = response
+        MockUrlProtocol.mockedData = Data()
+        
+        configuration.protocolClasses = [MockUrlProtocol.self]
+            
         return GetNetworkDataSource<MockEntity>(
-            url: url, session: Alamofire.Session(configuration: configuration))
-    }
-    
-    
+                            url: url,
+                            session: Alamofire.Session(configuration: configuration),
+                            decoder: MockDecoder())
+    }        
 }

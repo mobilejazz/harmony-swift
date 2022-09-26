@@ -9,6 +9,7 @@ class MockUrlProtocol: URLProtocol {
 
     public static var mockedRequest: URLRequest?
     public static var mockedResponse: URLResponse?
+    public static var mockedData: Data?
     
     private weak var activeTask: URLSessionTask?
 
@@ -30,6 +31,8 @@ class MockUrlProtocol: URLProtocol {
 
     override class public func canonicalRequest(for request: URLRequest) -> URLRequest {
         //TODO mock URLRequest
+        //return mockedRequest!
+        
         guard let headers = request.allHTTPHeaderFields else { return request }
 
         do {
@@ -37,10 +40,13 @@ class MockUrlProtocol: URLProtocol {
         } catch {
             return request
         }
+       
     }
 
     override public func startLoading() {
         // TODO send mocked task request
+        //activeTask = session.dataTask(with: MockUrlProtocol.mockedRequest!)
+        
         activeTask = session.dataTask(with: request)
         activeTask?.resume()
     }
@@ -57,9 +63,11 @@ extension MockUrlProtocol: URLSessionDataDelegate {
     }
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        // TODO mock task response
-        if let response = task.response {
+        if let response = MockUrlProtocol.mockedResponse {
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            
+            // TODO mock task response
+            //client?.urlProtocol(self, didLoad: MockUrlProtocol.mockedData!)
         }
 
         client?.urlProtocolDidFinishLoading(self)

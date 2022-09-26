@@ -19,22 +19,25 @@ import Alamofire
 
 open class GetNetworkDataSource<T: Decodable>: GetDataSource {
 
-    private var url: String
-    private var session: Session
+    private let url: String
+    private let session: Session
+    private let decoder: JSONDecoder
+    
 
     private enum EntityCount {
         case multiple
         case single
     }
     
-    public init(url: String, session: Session) {
+    public init(url: String, session: Session, decoder: JSONDecoder) {
         self.url = url
         self.session = session
+        self.decoder = decoder
     }
     
     @discardableResult
     open func getAll(_ query: Query) -> Future<[T]> {
-        return execute(query, type: .multiple)
+        return execute(query, type: .multiple)        
     }
     
     @discardableResult
@@ -76,24 +79,25 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     @discardableResult
     fileprivate func validate(_ query: Query) -> NetworkQuery? {
         
-        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("Query cast exception")
+        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("GetNetworkDataSource only supports NetworkQuery")
             return nil
         }
         
-        guard query.method == NetworkQuery.Method.get else { _ = CoreError.QueryNotSupported("Not get query")
+        guard query.method == NetworkQuery.Method.get else { _ = CoreError.QueryNotSupported("NetworkQuery method is \(query.method) instead of GET")
             return nil
         }
 
         return query
     }
     
+    @discardableResult
     private func decode(_ response: AFDataResponse<Data?>, type: EntityCount) throws -> [T] {
         guard let data = response.data else { throw CoreError.DecodingFailed() }
         
-        if type == .single {
-            return try [JSONDecoder().decode(T.self, from: data)]
+        if type == .single {            
+            return try [decoder.decode(T.self, from: data)]
         } else {
-            return try JSONDecoder().decode([T].self, from: data)
+            return try decoder.decode([T].self, from: data)
         }
     }
 }

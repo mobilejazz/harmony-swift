@@ -22,8 +22,8 @@ open class NetworkQuery: KeyQuery {
     public enum Method: Equatable {
         case get
         case delete
-        case post(type: ContentType<Any>)
-        case put(type: ContentType<Any>)
+        case post(type: ContentType<String>)
+        case put(type: ContentType<String>)
 
         public static func ==(lhs: NetworkQuery.Method, rhs: NetworkQuery.Method) -> Bool {
             switch (lhs, rhs) {
@@ -65,7 +65,7 @@ open class NetworkQuery: KeyQuery {
 
 extension NetworkQuery {
     
-    private func get(method: Method) -> HTTPMethod {
+    private func mapToAlamofireMethod(method: Method) -> HTTPMethod {
         switch method {
         case .get:
             return .get
@@ -73,15 +73,15 @@ extension NetworkQuery {
             return .delete
         case .post:
             return .post
-        default:
-            return .get
+        case .put:
+            return .put
         }
     }
 
     open func request(url: String, session: Session) -> DataRequest {
         
         let path = "\(url)\(self.path)"
-        let method = get(method: self.method)
+        let method = mapToAlamofireMethod(method: self.method)
         let parameters = self.params
         let encoding = URLEncoding.default
         let headers = HTTPHeaders(self.headers)                
