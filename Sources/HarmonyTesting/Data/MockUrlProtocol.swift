@@ -30,9 +30,13 @@ class MockUrlProtocol: URLProtocol {
     }()
 
     override class public func canonicalRequest(for request: URLRequest) -> URLRequest {
-        //TODO mock URLRequest
-        //return mockedRequest!
         
+        guard let request = mockedRequest else { return getDefaultRequest(for: request) }
+        
+        return request
+    }
+    
+    static private func getDefaultRequest(for request: URLRequest) -> URLRequest {
         guard let headers = request.allHTTPHeaderFields else { return request }
 
         do {
@@ -40,12 +44,13 @@ class MockUrlProtocol: URLProtocol {
         } catch {
             return request
         }
-       
     }
 
     override public func startLoading() {
-        // TODO send mocked task request
-        //activeTask = session.dataTask(with: MockUrlProtocol.mockedRequest!)
+        guard let request = MockUrlProtocol.mockedRequest else {
+            activeTask = session.dataTask(with: request)
+            return
+        }
         
         activeTask = session.dataTask(with: request)
         activeTask?.resume()
@@ -59,15 +64,28 @@ class MockUrlProtocol: URLProtocol {
 extension MockUrlProtocol: URLSessionDataDelegate {
 
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        guard let data = MockUrlProtocol.mockedData else {
+            client?.urlProtocol(self, didLoad: data)
+            return
+        }
+        
         client?.urlProtocol(self, didLoad: data)
     }
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let response = MockUrlProtocol.mockedResponse {
+        
+        guard let response = MockUrlProtocol.mockedResponse else {
+            setDefaultResponse(task: task)
+            return
+        }
+                
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        client?.urlProtocolDidFinishLoading(self)
+    }
+    
+    private func setDefaultResponse(task: URLSessionTask) {
+        if let response = task.response {
             client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-            
-            // TODO mock task response
-            //client?.urlProtocol(self, didLoad: MockUrlProtocol.mockedData!)
         }
 
         client?.urlProtocolDidFinishLoading(self)

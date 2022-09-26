@@ -63,7 +63,12 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
                 .request(url: self.url, session: self.session).validate()
                 .response { response in
                 
-                guard response.error == nil else { return }
+                guard response.error == nil else {
+                    if let error = response.error as NSError? {
+                        resolver.set(error)
+                    }
+                    return
+                }
                 
                 do {
                     resolver.set(try self.decode(response, type: type))
