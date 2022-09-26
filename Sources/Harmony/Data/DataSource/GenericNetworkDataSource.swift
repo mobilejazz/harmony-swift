@@ -41,11 +41,9 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     }
     
     @discardableResult
-    open func get(_ query: Query) -> Future<T> {
+    open func get(_ query: Query) -> Future<T> {                
         
-        let futureList = execute(query, type: .single)
-        
-        guard let firstEntity = try? futureList.result.get().first else {
+        guard let firstEntity = try? execute(query, type: .single).result.get().first else {
             return Future()
         }
         
