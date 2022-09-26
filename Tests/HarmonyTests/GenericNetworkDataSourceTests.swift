@@ -114,6 +114,15 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
+    fileprivate func provideData(from file: String, with extension: String) -> Data? {
+        
+        guard let filePath = Bundle(for: type(of: self)).path(forResource: file, ofType: `extension`) else {
+            return nil
+        }
+        
+        return try? Data(contentsOf: URL(fileURLWithPath: filePath))
+    }
+    
     private func provideDataSource(
         url: String,
         request: URLRequest? = nil,
@@ -124,7 +133,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         MockUrlProtocol.mockedRequest = request
         MockUrlProtocol.mockedResponse = response
-        MockUrlProtocol.mockedData = Data()
+        MockUrlProtocol.mockedData = provideData(from: "Sample", with: "json")
         
         configuration.protocolClasses = [MockUrlProtocol.self]
         let session = Alamofire.Session(configuration: configuration)
