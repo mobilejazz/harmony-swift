@@ -133,6 +133,46 @@ class GenericNetworkDataSourceTests: XCTestCase {
             httpVersion: httpVersion, headerFields: headers)
     }
     
+    fileprivate func expectGetAll(_ dataSource: GetNetworkDataSource<Entity>, _ query: Query, _ expectedError: Error?) {
+        let expectation = XCTestExpectation(description: "expectation")
+        
+        dataSource.getAll(query)
+            .then { _ in
+                if expectedError == nil {
+                    expectation.fulfill()
+                }
+            }
+            .fail { error in
+                if let expectedError = expectedError {
+                    if type(of: error) == type(of: expectedError) {
+                        expectation.fulfill()
+                    }
+                }
+            }
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    fileprivate func expectGet(_ dataSource: GetNetworkDataSource<Entity>, _ query: Query, _ expectedError: Error?) {
+        let expectation = XCTestExpectation(description: "expectation")
+        
+        dataSource.get(query)
+            .then { _ in
+                if expectedError == nil {
+                    expectation.fulfill()
+                }
+            }
+            .fail { error in
+                if let expectedError = expectedError {
+                    if type(of: error) == type(of: expectedError) {
+                        expectation.fulfill()
+                    }
+                }
+            }
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
     private func expectError(
         _ dataSource: GetNetworkDataSource<Entity>,
         _ query: Query,
@@ -140,41 +180,9 @@ class GenericNetworkDataSourceTests: XCTestCase {
         _ function: Function) {
             
         if function == .getAll {
-            let expectation = XCTestExpectation(description: "expectation")
-            
-            dataSource.getAll(query)
-                .then { _ in
-                    if expectedError == nil {
-                        expectation.fulfill()
-                    }
-                }
-                .fail { error in
-                    if let expectedError = expectedError {
-                        if type(of: error) == type(of: expectedError) {
-                            expectation.fulfill()
-                        }
-                    }
-                }
-            
-            wait(for: [expectation], timeout: 1.0)
+            expectGetAll(dataSource, query, expectedError)
         } else {
-            let expectation = XCTestExpectation(description: "expectation")
-            
-            dataSource.get(query)
-                .then { _ in
-                    if expectedError == nil {
-                        expectation.fulfill()
-                    }
-                }
-                .fail { error in
-                    if let expectedError = expectedError {
-                        if type(of: error) == type(of: expectedError) {
-                            expectation.fulfill()
-                        }
-                    }
-                }
-            
-            wait(for: [expectation], timeout: 1.0)
+            expectGet(dataSource, query, expectedError)
         }
     }
 
