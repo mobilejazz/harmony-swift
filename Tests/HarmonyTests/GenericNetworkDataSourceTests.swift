@@ -205,7 +205,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "expectation")
         
         dataSource.get(query)
-            .then { entity in
+            .then { _ in
                 if expectedError == nil {
                     expectation.fulfill()
                 }
