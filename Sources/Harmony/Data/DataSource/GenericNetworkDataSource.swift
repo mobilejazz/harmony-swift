@@ -14,11 +14,10 @@
 // limitations under the License.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 open class GetNetworkDataSource<T: Decodable>: GetDataSource {
-
     private let url: String
     private let session: Session
     private let decoder: JSONDecoder
@@ -35,43 +34,41 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     }
     
     @discardableResult
-    open func get(_ query: Query) -> Future<T> {                
-       return execute(query)
+    open func get(_ query: Query) -> Future<T> {
+        return execute(query)
     }
     
     private func execute<K: Decodable>(_ query: Query) -> Future<K> {
-       return Future<K> { resolver in
+        return Future<K> { resolver in
           
-         guard let query = validate(query) else {
-           resolver.set(CoreError.QueryNotSupported())
-           return
-         }
+            guard let query = validate(query) else {
+                resolver.set(CoreError.QueryNotSupported())
+                return
+            }
           
-         query
-           .request(url: self.url, session: self.session).validate()
-           .response { response in
+            query
+                .request(url: self.url, session: self.session).validate()
+                .response { response in
             
-           guard response.error == nil else {
-             if let error = response.error as NSError? {
-               resolver.set(error)
-             }
-             return
-           }
+                    guard response.error == nil else {
+                        if let error = response.error as NSError? {
+                            resolver.set(error)
+                        }
+                        return
+                    }
             
-           do {
-             guard let data = response.data else { throw CoreError.DecodingFailed() }
-             resolver.set(try self.decoder.decode(K.self, from: data))
-           } catch let error as NSError {
-             resolver.set(error)
-           }
-         }
-       }
-     }
-
+                    do {
+                        guard let data = response.data else { throw CoreError.DecodingFailed() }
+                        resolver.set(try self.decoder.decode(K.self, from: data))
+                    } catch let error as NSError {
+                        resolver.set(error)
+                    }
+                }
+        }
+    }
 
     @discardableResult
     fileprivate func validate(_ query: Query) -> NetworkQuery? {
-        
         guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("GetNetworkDataSource only supports NetworkQuery")
             return nil
         }
