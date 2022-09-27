@@ -77,7 +77,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_getAll_decoding_failure() {
-        let url = "www.google.com"
+        let url = "www.dummy.com"
         let statusCode = 200
         
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
@@ -93,7 +93,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_getAll_no_data_decoding_failure() {
-        let url = "www.google.com"
+        let url = "www.dummy.com"
         let statusCode = 200
         
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
@@ -125,7 +125,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_get_decoding_failure() {
-        let url = "www.google.com"
+        let url = "www.dummy.com"
         let statusCode = 200
         
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
@@ -157,7 +157,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_get_no_data_decoding_failure() {
-        let url = "www.google.com"
+        let url = "www.dummy.com"
         let statusCode = 200
         
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
@@ -166,6 +166,22 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let decoder = DecoderSpy()
         
         let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let query = NetworkQuery(method: .get, path: url)
+                               
+        expectError(dataSource, query, CoreError.DecodingFailed(), .get)
+        expect { decoder.decodeCalledCount }.to(equal(0))
+    }
+    
+    func test_get_incompatible_entity_type_decoding_failure() {
+        let url = "www.dummy.com"
+        let statusCode = 200
+        
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        
+        let decoder = DecoderSpy()
+        
+        let dataSource: GetNetworkDataSource<Int> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, CoreError.DecodingFailed(), .get)
@@ -181,7 +197,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
                                httpVersion: httpVersion, headerFields: headers)
     }
     
-    fileprivate func expectGetAll(_ dataSource: GetNetworkDataSource<Entity>, _ query: Query, _ expectedError: Error?) {
+    fileprivate func expectGetAll<S: Decodable>(_ dataSource: GetNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
         
         dataSource.getAll(query)
@@ -201,7 +217,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    fileprivate func expectGet(_ dataSource: GetNetworkDataSource<Entity>, _ query: Query, _ expectedError: Error?) {
+    fileprivate func expectGet<S: Decodable>(_ dataSource: GetNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
         
         dataSource.get(query)
@@ -221,8 +237,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    private func expectError(
-        _ dataSource: GetNetworkDataSource<Entity>,
+    private func expectError<S: Decodable>(
+        _ dataSource: GetNetworkDataSource<S>,
         _ query: Query,
         _ expectedError: Error?,
         _ function: Function)
