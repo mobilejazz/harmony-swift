@@ -19,28 +19,28 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
     
     func test_allobjects_query_not_supported() {
-        let dataSource = provideDataSource(url: "")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: "")
         let query = AllObjectsQuery()
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_networkquery_method_delete_not_supported() {
-        let dataSource = provideDataSource(url: "")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: "")
         let query = NetworkQuery(method: .delete, path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_networkquery_method_put_not_supported() {
-        let dataSource = provideDataSource(url: "")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: "")
         let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_networkquery_method_post_not_supported() {
-        let dataSource = provideDataSource(url: "")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: "")
         let query = NetworkQuery(method: .post(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
@@ -55,7 +55,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
 
         expectAFError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
@@ -69,7 +69,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
 
         expectAFError(dataSource, query, AFError.invalidURL(url: url))
@@ -85,7 +85,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .getAll)
@@ -101,7 +101,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, CoreError.DecodingFailed(), .getAll)
@@ -117,7 +117,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, nil, .getAll)
@@ -133,7 +133,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .get)
@@ -149,7 +149,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, nil, .get)
@@ -165,7 +165,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: GetNetworkDataSource<Entity> = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, CoreError.DecodingFailed(), .get)
@@ -262,12 +262,12 @@ class GenericNetworkDataSourceTests: XCTestCase {
         return try? Data(contentsOf: URL(fileURLWithPath: filePath))
     }
     
-    private func provideDataSource(
+    private func provideDataSource<S: Decodable>(
         url: String,
         request: URLRequest? = nil,
         response: URLResponse? = nil,
         decoder: JSONDecoder? = nil,
-        jsonFileName: String? = nil) -> GetNetworkDataSource<Entity>
+        jsonFileName: String? = nil) -> GetNetworkDataSource<S>
     {
         let configuration = URLSessionConfiguration.af.default
         
@@ -279,6 +279,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         configuration.protocolClasses = [MockUrlProtocol.self]
         let session = Alamofire.Session(configuration: configuration)
             
-        return GetNetworkDataSource<Entity>(url: url, session: session, decoder: decoder ?? DecoderSpy())
+        return GetNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 }
