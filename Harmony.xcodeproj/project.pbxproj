@@ -112,9 +112,12 @@
 		AE76561B28E1783800A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
 		AE76561C28E1783800A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
 		AE76561D28E17C2000A24487 /* DecoderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE76561A28E1783800A24487 /* DecoderSpy.swift */; };
-		AE76562228E1E78100A24487 /* Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AE76562128E1E78100A24487 /* Sample.json */; };
-		AE76562328E1E78100A24487 /* Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AE76562128E1E78100A24487 /* Sample.json */; };
-		AE76562428E1E78100A24487 /* Sample.json in Resources */ = {isa = PBXBuildFile; fileRef = AE76562128E1E78100A24487 /* Sample.json */; };
+		AED438A728E2CA2400C52F2B /* Entity.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A628E2CA2400C52F2B /* Entity.json */; };
+		AED438A828E2CA2400C52F2B /* Entity.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A628E2CA2400C52F2B /* Entity.json */; };
+		AED438AA28E2CA2F00C52F2B /* EntityList.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A928E2CA2F00C52F2B /* EntityList.json */; };
+		AED438AB28E2CA2F00C52F2B /* EntityList.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A928E2CA2F00C52F2B /* EntityList.json */; };
+		AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
+		AED438AE28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
 		AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */; };
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
@@ -638,7 +641,9 @@
 		59E5192227A9462F00A18D72 /* StringObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringObjectMother.swift; sourceTree = "<group>"; };
 		59E5192327A9463D00A18D72 /* UUIDObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDObjectMother.swift; sourceTree = "<group>"; };
 		AE76561A28E1783800A24487 /* DecoderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderSpy.swift; sourceTree = "<group>"; };
-		AE76562128E1E78100A24487 /* Sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Sample.json; sourceTree = "<group>"; };
+		AED438A628E2CA2400C52F2B /* Entity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Entity.json; sourceTree = "<group>"; };
+		AED438A928E2CA2F00C52F2B /* EntityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EntityList.json; sourceTree = "<group>"; };
+		AED438AC28E2CB2000C52F2B /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceTests.swift; sourceTree = "<group>"; };
@@ -1546,7 +1551,9 @@
 		D2067A38285C5F6E00A1047E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AE76562128E1E78100A24487 /* Sample.json */,
+				AED438A928E2CA2F00C52F2B /* EntityList.json */,
+				AED438A628E2CA2400C52F2B /* Entity.json */,
+				AED438AC28E2CB2000C52F2B /* Entity.swift */,
 				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
 				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
 				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
@@ -1734,7 +1741,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE76562228E1E78100A24487 /* Sample.json in Resources */,
+				AED438AA28E2CA2F00C52F2B /* EntityList.json in Resources */,
+				AED438A728E2CA2400C52F2B /* Entity.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1742,7 +1750,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE76562328E1E78100A24487 /* Sample.json in Resources */,
+				AED438AB28E2CA2F00C52F2B /* EntityList.json in Resources */,
+				AED438A828E2CA2400C52F2B /* Entity.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1750,7 +1759,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE76562428E1E78100A24487 /* Sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1871,6 +1879,7 @@
 				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
+				AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 			);
@@ -1891,6 +1900,7 @@
 				5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */,
 				5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */,
 				5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */,
+				AED438AE28E2CB2000C52F2B /* Entity.swift in Sources */,
 				5932E95A27A9472D00253261 /* ErrorObjectMother.swift in Sources */,
 				5932E95B27A9472D00253261 /* StringObjectMother.swift in Sources */,
 				5932E95C27A9472D00253261 /* IntegerObjectModel.swift in Sources */,

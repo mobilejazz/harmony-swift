@@ -51,7 +51,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource = provideDataSource(url: url, request: request, response: response)
         let query = NetworkQuery(method: .get, path: url)
 
-        expectAFError(dataSource, query, AFError.invalidURL(url: url))
+        expectAFError(dataSource, query, AFError.invalidURL(url: url))        
     }
     
     func test_decoding_failure() {
@@ -63,10 +63,12 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .get, path: url)
-                
-        expectError(dataSource, query, CoreError.DecodingFailed())
+                               
+        expectError(dataSource, query,  DecodingError.typeMismatch(Array<Any>.self, DecodingError.Context.init(codingPath: [], debugDescription: "")))
+        
+        expect{decoder.decodeCalledCount}.to(equal(1))
     }
     
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
@@ -81,7 +83,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
 
     private func expectAFError(
-            _ dataSource: GetNetworkDataSource<GenericNetworkDataSourceTests.MockEntity>,
+            _ dataSource: GetNetworkDataSource<Entity>,
             _ query: Query,
             _ expectedError: AFError) {
 
@@ -99,7 +101,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
         
     private func expectError(
-        _ dataSource: GetNetworkDataSource<GenericNetworkDataSourceTests.MockEntity>,
+        _ dataSource: GetNetworkDataSource<Entity>,
         _ query: Query,
         _ expectedError: Error) {
             
@@ -114,7 +116,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    fileprivate func provideData(from file: String, with extension: String) -> Data? {
+    fileprivate func provideData(from file: String?, with extension: String) -> Data? {
         
         guard let filePath = Bundle(for: type(of: self)).path(forResource: file, ofType: `extension`) else {
             return nil
@@ -127,17 +129,19 @@ class GenericNetworkDataSourceTests: XCTestCase {
         url: String,
         request: URLRequest? = nil,
         response: URLResponse? = nil,
-        decoder: JSONDecoder? = nil) -> GetNetworkDataSource<MockEntity> {
+        decoder: JSONDecoder? = nil,
+        jsonFileName: String? = nil) -> GetNetworkDataSource<Entity> {
         
         let configuration = URLSessionConfiguration.af.default
         
         MockUrlProtocol.mockedRequest = request
         MockUrlProtocol.mockedResponse = response
-        MockUrlProtocol.mockedData = provideData(from: "Sample", with: "json")
+        
+        MockUrlProtocol.mockedData = provideData(from: jsonFileName, with: "json")
         
         configuration.protocolClasses = [MockUrlProtocol.self]
         let session = Alamofire.Session(configuration: configuration)
             
-        return GetNetworkDataSource<MockEntity>(url: url, session: session, decoder: decoder ?? DecoderSpy())
+        return GetNetworkDataSource<Entity>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }        
 }

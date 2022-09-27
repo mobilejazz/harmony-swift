@@ -61,11 +61,7 @@ class MockUrlProtocol: URLProtocol {
     }
 }
 
-extension MockUrlProtocol: URLSessionDataDelegate {
-
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        client?.urlProtocol(self, didLoad: data)
-    }
+extension MockUrlProtocol: URLSessionDataDelegate {  
 
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
@@ -73,15 +69,14 @@ extension MockUrlProtocol: URLSessionDataDelegate {
             setDefaultResponse(task: task)
             return
         }
-                
+                        
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-        client?.urlProtocolDidFinishLoading(self)
         
-        guard let data = MockUrlProtocol.mockedData else {
-            return
+        if let data = MockUrlProtocol.mockedData {
+            client?.urlProtocol(self, didLoad: data)
         }
         
-        client?.urlProtocol(self, didLoad: data)
+        client?.urlProtocolDidFinishLoading(self)
     }
     
     private func setDefaultResponse(task: URLSessionTask) {
