@@ -23,9 +23,23 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectError(dataSource, query, CoreError.QueryNotSupported())
     }
     
-    func test_query_method_not_supported() {
+    func test_query_method_delete_not_supported() {
         let dataSource = provideDataSource(url: "")
         let query = NetworkQuery(method: .delete, path: "")
+        
+        expectError(dataSource, query, CoreError.QueryNotSupported())
+    }
+    
+    func test_query_method_put_not_supported() {
+        let dataSource = provideDataSource(url: "")
+        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
+        
+        expectError(dataSource, query, CoreError.QueryNotSupported())
+    }
+    
+    func test_query_method_post_not_supported() {
+        let dataSource = provideDataSource(url: "")
+        let query = NetworkQuery(method: .post(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported())
     }
@@ -54,7 +68,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectAFError(dataSource, query, AFError.invalidURL(url: url))        
     }
     
-    func test_decoding_failure() {
+    func test_array_decoding_failure() {
         let url = "www.google.com"
         let statusCode = 200
         
@@ -67,6 +81,23 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query,  DecodingError.typeMismatch(Array<Any>.self, DecodingError.Context.init(codingPath: [], debugDescription: "")))
+        
+        expect{decoder.decodeCalledCount}.to(equal(1))
+    }
+    
+    func test_decode_multiple_success() {
+        let url = "www.google.com"
+        let statusCode = 200
+        
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json" : "application/json; charset=utf-8"])
+        
+        let decoder = DecoderSpy()
+        
+        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
+        let query = NetworkQuery(method: .get, path: url)
+                               
+        expectError(dataSource, query, nil)
         
         expect{decoder.decodeCalledCount}.to(equal(1))
     }
@@ -103,15 +134,23 @@ class GenericNetworkDataSourceTests: XCTestCase {
     private func expectError(
         _ dataSource: GetNetworkDataSource<Entity>,
         _ query: Query,
-        _ expectedError: Error) {
+        _ expectedError: Error?) {
             
         let expectation = XCTestExpectation(description: "expectation")
             
-        dataSource.getAll(query).then { _ in }.fail { error in
-            if type(of: error) == type(of: expectedError) {
-                expectation.fulfill()
+        dataSource.getAll(query)
+            .then { _ in
+                if expectedError == nil {
+                    expectation.fulfill()
+                }
             }
-        }
+            .fail { error in
+                if let expectedError = expectedError {
+                    if type(of: error) == type(of: expectedError) {
+                        expectation.fulfill()
+                    }
+                }
+            }
         
         wait(for: [expectation], timeout: 1.0)
     }
