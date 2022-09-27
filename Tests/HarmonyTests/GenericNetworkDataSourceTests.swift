@@ -18,35 +18,35 @@ class GenericNetworkDataSourceTests: XCTestCase {
         case getAll
     }
     
-    func test_query_not_supported() {
+    func test_allobjects_query_not_supported() {
         let dataSource = provideDataSource(url: "")
         let query = AllObjectsQuery()
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
-    func test_query_method_delete_not_supported() {
+    func test_networkquery_method_delete_not_supported() {
         let dataSource = provideDataSource(url: "")
         let query = NetworkQuery(method: .delete, path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
-    func test_query_method_put_not_supported() {
+    func test_networkquery_method_put_not_supported() {
         let dataSource = provideDataSource(url: "")
         let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
-    func test_query_method_post_not_supported() {
+    func test_networkquery_method_post_not_supported() {
         let dataSource = provideDataSource(url: "")
         let query = NetworkQuery(method: .post(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
-    func test_response_validation_failure() {
+    func test_response_statuscode_validation_failure() {
         let url = "dummy"
         let statusCode = 400
         
@@ -62,7 +62,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
-    func test_response_url_validation_failure() {
+    func test_response_empty_url_validation_failure() {
         let url = String()
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
         let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
