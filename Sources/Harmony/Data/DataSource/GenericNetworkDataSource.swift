@@ -23,12 +23,6 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     private let session: Session
     private let decoder: JSONDecoder
     
-
-    private enum EntityCount {
-        case multiple
-        case single
-    }
-    
     public init(url: String, session: Session, decoder: JSONDecoder) {
         self.url = url
         self.session = session
@@ -37,47 +31,43 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     
     @discardableResult
     open func getAll(_ query: Query) -> Future<[T]> {
-        return execute(query, type: .multiple)        
+        return execute(query)
     }
     
     @discardableResult
     open func get(_ query: Query) -> Future<T> {                
-        
-        guard let firstEntity = try? execute(query, type: .single).result.get().first else {
-            return Future()
-        }
-        
-        return Future(firstEntity)
+       return execute(query)
     }
     
-    private func execute(_ query: Query, type: EntityCount) -> Future<[T]> {
-        
-        return Future { resolver in
+    private func execute<K: Decodable>(_ query: Query) -> Future<K> {
+       return Future<K> { resolver in
+          
+         guard let query = validate(query) else {
+           resolver.set(CoreError.QueryNotSupported())
+           return
+         }
+          
+         query
+           .request(url: self.url, session: self.session).validate()
+           .response { response in
             
-            guard let query = validate(query) else {
-                resolver.set(CoreError.QueryNotSupported())
-                return
-            }
+           guard response.error == nil else {
+             if let error = response.error as NSError? {
+               resolver.set(error)
+             }
+             return
+           }
             
-            query
-                .request(url: self.url, session: self.session).validate()
-                .response { response in
-                
-                guard response.error == nil else {
-                    if let error = response.error as NSError? {
-                        resolver.set(error)
-                    }
-                    return
-                }
-                
-                do {
-                    resolver.set(try self.decode(response, type: type))
-                } catch let error as NSError {
-                    resolver.set(error)
-                }
-            }
-        }
-    }
+           do {
+             guard let data = response.data else { throw CoreError.DecodingFailed() }
+             resolver.set(try self.decoder.decode(K.self, from: data))
+           } catch let error as NSError {
+             resolver.set(error)
+           }
+         }
+       }
+     }
+
 
     @discardableResult
     fileprivate func validate(_ query: Query) -> NetworkQuery? {
@@ -91,17 +81,6 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
         }
 
         return query
-    }
-    
-    @discardableResult
-    private func decode(_ response: AFDataResponse<Data?>, type: EntityCount) throws -> [T] {
-        guard let data = response.data else { throw CoreError.DecodingFailed() }
-        
-        if type == .single {            
-            return try [decoder.decode(T.self, from: data)]
-        } else {
-            return try decoder.decode([T].self, from: data)
-        }
     }
 }
     
