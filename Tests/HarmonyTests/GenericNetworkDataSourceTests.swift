@@ -54,10 +54,13 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
         let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json" : "application/json; charset=utf-8"])
         
-        let dataSource = provideDataSource(url: url, request: request, response: response)
+        let decoder = DecoderSpy()
+        
+        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
 
         expectAFError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
+        expect{decoder.decodeCalledCount}.to(equal(0))
     }
     
     func test_response_url_validation_failure() {
@@ -65,10 +68,13 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
         let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json" : "application/json; charset=utf-8"])
         
-        let dataSource = provideDataSource(url: url, request: request, response: response)
+        let decoder = DecoderSpy()
+        
+        let dataSource = provideDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
 
-        expectAFError(dataSource, query, AFError.invalidURL(url: url))        
+        expectAFError(dataSource, query, AFError.invalidURL(url: url))
+        expect{decoder.decodeCalledCount}.to(equal(0))
     }
     
     func test_getAll_decoding_failure() {
