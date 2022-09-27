@@ -89,7 +89,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .getAll)
-        
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -106,7 +105,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, CoreError.DecodingFailed(), .getAll)
-        
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -123,7 +121,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, nil, .getAll)
-        
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -140,7 +137,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .get)
-        
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -157,7 +153,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, nil, .get)
-        
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -174,7 +169,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let query = NetworkQuery(method: .get, path: url)
                                
         expectError(dataSource, query, CoreError.DecodingFailed(), .get)
-        
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -211,7 +205,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "expectation")
         
         dataSource.get(query)
-            .then { _ in
+            .then { entity in
                 if expectedError == nil {
                     expectation.fulfill()
                 }
