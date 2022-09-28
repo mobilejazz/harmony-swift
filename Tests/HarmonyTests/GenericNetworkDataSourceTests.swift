@@ -44,13 +44,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
-    func test_getAll_networkquery_method_post_not_supported() {
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
-        let query = NetworkQuery(method: .post(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
-        
-        expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
-    }
-    
     func test_get_response_statuscode_validation_failure() {
         let url = "dummy"
         let statusCode = 400
@@ -193,6 +186,27 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
+    func test_deleteAll_allobjects_query_not_supported() {
+        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let query = AllObjectsQuery()
+        
+        expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
+    }
+    
+    func test_deleteAll_networkquery_method_get_not_supported() {
+        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let query = NetworkQuery(method: .get, path: "")
+        
+        expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
+    }
+    
+    func test_deleteAll_networkquery_method_put_not_supported() {
+        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
+        
+        expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
+    }
+    
     func test_putAll_allobjects_query_not_supported() {
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
         let query = AllObjectsQuery()
@@ -206,13 +220,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .putAll)
     }
-    
-    func test_putAll_networkquery_method_post_not_supported() {
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
-        let query = NetworkQuery(method: .post(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
-        
-        expectPutError(dataSource, query, CoreError.QueryNotSupported(), .putAll)
-    }       
+               
         
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
         return URLRequest(url: URL(fileURLWithPath: url), cachePolicy: cachePolicy, timeoutInterval: timeout)
@@ -247,6 +255,26 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.putAll([], in: query)
+                .then { _ in
+                    if expectedError == nil {
+                        expectation.fulfill()
+                    }
+                }
+                .fail { error in
+                    if let expectedError = expectedError {
+                        if type(of: error) == type(of: expectedError) {
+                            expectation.fulfill()
+                        }
+                    }
+                }
+
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    fileprivate func expectDeleteAll<S: Decodable>(_ dataSource: DeleteNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
+        let expectation = XCTestExpectation(description: "expectation")
+
+        dataSource.deleteAll(query)
                 .then { _ in
                     if expectedError == nil {
                         expectation.fulfill()
@@ -302,6 +330,26 @@ class GenericNetworkDataSourceTests: XCTestCase {
 
         wait(for: [expectation], timeout: 1.0)
     }
+
+    fileprivate func expectDelete<S: Decodable>(_ dataSource: DeleteNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
+        let expectation = XCTestExpectation(description: "expectation")
+
+        dataSource.delete(query)
+                .then { _ in
+                    if expectedError == nil {
+                        expectation.fulfill()
+                    }
+                }
+                .fail { error in
+                    if let expectedError = expectedError {
+                        if type(of: error) == type(of: expectedError) {
+                            expectation.fulfill()
+                        }
+                    }
+                }
+
+        wait(for: [expectation], timeout: 1.0)
+    }
     
     private func expectGetError<S: Decodable>(
         _ dataSource: GetNetworkDataSource<S>,
@@ -326,6 +374,19 @@ class GenericNetworkDataSourceTests: XCTestCase {
             expectPutAll(dataSource, query, expectedError)
         } else {
             expectPut(dataSource, query, expectedError)
+        }
+    }
+
+    private func expectDeleteError<S: Decodable>(
+            _ dataSource: DeleteNetworkDataSource<S>,
+            _ query: Query,
+            _ expectedError: Error?,
+            _ function: Function)
+    {
+        if function == .deleteAll {
+            expectDeleteAll(dataSource, query, expectedError)
+        } else {
+            expectDelete(dataSource, query, expectedError)
         }
     }
 
@@ -355,6 +416,24 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.putAll([], in: query).then { _ in }.fail { error in
+                    if let error = error as? AFError {
+                        if error.localizedDescription == expectedError.localizedDescription {
+                            expectation.fulfill()
+                        }
+                    }
+                }
+
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    private func expectDeleteAlamofireError<S: Decodable>(
+            _ dataSource: DeleteNetworkDataSource<S>,
+            _ query: Query,
+            _ expectedError: AFError)
+    {
+        let expectation = XCTestExpectation(description: "expectation")
+
+        dataSource.deleteAll(query).then { _ in }.fail { error in
                     if let error = error as? AFError {
                         if error.localizedDescription == expectedError.localizedDescription {
                             expectation.fulfill()
@@ -395,6 +474,17 @@ class GenericNetworkDataSourceTests: XCTestCase {
     {
         let session = provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
         return GetNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
+    }
+
+    private func provideDeleteDataSource<S: Decodable>(
+            url: String,
+            request: URLRequest? = nil,
+            response: URLResponse? = nil,
+            decoder: JSONDecoder? = nil,
+            jsonFileName: String? = nil) -> DeleteNetworkDataSource<S>
+    {
+        let session = provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+        return DeleteNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 
     private func provideMockAlamofireSession(request: URLRequest?, response: URLResponse?, jsonFileName: String?) -> Session {

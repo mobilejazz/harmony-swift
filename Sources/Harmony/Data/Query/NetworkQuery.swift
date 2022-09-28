@@ -22,7 +22,6 @@ open class NetworkQuery: KeyQuery {
     public enum Method: Equatable {
         case get
         case delete
-        case post(type: ContentType<String>)
         case put(type: ContentType<String>)
 
         public static func ==(lhs: NetworkQuery.Method, rhs: NetworkQuery.Method) -> Bool {
@@ -30,8 +29,6 @@ open class NetworkQuery: KeyQuery {
             case (.get, .get):
                 return true
             case(.delete, .delete):
-                return true
-            case (.post,.post):
                 return true
             case (.put,.put):
                 return true
@@ -71,8 +68,6 @@ extension NetworkQuery {
             return .get
         case .delete:
             return .delete
-        case .post:
-            return .post
         case .put:
             return .put
         }

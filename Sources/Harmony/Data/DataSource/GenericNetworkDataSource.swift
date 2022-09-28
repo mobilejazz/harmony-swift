@@ -107,8 +107,20 @@ open class PutNetworkDataSource<T: Decodable>: PutDataSource {
 
 open class DeleteNetworkDataSource<T: Decodable>: DeleteDataSource {
 
+    private let url: String
+    private let session: Session
+    private let decoder: JSONDecoder
+
+    public init(url: String, session: Session, decoder: JSONDecoder) {
+        self.url = url
+        self.session = session
+        self.decoder = decoder
+    }
+
     public func deleteAll(_ query: Query) -> Future<Void> {
-        return Future()
+        return Future { resolver in
+            resolver.set(CoreError.QueryNotSupported())
+        }        
     }
 
     public func delete(_ query: Query) -> Future<Void> {
