@@ -186,39 +186,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
-    func test_deleteAll_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
-        let decoder = DecoderSpy()
-        
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
-        let query = NetworkQuery(method: .delete, path: url)
-                               
-        expectDeleteError(dataSource, query, nil, .deleteAll)
-        expect { decoder.decodeCalledCount }.to(equal(0))
-    }
-    
-    func test_deleteAll_no_data_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
-        let decoder = DecoderSpy()
-        
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .delete, path: url)
-                               
-        expectDeleteError(dataSource, query, CoreError.DecodingFailed(), .deleteAll)
-        expect { decoder.decodeCalledCount }.to(equal(0))
-    }
-    
-    
     func test_deleteAll_allobjects_query_not_supported() {
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
         let query = AllObjectsQuery()
@@ -270,6 +237,38 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
+    func test_deleteAll_decoding_failure() {
+        let url = "www.dummy.com"
+        let statusCode = 200
+        
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        
+        let decoder = DecoderSpy()
+        
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let query = NetworkQuery(method: .delete, path: url)
+                               
+        expectDeleteError(dataSource, query, nil, .deleteAll)
+        expect { decoder.decodeCalledCount }.to(equal(0))
+    }
+    
+    func test_deleteAll_no_data_decoding_failure() {
+        let url = "www.dummy.com"
+        let statusCode = 200
+        
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        
+        let decoder = DecoderSpy()
+        
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
+        let query = NetworkQuery(method: .delete, path: url)
+                               
+        expectDeleteError(dataSource, query, CoreError.DecodingFailed(), .deleteAll)
+        expect { decoder.decodeCalledCount }.to(equal(0))
+    }
+        
     func test_putAll_allobjects_query_not_supported() {
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
         let query = AllObjectsQuery()
