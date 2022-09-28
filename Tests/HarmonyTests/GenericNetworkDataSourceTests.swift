@@ -195,7 +195,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .delete, path: url)
                                
         expectDeleteError(dataSource, query, nil, .deleteAll)
@@ -211,7 +211,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .delete, path: url)
                                
         expectDeleteError(dataSource, query, CoreError.DecodingFailed(), .deleteAll)
@@ -220,21 +220,21 @@ class GenericNetworkDataSourceTests: XCTestCase {
     
     
     func test_deleteAll_allobjects_query_not_supported() {
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
         let query = AllObjectsQuery()
         
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
     
     func test_deleteAll_networkquery_method_get_not_supported() {
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
         let query = NetworkQuery(method: .get, path: "")
         
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
     
     func test_deleteAll_networkquery_method_put_not_supported() {
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: "")
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
         let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
         
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
@@ -249,7 +249,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .delete, path: url)
 
         expectDeleteAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
@@ -263,7 +263,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource: DeleteNetworkDataSource<Entity> = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .delete, path: url)
 
         expectDeleteAlamofireError(dataSource, query, AFError.invalidURL(url: url))
@@ -334,7 +334,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    fileprivate func expectDeleteAll<S: Decodable>(_ dataSource: DeleteNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
+    fileprivate func expectDeleteAll(_ dataSource: DeleteNetworkDataSource, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.deleteAll(query)
@@ -394,7 +394,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    fileprivate func expectDelete<S: Decodable>(_ dataSource: DeleteNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
+    fileprivate func expectDelete(_ dataSource: DeleteNetworkDataSource, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.delete(query)
@@ -440,8 +440,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         }
     }
 
-    private func expectDeleteError<S: Decodable>(
-            _ dataSource: DeleteNetworkDataSource<S>,
+    private func expectDeleteError(
+            _ dataSource: DeleteNetworkDataSource,
             _ query: Query,
             _ expectedError: Error?,
             _ function: Function)
@@ -489,8 +489,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    private func expectDeleteAlamofireError<S: Decodable>(
-            _ dataSource: DeleteNetworkDataSource<S>,
+    private func expectDeleteAlamofireError(
+            _ dataSource: DeleteNetworkDataSource,
             _ query: Query,
             _ expectedError: AFError)
     {
@@ -539,15 +539,15 @@ class GenericNetworkDataSourceTests: XCTestCase {
         return GetNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 
-    private func provideDeleteDataSource<S: Decodable>(
+    private func provideDeleteDataSource(
             url: String,
             request: URLRequest? = nil,
             response: URLResponse? = nil,
             decoder: JSONDecoder? = nil,
-            jsonFileName: String? = nil) -> DeleteNetworkDataSource<S>
+            jsonFileName: String? = nil) -> DeleteNetworkDataSource
     {
         let session = provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
-        return DeleteNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
+        return DeleteNetworkDataSource(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 
     private func provideMockAlamofireSession(request: URLRequest?, response: URLResponse?, jsonFileName: String?) -> Session {

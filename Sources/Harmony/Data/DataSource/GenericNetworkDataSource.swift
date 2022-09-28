@@ -105,7 +105,7 @@ open class PutNetworkDataSource<T: Decodable>: PutDataSource {
     }
 }
 
-open class DeleteNetworkDataSource<T: Decodable>: DeleteDataSource {
+open class DeleteNetworkDataSource: DeleteDataSource {
 
     private let url: String
     private let session: Session
