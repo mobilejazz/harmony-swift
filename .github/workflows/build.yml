@@ -1,0 +1,57 @@
+name: Build
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - "**"
+
+env:
+  XCODE_VERSION: "14.0"
+  DEVICE_SIMULATOR: "iPhone 14"
+  IOS_VERSION: "16.0"
+
+jobs:
+  build:
+    runs-on: "macos-12"
+    # not using "macos-latest" because it is still using version 11, but we need newer xcode
+    # check it here: https://github.com/actions/runner-images
+    # Installed software in macos 12:
+    # https://github.com/actions/runner-images/blob/main/images/macos/macos-12-Readme.md
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_$XCODE_VERSION.app && /usr/bin/xcodebuild -version
+
+      - name: Cache Carthage
+        id: cache-carthage
+        uses: actions/cache@v3
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+
+      - name: Carthage update
+        if: steps.cache-carthage.outputs.cache-hit != 'true'
+        run: carthage update --use-xcframeworks
+
+      - name: Unit tests
+        # documentation:
+        # https://developer.apple.com/library/archive/technotes/tn2339/_index.html#//apple_ref/doc/uid/DTS40014588-CH1-UNIT
+        run: >
+          xcodebuild test \
+            -project Harmony.xcodeproj \
+            -scheme HarmonyTesting-iOS \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=${{env.DEVICE_SIMULATOR}},OS=${{env.IOS_VERSION}}' \
+            -resultBundlePath TestResults 
+
+      - name: Publish Test Results
+        uses: kishikawakatsumi/xcresulttool@v1
+        if: always()
+        with:
+          path: TestResults.xcresult
