@@ -158,11 +158,11 @@ open class DeleteNetworkDataSource<T: Decodable>: DeleteDataSource {
 
     @discardableResult
     fileprivate func validate(_ query: Query) -> NetworkQuery? {
-        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("GetNetworkDataSource only supports NetworkQuery")
+        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("DeleteNetworkDataSource only supports NetworkQuery")
             return nil
         }
         
-        guard query.method == NetworkQuery.Method.delete else { _ = CoreError.QueryNotSupported("NetworkQuery method is \(query.method) instead of GET")
+        guard query.method == NetworkQuery.Method.delete else { _ = CoreError.QueryNotSupported("NetworkQuery method is \(query.method) instead of DELETE")
             return nil
         }
 
