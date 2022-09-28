@@ -18,6 +18,7 @@ import Alamofire
 import Foundation
 
 open class GetNetworkDataSource<T: Decodable>: GetDataSource {
+    
     private let url: String
     private let session: Session
     private let decoder: JSONDecoder
@@ -80,4 +81,40 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
         return query
     }
 }
+
+open class PutNetworkDataSource<T: Decodable>: PutDataSource {
+    
+    private let url: String
+    private let session: Session
+    private let decoder: JSONDecoder
+    
+    public init(url: String, session: Session, decoder: JSONDecoder) {
+        self.url = url
+        self.session = session
+        self.decoder = decoder
+    }
+
+    public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+        return Future { resolver in
+            resolver.set(CoreError.QueryNotSupported())
+        }
+    }
+
+    public func put(_ value: T?, in query: Query) -> Future<T> {
+        return Future()
+    }
+}
+
+open class DeleteNetworkDataSource<T: Decodable>: DeleteDataSource {
+
+    public func deleteAll(_ query: Query) -> Future<Void> {
+        return Future()
+    }
+
+    public func delete(_ query: Query) -> Future<Void> {
+        return Future()
+    }
+}
+
+
     
