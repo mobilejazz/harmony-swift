@@ -117,14 +117,56 @@ open class DeleteNetworkDataSource<T: Decodable>: DeleteDataSource {
         self.decoder = decoder
     }
 
+    @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
-        return Future { resolver in
-            resolver.set(CoreError.QueryNotSupported())
-        }        
+        return execute(query)
     }
 
+    @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
-        return Future()
+        return execute(query)
+    }
+       
+    private func execute(_ query: Query) -> Future<Void> {
+        return Future { resolver in
+          
+            guard let query = validate(query) else {
+                resolver.set(CoreError.QueryNotSupported())
+                return
+            }
+          
+            query
+                .request(url: self.url, session: self.session).validate()
+                .response { response in
+            
+                    guard response.error == nil else {
+                        if let error = response.error as NSError? {
+                            resolver.set(error)
+                        }
+                        return
+                    }
+            
+                    do {
+                        guard let _ = response.data else { throw CoreError.DecodingFailed() }
+                        resolver.set(())
+                    } catch let error as NSError {
+                        resolver.set(error)
+                    }
+                }
+        }
+    }
+
+    @discardableResult
+    fileprivate func validate(_ query: Query) -> NetworkQuery? {
+        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("GetNetworkDataSource only supports NetworkQuery")
+            return nil
+        }
+        
+        guard query.method == NetworkQuery.Method.delete else { _ = CoreError.QueryNotSupported("NetworkQuery method is \(query.method) instead of GET")
+            return nil
+        }
+
+        return query
     }
 }
 
