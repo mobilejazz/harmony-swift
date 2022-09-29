@@ -33,6 +33,27 @@ public protocol Executor {
     func submit(_ closure: @escaping (@escaping () -> Void) -> Void)
 }
 
+///
+/// Refined type of Executor that delays execution of a closure
+///
+public protocol DelayedExecutor: Executor {
+    
+    /// Submits a closure for execution later in time
+    /// - Parameters:
+    ///   - after: amount of time elapsed before the closure gets executed
+    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
+    /// - Returns: Nothing (Void)
+    func submit(after: DispatchTime, _ closure: @escaping (@escaping () -> Void) -> Void)
+
+    /// Submits a closure for execution later in time
+    /// - Parameters:
+    ///   - after: amount of time elapsed before the closure gets executed
+    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
+    /// - Returns: Nothing (Void)
+    @discardableResult
+    func submit(after: DispatchTime, _ closure:  @escaping () throws -> Void) -> Future<Void>
+}
+
 fileprivate let lock = NSLock()
 fileprivate var counter : Int = 0
 
