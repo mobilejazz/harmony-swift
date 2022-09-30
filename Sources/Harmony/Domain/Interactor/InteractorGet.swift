@@ -17,6 +17,8 @@
 import Foundation
 
 extension Interactor {
+    // swiftlint:disable type_name
+
     ///
     /// Generic get object interactor
     ///

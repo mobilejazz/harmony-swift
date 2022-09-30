@@ -17,6 +17,7 @@
 import Foundation
 
 extension Observable {
+    // swiftlint:disable type_name
 
     ///
     /// A hub acts as a cloner of a given observable.

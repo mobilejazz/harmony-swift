@@ -17,6 +17,8 @@
 import Foundation
 
 extension Interactor {
+    // swiftlint:disable type_name
+
     ///
     /// Generic put object by query interactor
     ///

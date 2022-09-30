@@ -41,7 +41,11 @@ type_name:
   max_length: # warning and error
     warning: 40
     error: 50
-  excluded: iPhone # excluded via string
+  excluded:
+    - iPhone
+    - T
+    - K
+    - kSec
 identifier_name:
   # additional_allowed_characters:
   #   - _
