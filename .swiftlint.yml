@@ -59,6 +59,7 @@ identifier_name:
   excluded: # excluded via string array
     - id
     - URL
+    - SwiftUI
 function_parameter_count:
   warning: 7
   error : 9
