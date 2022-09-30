@@ -17,7 +17,7 @@
 import Harmony
 
 public extension Interactor {
-
+    // swiftlint:disable unavailable_function
     class MockDeleteByQuery: DeleteByQuery {
         private let expectedResult: Result<Void, Error>
 

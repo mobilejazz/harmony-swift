@@ -17,7 +17,7 @@
 import Harmony
 
 public extension Interactor {
-
+    // swiftlint:disable unavailable_function
     class MockGetByQuery<T>: GetByQuery<T> {
         private let expectedResult: Result<T, Error>
 
