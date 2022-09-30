@@ -19,10 +19,9 @@ import Foundation
 ///
 /// A type eraser for the PutRepository type, following Apple's Swift Standard Library approach.
 ///
-public final class AnyPutRepository <T> : PutRepository {
-    
+public final class AnyPutRepository<T>: PutRepository {
     private let box: PutRepositoryBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -30,21 +29,21 @@ public final class AnyPutRepository <T> : PutRepository {
     public init<R: PutRepository>(_ repository: R) where R.T == T {
         box = PutRepositoryBox(repository)
     }
-    
+
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return box.put(value, in: query, operation: operation)
     }
-    
+
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return box.putAll(array, in: query, operation: operation)
     }
 }
 
-extension PutRepository {
+public extension PutRepository {
     /// Returns an AnyPutRepository abstraction of the current repository
     ///
     /// - Returns: An AnyPutRepository abstraction
-    public func asAnyPutRepository() -> AnyPutRepository<T> {
+    func asAnyPutRepository() -> AnyPutRepository<T> {
         if let repo = self as? AnyPutRepository<T> {
             return repo
         }
@@ -54,26 +53,26 @@ extension PutRepository {
 
 ///
 /// This is an abstract class. Do not use it.
-/// PutRepository base class defining a generic type T (which is unrelated to the associated type of the PutRepository protocol)
+/// PutRepository base class defining a generic type T (which is unrelated to the associated type of the
+// PutRepository protocol)
 ///
-internal class PutRepositoryBoxBase <T>: PutRepository {
-
-    func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
+internal class PutRepositoryBoxBase<T>: PutRepository {
+    func put(_: T?, in _: Query, operation _: Operation) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
-    func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
+
+    func putAll(_: [T], in _: Query, operation _: Operation) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
 }
 
 ///
-/// A repository box, which has as generic type a PutRepository and links the PutRepositoryBoxBase type T as the Base.T type.
+/// A repository box, which has as generic type a PutRepository and links the PutRepositoryBoxBase type T as the
+// Base.T type.
 ///
-internal class PutRepositoryBox <Base: PutRepository> : PutRepositoryBoxBase <Base.T> {
-    
+internal class PutRepositoryBox<Base: PutRepository>: PutRepositoryBoxBase<Base.T> {
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
@@ -81,7 +80,7 @@ internal class PutRepositoryBox <Base: PutRepository> : PutRepositoryBoxBase <Ba
     override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return base.put(value, in: query, operation: operation)
     }
-    
+
     override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return base.putAll(array, in: query, operation: operation)
     }

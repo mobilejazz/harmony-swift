@@ -14,13 +14,11 @@
 // limitations under the License.
 //
 
-
+import Promises
 import UIKit
 import XCTest
-import Promises
 
 class PromisesPerformanceTest: XCTestCase {
-
     /// Measures the average time needed to create a resolved `Promise` and get into a `then` block
     /// chained to it.
     func testThenOnSerialQueue() {
@@ -29,7 +27,7 @@ class PromisesPerformanceTest: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
@@ -41,11 +39,11 @@ class PromisesPerformanceTest: XCTestCase {
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to create a resolved `Promise`, chain two `then` blocks on
     /// it and get into the last `then` block.
     func testDoubleThenOnSerialQueue() {
@@ -54,24 +52,24 @@ class PromisesPerformanceTest: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 Promise<Bool>(true).then(on: queue) { _ in
-                    }.then(on: queue) { _ in
-                        semaphore.signal()
-                        expectation.fulfill()
+                }.then(on: queue) { _ in
+                    semaphore.signal()
+                    expectation.fulfill()
                 }
                 semaphore.wait()
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to create a resolved `Promise`, chain three `then` blocks on
     /// it and get into the last `then` block.
     func testTripleThenOnSerialQueue() {
@@ -80,25 +78,25 @@ class PromisesPerformanceTest: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 Promise<Bool>(true).then(on: queue) { _ in
-                    }.then(on: queue) { _ in
-                    }.then(on: queue) { _ in
-                        semaphore.signal()
-                        expectation.fulfill()
+                }.then(on: queue) { _ in
+                }.then(on: queue) { _ in
+                    semaphore.signal()
+                    expectation.fulfill()
                 }
                 semaphore.wait()
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the total time needed to resolve a lot of pending `Promise` with chained `then`
     /// blocks on them on a concurrent queue and wait for each of them to get into chained block.
     func testThenOnConcurrentQueue() {
@@ -106,7 +104,7 @@ class PromisesPerformanceTest: XCTestCase {
         let queue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         let group = DispatchGroup()
         var promises = [Promise<Bool>]()
-        for _ in 0..<Constants.iterationCount {
+        for _ in 0 ..< Constants.iterationCount {
             group.enter()
             let promise = Promise<Bool>.pending()
             promise.then(on: queue) { _ in
@@ -115,12 +113,12 @@ class PromisesPerformanceTest: XCTestCase {
             promises.append(promise)
         }
         let startDate = Date()
-        
+
         // Act.
         for promise in promises {
             promise.fulfill(true)
         }
-        
+
         // Assert.
         XCTAssert(group.wait(timeout: .now() + 1) == .success)
         let endDate = Date()

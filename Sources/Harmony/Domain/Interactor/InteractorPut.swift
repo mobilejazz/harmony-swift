@@ -17,115 +17,137 @@
 import Foundation
 
 extension Interactor {
+    // swiftlint:disable type_name
+
     ///
     /// Generic put object by query interactor
     ///
     open class PutByQuery<T> {
-        
-        private let executor : Executor
+        private let executor: Executor
         private let repository: AnyPutRepository<T>
-        
-        public required init<R>(_ executor: Executor, _ repository: R) where R:PutRepository, R.T == T {
+
+        public required init<R>(_ executor: Executor, _ repository: R) where R: PutRepository, R.T == T {
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
-        
+
         @discardableResult
-        open func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(
+            _ value: T? = nil,
+            query: Query = VoidQuery(),
+            _ operation: Operation = DefaultOperation(),
+            in executor: Executor? = nil
+        ) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: query, operation: operation))
             }
         }
-        
+
         @discardableResult
-        open func execute<K>(_ value: T?, forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        open func execute<K>(_ value: T?, forId id: K, _ operation: Operation = DefaultOperation(),
+                             in executor: Executor? = nil) -> Future<T> where K: Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, forId: id, operation: operation))
             }
         }
     }
-    
+
     ///
     /// Generic put object interactor
     ///
     open class Put<T> {
-
-        private let query : Query
-        private let executor : Executor
+        private let query: Query
+        private let executor: Executor
         private let repository: AnyPutRepository<T>
-        
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R:PutRepository, R.T == T {
+
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R: PutRepository,
+            R.T == T {
             self.query = query
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
-        
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:PutRepository, R.T == T {
+
+        public convenience init<R, K>(_ executor: Executor, _ repository: R, _ id: K) where K: Hashable,
+            R: PutRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
-        
+
         @discardableResult
-        open func execute(_ value: T? = nil, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
+        open func execute(
+            _ value: T? = nil,
+            _ operation: Operation = DefaultOperation(),
+            in executor: Executor? = nil
+        ) -> Future<T> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.put(value, in: self.query, operation: operation))
             }
         }
     }
-    
+
     ///
     /// Generic put objects by query interactor
     ///
     open class PutAllByQuery<T> {
-        
-        private let executor : Executor
+        private let executor: Executor
         private let repository: AnyPutRepository<T>
-        
-        public required init<R>(_ executor: Executor, _ repository: R) where R : PutRepository, R.T == T {
+
+        public required init<R>(_ executor: Executor, _ repository: R) where R: PutRepository, R.T == T {
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
-        
+
         @discardableResult
-        open func execute(_ array: [T] = [], query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(
+            _ array: [T] = [],
+            query: Query = VoidQuery(),
+            _ operation: Operation = DefaultOperation(),
+            in executor: Executor? = nil
+        ) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: query, operation: operation))
             }
         }
-        
+
         @discardableResult
-        open func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K:Hashable {
+        open func execute<K>(_ array: [T] = [], forId id: K, _ operation: Operation = DefaultOperation(),
+                             in executor: Executor? = nil) -> Future<[T]> where K: Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, forId: id, operation: operation))
             }
         }
     }
-    
+
     ///
     /// Generic put objects interactor
     ///
     open class PutAll<T> {
-        
-        private let query : Query
-        private let executor : Executor
+        private let query: Query
+        private let executor: Executor
         private let repository: AnyPutRepository<T>
-        
-        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R:PutRepository, R.T == T {
+
+        public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where R: PutRepository,
+            R.T == T {
             self.query = query
             self.executor = executor
             self.repository = repository.asAnyPutRepository()
         }
-        
-        public convenience init<R,K>(_ executor: Executor, _ repository: R, _ id: K) where K:Hashable, R:PutRepository, R.T == T {
+
+        public convenience init<R, K>(_ executor: Executor, _ repository: R, _ id: K) where K: Hashable,
+            R: PutRepository, R.T == T {
             self.init(executor, repository, IdQuery(id))
         }
-        
+
         @discardableResult
-        open func execute(_ array: [T] = [], _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
+        open func execute(
+            _ array: [T] = [],
+            _ operation: Operation = DefaultOperation(),
+            in executor: Executor? = nil
+        ) -> Future<[T]> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.putAll(array, in: self.query, operation: operation))
@@ -134,28 +156,28 @@ extension Interactor {
     }
 }
 
-extension PutRepository {
-    public func toPutByQueryInteractor(_ executor: Executor) -> Interactor.PutByQuery<T> {
+public extension PutRepository {
+    func toPutByQueryInteractor(_ executor: Executor) -> Interactor.PutByQuery<T> {
         return Interactor.PutByQuery(executor, self)
     }
-    
-    public func toPutInteractor(_ executor: Executor, _ query : Query) -> Interactor.Put<T> {
+
+    func toPutInteractor(_ executor: Executor, _ query: Query) -> Interactor.Put<T> {
         return Interactor.Put<T>(executor, self, query)
     }
-    
-    public func toPutInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.Put<T> where K:Hashable {
+
+    func toPutInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.Put<T> where K: Hashable {
         return Interactor.Put<T>(executor, self, id)
     }
-    
-    public func toPutAllByQueryInteractor(_ executor: Executor) -> Interactor.PutAllByQuery<T> {
+
+    func toPutAllByQueryInteractor(_ executor: Executor) -> Interactor.PutAllByQuery<T> {
         return Interactor.PutAllByQuery(executor, self)
     }
-    
-    public func toPutAllInteractor(_ executor: Executor, _ query : Query) -> Interactor.PutAll<T> {
+
+    func toPutAllInteractor(_ executor: Executor, _ query: Query) -> Interactor.PutAll<T> {
         return Interactor.PutAll<T>(executor, self, query)
     }
-    
-    public func toPutAllInteractor<K>(_ executor: Executor, _ id : K) -> Interactor.PutAll<T> where K:Hashable {
+
+    func toPutAllInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.PutAll<T> where K: Hashable {
         return Interactor.PutAll<T>(executor, self, id)
     }
 }

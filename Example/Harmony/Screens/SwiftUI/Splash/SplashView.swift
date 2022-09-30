@@ -11,7 +11,7 @@ import SwiftUI
 struct SplashView: View {
     var body: some View {
         ZStack {
-            Color(red: 0, green: 190.0/256.0, blue: 176.0/256.0)
+            Color(red: 0, green: 190.0 / 256.0, blue: 176.0 / 256.0)
                 .ignoresSafeArea()
             VStack {
                 Text("Splash")
@@ -20,7 +20,6 @@ struct SplashView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
             }
-            
         }
     }
 }

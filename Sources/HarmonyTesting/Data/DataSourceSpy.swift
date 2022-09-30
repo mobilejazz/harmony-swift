@@ -18,22 +18,21 @@ import Foundation
 import Harmony
 
 /// A GetDataSource spy that records all calls.
-public class GetDataSourceSpy <D: GetDataSource, T> : GetDataSource where D.T == T {
-    
+public class GetDataSourceSpy<D: GetDataSource, T>: GetDataSource where D.T == T {
     public private(set) var getCalls: [Query] = []
     public private(set) var getAllCalls: [Query] = []
-    
+
     private let dataSource: D
-    
+
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         getCalls.append(query)
         return dataSource.get(query)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         getAllCalls.append(query)
         return dataSource.getAll(query)
@@ -41,22 +40,21 @@ public class GetDataSourceSpy <D: GetDataSource, T> : GetDataSource where D.T ==
 }
 
 /// A PutDataSource spy that records all calls.
-public class PutDataSourceSpy <D: PutDataSource, T> : PutDataSource where D.T == T {
-    
+public class PutDataSourceSpy<D: PutDataSource, T>: PutDataSource where D.T == T {
     public private(set) var putCalls: [(value: T?, query: Query)] = []
     public private(set) var putAllCalls: [(array: [T], query: Query)] = []
-    
+
     private let dataSource: D
-    
+
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     public func put(_ value: T?, in query: Query) -> Future<T> {
         putCalls.append((value, query))
         return dataSource.put(value, in: query)
     }
-    
+
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         putAllCalls.append((array, query))
         return dataSource.putAll(array, in: query)
@@ -64,22 +62,21 @@ public class PutDataSourceSpy <D: PutDataSource, T> : PutDataSource where D.T ==
 }
 
 /// A DeleteDataSource spy that records all calls.
-public class DeleteDataSourceSpy <D: DeleteDataSource>: DeleteDataSource {
-    
+public class DeleteDataSourceSpy<D: DeleteDataSource>: DeleteDataSource {
     public private(set) var deleteCalls: [Query] = []
     public private(set) var deleteAllCalls: [Query] = []
-    
+
     private let dataSource: D
-    
+
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     public func delete(_ query: Query) -> Future<Void> {
         deleteCalls.append(query)
         return dataSource.delete(query)
     }
-    
+
     public func deleteAll(_ query: Query) -> Future<Void> {
         deleteAllCalls.append(query)
         return dataSource.deleteAll(query)
@@ -87,48 +84,48 @@ public class DeleteDataSourceSpy <D: DeleteDataSource>: DeleteDataSource {
 }
 
 /// A DataSource spy that records all calls.
-public class DataSourceSpy <D,T> : GetDataSource, PutDataSource, DeleteDataSource where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
-    
+public class DataSourceSpy<D, T>: GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource,
+    D: PutDataSource, D: DeleteDataSource, D.T == T {
     public private(set) var getCalls: [Query] = []
     public private(set) var getAllCalls: [Query] = []
-    
+
     private let dataSource: D
-    
+
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         getCalls.append(query)
         return dataSource.get(query)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         getAllCalls.append(query)
         return dataSource.getAll(query)
     }
-    
+
     public private(set) var putCalls: [(value: T?, query: Query)] = []
     public private(set) var putAllCalls: [(array: [T], query: Query)] = []
-    
+
     public func put(_ value: T?, in query: Query) -> Future<T> {
         putCalls.append((value, query))
         return dataSource.put(value, in: query)
     }
-    
+
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         putAllCalls.append((array, query))
         return dataSource.putAll(array, in: query)
     }
-    
+
     public private(set) var deleteCalls: [Query] = []
     public private(set) var deleteAllCalls: [Query] = []
-    
+
     public func delete(_ query: Query) -> Future<Void> {
         deleteCalls.append(query)
         return dataSource.delete(query)
     }
-    
+
     public func deleteAll(_ query: Query) -> Future<Void> {
         deleteAllCalls.append(query)
         return dataSource.deleteAll(query)

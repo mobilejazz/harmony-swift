@@ -16,13 +16,12 @@
 
 import Foundation
 
-public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource  {
-    
-    private var objects : [String : T] = [:]
-    private var arrays : [String : [T]] = [:]
-    
+public class InMemoryDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource {
+    private var objects: [String: T] = [:]
+    private var arrays: [String: [T]] = [:]
+
     public init() {}
-    
+
     public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
@@ -34,7 +33,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case is AllObjectsQuery:
@@ -54,7 +53,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func put(_ value: T? = nil, in query: Query) -> Future<T> {
         switch query {
@@ -69,7 +68,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
@@ -77,7 +76,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             guard array.count == query.ids.count else {
                 return Future(CoreError.IllegalArgument("Array lenght must be equal to query.ids length"))
             }
-            array.enumerated().forEach { (offset, element) in
+            array.enumerated().forEach { offset, element in
                 arrays.removeValue(forKey: query.ids[offset])
                 objects[query.ids[offset]] = element
             }
@@ -90,32 +89,32 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case is AllObjectsQuery:
             objects.removeAll()
             arrays.removeAll()
-            return Future(Void())
+            return Future(())
         case let query as IdsQuery<String>:
             query.ids.forEach { key in
                 clearAll(key: key)
             }
-            return Future(Void())
+            return Future(())
         case let query as KeyQuery:
             clearAll(key: query.key)
-            return Future(Void())
+            return Future(())
         default:
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         delete(query)
     }
-    
+
     private func clearAll(key: String) {
         objects.removeValue(forKey: key)
         arrays.removeValue(forKey: key)

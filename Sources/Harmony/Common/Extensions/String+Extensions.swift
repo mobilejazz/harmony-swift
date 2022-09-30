@@ -14,91 +14,151 @@
 // limitations under the License.
 //
 
-import Foundation
 import CommonCrypto
+import Foundation
 
-private let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                        "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                        "0","1","2","3","4","5","6","7","8","9"]
+private let alphabet = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+]
 
 public extension String {
-    
     /// Creates a random string of the given length.
     ///
     /// - Parameter length: The length of the string.
     init(randomOfLength length: UInt) {
         var string = ""
-        for _ in 0..<length {
+        for _ in 0 ..< length {
             let randomIndex = Int(arc4random() % UInt32(alphabet.count))
             string.append(alphabet[randomIndex])
         }
         self = string
     }
-    
+
     /// Splits the string using the space character into an array of words.
     ///
     /// - Returns: An array of words.
     func words() -> [String] {
         return components(separatedBy: " ")
     }
-    
+
     /// Returns the first word.
     ///
     /// - Returns: The first word.
     func firstWord() -> String {
-        if let first = self.words().first {
+        if let first = words().first {
             return first
         }
         return self
     }
-    
+
     /// Returns the last word.
     ///
     /// - Returns: The last word.
     func lastWord() -> String {
-        if let last = self.words().last {
+        if let last = words().last {
             return last
         }
         return self
     }
-    
+
     /// Removes the first word.
     ///
     /// - Returns: A string without the first word.
     func deleteFirstWord() -> String {
         let words = self.words()
-        
-        guard words.count > 0 else {
+
+        guard !words.isEmpty else {
             return ""
         }
-        
+
         let first = words.first!
-        guard first.count + 1 < self.count  else {
+        guard first.count + 1 < count else {
             return ""
         }
-        
+
         return replacingOccurrences(of: self,
                                     with: "",
                                     options: String.CompareOptions.anchored,
-                                    range: Range(NSMakeRange(0, first.count + 1), in: self))
+                                    range: Range(NSRange(location: 0, length: first.count + 1), in: self))
     }
-    
+
     /// MD5 Hash
     ///
     /// - Returns: A MD5 Hashed string
     func md5() -> String {
-        guard let data = self.data(using: .utf8) else {
+        guard let data = data(using: .utf8) else {
             return self
         }
         var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
         #if swift(>=5.0)
-        _ = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
-            return CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
-        }
+            _ = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
+                CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
+            }
         #else
-        _ = data.withUnsafeBytes { bytes in
-            return CC_MD5(bytes, CC_LONG(data.count), &digest)
-        }
+            _ = data.withUnsafeBytes { bytes in
+                CC_MD5(bytes, CC_LONG(data.count), &digest)
+            }
         #endif
         return digest.map { String(format: "%02x", $0) }.joined()
     }

@@ -14,60 +14,74 @@
 // limitations under the License.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 public class BaseURLRequestAdapter: RequestInterceptor {
-        
     // Example of usage of a bearer token
-    public let baseURL : URL
-    private var retriers : [RequestRetrier] = []
-    
-    public init(_ baseURL: URL, _ retriers : [RequestRetrier]) {
+    public let baseURL: URL
+    private var retriers: [RequestRetrier] = []
+
+    public init(_ baseURL: URL, _ retriers: [RequestRetrier]) {
         self.baseURL = baseURL
         self.retriers = retriers
     }
-    
-    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+
+    public func adapt(
+        _ urlRequest: URLRequest,
+        for _: Session,
+        completion: @escaping (Result<URLRequest, Error>) -> Void
+    ) {
         guard let incomingURL = urlRequest.url else {
             completion(.success(urlRequest))
             return
         }
-        
+
         if incomingURL.scheme != nil {
             completion(.success(urlRequest))
             return
         }
-        
+
         var request = urlRequest
-        
+
         var components = URLComponents()
         components.scheme = baseURL.scheme
         components.host = baseURL.host
         components.path = "\(baseURL.path)\(incomingURL.path)"
-        
+
         if let query = incomingURL.query {
             components.query = query
         }
-        
+
         request.url = components.url
-        
+
         completion(.success(request))
     }
-    
-    public func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+
+    public func retry(
+        _ request: Request,
+        for session: Session,
+        dueTo error: Error,
+        completion: @escaping (RetryResult) -> Void
+    ) {
         should(0, session, retry: request, with: error, completion: completion)
     }
-    
-    private func should(_ index: Int, _ manager: Session, retry request: Request, with error: Error, completion: @escaping (RetryResult) -> Void) {
+
+    private func should(
+        _ index: Int,
+        _ manager: Session,
+        retry request: Request,
+        with error: Error,
+        completion: @escaping (RetryResult) -> Void
+    ) {
         if index < retriers.count {
             let retrier = retriers[index]
             retrier.retry(request, for: manager, dueTo: error) { retryResult in
                 switch retryResult {
-                case .retry, .retryWithDelay(_), .doNotRetry:
+                case .retry, .retryWithDelay, .doNotRetry:
                     completion(retryResult)
-                case .doNotRetryWithError(_):
-                    self.should(index+1, manager, retry: request, with: error, completion: completion)
+                case .doNotRetryWithError:
+                    self.should(index + 1, manager, retry: request, with: error, completion: completion)
                 }
             }
         } else {

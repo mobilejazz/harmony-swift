@@ -18,163 +18,162 @@ import XCTest
 @testable import Harmony
 
 class FutureInitTests: XCTestCase {
-    
     func testFutureEmptyConstructor() {
         // Arrange & Act.
         let future = Future<Void>()
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.blank)
     }
-    
+
     func testFutureValueConstructor() {
         // Arrange & Act.
         let future = Future<Int>(42)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureErrorConstructor() {
         // Arrange & Act.
         let future = Future<Int>(Test.Error.code42)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureFutureValueConstructor() {
         // Arrange & Act.
         let f = Future<Int>(42)
         let future = Future<Int>(f)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureFutureErrorConstructor() {
         // Arrange & Act.
         let f = Future<Int>(Test.Error.code42)
         let future = Future<Int>(f)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureClosureValueConstructor() {
-        let future = Future<Int>() { future in
+        let future = Future<Int> { future in
             future.set(42)
         }
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureClosureErrorConstructor() {
-        let future = Future<Int>() { future in
+        let future = Future<Int> { future in
             future.set(Test.Error.code42)
         }
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureClosureErrorThrowConstructor() {
-        let future = Future<Int>() { future in
+        let future = Future<Int> { _ in
             throw Test.Error.code42
         }
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureDirectClosureValueConstructor() {
         let future = Future<Int>(value: { 42 })
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureDirectClosureErrorConstructor() {
-        let future = Future<Int>() { Test.Error.code42 }
-        
+        let future = Future<Int> { Test.Error.code42 }
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureDirectClosureErrorThrowConstructor() {
         let future = Future<Int>(value: { throw Test.Error.code42 })
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }

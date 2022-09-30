@@ -19,11 +19,11 @@ import SwiftUI
 public struct EmptyNavigationLink<Destination: View>: View {
     private let lazyDestination: LazyView<Destination>
     private let isActive: Binding<Bool>
-    
+
     public init<T>(
         @ViewBuilder destination: @escaping (T) -> Destination,
         selection: Binding<T?>
-    )  {
+    ) {
         lazyDestination = LazyView(destination(selection.wrappedValue!))
         isActive = .init(
             get: { selection.wrappedValue != nil },
@@ -34,7 +34,7 @@ public struct EmptyNavigationLink<Destination: View>: View {
             }
         )
     }
-    
+
     public var body: some View {
         NavigationLink(
             destination: lazyDestination,

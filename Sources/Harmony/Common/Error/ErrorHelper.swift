@@ -18,30 +18,30 @@ import Foundation
 
 public extension NSError {
     static func domain(_ string: String = "", base: String = "\(Bundle.main.bundleIdentifier!)") -> String {
-        if string.count > 0 {
+        if !string.isEmpty {
             return base + "." + string
         }
         return base
     }
-    
+
     convenience init(_ message: String,
-                            reason: String? = nil,
-                            domain: String = NSError.domain(),
-                            code: Int = 0,
-                            userInfo: (inout [String : Any]) -> Void = { _ in }) {
-        var userInfoDict: [String : Any] = [NSLocalizedDescriptionKey : message]
+                     reason: String? = nil,
+                     domain: String = NSError.domain(),
+                     code: Int = 0,
+                     userInfo: (inout [String: Any]) -> Void = { _ in }) {
+        var userInfoDict: [String: Any] = [NSLocalizedDescriptionKey: message]
         if let reason = reason {
             userInfoDict[NSLocalizedFailureReasonErrorKey] = reason
         }
         userInfo(&userInfoDict)
         self.init(domain: domain, code: code, userInfo: userInfoDict)
     }
-    
+
     convenience init(_ message: String,
-                            reason: String? = nil,
-                            subdomain: String,
-                            code: Int = 0,
-                            userInfo: (inout [String : Any]) -> Void = { _ in }) {
-        self.init(message, reason: reason, domain: NSError.domain(subdomain), code: code, userInfo: userInfo )
+                     reason: String? = nil,
+                     subdomain: String,
+                     code: Int = 0,
+                     userInfo: (inout [String: Any]) -> Void = { _ in }) {
+        self.init(message, reason: reason, domain: NSError.domain(subdomain), code: code, userInfo: userInfo)
     }
 }

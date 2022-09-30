@@ -19,9 +19,9 @@ import Foundation
 ///
 /// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
 ///
-public final class AnyPutDataSource <T> : PutDataSource {
+public final class AnyPutDataSource<T>: PutDataSource {
     private let box: PutDataSourceBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -29,21 +29,21 @@ public final class AnyPutDataSource <T> : PutDataSource {
     public init<D: PutDataSource>(_ dataSource: D) where D.T == T {
         box = PutDataSourceBox(dataSource)
     }
-    
+
     public func put(_ value: T?, in query: Query) -> Future<T> {
         return box.put(value, in: query)
     }
-    
+
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return box.putAll(array, in: query)
     }
 }
 
-extension PutDataSource {
+public extension PutDataSource {
     /// Returns an AnyPutDataSource abstraction of the current data source
     ///
     /// - Returns: An AnyPutDataSource abstraction
-    public func asAnyPutDataSource() -> AnyPutDataSource<T> {
+    func asAnyPutDataSource() -> AnyPutDataSource<T> {
         if let dataSource = self as? AnyPutDataSource<T> {
             return dataSource
         }
@@ -53,34 +53,34 @@ extension PutDataSource {
 
 ///
 /// This is an abstract class. Do not use it.
-/// PutDataSource base class defining a generic type T (which is unrelated to the associated type of the PutDataSource protocol)
+/// PutDataSource base class defining a generic type T (which is unrelated to the associated type of the
+// PutDataSource protocol)
 ///
-internal class PutDataSourceBoxBase <T>: PutDataSource {
-    
-    func put(_ value: T?, in query: Query) -> Future<T> {
+internal class PutDataSourceBoxBase<T>: PutDataSource {
+    func put(_: T?, in _: Query) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
-    func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+
+    func putAll(_: [T], in _: Query) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
 }
 
 ///
-/// A data source box, which has as generic type a PutDataSource and links the PutDataSourceBoxBase type T as the Base.T type.
+/// A data source box, which has as generic type a PutDataSource and links the PutDataSourceBoxBase type T as the
+// Base.T type.
 ///
-internal class PutDataSourceBox <Base: PutDataSource> : PutDataSourceBoxBase <Base.T> {
-    
+internal class PutDataSourceBox<Base: PutDataSource>: PutDataSourceBoxBase<Base.T> {
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
-    
+
     override func put(_ value: T?, in query: Query) -> Future<T> {
         return base.put(value, in: query)
     }
-    
+
     override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return base.putAll(array, in: query)
     }

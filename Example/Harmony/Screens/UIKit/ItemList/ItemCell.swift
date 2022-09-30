@@ -6,16 +6,15 @@
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class ItemCell: UITableViewCell {
+    @IBOutlet var itemImageView: UIImageView!
+    @IBOutlet var itemNameLabel: UILabel!
+    @IBOutlet var itemCountLabel: UILabel!
+    @IBOutlet var itemPriceLabel: UILabel!
 
-    @IBOutlet weak var itemImageView: UIImageView!
-    @IBOutlet weak var itemNameLabel: UILabel!
-    @IBOutlet weak var itemCountLabel: UILabel!
-    @IBOutlet weak var itemPriceLabel: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -21,10 +21,9 @@ import Foundation
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleGetDataSourceRepository<D: GetDataSource,T> : GetRepository where D.T == T {
-    
-    private let dataSource : D
-    
+public class SingleGetDataSourceRepository<D: GetDataSource, T>: GetRepository where D.T == T {
+    private let dataSource: D
+
     /// Default initializer
     ///
     /// - Parameters:
@@ -32,21 +31,21 @@ public class SingleGetDataSourceRepository<D: GetDataSource,T> : GetRepository w
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
-    public func get(_ query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
+
+    public func get(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.get(query)
     }
-    
-    public func getAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
+
+    public func getAll(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
 }
 
-extension GetDataSource {
+public extension GetDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleGetDataSourceRepository repository
-    public func toGetRepository() -> SingleGetDataSourceRepository<Self,T> {
+    func toGetRepository() -> SingleGetDataSourceRepository<Self, T> {
         return SingleGetDataSourceRepository(self)
     }
 }
@@ -56,10 +55,9 @@ extension GetDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SinglePutDataSourceRepository<D: PutDataSource,T> : PutRepository where D.T == T {
-    
-    private let dataSource : D
-    
+public class SinglePutDataSourceRepository<D: PutDataSource, T>: PutRepository where D.T == T {
+    private let dataSource: D
+
     /// Default initializer
     ///
     /// - Parameters:
@@ -67,23 +65,23 @@ public class SinglePutDataSourceRepository<D: PutDataSource,T> : PutRepository w
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     @discardableResult
-    public func put(_ value: T?, in query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation _: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
-    
+
     @discardableResult
-    public func putAll(_ array: [T], in query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation _: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
 }
 
-extension PutDataSource {
+public extension PutDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SinglePutDataSourceRepository repository
-    public func toPutRepository() -> SinglePutDataSourceRepository<Self,T> {
+    func toPutRepository() -> SinglePutDataSourceRepository<Self, T> {
         return SinglePutDataSourceRepository(self)
     }
 }
@@ -93,10 +91,9 @@ extension PutDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDeleteDataSourceRepository<D: DeleteDataSource> : DeleteRepository {
-    
-    private let dataSource : D
-    
+public class SingleDeleteDataSourceRepository<D: DeleteDataSource>: DeleteRepository {
+    private let dataSource: D
+
     /// Default initializer
     ///
     /// - Parameters:
@@ -104,23 +101,23 @@ public class SingleDeleteDataSourceRepository<D: DeleteDataSource> : DeleteRepos
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
+
     @discardableResult
-    public func delete(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
+    public func delete(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
-    
+
     @discardableResult
-    public func deleteAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }
 
-extension DeleteDataSource {
+public extension DeleteDataSource {
     /// Creates a single data source repository from a data source
     ///
     /// - Returns: A SingleDeleteDataSourceRepository repository
-    public func toDeleteRepository() -> SingleDeleteDataSourceRepository<Self> {
+    func toDeleteRepository() -> SingleDeleteDataSourceRepository<Self> {
         return SingleDeleteDataSourceRepository(self)
     }
 }
@@ -130,10 +127,10 @@ extension DeleteDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDataSourceRepository<D,T> : GetRepository, PutRepository, DeleteRepository where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
-    
-    private let dataSource : D
-    
+public class SingleDataSourceRepository<D, T>: GetRepository, PutRepository, DeleteRepository
+    where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+    private let dataSource: D
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -141,32 +138,32 @@ public class SingleDataSourceRepository<D,T> : GetRepository, PutRepository, Del
     public init(_ dataSource: D) {
         self.dataSource = dataSource
     }
-    
-    public func get(_ query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
+
+    public func get(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.get(query)
     }
-    
-    public func getAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
+
+    public func getAll(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.getAll(query)
     }
-    
+
     @discardableResult
-    public func put(_ value: T?, in query: Query, operation: Operation = DefaultOperation()) -> Future<T> {
+    public func put(_ value: T?, in query: Query, operation _: Operation = DefaultOperation()) -> Future<T> {
         return dataSource.put(value, in: query)
     }
-    
+
     @discardableResult
-    public func putAll(_ array: [T], in query: Query, operation: Operation = DefaultOperation()) -> Future<[T]> {
+    public func putAll(_ array: [T], in query: Query, operation _: Operation = DefaultOperation()) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
-    
+
     @discardableResult
-    public func delete(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
+    public func delete(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.delete(query)
     }
-    
+
     @discardableResult
-    public func deleteAll(_ query: Query, operation: Operation = DefaultOperation()) -> Future<Void> {
+    public func deleteAll(_ query: Query, operation _: Operation = DefaultOperation()) -> Future<Void> {
         return dataSource.deleteAll(query)
     }
 }

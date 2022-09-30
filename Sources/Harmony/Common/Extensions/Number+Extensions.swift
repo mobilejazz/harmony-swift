@@ -20,7 +20,7 @@ public extension Int {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Int {
-        return Int.random(in: Int.min...Int.max)
+        return Int.random(in: Int.min ... Int.max)
     }
 }
 
@@ -28,7 +28,7 @@ public extension Int8 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Int8 {
-        return Int8.random(in: Int8.min...Int8.max)
+        return Int8.random(in: Int8.min ... Int8.max)
     }
 }
 
@@ -36,7 +36,7 @@ public extension Int16 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Int16 {
-        return Int16.random(in: Int16.min...Int16.max)
+        return Int16.random(in: Int16.min ... Int16.max)
     }
 }
 
@@ -44,7 +44,7 @@ public extension Int32 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Int32 {
-        return Int32.random(in: Int32.min...Int32.max)
+        return Int32.random(in: Int32.min ... Int32.max)
     }
 }
 
@@ -52,7 +52,7 @@ public extension Int64 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Int64 {
-        return Int64.random(in: Int64.min...Int64.max)
+        return Int64.random(in: Int64.min ... Int64.max)
     }
 }
 
@@ -60,7 +60,7 @@ public extension UInt {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> UInt {
-        return UInt.random(in: UInt.min...UInt.max)
+        return UInt.random(in: UInt.min ... UInt.max)
     }
 }
 
@@ -68,7 +68,7 @@ public extension UInt8 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> UInt8 {
-        return UInt8.random(in: UInt8.min...UInt8.max)
+        return UInt8.random(in: UInt8.min ... UInt8.max)
     }
 }
 
@@ -76,7 +76,7 @@ public extension UInt16 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> UInt16 {
-        return UInt16.random(in: UInt16.min...UInt16.max)
+        return UInt16.random(in: UInt16.min ... UInt16.max)
     }
 }
 
@@ -84,7 +84,7 @@ public extension UInt32 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> UInt32 {
-        return UInt32.random(in: UInt32.min...UInt32.max)
+        return UInt32.random(in: UInt32.min ... UInt32.max)
     }
 }
 
@@ -92,7 +92,7 @@ public extension UInt64 {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> UInt64 {
-        return UInt64.random(in: UInt64.min...UInt64.max)
+        return UInt64.random(in: UInt64.min ... UInt64.max)
     }
 }
 
@@ -100,7 +100,7 @@ public extension Float {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Float {
-        return Float.random(in: Float.leastNormalMagnitude...Float.greatestFiniteMagnitude)
+        return Float.random(in: Float.leastNormalMagnitude ... Float.greatestFiniteMagnitude)
     }
 }
 
@@ -108,6 +108,6 @@ public extension Double {
     /// Returns a random value.
     /// - Returns: A random value.
     static func random() -> Double {
-        return Double.random(in: Double.leastNormalMagnitude...Double.greatestFiniteMagnitude)
+        return Double.random(in: Double.leastNormalMagnitude ... Double.greatestFiniteMagnitude)
     }
 }

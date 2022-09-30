@@ -12,7 +12,7 @@ import Harmony
 public struct MockObjectValidation<T>: ObjectValidation {
     public let objectValid: Bool
     public let arrayValid: Bool
-    
+
     /// Default initializer.
     /// - Parameters:
     ///   - objectValid: The bool value to return upon object validation. Default value is true.
@@ -21,12 +21,12 @@ public struct MockObjectValidation<T>: ObjectValidation {
         self.objectValid = objectValid
         self.arrayValid = arrayValid
     }
-    
-    public func isObjectValid<T>(_ object: T) -> Bool {
+
+    public func isObjectValid<T>(_: T) -> Bool {
         return objectValid
     }
-    
-    public func isArrayValid<T>(_ objects: [T]) -> Bool {
+
+    public func isArrayValid<T>(_: [T]) -> Bool {
         return arrayValid
     }
 }

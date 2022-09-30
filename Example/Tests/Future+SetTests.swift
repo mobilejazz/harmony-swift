@@ -18,7 +18,6 @@ import XCTest
 @testable import Harmony
 
 class FutureSetTests: XCTestCase {
-    
     func testFutureSetValue() {
         // Arrange
         let future = Future<Int>()
@@ -30,143 +29,143 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureSetValueTwice() {
         // Arrange.
         let future = Future<Int>()
-        
+
         // Act.
         future.set(42)
         future.set(13)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureSetError() {
         // Arrange.
         let future = Future<Int>()
-        
+
         // Act.
         future.set(Test.Error.code42)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureSetErrorTwice() {
         // Arrange.
         let future = Future<Int>()
-        
+
         // Act.
         future.set(Test.Error.code42)
         future.set(Test.Error.code13)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureSetValueThenError() {
         // Arrange.
         let future = Future<Int>()
-        
+
         // Act.
         future.set(42)
         future.set(Test.Error.code13)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureSetErrorThenValue() {
         // Arrange.
         let future = Future<Int>()
-        
+
         // Act.
         future.set(Test.Error.code42)
         future.set(13)
-        
+
         // Assert.
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(_):
+        case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
-    
+
     func testFutureSetFuture1() {
         // Arrange
         let future1 = Future<Int>()
         let future2 = Future<Int>()
-        
+
         // Act
         future1.set(42)
         future2.set(future1)
-        
+
         // Assert.
         XCTAssertTrue(future2.state == .waitingThen)
         XCTAssertNotNil(future2._result)
         switch future2._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }
-    
+
     func testFutureSetFuture2() {
         // Arrange
         let future1 = Future<Int>()
         let future2 = Future<Int>()
-        
+
         // Act
         future2.set(future1)
         future1.set(42)
-        
+
         // Assert.
         XCTAssertTrue(future2.state == .waitingThen)
         XCTAssertNotNil(future2._result)
         switch future2._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
-        case .error(_):
+        case .error:
             XCTAssert(false)
         }
     }

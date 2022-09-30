@@ -17,19 +17,21 @@
 import Harmony
 
 public extension Interactor {
-    
+    // swiftlint:disable unavailable_function
     class MockDeleteByQuery: DeleteByQuery {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
             self.expectedResult = expectedResult
-            super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()))
+            super.init(
+                DirectExecutor(),
+                SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource())
+            )
         }
 
-        public required init(_ executor: Executor, _ repository: DeleteRepository) {
+        public required init(_: Executor, _: DeleteRepository) {
             fatalError("init(_:_:) has not been implemented")
         }
-
 
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []
@@ -38,15 +40,18 @@ public extension Interactor {
         }
 
         @discardableResult
-        override public func execute(_ query: Query, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        override public func execute(
+            _ query: Query,
+            _ operation: Harmony.Operation = DefaultOperation(),
+            in _: Executor? = nil
+        ) -> Future<Void> {
+            spyOperation.append(operation)
+            spyQuery.append(query)
 
-            self.spyOperation.append(operation)
-            self.spyQuery.append(query)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }
@@ -54,15 +59,15 @@ public extension Interactor {
         public var spyId: [Any] = []
 
         @discardableResult
-        override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
+        override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(),
+                                        in _: Executor? = nil) -> Future<Void> where K: Hashable {
+            spyOperation.append(operation)
+            spyId.append(id)
 
-            self.spyOperation.append(operation)
-            self.spyId.append(id)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }
@@ -72,12 +77,15 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
-            super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()), VoidQuery())
+            super.init(
+                DirectExecutor(),
+                SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()),
+                VoidQuery()
+            )
         }
 
-        public required init(_ executor: Executor, _ repository: DeleteRepository, _ query: Query) {
+        public required init(_: Executor, _: DeleteRepository, _: Query) {
             fatalError("init(_:_:_:) has not been implemented")
         }
 
@@ -87,14 +95,14 @@ public extension Interactor {
         }
 
         @discardableResult
-        override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        override public func execute(_ operation: Harmony.Operation = DefaultOperation(),
+                                     in _: Executor? = nil) -> Future<Void> {
+            spyOperation.append(operation)
 
-            self.spyOperation.append(operation)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }
@@ -104,12 +112,14 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
-            super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()))
+            super.init(
+                DirectExecutor(),
+                SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource())
+            )
         }
 
-        public required init(_ executor: Executor, _ repository: DeleteRepository) {
+        public required init(_: Executor, _: DeleteRepository) {
             fatalError("init(_:_:) has not been implemented")
         }
 
@@ -120,15 +130,18 @@ public extension Interactor {
         }
 
         @discardableResult
-        override public func execute(_ query: Query, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        override public func execute(
+            _ query: Query,
+            _ operation: Harmony.Operation = DefaultOperation(),
+            in _: Executor? = nil
+        ) -> Future<Void> {
+            spyOperation.append(operation)
+            spyQuery.append(query)
 
-            self.spyOperation.append(operation)
-            self.spyQuery.append(query)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }
@@ -136,15 +149,15 @@ public extension Interactor {
         public var spyId: [Any] = []
 
         @discardableResult
-        override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
+        override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(),
+                                        in _: Executor? = nil) -> Future<Void> where K: Hashable {
+            spyOperation.append(operation)
+            spyId.append(id)
 
-            self.spyOperation.append(operation)
-            self.spyId.append(id)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }
@@ -154,12 +167,15 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
-            super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()), VoidQuery())
+            super.init(
+                DirectExecutor(),
+                SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()),
+                VoidQuery()
+            )
         }
 
-        public required init(_ executor: Executor, _ repository: DeleteRepository, _ query: Query) {
+        public required init(_: Executor, _: DeleteRepository, _: Query) {
             fatalError("init(_:_:_:) has not been implemented")
         }
 
@@ -169,14 +185,14 @@ public extension Interactor {
         }
 
         @discardableResult
-        override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        override public func execute(_ operation: Harmony.Operation = DefaultOperation(),
+                                     in _: Executor? = nil) -> Future<Void> {
+            spyOperation.append(operation)
 
-            self.spyOperation.append(operation)
-
-            switch self.expectedResult {
-            case .success(let value):
+            switch expectedResult {
+            case let .success(value):
                 return Future(value)
-            case .failure(let error):
+            case let .failure(error):
                 return Future(error)
             }
         }

@@ -7,7 +7,7 @@ let package = Package(
     name: "Harmony",
     platforms: [
         .iOS(.v12),
-        .macOS(.v10_15)
+        .macOS(.v10_15),
     ],
     products: [
         .library(
@@ -17,7 +17,7 @@ let package = Package(
         .library(
             name: "HarmonyTesting",
             targets: ["HarmonyTesting"]
-        )
+        ),
     ],
     targets: [
         .target(
@@ -31,6 +31,6 @@ let package = Package(
         .testTarget(
             name: "HarmonyTests",
             dependencies: ["Harmony"]
-        )
+        ),
     ]
 )

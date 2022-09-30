@@ -18,7 +18,6 @@ import UIKit
 import XCTest
 
 class GCDPerformanceTests: XCTestCase {
-
     /// Measures the average time needed to get into a dispatch_async block.
     func testDispatchAsyncOnSerialQueue() {
         // Arrange.
@@ -26,7 +25,7 @@ class GCDPerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
@@ -38,11 +37,11 @@ class GCDPerformanceTests: XCTestCase {
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to get into a doubly nested dispatch_async block.
     func testDoubleDispatchAsyncOnSerialQueue() {
         // Arrange.
@@ -50,7 +49,7 @@ class GCDPerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
@@ -64,11 +63,11 @@ class GCDPerformanceTests: XCTestCase {
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to get into a triply nested dispatch_async block.
     func testTripleDispatchAsyncOnSerialQueue() {
         // Arrange.
@@ -76,7 +75,7 @@ class GCDPerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
@@ -92,11 +91,11 @@ class GCDPerformanceTests: XCTestCase {
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the total time needed to perform a lot of `DispatchQueue.async` blocks on
     /// a concurrent queue.
     func testDispatchAsyncOnConcurrentQueue() {
@@ -104,21 +103,21 @@ class GCDPerformanceTests: XCTestCase {
         let queue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         let group = DispatchGroup()
         var blocks = [() -> Void]()
-        for _ in 0..<Constants.iterationCount {
+        for _ in 0 ..< Constants.iterationCount {
             group.enter()
-            blocks.append({
+            blocks.append {
                 group.leave()
-            })
+            }
         }
         let startDate = Date()
-        
+
         // Act.
         for block in blocks {
             queue.async {
                 block()
             }
         }
-        
+
         // Assert.
         XCTAssert(group.wait(timeout: .now() + 1) == .success)
         let endDate = Date()

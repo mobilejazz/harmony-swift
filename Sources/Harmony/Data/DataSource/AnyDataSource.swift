@@ -19,37 +19,37 @@ import Foundation
 ///
 /// Type eraser class for DataSource, following Apple's Swift Standard Library approach.
 ///
-public final class AnyDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource {
+public final class AnyDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource {
     private let box: DataSourceBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
     ///   - dataSource: The dataSource to abstract
-    public init<D>(_ dataSource: D) where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
+    public init<D>(_ dataSource: D) where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
         box = DataSourceBox(dataSource)
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         return box.get(query)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         return box.getAll(query)
     }
-    
+
     public func put(_ value: T?, in query: Query) -> Future<T> {
         return box.put(value, in: query)
     }
-    
+
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return box.putAll(array, in: query)
     }
-    
+
     public func delete(_ query: Query) -> Future<Void> {
         return box.delete(query)
     }
-    
+
     public func deleteAll(_ query: Query) -> Future<Void> {
         return box.deleteAll(query)
     }
@@ -57,66 +57,67 @@ public final class AnyDataSource <T> : GetDataSource, PutDataSource, DeleteDataS
 
 ///
 /// This is an abstract class. Do not use it.
-/// DataSource base class defining a generic type T (which is unrelated to the associated type of the DataSource protocol)
+/// DataSource base class defining a generic type T (which is unrelated to the associated type of the DataSource
+// protocol)
 ///
-internal class DataSourceBoxBase <T>: GetDataSource, PutDataSource, DeleteDataSource {
-    
-    func get(_ query: Query) -> Future<T> {
+internal class DataSourceBoxBase<T>: GetDataSource, PutDataSource, DeleteDataSource {
+    func get(_: Query) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
-    func getAll(_ query: Query) -> Future<[T]> {
+
+    func getAll(_: Query) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
-    
-    func put(_ value: T?, in query: Query) -> Future<T> {
+
+    func put(_: T?, in _: Query) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
-    func putAll(_ array: [T], in query: Query) -> Future<[T]> {
+
+    func putAll(_: [T], in _: Query) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
-    
-    func delete(_ query: Query) -> Future<Void> {
+
+    func delete(_: Query) -> Future<Void> {
         fatalError("This method is abstract.")
     }
-    
-    func deleteAll(_ query: Query) -> Future<Void> {
+
+    func deleteAll(_: Query) -> Future<Void> {
         fatalError("This method is abstract.")
     }
 }
 
 ///
-/// A data source box, which has as generic type a DataSource and links the DataSourceBoxBase type T as the Base.T type.
+/// A data source box, which has as generic type a DataSource and links the DataSourceBoxBase type T as the Base.T
+// type.
 ///
-internal class DataSourceBox <Base> : DataSourceBoxBase <Base.T> where Base:GetDataSource, Base:PutDataSource, Base:DeleteDataSource {
-    
+internal class DataSourceBox<Base>: DataSourceBoxBase<Base.T> where Base: GetDataSource, Base: PutDataSource,
+    Base: DeleteDataSource {
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
-    
+
     override func get(_ query: Query) -> Future<T> {
         return base.get(query)
     }
-    
+
     override func getAll(_ query: Query) -> Future<[T]> {
         return base.getAll(query)
     }
-    
+
     override func put(_ value: T?, in query: Query) -> Future<T> {
         return base.put(value, in: query)
     }
-    
+
     override func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return base.putAll(array, in: query)
     }
-    
+
     override func delete(_ query: Query) -> Future<Void> {
         return base.delete(query)
     }
-    
+
     override func deleteAll(_ query: Query) -> Future<Void> {
         return base.deleteAll(query)
     }

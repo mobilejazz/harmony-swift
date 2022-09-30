@@ -1,0 +1,70 @@
+disabled_rules: # rule identifiers to exclude from running
+  # - trailing_whitespace
+  - todo
+opt_in_rules: # some rules are only opt-in
+  # Find all the available rules by running:
+  # swiftlint rules
+  - empty_count
+  - unavailable_function
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - DerivedData
+analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
+  - explicit_self
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+force_cast: warning # implicitly
+force_try:
+  severity: warning # explicitly
+# rules that have both warning and error levels, can set just the warning level
+# implicitly
+line_length:
+  warning: 160
+  error: 160
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_comments: true
+
+# they can set both implicitly with an array
+type_body_length:
+  - 300 # warning
+  - 400 # error
+# or they can set both explicitly
+file_length:
+  warning: 500
+  error: 700
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 40
+    error: 50
+  excluded:
+    - iPhone
+    - T
+    - K
+    - kSec
+identifier_name:
+  # additional_allowed_characters:
+  #   - _
+  allowed_symbols: "_"
+  min_length: # only min_length
+    warning: 0
+    error: 1 # only error
+  max_length:
+    warning: 50
+    error: 70
+  excluded: # excluded via string array
+    - id
+    - URL
+    - SwiftUI
+function_parameter_count:
+  warning: 7
+  error : 9
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
+# warnings should be fixed immediately
+warning_threshold: 10
+nesting:
+  type_level: 3

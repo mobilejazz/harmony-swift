@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Future {
-    
     /// Adds a delay to the then call.
     ///
     /// - Parameters:
@@ -28,10 +27,10 @@ public extension Future {
         if interval == 0.0 {
             return self
         }
-        
-        return Future() { resolver in
+
+        return Future { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
-                self.resolve(success: {value in
+                self.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)
@@ -39,7 +38,7 @@ public extension Future {
             }
         }
     }
-    
+
     /// Adds a sync delay (blocks current thread) after the future is resolved.
     ///
     /// - Parameters:
@@ -49,17 +48,17 @@ public extension Future {
         if interval == 0.0 {
             return self
         }
-        
-        return Future() { resolver in
+
+        return Future { resolver in
             Thread.sleep(forTimeInterval: interval)
-            self.resolve(success: {value in
+            self.resolve(success: { value in
                 resolver.set(value)
             }, failure: { error in
                 resolver.set(error)
             })
         }
     }
-    
+
     /// Calls the then block after the given deadline
     ///
     /// - Parameters:
@@ -67,9 +66,9 @@ public extension Future {
     ///   - queue: The queue to schedule the delay (by default the Main Queue).
     /// - Returns: A chained future.
     func after(_ deadline: DispatchTime, queue: DispatchQueue) -> Future<T> {
-        return Future() { resolver in
+        return Future { resolver in
             queue.asyncAfter(deadline: deadline) {
-                self.resolve(success: {value in
+                self.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)
@@ -77,7 +76,7 @@ public extension Future {
             }
         }
     }
-    
+
     /// Ensures the future is called after the given date.
     /// If the date is earlier than now, nothing happens.
     ///

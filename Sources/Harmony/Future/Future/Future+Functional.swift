@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Future {
-        
     /// Maps the value and return a new future with the value mapped
     ///
     /// - Parameters:
@@ -28,15 +27,14 @@ public extension Future {
         return Future<K> { resolver in
             resolve(success: { value in
                 executor.submit {
-                    do { resolver.set(try transform(value)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try transform(value)) } catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
             })
         }
     }
-    
+
     /// Maps the error and return a new future with the error mapped
     ///
     /// - Parameters:
@@ -45,63 +43,63 @@ public extension Future {
     /// - Returns: A error-mapped chained future
     func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit { resolver.set(transform(error)) }
             })
         }
     }
-    
+
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     ///
     /// - Parameters:
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The flatmap closure
     /// - Returns: A chained future
-    func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
+    func flatMap<K>(_ executor: Executor = DirectExecutor(),
+                    _ closure: @escaping (T) throws -> Future<K>) -> Future<K> {
         return Future<K> { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
-                    do { resolver.set(try closure(value)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try closure(value)) } catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
             })
         }
     }
-    
+
     /// Replaces the current future value with the new future.
     /// Note: the future is chained only if the current is resolved without error.
     ///
     /// - Parameter future: The chained future
     /// - Returns: The incoming future chained to the current one
     func chain<K>(_ future: Future<K>) -> Future<K> {
-        return flatMap { value in
-            return future
+        return flatMap { _ in
+            future
         }
     }
-    
+
     /// Intercepts the error (if available) and returns a new future of type T
     ///
     /// - Parameters:
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
+    func recover(_ executor: Executor = DirectExecutor(),
+                 _ closure: @escaping (Error) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
-                    do { resolver.set(try closure(error)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try closure(error)) } catch { resolver.set(error) }
                 }
             })
         }
     }
-    
+
     /// Intercepts the error (if available) and returns a new future of type T
     ///
     /// - Parameters:
@@ -109,9 +107,10 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
+    func recover<E: Error>(if _: E.Type, _ executor: Executor = DirectExecutor(),
+                           _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
@@ -119,7 +118,7 @@ public extension Future {
                     case let error as E:
                         do {
                             resolver.set(try closure(error))
-                        } catch let error {
+                        } catch {
                             resolver.set(error)
                         }
                     default:
@@ -129,7 +128,7 @@ public extension Future {
             })
         }
     }
-    
+
     /// Notifies completion of the future in both success or failure state.
     ///
     /// - Parameters:
@@ -139,7 +138,7 @@ public extension Future {
     @discardableResult
     func onCompletion(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Void) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     closure()
                     resolver.set(value)
@@ -152,7 +151,7 @@ public extension Future {
             })
         }
     }
-    
+
     /// Filters the value and allows to exchange it by a thrown error
     ///
     /// - Parameters:
@@ -161,12 +160,12 @@ public extension Future {
     /// - Returns: A chained future
     func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     do {
                         try closure(value)
                         resolver.set(value)
-                    } catch (let error) {
+                    } catch {
                         resolver.set(error)
                     }
                 }

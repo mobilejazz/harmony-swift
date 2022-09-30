@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Observable {
-    
     /// Adds a delay to the then call.
     ///
     /// - Parameters:
@@ -27,7 +26,7 @@ public extension Observable {
     func withDelay(_ interval: TimeInterval, queue: DispatchQueue) -> Observable<T> {
         return Observable(parent: self) { resolver in
             queue.asyncAfter(deadline: .now() + interval) { [weak self] in
-                self?.resolve(success: {value in
+                self?.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)
@@ -35,7 +34,7 @@ public extension Observable {
             }
         }
     }
-    
+
     /// Adds a sync delay (blocks current thread) after the future is resolved.
     ///
     /// - Parameters:
@@ -45,7 +44,7 @@ public extension Observable {
         if interval == 0.0 {
             return self
         }
-        
+
         return Observable(parent: self) { resolver in
             Thread.sleep(forTimeInterval: interval)
             resolve(success: { value in
@@ -55,7 +54,7 @@ public extension Observable {
             })
         }
     }
-    
+
     /// Calls the then block after the given deadline
     ///
     /// - Parameters:
@@ -65,7 +64,7 @@ public extension Observable {
     func after(_ deadline: DispatchTime, queue: DispatchQueue) -> Observable<T> {
         return Observable(parent: self) { resolver in
             queue.asyncAfter(deadline: deadline) { [weak self] in
-                self?.resolve(success: {value in
+                self?.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)
@@ -73,7 +72,7 @@ public extension Observable {
             }
         }
     }
-    
+
     /// Ensures the observable is called after the given date.
     /// If the date is earlier than now, nothing happens.
     ///

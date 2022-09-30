@@ -17,5 +17,5 @@
 import Foundation
 
 public func anyInt(minValue: Int = -32000, maxValue: Int = 32000) -> Int {
-    return Int.random(in: minValue...maxValue)
+    return Int.random(in: minValue ... maxValue)
 }

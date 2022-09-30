@@ -16,28 +16,27 @@
 
 import Foundation
 public class ExecutorFactory {
-    
     public enum Scope {
         case none
         case string(String)
         case integer(Int)
         case type(String)
     }
-    
-    private let builder : (String) -> Executor
-    private var stringScope : [String : Executor] = [:]
-    private var integerScope : [Int : Executor] = [:]
-    private var typeScope : [String : Executor] = [:]
-    
+
+    private let builder: (String) -> Executor
+    private var stringScope: [String: Executor] = [:]
+    private var integerScope: [Int: Executor] = [:]
+    private var typeScope: [String: Executor] = [:]
+
     public init(_ builder: @escaping (String) -> Executor) {
         self.builder = builder
     }
-    
+
     private func get(_ scope: Scope, named name: String) -> Executor {
         switch scope {
         case .none:
             return builder(name)
-        case .string(let value):
+        case let .string(value):
             if let executor = stringScope[value] {
                 return executor
             } else {
@@ -45,7 +44,7 @@ public class ExecutorFactory {
                 stringScope[value] = executor
                 return executor
             }
-        case .type(let value):
+        case let .type(value):
             if let executor = typeScope[value] {
                 return executor
             } else {
@@ -53,7 +52,7 @@ public class ExecutorFactory {
                 typeScope[value] = executor
                 return executor
             }
-        case .integer(let value):
+        case let .integer(value):
             if let executor = integerScope[value] {
                 return executor
             } else {
@@ -63,19 +62,19 @@ public class ExecutorFactory {
             }
         }
     }
-    
+
     public func get(named name: String = "com.mobilejazz.executor.default") -> Executor {
         return get(.none, named: name)
     }
-    
+
     public func get(_ string: String) -> Executor {
         return get(.string(string), named: "executor." + string)
     }
-    
+
     public func get(_ value: Int) -> Executor {
         return get(.integer(value), named: "executor.\(value)")
     }
-    
+
     public func get<T>(_ type: T.Type) -> Executor {
         let string = String(describing: type)
         return get(.type(string), named: string)

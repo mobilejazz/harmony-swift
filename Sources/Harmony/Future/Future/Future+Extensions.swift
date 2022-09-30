@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-import Foundation
 import CoreGraphics
+import Foundation
 
 // ------------ Basic Foundation Types ------------ //
 
@@ -28,7 +28,7 @@ public extension Array {
 }
 
 public extension Dictionary {
-    func toFuture() -> Future<[Key:Value]> {
+    func toFuture() -> Future<[Key: Value]> {
         return Future(self)
     }
 }
