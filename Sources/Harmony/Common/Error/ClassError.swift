@@ -99,7 +99,7 @@ extension ClassError: Hashable {
 
 extension ClassError: Equatable {
     /// Two ClassError are the same if code and domain are the same.
-    public static func ==(lhs: ClassError, rhs: ClassError) -> Bool {
+    public static func == (lhs: ClassError, rhs: ClassError) -> Bool {
         return lhs.code == rhs.code && lhs.domain == rhs.domain
     }
 }
