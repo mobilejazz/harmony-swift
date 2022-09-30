@@ -17,10 +17,10 @@
 import Foundation
 
 extension JSONEncoder.KeyEncodingStrategy {
-    
-    public static func map(_ keys: [String : String]) -> JSONEncoder.KeyEncodingStrategy {
+
+    public static func map(_ keys: [String: String]) -> JSONEncoder.KeyEncodingStrategy {
         return .custom { codingKeys in
-            
+
             let originalKey = codingKeys.last!
             guard let mappedKey = keys[originalKey.stringValue] else {
                 return originalKey
@@ -33,10 +33,10 @@ extension JSONEncoder.KeyEncodingStrategy {
 }
 
 extension JSONDecoder.KeyDecodingStrategy {
-    
-    public static func map(_ keys: [String : String]) -> JSONDecoder.KeyDecodingStrategy {
+
+    public static func map(_ keys: [String: String]) -> JSONDecoder.KeyDecodingStrategy {
         return .custom { codingKeys in
-            
+
             let originalKey = codingKeys.last!
             guard let mappedKey = keys[originalKey.stringValue] else {
                 return originalKey

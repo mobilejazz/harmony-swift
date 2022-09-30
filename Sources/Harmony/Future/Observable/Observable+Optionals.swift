@@ -17,7 +17,7 @@
 import Foundation
 
 public extension Observable {
-    
+
     /// Unwrapes a observable of an optional type, returning a observable of a non-optional type
     ///
     /// - Returns: A chained observable.
@@ -29,14 +29,14 @@ public extension Observable {
             return Observable<K>(value, parent: self)
         }
     }
-    
+
     /// Converts the non-optional typed observable to an optional typed observable
     ///
     /// - Returns: An optional typed observable
     func optional() -> Observable<T?> {
         return self.map { $0 as T? }
     }
-    
+
     /// Calls the closure when the observable is resolved with a nil value.
     ///
     /// - Parameter closure: The closure that will return a non-nil value.
@@ -49,7 +49,7 @@ public extension Observable {
             return Observable<K>(value)
         }
     }
-    
+
     /// Calls the closure when the observable is resolved with a nil value.
     ///
     /// - Parameter closure: The closure that will return a non-optional observable.
@@ -62,11 +62,11 @@ public extension Observable {
             return Observable<K>(value)
         }
     }
-    
+
     /// Performs a map of an optional observable when the value is defined.
     ///
     /// - Returns: A chained observable.
-    func unwrappedMap<K,P>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K) -> P) -> Observable<P?> where T == K? {
+    func unwrappedMap<K, P>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K) -> P) -> Observable<P?> where T == K? {
         return flatMap(executor) { value in
             guard let value = value else {
                 return Observable<P?>(nil)

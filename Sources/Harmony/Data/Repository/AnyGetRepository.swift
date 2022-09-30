@@ -20,9 +20,9 @@ import Foundation
 /// A type eraser for the GetRepository type, following Apple's Swift Standard Library approach.
 ///
 public final class AnyGetRepository <T> : GetRepository {
-    
+
     private let box: GetRepositoryBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -30,11 +30,11 @@ public final class AnyGetRepository <T> : GetRepository {
     public init<R: GetRepository>(_ repository: R) where R.T == T {
         box = GetRepositoryBox(repository)
     }
-    
+
     public func get(_ query: Query, operation: Operation) -> Future<T> {
         return box.get(query, operation: operation)
     }
-    
+
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return box.getAll(query, operation: operation)
     }
@@ -57,11 +57,11 @@ extension GetRepository {
 /// GetRepository base class defining a generic type T (which is unrelated to the associated type of the GetRepository protocol)
 ///
 internal class GetRepositoryBoxBase <T>: GetRepository {
-    
+
     func get(_ query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
+
     func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
@@ -71,17 +71,17 @@ internal class GetRepositoryBoxBase <T>: GetRepository {
 /// A repository box, which has as generic type a GetRepository and links the GetRepositoryBoxBase type T as the Base.T type.
 ///
 internal class GetRepositoryBox <Base: GetRepository> : GetRepositoryBoxBase <Base.T> {
-    
+
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
-    
+
     override func get(_ query: Query, operation: Operation) -> Future<T> {
         return base.get(query, operation: operation)
     }
-    
+
     override func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return base.getAll(query, operation: operation)
     }

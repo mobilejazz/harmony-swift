@@ -31,7 +31,7 @@ public enum VastraStrategyResult {
 /// Superclass strategy. Sublcasses will define custom strategies.
 ///
 public protocol VastraStrategy {
-    
+
     /// Strategy validation method.
     ///
     /// - Parameter object: The object to test

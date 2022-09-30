@@ -21,7 +21,7 @@ import Security
 /// Stores securely inside the Keychain an auto-generated data blob (aka. Key).
 ///
 public class SecureKey {
-    
+
     /// Arguments for the keychain queries
     private struct kSec {
         static let `class`              = NSString(format: kSecClass)
@@ -33,13 +33,13 @@ public class SecureKey {
         static let attrAccessibleAlways = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
         static let valueData            = NSString(format: kSecValueData)
     }
-    
+
     /// The key identifier
-    public let identifier : String
-    
+    public let identifier: String
+
     /// The key length
-    public let length : size_t
-    
+    public let length: size_t
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -49,7 +49,7 @@ public class SecureKey {
         self.identifier = identifier
         self.length = length
     }
-    
+
     /// Generates a new key and stores it inside the keychain.
     ///
     /// - Throws: CoreError.OSStatusFailure if fails.
@@ -57,23 +57,23 @@ public class SecureKey {
         guard let tag = identifier.data(using: String.Encoding.utf8) else {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        
+
         guard let keyData = Data(randomOfLength: UInt(length)) else {
             throw CoreError.Failed("Failed to generate random key")
         }
-        
-        let query = NSDictionary(objects:[kSec.classKey, tag],
-                                 forKeys:[kSec.class, kSec.attrApplicationTag])
-        
-        let attributesToUpdate = NSDictionary(objects:[keyData],
-                                              forKeys:[kSec.valueData])
-        
+
+        let query = NSDictionary(objects: [kSec.classKey, tag],
+                                 forKeys: [kSec.class, kSec.attrApplicationTag])
+
+        let attributesToUpdate = NSDictionary(objects: [keyData],
+                                              forKeys: [kSec.valueData])
+
         let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
         guard status == errSecSuccess else {
             throw CoreError.OSStatusFailure(status)
         }
     }
-    
+
     /// Removes the stored key from the keychain.
     ///
     /// - Throws: CoreError.OSStatusFailure if fails.
@@ -81,16 +81,16 @@ public class SecureKey {
         guard let tag = identifier.data(using: String.Encoding.utf8) else {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        
-        let query = NSDictionary(objects:[kSec.classKey, tag],
+
+        let query = NSDictionary(objects: [kSec.classKey, tag],
                                  forKeys: [kSec.class, kSec.attrApplicationTag])
-        
+
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess else {
             throw CoreError.OSStatusFailure(status)
         }
     }
-    
+
     /// Returns the key.
     /// Note that if there is no key previously stored, this method will generate a new key.
     ///
@@ -100,9 +100,9 @@ public class SecureKey {
         guard let tag = identifier.data(using: String.Encoding.utf8) else {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
-        let query = NSDictionary(objects:[kSec.classKey, tag, length, true],
+        let query = NSDictionary(objects: [kSec.classKey, tag, length, true],
                                  forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.returnData])
-        var dataRef : CFTypeRef?
+        var dataRef: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
         switch status {
         case errSecSuccess:
@@ -118,9 +118,9 @@ public class SecureKey {
             guard let keyData = Data(randomOfLength: UInt(length)) else {
                 throw CoreError.Failed("Failed to generate random key")
             }
-            
-            let query = NSDictionary(objects:[kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
-                                     forKeys:[kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSec.valueData])
+
+            let query = NSDictionary(objects: [kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
+                                     forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSec.valueData])
             let status = SecItemAdd(query as CFDictionary, nil)
             guard status == errSecSuccess else {
                 throw CoreError.OSStatusFailure(status, "Failed to insert key data with OSStatus: \(status)")

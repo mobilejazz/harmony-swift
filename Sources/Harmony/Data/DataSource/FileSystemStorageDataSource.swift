@@ -24,18 +24,18 @@ import Foundation
 ///    - `put(data, "data_file.dat").fail { error in [...] }`
 ///    - `delete("my_file.dat").fail { error in [...] }`
 ///
-public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSource {
+public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDataSource {
     public typealias T = Data
-    
+
     public enum FileNameEncoding {
         case none
         case sha256
         case md5
         case custom((String) -> String)
     }
-    
-    private let fileManager : FileManager
-    public let directory : URL
+
+    private let fileManager: FileManager
+    public let directory: URL
     public let fileNameEncoding: FileNameEncoding
     private let writingOptions: Data.WritingOptions
 
@@ -50,7 +50,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
         self.writingOptions = writingOptions
         self.fileNameEncoding = fileNameEncoding
     }
-    
+
     /// Convenience initializer. Returns nil if the document directory is not reachable.
     ///
     /// - Parameters:
@@ -60,10 +60,10 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             return nil
         }
         let url = documentsURL.appendingPathComponent(relativePath)
-        print(url);
+        print(url)
         self.init(fileManager: fileManager, directory: url, writingOptions: writingOptions, fileNameEncoding: fileNameEncoding)
     }
-    
+
     private func fileName(_ key: String) -> String {
         switch fileNameEncoding {
         case .none:
@@ -76,11 +76,11 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             return encoder(key)
         }
     }
-    
+
     private func fileURL(_ key: String) -> URL {
         return directory.appendingPathComponent(fileName(key))
     }
-    
+
     public func get(_ query: Query) -> Future<Data> {
         switch query {
         case let query as KeyQuery:
@@ -93,11 +93,11 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             query.fatalError(.get, self)
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[Data]> {
         switch query {
         case let query as IdsQuery<String>:
-            let futures : [Future<Data>] = query.ids.map { id in
+            let futures: [Future<Data>] = query.ids.map { id in
                 let path = fileURL(id).path
                 guard let data = fileManager.contents(atPath: path) else {
                     return Future(CoreError.NotFound("Data not found at path: \(path)"))
@@ -112,22 +112,21 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                     .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey])
                     .filter { url in
                         // Filter out folders
-                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! }
-                        catch { return false }
+                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! } catch { return false }
                     }.forEach { url in
-                    guard let data = fileManager.contents(atPath: url.path) else {
-                        throw CoreError.NotFound("Data not found at path: \(url.path)")
+                        guard let data = fileManager.contents(atPath: url.path) else {
+                            throw CoreError.NotFound("Data not found at path: \(url.path)")
+                        }
+                        // Attempting to unarchive in case it was an array
+                        //                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] {
+                        if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
+                            // it was an array!
+                            array.append(contentsOf: datas)
+                        } else {
+                            // Not an array!
+                            array.append(data)
+                        }
                     }
-                    // Attempting to unarchive in case it was an array
-//                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] {
-                    if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
-                        // it was an array!
-                        array.append(contentsOf: datas)
-                    } else {
-                        // Not an array!
-                        array.append(data)
-                    }
-                }
                 r.set(array)
             }
         case let query as KeyQuery:
@@ -135,7 +134,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             guard let data = fileManager.contents(atPath: path) else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
-//            guard let array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] else {
+            //            guard let array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] else {
             guard let array = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
@@ -144,7 +143,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             query.fatalError(.getAll, self)
         }
     }
-    
+
     public func put(_ value: Data?, in query: Query) -> Future<Data> {
         guard let data = value else {
             return Future(CoreError.IllegalArgument("value cannot be nil"))
@@ -162,7 +161,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             r.set(data)
         }
     }
-    
+
     public func putAll(_ array: [Data], in query: Query) -> Future<[Data]> {
         switch query {
         case let query as IdsQuery<String>:
@@ -187,7 +186,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                 if fileManager.fileExists(atPath: folderURL.path) == false {
                     try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
                 }
-//                let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+                //                let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
                 let data = NSKeyedArchiver.archivedData(withRootObject: array)
                 try data.write(to: fileURL, options: writingOptions)
                 r.set(array)
@@ -196,13 +195,13 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             query.fatalError(.getAll, self)
 
         }
-        
+
     }
 
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdsQuery<String>:
-            let futures : [Future<Void>] = query.ids.map { id in
+            let futures: [Future<Void>] = query.ids.map { id in
                 return Future {
                     try? fileManager.removeItem(at: fileURL(id))
                 }
@@ -221,7 +220,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             query.fatalError(.delete, self)
         }
     }
-    
+
     public func deleteAll(_ query: Query) -> Future<Void> {
         delete(query)
     }

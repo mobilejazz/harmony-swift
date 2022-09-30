@@ -19,12 +19,12 @@ import Foundation
 ///
 /// A retry data source adds retry capabilities over an existing data source.
 ///
-public class RetryDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSource where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
-    
-    private let dataSource : D
-    private let retryCount : Int
-    private let retryIf : (Error) -> Bool
-    
+public class RetryDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+
+    private let dataSource: D
+    private let retryCount: Int
+    private let retryIf: (Error) -> Bool
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -38,30 +38,30 @@ public class RetryDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
         self.retryCount = retryCount
         self.retryIf = retryIf
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         return get(query, retryCount)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         return getAll(query, retryCount)
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query) -> Future<T> {
         return put(value, in: query, retryCount)
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return putAll(array, in: query, retryCount)
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         return delete(query, retryCount)
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         return deleteAll(query, retryCount)
@@ -69,7 +69,7 @@ public class RetryDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
 }
 
 extension RetryDataSource {
-    
+
     private func retry<K>(_ it: Int, _ error: Error, _ closure: () -> Future<K>) -> Future<K> {
         // Must retry if:
         //  - it is greater than zero
@@ -79,7 +79,7 @@ extension RetryDataSource {
         }
         return Future(error)
     }
-    
+
     private func get(_ query: Query, _ it: Int) -> Future<T> {
         return dataSource.get(query).recover { error in
             return self.retry(it, error) {
@@ -87,7 +87,7 @@ extension RetryDataSource {
             }
         }
     }
-    
+
     private func getAll(_ query: Query, _ it: Int) -> Future<[T]> {
         return dataSource.getAll(query).recover { error in
             return self.retry(it, error) {
@@ -95,7 +95,7 @@ extension RetryDataSource {
             }
         }
     }
-    
+
     private func put(_ value: T?, in query: Query, _ it: Int) -> Future<T> {
         return dataSource.put(value, in: query).recover { error in
             return self.retry(it, error) {
@@ -103,7 +103,7 @@ extension RetryDataSource {
             }
         }
     }
-    
+
     private func putAll(_ array: [T], in query: Query, _ it: Int) -> Future<[T]> {
         return dataSource.putAll(array, in: query).recover { error in
             return self.retry(it, error) {
@@ -111,7 +111,7 @@ extension RetryDataSource {
             }
         }
     }
-    
+
     private func delete(_ query: Query, _ it: Int) -> Future<Void> {
         return dataSource.delete(query).recover { error in
             return self.retry(it, error) {
@@ -119,7 +119,7 @@ extension RetryDataSource {
             }
         }
     }
-    
+
     private func deleteAll(_ query: Query, _ it: Int) -> Future<Void> {
         return dataSource.deleteAll(query).recover { error in
             return self.retry(it, error) {

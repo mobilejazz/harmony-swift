@@ -16,12 +16,12 @@
 
 import Foundation
 
-fileprivate protocol LockProvider {
+private protocol LockProvider {
     associatedtype K
     func lockWithScope(_ scope: K) -> NSLock
 }
 
-fileprivate class MapTableLockProvider<T>: LockProvider where T: AnyObject {
+private class MapTableLockProvider<T>: LockProvider where T: AnyObject {
     typealias K = T
     let lock = NSLock()
     var map = NSMapTable<T, NSLock>.weakToStrongObjects()
@@ -38,10 +38,10 @@ fileprivate class MapTableLockProvider<T>: LockProvider where T: AnyObject {
     }
 }
 
-fileprivate class DictionaryLockProvider<T>: LockProvider where T : Hashable {
+private class DictionaryLockProvider<T>: LockProvider where T: Hashable {
     typealias K = T
     let lock = NSLock()
-    var map : [T : NSLock] = [:]
+    var map: [T: NSLock] = [:]
     func lockWithScope(_ scope: T) -> NSLock {
         lock.lock()
         defer { lock.unlock() }
@@ -55,10 +55,10 @@ fileprivate class DictionaryLockProvider<T>: LockProvider where T : Hashable {
     }
 }
 
-fileprivate let objectLockProvider  = MapTableLockProvider<AnyObject>()
-fileprivate let stringLockProvider  = DictionaryLockProvider<String>()
-fileprivate let integerLockProvider = DictionaryLockProvider<Int>()
-fileprivate let typeLockProvider = DictionaryLockProvider<String>()
+private let objectLockProvider  = MapTableLockProvider<AnyObject>()
+private let stringLockProvider  = DictionaryLockProvider<String>()
+private let integerLockProvider = DictionaryLockProvider<Int>()
+private let typeLockProvider = DictionaryLockProvider<String>()
 
 /// Easy lock sync interface matching the usability of objc's @syncrhonized(var) { }
 ///
@@ -73,7 +73,7 @@ fileprivate let typeLockProvider = DictionaryLockProvider<String>()
 ///     }
 /// }
 public struct ScopeLock {
-    
+
     /// The scope
     ///
     /// - none: No scope defined. The ScopeLock will be instance specific.
@@ -92,8 +92,8 @@ public struct ScopeLock {
     }
 
     /// The lock
-    private let lock : NSLock
-    
+    private let lock: NSLock
+
     /// Main init
     public init<T>(_ scope: Scope<T>) {
         switch scope {
@@ -111,9 +111,9 @@ public struct ScopeLock {
             lock = integerLockProvider.lockWithScope(integer)
         }
     }
-    
+
     /// Init from another ScopeLock
-    public init(_ scopeLock : ScopeLock) {
+    public init(_ scopeLock: ScopeLock) {
         lock = scopeLock.lock
     }
 
@@ -121,52 +121,52 @@ public struct ScopeLock {
     public init() {
         self.init(Void.self)
     }
-    
+
     /// Convenience init to use objects as scope
-    public init<T>(_ object: T) where T:AnyObject {
+    public init<T>(_ object: T) where T: AnyObject {
         self.init(Scope<Void>.object(object))
     }
-    
+
     public init<T>(_ type: T.Type) {
         self.init(Scope<T>.global)
     }
-    
+
     /// Convenience init to use integers as scope
     public init(_ value: Int) {
         self.init(Scope<Void>.int(value))
     }
-    
+
     /// Convenience init to use strings as scope
     public init(_ string: String) {
         self.init(Scope<Void>.string(string))
     }
-    
+
     /// Convenience init to use a given lock
     public init(_ lock: NSLock) {
         self.init(Scope<Void>.lock(lock))
     }
-    
+
     /// The syncing method
     public func sync<T>(_ closure: () -> T) -> T {
         lock.lock()
         defer { lock.unlock() }
         return closure()
     }
-    
+
     /// The syncing method
     public func sync<T>(_ closure: () -> T?) -> T? {
         lock.lock()
         defer { lock.unlock() }
         return closure()
     }
-    
+
     /// The syncing method
     public func sync(_ closure: () -> Void) {
         lock.lock()
         closure()
         lock.unlock()
     }
-    
+
     /// The async lock method. The nested closure must be called upon unlocking.
     public func async(_ closure: (@escaping () -> Void) -> Void) {
         lock.lock()

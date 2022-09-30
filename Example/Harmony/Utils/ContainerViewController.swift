@@ -24,8 +24,8 @@ import UIKit
 ///
 public class ContainerViewController: UIViewController {
 
-    private static let animationDuration : Double = 0.40
-    private static let animationOptions = UIView.AnimationOptions(rawValue:(7<<16))
+    private static let animationDuration: Double = 0.40
+    private static let animationOptions = UIView.AnimationOptions(rawValue: (7<<16))
 
     public enum Animation {
         case none
@@ -35,7 +35,7 @@ public class ContainerViewController: UIViewController {
     }
 
     /// The contained view controller
-    public private(set) var viewController : UIViewController
+    public private(set) var viewController: UIViewController
 
     /// Main initializer
     ///
@@ -72,7 +72,7 @@ public class ContainerViewController: UIViewController {
             oldVC.willMove(toParent: nil)
             self.addChild(newVC)
 
-            switch (animation) {
+            switch animation {
             case .none:
                 oldVC.view.removeFromSuperview()
                 self.view.insertSubview(newVC.view, at: 0)
@@ -85,12 +85,12 @@ public class ContainerViewController: UIViewController {
                                options: ContainerViewController.animationOptions,
                                animations: {
                                 oldVC.view.alpha = 0.0
-                },
-                               completion: { (success) in
+                               },
+                               completion: { (_) in
                                 oldVC.view.removeFromSuperview()
                                 oldVC.removeFromParent()
                                 newVC.didMove(toParent: self)
-                })
+                               })
             case .newModalBottom:
                 newVC.view.alpha = 0.0
                 newVC.view.frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
@@ -101,12 +101,12 @@ public class ContainerViewController: UIViewController {
                                animations: {
                                 newVC.view.alpha = 1.0
                                 newVC.view.frame = self.view.bounds
-                },
-                               completion: { (success) in
+                               },
+                               completion: { (_) in
                                 oldVC.view.removeFromSuperview()
                                 oldVC.removeFromParent()
                                 newVC.didMove(toParent: self)
-                })
+                               })
             case .oldModalBottom:
                 let frame = self.view.bounds.offsetBy(dx: 0, dy: UIScreen.main.bounds.size.height)
                 self.view.insertSubview(newVC.view, belowSubview: oldVC.view)
@@ -116,12 +116,12 @@ public class ContainerViewController: UIViewController {
                                animations: {
                                 oldVC.view.alpha = 0.0
                                 oldVC.view.frame = frame
-                },
-                               completion: { (success) in
+                               },
+                               completion: { (_) in
                                 oldVC.view.removeFromSuperview()
                                 oldVC.removeFromParent()
                                 newVC.didMove(toParent: self)
-                })
+                               })
             }
         } else {
             // View not loaded yet. Just storing the instance for later processing
@@ -189,7 +189,7 @@ public extension UIViewController {
     ///
     /// - Returns: The first ContainerViewController found in the hierarchy.
     func containerViewController() -> ContainerViewController? {
-        var vc : UIViewController? = self
+        var vc: UIViewController? = self
         while vc != nil {
             if let viewController = vc {
                 if viewController.isKind(of: ContainerViewController.self) {

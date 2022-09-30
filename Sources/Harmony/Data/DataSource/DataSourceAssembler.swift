@@ -19,12 +19,12 @@ import Foundation
 ///
 /// Assambles a CRUD data source into a single data source object
 ///
-public final class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T {
-    
-    private let getDataSource : Get
-    private let putDataSource : Put
-    private let deleteDataSource : Delete
-    
+public final class DataSourceAssembler <Get: GetDataSource, Put: PutDataSource, Delete: DeleteDataSource, T> : GetDataSource, PutDataSource, DeleteDataSource where Get.T == T, Put.T == T {
+
+    private let getDataSource: Get
+    private let putDataSource: Put
+    private let deleteDataSource: Delete
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -36,30 +36,30 @@ public final class DataSourceAssembler <Get : GetDataSource, Put: PutDataSource,
         self.putDataSource = putDataSource
         self.deleteDataSource = deleteDataSource
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         return getDataSource.get(query)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         return getDataSource.getAll(query)
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query) -> Future<T> {
         return putDataSource.put(value, in: query)
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return putDataSource.putAll(array, in: query)
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         return deleteDataSource.delete(query)
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         return deleteDataSource.deleteAll(query)

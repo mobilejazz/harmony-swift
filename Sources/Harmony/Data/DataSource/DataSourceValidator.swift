@@ -21,11 +21,11 @@ import Foundation
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class DataSourceValidator <D,T> : GetDataSource, PutDataSource, DeleteDataSource  where D:GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
-    
-    private let dataSource : D
+public class DataSourceValidator <D, T> : GetDataSource, PutDataSource, DeleteDataSource  where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+
+    private let dataSource: D
     private let validator: ObjectValidation
-    
+
     /// Default initializer
     ///
     /// - Parameters:
@@ -35,7 +35,7 @@ public class DataSourceValidator <D,T> : GetDataSource, PutDataSource, DeleteDat
         self.dataSource = dataSource
         self.validator = validator
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         return dataSource.get(query).filter { value in
             if !self.validator.isObjectValid(value) {
@@ -43,7 +43,7 @@ public class DataSourceValidator <D,T> : GetDataSource, PutDataSource, DeleteDat
             }
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         return dataSource.getAll(query).filter { values in
             if !self.validator.isArrayValid(values) {
@@ -51,22 +51,22 @@ public class DataSourceValidator <D,T> : GetDataSource, PutDataSource, DeleteDat
             }
         }
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query) -> Future<T> {
         return dataSource.put(value, in: query)
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return dataSource.putAll(array, in: query)
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         return dataSource.delete(query)
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         return dataSource.deleteAll(query)

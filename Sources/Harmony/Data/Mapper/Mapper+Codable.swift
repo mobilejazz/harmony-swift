@@ -17,12 +17,12 @@
 import Foundation
 
 public class EncodableToDataMapper <T> : Mapper <T, Data> where T: Encodable {
-    private let mapping : [String : String]
-    
-    public init(_ mapping : [String : String] = [:]) {
+    private let mapping: [String: String]
+
+    public init(_ mapping: [String: String] = [:]) {
         self.mapping = mapping
     }
-    
+
     public override func map(_ from: T) -> Data {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .map(mapping)
@@ -32,12 +32,12 @@ public class EncodableToDataMapper <T> : Mapper <T, Data> where T: Encodable {
 }
 
 public class DataToDecodableMapper <T> : Mapper <Data, T> where T: Decodable {
-    private let mapping : [String : String]
-    
-    public init(_ mapping : [String : String] = [:]) {
+    private let mapping: [String: String]
+
+    public init(_ mapping: [String: String] = [:]) {
         self.mapping = mapping
     }
-    
+
     public override func map(_ from: Data) -> T {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .map(mapping)
@@ -46,20 +46,20 @@ public class DataToDecodableMapper <T> : Mapper <Data, T> where T: Decodable {
     }
 }
 
-public class EncodableToDecodableMapper <E,D> : Mapper <E, D> where D: Decodable, E: Encodable {
-    
-    private let mapping : [String : String]
-    
-    public init(_ mapping : [String : String] = [:]) {
+public class EncodableToDecodableMapper <E, D> : Mapper <E, D> where D: Decodable, E: Encodable {
+
+    private let mapping: [String: String]
+
+    public init(_ mapping: [String: String] = [:]) {
         self.mapping = mapping
     }
-    
+
     public override func map(_ from: E) -> D {
         let encoder = JSONEncoder()
         // Encoding to a format that is readable by the decoder
         encoder.keyEncodingStrategy = .map(mapping)
         let data = try! encoder.encode(from)
-        
+
         let decoder = JSONDecoder()
         // No need to customize the keyDecodingStrategy
         let value = try! decoder.decode(D.self, from: data)

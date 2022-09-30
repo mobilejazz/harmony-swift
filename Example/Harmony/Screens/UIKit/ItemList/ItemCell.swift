@@ -15,7 +15,7 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemCountLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

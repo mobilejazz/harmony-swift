@@ -18,4 +18,3 @@ import Foundation
 
 // Namespace definition
 public struct Interactor { }
-

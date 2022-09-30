@@ -17,15 +17,15 @@
 import Foundation
 
 /// MainOperation: Data processing will only use the "main data source".
-public class MainOperation : Operation { public init () { } }
+public class MainOperation: Operation { public init () { } }
 
 /// MainSyncOperation: Data processing will use the "main data source" and then sync result with the "cache data source".
-public class MainSyncOperation : Operation { public init () { } }
+public class MainSyncOperation: Operation { public init () { } }
 
 /// CacheOperation: Data processing will only use the "cache data source".
-public class CacheOperation : Operation {
+public class CacheOperation: Operation {
     public let ignoreValidation: Bool
-    
+
     /// Main initializer
     ///
     /// - Parameter ignoreValidation: A flag indicating if validation must be ignored.
@@ -34,14 +34,13 @@ public class CacheOperation : Operation {
     }
 }
 
-
 /// CacheSyncOperation: Data processing will use the "cache data source" and sync with the "main data source".
 ///
 /// If fallback returns true, then in case of network error, the repository will return the cached
 /// data independently of it's validity.
-public class CacheSyncOperation : Operation {
-    public let fallback : (Error) -> Bool
-    
+public class CacheSyncOperation: Operation {
+    public let fallback: (Error) -> Bool
+
     /// Main initializer
     ///
     /// - Parameter fallback: The fallback closure containg the error. Default value returns false.
@@ -64,12 +63,12 @@ public class CacheSyncOperation : Operation {
 ///
 /// Note that by using the `DefaultOperation`, the CacheRepository will act as a regular cache: behaving as a `CacheSyncOperation` on GET methods and behaving as a `MainSyncOperation` on PUT and DELETE methods.
 ///
-public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteRepository where M:GetDataSource, M:PutDataSource, M:DeleteDataSource, C:GetDataSource, C:PutDataSource, C:DeleteDataSource, M.T == T, C.T == T {
-    
-    private let main : M
-    private let cache : C
-    private let validator : ObjectValidation
-    
+public class CacheRepository<M, C, T>: GetRepository, PutRepository, DeleteRepository where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource, C: PutDataSource, C: DeleteDataSource, M.T == T, C.T == T {
+
+    private let main: M
+    private let cache: C
+    private let validator: ObjectValidation
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -81,7 +80,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
         self.cache = cache
         self.validator = validator
     }
-    
+
     public func get(_ query: Query, operation: Operation) -> Future<T> {
         switch operation {
         case is DefaultOperation:
@@ -126,16 +125,16 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                                 } else {
                                     return Future(error)
                                 }
-                        }
+                            }
                     default:
                         return Future(error)
                     }
-            }
+                }
         default:
             operation.fatalError(.get, self)
         }
     }
-    
+
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
         case is DefaultOperation:
@@ -180,16 +179,16 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
                                 } else {
                                     return Future(error)
                                 }
-                        }
+                            }
                     default:
                         return Future(error)
                     }
-            }
+                }
         default:
             operation.fatalError(.getAll, self)
         }
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         switch operation {
@@ -211,7 +210,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             operation.fatalError(.put, self)
         }
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         switch operation {
@@ -233,7 +232,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             operation.fatalError(.putAll, self)
         }
     }
-    
+
     @discardableResult
     public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {
@@ -255,7 +254,7 @@ public class CacheRepository<M,C,T> : GetRepository, PutRepository, DeleteReposi
             operation.fatalError(.delete, self)
         }
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         switch operation {

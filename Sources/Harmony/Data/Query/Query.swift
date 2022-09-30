@@ -22,23 +22,23 @@ import Foundation
 public protocol Query { }
 
 /// Protocol to use a query as a key for a key value interface
-public protocol KeyQuery : Query {
+public protocol KeyQuery: Query {
     /// The key associated to the query
-    var key : String { get }
+    var key: String { get }
 }
 
 /// Void query
-public class VoidQuery : Query {
+public class VoidQuery: Query {
     public init() { }
 }
 
 /// A query by an id
-open class IdQuery<T> : Query, KeyQuery where T:Hashable {
-    public let id : T
+open class IdQuery<T>: Query, KeyQuery where T: Hashable {
+    public let id: T
     public init(_ id: T) {
         self.id = id
     }
-    public var key : String {
+    public var key: String {
         get {
             switch T.self {
             case is String.Type:
@@ -53,50 +53,50 @@ open class IdQuery<T> : Query, KeyQuery where T:Hashable {
 }
 
 /// A query by an array of Ids
-open class IdsQuery<T> : Query where T:Hashable {
-    public let ids : [T]
+open class IdsQuery<T>: Query where T: Hashable {
+    public let ids: [T]
     public init(_ ids: [T]) {
         self.ids = ids
     }
 }
 
 /// All objects query
-public class AllObjectsQuery : Query, KeyQuery {
+public class AllObjectsQuery: Query, KeyQuery {
     public init() { }
     public var key: String { return "allObjects" }
 }
 
 /// Single object query
-public class ObjectQuery<T> : Query {
-    public let value : T
-    public init(_ value : T) {
+public class ObjectQuery<T>: Query {
+    public let value: T
+    public init(_ value: T) {
         self.value = value
     }
 }
 
 // ObjectQuery is KeyQuery when T is hashable
-extension ObjectQuery : KeyQuery where T:Hashable {
+extension ObjectQuery: KeyQuery where T: Hashable {
     public var key: String {
         return "\(value.hashValue)"
     }
 }
 
 /// Array based query
-public class ObjectsQuery<T> : Query {
-    public let values : [T]
-    public init(_ values : [T]) {
+public class ObjectsQuery<T>: Query {
+    public let values: [T]
+    public init(_ values: [T]) {
         self.values = values
     }
 }
 
 /// Abstract pagination query
-open class PaginationQuery : Query { }
+open class PaginationQuery: Query { }
 
 /// Pagination by offset and limit
-open class PaginationOffsetLimitQuery : PaginationQuery {
-    public let offset : Int
-    public let limit : Int
-    public init(_ offset : Int, _ limit : Int) {
+open class PaginationOffsetLimitQuery: PaginationQuery {
+    public let offset: Int
+    public let limit: Int
+    public init(_ offset: Int, _ limit: Int) {
         self.offset = offset
         self.limit = limit
     }

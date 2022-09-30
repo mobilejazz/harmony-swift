@@ -20,11 +20,11 @@ import Foundation
 /// Assambles a CRUD repository into a single repository object
 ///
 public final class RepositoryAssembler <Get: GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository where Get.T == T, Put.T == T {
-    
-    private let getRepository : Get
-    private let putRepository : Put
-    private let deleteRepository : Delete
-    
+
+    private let getRepository: Get
+    private let putRepository: Put
+    private let deleteRepository: Delete
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -36,30 +36,30 @@ public final class RepositoryAssembler <Get: GetRepository, Put: PutRepository, 
         self.putRepository = putRepository
         self.deleteRepository = deleteRepository
     }
-    
+
     public func get(_ query: Query, operation: Operation) -> Future<T> {
         return getRepository.get(query, operation: operation)
     }
-    
+
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> {
         return getRepository.getAll(query, operation: operation)
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return putRepository.put(value, in: query, operation: operation)
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return putRepository.putAll(array, in: query, operation: operation)
     }
-    
+
     @discardableResult
     public func delete(_ query: Query, operation: Operation) -> Future<Void> {
         return deleteRepository.delete(query, operation: operation)
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> {
         return deleteRepository.deleteAll(query, operation: operation)

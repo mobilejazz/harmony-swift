@@ -19,18 +19,18 @@ import Foundation
 //
 // Provides a keychain service for a key value interface.
 //
-public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource where T : Codable {
-    
-    private let keychain : KeychainService
-    
-    public init(_ keychain : KeychainService) {
+public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource where T: Codable {
+
+    private let keychain: KeychainService
+
+    public init(_ keychain: KeychainService) {
         self.keychain = keychain
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
-            guard let value : T = keychain.get(query.key) else {
+            guard let value: T = keychain.get(query.key) else {
                 return Future(CoreError.NotFound())
             }
             return Future(value)
@@ -38,22 +38,22 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             query.fatalError(.get, self)
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
-            guard let nsarray : NSArray = keychain.get(query.key) else {
+            guard let nsarray: NSArray = keychain.get(query.key) else {
                 return Future(CoreError.NotFound())
             }
             guard let array = nsarray as? [T] else {
-                return Future(CoreError.Failed("NSArray to Array<\(String(describing:T.self))> cast failed for key \(query.key)"))
+                return Future(CoreError.Failed("NSArray to Array<\(String(describing: T.self))> cast failed for key \(query.key)"))
             }
             return Future(array)
         default:
             query.fatalError(.getAll, self)
         }
     }
-    
+
     @discardableResult
     public func put(_ value: T?, in query: Query) -> Future<T> {
         switch query {
@@ -71,7 +71,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             query.fatalError(.put, self)
         }
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
@@ -89,7 +89,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             query.fatalError(.putAll, self)
         }
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
@@ -104,7 +104,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             query.fatalError(.delete, self)
         }
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         switch query {

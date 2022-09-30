@@ -16,23 +16,23 @@
 
 import Foundation
 public class ExecutorFactory {
-    
+
     public enum Scope {
         case none
         case string(String)
         case integer(Int)
         case type(String)
     }
-    
-    private let builder : (String) -> Executor
-    private var stringScope : [String : Executor] = [:]
-    private var integerScope : [Int : Executor] = [:]
-    private var typeScope : [String : Executor] = [:]
-    
+
+    private let builder: (String) -> Executor
+    private var stringScope: [String: Executor] = [:]
+    private var integerScope: [Int: Executor] = [:]
+    private var typeScope: [String: Executor] = [:]
+
     public init(_ builder: @escaping (String) -> Executor) {
         self.builder = builder
     }
-    
+
     private func get(_ scope: Scope, named name: String) -> Executor {
         switch scope {
         case .none:
@@ -63,19 +63,19 @@ public class ExecutorFactory {
             }
         }
     }
-    
+
     public func get(named name: String = "com.mobilejazz.executor.default") -> Executor {
         return get(.none, named: name)
     }
-    
+
     public func get(_ string: String) -> Executor {
         return get(.string(string), named: "executor." + string)
     }
-    
+
     public func get(_ value: Int) -> Executor {
         return get(.integer(value), named: "executor.\(value)")
     }
-    
+
     public func get<T>(_ type: T.Type) -> Executor {
         let string = String(describing: type)
         return get(.type(string), named: string)

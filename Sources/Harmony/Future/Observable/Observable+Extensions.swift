@@ -28,7 +28,7 @@ public extension Array {
 }
 
 public extension Dictionary {
-    func toObservable() -> Observable<[Key:Value]> {
+    func toObservable() -> Observable<[Key: Value]> {
         return Observable(self)
     }
 }

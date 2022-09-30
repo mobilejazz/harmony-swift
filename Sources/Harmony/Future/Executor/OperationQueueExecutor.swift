@@ -19,10 +19,10 @@ import Foundation
 ///
 /// OperationQueue Executor extension.
 ///
-extension OperationQueue : Executor {
-    
+extension OperationQueue: Executor {
+
     public var executing: Bool { return operationCount > 0 }
-    
+
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         addOperation {
             let sempahore = DispatchSemaphore(value: 0)
@@ -36,19 +36,19 @@ extension OperationQueue : Executor {
 /// OperationQueue based executor
 ///
 public class OperationQueueExecutor: Executor {
-    
+
     /// The operation queue
-    public let operationQueue : OperationQueue
-    
+    public let operationQueue: OperationQueue
+
     /// The queue type
     ///
     /// - serialQueue: Serial queue
     /// - concurrentQueue: Concurrent queue
     public enum QueueType {
         case serial
-        case concurrent(count:Int)
+        case concurrent(count: Int)
     }
-    
+
     /// Main initializer
     ///
     /// - Parameter operationQueue: The operation queue
@@ -58,13 +58,13 @@ public class OperationQueueExecutor: Executor {
         }
         self.operationQueue = operationQueue
     }
-    
+
     /// Convenience initalizer
     ///
     /// - Parameters:
     ///   - type: The type of queue
     ///   - name: The name of the queue
-    public convenience init (_ type : QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
+    public convenience init (_ type: QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
         let operationQueue = OperationQueue()
         operationQueue.name = name
         switch type {

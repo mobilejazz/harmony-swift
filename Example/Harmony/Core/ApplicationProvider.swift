@@ -17,17 +17,17 @@ protocol ApplicationComponent {
 }
 
 class ApplicationDefaultModule: ApplicationComponent {
-    
+
     private lazy var logger: Logger = DeviceConsoleLogger()
     private lazy var backgroundExecutor: Executor = DispatchQueueExecutor()
-    
+
     private lazy var apiClient: Session = {
         // Alamofire Session Manager
-        let sessionManager = Session(interceptor: BaseURLRequestAdapter(URL(string:"https://demo3068405.mockable.io")!,
+        let sessionManager = Session(interceptor: BaseURLRequestAdapter(URL(string: "https://demo3068405.mockable.io")!,
                                                                         [UnauthorizedStatusCodeRequestRetrier()]))
         return sessionManager
     }()
-    
+
     private lazy var storage: AnyDataSource<Data> = {
         // Storage (FileSystem)
         let storage = FileSystemStorageDataSource(fileManager: FileManager.default,
@@ -37,16 +37,16 @@ class ApplicationDefaultModule: ApplicationComponent {
 
         // Storage (UserDefaults)
         // let storage = DeviceStorageDataSource<Data>(UserDefaults.standard, prefix: "ItemEntity")
-        
+
         // Storage (Keychain)
         // let storage = KeychainDataSource<Data>(KeychainService("com.mobilejazz.storage.item"))
-        
+
         // Attaching a logger
         return AnyDataSource(
             DebugDataSource(storage, logger: self.logger)
         )
     }()
-    
+
     lazy var itemComponent: ItemComponent = ItemDefaultModule(executor: self.backgroundExecutor,
                                                               apiClient: self.apiClient,
                                                               storage: self.storage)

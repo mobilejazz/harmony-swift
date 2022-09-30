@@ -20,7 +20,7 @@ struct SplashView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
             }
-            
+
         }
     }
 }

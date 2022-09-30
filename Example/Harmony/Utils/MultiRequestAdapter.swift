@@ -17,14 +17,14 @@
 import Foundation
 import Alamofire
 
-public class MultiRequestAdapter : RequestAdapter {
-    
-    private var adapters : [RequestAdapter] = []
-    
-    public init(_ adapters : [RequestAdapter]) {
+public class MultiRequestAdapter: RequestAdapter {
+
+    private var adapters: [RequestAdapter] = []
+
+    public init(_ adapters: [RequestAdapter]) {
         self.adapters = adapters
     }
-    
+
     public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         for adapter in adapters {
             adapter.adapt(urlRequest, for: session, completion: completion)

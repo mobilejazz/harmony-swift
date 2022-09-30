@@ -28,7 +28,7 @@ import Foundation
 
 /// Abstracts concrete implementations of a logger system.
 @objc(MJLogger) public protocol Logger {
-    
+
     /// Logs a String object using a given level
     ///
     /// - Parameters:
@@ -36,7 +36,7 @@ import Foundation
     ///   - tag: An additional label to help categorise logs.
     ///   - message: The message to be logged.
     func log(level: LogLevel, tag: String?, message: String)
-    
+
     /// Logs a key-value pair
     ///
     /// - Parameters:
@@ -47,7 +47,7 @@ import Foundation
 
 // MARK: - Default implementations
 public extension Logger {
-    
+
     /// Logs a String message using an trace level.
     ///
     /// - Parameters:
@@ -56,7 +56,7 @@ public extension Logger {
     func trace(tag: String? = nil, _ message: String) {
         self.log(level: .trace, tag: tag, message: message)
     }
-    
+
     /// Logs a String message using an debug level.
     ///
     /// - Parameters:
@@ -65,7 +65,7 @@ public extension Logger {
     func debug(tag: String? = nil, _ message: String) {
         self.log(level: .debug, tag: tag, message: message)
     }
-    
+
     /// Logs a String message using an info level.
     ///
     /// - Parameters:
@@ -74,7 +74,7 @@ public extension Logger {
     func info(tag: String? = nil, _ message: String) {
         self.log(level: .info, tag: tag, message: message)
     }
-    
+
     /// Logs a String message using a warning level.
     ///
     /// - Parameters:
@@ -83,7 +83,7 @@ public extension Logger {
     func warning(tag: String? = nil, _ message: String) {
         self.log(level: .warning, tag: tag, message: message)
     }
-    
+
     /// Logs a String message using an error level.
     ///
     /// - Parameters:
@@ -92,7 +92,7 @@ public extension Logger {
     func error(tag: String? = nil, _ message: String) {
         self.log(level: .error, tag: tag, message: message)
     }
-    
+
     /// Logs a String message using a fatal level.
     ///
     /// - Parameters:
@@ -101,19 +101,19 @@ public extension Logger {
     func fatal(tag: String? = nil, _ message: String) {
         self.log(level: .fatal, tag: tag, message: message)
     }
-    
+
     /// Logs a key-value pair
     ///
     /// - Parameters:
     ///   - key: They key
     ///   - value: The value
     func log(key: String, value: Any?) {
-        self.info("\(key)=\(value ?? "-")")        
+        self.info("\(key)=\(value ?? "-")")
     }
 }
 
 /// Logger that does nothing.
-public class VoidLogger : Logger {
+public class VoidLogger: Logger {
     public init() {}
     public func log(level: LogLevel, tag: String?, message: String) {}
     public func log(key: String, value: Any?) {}

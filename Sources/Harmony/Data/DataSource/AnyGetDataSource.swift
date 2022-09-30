@@ -21,7 +21,7 @@ import Foundation
 ///
 public final class AnyGetDataSource <T> : GetDataSource {
     private let box: GetDataSourceBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -29,11 +29,11 @@ public final class AnyGetDataSource <T> : GetDataSource {
     public init<D: GetDataSource>(_ dataSource: D) where D.T == T {
         box = GetDataSourceBox(dataSource)
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         return box.get(query)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         return box.getAll(query)
     }
@@ -56,11 +56,11 @@ extension GetDataSource {
 /// GetDataSource base class defining a generic type T (which is unrelated to the associated type of the GetDataSource protocol)
 ///
 internal class GetDataSourceBoxBase <T>: GetDataSource {
-    
+
     func get(_ query: Query) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
+
     func getAll(_ query: Query) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
@@ -70,17 +70,17 @@ internal class GetDataSourceBoxBase <T>: GetDataSource {
 /// A data source box, which has as generic type a GetDataSource and links the GetDataSourceBoxBase type T as the Base.T type.
 ///
 internal class GetDataSourceBox <Base: GetDataSource> : GetDataSourceBoxBase <Base.T> {
-    
+
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
-    
+
     override func get(_ query: Query) -> Future<T> {
         return base.get(query)
     }
-    
+
     override func getAll(_ query: Query) -> Future<[T]> {
         return base.getAll(query)
     }

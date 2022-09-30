@@ -10,9 +10,9 @@ import SwiftUI
 import Kingfisher
 
 struct ItemListView: View {
-    
+
     @StateObject var viewState: ItemListViewState
-    
+
     var body: some View {
         if viewState.isLoading {
             ProgressView()

@@ -56,7 +56,7 @@ public extension Interactor {
         public var spyId: [Any] = []
 
         @discardableResult
-        override public func execute<K>(_ value: T?, forId id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
+        override public func execute<K>(_ value: T?, forId id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K: Hashable {
 
             self.spyExecuteValue.append(value)
             self.spyId.append(id)
@@ -112,7 +112,7 @@ public extension Interactor {
             self.expectedResult = expectedResult
             super.init(DirectExecutor(), SingleDataSourceRepository(InMemoryDataSource()))
         }
-        
+
         public required init<R>(_ executor: Executor, _ repository: R) where T == R.T, R: PutRepository {
             fatalError("init(_:_:) has not been implemented")
         }

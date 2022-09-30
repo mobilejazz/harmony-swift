@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 
-
 import Foundation
 
 public enum DebugDataSourceDelay {
@@ -26,7 +25,7 @@ public enum DebugDataSourceDelay {
 public enum DebugDataSourceError {
     case none
     case error(Error, probability: Double)
-    
+
     func fail() throws {
         switch self {
         case .none:
@@ -40,24 +39,24 @@ public enum DebugDataSourceError {
 }
 
 private class DebugDataSourceToken {
-    
-    let id : String = {
+
+    let id: String = {
         let base = String(randomOfLength: 8)
         let seed = DispatchTime.now()
         return String("\(base)::\(seed.uptimeNanoseconds)".md5().suffix(8)).uppercased()
     }()
-    
-    private var startTime : DispatchTime?
-    private var endTime : DispatchTime?
-    
+
+    private var startTime: DispatchTime?
+    private var endTime: DispatchTime?
+
     func start() {
         startTime = DispatchTime.now()
     }
-    
+
     func end() {
         endTime = DispatchTime.now()
     }
-    
+
     func time() -> TimeInterval? {
         guard let start = startTime, let end = endTime else {
             return nil
@@ -67,13 +66,13 @@ private class DebugDataSourceToken {
     }
 }
 
-public class DebugDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D:PutDataSource, D:DeleteDataSource, D.T == T {
-    
-    private let dataSource : D
-    private let delay : DebugDataSourceDelay
-    private let error : DebugDataSourceError
-    private let logger : Logger
-    
+public class DebugDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+
+    private let dataSource: D
+    private let delay: DebugDataSourceDelay
+    private let error: DebugDataSourceError
+    private let logger: Logger
+
     public init(_ dataSource: D,
                 delay: DebugDataSourceDelay = .none,
                 error: DebugDataSourceError = .none,
@@ -83,15 +82,15 @@ public class DebugDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
         self.error = error
         self.logger = logger
     }
-    
+
     private func postprocess<K>(_ future: Future<K>, _ method: DataSourceCRUD, _ token: DebugDataSourceToken) -> Future<K> {
         return addError(addDelay(future.onCompletion { token.end() })).then { result in
             self.log(method, token, "Completed with result: \(String(describing: result))")
-            }.fail{ error in
-                self.log(method, token, "Failed with error: \(error)")
+        }.fail { error in
+            self.log(method, token, "Failed with error: \(error)")
         }
     }
-    
+
     private func addDelay<K>(_ future: Future<K>) -> Future<K> {
         switch delay {
         case .none:
@@ -102,11 +101,11 @@ public class DebugDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
             return future.withDelay(delay, queue: queue)
         }
     }
-    
+
     private func addError<K>(_ future: Future<K>) -> Future<K> {
         return future.filter { _ in try self.error.fail() }
     }
-    
+
     private func log(_ method: DataSourceCRUD, _ token: DebugDataSourceToken, _ message: String) {
         if let time = token.time() {
             logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id) in <\(time)>s]: \(message)")
@@ -114,41 +113,41 @@ public class DebugDataSource <D,T> : GetDataSource, PutDataSource, DeleteDataSou
             logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id)]: \(message)")
         }
     }
-    
+
     public func get(_ query: Query) -> Future<T> {
         let token = DebugDataSourceToken()
         log(.get, token, String(describing: query))
         token.start()
         return postprocess(dataSource.get(query), .get, token)
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         let token = DebugDataSourceToken()
         log(.getAll, token, String(describing: query))
         token.start()
         return postprocess(dataSource.getAll(query), .getAll, token)
     }
-    
+
     public func put(_ value: T?, in query: Query) -> Future<T> {
         let token = DebugDataSourceToken()
         log(.put, token, "\(String(describing: query)) - \(String(describing: value))")
         return postprocess(dataSource.put(value, in: query), .put, token)
     }
-    
+
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         let token = DebugDataSourceToken()
         log(.putAll, token, "\(String(describing: query)) - \(String(describing: array))")
         token.start()
         return postprocess(dataSource.putAll(array, in: query), .putAll, token)
     }
-    
+
     public func delete(_ query: Query) -> Future<Void> {
         let token = DebugDataSourceToken()
         log(.delete, token, String(describing: query))
         token.start()
         return postprocess(dataSource.delete(query), .delete, token)
     }
-    
+
     public func deleteAll(_ query: Query) -> Future<Void> {
         let token = DebugDataSourceToken()
         log(.deleteAll, token, String(describing: query))

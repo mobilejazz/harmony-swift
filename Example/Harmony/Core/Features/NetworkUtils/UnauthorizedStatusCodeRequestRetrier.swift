@@ -18,4 +18,3 @@ class UnauthorizedStatusCodeRequestRetrier: RequestRetrier {
         completion(.doNotRetry)
     }
 }
-

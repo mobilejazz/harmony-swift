@@ -21,14 +21,14 @@ private let executingKey = DispatchSpecificKey<Bool>()
 ///
 /// DispatchQueue Executor extension.
 ///
-extension DispatchQueue : Executor {
-    
+extension DispatchQueue: Executor {
+
     public var name: String? { return label }
-    
+
     public var executing: Bool {
         return getSpecific(key: executingKey) ?? false
     }
-    
+
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         async {
             self.setSpecific(key: executingKey, value: true)
@@ -43,8 +43,8 @@ extension DispatchQueue : Executor {
 ///
 /// GCD-based executor
 ///
-public class DispatchQueueExecutor : Executor {
-    
+public class DispatchQueueExecutor: Executor {
+
     /// The queue type
     ///
     /// - serialQueue: Serial queue
@@ -53,17 +53,17 @@ public class DispatchQueueExecutor : Executor {
         case serial
         case concurrent
     }
-   
+
     /// The dispatch queue
-    public let queue : DispatchQueue
-    
+    public let queue: DispatchQueue
+
     /// Main initializer
     ///
     /// - Parameter queue: The dispatch queue
     public init(_ queue: DispatchQueue) {
         self.queue = queue
     }
-    
+
     /// Convenience initializer
     ///
     /// - Parameter type: Queue type
@@ -77,10 +77,10 @@ public class DispatchQueueExecutor : Executor {
             self.init(queue)
         }
     }
-    
+
     // MARK: - Executor
-    
-    public var executing : Bool { return queue.executing }
+
+    public var executing: Bool { return queue.executing }
     public var name: String? { return queue.name }
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) { queue.submit(closure) }
 }

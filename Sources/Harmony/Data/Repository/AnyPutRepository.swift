@@ -20,9 +20,9 @@ import Foundation
 /// A type eraser for the PutRepository type, following Apple's Swift Standard Library approach.
 ///
 public final class AnyPutRepository <T> : PutRepository {
-    
+
     private let box: PutRepositoryBoxBase<T>
-    
+
     /// Default initializer.
     ///
     /// - Parameters:
@@ -30,11 +30,11 @@ public final class AnyPutRepository <T> : PutRepository {
     public init<R: PutRepository>(_ repository: R) where R.T == T {
         box = PutRepositoryBox(repository)
     }
-    
+
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return box.put(value, in: query, operation: operation)
     }
-    
+
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return box.putAll(array, in: query, operation: operation)
     }
@@ -61,7 +61,7 @@ internal class PutRepositoryBoxBase <T>: PutRepository {
     func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
     }
-    
+
     func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         fatalError("This method is abstract.")
     }
@@ -71,9 +71,9 @@ internal class PutRepositoryBoxBase <T>: PutRepository {
 /// A repository box, which has as generic type a PutRepository and links the PutRepositoryBoxBase type T as the Base.T type.
 ///
 internal class PutRepositoryBox <Base: PutRepository> : PutRepositoryBoxBase <Base.T> {
-    
+
     private let base: Base
-    
+
     init(_ base: Base) {
         self.base = base
     }
@@ -81,7 +81,7 @@ internal class PutRepositoryBox <Base: PutRepository> : PutRepositoryBoxBase <Ba
     override func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> {
         return base.put(value, in: query, operation: operation)
     }
-    
+
     override func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> {
         return base.putAll(array, in: query, operation: operation)
     }

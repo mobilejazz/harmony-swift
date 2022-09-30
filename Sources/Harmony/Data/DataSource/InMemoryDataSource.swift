@@ -16,13 +16,13 @@
 
 import Foundation
 
-public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource  {
-    
-    private var objects : [String : T] = [:]
-    private var arrays : [String : [T]] = [:]
-    
+public class InMemoryDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource {
+
+    private var objects: [String: T] = [:]
+    private var arrays: [String: [T]] = [:]
+
     public init() {}
-    
+
     public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
@@ -34,7 +34,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case is AllObjectsQuery:
@@ -54,7 +54,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func put(_ value: T? = nil, in query: Query) -> Future<T> {
         switch query {
@@ -69,7 +69,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         switch query {
@@ -90,7 +90,7 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
@@ -110,12 +110,12 @@ public class InMemoryDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
             return Future(CoreError.QueryNotSupported())
         }
     }
-    
+
     @discardableResult
     public func deleteAll(_ query: Query) -> Future<Void> {
         delete(query)
     }
-    
+
     private func clearAll(key: String) {
         objects.removeValue(forKey: key)
         arrays.removeValue(forKey: key)

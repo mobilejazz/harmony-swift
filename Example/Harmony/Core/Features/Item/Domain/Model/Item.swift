@@ -10,7 +10,7 @@ import UIKit
 
 import Harmony
 
-struct Item : Codable {
+struct Item: Codable {
     let id: String?
     let name: String
     let price: Double

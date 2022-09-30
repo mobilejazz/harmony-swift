@@ -22,15 +22,15 @@ import Harmony
 /// Logs CURLS of incoming requests
 ///
 public class URLLoggerRequestAdapter: RequestAdapter {
-    
+
     private let logger: Logger
     private let tag: String?
-    
+
     public init(_ logger: Logger, tag: String? = nil) {
         self.logger = logger
         self.tag = tag
     }
-    
+
     public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         let curl = urlRequest.curl(pretty: true)
         logger.info(tag: tag, "\(curl)")
@@ -44,22 +44,21 @@ private extension URLRequest {
         let complement = pretty ? "\\\n" : ""
         let method = "-X \(httpMethod ?? "GET") \(complement)"
         let url = "\"" + (self.url?.absoluteString ?? "") + "\""
-        
+
         var header = ""
-        
+
         if let httpHeaders = self.allHTTPHeaderFields, httpHeaders.keys.count > 0 {
             for (key, value) in httpHeaders {
                 header += "-H \"\(key): \(value)\" \(complement)"
             }
         }
-        
+
         if let bodyData = self.httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
             data = "-d \"\(bodyString)\" \(complement)"
         }
-        
+
         let command = "curl -i " + complement + method + header + data + url
-        
+
         return command
     }
 }
-

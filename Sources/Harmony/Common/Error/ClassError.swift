@@ -40,17 +40,17 @@ import Foundation
 ///         }
 ///     }
 ///
-open class ClassError : Error, CustomStringConvertible {
-    
+open class ClassError: Error, CustomStringConvertible {
+
     /// The error's domain
-    public let domain : String
-    
+    public let domain: String
+
     /// The error's code
-    public let code : Int
-    
+    public let code: Int
+
     /// The error's description
-    public let description : String
-    
+    public let description: String
+
     /// Main initializer
     ///
     /// - Parameters:
@@ -58,22 +58,22 @@ open class ClassError : Error, CustomStringConvertible {
     ///   - code: The error's code
     ///   - description: The error's description
     ///   - userInfo: The error's user info (default is empty dictionary)
-    public init(domain: String = "default" , code: Int, description: String) {
+    public init(domain: String = "default", code: Int, description: String) {
         self.domain = domain
         self.code = code
         self.description = description
     }
-    
+
     /// Localized error description
     public var localizedDescription: String {
         return description
     }
-   
+
     /// Subclasses can override this method to return a custom user info for NSError transformation
-    open func userInfo() -> [String:Any] {
-        return [NSLocalizedDescriptionKey : description]
+    open func userInfo() -> [String: Any] {
+        return [NSLocalizedDescriptionKey: description]
     }
-    
+
     /// Converts the CoreError into a NSError format
     /// - Parameter domain: The domain for the NSError. If nil (default), the domain used is self.domain
     /// - Returns: An NSError instnace
@@ -82,15 +82,14 @@ open class ClassError : Error, CustomStringConvertible {
     }
 }
 
-extension ClassError : LocalizedError {
+extension ClassError: LocalizedError {
     /// A localized message describing what error occurred.
     public var errorDescription: String? {
         return description
     }
 }
 
-
-extension ClassError : Hashable {
+extension ClassError: Hashable {
     /// Hash method
     public func hash(into hasher: inout Hasher) {
         hasher.combine(domain)
@@ -98,14 +97,14 @@ extension ClassError : Hashable {
     }
 }
 
-extension ClassError : Equatable {
+extension ClassError: Equatable {
     /// Two ClassError are the same if code and domain are the same.
     public static func ==(lhs: ClassError, rhs: ClassError) -> Bool {
         return lhs.code == rhs.code && lhs.domain == rhs.domain
     }
 }
 
-extension ClassError : CustomDebugStringConvertible {
+extension ClassError: CustomDebugStringConvertible {
     /// Debug description
     public var debugDescription: String {
         return "Error Code <\(code)>: \(description)"

@@ -17,12 +17,12 @@
 import Foundation
 import CommonCrypto
 
-private let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                        "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                        "0","1","2","3","4","5","6","7","8","9"]
+private let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+                        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 public extension String {
-    
+
     /// Creates a random string of the given length.
     ///
     /// - Parameter length: The length of the string.
@@ -34,14 +34,14 @@ public extension String {
         }
         self = string
     }
-    
+
     /// Splits the string using the space character into an array of words.
     ///
     /// - Returns: An array of words.
     func words() -> [String] {
         return components(separatedBy: " ")
     }
-    
+
     /// Returns the first word.
     ///
     /// - Returns: The first word.
@@ -51,7 +51,7 @@ public extension String {
         }
         return self
     }
-    
+
     /// Returns the last word.
     ///
     /// - Returns: The last word.
@@ -61,28 +61,28 @@ public extension String {
         }
         return self
     }
-    
+
     /// Removes the first word.
     ///
     /// - Returns: A string without the first word.
     func deleteFirstWord() -> String {
         let words = self.words()
-        
+
         guard words.count > 0 else {
             return ""
         }
-        
+
         let first = words.first!
         guard first.count + 1 < self.count  else {
             return ""
         }
-        
+
         return replacingOccurrences(of: self,
                                     with: "",
                                     options: String.CompareOptions.anchored,
-                                    range: Range(NSMakeRange(0, first.count + 1), in: self))
+                                    range: Range(NSRange(location: 0, length: first.count + 1), in: self))
     }
-    
+
     /// MD5 Hash
     ///
     /// - Returns: A MD5 Hashed string

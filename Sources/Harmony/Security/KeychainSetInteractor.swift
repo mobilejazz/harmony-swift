@@ -23,35 +23,35 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 @available(*, deprecated, message: "Use the KeychainDataSource and Repository pattern instead.")
 public class KeychainSetInteractor {
-    
-    private let executor : Executor
-    private let keychain : KeychainService
-    private let key : String
-    
+
+    private let executor: Executor
+    private let keychain: KeychainService
+    private let key: String
+
     /// Default initializer
     ///
     /// - Parameters:
     ///   - executor: The executor to run the interactor
     ///   - keychain: The keychain instance
     ///   - key: The key to access the user defaults
-    public init(_ executor: Executor, _ keychain: KeychainService, _ key : String) {
+    public init(_ executor: Executor, _ keychain: KeychainService, _ key: String) {
         self.executor = executor
         self.keychain = keychain
         self.key = key
     }
-    
+
     /// Convenience initializer.
     /// This initializer uses a shared executor on all KeychainSetInteractor instances and the default service of Keychain().
     ///
     /// - Parameter key: The key to access the user defaults
-    public convenience init(_ key : String) {
+    public convenience init(_ key: String) {
         self.init(defaultExecutor, KeychainService(), key)
     }
-    
+
     /// Main execution method
     ///
     /// - Returns: A future for the result value or error
-    public func execute<T>(_ value : T) -> Future<Bool> where T:Encodable {
+    public func execute<T>(_ value: T) -> Future<Bool> where T: Encodable {
         return executor.submit { resolver in
             let result = self.keychain.set(value, forKey: self.key)
             switch result {

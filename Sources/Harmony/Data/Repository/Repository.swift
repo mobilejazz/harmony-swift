@@ -18,16 +18,16 @@ import Foundation
 
 public protocol Repository { }
 
-public protocol GetRepository : Repository {
-    
+public protocol GetRepository: Repository {
+
     associatedtype T
-    
+
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
     func get(_ query: Query, operation: Operation) -> Future<T>
-    
+
     /// Main get method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -36,26 +36,26 @@ public protocol GetRepository : Repository {
 }
 
 extension GetRepository {
-    public func get<K>(_ id: K, operation: Operation) -> Future<T> where K:Hashable {
+    public func get<K>(_ id: K, operation: Operation) -> Future<T> where K: Hashable {
         return get(IdQuery(id), operation: operation)
     }
-    
-    public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+
+    public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return getAll(IdQuery(id), operation: operation)
     }
 }
 
-public protocol PutRepository : Repository {
-    
+public protocol PutRepository: Repository {
+
     associatedtype T
-    
+
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
     @discardableResult
     func put(_ value: T?, in query: Query, operation: Operation) -> Future<T>
-    
+
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -66,25 +66,25 @@ public protocol PutRepository : Repository {
 
 extension PutRepository {
     @discardableResult
-    public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K:Hashable {
+    public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K: Hashable {
         return put(value, in: IdQuery(id), operation: operation)
     }
-    
+
     @discardableResult
-    public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+    public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return putAll(array, in: IdQuery(id), operation: operation)
     }
 }
 
-public protocol DeleteRepository : Repository {
-    
+public protocol DeleteRepository: Repository {
+
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Void type.
     @discardableResult
     func delete(_ query: Query, operation: Operation) -> Future<Void>
-    
+
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
@@ -96,25 +96,25 @@ public protocol DeleteRepository : Repository {
 
 extension DeleteRepository {
     @discardableResult
-    public func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
+    public func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
         return delete(IdQuery(id), operation: operation)
     }
-    
+
     @available(*, deprecated, message: "Use delete instead")
     @discardableResult
-    public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
+    public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
         return deleteAll(IdQuery(id), operation: operation)
     }
 }
 
-public enum RepositoryCRUD : CustomStringConvertible {
+public enum RepositoryCRUD: CustomStringConvertible {
     case get
     case getAll
     case put
     case putAll
     case delete
     case deleteAll
-    
+
     public var description: String {
         switch self {
         case .get: return "get"
@@ -128,7 +128,7 @@ public enum RepositoryCRUD : CustomStringConvertible {
 }
 
 extension Operation {
-    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
+    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R: Repository {
         Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }

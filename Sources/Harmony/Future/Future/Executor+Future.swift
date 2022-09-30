@@ -17,7 +17,7 @@
 import Foundation
 
 extension Executor {
-    
+
     /// Submits a closure for its execution with a future to be filled.
     ///  Note that the future returned is not the same as the future privded in the closure.
     ///
@@ -33,13 +33,13 @@ extension Executor {
             do {
                 let resolver = FutureResolver(future)
                 try closure(resolver)
-            } catch (let error) {
+            } catch let error {
                 future.set(error)
             }
         }
         return future.toFuture() // Creating a new future to avoid a duplicate call to onSet to the same future
     }
-    
+
     /// Submits a closure for its execution.
     ///
     /// - Parameter closure: The closure to be executed. An error can be thrown.

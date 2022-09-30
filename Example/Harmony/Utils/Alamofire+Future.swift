@@ -18,7 +18,7 @@ import Foundation
 import Alamofire
 import Harmony
 
-public enum HarmonyAlamofireError : Error {
+public enum HarmonyAlamofireError: Error {
     case jsonSerialization
 }
 
@@ -36,7 +36,7 @@ public extension DataRequest {
                 case .success(let data):
                     do {
                         resolver.set(try success(data))
-                    } catch (let error) {
+                    } catch let error {
                         resolver.set(error)
                     }
                 }

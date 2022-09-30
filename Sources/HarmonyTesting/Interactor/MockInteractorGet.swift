@@ -17,7 +17,7 @@
 import Harmony
 
 public extension Interactor {
-    
+
     class MockGetByQuery<T>: GetByQuery<T> {
         private let expectedResult: Result<T, Error>
 
@@ -75,11 +75,9 @@ public extension Interactor {
             super.init(DirectExecutor(), SingleDataSourceRepository(InMemoryDataSource()), VoidQuery())
         }
 
-
         public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where T == R.T, R: GetRepository {
             fatalError("init(_:_:_:) has not been implemented")
         }
-
 
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {

@@ -17,7 +17,7 @@
 import Foundation
 
 public extension Observable {
-    
+
     /// Adds a delay to the then call.
     ///
     /// - Parameters:
@@ -35,7 +35,7 @@ public extension Observable {
             }
         }
     }
-    
+
     /// Adds a sync delay (blocks current thread) after the future is resolved.
     ///
     /// - Parameters:
@@ -45,7 +45,7 @@ public extension Observable {
         if interval == 0.0 {
             return self
         }
-        
+
         return Observable(parent: self) { resolver in
             Thread.sleep(forTimeInterval: interval)
             resolve(success: { value in
@@ -55,7 +55,7 @@ public extension Observable {
             })
         }
     }
-    
+
     /// Calls the then block after the given deadline
     ///
     /// - Parameters:
@@ -73,7 +73,7 @@ public extension Observable {
             }
         }
     }
-    
+
     /// Ensures the observable is called after the given date.
     /// If the date is earlier than now, nothing happens.
     ///

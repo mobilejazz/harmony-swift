@@ -17,7 +17,7 @@
 import Harmony
 
 public extension Interactor {
-    
+
     class MockDeleteByQuery: DeleteByQuery {
         private let expectedResult: Result<Void, Error>
 
@@ -29,7 +29,6 @@ public extension Interactor {
         public required init(_ executor: Executor, _ repository: DeleteRepository) {
             fatalError("init(_:_:) has not been implemented")
         }
-
 
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []

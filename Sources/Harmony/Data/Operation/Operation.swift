@@ -24,6 +24,6 @@ public protocol Operation { }
 ///
 /// The default operation. All repository implementations must accept this operation.
 ///
-public class DefaultOperation : Operation {
+public class DefaultOperation: Operation {
     public init() { }
 }

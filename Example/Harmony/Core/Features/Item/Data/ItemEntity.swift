@@ -7,13 +7,13 @@ import Foundation
 
 import Harmony
 
-struct ItemEntity : VastraTimestampStrategyDataSource, Codable {
+struct ItemEntity: VastraTimestampStrategyDataSource, Codable {
     var id: String?
     var name: String
     var price: Double
     var count: Int
     var imageURL: URL?
-	
+
     init() {
         self.init(id: nil, name: "Blank", price: 0.0, count: 0, imageURL: nil)
     }
@@ -25,13 +25,12 @@ struct ItemEntity : VastraTimestampStrategyDataSource, Codable {
         self.count = count
         self.imageURL = imageURL
     }
-    
-	// MARK: VastraTimestampStrategyDataSource
-    
-	var lastUpdate: Date? = nil
-    
+
+    // MARK: VastraTimestampStrategyDataSource
+
+    var lastUpdate: Date?
+
     func expiryTimeInterval() -> Time {
         return .seconds(30)
     }
 }
-

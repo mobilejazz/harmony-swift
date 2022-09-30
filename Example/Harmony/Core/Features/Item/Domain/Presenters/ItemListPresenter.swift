@@ -10,7 +10,7 @@ import Harmony
 
 protocol ItemListPresenterView: AnyObject {
     func onDisplayProgressHud(show: Bool)
-    
+
     func onDisplayItems(_ items: [Item])
     func onNavigateToItem(_ item: Item)
     func onDisplayFailedToFetchItems(_ error: Error)
@@ -18,19 +18,19 @@ protocol ItemListPresenterView: AnyObject {
 
 protocol ItemListPresenter {
     func onEventLoadList()
-    func onActionSelected(item : Item)
+    func onActionSelected(item: Item)
     func onActionReloadList()
 }
 
 class ItemListDefaultPresenter: ItemListPresenter {
     private weak var view: ItemListPresenterView?
     private let getItems: GetAllItemsInteractor
-    
+
     init(_ view: ItemListPresenterView, _ getItems: GetAllItemsInteractor) {
         self.view = view
         self.getItems = getItems
     }
-    
+
     func onEventLoadList() {
         view?.onDisplayProgressHud(show: true)
         getItems.execute().then { items in
@@ -41,11 +41,11 @@ class ItemListDefaultPresenter: ItemListPresenter {
             self.view?.onDisplayFailedToFetchItems(error)
         }
     }
-    
+
     func onActionSelected(item: Item) {
         view?.onNavigateToItem(item)
     }
-    
+
     func onActionReloadList() {
         view?.onDisplayProgressHud(show: true)
         self.getItems.execute(MainSyncOperation()).then { items in

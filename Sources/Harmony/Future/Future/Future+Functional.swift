@@ -17,7 +17,7 @@
 import Foundation
 
 public extension Future {
-        
+
     /// Maps the value and return a new future with the value mapped
     ///
     /// - Parameters:
@@ -28,15 +28,14 @@ public extension Future {
         return Future<K> { resolver in
             resolve(success: { value in
                 executor.submit {
-                    do { resolver.set(try transform(value)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try transform(value)) } catch let error { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
             })
         }
     }
-    
+
     /// Maps the error and return a new future with the error mapped
     ///
     /// - Parameters:
@@ -52,7 +51,7 @@ public extension Future {
             })
         }
     }
-    
+
     /// Intercepts the value if success and returns a new future of a mapped type to be chained
     ///
     /// - Parameters:
@@ -63,26 +62,25 @@ public extension Future {
         return Future<K> { resolver in
             resolve(success: {value in
                 executor.submit {
-                    do { resolver.set(try closure(value)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try closure(value)) } catch let error { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
             })
         }
     }
-    
+
     /// Replaces the current future value with the new future.
     /// Note: the future is chained only if the current is resolved without error.
     ///
     /// - Parameter future: The chained future
     /// - Returns: The incoming future chained to the current one
     func chain<K>(_ future: Future<K>) -> Future<K> {
-        return flatMap { value in
+        return flatMap { _ in
             return future
         }
     }
-    
+
     /// Intercepts the error (if available) and returns a new future of type T
     ///
     /// - Parameters:
@@ -95,13 +93,12 @@ public extension Future {
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
-                    do { resolver.set(try closure(error)) }
-                    catch (let error) { resolver.set(error) }
+                    do { resolver.set(try closure(error)) } catch let error { resolver.set(error) }
                 }
             })
         }
     }
-    
+
     /// Intercepts the error (if available) and returns a new future of type T
     ///
     /// - Parameters:
@@ -109,7 +106,7 @@ public extension Future {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained future
-    func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
+    func recover<E: Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Future<T>) -> Future<T> {
         return Future { resolver in
             resolve(success: {value in
                 executor.submit { resolver.set(value) }
@@ -129,7 +126,7 @@ public extension Future {
             })
         }
     }
-    
+
     /// Notifies completion of the future in both success or failure state.
     ///
     /// - Parameters:
@@ -152,7 +149,7 @@ public extension Future {
             })
         }
     }
-    
+
     /// Filters the value and allows to exchange it by a thrown error
     ///
     /// - Parameters:
@@ -166,7 +163,7 @@ public extension Future {
                     do {
                         try closure(value)
                         resolver.set(value)
-                    } catch (let error) {
+                    } catch let error {
                         resolver.set(error)
                     }
                 }

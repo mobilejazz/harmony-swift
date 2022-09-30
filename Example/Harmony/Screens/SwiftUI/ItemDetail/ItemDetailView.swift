@@ -11,7 +11,7 @@ import Kingfisher
 
 struct ItemDetailView: View {
     var item: Item
-    
+
     var body: some View {
         VStack {
             KFImage(item.imageURL)

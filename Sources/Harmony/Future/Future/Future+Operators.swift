@@ -17,7 +17,7 @@
 import Foundation
 
 /// Operator + overriding
-public func +<T,K>(left: Future<T>, right: Future<K>) -> Future<(T,K)> {
+public func +<T, K>(left: Future<T>, right: Future<K>) -> Future<(T, K)> {
     return left.zip(right)
 }
 
@@ -27,6 +27,6 @@ precedencegroup MapPrecedance {
 infix operator <^> : MapPrecedance
 
 /// Map operator
-public func <^><T,K>(future: Future<T>, map: @escaping (T) -> K) -> Future<K> {
+public func <^><T, K>(future: Future<T>, map: @escaping (T) -> K) -> Future<K> {
     return future.map { value in map(value) }
 }

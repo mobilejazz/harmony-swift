@@ -28,11 +28,11 @@ class FuturePerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { value in
+                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { _ in
                     semaphore.signal()
                     expectation.fulfill()
                 }
@@ -40,11 +40,11 @@ class FuturePerformanceTests: XCTestCase {
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to create a resolved `Future`, chain two `then` blocks on
     /// it and get into the last `then` block.
     func testDoubleThenOnSerialQueue() {
@@ -53,25 +53,25 @@ class FuturePerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
-                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { value in
-                    
-                    }.then(DispatchQueueExecutor(queue)) { value in
-                        semaphore.signal()
-                        expectation.fulfill()
+                Future<Bool>(true).then(DispatchQueueExecutor(queue)) { _ in
+
+                }.then(DispatchQueueExecutor(queue)) { _ in
+                    semaphore.signal()
+                    expectation.fulfill()
                 }
                 semaphore.wait()
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the average time needed to create a resolved `Future`, chain three `then` blocks on
     /// it and get into the last `then` block.
     func testTripleThenOnSerialQueue() {
@@ -80,28 +80,28 @@ class FuturePerformanceTests: XCTestCase {
         expectation.expectedFulfillmentCount = Constants.iterationCount
         let queue = DispatchQueue(label: #function, qos: .userInitiated)
         let semaphore = DispatchSemaphore(value: 0)
-        
+
         // Act.
         DispatchQueue.main.async {
             let time = dispatch_benchmark(Constants.iterationCount) {
                 let future = Future<Bool>(true)
-                future.then(DispatchQueueExecutor(queue)) { value in
-                    
-                    }.then(DispatchQueueExecutor(queue)) { value in
-                        
-                    }.then(DispatchQueueExecutor(queue)) { value in
-                        semaphore.signal()
-                        expectation.fulfill()
+                future.then(DispatchQueueExecutor(queue)) { _ in
+
+                }.then(DispatchQueueExecutor(queue)) { _ in
+
+                }.then(DispatchQueueExecutor(queue)) { _ in
+                    semaphore.signal()
+                    expectation.fulfill()
                 }
                 semaphore.wait()
             }
             print(average: time)
         }
-        
+
         // Assert.
         waitForExpectations(timeout: 10)
     }
-    
+
     /// Measures the total time needed to resolve a lot of pending `Future` with chained `then`
     /// blocks on them on a concurrent queue and wait for each of them to get into chained block.
     func testThenOnConcurrentQueue() {
@@ -112,18 +112,18 @@ class FuturePerformanceTests: XCTestCase {
         for _ in 0..<Constants.iterationCount {
             group.enter()
             let future = Future<Bool>()
-            future.then(DispatchQueueExecutor(queue)) { value in
+            future.then(DispatchQueueExecutor(queue)) { _ in
                 group.leave()
             }
             futures.append(future)
         }
         let startDate = Date()
-    
+
         // Act.
         for future in futures {
             future.set(true)
         }
-    
+
         // Assert.
         XCTAssert(group.wait(timeout: .now() + 1) == .success)
         let endDate = Date()

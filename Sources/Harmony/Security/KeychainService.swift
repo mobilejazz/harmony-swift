@@ -1,4 +1,3 @@
-
 // Copyright 2017 Mobile Jazz SL
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +20,7 @@ import Security
 /// A user-friendly interface to store Data inside the keychain.
 ///
 public class KeychainService {
-    
+
     /// Arguments for the keychain queries
     private struct kSec {
         static let classGenericPassword = NSString(format: kSecClassGenericPassword)
@@ -35,10 +34,9 @@ public class KeychainService {
         static let returnData           = NSString(format: kSecReturnData)
     }
 
-    
     /// The Keychain's service name.
-    public let service : String
-    
+    public let service: String
+
     /// Main initializer
     /// The initializer needs a service name. Each service will identify an independent keychain memory zone.
     ///
@@ -46,34 +44,34 @@ public class KeychainService {
     public init(_ service: String = "com.default.service") {
         self.service = service
     }
-    
+
     /// A keychain operation result.
     ///
     /// - success: A success result
     /// - failed: A failre result, including the status code.
-    public enum Result : Error {
+    public enum Result: Error {
         case success
         case failed(OSStatus)
     }
-    
+
     /// Fetches the Data stored in the keychain for the given key.
     ///
     /// - Parameter key: The key.
     /// - Returns: The stored Data or nil.
     public func get(_ key: String) -> Data? {
-        let query = NSDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
+        let query = NSDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
                                  forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnData, kSec.matchLimit])
-        
-        var dataRef : CFTypeRef?
+
+        var dataRef: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
-        
+
         if status == errSecSuccess {
             let data = dataRef as? Data
             return data
         }
         return nil
     }
-    
+
     /// Sets the given Data for the given key inside the keychain.
     ///
     /// - Parameters:
@@ -82,14 +80,14 @@ public class KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     public func set(_ data: Data, forKey key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+        let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
+                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let deleteStatus = SecItemDelete(query as CFDictionary)
         if deleteStatus != errSecSuccess {
             // Nothing to do
         }
-        
+
         // Setting the data
         query.setObject(data, forKey: kSec.valueData)
         let status = SecItemAdd(query as CFDictionary, nil)
@@ -99,15 +97,15 @@ public class KeychainService {
             return .success
         }
     }
-    
+
     /// Deletes the Data associated to the given key.
     ///
     /// - Parameter key: The key.
     /// - Returns: The operation result.
     @discardableResult
     public func delete(_ key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+        let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
+                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess {
@@ -119,13 +117,13 @@ public class KeychainService {
 }
 
 public extension KeychainService {
-    
+
     /// Custom getter for Decodable conforming types.
     ///
     /// - Parameter key: The key.
     /// - Returns: The type stored in the keychain or nil.
-    func get<T>(_ key: String) ->T? where T:Decodable {
-        guard let data : Data = get(key) else {
+    func get<T>(_ key: String) -> T? where T: Decodable {
+        guard let data: Data = get(key) else {
             return nil
         }
         do {
@@ -135,14 +133,14 @@ public extension KeychainService {
             return nil
         }
     }
-    
+
     /// Custom setter for Encodable conforming types.
     ///
     /// - Parameters:
     ///   - value: The Encodable conforming value.
     ///   - key: The key.
     /// - Returns: The operation result.
-    func set<T>(_ value: T, forKey key: String) -> Result where T:Encodable {
+    func set<T>(_ value: T, forKey key: String) -> Result where T: Encodable {
         do {
             let data = try PropertyListEncoder().encode(value)
             return set(data, forKey: key)
@@ -150,15 +148,15 @@ public extension KeychainService {
             return KeychainService.Result.failed(0)
         }
     }
-    
+
     /// Custom getter for NSCoding conforming types.
     ///
     /// - Parameter key: The key.
     /// - Returns: The NSCoding conforming type stored in the keychain or nil.
     func get<T>(_ key: String) -> T? where T: NSCoding, T: NSObject {
-        if let data : Data = get(key) {
-//            if let value = try? NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: data) {
-//            return value
+        if let data: Data = get(key) {
+            //            if let value = try? NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: data) {
+            //            return value
             if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {
                 return (value as! T)
             } else {
@@ -167,7 +165,7 @@ public extension KeychainService {
         }
         return nil
     }
-    
+
     /// Custom setter for NSCoding conforming types.
     ///
     /// - Parameters:
@@ -176,7 +174,7 @@ public extension KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     func set<T>(_ value: T, forKey key: String) throws -> Result { // where T: NSCoding {
-//        let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
+        //        let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false)
         let data = NSKeyedArchiver.archivedData(withRootObject: value)
         return set(data, forKey: key)
     }
