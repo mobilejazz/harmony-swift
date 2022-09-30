@@ -17,6 +17,7 @@
 import Foundation
 
 extension Future {
+    // swiftlint:disable large_tuple
 
     /// Creates a new future from a sequence of futures.
     ///

@@ -19,6 +19,7 @@ import Harmony
 
 /// A GetRepository spy that records all calls.
 public class GetRepositorySpy <D: GetRepository, T> : GetRepository where D.T == T {
+    // swiftlint:disable large_tuple
 
     public private(set) var getCalls: [(query: Query, operation: Harmony.Operation)] = []
     public private(set) var getAllCalls: [(query: Query, operation: Harmony.Operation)] = []

@@ -17,6 +17,7 @@
 import Foundation
 
 public extension Observable {
+    // swiftlint:disable large_tuple
 
     /// Creates a new observable from a sequence of observables.
     /// Note that the batch will be delivered once all observables have resolved at least once. After that, the batch will resolve on all new resolves. Each single error will be delivered independently.
