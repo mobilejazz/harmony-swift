@@ -105,7 +105,8 @@ extension PutDataSource {
 ///
 /// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
 ///
-public class DataSourceMapper <D, In, Out> : GetDataSource, PutDataSource, DeleteDataSource  where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
+public class DataSourceMapper <D, In, Out> : GetDataSource, PutDataSource, DeleteDataSource
+where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
 
     public typealias T = Out
 

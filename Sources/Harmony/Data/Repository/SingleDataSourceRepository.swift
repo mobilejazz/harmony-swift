@@ -130,7 +130,8 @@ extension DeleteDataSource {
 /// All repository methods are directly forwarded to a single data source.
 /// Operation parameter is not used in any case.
 ///
-public class SingleDataSourceRepository<D, T>: GetRepository, PutRepository, DeleteRepository where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+public class SingleDataSourceRepository<D, T>: GetRepository, PutRepository, DeleteRepository
+where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
 
     private let dataSource: D
 

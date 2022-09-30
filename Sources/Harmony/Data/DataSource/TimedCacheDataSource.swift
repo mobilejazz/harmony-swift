@@ -26,7 +26,8 @@ private func print(_ object: String) {
 /// The TimedCacheDataSource is KeyQuery-based data source, wrapper of another data source and acting as a fast cache.
 /// It uses the date time of the access to cache the values, acting as a TLRU cache.
 ///
-public class TimedCacheDataSource<T, D>: GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+public class TimedCacheDataSource<T, D>: GetDataSource, PutDataSource, DeleteDataSource
+where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
 
     private let dataSource: D
     private let expiryInterval: TimeInterval
@@ -77,7 +78,8 @@ public class TimedCacheDataSource<T, D>: GetDataSource, PutDataSource, DeleteDat
                 self.arrays[query.key] = nil
             }
         default:
-            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).getAll call because \(type(of: query)) doesn't conform to KeyQuery.")
+            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).getAll call " +
+                    "because \(type(of: query)) doesn't conform to KeyQuery.")
             return dataSource.getAll(query)
         }
     }
@@ -109,7 +111,8 @@ public class TimedCacheDataSource<T, D>: GetDataSource, PutDataSource, DeleteDat
                 self.arrays[query.key] = nil
             }
         default:
-            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).putAll call because \(type(of: query)) doesn't conform to KeyQuery.")
+            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).putAll " +
+                    "call because \(type(of: query)) doesn't conform to KeyQuery.")
             return dataSource.putAll(array, in: query)
         }
     }
@@ -123,7 +126,8 @@ public class TimedCacheDataSource<T, D>: GetDataSource, PutDataSource, DeleteDat
                 self.arrays[query.key] = nil
             }
         default:
-            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).delete call because \(type(of: query)) doesn't conform to KeyQuery.")
+            print("TimedCacheDataSource can't cache the result of the \(type(of: dataSource)).delete call " +
+                    "because \(type(of: query)) doesn't conform to KeyQuery.")
             return dataSource.delete(query)
         }
     }

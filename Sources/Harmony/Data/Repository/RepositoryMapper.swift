@@ -107,7 +107,8 @@ extension PutRepository {
 ///
 /// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
 ///
-public class RepositoryMapper <R, Out, In> : GetRepository, PutRepository, DeleteRepository where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
+public class RepositoryMapper <R, Out, In> : GetRepository, PutRepository, DeleteRepository
+where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
 
     public typealias T = Out
 

@@ -63,7 +63,8 @@ public class CacheSyncOperation: Operation {
 ///
 /// Note that by using the `DefaultOperation`, the CacheRepository will act as a regular cache: behaving as a `CacheSyncOperation` on GET methods and behaving as a `MainSyncOperation` on PUT and DELETE methods.
 ///
-public class CacheRepository<M, C, T>: GetRepository, PutRepository, DeleteRepository where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource, C: PutDataSource, C: DeleteDataSource, M.T == T, C.T == T {
+public class CacheRepository<M, C, T>: GetRepository, PutRepository, DeleteRepository
+where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource, C: PutDataSource, C: DeleteDataSource, M.T == T, C.T == T {
 
     private let main: M
     private let cache: C

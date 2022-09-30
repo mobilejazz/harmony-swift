@@ -19,7 +19,8 @@ import Foundation
 ///
 /// Assambles a CRUD repository into a single repository object
 ///
-public final class RepositoryAssembler <Get: GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository where Get.T == T, Put.T == T {
+public final class RepositoryAssembler <Get: GetRepository, Put: PutRepository, Delete: DeleteRepository, T> : GetRepository, PutRepository, DeleteRepository
+where Get.T == T, Put.T == T {
 
     private let getRepository: Get
     private let putRepository: Put

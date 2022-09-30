@@ -21,7 +21,8 @@ import Foundation
 /// Note that validation only occur in the get and getAll methods.
 /// If not valid, the returned future is resolved with a ValidationError.notValid error
 ///
-public class DataSourceValidator <D, T> : GetDataSource, PutDataSource, DeleteDataSource  where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+public class DataSourceValidator <D, T> : GetDataSource, PutDataSource, DeleteDataSource
+where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
 
     private let dataSource: D
     private let validator: ObjectValidation
