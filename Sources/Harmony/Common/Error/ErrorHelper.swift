@@ -18,7 +18,7 @@ import Foundation
 
 public extension NSError {
     static func domain(_ string: String = "", base: String = "\(Bundle.main.bundleIdentifier!)") -> String {
-        if string.count > 0 {
+        if !string.isEmpty {
             return base + "." + string
         }
         return base

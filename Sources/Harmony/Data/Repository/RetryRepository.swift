@@ -27,6 +27,7 @@ private struct RetryRule {
     /// - Parameter error: The incoming error
     /// - Returns: True if can retry, false otherwise.
     public func canRetry(_ error: Error) -> Bool {
+        // swiftlint:disable empty_count
         return count > 0 && retryIf(error)
     }
 

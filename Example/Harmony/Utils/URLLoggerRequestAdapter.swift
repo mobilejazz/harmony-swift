@@ -47,7 +47,7 @@ private extension URLRequest {
 
         var header = ""
 
-        if let httpHeaders = self.allHTTPHeaderFields, httpHeaders.keys.count > 0 {
+        if let httpHeaders = self.allHTTPHeaderFields, !httpHeaders.keys.isEmpty {
             for (key, value) in httpHeaders {
                 header += "-H \"\(key): \(value)\" \(complement)"
             }

@@ -31,7 +31,7 @@ extension Future {
     /// - Parameter futures: An array of futures.
     /// - Returns: The future batch.
     public static func batch(_ futures: [Future<T>]) -> Future<[T]> {
-        if futures.count == 0 {
+        if futures.isEmpty {
             return Future<[T]>([])
         }
 

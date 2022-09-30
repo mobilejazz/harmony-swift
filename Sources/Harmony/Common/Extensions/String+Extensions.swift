@@ -68,7 +68,7 @@ public extension String {
     func deleteFirstWord() -> String {
         let words = self.words()
 
-        guard words.count > 0 else {
+        guard !words.isEmpty else {
             return ""
         }
 

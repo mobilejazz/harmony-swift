@@ -33,7 +33,7 @@ public extension Observable {
     /// - Parameter futures: An array of observables.
     /// - Returns: The observable batch.
     static func batch(_ futures: [Observable<T>]) -> Observable<[T]> {
-        if futures.count == 0 {
+        if futures.isEmpty {
             return Observable<[T]>([])
         }
 
