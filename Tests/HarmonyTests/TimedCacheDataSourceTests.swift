@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Foundation
 import Nimble
 import XCTest
 import Harmony
