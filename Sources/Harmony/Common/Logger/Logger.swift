@@ -28,7 +28,6 @@ import Foundation
 
 /// Abstracts concrete implementations of a logger system.
 @objc(MJLogger) public protocol Logger {
-
     /// Logs a String object using a given level
     ///
     /// - Parameters:
@@ -46,15 +45,15 @@ import Foundation
 }
 
 // MARK: - Default implementations
-public extension Logger {
 
+public extension Logger {
     /// Logs a String message using an trace level.
     ///
     /// - Parameters:
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func trace(tag: String? = nil, _ message: String) {
-        self.log(level: .trace, tag: tag, message: message)
+        log(level: .trace, tag: tag, message: message)
     }
 
     /// Logs a String message using an debug level.
@@ -63,7 +62,7 @@ public extension Logger {
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func debug(tag: String? = nil, _ message: String) {
-        self.log(level: .debug, tag: tag, message: message)
+        log(level: .debug, tag: tag, message: message)
     }
 
     /// Logs a String message using an info level.
@@ -72,7 +71,7 @@ public extension Logger {
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func info(tag: String? = nil, _ message: String) {
-        self.log(level: .info, tag: tag, message: message)
+        log(level: .info, tag: tag, message: message)
     }
 
     /// Logs a String message using a warning level.
@@ -81,7 +80,7 @@ public extension Logger {
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func warning(tag: String? = nil, _ message: String) {
-        self.log(level: .warning, tag: tag, message: message)
+        log(level: .warning, tag: tag, message: message)
     }
 
     /// Logs a String message using an error level.
@@ -90,7 +89,7 @@ public extension Logger {
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func error(tag: String? = nil, _ message: String) {
-        self.log(level: .error, tag: tag, message: message)
+        log(level: .error, tag: tag, message: message)
     }
 
     /// Logs a String message using a fatal level.
@@ -99,7 +98,7 @@ public extension Logger {
     ///   - tag: An additional label to help categorise logs.
     ///   - message: String to be logged
     func fatal(tag: String? = nil, _ message: String) {
-        self.log(level: .fatal, tag: tag, message: message)
+        log(level: .fatal, tag: tag, message: message)
     }
 
     /// Logs a key-value pair
@@ -108,13 +107,13 @@ public extension Logger {
     ///   - key: They key
     ///   - value: The value
     func log(key: String, value: Any?) {
-        self.info("\(key)=\(value ?? "-")")
+        info("\(key)=\(value ?? "-")")
     }
 }
 
 /// Logger that does nothing.
 public class VoidLogger: Logger {
     public init() {}
-    public func log(level: LogLevel, tag: String?, message: String) {}
-    public func log(key: String, value: Any?) {}
+    public func log(level _: LogLevel, tag _: String?, message _: String) {}
+    public func log(key _: String, value _: Any?) {}
 }

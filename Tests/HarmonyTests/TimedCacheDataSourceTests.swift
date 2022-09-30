@@ -6,13 +6,12 @@
 //
 
 import Foundation
+import Harmony
 import Nimble
 import XCTest
-import Harmony
 
 // TODO: Improve TimedCacheDataSourceTests to take into account expiration date. Use a spy to check wether the value is obtained from cache or not.
 class TimedCacheDataSourceTests: XCTestCase {
-
     private func provideEmptyDataSource() -> TimedCacheDataSource<Int, InMemoryDataSource<Int>> {
         return TimedCacheDataSource(InMemoryDataSource<Int>())
     }
@@ -60,7 +59,6 @@ class TimedCacheDataSourceTests: XCTestCase {
             try dataSource.get(query).result.get()
         }
         .to(throwError(errorType: CoreError.NotFound.self))
-
     }
 
     func test_get_value_not_found() throws {
@@ -179,5 +177,4 @@ class TimedCacheDataSourceTests: XCTestCase {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self)) // The old value (list) is not there anymore
     }
-
 }

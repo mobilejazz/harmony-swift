@@ -5,13 +5,12 @@
 //  Created by Joan Martin on 16/6/22.
 //
 
-import XCTest
 import Harmony
 import HarmonyTesting
 import Nimble
+import XCTest
 
 class FutureTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -23,7 +22,7 @@ class FutureTests: XCTestCase {
     // Success Errors
     func test_future_value_set_on_init() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
 
         // When
         let future = Future(anyValue)
@@ -34,7 +33,7 @@ class FutureTests: XCTestCase {
 
     func test_future_value_set_on_set_value() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let future = Future<Int>()
 
         // When
@@ -46,7 +45,7 @@ class FutureTests: XCTestCase {
 
     func test_future_value_set_on_set_value_or_error() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let future = Future<Int>()
 
         // When
@@ -93,7 +92,7 @@ class FutureTests: XCTestCase {
 
     func test_future_states_on_value_first_then_after() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let future = Future<Int>()
 
         // When
@@ -113,7 +112,7 @@ class FutureTests: XCTestCase {
 
     func test_future_states_on_then_first_value_after() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let future = Future<Int>()
 
         // When
@@ -133,7 +132,7 @@ class FutureTests: XCTestCase {
 
     func test_future_states_result_first_value_after() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let queue = DispatchQueue(label: "")
         let future = Future<Int>()
         let expectation = expectation(description: "")
@@ -158,7 +157,7 @@ class FutureTests: XCTestCase {
 
     func test_future_states_value_first_result_after() throws {
         // Given
-        let anyValue = Int.random(in: Int.min...Int.max)
+        let anyValue = Int.random(in: Int.min ... Int.max)
         let future = Future<Int>()
 
         // When

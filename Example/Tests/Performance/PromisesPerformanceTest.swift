@@ -14,12 +14,11 @@
 // limitations under the License.
 //
 
+import Promises
 import UIKit
 import XCTest
-import Promises
 
 class PromisesPerformanceTest: XCTestCase {
-
     /// Measures the average time needed to create a resolved `Promise` and get into a `then` block
     /// chained to it.
     func testThenOnSerialQueue() {
@@ -105,7 +104,7 @@ class PromisesPerformanceTest: XCTestCase {
         let queue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         let group = DispatchGroup()
         var promises = [Promise<Bool>]()
-        for _ in 0..<Constants.iterationCount {
+        for _ in 0 ..< Constants.iterationCount {
             group.enter()
             let promise = Promise<Bool>.pending()
             promise.then(on: queue) { _ in

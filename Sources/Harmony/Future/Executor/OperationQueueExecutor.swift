@@ -20,7 +20,6 @@ import Foundation
 /// OperationQueue Executor extension.
 ///
 extension OperationQueue: Executor {
-
     public var executing: Bool { return operationCount > 0 }
 
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
@@ -36,7 +35,6 @@ extension OperationQueue: Executor {
 /// OperationQueue based executor
 ///
 public class OperationQueueExecutor: Executor {
-
     /// The operation queue
     public let operationQueue: OperationQueue
 
@@ -64,13 +62,14 @@ public class OperationQueueExecutor: Executor {
     /// - Parameters:
     ///   - type: The type of queue
     ///   - name: The name of the queue
-    public convenience init (_ type: QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
+    public convenience init(_ type: QueueType = .serial,
+                            name: String = OperationQueueExecutor.nextExecutorName()) {
         let operationQueue = OperationQueue()
         operationQueue.name = name
         switch type {
         case .serial:
             operationQueue.maxConcurrentOperationCount = 1
-        case .concurrent(let count):
+        case let .concurrent(count):
             operationQueue.maxConcurrentOperationCount = count
         }
         self.init(operationQueue)

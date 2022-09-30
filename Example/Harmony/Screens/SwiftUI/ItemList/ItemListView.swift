@@ -6,11 +6,10 @@
 //  Copyright © 2022 CocoaPods. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct ItemListView: View {
-
     @StateObject var viewState: ItemListViewState
 
     var body: some View {
@@ -52,7 +51,7 @@ struct ItemListView: View {
                                     Spacer()
                                     Text("\(Int(item.price))€")
                                         .font(.system(size: 23, weight: .bold))
-                                        .foregroundColor(Color(red: 0, green: 190.0/256.0, blue: 176.0/256.0))
+                                        .foregroundColor(Color(red: 0, green: 190.0 / 256.0, blue: 176.0 / 256.0))
                                 }
                             }
                         }
@@ -68,7 +67,6 @@ struct ItemListView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-
                 }
             }
         }

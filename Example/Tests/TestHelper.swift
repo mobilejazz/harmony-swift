@@ -19,7 +19,7 @@ import Foundation
 // MARK: - Constants
 
 struct Constants {
-    static let iterationCount = 10_000
+    static let iterationCount = 10000
 }
 
 // MARK: - Helpers
@@ -33,13 +33,14 @@ func print(total time: TimeInterval) {
 }
 
 /// Namespace for test helpers.
-public struct Test {
+public enum Test {
     public enum Error: Int, CustomNSError {
         case code13 = 13
         case code42 = 42
         public static var errorDomain: String {
             return "com.mobilejazz.Harmony"
         }
+
         public var errorCode: Int { return rawValue }
         public var errorUserInfo: [String: Any] { return [:] }
     }

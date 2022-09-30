@@ -18,7 +18,6 @@ import XCTest
 @testable import Harmony
 
 class FutureDeallocTests: XCTestCase {
-
     func testFuturePendingDealloc() {
         weak var weakFuture: Future<Int>?
         autoreleasepool {
@@ -29,5 +28,4 @@ class FutureDeallocTests: XCTestCase {
         }
         XCTAssertNil(weakFuture)
     }
-
 }

@@ -9,7 +9,6 @@
 import Foundation
 
 class ItemListViewState: ObservableObject, ItemListPresenterView {
-
     @Published var items: [Item]
     @Published var isLoading: Bool = true
     @Published var error: Error?
@@ -23,12 +22,12 @@ class ItemListViewState: ObservableObject, ItemListPresenterView {
     lazy var presenter = applicationComponent.itemComponent.itemListPresenter(view: self)
 
     func onDisplayProgressHud(show: Bool) {
-        self.isLoading = show
+        isLoading = show
     }
 
     func onDisplayItems(_ items: [Item]) {
         self.items = items
-        self.error = nil
+        error = nil
     }
 
     func onNavigateToItem(_ item: Item) {

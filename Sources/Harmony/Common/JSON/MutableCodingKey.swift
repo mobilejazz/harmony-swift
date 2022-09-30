@@ -20,7 +20,6 @@ import Foundation
 /// Wrapper to allow us to edit a coding key.
 ///
 public struct MutableCodingKey: CodingKey {
-
     public var stringValue: String
     public var intValue: Int?
 
@@ -33,7 +32,7 @@ public struct MutableCodingKey: CodingKey {
     }
 
     public init(intValue: Int) {
-        self.stringValue = "\(intValue)"
+        stringValue = "\(intValue)"
         self.intValue = intValue
     }
 

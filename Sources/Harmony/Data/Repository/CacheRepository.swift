@@ -17,10 +17,11 @@
 import Foundation
 
 /// MainOperation: Data processing will only use the "main data source".
-public class MainOperation: Operation { public init () { } }
+public class MainOperation: Operation { public init() {} }
 
-/// MainSyncOperation: Data processing will use the "main data source" and then sync result with the "cache data source".
-public class MainSyncOperation: Operation { public init () { } }
+/// MainSyncOperation: Data processing will use the "main data source" and then sync result with the "cache data
+// source".
+public class MainSyncOperation: Operation { public init() {} }
 
 /// CacheOperation: Data processing will only use the "cache data source".
 public class CacheOperation: Operation {
@@ -47,6 +48,7 @@ public class CacheSyncOperation: Operation {
     public init(fallback: @escaping (Error) -> Bool = { _ in false }) {
         self.fallback = fallback
     }
+
     /// Convenience initializer
     ///
     /// - Parameter fallback: The fallback behavior.
@@ -58,14 +60,17 @@ public class CacheSyncOperation: Operation {
 ///
 /// Repository containing two data sources: a fast-access data source and a slow-access data source.
 ///
-/// Using the `MainOperation`, `MainSyncOperation`, `CacheOperation` and `CacheSyncOperation`, the end user can access the fast or slow data source.
-/// A typical example of usage is using this repository to alternate between a network-based data source (main data source) and a local cache storage data source (cache data source).
+/// Using the `MainOperation`, `MainSyncOperation`, `CacheOperation` and `CacheSyncOperation`, the end user can
+// access the fast or slow data source.
+/// A typical example of usage is using this repository to alternate between a network-based data source (main data
+// source) and a local cache storage data source (cache data source).
 ///
-/// Note that by using the `DefaultOperation`, the CacheRepository will act as a regular cache: behaving as a `CacheSyncOperation` on GET methods and behaving as a `MainSyncOperation` on PUT and DELETE methods.
+/// Note that by using the `DefaultOperation`, the CacheRepository will act as a regular cache: behaving as a
+// `CacheSyncOperation` on GET methods and behaving as a `MainSyncOperation` on PUT and DELETE methods.
 ///
 public class CacheRepository<M, C, T>: GetRepository, PutRepository, DeleteRepository
-where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource, C: PutDataSource, C: DeleteDataSource, M.T == T, C.T == T {
-
+    where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource, C: PutDataSource,
+    C: DeleteDataSource, M.T == T, C.T == T {
     private let main: M
     private let cache: C
     private let validator: ObjectValidation
@@ -100,7 +105,7 @@ where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource,
                 }
         case is MainSyncOperation:
             return main.get(query).flatMap { entity in
-                return self.cache.put(entity, in: query)
+                self.cache.put(entity, in: query)
             }
         case let op as CacheSyncOperation:
             var cachedValue: T!
@@ -154,7 +159,7 @@ where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource,
                 }
         case is MainSyncOperation:
             return main.getAll(query).flatMap { entities in
-                return self.cache.putAll(entities, in: query)
+                self.cache.putAll(entities, in: query)
             }
         case let op as CacheSyncOperation:
             var cachedValues: [T]!
@@ -201,11 +206,11 @@ where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource,
             return cache.put(value, in: query)
         case is MainSyncOperation:
             return main.put(value, in: query).flatMap { value in
-                return self.cache.put(value, in: query)
+                self.cache.put(value, in: query)
             }
         case is CacheSyncOperation:
             return cache.put(value, in: query).flatMap { value in
-                return self.main.put(value, in: query)
+                self.main.put(value, in: query)
             }
         default:
             operation.fatalError(.put, self)
@@ -223,11 +228,11 @@ where M: GetDataSource, M: PutDataSource, M: DeleteDataSource, C: GetDataSource,
             return cache.putAll(array, in: query)
         case is MainSyncOperation:
             return main.putAll(array, in: query).flatMap { array in
-                return self.cache.putAll(array, in: query)
+                self.cache.putAll(array, in: query)
             }
         case is CacheSyncOperation:
             return cache.putAll(array, in: query).flatMap { array in
-                return self.main.putAll(array, in: query)
+                self.main.putAll(array, in: query)
             }
         default:
             operation.fatalError(.putAll, self)

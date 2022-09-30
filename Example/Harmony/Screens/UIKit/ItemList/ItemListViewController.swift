@@ -6,15 +6,14 @@
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
-import UIKit
 import Harmony
+import UIKit
 
 class ItemListViewController: UIViewController, ItemListPresenterView, UITableViewDataSource, UITableViewDelegate {
-
     lazy var presenter = applicationComponent.itemComponent.itemListPresenter(view: self)
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
     private var items: [Item] = []
 
@@ -30,7 +29,7 @@ class ItemListViewController: UIViewController, ItemListPresenterView, UITableVi
         tableView.estimatedRowHeight = 68
     }
 
-    @IBAction func reloadButtonAction(_ sender: Any) {
+    @IBAction func reloadButtonAction(_: Any) {
         presenter.onActionReloadList()
     }
 
@@ -74,11 +73,11 @@ class ItemListViewController: UIViewController, ItemListPresenterView, UITableVi
 
     // MARK: UITableViewDataSource
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return items.count
     }
 
@@ -102,7 +101,7 @@ class ItemListViewController: UIViewController, ItemListPresenterView, UITableVi
 
     // MARK: UITableViewDelegate
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.onActionSelected(item: items[indexPath.row])
     }
 }

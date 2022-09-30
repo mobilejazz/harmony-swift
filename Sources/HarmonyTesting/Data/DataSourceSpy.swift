@@ -18,8 +18,7 @@ import Foundation
 import Harmony
 
 /// A GetDataSource spy that records all calls.
-public class GetDataSourceSpy <D: GetDataSource, T> : GetDataSource where D.T == T {
-
+public class GetDataSourceSpy<D: GetDataSource, T>: GetDataSource where D.T == T {
     public private(set) var getCalls: [Query] = []
     public private(set) var getAllCalls: [Query] = []
 
@@ -41,8 +40,7 @@ public class GetDataSourceSpy <D: GetDataSource, T> : GetDataSource where D.T ==
 }
 
 /// A PutDataSource spy that records all calls.
-public class PutDataSourceSpy <D: PutDataSource, T> : PutDataSource where D.T == T {
-
+public class PutDataSourceSpy<D: PutDataSource, T>: PutDataSource where D.T == T {
     public private(set) var putCalls: [(value: T?, query: Query)] = []
     public private(set) var putAllCalls: [(array: [T], query: Query)] = []
 
@@ -64,8 +62,7 @@ public class PutDataSourceSpy <D: PutDataSource, T> : PutDataSource where D.T ==
 }
 
 /// A DeleteDataSource spy that records all calls.
-public class DeleteDataSourceSpy <D: DeleteDataSource>: DeleteDataSource {
-
+public class DeleteDataSourceSpy<D: DeleteDataSource>: DeleteDataSource {
     public private(set) var deleteCalls: [Query] = []
     public private(set) var deleteAllCalls: [Query] = []
 
@@ -87,8 +84,8 @@ public class DeleteDataSourceSpy <D: DeleteDataSource>: DeleteDataSource {
 }
 
 /// A DataSource spy that records all calls.
-public class DataSourceSpy <D, T> : GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
-
+public class DataSourceSpy<D, T>: GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource,
+    D: PutDataSource, D: DeleteDataSource, D.T == T {
     public private(set) var getCalls: [Query] = []
     public private(set) var getAllCalls: [Query] = []
 

@@ -28,7 +28,8 @@ public protocol Executor {
 
     /// Submits a closure for its execution
     ///
-    /// - Parameter closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
+    /// - Parameter closure: The code to be executed. The closure must call its subclosure after completing (either
+    // sync or async)
     /// - Returns: Nothing (Void)
     func submit(_ closure: @escaping (@escaping () -> Void) -> Void)
 }
@@ -37,31 +38,32 @@ public protocol Executor {
 /// Refined type of Executor that delays execution of a closure
 ///
 public protocol DelayedExecutor: Executor {
-
     /// Submits a closure for execution later in time
     /// - Parameters:
     ///   - after: amount of time elapsed before the closure gets executed
-    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
+    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or
+    // async)
     /// - Returns: Nothing (Void)
     func submit(after: DispatchTime, _ closure: @escaping (@escaping () -> Void) -> Void)
 
     /// Submits a closure for execution later in time
     /// - Parameters:
     ///   - after: amount of time elapsed before the closure gets executed
-    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
+    ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or
+    // async)
     /// - Returns: Nothing (Void)
     @discardableResult
-    func submit(after: DispatchTime, _ closure:  @escaping () throws -> Void) -> Future<Void>
+    func submit(after: DispatchTime, _ closure: @escaping () throws -> Void) -> Future<Void>
 }
 
 private let lock = NSLock()
 private var counter: Int = 0
 
-extension Executor {
+public extension Executor {
     /// Creates a unique executor name
     ///
     /// - Returns: An executor name
-    static public func nextExecutorName() -> String {
+    static func nextExecutorName() -> String {
         lock.lock()
         counter += 1
         defer { lock.unlock() }

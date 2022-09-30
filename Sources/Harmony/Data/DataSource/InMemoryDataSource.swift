@@ -17,7 +17,6 @@
 import Foundation
 
 public class InMemoryDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource {
-
     private var objects: [String: T] = [:]
     private var arrays: [String: [T]] = [:]
 
@@ -77,7 +76,7 @@ public class InMemoryDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
             guard array.count == query.ids.count else {
                 return Future(CoreError.IllegalArgument("Array lenght must be equal to query.ids length"))
             }
-            array.enumerated().forEach { (offset, element) in
+            array.enumerated().forEach { offset, element in
                 arrays.removeValue(forKey: query.ids[offset])
                 objects[query.ids[offset]] = element
             }
@@ -97,15 +96,15 @@ public class InMemoryDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
         case is AllObjectsQuery:
             objects.removeAll()
             arrays.removeAll()
-            return Future(Void())
+            return Future(())
         case let query as IdsQuery<String>:
             query.ids.forEach { key in
                 clearAll(key: key)
             }
-            return Future(Void())
+            return Future(())
         case let query as KeyQuery:
             clearAll(key: query.key)
-            return Future(Void())
+            return Future(())
         default:
             return Future(CoreError.QueryNotSupported())
         }

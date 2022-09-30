@@ -17,8 +17,10 @@
 import Foundation
 
 public extension Dictionary where Key == String, Value == AnyObject {
-    func decodeAs<T>(_ type: T.Type,
-                     keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T where T: Decodable {
+    func decodeAs<T>(
+        _ type: T.Type,
+        keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
+    ) throws -> T where T: Decodable {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
@@ -33,18 +35,19 @@ public extension Dictionary where Key == String, Value == AnyObject {
             var object: T = try decodeAs(type, keyDecodingStrategy: keyDecodingStrategy)
             completion(&object)
             return Future(object)
-        } catch let error {
+        } catch {
             return Future(error)
         }
     }
 }
 
 public extension Array where Element == [String: AnyObject] {
-    func decodeAs<T>(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T] where T: Decodable {
+    func decodeAs<T>(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T]
+        where T: Decodable {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
-        let array = try decoder.decode(Array<T>.self, from: data)
+        let array = try decoder.decode([T].self, from: data)
         return array
     }
 
@@ -54,11 +57,11 @@ public extension Array where Element == [String: AnyObject] {
         do {
             var array: [T] = try decodeAs(keyDecodingStrategy: keyDecodingStrategy)
             for index in array.indices {
-                forEach(&(array[index]))
+                forEach(&array[index])
             }
             completion(&array)
             return Future(array)
-        } catch let error {
+        } catch {
             return Future(error)
         }
     }

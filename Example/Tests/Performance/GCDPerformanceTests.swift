@@ -18,7 +18,6 @@ import UIKit
 import XCTest
 
 class GCDPerformanceTests: XCTestCase {
-
     /// Measures the average time needed to get into a dispatch_async block.
     func testDispatchAsyncOnSerialQueue() {
         // Arrange.
@@ -104,11 +103,11 @@ class GCDPerformanceTests: XCTestCase {
         let queue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         let group = DispatchGroup()
         var blocks = [() -> Void]()
-        for _ in 0..<Constants.iterationCount {
+        for _ in 0 ..< Constants.iterationCount {
             group.enter()
-            blocks.append({
+            blocks.append {
                 group.leave()
-            })
+            }
         }
         let startDate = Date()
 

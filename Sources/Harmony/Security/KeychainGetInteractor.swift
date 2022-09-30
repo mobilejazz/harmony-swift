@@ -23,7 +23,6 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 @available(*, deprecated, message: "Use the KeychainDataSource and Repository pattern instead.")
 public class KeychainGetInteractor {
-
     private let executor: Executor
     private let keychain: KeychainService
     private let key: String
@@ -41,7 +40,8 @@ public class KeychainGetInteractor {
     }
 
     /// Convenience initializer.
-    /// This initializer uses a shared executor on all KeychainGetInteractor instances and the default service of Keychain().
+    /// This initializer uses a shared executor on all KeychainGetInteractor instances and the default service of
+    // Keychain().
     ///
     /// - Parameter key: The key to access the user defaults
     public convenience init(_ key: String) {

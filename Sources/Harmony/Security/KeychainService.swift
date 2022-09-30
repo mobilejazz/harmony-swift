@@ -20,18 +20,17 @@ import Security
 /// A user-friendly interface to store Data inside the keychain.
 ///
 public class KeychainService {
-
     /// Arguments for the keychain queries
-    private struct kSec {
+    private enum kSec {
         static let classGenericPassword = NSString(format: kSecClassGenericPassword)
-        static let `class`              = NSString(format: kSecClass)
-        static let attrService          = NSString(format: kSecAttrService)
-        static let attrAccount          = NSString(format: kSecAttrAccount)
-        static let returnAttributes     = NSString(format: kSecReturnAttributes)
-        static let valueData            = NSString(format: kSecValueData)
-        static let matchLimit           = NSString(format: kSecMatchLimit)
-        static let matchLimitOne        = NSString(format: kSecMatchLimitOne)
-        static let returnData           = NSString(format: kSecReturnData)
+        static let `class` = NSString(format: kSecClass)
+        static let attrService = NSString(format: kSecAttrService)
+        static let attrAccount = NSString(format: kSecAttrAccount)
+        static let returnAttributes = NSString(format: kSecReturnAttributes)
+        static let valueData = NSString(format: kSecValueData)
+        static let matchLimit = NSString(format: kSecMatchLimit)
+        static let matchLimitOne = NSString(format: kSecMatchLimitOne)
+        static let returnData = NSString(format: kSecReturnData)
     }
 
     /// The Keychain's service name.
@@ -59,8 +58,10 @@ public class KeychainService {
     /// - Parameter key: The key.
     /// - Returns: The stored Data or nil.
     public func get(_ key: String) -> Data? {
-        let query = NSDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
-                                 forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnData, kSec.matchLimit])
+        let query = NSDictionary(
+            objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
+            forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnData, kSec.matchLimit]
+        )
 
         var dataRef: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
@@ -81,7 +82,12 @@ public class KeychainService {
     @discardableResult
     public func set(_ data: Data, forKey key: String) -> Result {
         let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+                                        forKeys: [
+                                            kSec.class,
+                                            kSec.attrService,
+                                            kSec.attrAccount,
+                                            kSec.returnAttributes,
+                                        ])
         // Delete first and old entry
         let deleteStatus = SecItemDelete(query as CFDictionary)
         if deleteStatus != errSecSuccess {
@@ -105,7 +111,12 @@ public class KeychainService {
     @discardableResult
     public func delete(_ key: String) -> Result {
         let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+                                        forKeys: [
+                                            kSec.class,
+                                            kSec.attrService,
+                                            kSec.attrAccount,
+                                            kSec.returnAttributes,
+                                        ])
         // Delete first and old entry
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess {
@@ -117,7 +128,6 @@ public class KeychainService {
 }
 
 public extension KeychainService {
-
     /// Custom getter for Decodable conforming types.
     ///
     /// - Parameter key: The key.

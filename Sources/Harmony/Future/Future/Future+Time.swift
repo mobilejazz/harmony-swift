@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Future {
-
     /// Adds a delay to the then call.
     ///
     /// - Parameters:
@@ -31,7 +30,7 @@ public extension Future {
 
         return Future { resolver in
             queue.asyncAfter(deadline: .now() + interval) {
-                self.resolve(success: {value in
+                self.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)
@@ -52,7 +51,7 @@ public extension Future {
 
         return Future { resolver in
             Thread.sleep(forTimeInterval: interval)
-            self.resolve(success: {value in
+            self.resolve(success: { value in
                 resolver.set(value)
             }, failure: { error in
                 resolver.set(error)
@@ -69,7 +68,7 @@ public extension Future {
     func after(_ deadline: DispatchTime, queue: DispatchQueue) -> Future<T> {
         return Future { resolver in
             queue.asyncAfter(deadline: deadline) {
-                self.resolve(success: {value in
+                self.resolve(success: { value in
                     resolver.set(value)
                 }, failure: { error in
                     resolver.set(error)

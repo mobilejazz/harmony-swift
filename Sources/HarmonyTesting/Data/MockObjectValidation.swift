@@ -22,11 +22,11 @@ public struct MockObjectValidation<T>: ObjectValidation {
         self.arrayValid = arrayValid
     }
 
-    public func isObjectValid<T>(_ object: T) -> Bool {
+    public func isObjectValid<T>(_: T) -> Bool {
         return objectValid
     }
 
-    public func isArrayValid<T>(_ objects: [T]) -> Bool {
+    public func isArrayValid<T>(_: [T]) -> Bool {
         return arrayValid
     }
 }

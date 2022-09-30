@@ -48,7 +48,7 @@ class ItemListDefaultPresenter: ItemListPresenter {
 
     func onActionReloadList() {
         view?.onDisplayProgressHud(show: true)
-        self.getItems.execute(MainSyncOperation()).then { items in
+        getItems.execute(MainSyncOperation()).then { items in
             self.view?.onDisplayProgressHud(show: false)
             self.view?.onDisplayItems(items)
         }.fail { error in

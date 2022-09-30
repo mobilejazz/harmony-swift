@@ -17,10 +17,10 @@
 import Foundation
 
 ///
-/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
+/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple
+// "translator".
 ///
-public class GetRepositoryMapper <R: GetRepository, In, Out> : GetRepository where R.T == In {
-
+public class GetRepositoryMapper<R: GetRepository, In, Out>: GetRepository where R.T == In {
     public typealias T = Out
 
     private let repository: R
@@ -39,7 +39,7 @@ public class GetRepositoryMapper <R: GetRepository, In, Out> : GetRepository whe
 
     public func get(_ query: Query, operation: Operation) -> Future<Out> {
         return repository.get(query, operation: operation).map { value in
-            return try self.toOutMapper.map(value)
+            try self.toOutMapper.map(value)
         }
     }
 
@@ -55,10 +55,10 @@ extension GetRepository {
 }
 
 ///
-/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
+/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple
+// "translator".
 ///
-public class PutRepositoryMapper <R: PutRepository, Out, In> : PutRepository where R.T == In {
-
+public class PutRepositoryMapper<R: PutRepository, Out, In>: PutRepository where R.T == In {
     public typealias T = Out
 
     private let repository: R
@@ -93,23 +93,25 @@ public class PutRepositoryMapper <R: PutRepository, Out, In> : PutRepository whe
     @discardableResult
     public func putAll(_ array: [Out], in query: Query, operation: Operation) -> Future<[Out]> {
         return Future {
-            return repository.putAll(try toInMapper.map(array), in: query, operation: operation).map { try self.toOutMapper.map($0) }
+            return repository.putAll(try toInMapper.map(array), in: query, operation: operation)
+                .map { try self.toOutMapper.map($0) }
         }
     }
 }
 
 extension PutRepository {
-    func withMapping<K>(in toInMapper: Mapper<K, T>, out toOutMapper: Mapper<T, K>) -> PutRepositoryMapper<Self, T, K> {
+    func withMapping<K>(in toInMapper: Mapper<K, T>,
+                        out toOutMapper: Mapper<T, K>) -> PutRepositoryMapper<Self, T, K> {
         return PutRepositoryMapper(repository: self, toInMapper: toInMapper, toOutMapper: toOutMapper)
     }
 }
 
 ///
-/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple "translator".
+/// This repository uses mappers to map objects and redirects them to the contained repository, acting as a simple
+// "translator".
 ///
-public class RepositoryMapper <R, Out, In> : GetRepository, PutRepository, DeleteRepository
-where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
-
+public class RepositoryMapper<R, Out, In>: GetRepository, PutRepository, DeleteRepository
+    where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
     public typealias T = Out
 
     private let repository: R
@@ -132,7 +134,7 @@ where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
 
     public func get(_ query: Query, operation: Operation) -> Future<Out> {
         return repository.get(query, operation: operation).map { value in
-            return try self.toOutMapper.map(value)
+            try self.toOutMapper.map(value)
         }
     }
 
@@ -154,7 +156,8 @@ where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == In {
     @discardableResult
     public func putAll(_ array: [Out], in query: Query, operation: Operation) -> Future<[Out]> {
         return Future {
-            return repository.putAll(try toInMapper.map(array), in: query, operation: operation).map { try self.toOutMapper.map($0) }
+            return repository.putAll(try toInMapper.map(array), in: query, operation: operation)
+                .map { try self.toOutMapper.map($0) }
         }
     }
 

@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 
 class UnauthorizedStatusCodeRequestRetrier: RequestRetrier {
-    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+    func retry(_ request: Request, for _: Session, dueTo _: Error, completion: @escaping (RetryResult) -> Void) {
         if request.response?.statusCode == 401 {
             // TODO: Logout user
         }

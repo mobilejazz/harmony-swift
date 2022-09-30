@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Observable {
-
     /// Maps the value and return a new observable with the value mapped
     ///
     /// - Parameters:
@@ -28,7 +27,7 @@ public extension Observable {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
-                    do { resolver.set(try transform(value)) } catch let error { resolver.set(error) }
+                    do { resolver.set(try transform(value)) } catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
@@ -42,7 +41,8 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - transform: The map closure
     /// - Returns: A error-mapped chained future
-    func mapError(_ executor: Executor = DirectExecutor(), _ transform: @escaping (Error) -> Error) -> Observable<T> {
+    func mapError(_ executor: Executor = DirectExecutor(),
+                  _ transform: @escaping (Error) -> Error) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit { resolver.set(value) }
@@ -58,11 +58,12 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The flatmap closure
     /// - Returns: A chained observable
-    func flatMap<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
+    func flatMap<K>(_ executor: Executor = DirectExecutor(),
+                    _ closure: @escaping (T) throws -> Observable<K>) -> Observable<K> {
         return Observable<K>(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
-                    do { resolver.set(try closure(value)) } catch let error { resolver.set(error) }
+                    do { resolver.set(try closure(value)) } catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
@@ -77,7 +78,7 @@ public extension Observable {
     /// - Returns: The incoming observable chained to the current one
     func chain<K>(_ observable: Observable<K>) -> Observable<K> {
         return flatMap { _ in
-            return observable
+            observable
         }
     }
 
@@ -87,13 +88,14 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained observable
-    func recover(_ executor: Executor = DirectExecutor(), _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
+    func recover(_ executor: Executor = DirectExecutor(),
+                 _ closure: @escaping (Error) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
-                    do { resolver.set(try closure(error)) } catch let error { resolver.set(error) }
+                    do { resolver.set(try closure(error)) } catch { resolver.set(error) }
                 }
             })
         }
@@ -106,9 +108,10 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained observable
-    func recover<E: Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
+    func recover<E: Error>(if _: E.Type, _ executor: Executor = DirectExecutor(),
+                           _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
@@ -116,7 +119,7 @@ public extension Observable {
                     case let error as E:
                         do {
                             resolver.set(try closure(error))
-                        } catch let error {
+                        } catch {
                             resolver.set(error)
                         }
                     default:
@@ -156,14 +159,15 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The filter closure. Throw an error to replace it's value for an error.
     /// - Returns: A chained observable
-    func filter(_ executor: Executor = DirectExecutor(), _ closure: @escaping (T) throws -> Void) -> Observable<T> {
+    func filter(_ executor: Executor = DirectExecutor(),
+                _ closure: @escaping (T) throws -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
             resolve(success: { value in
                 executor.submit {
                     do {
                         try closure(value)
                         resolver.set(value)
-                    } catch let error {
+                    } catch {
                         resolver.set(error)
                     }
                 }

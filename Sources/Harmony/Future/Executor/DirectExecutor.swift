@@ -23,7 +23,7 @@ public class DirectExecutor: Executor {
     public private(set) var executing: Bool = false
     public let name: String? = "com.mobilejazz.executor.direct"
 
-    public init() { }
+    public init() {}
 
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         executing = true
@@ -35,7 +35,6 @@ public class DirectExecutor: Executor {
 }
 
 public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor {
-
     private let overrideDelay: Bool
 
     public init(overrideDelay: Bool = false) {
@@ -43,8 +42,8 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
     }
 
     public func submit(after: DispatchTime, _ closure: @escaping (@escaping () -> Void) -> Void) {
-        if self.overrideDelay {
-            self.submit(closure)
+        if overrideDelay {
+            submit(closure)
         } else {
             DispatchQueue.main.asyncAfter(deadline: after) {
                 self.executing = true
@@ -56,9 +55,12 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
         }
     }
 
-    @discardableResult public func submit<T>(after: DispatchTime, _ closure: @escaping (FutureResolver<T>) throws -> Void) -> Future<T> {
+    @discardableResult public func submit<T>(
+        after: DispatchTime,
+        _ closure: @escaping (FutureResolver<T>) throws -> Void
+    ) -> Future<T> {
         let future = Future<T>()
-        self.submit(after: after) { end in
+        submit(after: after) { end in
             future.onSet {
                 end()
             }
@@ -66,7 +68,7 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
             do {
                 let resolver = FutureResolver(future)
                 try closure(resolver)
-            } catch let error {
+            } catch {
                 future.set(error)
             }
         }
@@ -77,8 +79,9 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
     ///
     /// - Parameter closure: The closure to be executed. An error can be thrown.
     /// - Returns: A future wrapping the error, if thrown.
-    @discardableResult public func submit(after: DispatchTime, _ closure:  @escaping () throws -> Void) -> Future<Void> {
-        return self.submit(after: after) { resolver in
+    @discardableResult public func submit(after: DispatchTime,
+                                          _ closure: @escaping () throws -> Void) -> Future<Void> {
+        return submit(after: after) { resolver in
             try closure()
             resolver.set()
         }
@@ -87,22 +90,22 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
 
 //
 /// Executes on the main queue asynchronously.
-/// However, if the submit is called in the main thread, the submitted closure is directly called as in a DirectExecutor.
+/// However, if the submit is called in the main thread, the submitted closure is directly called as in a
+// DirectExecutor.
 ///
 public class MainDirectExecutor: Executor {
-
     public let name: String? = "com.mobilejazz.executor.main-direct"
     public var executing: Bool = false
 
-    public init() { }
+    public init() {}
 
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         if Thread.isMainThread {
-            self.executing = true
+            executing = true
             let sempahore = DispatchSemaphore(value: 0)
             closure { sempahore.signal() }
             sempahore.wait()
-            self.executing = false
+            executing = false
         } else {
             DispatchQueue.main.async {
                 self.executing = true

@@ -23,7 +23,6 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 @available(*, deprecated, message: "Use the KeychainDataSource and Repository pattern instead.")
 public class KeychainSetInteractor {
-
     private let executor: Executor
     private let keychain: KeychainService
     private let key: String
@@ -41,7 +40,8 @@ public class KeychainSetInteractor {
     }
 
     /// Convenience initializer.
-    /// This initializer uses a shared executor on all KeychainSetInteractor instances and the default service of Keychain().
+    /// This initializer uses a shared executor on all KeychainSetInteractor instances and the default service of
+    // Keychain().
     ///
     /// - Parameter key: The key to access the user defaults
     public convenience init(_ key: String) {
@@ -57,8 +57,11 @@ public class KeychainSetInteractor {
             switch result {
             case .success:
                 resolver.set(true)
-            case .failed(let status):
-                resolver.set(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(self.key) (OSStatus \(status))"))
+            case let .failed(status):
+                resolver
+                    .set(CoreError
+                        .OSStatusFailure(status,
+                                         "Keychain failed to set value for key \(self.key) (OSStatus \(status))"))
             }
         }
     }

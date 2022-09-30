@@ -18,8 +18,7 @@ import Foundation
 
 /// Prints to the system console
 public class DeviceConsoleLogger: Logger {
-
-    public init() { }
+    public init() {}
 
     public func log(level: LogLevel, tag: String?, message: String) {
         if let tag = tag {
@@ -39,8 +38,8 @@ public class DeviceConsoleLogger: Logger {
 }
 
 // MARK: - Helpers
-private extension DeviceConsoleLogger {
 
+private extension DeviceConsoleLogger {
     func levelStringRepresentation(of level: LogLevel) -> String {
         switch level {
         case .trace:

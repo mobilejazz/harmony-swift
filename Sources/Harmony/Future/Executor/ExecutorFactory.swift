@@ -16,7 +16,6 @@
 
 import Foundation
 public class ExecutorFactory {
-
     public enum Scope {
         case none
         case string(String)
@@ -37,7 +36,7 @@ public class ExecutorFactory {
         switch scope {
         case .none:
             return builder(name)
-        case .string(let value):
+        case let .string(value):
             if let executor = stringScope[value] {
                 return executor
             } else {
@@ -45,7 +44,7 @@ public class ExecutorFactory {
                 stringScope[value] = executor
                 return executor
             }
-        case .type(let value):
+        case let .type(value):
             if let executor = typeScope[value] {
                 return executor
             } else {
@@ -53,7 +52,7 @@ public class ExecutorFactory {
                 typeScope[value] = executor
                 return executor
             }
-        case .integer(let value):
+        case let .integer(value):
             if let executor = integerScope[value] {
                 return executor
             } else {

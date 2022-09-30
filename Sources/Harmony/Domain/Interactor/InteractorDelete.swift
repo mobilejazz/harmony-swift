@@ -21,7 +21,6 @@ extension Interactor {
     /// Generic delete object by query interactor
     ///
     open class DeleteByQuery {
-
         private let executor: Executor
         private let repository: DeleteRepository
 
@@ -31,7 +30,8 @@ extension Interactor {
         }
 
         @discardableResult
-        open func execute(_ query: Query, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        open func execute(_ query: Query, _ operation: Operation = DefaultOperation(),
+                          in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(query, operation: operation))
@@ -39,7 +39,8 @@ extension Interactor {
         }
 
         @discardableResult
-        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
+        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(),
+                             in executor: Executor? = nil) -> Future<Void> where K: Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(id, operation: operation))
@@ -51,7 +52,6 @@ extension Interactor {
     /// Generic delete object interactor
     ///
     open class Delete {
-
         private let query: Query
         private let executor: Executor
         private let repository: DeleteRepository
@@ -62,12 +62,14 @@ extension Interactor {
             self.repository = repository
         }
 
-        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K: Hashable {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K)
+            where K: Hashable {
             self.init(executor, repository, IdQuery(id))
         }
 
         @discardableResult
-        open func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        open func execute(_ operation: Operation = DefaultOperation(),
+                          in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.delete(self.query, operation: operation))
@@ -79,7 +81,6 @@ extension Interactor {
     /// Generic delete objects interactor
     ///
     open class DeleteAllByQuery {
-
         private let executor: Executor
         private let repository: DeleteRepository
 
@@ -89,7 +90,8 @@ extension Interactor {
         }
 
         @discardableResult
-        open func execute(_ query: Query, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        open func execute(_ query: Query, _ operation: Operation = DefaultOperation(),
+                          in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(query, operation: operation))
@@ -97,7 +99,8 @@ extension Interactor {
         }
 
         @discardableResult
-        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
+        open func execute<K>(_ id: K, _ operation: Operation = DefaultOperation(),
+                             in executor: Executor? = nil) -> Future<Void> where K: Hashable {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(id, operation: operation))
@@ -109,7 +112,6 @@ extension Interactor {
     /// Generic delete objects interactor
     ///
     open class DeleteAll {
-
         private let query: Query
         private let executor: Executor
         private let repository: DeleteRepository
@@ -120,12 +122,14 @@ extension Interactor {
             self.repository = repository
         }
 
-        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K) where K: Hashable {
+        public convenience init<K>(_ executor: Executor, _ repository: DeleteRepository, _ id: K)
+            where K: Hashable {
             self.init(executor, repository, IdQuery(id))
         }
 
         @discardableResult
-        open func execute(_ operation: Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
+        open func execute(_ operation: Operation = DefaultOperation(),
+                          in executor: Executor? = nil) -> Future<Void> {
             let executor = executor ?? self.executor
             return executor.submit { resolver in
                 resolver.set(self.repository.deleteAll(self.query, operation: operation))
@@ -134,28 +138,28 @@ extension Interactor {
     }
 }
 
-extension DeleteRepository {
-    public func toDeleteByQueryInteractor(_ executor: Executor) -> Interactor.DeleteByQuery {
+public extension DeleteRepository {
+    func toDeleteByQueryInteractor(_ executor: Executor) -> Interactor.DeleteByQuery {
         return Interactor.DeleteByQuery(executor, self)
     }
 
-    public func toDeleteInteractor(_ executor: Executor, _ query: Query) -> Interactor.Delete {
+    func toDeleteInteractor(_ executor: Executor, _ query: Query) -> Interactor.Delete {
         return Interactor.Delete(executor, self, query)
     }
 
-    public func toDeleteInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.Delete where K: Hashable {
+    func toDeleteInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.Delete where K: Hashable {
         return Interactor.Delete(executor, self, id)
     }
 
-    public func toDeleteAllByQueryInteractor(_ executor: Executor) -> Interactor.DeleteAllByQuery {
+    func toDeleteAllByQueryInteractor(_ executor: Executor) -> Interactor.DeleteAllByQuery {
         return Interactor.DeleteAllByQuery(executor, self)
     }
 
-    public func toDeleteAllInteractor(_ executor: Executor, _ query: Query) -> Interactor.DeleteAll {
+    func toDeleteAllInteractor(_ executor: Executor, _ query: Query) -> Interactor.DeleteAll {
         return Interactor.DeleteAll(executor, self, query)
     }
 
-    public func toDeleteAllInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.DeleteAll where K: Hashable {
+    func toDeleteAllInteractor<K>(_ executor: Executor, _ id: K) -> Interactor.DeleteAll where K: Hashable {
         return Interactor.DeleteAll(executor, self, id)
     }
 }

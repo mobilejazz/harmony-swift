@@ -18,7 +18,6 @@ import XCTest
 @testable import Harmony
 
 class FutureThenTests: XCTestCase {
-
     func testFutureFirstSetAfterThen() {
         // Arrange + Act
         let future = Future<Int>(42)
@@ -35,7 +34,7 @@ class FutureThenTests: XCTestCase {
     func testFutureFirstThenAfterSet() {
         // Arrange
         let future = Future<Int>()
-        let expectation1 = self.expectation(description: "1 then")
+        let expectation1 = expectation(description: "1 then")
 
         // Assert
         XCTAssertTrue(future.state == .blank)
@@ -53,15 +52,15 @@ class FutureThenTests: XCTestCase {
         // Assert
         XCTAssertTrue(future.state == .sent)
 
-        self.wait(for: [expectation1], timeout: 1)
+        wait(for: [expectation1], timeout: 1)
     }
 
     func testFutureDoubleThen() {
         // Arrange + Act
         let future = Future<Int>(42)
 
-        let expectation1 = self.expectation(description: "1 then")
-        let expectation2 = self.expectation(description: "2 then")
+        let expectation1 = expectation(description: "1 then")
+        let expectation2 = expectation(description: "2 then")
 
         // Assert
         future.then { value in
@@ -75,19 +74,19 @@ class FutureThenTests: XCTestCase {
         }
         XCTAssertTrue(future.state == .sent)
 
-        self.wait(for: [expectation1, expectation2], timeout: 1)
+        wait(for: [expectation1, expectation2], timeout: 1)
     }
 
     func testFutureLotsOfThen() {
         // Arrange + Act
         let future = Future<Int>(42)
 
-        let expectation1 = self.expectation(description: "1 then")
-        let expectation2 = self.expectation(description: "2 then")
-        let expectation3 = self.expectation(description: "3 then")
-        let expectation4 = self.expectation(description: "4 then")
-        let expectation5 = self.expectation(description: "5 then")
-        let expectation6 = self.expectation(description: "6 then")
+        let expectation1 = expectation(description: "1 then")
+        let expectation2 = expectation(description: "2 then")
+        let expectation3 = expectation(description: "3 then")
+        let expectation4 = expectation(description: "4 then")
+        let expectation5 = expectation(description: "5 then")
+        let expectation6 = expectation(description: "6 then")
 
         // Assert
         future.then { value in
@@ -113,7 +112,6 @@ class FutureThenTests: XCTestCase {
         }
         XCTAssertTrue(future.state == .sent)
 
-        self.wait(for: [expectation1, expectation2, expectation3, expectation4, expectation5, expectation6], timeout: 1)
+        wait(for: [expectation1, expectation2, expectation3, expectation4, expectation5, expectation6], timeout: 1)
     }
-
 }

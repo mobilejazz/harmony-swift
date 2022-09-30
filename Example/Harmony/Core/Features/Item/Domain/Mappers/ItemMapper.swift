@@ -9,7 +9,13 @@ import Harmony
 
 class ItemToItemEntityMapper: Mapper<Item, ItemEntity> {
     override func map(_ from: Item) throws -> ItemEntity {
-        return ItemEntity(id: from.id, name: from.name, price: from.price, count: from.count, imageURL: from.imageURL)
+        return ItemEntity(
+            id: from.id,
+            name: from.name,
+            price: from.price,
+            count: from.count,
+            imageURL: from.imageURL
+        )
     }
 }
 

@@ -42,6 +42,6 @@ public extension NSError {
                      subdomain: String,
                      code: Int = 0,
                      userInfo: (inout [String: Any]) -> Void = { _ in }) {
-        self.init(message, reason: reason, domain: NSError.domain(subdomain), code: code, userInfo: userInfo )
+        self.init(message, reason: reason, domain: NSError.domain(subdomain), code: code, userInfo: userInfo)
     }
 }

@@ -55,8 +55,8 @@ private class DictionaryLockProvider<T>: LockProvider where T: Hashable {
     }
 }
 
-private let objectLockProvider  = MapTableLockProvider<AnyObject>()
-private let stringLockProvider  = DictionaryLockProvider<String>()
+private let objectLockProvider = MapTableLockProvider<AnyObject>()
+private let stringLockProvider = DictionaryLockProvider<String>()
 private let integerLockProvider = DictionaryLockProvider<Int>()
 private let typeLockProvider = DictionaryLockProvider<String>()
 
@@ -73,7 +73,6 @@ private let typeLockProvider = DictionaryLockProvider<String>()
 ///     }
 /// }
 public struct ScopeLock {
-
     /// The scope
     ///
     /// - none: No scope defined. The ScopeLock will be instance specific.
@@ -99,15 +98,15 @@ public struct ScopeLock {
         switch scope {
         case .none:
             lock = NSLock()
-        case .lock(let inLock):
+        case let .lock(inLock):
             lock = inLock
         case .global:
             lock = typeLockProvider.lockWithScope(String(describing: T.self))
-        case .object(let object):
+        case let .object(object):
             lock = objectLockProvider.lockWithScope(object)
-        case .string(let string):
+        case let .string(string):
             lock = stringLockProvider.lockWithScope(string)
-        case .int(let integer):
+        case let .int(integer):
             lock = integerLockProvider.lockWithScope(integer)
         }
     }
@@ -127,7 +126,7 @@ public struct ScopeLock {
         self.init(Scope<Void>.object(object))
     }
 
-    public init<T>(_ type: T.Type) {
+    public init<T>(_: T.Type) {
         self.init(Scope<T>.global)
     }
 

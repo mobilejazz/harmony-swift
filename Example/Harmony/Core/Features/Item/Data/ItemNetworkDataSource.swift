@@ -5,21 +5,20 @@
 
 import Foundation
 
-import Harmony
 import Alamofire
+import Harmony
 
-extension ItemEntity {
-    fileprivate static var fromNetworkMap: [String: String] {
+private extension ItemEntity {
+    static var fromNetworkMap: [String: String] {
         return ["image-url": "imageURL"]
     }
 
-    fileprivate static var toNetworkMap: [String: String] {
+    static var toNetworkMap: [String: String] {
         return ["imageURL": "image-url"]
     }
 }
 
 class ItemNetworkDataSource: GetDataSource {
-
     typealias T = ItemEntity
 
     var sessionManager: Session
@@ -56,9 +55,10 @@ private extension ItemNetworkDataSource {
             guard let json = data as? [String: AnyObject] else {
                 throw CoreError.NotFound()
             }
-            let future = json.decodeAs(ItemEntity.self, keyDecodingStrategy: .map(ItemEntity.fromNetworkMap)) { item in
-                item.lastUpdate = Date()
-            }
+            let future = json
+                .decodeAs(ItemEntity.self, keyDecodingStrategy: .map(ItemEntity.fromNetworkMap)) { item in
+                    item.lastUpdate = Date()
+                }
             return future
         }
     }

@@ -22,7 +22,6 @@ private let executingKey = DispatchSpecificKey<Bool>()
 /// DispatchQueue Executor extension.
 ///
 extension DispatchQueue: Executor {
-
     public var name: String? { return label }
 
     public var executing: Bool {
@@ -44,7 +43,6 @@ extension DispatchQueue: Executor {
 /// GCD-based executor
 ///
 public class DispatchQueueExecutor: Executor {
-
     /// The queue type
     ///
     /// - serialQueue: Serial queue
@@ -67,7 +65,8 @@ public class DispatchQueueExecutor: Executor {
     /// Convenience initializer
     ///
     /// - Parameter type: Queue type
-    public convenience init(_ type: QueueType = .serial, name: String = OperationQueueExecutor.nextExecutorName()) {
+    public convenience init(_ type: QueueType = .serial,
+                            name: String = OperationQueueExecutor.nextExecutorName()) {
         switch type {
         case .serial:
             let queue = DispatchQueue(label: name)

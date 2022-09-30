@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Observable {
-
     /// Unwrapes a observable of an optional type, returning a observable of a non-optional type
     ///
     /// - Returns: A chained observable.
@@ -34,14 +33,15 @@ public extension Observable {
     ///
     /// - Returns: An optional typed observable
     func optional() -> Observable<T?> {
-        return self.map { $0 as T? }
+        return map { $0 as T? }
     }
 
     /// Calls the closure when the observable is resolved with a nil value.
     ///
     /// - Parameter closure: The closure that will return a non-nil value.
     /// - Returns: A observable with a non-optional type.
-    func fill<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> K) -> Observable<K>  where T == K? {
+    func fill<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> K) -> Observable<K>
+        where T == K? {
         return flatMap(executor) { value in
             guard let value = value else {
                 return Observable<K>(closure())
@@ -54,7 +54,8 @@ public extension Observable {
     ///
     /// - Parameter closure: The closure that will return a non-optional observable.
     /// - Returns: A observable with a non-optional type.
-    func flatFill<K>(_ executor: Executor = DirectExecutor(), _ closure: @escaping () -> Observable<K>) -> Observable<K>  where T == K? {
+    func flatFill<K>(_ executor: Executor = DirectExecutor(),
+                     _ closure: @escaping () -> Observable<K>) -> Observable<K> where T == K? {
         return flatMap(executor) { value in
             guard let value = value else {
                 return Observable<K>(closure())
@@ -66,7 +67,8 @@ public extension Observable {
     /// Performs a map of an optional observable when the value is defined.
     ///
     /// - Returns: A chained observable.
-    func unwrappedMap<K, P>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K) -> P) -> Observable<P?> where T == K? {
+    func unwrappedMap<K, P>(_ executor: Executor = DirectExecutor(),
+                            _ closure: @escaping (K) -> P) -> Observable<P?> where T == K? {
         return flatMap(executor) { value in
             guard let value = value else {
                 return Observable<P?>(nil)

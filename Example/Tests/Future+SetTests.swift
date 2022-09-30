@@ -18,7 +18,6 @@ import XCTest
 @testable import Harmony
 
 class FutureSetTests: XCTestCase {
-
     func testFutureSetValue() {
         // Arrange
         let future = Future<Int>()
@@ -30,7 +29,7 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
         case .error:
             XCTAssert(false)
@@ -49,7 +48,7 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
         case .error:
             XCTAssert(false)
@@ -69,7 +68,7 @@ class FutureSetTests: XCTestCase {
         switch future._result! {
         case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
@@ -88,7 +87,7 @@ class FutureSetTests: XCTestCase {
         switch future._result! {
         case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
@@ -105,7 +104,7 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future.state == Future.State.waitingThen)
         XCTAssertNotNil(future._result)
         switch future._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
         case .error:
             XCTAssert(false)
@@ -126,7 +125,7 @@ class FutureSetTests: XCTestCase {
         switch future._result! {
         case .value:
             XCTAssert(false)
-        case .error(let error):
+        case let .error(error):
             XCTAssertTrue(error == Test.Error.code42)
         }
     }
@@ -144,7 +143,7 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future2.state == .waitingThen)
         XCTAssertNotNil(future2._result)
         switch future2._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
         case .error:
             XCTAssert(false)
@@ -164,7 +163,7 @@ class FutureSetTests: XCTestCase {
         XCTAssertTrue(future2.state == .waitingThen)
         XCTAssertNotNil(future2._result)
         switch future2._result! {
-        case .value(let value):
+        case let .value(value):
             XCTAssertEqual(value, 42)
         case .error:
             XCTAssert(false)

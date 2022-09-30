@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Harmony
 import Nimble
 import XCTest
-import Harmony
 
 class FileSystemStorageDataSourceTests: XCTestCase {
-    private func provideDataSource(insertValue: (IdQuery<String>, Data)? = nil, insertValues: (IdQuery<String>, [Data])? = nil) throws -> FileSystemStorageDataSource {
+    private func provideDataSource(
+        insertValue: (IdQuery<String>, Data)? = nil,
+        insertValues: (IdQuery<String>, [Data])? = nil
+    ) throws -> FileSystemStorageDataSource {
         let dataSource = FileSystemStorageDataSource(fileManager: FileManager.default, relativePath: "test")!
 
         if let insertValue = insertValue {
@@ -49,7 +52,10 @@ class FileSystemStorageDataSourceTests: XCTestCase {
     func test_getAll_value() throws {
         // Given
         let query = IdQuery(String(randomOfLength: 8))
-        let expectedValue = [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
+        let expectedValue = [
+            String(randomOfLength: 8).data(using: .utf8)!,
+            String(randomOfLength: 8).data(using: .utf8)!,
+        ]
         let dataSource = try provideDataSource(insertValues: (query, expectedValue))
 
         // When
@@ -77,7 +83,10 @@ class FileSystemStorageDataSourceTests: XCTestCase {
     func test_putAll_value() throws {
         // Given
         let query = IdQuery(String(randomOfLength: 8))
-        let expectedValue =  [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
+        let expectedValue = [
+            String(randomOfLength: 8).data(using: .utf8)!,
+            String(randomOfLength: 8).data(using: .utf8)!,
+        ]
         let dataSource = try provideDataSource()
 
         // When
@@ -111,7 +120,10 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         let valueQuery = IdQuery(String(randomOfLength: 8))
         let values = [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
         let valuesQuery = IdQuery(String(randomOfLength: 8))
-        let dataSource = try provideDataSource(insertValue: (valueQuery, value), insertValues: (valuesQuery, values))
+        let dataSource = try provideDataSource(
+            insertValue: (valueQuery, value),
+            insertValues: (valuesQuery, values)
+        )
 
         // When
         try dataSource.delete(AllObjectsQuery()).result.get()
@@ -225,7 +237,10 @@ class FileSystemStorageDataSourceTests: XCTestCase {
     func test_should_replace_previous_value_when_inserting_with_existing_key() throws {
         // Given
         let query = IdQuery(String(randomOfLength: 8))
-        let firstValue = [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
+        let firstValue = [
+            String(randomOfLength: 8).data(using: .utf8)!,
+            String(randomOfLength: 8).data(using: .utf8)!,
+        ]
         let secondValue = String(randomOfLength: 8).data(using: .utf8)!
         let dataSource = try provideDataSource(insertValues: (query, firstValue))
 
@@ -244,5 +259,4 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self)) // The old value (list) is not there anymore
     }
-
 }

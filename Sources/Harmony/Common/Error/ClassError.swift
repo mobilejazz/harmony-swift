@@ -41,7 +41,6 @@ import Foundation
 ///     }
 ///
 open class ClassError: Error, CustomStringConvertible {
-
     /// The error's domain
     public let domain: String
 

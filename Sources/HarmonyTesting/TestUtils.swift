@@ -19,9 +19,9 @@ import Harmony
 public enum TestUtils<T> {
     public static func result(expectedResult: Result<T, Error>) -> Future<T> {
         switch expectedResult {
-        case .success(let value):
+        case let .success(value):
             return Future(value)
-        case .failure(let error):
+        case let .failure(error):
             return Future(error)
         }
     }

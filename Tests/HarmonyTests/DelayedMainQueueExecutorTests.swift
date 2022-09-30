@@ -5,12 +5,11 @@
 //  Created by Borja Arias Drake on 21.09.2022..
 //
 
-import XCTest
-import Nimble
 import Harmony
+import Nimble
+import XCTest
 
 final class DelayedMainQueueExecutorTests: XCTestCase {
-
     func test_submit() throws {
         // Given
         let executor = DelayedMainQueueExecutor()

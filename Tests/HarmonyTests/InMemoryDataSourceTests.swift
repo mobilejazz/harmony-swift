@@ -15,12 +15,11 @@
 //
 
 import Foundation
+import Harmony
 import Nimble
 import XCTest
-import Harmony
 
 class InMemoryDataSourceTests: XCTestCase {
-
     private func provideEmptyDataSource() -> InMemoryDataSource<Int> {
         return InMemoryDataSource<Int>()
     }
@@ -68,7 +67,6 @@ class InMemoryDataSourceTests: XCTestCase {
             try dataSource.get(query).result.get()
         }
         .to(throwError(errorType: CoreError.NotFound.self))
-
     }
 
     func test_get_value_not_found() throws {
@@ -187,5 +185,4 @@ class InMemoryDataSourceTests: XCTestCase {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self)) // The old value (list) is not there anymore
     }
-
 }

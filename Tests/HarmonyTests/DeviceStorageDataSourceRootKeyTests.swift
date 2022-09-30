@@ -9,8 +9,10 @@ import Foundation
 import XCTest
 
 class DeviceStorageDataSourceRootKeyTests: XCTestCase {
-
-    private let tester = DeviceStorageDataSourceTester(DeviceStorageDataSourceObjectMother(deviceStorageType: .rootKey("test-root-key")))
+    private let tester =
+        DeviceStorageDataSourceTester(
+            DeviceStorageDataSourceObjectMother(deviceStorageType: .rootKey("test-root-key"))
+        )
 
     override func tearDown() {
         tester.tearDown()
@@ -83,5 +85,4 @@ class DeviceStorageDataSourceRootKeyTests: XCTestCase {
     func test_should_replace_previous_value_when_inserting_with_existing_key() throws {
         try tester.test_should_replace_previous_value_when_inserting_with_existing_key()
     }
-
 }

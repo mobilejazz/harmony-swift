@@ -16,13 +16,12 @@
 
 import Foundation
 
-public protocol DataSource { }
+public protocol DataSource {}
 
 ///
 /// Interface for a Get data source.
 ///
 public protocol GetDataSource: DataSource {
-
     associatedtype T
 
     /// Get a single method
@@ -38,12 +37,12 @@ public protocol GetDataSource: DataSource {
     func getAll(_ query: Query) -> Future<[T]>
 }
 
-extension GetDataSource {
-    public func get<K>(_ id: K) -> Future<T> where K: Hashable {
+public extension GetDataSource {
+    func get<K>(_ id: K) -> Future<T> where K: Hashable {
         return get(IdQuery(id))
     }
 
-    public func getAll<K>(_ id: K) -> Future<[T]> where K: Hashable {
+    func getAll<K>(_ id: K) -> Future<[T]> where K: Hashable {
         return getAll(IdQuery(id))
     }
 }
@@ -52,32 +51,33 @@ extension GetDataSource {
 /// Interface for a Put data source.
 ///
 public protocol PutDataSource: DataSource {
-
     associatedtype T
 
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
+    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g.
+    // id or timestamp fields.
     @discardableResult
     func put(_ value: T?, in query: Query) -> Future<T>
 
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
-    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
+    /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g.
+    // id or timestamp fields.
     @discardableResult
     func putAll(_ array: [T], in query: Query) -> Future<[T]>
 }
 
-extension PutDataSource {
+public extension PutDataSource {
     @discardableResult
-    public func put<K>(_ value: T?, forId id: K) -> Future<T> where K: Hashable {
+    func put<K>(_ value: T?, forId id: K) -> Future<T> where K: Hashable {
         return put(value, in: IdQuery(id))
     }
 
     @discardableResult
-    public func putAll<K>(_ array: [T], forId id: K) -> Future<[T]> where K: Hashable {
+    func putAll<K>(_ array: [T], forId id: K) -> Future<[T]> where K: Hashable {
         return putAll(array, in: IdQuery(id))
     }
 }
@@ -97,20 +97,21 @@ public protocol DeleteDataSource: DataSource {
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
     /// - Returns: A future of Void type.
-    @available(*, deprecated, message: "Use delete with AllObjectsQuery to remove all entries or with any other Query to remove one or more entries")
+    @available(*, deprecated,
+               message: "Use delete with AllObjectsQuery to remove all entries or with any other Query to remove one or more entries")
     @discardableResult
     func deleteAll(_ query: Query) -> Future<Void>
 }
 
-extension DeleteDataSource {
+public extension DeleteDataSource {
     @discardableResult
-    public func delete<K>(_ id: K) -> Future<Void> where K: Hashable {
+    func delete<K>(_ id: K) -> Future<Void> where K: Hashable {
         return delete(IdQuery(id))
     }
 
     @available(*, deprecated, message: "Use delete instead")
     @discardableResult
-    public func deleteAll<K>(_ id: K) -> Future<Void> where K: Hashable {
+    func deleteAll<K>(_ id: K) -> Future<Void> where K: Hashable {
         return deleteAll(IdQuery(id))
     }
 }
@@ -135,8 +136,11 @@ public enum DataSourceCRUD: CustomStringConvertible {
     }
 }
 
-extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D: DataSource {
-        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
+public extension Query {
+    func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D: DataSource {
+        Swift
+            .fatalError(
+                "Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))"
+            )
     }
 }

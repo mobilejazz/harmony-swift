@@ -16,9 +16,8 @@
 
 import Foundation
 
-extension JSONEncoder.KeyEncodingStrategy {
-
-    public static func map(_ keys: [String: String]) -> JSONEncoder.KeyEncodingStrategy {
+public extension JSONEncoder.KeyEncodingStrategy {
+    static func map(_ keys: [String: String]) -> JSONEncoder.KeyEncodingStrategy {
         return .custom { codingKeys in
 
             let originalKey = codingKeys.last!
@@ -32,9 +31,8 @@ extension JSONEncoder.KeyEncodingStrategy {
     }
 }
 
-extension JSONDecoder.KeyDecodingStrategy {
-
-    public static func map(_ keys: [String: String]) -> JSONDecoder.KeyDecodingStrategy {
+public extension JSONDecoder.KeyDecodingStrategy {
+    static func map(_ keys: [String: String]) -> JSONDecoder.KeyDecodingStrategy {
         return .custom { codingKeys in
 
             let originalKey = codingKeys.last!

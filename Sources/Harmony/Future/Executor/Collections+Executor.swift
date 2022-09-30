@@ -16,8 +16,7 @@
 
 import Foundation
 
-extension Array {
-
+public extension Array {
     /// Executor-based map method
     ///
     /// - Parameters:
@@ -25,8 +24,8 @@ extension Array {
     ///   - transform: The mapping closure
     /// - Returns: An array of mapped elements
     /// - Throws: The first mapping thrown error
-    public func map<T>(_ executor: Executor, _ transform : @escaping (Element) throws -> T) rethrows -> [T] {
-        let futures: [Future<T>] = self.map { element in
+    func map<T>(_ executor: Executor, _ transform: @escaping (Element) throws -> T) rethrows -> [T] {
+        let futures: [Future<T>] = map { element in
             let future: Future<T> = executor.submit { resolver in
                 resolver.set(try transform(element))
             }
@@ -36,8 +35,7 @@ extension Array {
     }
 }
 
-extension Set {
-
+public extension Set {
     /// Executor-based map method
     ///
     /// - Parameters:
@@ -45,8 +43,8 @@ extension Set {
     ///   - transform: The mapping closure
     /// - Returns: A set of mapped elements
     /// - Throws: The first mapping thrown error
-    public func map<T>(_ executor: Executor, _ transform : @escaping (Element) throws -> T) rethrows -> [T] {
-        let futures: [Future<T>] = self.map { element in
+    func map<T>(_ executor: Executor, _ transform: @escaping (Element) throws -> T) rethrows -> [T] {
+        let futures: [Future<T>] = map { element in
             let future: Future<T> = executor.submit { resolver in
                 resolver.set(try transform(element))
             }
@@ -56,8 +54,7 @@ extension Set {
     }
 }
 
-extension Dictionary {
-
+public extension Dictionary {
     /// Executor-based map method
     ///
     /// - Parameters:
@@ -65,8 +62,9 @@ extension Dictionary {
     ///   - transform: The mapping closure
     /// - Returns: A dictionary with mapped keys
     /// - Throws: The first mapping thrown error
-    public func mapKeys<T: Hashable>(_ executor: Executor, _ transform : @escaping (Key) throws -> T) rethrows -> [T: Value] {
-        let futures: [Future<(T, Value)>] = self.map { (key, value) in
+    func mapKeys<T: Hashable>(_ executor: Executor,
+                              _ transform: @escaping (Key) throws -> T) rethrows -> [T: Value] {
+        let futures: [Future<(T, Value)>] = map { key, value in
             let future: Future<(T, Value)> = executor.submit { resolver in
                 resolver.set((try transform(key), value))
             }
@@ -88,9 +86,9 @@ extension Dictionary {
     ///   - transform: The mapping closure
     /// - Returns: A dictionary with mapped values
     /// - Throws: The first mapping thrown error
-    public func mapValues<T>(_ executor: Executor, _ transform : @escaping (Value) throws -> T) rethrows -> [Key: T] {
+    func mapValues<T>(_ executor: Executor, _ transform: @escaping (Value) throws -> T) rethrows -> [Key: T] {
         return try map(executor) { element -> T in
-            return try transform(element.value)
+            try transform(element.value)
         }
     }
 
@@ -101,8 +99,9 @@ extension Dictionary {
     ///   - transform: The mapping closure
     /// - Returns: A dictionary with mapped values
     /// - Throws: The first mapping thrown error
-    public func map<T>(_ executor: Executor, _ transform : @escaping ((key: Key, value: Value)) throws -> T) rethrows -> [Key: T] {
-        let futures: [Future<(Key, T)>] = self.map { (key, value) in
+    func map<T>(_ executor: Executor,
+                _ transform: @escaping ((key: Key, value: Value)) throws -> T) rethrows -> [Key: T] {
+        let futures: [Future<(Key, T)>] = map { key, value in
             let future: Future<(Key, T)> = executor.submit { resolver in
                 resolver.set((key, try transform((key, value))))
             }

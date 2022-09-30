@@ -23,7 +23,7 @@ public enum DeviceStorageType {
 
     fileprivate func key(_ key: String) -> String {
         switch self {
-        case .prefix(let prefix):
+        case let .prefix(prefix):
             switch prefix.count {
             case 0:
                 return key
@@ -36,8 +36,7 @@ public enum DeviceStorageType {
     }
 }
 
-public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteDataSource {
-
+public class DeviceStorageDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource {
     private let userDefaults: UserDefaults
     private let storageType: DeviceStorageType
 
@@ -48,12 +47,12 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
 
     public init(_ userDefaults: UserDefaults = UserDefaults.standard, prefix: String) {
         self.userDefaults = userDefaults
-        self.storageType = .prefix(prefix)
+        storageType = .prefix(prefix)
     }
 
     private func getRootKey() -> String? {
         switch storageType {
-        case .rootKey(let rootKey):
+        case let .rootKey(rootKey):
             return "\(rootKey)<\(String(describing: T.self))>"
         default:
             return nil
@@ -65,7 +64,6 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
         case let query as KeyQuery:
             let key = storageType.key(query.key)
             guard let value: T = {
-
                 if let rootKey = getRootKey() {
                     return userDefaults.dictionary(forKey: rootKey)?[key] as? T
                 }
@@ -99,7 +97,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 // Dict can be composed of components of type T or [T].
                 // Let's add it all together in an array.
                 var array = [T]()
-                dict.forEach { (_, value) in
+                dict.forEach { _, value in
                     if let value = value as? T {
                         array.append(value)
                     } else if let values = value as? [T] {
@@ -109,9 +107,9 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                     }
                 }
                 return Future(array)
-            case .prefix(let prefix):
+            case let .prefix(prefix):
                 var array = [T]()
-                userDefaults.dictionaryRepresentation().forEach { (key, value) in
+                userDefaults.dictionaryRepresentation().forEach { key, value in
                     // Let's search for keys with the given prefix
                     guard key.hasPrefix(prefix) else { return }
 
@@ -195,7 +193,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdsQuery<String>:
-            return Future.batch(query.ids.map { delete(IdQuery($0)) }).map { _ in Void() }
+            return Future.batch(query.ids.map { delete(IdQuery($0)) }).map { _ in () }
         case is AllObjectsQuery:
             switch storageType {
             case .regular:
@@ -204,9 +202,9 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 let rootKey = getRootKey()! // Will always be present in this case
                 userDefaults.removeObject(forKey: rootKey)
                 userDefaults.synchronize()
-                return Future(Void())
-            case .prefix(let prefix):
-                userDefaults.dictionaryRepresentation().forEach { (key, value) in
+                return Future(())
+            case let .prefix(prefix):
+                userDefaults.dictionaryRepresentation().forEach { key, value in
                     // Let's search for keys with the given prefix
                     guard key.hasPrefix(prefix) else { return }
 
@@ -220,7 +218,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                         // Ignore the value as its type doesn't match
                     }
                 }
-                return Future(Void())
+                return Future(())
             }
         case let query as KeyQuery:
             let key = storageType.key(query.key)
@@ -232,7 +230,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 userDefaults.removeObject(forKey: key)
             }
             userDefaults.synchronize()
-            return Future(Void())
+            return Future(())
         default:
             query.fatalError(.delete, self)
         }

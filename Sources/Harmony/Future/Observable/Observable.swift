@@ -23,19 +23,19 @@ private struct ObservableError: Error {
     }
 }
 
-extension ObservableError {
+private extension ObservableError {
     /// Observable content has already been set
-    fileprivate static let thenAlreadySet = ObservableError("Then already set: cannot set a new then closure once is already set.")
+    static let thenAlreadySet =
+        ObservableError("Then already set: cannot set a new then closure once is already set.")
 
     /// Observable content has already been set
-    fileprivate static let missingLambda = ObservableError("Observable cannot be sent as the then clousre hasn't been defined")
+    static let missingLambda = ObservableError("Observable cannot be sent as the then clousre hasn't been defined")
 }
 
 ///
 /// A ObservableResolver resolves a Observable.
 ///
 public struct ObservableResolver<T> {
-
     private weak var observable: Observable<T>?
 
     /// Main initializer
@@ -65,27 +65,29 @@ public struct ObservableResolver<T> {
         observable?.set(future)
     }
 
-    /// Sets the observable with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
+    /// Sets the observable with a value if not error. Either the value or the error must be provided, otherwise a
+    // crash will happen.
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
         observable?.set(value: value, error: error)
     }
 
-    public func onDeinit(_ closure : @escaping () -> Void) {
+    public func onDeinit(_ closure: @escaping () -> Void) {
         observable?.onDeinit(closure)
     }
 }
 
-extension ObservableResolver where T==Void {
+public extension ObservableResolver where T == Void {
     /// Sets the observable with a void value
-    public func set() {
+    func set() {
         observable?.set()
     }
 }
 
 ///
 /// Observable class. Wrapper of an observable value of generic type T or an error.
-/// Observable chains must be retained from the end, as an observable child retains its parent, but the parent does not retains it child (this differs from the Future<T>).
+/// Observable chains must be retained from the end, as an observable child retains its parent, but the parent does
+// not retains it child (this differs from the Future<T>).
 ///
 /// Therefore, this is a good usage of an observable:
 ///     class MyViewController {
@@ -103,7 +105,6 @@ extension ObservableResolver where T==Void {
 ///     }
 ///
 public class Observable<T> {
-
     /// Observable states
     public enum State {
         case blank
@@ -140,9 +141,9 @@ public class Observable<T> {
         @discardableResult
         public func get() throws -> T {
             switch self {
-            case .value(let v):
+            case let .value(v):
                 return v
-            case .error(let e):
+            case let .error(e):
                 throw e
             }
         }
@@ -151,9 +152,9 @@ public class Observable<T> {
         @discardableResult
         public func get(error: inout Error?) -> T? {
             switch self {
-            case .value(let v):
+            case let .value(v):
                 return v
-            case .error(let e):
+            case let .error(e):
                 error = e
                 return nil
             }
@@ -211,7 +212,7 @@ public class Observable<T> {
         do {
             let resolver = ObservableResolver(self)
             try closure(resolver)
-        } catch let error {
+        } catch {
             set(error)
         }
     }
@@ -240,7 +241,7 @@ public class Observable<T> {
     /// Sets the observable with another observable
     public func set(_ observable: Observable<T>) {
         // Current observable retains the incoming observable
-        self.parent = observable
+        parent = observable
 
         // Incoming observable DOES NOT retain the current observable
         observable.resolve(success: { [weak self] value in
@@ -260,7 +261,8 @@ public class Observable<T> {
         })
     }
 
-    /// Sets the observable with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
+    /// Sets the observable with a value if not error. Either the value or the error must be provided, otherwise a
+    // crash will happen.
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
         var value: T? = value
@@ -302,12 +304,13 @@ public class Observable<T> {
     }
 
     /// Closure called right after content is set, without waiting the then closure.
-    /// Note that multiple calls to this method are discouraged, resulting with only one onContentSet closure being called.
+    /// Note that multiple calls to this method are discouraged, resulting with only one onContentSet closure being
+    // called.
     /// Note too that if the observable has already been sent, this closure is not called.
     ///
     /// - Parameter closure: The code to be executed
     public func onSet(_ closure: @escaping () -> Void) {
-        onContentSet = { (_, _) in
+        onContentSet = { _, _ in
             closure()
         }
     }
@@ -345,17 +348,15 @@ public class Observable<T> {
     /// Deliver the result syncrhonously. This method might block the calling thread.
     /// Note that the result can only be delivered once if the observable is not reactive.
     public var result: Result {
-        get {
-            switch state {
-            case .waitingThen:
-                return _result!
-            case .blank:
-                semaphore = DispatchSemaphore(value: 0)
-                semaphore!.wait()
-                return self.result
-            case .waitingContent:
-                fatalError(ObservableError.thenAlreadySet.description)
-            }
+        switch state {
+        case .waitingThen:
+            return _result!
+        case .blank:
+            semaphore = DispatchSemaphore(value: 0)
+            semaphore!.wait()
+            return self.result
+        case .waitingContent:
+            fatalError(ObservableError.thenAlreadySet.description)
         }
     }
 
@@ -366,9 +367,10 @@ public class Observable<T> {
     ///   - success: The then closure.
     /// - Returns: A chained observable
     @discardableResult
-    public func then(_ executor: Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Observable<T> {
+    public func then(_ executor: Executor = MainDirectExecutor(),
+                     _ success: @escaping (T) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     success(value)
                     resolver.set(value)
@@ -388,9 +390,10 @@ public class Observable<T> {
     ///   - failure: The fail closure.
     /// - Returns: A chained observable
     @discardableResult
-    public func fail(_ executor: Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Observable<T> {
+    public func fail(_ executor: Executor = MainDirectExecutor(),
+                     _ failure: @escaping (Error) -> Void) -> Observable<T> {
         return Observable(parent: self) { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     resolver.set(value)
                 }
@@ -405,13 +408,13 @@ public class Observable<T> {
 
     private func send() {
         switch _result! {
-        case .error(let error):
+        case let .error(error):
             guard let failure = failure else {
                 print(ObservableError.missingLambda.description)
                 return
             }
             failure(error)
-        case .value(let value):
+        case let .value(value):
             guard let success = success else {
                 print(ObservableError.missingLambda.description)
                 return
@@ -419,6 +422,7 @@ public class Observable<T> {
             success(value)
         }
     }
+
     // Private lock method
     private func lock(_ closure: () -> Void) {
         lock.lock()
@@ -435,9 +439,9 @@ extension Observable: CustomStringConvertible, CustomDebugStringConvertible {
             return "Empty observable. Waiting for value, error and then closure."
         case .waitingThen:
             switch _result! {
-            case .error(let error):
+            case let .error(error):
                 return "Observable waiting for then closure and error set to: \(error)"
-            case .value(let value):
+            case let .value(value):
                 return "Observable waiting for then closure and value set to: \(value)"
             }
         case .waitingContent:
@@ -450,8 +454,8 @@ extension Observable: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-extension Observable where T==Void {
-    public func set() {
-        set(Void())
+public extension Observable where T == Void {
+    func set() {
+        set(())
     }
 }

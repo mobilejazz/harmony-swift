@@ -6,8 +6,8 @@
 //  Copyright © 2017 Mobile Jazz. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct ItemDetailView: View {
     var item: Item
@@ -24,7 +24,7 @@ struct ItemDetailView: View {
             Spacer()
             Text("\(Int(item.price))€")
                 .font(.system(size: 80, weight: .bold))
-                .foregroundColor(Color(red: 0, green: 190.0/256.0, blue: 176.0/256.0))
+                .foregroundColor(Color(red: 0, green: 190.0 / 256.0, blue: 176.0 / 256.0))
             Spacer()
         }.navigationTitle(item.name)
     }
@@ -33,7 +33,15 @@ struct ItemDetailView: View {
 struct ItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ItemDetailView(item: Item(id: "1", name: "Macbook Pro", price: 1234.56, count: 12, imageURL: URL(string: "(https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_ES?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1654014007395")))
+            ItemDetailView(item: Item(
+                id: "1",
+                name: "Macbook Pro",
+                price: 1234.56,
+                count: 12,
+                imageURL: URL(
+                    string: "(https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_ES?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1654014007395"
+                )
+            ))
         }
     }
 }

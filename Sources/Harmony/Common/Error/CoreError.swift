@@ -20,8 +20,7 @@ import Foundation
 /// CoreError is used as a namespace
 ///
 public struct CoreError {
-
-    private init() { }
+    private init() {}
 
     // The domain for all CoreError errors.
     public static let domain = "com.mobilejazz.core.error"
@@ -32,7 +31,7 @@ public struct CoreError {
             super.init(domain: CoreError.domain, code: 0, description: description)
         }
 
-        public override init(domain: String, code: Int, description: String) {
+        override public init(domain: String, code: Int, description: String) {
             super.init(domain: domain, code: code, description: description)
         }
     }
@@ -79,10 +78,9 @@ public struct CoreError {
     }
 }
 
-extension CoreError {
-
+public extension CoreError {
     /// A base implementation for NSError to ClassError conversion
-    public class NSError: Unknown {
+    class NSError: Unknown {
         /// The NSError
         public let error: Foundation.NSError
 
@@ -94,13 +92,13 @@ extension CoreError {
             super.init(domain: error.domain, code: error.code, description: error.localizedDescription)
         }
 
-        public override func userInfo() -> [String: Any] {
+        override public func userInfo() -> [String: Any] {
             return error.userInfo
         }
     }
 
     /// OSStatus fail error. Subtype of Failed error.
-    public class OSStatusFailure: Failed {
+    class OSStatusFailure: Failed {
         /// The OSStatus
         public let status: OSStatus
 
@@ -114,7 +112,7 @@ extension CoreError {
             super.init(description ?? "OSStatus failure with code \(status)")
         }
 
-        public override func userInfo() -> [String: Any] {
+        override public func userInfo() -> [String: Any] {
             var userInfo = super.userInfo()
             userInfo["OSStatus"] = status
             return userInfo

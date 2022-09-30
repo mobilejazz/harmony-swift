@@ -44,7 +44,12 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
     /// - Parameters:
     ///   - fileManager: The FileManager
     ///   - directory: The directory where to store data
-    public init(fileManager: FileManager, directory: URL, writingOptions: Data.WritingOptions = [], fileNameEncoding: FileNameEncoding = .sha256) {
+    public init(
+        fileManager: FileManager,
+        directory: URL,
+        writingOptions: Data.WritingOptions = [],
+        fileNameEncoding: FileNameEncoding = .sha256
+    ) {
         self.fileManager = fileManager
         self.directory = directory
         self.writingOptions = writingOptions
@@ -54,14 +59,25 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
     /// Convenience initializer. Returns nil if the document directory is not reachable.
     ///
     /// - Parameters:
-    ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the documents directory
-    public convenience init?(fileManager: FileManager, relativePath: String, writingOptions: Data.WritingOptions = [], fileNameEncoding: FileNameEncoding = .sha256) {
+    ///   - relativePath: The relative path (example: "MyFolder/MySubfolder"), that will be appended on the
+    // documents directory
+    public convenience init?(
+        fileManager: FileManager,
+        relativePath: String,
+        writingOptions: Data.WritingOptions = [],
+        fileNameEncoding: FileNameEncoding = .sha256
+    ) {
         guard let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
         let url = documentsURL.appendingPathComponent(relativePath)
         print(url)
-        self.init(fileManager: fileManager, directory: url, writingOptions: writingOptions, fileNameEncoding: fileNameEncoding)
+        self.init(
+            fileManager: fileManager,
+            directory: url,
+            writingOptions: writingOptions,
+            fileNameEncoding: fileNameEncoding
+        )
     }
 
     private func fileName(_ key: String) -> String {
@@ -72,7 +88,7 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
             return key.sha256()
         case .md5:
             return key.md5()
-        case .custom(let encoder):
+        case let .custom(encoder):
             return encoder(key)
         }
     }
@@ -112,13 +128,16 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
                     .contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey])
                     .filter { url in
                         // Filter out folders
-                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! } catch { return false }
+                        do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! } catch {
+                            return false
+                        }
                     }.forEach { url in
                         guard let data = fileManager.contents(atPath: url.path) else {
                             throw CoreError.NotFound("Data not found at path: \(url.path)")
                         }
                         // Attempting to unarchive in case it was an array
-                        //                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] {
+                        //                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses:
+                        //                    [NSArray.self, NSData.self], from: data) as? [Data] {
                         if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
                             // it was an array!
                             array.append(contentsOf: datas)
@@ -134,7 +153,8 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
             guard let data = fileManager.contents(atPath: path) else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
-            //            guard let array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] else {
+            //            guard let array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self,
+            //            NSData.self], from: data) as? [Data] else {
             guard let array = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] else {
                 return Future(CoreError.NotFound("Data not found at path: \(path)"))
             }
@@ -155,7 +175,11 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
             let fileURL = self.fileURL(keyQuery.key)
             let folderURL = fileURL.deletingLastPathComponent()
             if fileManager.fileExists(atPath: folderURL.path) == false {
-                try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(
+                    atPath: folderURL.path,
+                    withIntermediateDirectories: true,
+                    attributes: nil
+                )
             }
             try data.write(to: fileURL, options: writingOptions)
             r.set(data)
@@ -169,11 +193,15 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
                 query.fatalError(.putAll, self)
             }
             return Future { r in
-                try query.ids.enumerated().forEach { (offset, id) in
+                try query.ids.enumerated().forEach { offset, id in
                     let fileURL = self.fileURL(id)
                     let folderURL = fileURL.deletingLastPathComponent()
                     if fileManager.fileExists(atPath: folderURL.path) == false {
-                        try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
+                        try fileManager.createDirectory(
+                            atPath: folderURL.path,
+                            withIntermediateDirectories: true,
+                            attributes: nil
+                        )
                     }
                     try array[offset].write(to: fileURL, options: writingOptions)
                 }
@@ -184,29 +212,32 @@ public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDa
                 let fileURL = self.fileURL(query.key)
                 let folderURL = fileURL.deletingLastPathComponent()
                 if fileManager.fileExists(atPath: folderURL.path) == false {
-                    try fileManager.createDirectory(atPath: folderURL.path, withIntermediateDirectories: true, attributes: nil)
+                    try fileManager.createDirectory(
+                        atPath: folderURL.path,
+                        withIntermediateDirectories: true,
+                        attributes: nil
+                    )
                 }
-                //                let data = try NSKeyedArchiver.archivedData(withRootObject: array, requiringSecureCoding: false)
+                //                let data = try NSKeyedArchiver.archivedData(withRootObject: array,
+                //                requiringSecureCoding: false)
                 let data = NSKeyedArchiver.archivedData(withRootObject: array)
                 try data.write(to: fileURL, options: writingOptions)
                 r.set(array)
             }
         default:
             query.fatalError(.getAll, self)
-
         }
-
     }
 
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdsQuery<String>:
             let futures: [Future<Void>] = query.ids.map { id in
-                return Future {
+                Future {
                     try? fileManager.removeItem(at: fileURL(id))
                 }
             }
-            return Future.batch(futures).map { _ in Void() }
+            return Future.batch(futures).map { _ in () }
         case is AllObjectsQuery:
             return Future {
                 // Deleting everything!

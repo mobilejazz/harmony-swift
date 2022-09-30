@@ -14,15 +14,14 @@
 // limitations under the License.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 import Harmony
 
 ///
 /// Logs CURLS of incoming requests
 ///
 public class URLLoggerRequestAdapter: RequestAdapter {
-
     private let logger: Logger
     private let tag: String?
 
@@ -31,7 +30,11 @@ public class URLLoggerRequestAdapter: RequestAdapter {
         self.tag = tag
     }
 
-    public func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+    public func adapt(
+        _ urlRequest: URLRequest,
+        for _: Session,
+        completion: @escaping (Result<URLRequest, Error>) -> Void
+    ) {
         let curl = urlRequest.curl(pretty: true)
         logger.info(tag: tag, "\(curl)")
         return completion(.success(urlRequest))
@@ -47,13 +50,13 @@ private extension URLRequest {
 
         var header = ""
 
-        if let httpHeaders = self.allHTTPHeaderFields, !httpHeaders.keys.isEmpty {
+        if let httpHeaders = allHTTPHeaderFields, !httpHeaders.keys.isEmpty {
             for (key, value) in httpHeaders {
                 header += "-H \"\(key): \(value)\" \(complement)"
             }
         }
 
-        if let bodyData = self.httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
+        if let bodyData = httpBody, let bodyString = String(data: bodyData, encoding: .utf8) {
             data = "-d \"\(bodyString)\" \(complement)"
         }
 

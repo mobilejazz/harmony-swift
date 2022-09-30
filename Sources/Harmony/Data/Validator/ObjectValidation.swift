@@ -26,7 +26,6 @@ public protocol ObjectValidation {
 }
 
 public extension ObjectValidation {
-
     /// Validator method for arrays
     ///
     /// The validation process iterates over the array and is considered valid if all objects are valid.
@@ -54,7 +53,7 @@ public extension ObjectValidation {
 ///
 public class DefaultObjectValidation: ObjectValidation {
     public init() {}
-    public func isObjectValid<T>(_ object: T) -> Bool {
+    public func isObjectValid<T>(_: T) -> Bool {
         return true
     }
 }

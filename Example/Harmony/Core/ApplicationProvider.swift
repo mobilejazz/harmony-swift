@@ -6,8 +6,8 @@
 //  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
-import Harmony
 import Alamofire
+import Harmony
 
 // Enabling vastra service as an object validation
 extension VastraService: ObjectValidation {}
@@ -17,14 +17,14 @@ protocol ApplicationComponent {
 }
 
 class ApplicationDefaultModule: ApplicationComponent {
-
     private lazy var logger: Logger = DeviceConsoleLogger()
     private lazy var backgroundExecutor: Executor = DispatchQueueExecutor()
 
     private lazy var apiClient: Session = {
         // Alamofire Session Manager
-        let sessionManager = Session(interceptor: BaseURLRequestAdapter(URL(string: "https://demo3068405.mockable.io")!,
-                                                                        [UnauthorizedStatusCodeRequestRetrier()]))
+        let sessionManager =
+            Session(interceptor: BaseURLRequestAdapter(URL(string: "https://demo3068405.mockable.io")!,
+                                                       [UnauthorizedStatusCodeRequestRetrier()]))
         return sessionManager
     }()
 

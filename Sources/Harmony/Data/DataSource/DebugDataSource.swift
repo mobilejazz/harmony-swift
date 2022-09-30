@@ -30,8 +30,8 @@ public enum DebugDataSourceError {
         switch self {
         case .none:
             break
-        case .error(let error, let probability):
-            if Double.random(in: 0.0...1.0) <= probability {
+        case let .error(error, probability):
+            if Double.random(in: 0.0 ... 1.0) <= probability {
                 throw error
             }
         }
@@ -39,7 +39,6 @@ public enum DebugDataSourceError {
 }
 
 private class DebugDataSourceToken {
-
     let id: String = {
         let base = String(randomOfLength: 8)
         let seed = DispatchTime.now()
@@ -61,13 +60,13 @@ private class DebugDataSourceToken {
         guard let start = startTime, let end = endTime else {
             return nil
         }
-        let seconds = TimeInterval((end.uptimeNanoseconds - start.uptimeNanoseconds)) / 1_000_000_000
+        let seconds = TimeInterval(end.uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
         return seconds
     }
 }
 
-public class DebugDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
-
+public class DebugDataSource<D, T>: GetDataSource, PutDataSource, DeleteDataSource where D: GetDataSource,
+    D: PutDataSource, D: DeleteDataSource, D.T == T {
     private let dataSource: D
     private let delay: DebugDataSourceDelay
     private let error: DebugDataSourceError
@@ -83,7 +82,8 @@ public class DebugDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSo
         self.logger = logger
     }
 
-    private func postprocess<K>(_ future: Future<K>, _ method: DataSourceCRUD, _ token: DebugDataSourceToken) -> Future<K> {
+    private func postprocess<K>(_ future: Future<K>, _ method: DataSourceCRUD,
+                                _ token: DebugDataSourceToken) -> Future<K> {
         return addError(addDelay(future.onCompletion { token.end() })).then { result in
             self.log(method, token, "Completed with result: \(String(describing: result))")
         }.fail { error in
@@ -95,9 +95,9 @@ public class DebugDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSo
         switch delay {
         case .none:
             return future
-        case .sync(let delay):
+        case let .sync(delay):
             return future.withBlockingDelay(delay)
-        case .async(let delay, let queue):
+        case let .async(delay, queue):
             return future.withDelay(delay, queue: queue)
         }
     }
@@ -108,7 +108,10 @@ public class DebugDataSource <D, T> : GetDataSource, PutDataSource, DeleteDataSo
 
     private func log(_ method: DataSourceCRUD, _ token: DebugDataSourceToken, _ message: String) {
         if let time = token.time() {
-            logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id) in <\(time)>s]: \(message)")
+            logger.info(
+                tag: String(describing: type(of: dataSource)),
+                "[\(method).\(token.id) in <\(time)>s]: \(message)"
+            )
         } else {
             logger.info(tag: String(describing: type(of: dataSource)), "[\(method).\(token.id)]: \(message)")
         }

@@ -19,7 +19,6 @@ import XCTest
 @testable import Harmony
 
 class FuturePerformanceTests: XCTestCase {
-
     /// Measures the average time needed to create a resolved `Future` and get into a `then` block
     /// chained to it.
     func testThenOnSerialQueue() {
@@ -109,7 +108,7 @@ class FuturePerformanceTests: XCTestCase {
         let queue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         let group = DispatchGroup()
         var futures = [Future<Bool>]()
-        for _ in 0..<Constants.iterationCount {
+        for _ in 0 ..< Constants.iterationCount {
             group.enter()
             let future = Future<Bool>()
             future.then(DispatchQueueExecutor(queue)) { _ in

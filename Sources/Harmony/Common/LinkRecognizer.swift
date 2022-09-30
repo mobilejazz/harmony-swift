@@ -18,35 +18,37 @@ import Foundation
 
 public protocol LinkRecognizerObserver: AnyObject {
     func linkRecognizer(_ linkRecognizer: LinkRecognizer, didRecognizeURLForKey key: String, components: [String])
-    func linkRecognizer(_ linkRecognizer: LinkRecognizer, didFailToRecognizeURL url: URL, result: LinkRecognizer.Result)
+    func linkRecognizer(
+        _ linkRecognizer: LinkRecognizer,
+        didFailToRecognizeURL url: URL,
+        result: LinkRecognizer.Result
+    )
 }
 
 public protocol LinkRecognizerDelegate: AnyObject {
-    func linkRecognizer(_ linkRecognizer: LinkRecognizer, willRecognizeURLForKey key: String, components: [String]) -> Bool
+    func linkRecognizer(_ linkRecognizer: LinkRecognizer, willRecognizeURLForKey key: String,
+                        components: [String]) -> Bool
 }
 
 public class LinkRecognizer {
-
     public enum Result: CustomStringConvertible {
         case valid([String])
         case unknownScheme
         case unsupportedLink
 
         public var description: String {
-            get {
-                switch self {
-                case .valid(let components):
-                    return "Valid with components: \(components)"
-                case .unknownScheme:
-                    return "UnkonwnScheme"
-                case .unsupportedLink:
-                    return "UnsupportedLink"
-                }
+            switch self {
+            case let .valid(components):
+                return "Valid with components: \(components)"
+            case .unknownScheme:
+                return "UnkonwnScheme"
+            case .unsupportedLink:
+                return "UnsupportedLink"
             }
         }
     }
 
-    public struct Pattern {
+    public enum Pattern {
         public static let numeric = "(\\d+)"
         public static let nonNumeric = "(\\D+)"
         public static let alphanumeric = "(\\w+)"
@@ -59,10 +61,11 @@ public class LinkRecognizer {
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        public static let none             = Options([])
-        public static let anchoredStart    = Options(rawValue: 1 << 0)
-        public static let anchoredEnd      = Options(rawValue: 1 << 1)
-        public static let caseInsensitive  = Options(rawValue: 1 << 2)
+
+        public static let none = Options([])
+        public static let anchoredStart = Options(rawValue: 1 << 0)
+        public static let anchoredEnd = Options(rawValue: 1 << 1)
+        public static let caseInsensitive = Options(rawValue: 1 << 2)
     }
 
     public weak var delegate: LinkRecognizerDelegate?
@@ -94,7 +97,8 @@ public class LinkRecognizer {
             return Result.unsupportedLink
         }
 
-        let regexOptions = options.contains(.caseInsensitive) ? NSRegularExpression.Options.caseInsensitive : NSRegularExpression.Options(rawValue: 0)
+        let regexOptions = options.contains(.caseInsensitive) ? NSRegularExpression.Options
+            .caseInsensitive : NSRegularExpression.Options(rawValue: 0)
 
         for (key, pattern) in patterns {
             var patternStr = pattern
@@ -111,7 +115,7 @@ public class LinkRecognizer {
                                                  options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                  range: NSRange(location: 0, length: linkStr.count)) {
                     var captures: [String] = []
-                    for index in 0..<result.numberOfRanges {
+                    for index in 0 ..< result.numberOfRanges {
                         if let range = Range(result.range(at: index), in: linkStr) {
                             let capture = linkStr[range]
                             captures.append(String(capture))
@@ -121,17 +125,22 @@ public class LinkRecognizer {
                     var canRecognizePattern = true
 
                     if let delegate = delegate {
-                        canRecognizePattern = delegate.linkRecognizer(self, willRecognizeURLForKey: key, components: captures)
+                        canRecognizePattern = delegate.linkRecognizer(
+                            self,
+                            willRecognizeURLForKey: key,
+                            components: captures
+                        )
                     }
 
                     if canRecognizePattern {
                         for observer in observers.allObjects {
-                            (observer as! LinkRecognizerObserver).linkRecognizer(self, didRecognizeURLForKey: key, components: captures)
+                            (observer as! LinkRecognizerObserver)
+                                .linkRecognizer(self, didRecognizeURLForKey: key, components: captures)
                         }
                         return .valid(captures)
                     }
                 }
-            } catch let error {
+            } catch {
                 NSLog("\(error)")
             }
         }

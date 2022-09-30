@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 import Harmony
 
 public enum HarmonyAlamofireError: Error {
@@ -24,23 +24,27 @@ public enum HarmonyAlamofireError: Error {
 
 public extension DataRequest {
     /// Inserts the JSON data response into a Future with a mapping window
-    func then<T>(queue: DispatchQueue? = nil,
-                 options: JSONSerialization.ReadingOptions = .allowFragments,
-                 success: @escaping (Any) throws -> T,
-                 failure: @escaping (Error, HTTPURLResponse?, Data?) -> Error = { (error, _, _) in error }) -> Future<T> {
+    func then<T>(
+        queue: DispatchQueue? = nil,
+        options: JSONSerialization.ReadingOptions = .allowFragments,
+        success: @escaping (Any) throws -> T,
+        failure: @escaping (Error, HTTPURLResponse?, Data?) -> Error = { error, _, _ in error }
+    ) -> Future<T> {
         return Future<T> { resolver in
-            self.validate().response(queue: queue ?? .main, responseSerializer: JSONResponseSerializer(options: options)) { response in
-                switch response.result {
-                case .failure(let error):
-                    resolver.set(failure(error, response.response, response.data))
-                case .success(let data):
-                    do {
-                        resolver.set(try success(data))
-                    } catch let error {
-                        resolver.set(error)
+            self.validate()
+                .response(queue: queue ?? .main,
+                          responseSerializer: JSONResponseSerializer(options: options)) { response in
+                    switch response.result {
+                    case let .failure(error):
+                        resolver.set(failure(error, response.response, response.data))
+                    case let .success(data):
+                        do {
+                            resolver.set(try success(data))
+                        } catch {
+                            resolver.set(error)
+                        }
                     }
                 }
-            }
         }
     }
 

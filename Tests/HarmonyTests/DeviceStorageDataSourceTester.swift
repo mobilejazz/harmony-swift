@@ -6,14 +6,18 @@
 //
 
 import Foundation
+import Harmony
 import Nimble
 import XCTest
-import Harmony
 
 struct DeviceStorageDataSourceObjectMother {
     let deviceStorageType: DeviceStorageType
 
-    func provideDataSource<T>(userDefaults: UserDefaults, insertValue: (IdQuery<String>, T)? = nil, insertValues: (IdQuery<String>, [T])? = nil) throws -> DeviceStorageDataSource<T> {
+    func provideDataSource<T>(
+        userDefaults: UserDefaults,
+        insertValue: (IdQuery<String>, T)? = nil,
+        insertValues: (IdQuery<String>, [T])? = nil
+    ) throws -> DeviceStorageDataSource<T> {
         let dataSource = DeviceStorageDataSource<T>(userDefaults, storageType: deviceStorageType)
 
         if let insertValue = insertValue {
@@ -29,7 +33,6 @@ struct DeviceStorageDataSourceObjectMother {
 }
 
 class DeviceStorageDataSourceTester {
-
     let dataSourceObjectMother: DeviceStorageDataSourceObjectMother
 
     init(_ dataSourceObjectMother: DeviceStorageDataSourceObjectMother) {
@@ -38,8 +41,15 @@ class DeviceStorageDataSourceTester {
 
     let userDefaults = UserDefaults.standard
 
-    private func provideDataSource<T>(insertValue: (IdQuery<String>, T)? = nil, insertValues: (IdQuery<String>, [T])? = nil) throws -> DeviceStorageDataSource<T> {
-        return try dataSourceObjectMother.provideDataSource(userDefaults: userDefaults, insertValue: insertValue, insertValues: insertValues)
+    private func provideDataSource<T>(
+        insertValue: (IdQuery<String>, T)? = nil,
+        insertValues: (IdQuery<String>, [T])? = nil
+    ) throws -> DeviceStorageDataSource<T> {
+        return try dataSourceObjectMother.provideDataSource(
+            userDefaults: userDefaults,
+            insertValue: insertValue,
+            insertValues: insertValues
+        )
     }
 
     func tearDown() {
@@ -172,7 +182,10 @@ class DeviceStorageDataSourceTester {
         let valueQuery = IdQuery(String(randomOfLength: 8))
         let values = [Int.random(), Int.random()]
         let valuesQuery = IdQuery(String(randomOfLength: 8))
-        let dataSource = try provideDataSource(insertValue: (valueQuery, value), insertValues: (valuesQuery, values))
+        let dataSource = try provideDataSource(
+            insertValue: (valueQuery, value),
+            insertValues: (valuesQuery, values)
+        )
 
         // When
         try dataSource.delete(AllObjectsQuery()).result.get()
@@ -305,5 +318,4 @@ class DeviceStorageDataSourceTester {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self)) // The old value (list) is not there anymore
     }
-
 }

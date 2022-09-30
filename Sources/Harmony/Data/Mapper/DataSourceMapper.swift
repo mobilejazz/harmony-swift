@@ -17,10 +17,10 @@
 import Foundation
 
 ///
-/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
+/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple
+// "translator".
 ///
-public class GetDataSourceMapper <D: GetDataSource, In, Out> : GetDataSource where D.T == In {
-
+public class GetDataSourceMapper<D: GetDataSource, In, Out>: GetDataSource where D.T == In {
     public typealias T = Out
 
     private let dataSource: D
@@ -39,7 +39,7 @@ public class GetDataSourceMapper <D: GetDataSource, In, Out> : GetDataSource whe
 
     public func get(_ query: Query) -> Future<Out> {
         return dataSource.get(query).map { value in
-            return try self.toOutMapper.map(value)
+            try self.toOutMapper.map(value)
         }
     }
 
@@ -55,10 +55,10 @@ extension GetDataSource {
 }
 
 ///
-/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
+/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple
+// "translator".
 ///
-public class PutDataSourceMapper <D: PutDataSource, In, Out> : PutDataSource where D.T == In {
-
+public class PutDataSourceMapper<D: PutDataSource, In, Out>: PutDataSource where D.T == In {
     public typealias T = Out
 
     private let dataSource: D
@@ -92,22 +92,25 @@ public class PutDataSourceMapper <D: PutDataSource, In, Out> : PutDataSource whe
 
     @discardableResult
     public func putAll(_ array: [Out], in query: Query) -> Future<[Out]> {
-        return Future { dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) } }
+        return Future {
+            dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) }
+        }
     }
 }
 
 extension PutDataSource {
-    func withMapping<K>(in toInMapper: Mapper<K, T>, out toOutMapper: Mapper<T, K>) -> PutDataSourceMapper<Self, T, K> {
+    func withMapping<K>(in toInMapper: Mapper<K, T>,
+                        out toOutMapper: Mapper<T, K>) -> PutDataSourceMapper<Self, T, K> {
         return PutDataSourceMapper(dataSource: self, toInMapper: toInMapper, toOutMapper: toOutMapper)
     }
 }
 
 ///
-/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple "translator".
+/// This data source uses mappers to map objects and redirects them to the contained data source, acting as a simple
+// "translator".
 ///
-public class DataSourceMapper <D, In, Out> : GetDataSource, PutDataSource, DeleteDataSource
-where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
-
+public class DataSourceMapper<D, In, Out>: GetDataSource, PutDataSource, DeleteDataSource
+    where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
     public typealias T = Out
 
     private let dataSource: D
@@ -130,7 +133,7 @@ where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
 
     public func get(_ query: Query) -> Future<Out> {
         return dataSource.get(query).map { value in
-            return try self.toOutMapper.map(value)
+            try self.toOutMapper.map(value)
         }
     }
 
@@ -151,7 +154,9 @@ where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == In {
 
     @discardableResult
     public func putAll(_ array: [Out], in query: Query) -> Future<[Out]> {
-        return Future { dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) } }
+        return Future {
+            dataSource.putAll(try toInMapper.map(array), in: query).map { try self.toOutMapper.map($0) }
+        }
     }
 
     @discardableResult

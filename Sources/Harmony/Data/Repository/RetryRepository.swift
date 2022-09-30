@@ -35,7 +35,7 @@ private struct RetryRule {
     ///
     /// - Returns: The next retry rule
     public func next() -> RetryRule {
-        return RetryRule(count: count-1, retryIf: retryIf)
+        return RetryRule(count: count - 1, retryIf: retryIf)
     }
 }
 
@@ -43,7 +43,6 @@ private struct RetryRule {
 /// The retry operation
 ///
 public class RetryOperation: Operation {
-
     /// The retry rule
     private let retryRule: RetryRule
 
@@ -55,10 +54,11 @@ public class RetryOperation: Operation {
     /// - Parameters_
     ///   - operation: The operation that will be forwarded to the nested repository
     ///   - count: The retry counter. Default value is 1.
-    ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default closure returns true.
+    ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default
+    // closure returns true.
     public init(_ operation: Operation, count: Int = 1, retryIf: @escaping (Error) -> Bool = { _ in true }) {
         self.operation = operation
-        self.retryRule = RetryRule(count: count, retryIf: retryIf)
+        retryRule = RetryRule(count: count, retryIf: retryIf)
     }
 
     fileprivate init(_ operation: Operation, _ retryRule: RetryRule) {
@@ -86,8 +86,8 @@ public class RetryOperation: Operation {
 /// Repository adding a retry logic over an existing repository when an error happens.
 /// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
-public class RetryRepository <R, T> : GetRepository, PutRepository, DeleteRepository where R: GetRepository, R: PutRepository, R: DeleteRepository, T == R.T {
-
+public class RetryRepository<R, T>: GetRepository, PutRepository, DeleteRepository where R: GetRepository,
+    R: PutRepository, R: DeleteRepository, T == R.T {
     /// The nested repository
     private let repository: R
 
@@ -100,7 +100,7 @@ public class RetryRepository <R, T> : GetRepository, PutRepository, DeleteReposi
     ///   - repository: The contained repository
     public init(_ repository: R, retryCount: Int = 1, retryIf: @escaping (Error) -> Bool = { _ in true }) {
         self.repository = repository
-        self.retryRule = RetryRule(count: retryCount, retryIf: retryIf)
+        retryRule = RetryRule(count: retryCount, retryIf: retryIf)
     }
 
     public func get(_ query: Query, operation: Operation) -> Future<T> {

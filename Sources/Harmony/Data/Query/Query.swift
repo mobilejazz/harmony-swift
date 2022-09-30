@@ -19,7 +19,7 @@ import Foundation
 ///
 /// Default query interface
 ///
-public protocol Query { }
+public protocol Query {}
 
 /// Protocol to use a query as a key for a key value interface
 public protocol KeyQuery: Query {
@@ -29,7 +29,7 @@ public protocol KeyQuery: Query {
 
 /// Void query
 public class VoidQuery: Query {
-    public init() { }
+    public init() {}
 }
 
 /// A query by an id
@@ -38,16 +38,15 @@ open class IdQuery<T>: Query, KeyQuery where T: Hashable {
     public init(_ id: T) {
         self.id = id
     }
+
     public var key: String {
-        get {
-            switch T.self {
-            case is String.Type:
-                return id as! String
-            case is Int.Type:
-                return "\(id as! Int)"
-            default:
-                return "\(id.hashValue)"
-            }
+        switch T.self {
+        case is String.Type:
+            return id as! String
+        case is Int.Type:
+            return "\(id as! Int)"
+        default:
+            return "\(id.hashValue)"
         }
     }
 }
@@ -62,7 +61,7 @@ open class IdsQuery<T>: Query where T: Hashable {
 
 /// All objects query
 public class AllObjectsQuery: Query, KeyQuery {
-    public init() { }
+    public init() {}
     public var key: String { return "allObjects" }
 }
 
@@ -90,7 +89,7 @@ public class ObjectsQuery<T>: Query {
 }
 
 /// Abstract pagination query
-open class PaginationQuery: Query { }
+open class PaginationQuery: Query {}
 
 /// Pagination by offset and limit
 open class PaginationOffsetLimitQuery: PaginationQuery {

@@ -15,13 +15,12 @@
 //
 
 import Foundation
-import Nimble
-import XCTest
 import Harmony
 import HarmonyTesting
+import Nimble
+import XCTest
 
 class CacheRepositoryTests: XCTestCase {
-
     private var main: InMemoryDataSource<Int>!
     private var cache: InMemoryDataSource<Int>!
 

@@ -21,17 +21,16 @@ import Security
 /// Stores securely inside the Keychain an auto-generated data blob (aka. Key).
 ///
 public class SecureKey {
-
     /// Arguments for the keychain queries
-    private struct kSec {
-        static let `class`              = NSString(format: kSecClass)
-        static let classKey             = NSString(format: kSecClassKey)
-        static let attrApplicationTag   = NSString(format: kSecAttrApplicationTag)
-        static let attrKeySizeInBits    = NSString(format: kSecAttrKeySizeInBits)
-        static let returnData           = NSString(format: kSecReturnData)
-        static let attrAccessible       = NSString(format: kSecAttrAccessible)
+    private enum kSec {
+        static let `class` = NSString(format: kSecClass)
+        static let classKey = NSString(format: kSecClassKey)
+        static let attrApplicationTag = NSString(format: kSecAttrApplicationTag)
+        static let attrKeySizeInBits = NSString(format: kSecAttrKeySizeInBits)
+        static let returnData = NSString(format: kSecReturnData)
+        static let attrAccessible = NSString(format: kSecAttrAccessible)
         static let attrAccessibleAlways = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
-        static let valueData            = NSString(format: kSecValueData)
+        static let valueData = NSString(format: kSecValueData)
     }
 
     /// The key identifier
@@ -101,7 +100,12 @@ public class SecureKey {
             throw CoreError.Failed("Failed to convert the SecureKey identifier to data")
         }
         let query = NSDictionary(objects: [kSec.classKey, tag, length, true],
-                                 forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.returnData])
+                                 forKeys: [
+                                     kSec.class,
+                                     kSec.attrApplicationTag,
+                                     kSec.attrKeySizeInBits,
+                                     kSec.returnData,
+                                 ])
         var dataRef: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
         switch status {
@@ -111,7 +115,10 @@ public class SecureKey {
         case -25308: // errKCInteractionNotAllowed
             // If reading fails because app is not allowed (device locked)
             // Fix cannot be applied because we cannot read the current keychain item.
-            throw CoreError.OSStatusFailure(status, "Failed to fetch Keychain because the device is locked (OSStatus: \(status)).")
+            throw CoreError.OSStatusFailure(
+                status,
+                "Failed to fetch Keychain because the device is locked (OSStatus: \(status))."
+            )
         default:
             // If no pre-existing key from this application
 
@@ -120,7 +127,13 @@ public class SecureKey {
             }
 
             let query = NSDictionary(objects: [kSec.classKey, tag, length, kSec.attrAccessibleAlways, keyData],
-                                     forKeys: [kSec.class, kSec.attrApplicationTag, kSec.attrKeySizeInBits, kSec.attrAccessible, kSec.valueData])
+                                     forKeys: [
+                                         kSec.class,
+                                         kSec.attrApplicationTag,
+                                         kSec.attrKeySizeInBits,
+                                         kSec.attrAccessible,
+                                         kSec.valueData,
+                                     ])
             let status = SecItemAdd(query as CFDictionary, nil)
             guard status == errSecSuccess else {
                 throw CoreError.OSStatusFailure(status, "Failed to insert key data with OSStatus: \(status)")

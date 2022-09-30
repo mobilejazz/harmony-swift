@@ -21,9 +21,9 @@ import Foundation
 ///
 /// The first strategy that validates or invalidates the object will define the validity of the object.
 ///
-/// If any strategy succeeds to validate or invalidate the object, the validation will fail and the object will be considered as invalid.
+/// If any strategy succeeds to validate or invalidate the object, the validation will fail and the object will be
+// considered as invalid.
 public class VastraService {
-
     /// Array of validation strategies.
     public let strategies: [VastraStrategy]
 
@@ -33,6 +33,7 @@ public class VastraService {
     public init(_ strategies: [VastraStrategy]) {
         self.strategies = strategies
     }
+
     /// If none of the strategies can resolve the state, this is the object validation state returned
     public var defaultValidationState = false
 

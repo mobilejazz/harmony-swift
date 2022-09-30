@@ -9,8 +9,8 @@ import Foundation
 import XCTest
 
 class DeviceStorageDataSourceRegularTests: XCTestCase {
-
-    private let tester = DeviceStorageDataSourceTester(DeviceStorageDataSourceObjectMother(deviceStorageType: .regular))
+    private let tester =
+        DeviceStorageDataSourceTester(DeviceStorageDataSourceObjectMother(deviceStorageType: .regular))
 
     override func tearDown() {
         tester.tearDown()
@@ -51,7 +51,6 @@ class DeviceStorageDataSourceRegularTests: XCTestCase {
     func test_delete_all_values() throws {
         // TODO: decide what to do with deleteAll implementation when deviceStorageType is regular
         //        try tester.test_delete_all_values()
-
     }
 
     func test_get_value_not_found() throws {
@@ -85,5 +84,4 @@ class DeviceStorageDataSourceRegularTests: XCTestCase {
     func test_should_replace_previous_value_when_inserting_with_existing_key() throws {
         try tester.test_should_replace_previous_value_when_inserting_with_existing_key()
     }
-
 }
