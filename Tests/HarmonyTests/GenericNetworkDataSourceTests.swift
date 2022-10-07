@@ -39,7 +39,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     
     func test_getAll_networkquery_method_put_not_supported() {
         let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
-        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
+        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType.FormUrlEncoded(params: [:])), path: "")
         
         expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
@@ -102,7 +102,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
-        expectGetError(dataSource, query, CoreError.DecodingFailed(), .getAll)
+        expectGetError(dataSource, query, CoreError.DataSerialization(), .getAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -166,7 +166,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
-        expectGetError(dataSource, query, CoreError.DecodingFailed(), .get)
+        expectGetError(dataSource, query, CoreError.DataSerialization(), .get)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -182,7 +182,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource: GetNetworkDataSource<Int> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: url)
                                
-        expectGetError(dataSource, query, CoreError.DecodingFailed(), .get)
+        expectGetError(dataSource, query, CoreError.DataSerialization(), .get)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -202,7 +202,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
     
     func test_deleteAll_networkquery_method_put_not_supported() {
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
-        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType<String>.FormUrlEncoded(params: [:])), path: "")
+        let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType.FormUrlEncoded(params: [:])), path: "")
         
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
@@ -265,7 +265,7 @@ class GenericNetworkDataSourceTests: XCTestCase {
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .delete, path: url)
                                
-        expectDeleteError(dataSource, query, CoreError.DecodingFailed(), .deleteAll)
+        expectDeleteError(dataSource, query, CoreError.DataSerialization(), .deleteAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
         
@@ -282,8 +282,162 @@ class GenericNetworkDataSourceTests: XCTestCase {
         
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .putAll)
     }
-               
+    
+    // Validation
+    func test_put_returns_query_not_supported_error_when_query_not_a_network_query() {
+        // Given
+        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: "")
+        let query = AllObjectsQuery()
         
+        // Then
+        expectPutError(dataSource, query, CoreError.QueryNotSupported(), .put)
+    }
+
+    func test_put_returns_query_not_supported_error_when_query_method_not_put() {
+        // Given
+        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: "")
+        let query = NetworkQuery(method: .get, path: "")
+        
+        // Then
+        expectPutError(dataSource, query, CoreError.QueryNotSupported(), .put)
+    }
+
+    // sanitazation
+    func test_put_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
+        // Given
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
+        
+        // Then
+        expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
+    }
+
+    // Network errors
+    func test_put_returns_error_when_network_request_fails() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
+        let url = "www.dummy.com"
+        let decoder = DecoderSpy()
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 400, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        
+        // Then
+        expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
+        //expectPutError(dataSource, query, CoreError.IllegalArgument(), .put)
+    }
+    
+    func test_put_returns_data_serialization_error_when_response_has_no_data() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
+        let url = "www.dummy.com"
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response)
+        
+        // Then
+        expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
+    }
+
+    // Results
+    
+    func test_put_returns_value_when_provided_as_parameter() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .put(type: nil), path: "")
+        let url = "www.dummy.com"
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
+        
+        // Then
+        expectPut(value: entity, dataSource, query, nil)
+    }
+
+    func test_put_returns_data_serialization_error_when_data_fails_to_be_parsed_as_generic_type() {
+        // Given
+        let query = NetworkQuery(method: .put(type: nil), path: "")
+        let url = "www.dummy.com"
+        let decoder = DecoderSpy()
+        decoder.forceFailure = true
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        
+        // Then
+        expectPut(dataSource, query, CoreError.DataSerialization())
+    }
+    
+    // sanitazation
+    func test_post_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
+        // Given
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
+        
+        // Then
+        expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
+    }
+
+    // Network errors
+    func test_post_returns_error_when_network_request_fails() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
+        let url = "www.dummy.com"
+        let decoder = DecoderSpy()
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 400, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        
+        // Then
+        expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
+    }
+    
+    func test_post_returns_data_serialization_error_when_response_has_no_data() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
+        let url = "www.dummy.com"
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response)
+        
+        // Then
+        expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
+    }
+
+    // Results
+    
+    func test_post_returns_value_when_provided_as_parameter() {
+        // Given
+        let entity = Entity(name: "", owner: "")
+        let query = NetworkQuery(method: .post(type: nil), path: "")
+        let url = "www.dummy.com"
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
+        
+        // Then
+        expectPut(value: entity, dataSource, query, nil)
+    }
+
+    func test_post_returns_data_serialization_error_when_data_fails_to_be_parsed_as_generic_type() {
+        // Given
+        let query = NetworkQuery(method: .post(type: nil), path: "")
+        let url = "www.dummy.com"
+        let decoder = DecoderSpy()
+        decoder.forceFailure = true
+        let request = provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        
+        // Then
+        expectPut(dataSource, query, CoreError.DataSerialization())
+    }
     private func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
         return URLRequest(url: URL(fileURLWithPath: url), cachePolicy: cachePolicy, timeoutInterval: timeout)
     }
@@ -373,22 +527,22 @@ class GenericNetworkDataSourceTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    fileprivate func expectPut<S: Decodable>(_ dataSource: PutNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
+    fileprivate func expectPut<S: Decodable>(value: S? = nil, _ dataSource: PutNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
 
-        dataSource.put(nil, in: query)
-                .then { _ in
-                    if expectedError == nil {
+        dataSource.put(value, in: query)
+            .then { value in
+                if expectedError == nil {
+                    expectation.fulfill()
+                }
+            }
+            .fail { error in
+                if let expectedError = expectedError {
+                    if type(of: error) == type(of: expectedError) {
                         expectation.fulfill()
                     }
                 }
-                .fail { error in
-                    if let expectedError = expectedError {
-                        if type(of: error) == type(of: expectedError) {
-                            expectation.fulfill()
-                        }
-                    }
-                }
+            }
 
         wait(for: [expectation], timeout: 1.0)
     }
@@ -427,15 +581,16 @@ class GenericNetworkDataSourceTests: XCTestCase {
     }
 
     private func expectPutError<S: Decodable>(
-            _ dataSource: PutNetworkDataSource<S>,
-            _ query: Query,
-            _ expectedError: Error?,
-            _ function: Function)
+        value: S? = nil,
+        _ dataSource: PutNetworkDataSource<S>,
+        _ query: Query,
+        _ expectedError: Error?,
+        _ function: Function)
     {
         if function == .putAll {
             expectPutAll(dataSource, query, expectedError)
         } else {
-            expectPut(dataSource, query, expectedError)
+            expectPut(value: value, dataSource, query, expectedError)
         }
     }
 
@@ -477,13 +632,15 @@ class GenericNetworkDataSourceTests: XCTestCase {
     {
         let expectation = XCTestExpectation(description: "expectation")
 
-        dataSource.putAll([], in: query).then { _ in }.fail { error in
-                    if let error = error as? AFError {
-                        if error.localizedDescription == expectedError.localizedDescription {
-                            expectation.fulfill()
-                        }
-                    }
+        dataSource.put(nil, in: query).then { _ in
+            print("")
+        }.fail { error in
+            if let error = error as? AFError {
+                if error.localizedDescription == expectedError.localizedDescription {
+                    expectation.fulfill()
                 }
+            }
+        }
 
         wait(for: [expectation], timeout: 1.0)
     }

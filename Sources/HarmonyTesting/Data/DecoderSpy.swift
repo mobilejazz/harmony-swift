@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import Harmony
 
 @available(iOS 13.0, *)
 class DecoderSpy: JSONDecoder {
     
     public var decodeCalledCount = 0
+    public var forceFailure = false
     
     override var dateDecodingStrategy: DateDecodingStrategy {
         get {
@@ -83,6 +85,10 @@ class DecoderSpy: JSONDecoder {
 
     override func decode<T>(_ type: T.Type, from: Input) throws -> T where T: Decodable {
         decodeCalledCount += 1
-        return try super.decode(type, from: from)
+        if forceFailure {
+            throw CoreError.Failed()
+        } else {
+            return try super.decode(type, from: from)
+        }
     }
 }

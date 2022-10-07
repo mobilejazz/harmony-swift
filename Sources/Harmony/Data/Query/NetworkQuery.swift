@@ -20,9 +20,11 @@ import Alamofire
 open class NetworkQuery: KeyQuery {
 
     public enum Method: Equatable {
+        
         case get
         case delete
-        case put(type: ContentType<String>)
+        case put(type: ContentType?)
+        case post(type: ContentType?)
 
         public static func ==(lhs: NetworkQuery.Method, rhs: NetworkQuery.Method) -> Bool {
             switch (lhs, rhs) {
@@ -30,24 +32,48 @@ open class NetworkQuery: KeyQuery {
                 return true
             case(.delete, .delete):
                 return true
-            case (.put,.put):
+            case (.put, .put):
+                return true
+            case (.post, .post):
                 return true
             default:
                 return false
             }
         }
+        
+        public func with(contentType newContentType: ContentType?) -> Self {
+            if case .put = self {
+                return .put(type: newContentType)
+            } else if case .post = self {
+                return .post(type: newContentType)
+            } else {
+                return self
+            }
+        }
+        
+        public func contentType() -> NetworkQuery.ContentType? {
+            switch self {
+            case .get:
+                return nil
+            case .delete:
+                return nil
+            case .put(type: let type):
+                return type
+            case .post(type: let type):
+                return type
+            }
+        }
     }
 
-    public enum ContentType<T> {
-        case FormUrlEncoded(params: [String:String])
-        case Json(entity: T)
+    public enum ContentType {
+        case FormUrlEncoded(params: [String: String])
+        case Json(entity: Encodable)
     }
 
     private let path: String
     private let params: [String: Any]
     private let headers: [String: String]
-
-    public let method: Method
+    public var method: Method
     public let key: String
     
     public init(method: Method, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
@@ -70,17 +96,36 @@ extension NetworkQuery {
             return .delete
         case .put:
             return .put
+        case .post:
+            return .post            
         }
     }
 
-    open func request(url: String, session: Session) -> DataRequest {
-        
+    public func request(url: String, session: Session) -> DataRequest {
         let path = "\(url)\(self.path)"
-        let method = mapToAlamofireMethod(method: self.method)
-        let parameters = self.params
-        let encoding = URLEncoding.default
+        let afMethod = mapToAlamofireMethod(method: method)
+        var parameters: [String: Any] = self.params
+        let encoding: URLEncoding = .default
         let headers = HTTPHeaders(self.headers)                
-
-        return session.request(path, method: method, parameters: parameters, encoding: encoding, headers: headers)
+        
+        if case let .put(type: contentType) = method {
+            if let contentType {
+                switch contentType {
+                case .Json(entity: let entity):
+                    let data = try! JSONEncoder().encode(entity)
+                    if let dic = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                        parameters = dic
+                    }
+                case .FormUrlEncoded(params: let formURLEncodedParams):
+                    parameters = formURLEncodedParams
+                }
+            }
+        }
+        
+        return session.request(path,
+                               method: afMethod,
+                               parameters: parameters,
+                               encoding: encoding,
+                               headers: headers)
     }
 }

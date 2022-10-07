@@ -48,7 +48,8 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
             }
           
             query
-                .request(url: self.url, session: self.session).validate()
+                .request(url: self.url, session: self.session)
+                .validate()
                 .response { response in
             
                     guard response.error == nil else {
@@ -59,7 +60,7 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
                     }
             
                     do {
-                        guard let data = response.data else { throw CoreError.DecodingFailed() }
+                        guard let data = response.data else { throw CoreError.DataSerialization() }
                         resolver.set(try self.decoder.decode(K.self, from: data))
                     } catch let error as NSError {
                         resolver.set(error)
@@ -82,7 +83,7 @@ open class GetNetworkDataSource<T: Decodable>: GetDataSource {
     }
 }
 
-open class PutNetworkDataSource<T: Decodable>: PutDataSource {
+open class PutNetworkDataSource<T: Codable>: PutDataSource {
     
     private let url: String
     private let session: Session
@@ -101,7 +102,69 @@ open class PutNetworkDataSource<T: Decodable>: PutDataSource {
     }
 
     public func put(_ value: T?, in query: Query) -> Future<T> {
-        return Future()
+        return Future { resolver in
+            
+            guard let networkQuery = validate(query) else {
+                resolver.set(CoreError.QueryNotSupported())
+                return
+            }
+            
+            let sanitizedNetworkQuery = try networkQuery.sanitizeContentType(value: value)
+            
+            sanitizedNetworkQuery
+                .request(url: self.url, session: self.session)
+                .validate()
+                .response { response in
+                    guard response.error == nil else {
+                        if let error = response.error as NSError? {
+                            resolver.set(error)
+                        }
+                        return
+                    }
+
+                    guard let data = response.data else {
+                        resolver.set(CoreError.DataSerialization())
+                        return
+                    }
+                    
+                    do {
+                        resolver.set(try self.decoder.decode(T.self, from: data))
+                    } catch {
+                        resolver.set(CoreError.DataSerialization())
+                    }
+                }
+        }
+    }
+    
+    private func validate(_ query: Query) -> NetworkQuery? {
+        guard let networkQuery = query as? NetworkQuery else {
+            return nil
+        }
+
+        switch networkQuery.method {
+        case .put, .post: break
+        default: return nil
+        }
+                
+        return networkQuery
+    }
+    
+}
+
+fileprivate extension NetworkQuery {
+    func sanitizeContentType<T: Encodable>(value: T?) throws -> NetworkQuery {
+        let contentType = method.contentType()
+        
+        if contentType != nil && value != nil {
+            throw CoreError.IllegalArgument("Conflicting arguments to be used as request body")
+        }
+        
+        // Updating query if value is passed as separated argument from the query
+        if (contentType == nil && value != nil) {
+            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
+        }
+        
+        return self
     }
 }
 
@@ -147,7 +210,7 @@ open class DeleteNetworkDataSource: DeleteDataSource {
                     }
             
                     do {
-                        guard let _ = response.data else { throw CoreError.DecodingFailed() }
+                        guard let _ = response.data else { throw CoreError.DataSerialization() }
                         resolver.set(())
                     } catch let error as NSError {
                         resolver.set(error)
