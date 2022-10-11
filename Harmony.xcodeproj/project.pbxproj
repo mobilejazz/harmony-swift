@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */; };
+		006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
+		006D52B128F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
+		006D52B228F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		006D52B528F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */; };
+		006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
+        006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
+		006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
 		24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */; };
@@ -121,12 +131,10 @@
 		AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */; };
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
-		AEDA916D28DC9EDA00BE09D9 /* GenericNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */; };
+		AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */; };
 		AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE15EE428D4783E003053B9 /* Alamofire.xcframework */; };
 		AEE15EE728D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
 		AEE15EE828D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
-		AEE15EEB28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */; };
-		AEE15EEC28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */; };
 		D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
 		D2067A3D285C600B00A1047E /* RepositorySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A3C285C600B00A1047E /* RepositorySpy.swift */; };
@@ -251,6 +259,12 @@
 
 /* Begin PBXFileReference section */
 		003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedMainQueueExecutorTests.swift; sourceTree = "<group>"; };
+		006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSource.swift; sourceTree = "<group>"; };
+		006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSource.swift; sourceTree = "<group>"; };
+		006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutNetworkDataSource.swift; sourceTree = "<group>"; };
+		006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutNetworkDataSourceTests.swift; sourceTree = "<group>"; };
+		006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSourceTests.swift; sourceTree = "<group>"; };
+		006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceUtils.swift; sourceTree = "<group>"; };
 		24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSourceTests.swift; sourceTree = "<group>"; };
 		24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceTester.swift; sourceTree = "<group>"; };
 		24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceRegularTests.swift; sourceTree = "<group>"; };
@@ -646,10 +660,9 @@
 		AED438AC28E2CB2000C52F2B /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
-		AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceTests.swift; sourceTree = "<group>"; };
+		AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
 		AEE15EE628D47867003053B9 /* NetworkQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQuery.swift; sourceTree = "<group>"; };
-		AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSource.swift; sourceTree = "<group>"; };
 		D2067A39285C5F8000A1047E /* DataSourceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSpy.swift; sourceTree = "<group>"; };
 		D2067A3C285C600B00A1047E /* RepositorySpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySpy.swift; sourceTree = "<group>"; };
 		D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRepositoryTests.swift; sourceTree = "<group>"; };
@@ -834,7 +847,10 @@
 				24C7BD7228CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift */,
 				24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */,
 				003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */,
-				AEDA916B28DC9EC900BE09D9 /* GenericNetworkDataSourceTests.swift */,
+				AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */,
+				006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */,
+				006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */,
+				006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -1359,7 +1375,9 @@
 				59B7A83427A82971001F5D8F /* DeviceStorageDataSource.swift */,
 				59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */,
 				59B7A83027A82971001F5D8F /* AnyDataSource.swift */,
-				AEE15EEA28D492ED003053B9 /* GenericNetworkDataSource.swift */,
+				006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */,
+				006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */,
+				006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1810,6 +1828,7 @@
 				59B7A8A327A82971001F5D8F /* ClassError.swift in Sources */,
 				59B7AA1827A83966001F5D8F /* KeychainSetInteractor.swift in Sources */,
 				59B7A88F27A82971001F5D8F /* InMemoryDataSource.swift in Sources */,
+				006D52B228F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,
 				59B7A88B27A82971001F5D8F /* RetryDataSource.swift in Sources */,
 				59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */,
 				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
@@ -1818,11 +1837,11 @@
 				59B7A8AE27A82971001F5D8F /* Data+Extensions.swift in Sources */,
 				59B7A88427A82971001F5D8F /* DeviceStorageDataSource.swift in Sources */,
 				59B7A8B727A82971001F5D8F /* Observable+Batch.swift in Sources */,
+				006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */,
 				59B7A88127A82971001F5D8F /* CacheRepository.swift in Sources */,
 				59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */,
 				59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */,
 				59B7A8A927A82971001F5D8F /* Logger.swift in Sources */,
-				AEE15EEB28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */,
 				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
 				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
 				AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */,
@@ -1838,6 +1857,7 @@
 				59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */,
 				59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */,
 				59B7A8A127A82971001F5D8F /* TimedCacheDataSource.swift in Sources */,
+				006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */,
 				59B7A89827A82971001F5D8F /* AnyGetDataSource.swift in Sources */,
 				59B7A8B027A82971001F5D8F /* ScopeLock.swift in Sources */,
 				59B7A89C27A82971001F5D8F /* InteractorPut.swift in Sources */,
@@ -1869,17 +1889,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE76561D28E17C2000A24487 /* DecoderSpy.swift in Sources */,
-				AEDA916D28DC9EDA00BE09D9 /* GenericNetworkDataSourceTests.swift in Sources */,
+				AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */,
 				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
 				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
 				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
 				003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */,
 				D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
 				24C7BD7528CA11B30046F15C /* TimedCacheDataSourceTests.swift in Sources */,
+				006D52B528F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift in Sources */,
 				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
+				006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
 				AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */,
+				006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 			);
@@ -1920,6 +1943,7 @@
 				D2D2163B27AC280A00A104B8 /* JSONDecoding.swift in Sources */,
 				D2D2163C27AC280A00A104B8 /* ExecutorFactory.swift in Sources */,
 				D2D2163D27AC280A00A104B8 /* VastraValidationStrategy.swift in Sources */,
+				006D52B128F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */,
 				D2D2163E27AC280A00A104B8 /* VastraReachabilityStrategy.swift in Sources */,
 				D2D2163F27AC280A00A104B8 /* KeychainDataSource.swift in Sources */,
 				D2D2164027AC280A00A104B8 /* Future+Functional.swift in Sources */,
@@ -1933,6 +1957,7 @@
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
+				006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,
 				D2D2164A27AC280A00A104B8 /* DataSourceAssembler.swift in Sources */,
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
@@ -1958,7 +1983,6 @@
 				D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */,
 				D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */,
 				D2D2166127AC280A00A104B8 /* Logger.swift in Sources */,
-				AEE15EEC28D492ED003053B9 /* GenericNetworkDataSource.swift in Sources */,
 				D2D2166227AC280A00A104B8 /* Collections+Executor.swift in Sources */,
 				D2D2166327AC280A00A104B8 /* DebugDataSource.swift in Sources */,
 				D2D2166427AC280A00A104B8 /* AnyPutRepository.swift in Sources */,
@@ -1976,6 +2000,7 @@
 				D2D2167027AC280A00A104B8 /* AnyGetDataSource.swift in Sources */,
 				D2D2167127AC280A00A104B8 /* ScopeLock.swift in Sources */,
 				D2D2167227AC280A00A104B8 /* InteractorPut.swift in Sources */,
+				006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */,
 				D2D2167327AC280A00A104B8 /* Observable.swift in Sources */,
 				D2D2167427AC280A00A104B8 /* CoreError.swift in Sources */,
 				D2D2167527AC280A00A104B8 /* OperationQueueExecutor.swift in Sources */,

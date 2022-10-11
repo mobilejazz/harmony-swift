@@ -129,3 +129,20 @@ extension NetworkQuery {
                                headers: headers)
     }
 }
+
+extension NetworkQuery {
+    func sanitizeContentType<T: Encodable>(value: T?) throws -> NetworkQuery {
+        let contentType = method.contentType()
+        
+        if contentType != nil && value != nil {
+            throw CoreError.IllegalArgument("Conflicting arguments to be used as request body")
+        }
+        
+        // Updating query if value is passed as separated argument from the query
+        if (contentType == nil && value != nil) {
+            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
+        }
+        
+        return self
+    }
+}
