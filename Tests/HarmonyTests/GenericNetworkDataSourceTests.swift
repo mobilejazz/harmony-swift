@@ -23,6 +23,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         case deleteAll
     }
     
+    // MARK: Get
+    
     func test_getAll_allobjects_query_not_supported() {
         let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
         let query = AllObjectsQuery()
@@ -186,6 +188,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
+    // MARK: Delete
+    
     func test_deleteAll_allobjects_query_not_supported() {
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
         let query = AllObjectsQuery()
@@ -268,18 +272,24 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectDeleteError(dataSource, query, CoreError.DataSerialization(), .deleteAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
-        
+
+    // MARK: Put
+    
     func test_putAll_allobjects_query_not_supported() {
+        // Given
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
         let query = AllObjectsQuery()
         
+        // Then
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .putAll)
     }
     
     func test_putAll_networkquery_method_delete_not_supported() {
+        // Given
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
         let query = NetworkQuery(method: .delete, path: "")
         
+        // Then
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .putAll)
     }
     
@@ -302,7 +312,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .put)
     }
 
-    // sanitazation
     func test_put_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
         // Given
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
@@ -313,7 +322,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
     }
 
-    // Network errors
     func test_put_returns_error_when_network_request_fails() {
         // Given
         let entity = Entity(name: "", owner: "")
@@ -342,8 +350,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
     }
 
-    // Results
-    
     func test_put_returns_value_when_provided_as_parameter() {
         // Given
         let entity = Entity(name: "", owner: "")
@@ -371,7 +377,8 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPut(dataSource, query, CoreError.DataSerialization())
     }
     
-    // sanitazation
+    // MARK: Post
+    
     func test_post_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
         // Given
         let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
@@ -382,7 +389,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
     }
 
-    // Network errors
     func test_post_returns_error_when_network_request_fails() {
         // Given
         let entity = Entity(name: "", owner: "")
@@ -410,8 +416,6 @@ class GenericNetworkDataSourceTests: XCTestCase {
         expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
     }
 
-    // Results
-    
     func test_post_returns_value_when_provided_as_parameter() {
         // Given
         let entity = Entity(name: "", owner: "")
