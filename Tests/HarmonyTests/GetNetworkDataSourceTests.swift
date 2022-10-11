@@ -21,7 +21,7 @@ enum Function {
 }
 
 @available(iOS 13.0, *)
-class GenericNetworkDataSourceTests: XCTestCase {
+class GetNetworkDataSourceTests: XCTestCase {
 
     private typealias Utils = GenericDataSourceUtils
     
