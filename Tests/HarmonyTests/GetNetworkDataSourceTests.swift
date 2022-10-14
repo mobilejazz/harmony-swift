@@ -25,8 +25,6 @@ class GetNetworkDataSourceTests: XCTestCase {
 
     private typealias Utils = GenericDataSourceUtils
     
-    // MARK: Get
-    
     func test_getAll_allobjects_query_not_supported() {
         let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
         let query = AllObjectsQuery()
