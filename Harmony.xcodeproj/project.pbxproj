@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */; };
-		0044C6F328F957D400537383 /* NoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044C6F228F957D400537383 /* NoResponse.swift */; };
-		0044C6F428F957D400537383 /* NoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044C6F228F957D400537383 /* NoResponse.swift */; };
 		006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
@@ -260,7 +258,6 @@
 
 /* Begin PBXFileReference section */
 		003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedMainQueueExecutorTests.swift; sourceTree = "<group>"; };
-		0044C6F228F957D400537383 /* NoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResponse.swift; sourceTree = "<group>"; };
 		006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSource.swift; sourceTree = "<group>"; };
 		006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSource.swift; sourceTree = "<group>"; };
 		006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -1379,7 +1376,6 @@
 				006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */,
 				006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */,
 				006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */,
-				0044C6F228F957D400537383 /* NoResponse.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1816,7 +1812,6 @@
 				59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */,
 				59B7A88E27A82971001F5D8F /* AnyPutDataSource.swift in Sources */,
 				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
-				0044C6F328F957D400537383 /* NoResponse.swift in Sources */,
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
 				59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */,
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
@@ -1956,7 +1951,6 @@
 				D2D2164527AC280A00A104B8 /* AnyGetRepository.swift in Sources */,
 				D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */,
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
-				0044C6F428F957D400537383 /* NoResponse.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
 				006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,

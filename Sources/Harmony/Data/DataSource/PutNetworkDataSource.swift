@@ -8,6 +8,17 @@
 import Foundation
 import Alamofire
 
+
+/// This class exists because Void is not Codable, and PutNetworkDataSource can receive NoResponse as the generic type parameter to indicate
+/// that the server response's should not be parsed.
+public struct NoResponse: Codable, Equatable {
+    public init() {}
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        true
+    }
+}
+
 public class PutNetworkDataSource<T: Codable>: PutDataSource {
     
     private let url: String
