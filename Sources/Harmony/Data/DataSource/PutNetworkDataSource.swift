@@ -33,7 +33,20 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
 
     public func putAll(_ array: [T], in query: Query) -> Future<[T]> {
         return Future { resolver in
-            resolver.set(CoreError.QueryNotSupported())
+            
+            guard let networkQuery = validate(query) else {
+                resolver.set(CoreError.QueryNotSupported())
+                return
+            }
+            
+            let sanitizedNetworkQuery = try networkQuery.sanitizeArrayContentType(value: array)
+            
+            sanitizedNetworkQuery
+                .request(url: self.url, session: self.session)
+                .validate()
+                .response { response in
+                    self.handleResponse(array, response: response, resolver: resolver)
+                }
         }
     }
 
@@ -51,28 +64,34 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
                 .request(url: self.url, session: self.session)
                 .validate()
                 .response { response in
-                    guard response.error == nil else {
-                        if let error = response.error as NSError? {
-                            resolver.set(error)
-                        }
-                        return
-                    }
-
-                    guard let data = response.data else {
-                        resolver.set(CoreError.DataSerialization())
-                        return
-                    }
-                    
-                    do {
-                        if T.self == NoResponse.self {
-                            resolver.set(NoResponse() as! T)
-                        } else {
-                            resolver.set(try self.decoder.decode(T.self, from: data))
-                        }
-                    } catch {
-                        resolver.set(CoreError.DataSerialization())
-                    }
+                    self.handleResponse(value, response: response, resolver: resolver)
                 }
+        }
+    }
+
+    private func handleResponse<K: Codable>(_ value: K?, response: AFDataResponse<Data?>, resolver: FutureResolver<K>) {
+        guard response.error == nil else {
+            if let error = response.error as NSError? {
+                resolver.set(error)
+            }
+            return
+        }
+
+        guard let data = response.data else {
+            resolver.set(CoreError.DataSerialization())
+            return
+        }
+        
+        do {
+            if K.self == NoResponse.self {
+                resolver.set(NoResponse() as! K)
+            } else if K.self == [NoResponse].self {
+                resolver.set([] as! K)
+            } else {
+                resolver.set(try self.decoder.decode(K.self, from: data))
+            }
+        } catch {
+            resolver.set(CoreError.DataSerialization())
         }
     }
     
