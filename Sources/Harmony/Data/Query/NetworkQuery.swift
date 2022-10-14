@@ -131,7 +131,7 @@ extension NetworkQuery {
 }
 
 extension NetworkQuery {
-    func sanitizeContentType<T: Encodable>(value: T?) throws -> NetworkQuery {
+    func sanitizeContentType<T>(value: T?) throws -> NetworkQuery {
         let contentType = method.contentType()
         
         if contentType != nil && value != nil {
@@ -139,8 +139,8 @@ extension NetworkQuery {
         }
         
         // Updating query if value is passed as separated argument from the query
-        if (contentType == nil && value != nil) {
-            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
+        if (contentType == nil && value != nil && value is Encodable) {
+            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value as! Encodable))
         }
         
         return self

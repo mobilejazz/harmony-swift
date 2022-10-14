@@ -53,7 +53,11 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
                     }
                     
                     do {
-                        resolver.set(try self.decoder.decode(T.self, from: data))
+                        if T.self == NoResponse.self {
+                            resolver.set(NoResponse() as! T)
+                        } else {
+                            resolver.set(try self.decoder.decode(T.self, from: data))
+                        }
                     } catch {
                         resolver.set(CoreError.DataSerialization())
                     }
@@ -73,5 +77,4 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
                 
         return networkQuery
     }
-    
 }

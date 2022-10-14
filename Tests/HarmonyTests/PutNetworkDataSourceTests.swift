@@ -184,6 +184,20 @@ final class PutNetworkDataSourceTests: XCTestCase {
         expectPut(dataSource, query, CoreError.DataSerialization())
     }
     
+    func test_post_returns_no_response() {
+        // Given
+        let queryWithContentType = NetworkQuery(method: .post(type: .Json(entity: Entity(name: "", owner: ""))), path: "")
+        let queryNoContentType = NetworkQuery(method: .post(type: nil), path: "")
+        let url = "www.dummy.com"
+        let decoder = DecoderSpy()
+        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
+        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let dataSource: PutNetworkDataSource<NoResponse> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        
+        // Then
+        expectPut(value: NoResponse(), dataSource, queryNoContentType, nil)
+        expectPut(value: nil, dataSource, queryWithContentType, nil)
+    }
     private func expectPutAll<S: Decodable>(_ dataSource: PutNetworkDataSource<S>, _ query: Query, _ expectedError: Error?) {
         let expectation = XCTestExpectation(description: "expectation")
 

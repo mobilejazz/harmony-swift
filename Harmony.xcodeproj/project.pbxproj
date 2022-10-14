@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */; };
+		0044C6F328F957D400537383 /* NoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044C6F228F957D400537383 /* NoResponse.swift */; };
+		0044C6F428F957D400537383 /* NoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0044C6F228F957D400537383 /* NoResponse.swift */; };
 		006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
@@ -128,7 +130,6 @@
 		AED438AB28E2CA2F00C52F2B /* EntityList.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A928E2CA2F00C52F2B /* EntityList.json */; };
 		AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
 		AED438AE28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
-		AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */; };
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */; };
@@ -259,6 +260,7 @@
 
 /* Begin PBXFileReference section */
 		003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedMainQueueExecutorTests.swift; sourceTree = "<group>"; };
+		0044C6F228F957D400537383 /* NoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoResponse.swift; sourceTree = "<group>"; };
 		006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSource.swift; sourceTree = "<group>"; };
 		006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSource.swift; sourceTree = "<group>"; };
 		006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -658,7 +660,6 @@
 		AED438A628E2CA2400C52F2B /* Entity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Entity.json; sourceTree = "<group>"; };
 		AED438A928E2CA2F00C52F2B /* EntityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EntityList.json; sourceTree = "<group>"; };
 		AED438AC28E2CB2000C52F2B /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
-		AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
@@ -1378,6 +1379,7 @@
 				006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */,
 				006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */,
 				006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */,
+				0044C6F228F957D400537383 /* NoResponse.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1561,7 +1563,6 @@
 		AEDA916228DC9A3800BE09D9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				AEDA916328DC9A5400BE09D9 /* UrlProtocol.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1815,6 +1816,7 @@
 				59B7A8C027A82971001F5D8F /* Observable+Functional.swift in Sources */,
 				59B7A88E27A82971001F5D8F /* AnyPutDataSource.swift in Sources */,
 				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
+				0044C6F328F957D400537383 /* NoResponse.swift in Sources */,
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
 				59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */,
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
@@ -1844,7 +1846,6 @@
 				59B7A8A927A82971001F5D8F /* Logger.swift in Sources */,
 				59B7A8B627A82971001F5D8F /* Collections+Executor.swift in Sources */,
 				59B7A8A027A82971001F5D8F /* DebugDataSource.swift in Sources */,
-				AEDA916428DC9A5400BE09D9 /* UrlProtocol.swift in Sources */,
 				59B7A88927A82971001F5D8F /* AnyPutRepository.swift in Sources */,
 				59B7A88527A82971001F5D8F /* VoidDataSource.swift in Sources */,
 				59B7A8A427A82971001F5D8F /* Operation.swift in Sources */,
@@ -1955,6 +1956,7 @@
 				D2D2164527AC280A00A104B8 /* AnyGetRepository.swift in Sources */,
 				D2D2164627AC280A00A104B8 /* Observable+Functional.swift in Sources */,
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
+				0044C6F428F957D400537383 /* NoResponse.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
 				006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,
