@@ -21,11 +21,11 @@ public struct NoResponse: Codable, Equatable {
 
 public class PutNetworkDataSource<T: Codable>: PutDataSource {
     
-    private let url: String
+    private let url: URL
     private let session: Session
     private let decoder: JSONDecoder
     
-    public init(url: String, session: Session, decoder: JSONDecoder) {
+    public init(url: URL, session: Session, decoder: JSONDecoder) {
         self.url = url
         self.session = session
         self.decoder = decoder

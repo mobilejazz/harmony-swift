@@ -10,6 +10,7 @@ import Foundation
 import Harmony
 import Nimble
 import XCTest
+import HarmonyTesting
 
 @available(iOS 13.0, *)
 final class DeleteNetworkDataSourceTests: XCTestCase {
@@ -17,84 +18,71 @@ final class DeleteNetworkDataSourceTests: XCTestCase {
     private typealias Utils = GenericDataSourceUtils
     
     func test_deleteAll_allobjects_query_not_supported() {
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
+        // Given
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: anyURL())
         let query = AllObjectsQuery()
         
+        // Then
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
     
     func test_deleteAll_networkquery_method_get_not_supported() {
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
+        // Given
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: anyURL())
         let query = NetworkQuery(method: .get, path: "")
         
+        // Then
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
     
     func test_deleteAll_networkquery_method_put_not_supported() {
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: "")
+        // Given
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: anyURL())
         let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType.FormUrlEncoded(params: [:])), path: "")
         
         expectDeleteError(dataSource, query, CoreError.QueryNotSupported(), .deleteAll)
     }
     
     func test_delete_response_statuscode_validation_failure() {
-        let url = "dummy"
+        // Given
+        let url = anyURL()
         let statusCode = 400
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: statusCode)
         let decoder = DecoderSpy()
-        
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .delete, path: url)
+        let query = NetworkQuery(method: .delete, path: anyString())
 
+        // Then
         expectDeleteAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
-    func test_delete_response_empty_url_validation_failure() {
-        let url = String()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
-        let decoder = DecoderSpy()
-        
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .delete, path: url)
-
-        expectDeleteAlamofireError(dataSource, query, AFError.invalidURL(url: url))
-        expect { decoder.decodeCalledCount }.to(equal(0))
-    }
-    
     func test_deleteAll_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        // Given
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let decoder = DecoderSpy()
-        
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
-        let query = NetworkQuery(method: .delete, path: url)
+        let query = NetworkQuery(method: .delete, path: anyString())
                                
+        // Then
         expectDeleteError(dataSource, query, nil, .deleteAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
     func test_deleteAll_no_data_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        // Given
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let decoder = DecoderSpy()
         
         let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .delete, path: url)
-                               
+        let query = NetworkQuery(method: .delete, path: anyString())
+
+        // Then
         expectDeleteError(dataSource, query, CoreError.DataSerialization(), .deleteAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
@@ -153,7 +141,7 @@ final class DeleteNetworkDataSourceTests: XCTestCase {
     }
     
     private func provideDeleteDataSource(
-            url: String,
+            url: URL,
             request: URLRequest? = nil,
             response: URLResponse? = nil,
             decoder: JSONDecoder? = nil,

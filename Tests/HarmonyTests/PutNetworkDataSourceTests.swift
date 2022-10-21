@@ -10,6 +10,7 @@ import Foundation
 import Harmony
 import Nimble
 import XCTest
+import HarmonyTesting
 
 @available(iOS 13.0, *)
 final class PutNetworkDataSourceTests: XCTestCase {
@@ -18,7 +19,7 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_putAll_allobjects_query_not_supported() {
         // Given
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: anyURL())
         let query = AllObjectsQuery()
         
         // Then
@@ -27,12 +28,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_putall_returns_no_response() {
         // Given
-        let array = [Entity(name: "a", owner: "a"), Entity(name: "b", owner: "b")]
-        let query = NetworkQuery(method: .post(type: .Json(entity: array)), path: "")
-        let url = "www.dummy.com"
+        let array = [anyEntity(), anyEntity()]
+        let query = NetworkQuery(method: .post(type: .Json(entity: array)), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let dataSource: PutNetworkDataSource<NoResponse> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
@@ -41,9 +42,9 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_putall_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
         // Given
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
-        let array = [Entity(name: "", owner: "")]
-        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: "")
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: anyURL())
+        let array = [anyEntity()]
+        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: anyString())
         
         // Then
         expectPutAllError(value: array, dataSource, query, CoreError.IllegalArgument(), .putAll)
@@ -51,22 +52,22 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_putall_returns_query_not_supported_error_when_query_method_not_put() {
         // Given
-        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: "")
+        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: anyURL())
         
         // Then
-        expectPutError(dataSource, NetworkQuery(method: .get, path: ""), CoreError.QueryNotSupported(), .putAll)
-        expectPutError(dataSource, NetworkQuery(method: .delete, path: ""), CoreError.QueryNotSupported(), .putAll)
+        expectPutError(dataSource, NetworkQuery(method: .get, path: anyString()), CoreError.QueryNotSupported(), .putAll)
+        expectPutError(dataSource, NetworkQuery(method: .delete, path: anyString()), CoreError.QueryNotSupported(), .putAll)
     }
 
     func test_putall_returns_error_when_network_request_fails() {
         // Given
-        let array = [Entity(name: "", owner: "")]
-        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: "")
-        let url = "www.dummy.com"
+        let array = [anyEntity()]
+        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 400, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 400)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
         
         // Then
         expectPutAllAlamofireError(value: [], dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
@@ -74,12 +75,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_putall_returns_data_serialization_error_when_response_has_no_data() {
         // Given
-        let array = [Entity(name: "", owner: "")]
-        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response)
+        let array = [anyEntity()]
+        let query = NetworkQuery(method: .put(type: .Json(entity: array)), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response)
         
         // Then
         expectPutError(dataSource, query, CoreError.DataSerialization(), .putAll)
@@ -87,12 +88,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_putall_returns_value_when_provided_as_parameter() {
         // Given
-        let array = [Entity(name: "", owner: "")]
-        let query = NetworkQuery(method: .put(type: nil), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "EntityList")
+        let array = [anyEntity()]
+        let query = NetworkQuery(method: .put(type: nil), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "EntityList")
         
         // Then
         expectPutAll(value: array, dataSource, query, nil)
@@ -100,22 +101,22 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_putall_returns_data_serialization_error_when_data_fails_to_be_parsed_as_generic_type() {
         // Given
-        let query = NetworkQuery(method: .put(type: nil), path: "")
-        let url = "www.dummy.com"
+        let query = NetworkQuery(method: .put(type: nil), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
         decoder.forceFailure = true
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
         
         // Then
-        expectPutAll(value: [Entity(name: "", owner: "")], dataSource, query, CoreError.DataSerialization())
+        expectPutAll(value: [anyEntity()], dataSource, query, CoreError.DataSerialization())
     }
     
     // Validation
     func test_put_returns_query_not_supported_error_when_query_not_a_network_query() {
         // Given
-        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: "")
+        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: anyURL())
         let query = AllObjectsQuery()
         
         // Then
@@ -124,8 +125,8 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_put_returns_query_not_supported_error_when_query_method_not_put() {
         // Given
-        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: "")
-        let query = NetworkQuery(method: .get, path: "")
+        let dataSource: PutNetworkDataSource<Int> = providePutDataSource(url: anyURL())
+        let query = NetworkQuery(method: .get, path: anyString())
         
         // Then
         expectPutError(dataSource, query, CoreError.QueryNotSupported(), .put)
@@ -133,9 +134,9 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_put_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
         // Given
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: anyURL())
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: anyString())
         
         // Then
         expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
@@ -143,13 +144,13 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_put_returns_error_when_network_request_fails() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
-        let url = "www.dummy.com"
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 400, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 400)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
         
         // Then
         expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
@@ -157,12 +158,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_put_returns_data_serialization_error_when_response_has_no_data() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response)
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .put(type: .Json(entity: entity)), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response)
         
         // Then
         expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
@@ -170,12 +171,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_put_returns_value_when_provided_as_parameter() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .put(type: nil), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .put(type: nil), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
         
         // Then
         expectPut(value: entity, dataSource, query, nil)
@@ -183,13 +184,13 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_put_returns_data_serialization_error_when_data_fails_to_be_parsed_as_generic_type() {
         // Given
-        let query = NetworkQuery(method: .put(type: nil), path: "")
-        let url = "www.dummy.com"
+        let query = NetworkQuery(method: .put(type: nil), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
         decoder.forceFailure = true
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
         expectPut(dataSource, query, CoreError.DataSerialization())
@@ -199,9 +200,9 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_post_returns_illegal_argument_error_when_value_and_content_type_are_both_present() {
         // Given
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: "")
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: anyURL())
+        let entity: CodableEntity = anyEntity()
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: anyString())
         
         // Then
         expectPutError(value: entity, dataSource, query, CoreError.IllegalArgument(), .put)
@@ -209,13 +210,13 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_post_returns_error_when_network_request_fails() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
-        let url = "www.dummy.com"
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 400, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 400)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
         
         // Then
         expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
@@ -223,12 +224,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_post_returns_data_serialization_error_when_response_has_no_data() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response)
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .post(type: .Json(entity: entity)), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response)
         
         // Then
         expectPutError(dataSource, query, CoreError.DataSerialization(), .put)
@@ -236,12 +237,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_post_returns_value_when_provided_as_parameter() {
         // Given
-        let entity = Entity(name: "", owner: "")
-        let query = NetworkQuery(method: .post(type: nil), path: "")
-        let url = "www.dummy.com"
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
+        let entity = anyEntity()
+        let query = NetworkQuery(method: .post(type: nil), path: anyString())
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, jsonFileName: "Entity")
         
         // Then
         expectPut(value: entity, dataSource, query, nil)
@@ -249,13 +250,13 @@ final class PutNetworkDataSourceTests: XCTestCase {
 
     func test_post_returns_data_serialization_error_when_data_fails_to_be_parsed_as_generic_type() {
         // Given
-        let query = NetworkQuery(method: .post(type: nil), path: "")
-        let url = "www.dummy.com"
+        let query = NetworkQuery(method: .post(type: nil), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
         decoder.forceFailure = true
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        let dataSource: PutNetworkDataSource<Entity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
         expectPut(dataSource, query, CoreError.DataSerialization())
@@ -263,12 +264,12 @@ final class PutNetworkDataSourceTests: XCTestCase {
     
     func test_post_returns_no_response() {
         // Given
-        let queryWithContentType = NetworkQuery(method: .post(type: .Json(entity: Entity(name: "", owner: ""))), path: "")
-        let queryNoContentType = NetworkQuery(method: .post(type: nil), path: "")
-        let url = "www.dummy.com"
+        let queryWithContentType = NetworkQuery(method: .post(type: .Json(entity: anyEntity())), path: anyString())
+        let queryNoContentType = NetworkQuery(method: .post(type: nil), path: anyString())
+        let url = anyURL()
         let decoder = DecoderSpy()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let dataSource: PutNetworkDataSource<NoResponse> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
@@ -317,7 +318,7 @@ final class PutNetworkDataSourceTests: XCTestCase {
     }
 
     private func providePutDataSource<S: Decodable>(
-        url: String,
+        url: URL,
         request: URLRequest? = nil,
         response: URLResponse? = nil,
         decoder: JSONDecoder? = nil,
@@ -379,9 +380,7 @@ final class PutNetworkDataSourceTests: XCTestCase {
     {
         let expectation = XCTestExpectation(description: "expectation")
 
-        dataSource.putAll(value, in: query).then { _ in
-            print("")
-        }.fail { error in
+        dataSource.putAll(value, in: query).fail { error in
             if let error = error as? AFError {
                 if error.localizedDescription == expectedError.localizedDescription {
                     expectation.fulfill()

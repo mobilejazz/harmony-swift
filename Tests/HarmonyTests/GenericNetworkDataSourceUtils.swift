@@ -10,16 +10,6 @@ import Alamofire
 
 @available(iOS 13.0, *)
 final class GenericDataSourceUtils {
-    static func provideRequest(url: String, cachePolicy: URLRequest.CachePolicy, timeout: TimeInterval) -> URLRequest {
-        return URLRequest(url: URL(fileURLWithPath: url), cachePolicy: cachePolicy, timeoutInterval: timeout)
-    }
-
-    static func provideResponse(url: String, statusCode: Int, httpVersion: String, headers: [String: String]) -> URLResponse? {
-        return HTTPURLResponse(url: URL(fileURLWithPath: url),
-                               statusCode: statusCode,
-                               httpVersion: httpVersion,
-                               headerFields: headers)
-    }
 
     static func provideMockAlamofireSession(request: URLRequest?, response: URLResponse?, jsonFileName: String?) -> Session {
         let configuration = URLSessionConfiguration.af.default

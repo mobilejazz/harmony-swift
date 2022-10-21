@@ -101,8 +101,8 @@ extension NetworkQuery {
         }
     }
 
-    public func request(url: String, session: Session) -> DataRequest {
-        let path = "\(url)\(self.path)"
+    public func request(url: URL, session: Session) -> DataRequest {
+        let fullUrl = url.appendingPathExtension(path)
         let afMethod = mapToAlamofireMethod(method: method)
         var parameters: [String: Any] = self.params
         let encoding: URLEncoding = .default
@@ -122,7 +122,7 @@ extension NetworkQuery {
             }
         }
         
-        return session.request(path,
+        return session.request(fullUrl,
                                method: afMethod,
                                parameters: parameters,
                                encoding: encoding,

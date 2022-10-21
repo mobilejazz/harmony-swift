@@ -10,6 +10,7 @@ import Foundation
 import Harmony
 import Nimble
 import XCTest
+import HarmonyTesting
 
 enum Function {
     case get
@@ -26,163 +27,130 @@ class GetNetworkDataSourceTests: XCTestCase {
     private typealias Utils = GenericDataSourceUtils
     
     func test_getAll_allobjects_query_not_supported() {
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: anyURL())
         let query = AllObjectsQuery()
         
         expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_getAll_networkquery_method_delete_not_supported() {
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: anyURL())
         let query = NetworkQuery(method: .delete, path: "")
         
         expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_getAll_networkquery_method_put_not_supported() {
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: "")
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: anyURL())
         let query = NetworkQuery(method: .put(type: NetworkQuery.ContentType.FormUrlEncoded(params: [:])), path: "")
         
         expectGetError(dataSource, query, CoreError.QueryNotSupported(), .getAll)
     }
     
     func test_get_response_statuscode_validation_failure() {
-        let url = "dummy"
+        let url = anyURL()
+        let request = anyRequest(url: url)
         let statusCode = 400
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let response = anyURLResponse(statusCode: statusCode)
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
+        let query = NetworkQuery(method: .get, path: anyString())
 
         expectGetAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
-    func test_get_response_empty_url_validation_failure() {
-        let url = String()
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: 200, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
-        let decoder = DecoderSpy()
-        
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .get, path: url)
-
-        expectGetAlamofireError(dataSource, query, AFError.invalidURL(url: url))
-        expect { decoder.decodeCalledCount }.to(equal(0))
-    }
-    
     func test_getAll_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let decoder = DecoderSpy()
-        
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .getAll)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
     func test_getAll_no_data_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, CoreError.DataSerialization(), .getAll)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
     func test_getAll_decoding_success() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, nil, .getAll)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
     func test_get_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .get)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
     func test_get_decoding_success() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, nil, .get)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
     func test_get_no_data_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<Entity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .get, path: url)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, CoreError.DataSerialization(), .get)
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
     func test_get_incompatible_entity_type_decoding_failure() {
-        let url = "www.dummy.com"
-        let statusCode = 200
-        
-        let request = Utils.provideRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeout: 1.0)
-        let response = Utils.provideResponse(url: url, statusCode: statusCode, httpVersion: "HTTP/2.0", headers: ["json": "application/json; charset=utf-8"])
-        
+        let url = anyURL()
+        let request = anyRequest(url: url)
+        let response = anyURLResponse(statusCode: 200)        
         let decoder = DecoderSpy()
         
         let dataSource: GetNetworkDataSource<Int> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
-        let query = NetworkQuery(method: .get, path: url)
+        let query = NetworkQuery(method: .get, path: anyString())
                                
         expectGetError(dataSource, query, CoreError.DataSerialization(), .get)
         expect { decoder.decodeCalledCount }.to(equal(0))
@@ -260,7 +228,7 @@ class GetNetworkDataSourceTests: XCTestCase {
     }
     
     private func provideGetDataSource<S: Decodable>(
-        url: String,
+        url: URL,
         request: URLRequest? = nil,
         response: URLResponse? = nil,
         decoder: JSONDecoder? = nil,

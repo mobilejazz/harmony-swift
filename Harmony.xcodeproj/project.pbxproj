@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0029D1CB2902BA29008E1FE8 /* URLObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0029D1CA2902BA29008E1FE8 /* URLObjectMother.swift */; };
+		0029D1CC2902BA29008E1FE8 /* URLObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0029D1CA2902BA29008E1FE8 /* URLObjectMother.swift */; };
+		0029D1CE2902C06D008E1FE8 /* EntityObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0029D1CD2902C06D008E1FE8 /* EntityObjectMother.swift */; };
+		0029D1CF2902C06D008E1FE8 /* EntityObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0029D1CD2902C06D008E1FE8 /* EntityObjectMother.swift */; };
+		0029D1D12902C353008E1FE8 /* CodableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* CodableEntity.swift */; };
 		003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */; };
 		006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
@@ -16,7 +21,6 @@
 		006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
 		006D52B528F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */; };
 		006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
-        006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
 		006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
@@ -126,8 +130,7 @@
 		AED438A828E2CA2400C52F2B /* Entity.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A628E2CA2400C52F2B /* Entity.json */; };
 		AED438AA28E2CA2F00C52F2B /* EntityList.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A928E2CA2F00C52F2B /* EntityList.json */; };
 		AED438AB28E2CA2F00C52F2B /* EntityList.json in Resources */ = {isa = PBXBuildFile; fileRef = AED438A928E2CA2F00C52F2B /* EntityList.json */; };
-		AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
-		AED438AE28E2CB2000C52F2B /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* Entity.swift */; };
+		AED438AE28E2CB2000C52F2B /* CodableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* CodableEntity.swift */; };
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */; };
@@ -257,6 +260,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0029D1CA2902BA29008E1FE8 /* URLObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLObjectMother.swift; sourceTree = "<group>"; };
+		0029D1CD2902C06D008E1FE8 /* EntityObjectMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityObjectMother.swift; sourceTree = "<group>"; };
 		003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedMainQueueExecutorTests.swift; sourceTree = "<group>"; };
 		006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSource.swift; sourceTree = "<group>"; };
 		006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSource.swift; sourceTree = "<group>"; };
@@ -656,7 +661,7 @@
 		AE76561A28E1783800A24487 /* DecoderSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderSpy.swift; sourceTree = "<group>"; };
 		AED438A628E2CA2400C52F2B /* Entity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Entity.json; sourceTree = "<group>"; };
 		AED438A928E2CA2F00C52F2B /* EntityList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = EntityList.json; sourceTree = "<group>"; };
-		AED438AC28E2CB2000C52F2B /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		AED438AC28E2CB2000C52F2B /* CodableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableEntity.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
@@ -1542,6 +1547,8 @@
 				59E5191A27A9460A00A18D72 /* ErrorObjectMother.swift */,
 				59E5192227A9462F00A18D72 /* StringObjectMother.swift */,
 				59E5191B27A9460A00A18D72 /* IntegerObjectModel.swift */,
+				0029D1CA2902BA29008E1FE8 /* URLObjectMother.swift */,
+				0029D1CD2902C06D008E1FE8 /* EntityObjectMother.swift */,
 			);
 			path = ObjectMother;
 			sourceTree = "<group>";
@@ -1568,7 +1575,7 @@
 			children = (
 				AED438A928E2CA2F00C52F2B /* EntityList.json */,
 				AED438A628E2CA2400C52F2B /* Entity.json */,
-				AED438AC28E2CB2000C52F2B /* Entity.swift */,
+				AED438AC28E2CB2000C52F2B /* CodableEntity.swift */,
 				D2067A39285C5F8000A1047E /* DataSourceSpy.swift */,
 				D2067A3C285C600B00A1047E /* RepositorySpy.swift */,
 				D2067A41285C61CE00A1047E /* MockObjectValidation.swift */,
@@ -1897,7 +1904,6 @@
 				006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
-				AED438AD28E2CB2000C52F2B /* Entity.swift in Sources */,
 				006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
@@ -1917,12 +1923,14 @@
 				D2067A43285C61DD00A1047E /* MockObjectValidation.swift in Sources */,
 				D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */,
 				5932E95727A9472D00253261 /* UUIDObjectMother.swift in Sources */,
+				0029D1CB2902BA29008E1FE8 /* URLObjectMother.swift in Sources */,
 				5932E95827A9472D00253261 /* BoolObjectMother.swift in Sources */,
 				5932E95927A9472D00253261 /* DoubleObjectMother.swift in Sources */,
-				AED438AE28E2CB2000C52F2B /* Entity.swift in Sources */,
+				AED438AE28E2CB2000C52F2B /* CodableEntity.swift in Sources */,
 				5932E95A27A9472D00253261 /* ErrorObjectMother.swift in Sources */,
 				5932E95B27A9472D00253261 /* StringObjectMother.swift in Sources */,
 				5932E95C27A9472D00253261 /* IntegerObjectModel.swift in Sources */,
+				0029D1CE2902C06D008E1FE8 /* EntityObjectMother.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2025,11 +2033,14 @@
 			files = (
 				D2D2169227AC291200A104B8 /* MockInteractorDelete.swift in Sources */,
 				D2D2169327AC291200A104B8 /* MockInteractorGet.swift in Sources */,
+				0029D1CF2902C06D008E1FE8 /* EntityObjectMother.swift in Sources */,
 				D2067A3E285C600B00A1047E /* RepositorySpy.swift in Sources */,
 				D2D2169427AC291200A104B8 /* MockInteractorPut.swift in Sources */,
+				0029D1D12902C353008E1FE8 /* CodableEntity.swift in Sources */,
 				D2D2169527AC291200A104B8 /* TestUtils.swift in Sources */,
 				D2067A44285C61DD00A1047E /* MockObjectValidation.swift in Sources */,
 				D2067A3B285C5F8000A1047E /* DataSourceSpy.swift in Sources */,
+				0029D1CC2902BA29008E1FE8 /* URLObjectMother.swift in Sources */,
 				D2D2169627AC291200A104B8 /* UUIDObjectMother.swift in Sources */,
 				D2D2169727AC291200A104B8 /* BoolObjectMother.swift in Sources */,
 				D2D2169827AC291200A104B8 /* DoubleObjectMother.swift in Sources */,
