@@ -65,35 +65,21 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
     }
 
     private func handleResponse<K: Codable>(_ value: K?, response: URLResponse?, responseData: Data?, responseError: Error?, resolver: FutureResolver<K>) {
-        guard let data = responseData else {
-            resolver.set(CoreError.DataSerialization())
-            return
-        }
-        guard let httpResponse = response as? HTTPURLResponse else {
-            resolver.set(CoreError.Failed())
-            return
-        }
-        guard responseError == nil else {
-            resolver.set(responseError!)
-            return
-        }
-        
-        let statusCode = httpResponse.statusCode
-        guard (200 ... 299) ~= statusCode else {
-            resolver.set(CoreError.Failed("HTTP status code: \(statusCode)"))
-            return
-        }
-
-        do {
-            if K.self == NoResponse.self {
-                resolver.set(NoResponse() as! K)
-            } else if K.self == [NoResponse].self {
-                resolver.set([] as! K)
-            } else {
-                resolver.set(try self.decoder.decode(K.self, from: data))
+        validateResponse(response: response, responseData: responseData, responseError: responseError) { validData in
+            do {
+                if K.self == NoResponse.self {
+                    resolver.set(NoResponse() as! K)
+                } else if K.self == [NoResponse].self {
+                    resolver.set([] as! K)
+                } else {
+                    resolver.set(try self.decoder.decode(K.self, from: validData))
+                }
+            } catch {
+                resolver.set(CoreError.DataSerialization())
             }
-        } catch {
-            resolver.set(CoreError.DataSerialization())
+
+        } failedValidation: { validationError in
+            resolver.set(validationError)
         }
     }
     

@@ -45,28 +45,14 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
                         
             let request = try query.request(url: url)
             session.dataTask(with: request) { data, response, responseError in
-                guard let data = data else {
-                    resolver.set(CoreError.DataSerialization())
-                    return
-                }
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    resolver.set(CoreError.Failed())
-                    return
-                }
-                guard responseError == nil else {
-                    resolver.set(responseError!)
-                    return
-                }
-                
-                let statusCode = httpResponse.statusCode
-                guard (200 ... 299) ~= statusCode else {
-                    resolver.set(CoreError.Failed("HTTP status code: \(statusCode)"))
-                    return
-                }
-                do {
-                    resolver.set(try self.decoder.decode(K.self, from: data))
-                } catch {
-                    resolver.set(CoreError.DataSerialization())
+                validateResponse(response: response, responseData: data, responseError: responseError) { validData in
+                    do {
+                        resolver.set(try self.decoder.decode(K.self, from: validData))
+                    } catch {
+                        resolver.set(CoreError.DataSerialization())
+                    }
+                } failedValidation: { validationError in
+                    resolver.set(validationError)
                 }
             }
             .resume()            

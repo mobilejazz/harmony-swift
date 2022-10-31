@@ -39,25 +39,11 @@ public class DeleteNetworkDataSource: DeleteDataSource {
             
             let request = try query.request(url: url)
             session.dataTask(with: request) { data, response, responseError in
-                guard let data = data else {
-                    resolver.set(CoreError.DataSerialization())
-                    return
+                validateResponse(response: response, responseData: data, responseError: responseError) { validData in
+                    resolver.set(())
+                } failedValidation: { validationError in
+                    resolver.set(validationError)
                 }
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    resolver.set(CoreError.Failed())
-                    return
-                }
-                guard responseError == nil else {
-                    resolver.set(responseError!)
-                    return
-                }
-                
-                let statusCode = httpResponse.statusCode
-                guard (200 ... 299) ~= statusCode else {
-                    resolver.set(CoreError.Failed("HTTP status code: \(statusCode)"))
-                    return
-                }
-                resolver.set(())
             }
             .resume()
         }
