@@ -69,8 +69,7 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
                     resolver.set(CoreError.DataSerialization())
                 }
             }
-            .resume()
-            
+            .resume()            
         }
     }
 

@@ -16,6 +16,9 @@
 		006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
 		006D52B128F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
 		006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
+		00FCD4A12910044400435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		00FCD4A22910044500435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
 		24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */; };
@@ -1849,6 +1852,7 @@
 				59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */,
 				59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */,
 				59B7A8A127A82971001F5D8F /* TimedCacheDataSource.swift in Sources */,
+				00FCD4A12910044400435E1A /* DeleteNetworkDataSource.swift in Sources */,
 				59B7A89827A82971001F5D8F /* AnyGetDataSource.swift in Sources */,
 				59B7A8B027A82971001F5D8F /* ScopeLock.swift in Sources */,
 				59B7A89C27A82971001F5D8F /* InteractorPut.swift in Sources */,
@@ -1891,6 +1895,7 @@
 				006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
+				00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 			);
@@ -1985,6 +1990,7 @@
 				D2D2166C27AC280A00A104B8 /* InteractorDelete.swift in Sources */,
 				D2D2166D27AC280A00A104B8 /* KeyValueObserver.swift in Sources */,
 				D2D2166E27AC280A00A104B8 /* ScopeLockFuture.swift in Sources */,
+				00FCD4A22910044500435E1A /* DeleteNetworkDataSource.swift in Sources */,
 				D2D2166F27AC280A00A104B8 /* TimedCacheDataSource.swift in Sources */,
 				D2D2167027AC280A00A104B8 /* AnyGetDataSource.swift in Sources */,
 				D2D2167127AC280A00A104B8 /* ScopeLock.swift in Sources */,
