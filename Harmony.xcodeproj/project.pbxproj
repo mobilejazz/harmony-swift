@@ -19,6 +19,9 @@
 		00FCD4A12910044400435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		00FCD4A22910044500435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
+		00FCD4A429100E2500435E1A /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		00FCD4A629100E2900435E1A /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		00FCD4A72910124300435E1A /* PutNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
 		24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */; };
@@ -1814,6 +1817,7 @@
 				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
 				59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */,
+				00FCD4A429100E2500435E1A /* PutNetworkDataSource.swift in Sources */,
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
 				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
 				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
@@ -1894,6 +1898,7 @@
 				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
 				006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
+				00FCD4A72910124300435E1A /* PutNetworkDataSourceTests.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
 				00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
@@ -1952,6 +1957,7 @@
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
+				00FCD4A629100E2900435E1A /* PutNetworkDataSource.swift in Sources */,
 				D2D2164A27AC280A00A104B8 /* DataSourceAssembler.swift in Sources */,
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
