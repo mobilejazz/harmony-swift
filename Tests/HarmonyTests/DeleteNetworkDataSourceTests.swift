@@ -5,7 +5,6 @@
 //  Created by Borja Arias Drake on 11.10.2022..
 //
 
-import Alamofire
 import Foundation
 import Harmony
 import Nimble
@@ -147,7 +146,7 @@ final class DeleteNetworkDataSourceTests: XCTestCase {
             decoder: JSONDecoder? = nil,
             jsonFileName: String? = nil) -> DeleteNetworkDataSource
     {
-        let session = Utils.provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+        let session = Utils.urlSession(request: request, response: response, jsonFileName: jsonFileName)
         return DeleteNetworkDataSource(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
     

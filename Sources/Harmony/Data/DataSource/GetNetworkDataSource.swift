@@ -14,16 +14,15 @@
 // limitations under the License.
 //
 
-import Alamofire
 import Foundation
 
 public class GetNetworkDataSource<T: Decodable>: GetDataSource {
     
     private let url: URL
-    private let session: Session
+    private let session: URLSession
     private let decoder: JSONDecoder
     
-    public init(url: URL, session: Session, decoder: JSONDecoder) {
+    public init(url: URL, session: URLSession, decoder: JSONDecoder) {
         self.url = url
         self.session = session
         self.decoder = decoder
@@ -37,41 +36,51 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
         return execute(query)
     }
         
-    private func execute<K: Decodable>(_ query: Query) -> Future<K> {
+    private func execute<K: Decodable>(_ query: Query) -> Future<K> {        
         return Future<K> { resolver in
-          
-            guard let query = validate(query) else {
+            guard let query = getNetworkQuery(query) else {
                 resolver.set(CoreError.QueryNotSupported())
                 return
             }
-          
-            query
-                .request(url: self.url, session: self.session)
-                .validate()
-                .response { response in
-            
-                    if let error = response.error {
-                        resolver.set(error)
-                        return
-                    }
-            
-                    do {
-                        guard let data = response.data else { throw CoreError.DataSerialization() }
-                        resolver.set(try self.decoder.decode(K.self, from: data))
-                    } catch {
-                        resolver.set(error)
-                    }
+                        
+            let request = try query.request(url: url)
+            session.dataTask(with: request) { data, response, responseError in
+                guard let data = data else {
+                    resolver.set(CoreError.DataSerialization())
+                    return
                 }
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    resolver.set(CoreError.Failed())
+                    return
+                }
+                guard responseError == nil else {
+                    resolver.set(responseError!)
+                    return
+                }
+                
+                let statusCode = httpResponse.statusCode
+                guard (200 ... 299) ~= statusCode else {
+                    resolver.set(CoreError.Failed("HTTP status code: \(statusCode)"))
+                    return
+                }
+                do {
+                    resolver.set(try self.decoder.decode(K.self, from: data))
+                } catch {
+                    resolver.set(CoreError.DataSerialization())
+                }
+            }
+            .resume()
+            
         }
     }
 
     @discardableResult
-    private func validate(_ query: Query) -> NetworkQuery? {
-        guard let query = query as? NetworkQuery else { _ = CoreError.QueryNotSupported("GetNetworkDataSource only supports NetworkQuery")
+    private func getNetworkQuery(_ query: Query) -> NetworkQuery? {
+        guard let query = query as? NetworkQuery else {
             return nil
         }
         
-        guard query.method == NetworkQuery.Method.get else { _ = CoreError.QueryNotSupported("NetworkQuery method is \(query.method) instead of GET")
+        guard query.method == NetworkQuery.Method.get else {
             return nil
         }
 

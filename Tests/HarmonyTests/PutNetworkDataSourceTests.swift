@@ -5,7 +5,6 @@
 //  Created by Borja Arias Drake on 11.10.2022..
 //
 
-import Alamofire
 import Foundation
 import Harmony
 import Nimble
@@ -324,7 +323,7 @@ final class PutNetworkDataSourceTests: XCTestCase {
         decoder: JSONDecoder? = nil,
         jsonFileName: String? = nil
     ) -> PutNetworkDataSource<S> {
-        let session = Utils.provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+        let session = Utils.urlSession(request: request, response: response, jsonFileName: jsonFileName)
         return PutNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 

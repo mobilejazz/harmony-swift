@@ -5,7 +5,6 @@
 //  Created by Kerim Sari on 22.09.2022.
 //
 
-import Alamofire
 import Foundation
 import Harmony
 import Nimble
@@ -55,10 +54,10 @@ class GetNetworkDataSourceTests: XCTestCase {
         
         let decoder = DecoderSpy()
         
-        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .get, path: anyString())
 
-        expectGetAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
+        expectGetAlamofireError(dataSource, query, CoreError.Failed("HTTP status code: 400"))
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -70,7 +69,7 @@ class GetNetworkDataSourceTests: XCTestCase {
         let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .get, path: anyString())
                                
-        expectGetError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .getAll)
+        expectGetError(dataSource, query, CoreError.DataSerialization(), .getAll)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -78,9 +77,7 @@ class GetNetworkDataSourceTests: XCTestCase {
         let url = anyURL()
         let request = anyRequest(url: url)
         let response = anyURLResponse(statusCode: 200)
-        
         let decoder = DecoderSpy()
-        
         let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder)
         let query = NetworkQuery(method: .get, path: anyString())
                                
@@ -111,7 +108,7 @@ class GetNetworkDataSourceTests: XCTestCase {
         let dataSource: GetNetworkDataSource<CodableEntity> = provideGetDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "EntityList")
         let query = NetworkQuery(method: .get, path: anyString())
                                
-        expectGetError(dataSource, query, DecodingError.typeMismatch([Any].self, DecodingError.Context(codingPath: [], debugDescription: "")), .get)
+        expectGetError(dataSource, query, CoreError.DataSerialization(), .get)
         expect { decoder.decodeCalledCount }.to(equal(1))
     }
     
@@ -212,15 +209,13 @@ class GetNetworkDataSourceTests: XCTestCase {
     private func expectGetAlamofireError<S: Decodable>(
         _ dataSource: GetNetworkDataSource<S>,
         _ query: Query,
-        _ expectedError: AFError)
+        _ expectedError: Error)
     {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.getAll(query).then { _ in }.fail { error in
-            if let error = error as? AFError {
-                if error.localizedDescription == expectedError.localizedDescription {
-                    expectation.fulfill()
-                }
+            if error.localizedDescription == expectedError.localizedDescription {
+                expectation.fulfill()
             }
         }
 
@@ -233,8 +228,8 @@ class GetNetworkDataSourceTests: XCTestCase {
         response: URLResponse? = nil,
         decoder: JSONDecoder? = nil,
         jsonFileName: String? = nil) -> GetNetworkDataSource<S>
-    {
-        let session = Utils.provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+    {        
+        let session = Utils.urlSession(request: request, response: response, jsonFileName: jsonFileName)
         return GetNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 }
