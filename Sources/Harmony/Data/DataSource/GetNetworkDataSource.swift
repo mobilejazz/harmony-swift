@@ -43,7 +43,7 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
                 return
             }
                         
-            let request = try query.request(url: url)
+            let request = try url.toURLRequest(query: query)
             session.dataTask(with: request) { data, response, responseError in
                 validateResponse(response: response, responseData: data, responseError: responseError) { validData in
                     do {

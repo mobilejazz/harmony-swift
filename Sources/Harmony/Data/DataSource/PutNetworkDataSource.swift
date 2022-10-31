@@ -38,7 +38,7 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
             }
             
             let sanitizedNetworkQuery = try networkQuery.sanitizeArrayContentType(value: array)
-            let request = try sanitizedNetworkQuery.request(url: url)
+            let request = try url.toURLRequest(query: sanitizedNetworkQuery)
             session.dataTask(with: request) { data, response, responseError in
                 self.handleResponse(array, response: response, responseData: data, responseError: responseError, resolver: resolver)
             }
@@ -56,7 +56,7 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
             }
             
             let sanitizedNetworkQuery = try networkQuery.sanitizeContentType(value: value)
-            let request = try sanitizedNetworkQuery.request(url: url)
+            let request = try url.toURLRequest(query: sanitizedNetworkQuery)
             session.dataTask(with: request) { data, response, responseError in
                 self.handleResponse(value, response: response, responseData: data, responseError: responseError, resolver: resolver)
             }

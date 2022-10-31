@@ -62,6 +62,19 @@ open class NetworkQuery: KeyQuery {
                 return type
             }
         }
+        
+        public func toUrlRequestMethod() -> String {
+            switch self {
+            case .get:
+                return "GET"
+            case .delete:
+                return "DELETE"
+            case .put:
+                return "PUT"
+            case .post:
+                return "POST"
+            }
+        }
     }
 
     public enum ContentType {
@@ -98,92 +111,7 @@ extension NetworkQuery {
         case .post:
             return "POST"
         }
-    }
-
-//    public func request(url: URL, session: Session) -> DataRequest {
-//        let fullUrl = url.appendingPathExtension(path)
-//        let afMethod = mapToAlamofireMethod(method: method)
-//        var parameters: [String: Any] = self.params
-//        let encoding: URLEncoding = .default
-//        let headers = HTTPHeaders(self.headers)
-//
-//        if case let .put(type: contentType) = method {
-//            if let contentType {
-//                switch contentType {
-//                case .Json(entity: let entity):
-//                    let data = try! JSONEncoder().encode(entity)
-//                    if let dic = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-//                        parameters = dic
-//                    }
-//                case .FormUrlEncoded(params: let formURLEncodedParams):
-//                    parameters = formURLEncodedParams
-//                }
-//            }
-//        }
-//
-//        return session.request(fullUrl,
-//                               method: afMethod,
-//                               parameters: parameters,
-//                               encoding: encoding,
-//                               headers: headers)
-//    }
-    
-    public func request(url: URL) throws -> URLRequest {
-        let fullUrl = url.appendingPathExtension(path)
-        let finalUrl: URL
-        let urlMethod = mapToUrlRequestMethod(method: method)
-
-        // Calculate final URL based on method
-        switch method {
-        case .get, .delete:
-            // Params go into the URL
-            guard var components = URLComponents(url: fullUrl, resolvingAgainstBaseURL: false) else {
-                throw CoreError.NotValid()
-            }
-            
-            components.queryItems = params.map { (key, value) in
-                URLQueryItem(name: key, value: value as? String)
-            }
-            
-            guard let urlWithQueryItems = components.url else {
-                throw CoreError.NotValid()
-            }
-            
-            finalUrl = urlWithQueryItems
-            
-        case .put, .post:
-            finalUrl = fullUrl
-        }
-        
-        // Create the request with the final URL
-        var request = URLRequest(url: finalUrl)
-        
-        // Add method to request
-        request.httpMethod = urlMethod
-        
-        // Add headers to request
-        for (key, value) in headers {
-            request.addValue(value, forHTTPHeaderField: key)
-        }
-        
-        // Add parameters to body depending on method
-        switch method {
-        case .put(type: let contentType), .post(type: let contentType):
-            if let contentType {
-                let paramsData: Data
-                switch contentType {
-                case .Json(entity: let entity):
-                    paramsData = try JSONEncoder().encode(entity)
-                case .FormUrlEncoded(params: let formURLEncodedParams):
-                    paramsData = try JSONSerialization.data(withJSONObject: formURLEncodedParams)
-                }
-                request.httpBody = paramsData
-            }
-        default: break
-        }
-        
-        return request
-    }
+    }    
 }
 
 extension NetworkQuery {
