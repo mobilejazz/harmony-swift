@@ -39,20 +39,18 @@ public class DeleteNetworkDataSource: DeleteDataSource {
             }
           
             query
-                .request(url: self.url, session: self.session).validate()
+                .request(url: self.url, session: self.session)
+                .validate()
                 .response { response in
-            
-                    guard response.error == nil else {
-                        if let error = response.error as NSError? {
-                            resolver.set(error)
-                        }
+                    if let error = response.error {
+                        resolver.set(error)
                         return
                     }
             
                     do {
                         guard let _ = response.data else { throw CoreError.DataSerialization() }
                         resolver.set(())
-                    } catch let error as NSError {
+                    } catch {
                         resolver.set(error)
                     }
                 }

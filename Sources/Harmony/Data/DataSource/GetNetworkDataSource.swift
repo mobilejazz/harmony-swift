@@ -29,16 +29,14 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
         self.decoder = decoder
     }
     
-    @discardableResult
-    open func getAll(_ query: Query) -> Future<[T]> {
-        return execute(query)
-    }
-    
-    @discardableResult
     open func get(_ query: Query) -> Future<T> {
         return execute(query)
     }
-    
+
+    open func getAll(_ query: Query) -> Future<[T]> {
+        return execute(query)
+    }
+        
     private func execute<K: Decodable>(_ query: Query) -> Future<K> {
         return Future<K> { resolver in
           
@@ -52,17 +50,15 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
                 .validate()
                 .response { response in
             
-                    guard response.error == nil else {
-                        if let error = response.error as NSError? {
-                            resolver.set(error)
-                        }
+                    if let error = response.error {
+                        resolver.set(error)
                         return
                     }
             
                     do {
                         guard let data = response.data else { throw CoreError.DataSerialization() }
                         resolver.set(try self.decoder.decode(K.self, from: data))
-                    } catch let error as NSError {
+                    } catch {
                         resolver.set(error)
                     }
                 }

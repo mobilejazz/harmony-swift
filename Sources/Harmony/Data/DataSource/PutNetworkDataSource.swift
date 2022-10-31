@@ -70,10 +70,8 @@ public class PutNetworkDataSource<T: Codable>: PutDataSource {
     }
 
     private func handleResponse<K: Codable>(_ value: K?, response: AFDataResponse<Data?>, resolver: FutureResolver<K>) {
-        guard response.error == nil else {
-            if let error = response.error as NSError? {
-                resolver.set(error)
-            }
+        if let error = response.error {
+            resolver.set(error)
             return
         }
 
