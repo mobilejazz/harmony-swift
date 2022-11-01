@@ -206,9 +206,9 @@ public class HexStringToDataMapper : Mapper <String,Data> {
 /// Converts NoResponse to Void.
 /// This is supposed to be used with PutNetworkDataSource, which requires its type T to be Codable.
 ///
-//public class NoResponseToVoidMapper: Mapper<NoResponse, Void> {
-//    
-//    public override func map(_ from: NoResponse) throws -> Void {
-//        ()
-//    }
-//}
+public class NoResponseToVoidMapper: Mapper<NoResponse, Void> {
+    
+    public override func map(_ from: NoResponse) throws -> Void {
+        ()
+    }
+}
