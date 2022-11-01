@@ -17,8 +17,10 @@
 import Foundation
 import Alamofire
 
+/// A wrapper around a network query, to be used with the network data sources.
 open class NetworkQuery: KeyQuery {
-
+    
+    /// The HTTP method
     public enum Method: Equatable {
         
         case get
@@ -41,16 +43,20 @@ open class NetworkQuery: KeyQuery {
             }
         }
         
-        public func with(contentType newContentType: ContentType?) -> Self {
+        /// Returns a copy of the HTTP method using the new content type. Throws if the method does not support a content type.
+        /// - Parameter newContentType: the new content type to be used
+        /// - Returns: a copy of the HTTP method using the new content type
+        public func with(contentType newContentType: ContentType?) throws -> Self {
             if case .put = self {
                 return .put(type: newContentType)
             } else if case .post = self {
                 return .post(type: newContentType)
             } else {
-                return self
+                throw CoreError.NotValid()
             }
         }
         
+        /// - Returns: the content type or nil if the method does not support it
         public func contentType() -> NetworkQuery.ContentType? {
             switch self {
             case .get:
@@ -64,7 +70,8 @@ open class NetworkQuery: KeyQuery {
             }
         }
     }
-
+    
+    /// An abstraction of the content type and value in different forms
     public enum ContentType {
         case FormUrlEncoded(params: [String: String])
         case Json(entity: Encodable)
@@ -140,7 +147,7 @@ extension NetworkQuery {
         
         // Updating query if value is passed as separated argument from the query
         if (contentType == nil && value != nil) {
-            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
+            method = try method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
         }
         
         return self
@@ -155,7 +162,7 @@ extension NetworkQuery {
         
         // Updating query if value is passed as separated argument from the query
         if (contentType == nil && !value.isEmpty) {
-            method = method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
+            method = try method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
         }
         
         return self

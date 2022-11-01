@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CodableEntity: Codable {
+public struct CodableEntity: Codable, Equatable {
     public let name, owner: String
 }
 
