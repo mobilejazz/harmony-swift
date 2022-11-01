@@ -10,7 +10,7 @@ import Foundation
 extension URL {
 
     func toURLRequest(query: NetworkQuery) throws -> URLRequest {
-        let fullUrl = self.appendingPathExtension(path)
+        let fullUrl = self.appendingPathComponent(query.path)
         let finalUrl = try modifiedURLForMethod(from: fullUrl, query: query)
         var request = URLRequest(url: finalUrl)
         request.httpMethod = query.method.toUrlRequestMethod()
@@ -27,10 +27,11 @@ extension URL {
                 throw CoreError.NotValid()
             }
             
-            components.queryItems = query.params.map { (key, value) in
-                URLQueryItem(name: key, value: value as? String)
+            if !query.params.isEmpty {
+                components.queryItems = query.params.map { (key, value) in
+                    URLQueryItem(name: key, value: value as? String)
+                }
             }
-            
             guard let urlWithQueryItems = components.url else {
                 throw CoreError.NotValid()
             }
