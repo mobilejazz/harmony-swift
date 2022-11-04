@@ -19,10 +19,12 @@
   </p>
   
   <p align="center">
-    <a href="https://travis-ci.org/mobilejazz/harmony-ios"><img alt="CI Status" src="http://img.shields.io/travis/mobilejazz/harmony-ios.svg?style=flat)"></a>
-    <a href="http://cocoapods.org/pods/Harmony"><img alt="Version" src="https://img.shields.io/cocoapods/v/Harmony.svg?style=flat"></a>
-    <a href="http://cocoapods.org/pods/Harmony"><img alt="License" src="https://img.shields.io/cocoapods/l/Harmony.svg?style=flat"></a>
-    <a href="http://cocoapods.org/pods/Harmony"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Harmony.svg?style=flat"></a>
+  [![Platforms](https://img.shields.io/badge/Platforms-macOS_iOS-yellowgreen?style=flat-square)](https://img.shields.io/badge/Platforms-macOS_iOS_Windows-Green?style=flat-square)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Harmony)](https://img.shields.io/cocoapods/v/Harmony)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
+[![Twitter](https://img.shields.io/badge/twitter-@mobilejazzcom-blue.svg?style=flat-square)](https://twitter.com/mobilejazzcom)
+    <a href="https://github.com/mobilejazz/harmony-swift/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/mobilejazz/harmony-swift"></a>
   </p>
 </p>
 
@@ -69,6 +71,13 @@ First of all, run to resolve the dependencies.
 ```ruby
 carthage update --use-xcframeworks --platform [iOS|macOS] --no-use-binaries
 ```
+
+The development of the library is done using Carthage. For this, we use the .xcodeproj. Including the unit tests.
+
+If we want to use the Sample for development, we will have to add the dependencies in the .podsec to have the libraries available. Later, we must add the dependencies in Carthage and SPM as well.
+
+####Important!
+All the new dependencies must be added in all the package managers we support (Carthage, Cocoapods and SPM).
 
 ## Author
 
