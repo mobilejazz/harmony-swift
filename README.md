@@ -74,7 +74,8 @@ carthage update --use-xcframeworks --platform [iOS|macOS] --no-use-binaries
 
 The development of the library is done using Carthage. For this, we use the .xcodeproj. Including the unit tests.
 
-If we want to use the Sample for development, we will have to add the dependencies in the .podsec to have the libraries available. Later, we must add the dependencies in Carthage and SPM as well.
+If we want to use the Example for Harmony development, open Example/Harmony.xcworkspace. Example uses Cocoapods to resolve the dependency on Harmony. Any new dependencies must be added in the Harmony .podsec. This way it will be available for both development and distribution of the library. Later, we must add the dependencies in Carthage and SPM as well.
+Any dependencies used for Example development, for example Kingfisher for downloading images, must be added in the Podfile and not in the .podspec.
 
 ####Important!
 All the new dependencies must be added in all the package managers we support (Carthage, Cocoapods and SPM).
