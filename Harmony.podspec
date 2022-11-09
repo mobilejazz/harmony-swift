@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'Harmony'
-    s.version          = '1.1.5'
+    s.version          = '1.1.6'
     s.summary          = 'Mobile Jazz Harmony Core'
     s.swift_version    = '5'
     
@@ -62,6 +62,15 @@ Pod::Spec.new do |s|
         sp.dependency 'Alamofire', '~> 4.8.2'
         sp.dependency 'Harmony/Future'
         sp.dependency 'Harmony/Common'
+    end
+    
+    s.subspec 'All' do |sp|
+        sp.source_files = 'Harmony/Classes/**/*', 'Harmony/Harmony.h'
+        sp.frameworks = 'Security', 'UIKit'
+        sp.dependency 'Alamofire', '~> 4.8.2'
+        sp.dependency 'MJCocoaCore/Common', '~> 2.3.10'
+        sp.dependency 'MJCocoaCore/Realm', '~> 2.3.10'
+        sp.dependency 'MJObjection'
     end
     
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

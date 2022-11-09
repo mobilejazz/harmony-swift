@@ -1,45 +1,60 @@
 PODS:
   - Alamofire (4.8.2)
-  - Harmony (1.1.3):
-    - Harmony/Common (= 1.1.3)
-    - Harmony/Repository (= 1.1.3)
-    - Harmony/Security (= 1.1.3)
-  - Harmony/Alamofire (1.1.3):
+  - Harmony (1.1.5):
+    - Harmony/Common (= 1.1.5)
+    - Harmony/Repository (= 1.1.5)
+    - Harmony/Security (= 1.1.5)
+  - Harmony/Alamofire (1.1.5):
     - Alamofire (~> 4.8.2)
     - Harmony/Common
     - Harmony/Future
-  - Harmony/Common (1.1.3):
+  - Harmony/All (1.1.5):
+    - Alamofire (~> 4.8.2)
+    - MJCocoaCore/Common (~> 2.3.10)
+    - MJCocoaCore/Realm (~> 2.3.10)
+    - MJObjection
+  - Harmony/Common (1.1.5):
     - Harmony/Future
-  - Harmony/Future (1.1.3)
-  - Harmony/iOS (1.1.3):
+  - Harmony/Future (1.1.5)
+  - Harmony/iOS (1.1.5):
     - Harmony/Common
-  - Harmony/MJCocoaCore (1.1.3):
+  - Harmony/MJCocoaCore (1.1.5):
     - Harmony/Common
     - MJCocoaCore/Common (~> 2.3)
-  - Harmony/Objection (1.1.3):
+  - Harmony/Objection (1.1.5):
     - MJObjection
-  - Harmony/Repository (1.1.3):
+  - Harmony/Repository (1.1.5):
     - Harmony/Common
     - Harmony/Future
-  - Harmony/Security (1.1.3):
+  - Harmony/Security (1.1.5):
     - Harmony/Repository
-  - Harmony/Testing (1.1.3)
-  - Harmony/Vastra (1.1.3)
-  - Kingfisher (5.3.1)
+  - Harmony/Testing (1.1.5):
+    - Harmony/Repository
+  - Harmony/Vastra (1.1.5)
+  - Kingfisher (5.15.8):
+    - Kingfisher/Core (= 5.15.8)
+  - Kingfisher/Core (5.15.8)
   - MJCocoaCore/Common (2.3.10):
     - MJCocoaCore/Future
   - MJCocoaCore/Future (2.3.10)
+  - MJCocoaCore/Realm (2.3.10):
+    - MJCocoaCore/Common
+    - Realm (~> 3.0)
   - MJObjection (1.6.4)
-  - PromisesObjC (1.2.7)
-  - PromisesSwift (1.2.7):
-    - PromisesObjC (= 1.2.7)
-  - SQLite.swift (0.11.5):
-    - SQLite.swift/standard (= 0.11.5)
-  - SQLite.swift/standard (0.11.5)
+  - PromisesObjC (1.2.12)
+  - PromisesSwift (1.2.12):
+    - PromisesObjC (= 1.2.12)
+  - Realm (3.21.0):
+    - Realm/Headers (= 3.21.0)
+  - Realm/Headers (3.21.0)
+  - SQLite.swift (0.14.1):
+    - SQLite.swift/standard (= 0.14.1)
+  - SQLite.swift/standard (0.14.1)
 
 DEPENDENCIES:
   - Harmony (from `../`)
   - Harmony/Alamofire (from `../`)
+  - Harmony/All (from `../`)
   - Harmony/iOS (from `../`)
   - Harmony/MJCocoaCore (from `../`)
   - Harmony/Objection (from `../`)
@@ -58,6 +73,7 @@ SPEC REPOS:
     - MJObjection
     - PromisesObjC
     - PromisesSwift
+    - Realm
     - SQLite.swift
 
 EXTERNAL SOURCES:
@@ -66,14 +82,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Harmony: f784af447c5c006a22b74fbde1092283b3a591fa
-  Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
+  Harmony: be95de0f00839242e69e3fd4ca24bcb3cc56e69f
+  Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   MJCocoaCore: d96352e079294ddb9d2c6f6831b30bc7acf7ca42
   MJObjection: 5af5d140e6785596c58c61f0a8a2a8f42fa25687
-  PromisesObjC: 7b28ddd1e78cce8f80f1ada927d2217663a9c672
-  PromisesSwift: b27f410f9ea693753cfd4cfd8ac1c60a471f137b
-  SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  PromisesSwift: 64085cf6e5fc1b5001f90cf31e87a1f1621fefee
+  Realm: 38e9dcb19104b58407167d99f70d4995f7c16023
+  SQLite.swift: 2992550ebf3c5b268bf4352603e3df87d2a4ed72
 
-PODFILE CHECKSUM: 84dfb5c443197425bb3b33fdfa091b5fe0cf1666
+PODFILE CHECKSUM: f5e60f87e6ce8b1da0b18d0200e911cb6f0a84cd
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
