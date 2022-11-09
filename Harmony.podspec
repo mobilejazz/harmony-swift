@@ -65,12 +65,16 @@ Pod::Spec.new do |s|
     end
     
     s.subspec 'All' do |sp|
-        sp.source_files = 'Harmony/Classes/**/*', 'Harmony/Harmony.h'
-        sp.frameworks = 'Security', 'UIKit'
-        sp.dependency 'Alamofire', '~> 4.8.2'
-        sp.dependency 'MJCocoaCore/Common', '~> 2.3.10'
-        sp.dependency 'MJCocoaCore/Realm', '~> 2.3.10'
-        sp.dependency 'MJObjection'
+        sp.dependency 'Harmony/Future'
+        sp.dependency 'Harmony/Repository'
+        sp.dependency 'Harmony/Common'
+        sp.dependency 'Harmony/Security' 
+        sp.dependency 'Harmony/Alamofire'
+        sp.dependency 'Harmony/iOS'
+        sp.dependency 'Harmony/MJCocoaCore'
+        sp.dependency 'Harmony/Vastra'
+        sp.dependency 'Harmony/Objection'
+        sp.dependency 'Harmony/Testing'
     end
     
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
