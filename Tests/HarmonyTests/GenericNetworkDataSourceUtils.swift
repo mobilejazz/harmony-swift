@@ -6,21 +6,19 @@
 //
 
 import Foundation
-import Alamofire
 
 @available(iOS 13.0, *)
 final class GenericDataSourceUtils {
 
-    static func provideMockAlamofireSession(request: URLRequest?, response: URLResponse?, jsonFileName: String?) -> Session {
-        let configuration = URLSessionConfiguration.af.default
+    static func urlSession(request: URLRequest?, response: URLResponse?, jsonFileName: String?) -> URLSession {
+        let configuration = URLSessionConfiguration.default
 
         MockUrlProtocol.mockedRequest = request
         MockUrlProtocol.mockedResponse = response
-
         MockUrlProtocol.mockedData = provideData(from: jsonFileName, with: "json")
-
+        
         configuration.protocolClasses = [MockUrlProtocol.self]
-        return Alamofire.Session(configuration: configuration)
+        return URLSession(configuration: configuration)
     }
 
 

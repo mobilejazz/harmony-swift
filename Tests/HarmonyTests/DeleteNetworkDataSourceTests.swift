@@ -5,7 +5,6 @@
 //  Created by Borja Arias Drake on 11.10.2022..
 //
 
-import Alamofire
 import Foundation
 import Harmony
 import Nimble
@@ -50,11 +49,11 @@ final class DeleteNetworkDataSourceTests: XCTestCase {
         let request = anyRequest(url: url)
         let response = anyURLResponse(statusCode: statusCode)
         let decoder = DecoderSpy()
-        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: DeleteNetworkDataSource = provideDeleteDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         let query = NetworkQuery(method: .delete, path: anyString())
 
         // Then
-        expectDeleteAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: statusCode)))
+        expectDeleteAlamofireError(dataSource, query, CoreError.Failed("HTTP status code: 400"))
         expect { decoder.decodeCalledCount }.to(equal(0))
     }
     
@@ -147,24 +146,22 @@ final class DeleteNetworkDataSourceTests: XCTestCase {
             decoder: JSONDecoder? = nil,
             jsonFileName: String? = nil) -> DeleteNetworkDataSource
     {
-        let session = Utils.provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+        let session = Utils.urlSession(request: request, response: response, jsonFileName: jsonFileName)
         return DeleteNetworkDataSource(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
     
     private func expectDeleteAlamofireError(
             _ dataSource: DeleteNetworkDataSource,
             _ query: Query,
-            _ expectedError: AFError)
+            _ expectedError: Error)
     {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.deleteAll(query).then { _ in }.fail { error in
-                    if let error = error as? AFError {
-                        if error.localizedDescription == expectedError.localizedDescription {
-                            expectation.fulfill()
-                        }
-                    }
-                }
+            if error.localizedDescription == expectedError.localizedDescription {
+                expectation.fulfill()
+            }
+        }
 
         wait(for: [expectation], timeout: 1.0)
     }

@@ -7,7 +7,6 @@
 //
 
 import Harmony
-import Alamofire
 
 protocol ItemComponent {
     func itemListPresenter(view: ItemListPresenterView) -> ItemListPresenter
@@ -16,15 +15,19 @@ protocol ItemComponent {
 class ItemDefaultModule: ItemComponent {
     private let executor: Executor
     private let storage: AnyDataSource<Data>
+    private let apiClient: URLSession
     
-    init(executor: Executor, apiClient: Session, storage: AnyDataSource<Data>) {
+    init(executor: Executor, apiClient: URLSession, storage: AnyDataSource<Data>) {
         self.executor = executor
         self.storage = storage
+        self.apiClient = apiClient
     }
     
     private lazy var networkDataSource: AnyDataSource<ItemEntity> = {
-        let baseDataSource = GetNetworkDataSource<ItemEntity>(url: "https://demo3068405.mockable.io/", session: Session.default, decoder: JSONDecoder())
-        
+        let baseDataSource = GetNetworkDataSource<ItemEntity>(url: URL(string:"https://demo3068405.mockable.io/")!,
+                                                              session: apiClient,
+                                                              decoder: JSONDecoder())
+
         // To debug the UI upon random API behavior, adding this intermediate layer
         let itemNetworkDataSource = DebugDataSource(DataSourceAssembler(get: baseDataSource),
                                                     delay: .sync(0.5),

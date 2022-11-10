@@ -13,15 +13,19 @@
 		0029D1CF2902C06D008E1FE8 /* EntityObjectMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0029D1CD2902C06D008E1FE8 /* EntityObjectMother.swift */; };
 		0029D1D12902C353008E1FE8 /* CodableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED438AC28E2CB2000C52F2B /* CodableEntity.swift */; };
 		003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */; };
-		006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
-		006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
 		006D52B028F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
 		006D52B128F59B4A00E6DEF4 /* GetNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */; };
-		006D52B228F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
-		006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
-		006D52B528F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */; };
-		006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
 		006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */; };
+		00FCD4A12910044400435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		00FCD4A22910044500435E1A /* DeleteNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */; };
+		00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */; };
+		00FCD4A429100E2500435E1A /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		00FCD4A629100E2900435E1A /* PutNetworkDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */; };
+		00FCD4A72910124300435E1A /* PutNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */; };
+		00FCD4A9291014C400435E1A /* URLSession+ResponseValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD4A8291014C400435E1A /* URLSession+ResponseValidation.swift */; };
+		00FCD4AA291014C400435E1A /* URLSession+ResponseValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD4A8291014C400435E1A /* URLSession+ResponseValidation.swift */; };
+		00FCD4AC29101BAD00435E1A /* URL+URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD4AB29101BAD00435E1A /* URL+URLRequest.swift */; };
+		00FCD4AD29101BAD00435E1A /* URL+URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD4AB29101BAD00435E1A /* URL+URLRequest.swift */; };
 		00FCD4B029111B8B00435E1A /* NetworkQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCD4AF29111B8B00435E1A /* NetworkQueryTests.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
@@ -135,7 +139,6 @@
 		AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916728DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */; };
 		AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */; };
-		AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE15EE428D4783E003053B9 /* Alamofire.xcframework */; };
 		AEE15EE728D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
 		AEE15EE828D47867003053B9 /* NetworkQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE15EE628D47867003053B9 /* NetworkQuery.swift */; };
 		D2067A3A285C5F8000A1047E /* DataSourceSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2067A39285C5F8000A1047E /* DataSourceSpy.swift */; };
@@ -270,6 +273,8 @@
 		006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNetworkDataSourceTests.swift; sourceTree = "<group>"; };
 		006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkDataSourceUtils.swift; sourceTree = "<group>"; };
+		00FCD4A8291014C400435E1A /* URLSession+ResponseValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+ResponseValidation.swift"; sourceTree = "<group>"; };
+		00FCD4AB29101BAD00435E1A /* URL+URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+URLRequest.swift"; sourceTree = "<group>"; };
 		00FCD4AF29111B8B00435E1A /* NetworkQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQueryTests.swift; sourceTree = "<group>"; };
 		24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSourceTests.swift; sourceTree = "<group>"; };
 		24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceTester.swift; sourceTree = "<group>"; };
@@ -666,7 +671,6 @@
 		AED438AC28E2CB2000C52F2B /* CodableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableEntity.swift; sourceTree = "<group>"; };
 		AEDA916528DC9AC000BE09D9 /* MockUrlProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlProtocol.swift; sourceTree = "<group>"; };
 		AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNetworkDataSourceTests.swift; sourceTree = "<group>"; };
-		AEE15EE428D4783E003053B9 /* Alamofire.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Alamofire.xcframework; path = Carthage/Build/Alamofire.xcframework; sourceTree = "<group>"; };
 		AEE15EE628D47867003053B9 /* NetworkQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQuery.swift; sourceTree = "<group>"; };
 		D2067A39285C5F8000A1047E /* DataSourceSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceSpy.swift; sourceTree = "<group>"; };
 		D2067A3C285C600B00A1047E /* RepositorySpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySpy.swift; sourceTree = "<group>"; };
@@ -685,7 +689,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5962B12327A951D8008B0EFF /* Security.framework in Frameworks */,
-				AEE15EE528D4783E003053B9 /* Alamofire.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1390,6 +1393,8 @@
 				59B7A83027A82971001F5D8F /* AnyDataSource.swift */,
 				006D52AB28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift */,
 				006D52AC28F59B4A00E6DEF4 /* GetNetworkDataSource.swift */,
+				00FCD4A8291014C400435E1A /* URLSession+ResponseValidation.swift */,
+				00FCD4AB29101BAD00435E1A /* URL+URLRequest.swift */,
 				006D52AD28F59B4A00E6DEF4 /* PutNetworkDataSource.swift */,
 			);
 			path = DataSource;
@@ -1479,7 +1484,6 @@
 		59B7AA1D27A83AC1001F5D8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AEE15EE428D4783E003053B9 /* Alamofire.xcframework */,
 				59A418C5284E240300E33F2D /* Nimble.xcframework */,
 				59B7AA1E27A83AC1001F5D8F /* Security.framework */,
 			);
@@ -1810,6 +1814,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59B7A8A827A82971001F5D8F /* LinkRecognizer.swift in Sources */,
+				00FCD4AC29101BAD00435E1A /* URL+URLRequest.swift in Sources */,
 				59B7A8B927A82971001F5D8F /* Future+Time.swift in Sources */,
 				59B7A89D27A82971001F5D8F /* DataSourceMapper.swift in Sources */,
 				59B7A8AF27A82971001F5D8F /* DeviceConsoleLogger.swift in Sources */,
@@ -1832,6 +1837,7 @@
 				59B7A8A527A82971001F5D8F /* MutableCodingKey.swift in Sources */,
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
 				59B7A88227A82971001F5D8F /* DataSourceAssembler.swift in Sources */,
+				00FCD4A429100E2500435E1A /* PutNetworkDataSource.swift in Sources */,
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
 				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
 				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
@@ -1843,7 +1849,6 @@
 				59B7A8A327A82971001F5D8F /* ClassError.swift in Sources */,
 				59B7AA1827A83966001F5D8F /* KeychainSetInteractor.swift in Sources */,
 				59B7A88F27A82971001F5D8F /* InMemoryDataSource.swift in Sources */,
-				006D52B228F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,
 				59B7A88B27A82971001F5D8F /* RetryDataSource.swift in Sources */,
 				59B7A8C827A82971001F5D8F /* VastraInvalidationStrategy.swift in Sources */,
 				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
@@ -1865,13 +1870,14 @@
 				59B7A8CA27A82971001F5D8F /* VastraStrategy.swift in Sources */,
 				59B7A8B427A82971001F5D8F /* Observable+Optionals.swift in Sources */,
 				59B7A88027A82971001F5D8F /* AnyDataSource.swift in Sources */,
+				00FCD4A9291014C400435E1A /* URLSession+ResponseValidation.swift in Sources */,
 				59B7A8C427A82971001F5D8F /* Future+Optionals.swift in Sources */,
 				59B7A8BA27A82971001F5D8F /* Future+Extensions.swift in Sources */,
 				59B7A88627A82971001F5D8F /* InteractorDelete.swift in Sources */,
 				59B7A8AC27A82971001F5D8F /* KeyValueObserver.swift in Sources */,
 				59B7A8A727A82971001F5D8F /* ScopeLockFuture.swift in Sources */,
 				59B7A8A127A82971001F5D8F /* TimedCacheDataSource.swift in Sources */,
-				006D52AE28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */,
+				00FCD4A12910044400435E1A /* DeleteNetworkDataSource.swift in Sources */,
 				59B7A89827A82971001F5D8F /* AnyGetDataSource.swift in Sources */,
 				59B7A8B027A82971001F5D8F /* ScopeLock.swift in Sources */,
 				59B7A89C27A82971001F5D8F /* InteractorPut.swift in Sources */,
@@ -1911,12 +1917,12 @@
 				003485D528E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift in Sources */,
 				D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
 				24C7BD7528CA11B30046F15C /* TimedCacheDataSourceTests.swift in Sources */,
-				006D52B528F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift in Sources */,
 				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
 				006D52B928F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
+				00FCD4A72910124300435E1A /* PutNetworkDataSourceTests.swift in Sources */,
 				24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */,
-				006D52B728F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift in Sources */,
+				00FCD4A329100B3200435E1A /* DeleteNetworkDataSourceTests.swift in Sources */,
 				24C7BD7128CA01520046F15C /* DeviceStorageDataSourcePrefixTests.swift in Sources */,
 				AEDA916628DC9AC000BE09D9 /* MockUrlProtocol.swift in Sources */,
 			);
@@ -1951,6 +1957,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */,
+				00FCD4AD29101BAD00435E1A /* URL+URLRequest.swift in Sources */,
 				D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */,
 				D2D2163827AC280A00A104B8 /* DataSourceMapper.swift in Sources */,
 				D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */,
@@ -1973,7 +1980,7 @@
 				D2D2164727AC280A00A104B8 /* AnyPutDataSource.swift in Sources */,
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
-				006D52B328F59B4A00E6DEF4 /* PutNetworkDataSource.swift in Sources */,
+				00FCD4A629100E2900435E1A /* PutNetworkDataSource.swift in Sources */,
 				D2D2164A27AC280A00A104B8 /* DataSourceAssembler.swift in Sources */,
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
@@ -2006,17 +2013,18 @@
 				D2D2166627AC280A00A104B8 /* Operation.swift in Sources */,
 				D2D2166727AC280A00A104B8 /* VastraStrategy.swift in Sources */,
 				D2D2166827AC280A00A104B8 /* Observable+Optionals.swift in Sources */,
+				00FCD4AA291014C400435E1A /* URLSession+ResponseValidation.swift in Sources */,
 				D2D2166927AC280A00A104B8 /* AnyDataSource.swift in Sources */,
 				D2D2166A27AC280A00A104B8 /* Future+Optionals.swift in Sources */,
 				D2D2166B27AC280A00A104B8 /* Future+Extensions.swift in Sources */,
 				D2D2166C27AC280A00A104B8 /* InteractorDelete.swift in Sources */,
 				D2D2166D27AC280A00A104B8 /* KeyValueObserver.swift in Sources */,
 				D2D2166E27AC280A00A104B8 /* ScopeLockFuture.swift in Sources */,
+				00FCD4A22910044500435E1A /* DeleteNetworkDataSource.swift in Sources */,
 				D2D2166F27AC280A00A104B8 /* TimedCacheDataSource.swift in Sources */,
 				D2D2167027AC280A00A104B8 /* AnyGetDataSource.swift in Sources */,
 				D2D2167127AC280A00A104B8 /* ScopeLock.swift in Sources */,
 				D2D2167227AC280A00A104B8 /* InteractorPut.swift in Sources */,
-				006D52AF28F59B4A00E6DEF4 /* DeleteNetworkDataSource.swift in Sources */,
 				D2D2167327AC280A00A104B8 /* Observable.swift in Sources */,
 				D2D2167427AC280A00A104B8 /* CoreError.swift in Sources */,
 				D2D2167527AC280A00A104B8 /* OperationQueueExecutor.swift in Sources */,

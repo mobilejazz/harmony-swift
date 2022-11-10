@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Alamofire
+import Harmony
 
 class MockUrlProtocol: URLProtocol {
 
@@ -24,7 +24,6 @@ class MockUrlProtocol: URLProtocol {
     private lazy var session: URLSession = {
 
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.headers = HTTPHeaders.default
 
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }()
@@ -37,13 +36,7 @@ class MockUrlProtocol: URLProtocol {
     }
     
     static private func getDefaultRequest(for request: URLRequest) -> URLRequest {
-        guard let headers = request.allHTTPHeaderFields else { return request }
-
-        do {
-            return try URLEncoding.default.encode(request, with: headers)
-        } catch {
-            return request
-        }
+        return request
     }
 
     override public func startLoading() {
@@ -74,6 +67,8 @@ extension MockUrlProtocol: URLSessionDataDelegate {
         
         if let data = MockUrlProtocol.mockedData {
             client?.urlProtocol(self, didLoad: data)
+        } else {
+            client?.urlProtocol(self, didFailWithError: error ?? CoreError.Failed())
         }
         
         client?.urlProtocolDidFinishLoading(self)

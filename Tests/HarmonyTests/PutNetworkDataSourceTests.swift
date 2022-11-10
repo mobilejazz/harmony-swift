@@ -5,7 +5,6 @@
 //  Created by Borja Arias Drake on 11.10.2022..
 //
 
-import Alamofire
 import Foundation
 import Harmony
 import Nimble
@@ -67,10 +66,10 @@ final class PutNetworkDataSourceTests: XCTestCase {
         let decoder = DecoderSpy()
         let request = anyRequest(url: url)
         let response = anyURLResponse(statusCode: 400)
-        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
-        expectPutAllAlamofireError(value: [], dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
+        expectPutAllAlamofireError(value: [], dataSource, query, CoreError.Failed("HTTP status code: 400"))
     }
     
     func test_putall_returns_data_serialization_error_when_response_has_no_data() {
@@ -150,10 +149,10 @@ final class PutNetworkDataSourceTests: XCTestCase {
         let decoder = DecoderSpy()
         let request = anyRequest(url: url)
         let response = anyURLResponse(statusCode: 400)
-        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
-        expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
+        expectPutAlamofireError(dataSource, query, CoreError.Failed("HTTP status code: 400"))
     }
     
     func test_put_returns_data_serialization_error_when_response_has_no_data() {
@@ -216,10 +215,10 @@ final class PutNetworkDataSourceTests: XCTestCase {
         let decoder = DecoderSpy()
         let request = anyRequest(url: url)
         let response = anyURLResponse(statusCode: 400)
-        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder)
+        let dataSource: PutNetworkDataSource<CodableEntity> = providePutDataSource(url: url, request: request, response: response, decoder: decoder, jsonFileName: "Entity")
         
         // Then
-        expectPutAlamofireError(dataSource, query, AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 400)))
+        expectPutAlamofireError(dataSource, query, CoreError.Failed("HTTP status code: 400"))
     }
     
     func test_post_returns_data_serialization_error_when_response_has_no_data() {
@@ -324,7 +323,7 @@ final class PutNetworkDataSourceTests: XCTestCase {
         decoder: JSONDecoder? = nil,
         jsonFileName: String? = nil
     ) -> PutNetworkDataSource<S> {
-        let session = Utils.provideMockAlamofireSession(request: request, response: response, jsonFileName: jsonFileName)
+        let session = Utils.urlSession(request: request, response: response, jsonFileName: jsonFileName)
         return PutNetworkDataSource<S>(url: url, session: session, decoder: decoder ?? DecoderSpy())
     }
 
@@ -355,17 +354,15 @@ final class PutNetworkDataSourceTests: XCTestCase {
     private func expectPutAlamofireError<S: Decodable>(
             _ dataSource: PutNetworkDataSource<S>,
             _ query: Query,
-            _ expectedError: AFError)
+            _ expectedError: Error)
     {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.put(nil, in: query).then { _ in
             print("")
         }.fail { error in
-            if let error = error as? AFError {
-                if error.localizedDescription == expectedError.localizedDescription {
-                    expectation.fulfill()
-                }
+            if error.localizedDescription == expectedError.localizedDescription {
+                expectation.fulfill()
             }
         }
 
@@ -376,15 +373,13 @@ final class PutNetworkDataSourceTests: XCTestCase {
             value: [S],
             _ dataSource: PutNetworkDataSource<S>,
             _ query: Query,
-            _ expectedError: AFError)
+            _ expectedError: Error)
     {
         let expectation = XCTestExpectation(description: "expectation")
 
         dataSource.putAll(value, in: query).fail { error in
-            if let error = error as? AFError {
-                if error.localizedDescription == expectedError.localizedDescription {
-                    expectation.fulfill()
-                }
+            if error.localizedDescription == expectedError.localizedDescription {
+                expectation.fulfill()
             }
         }
 

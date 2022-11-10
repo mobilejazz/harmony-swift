@@ -15,7 +15,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// A wrapper around a network query, to be used with the network data sources.
 open class NetworkQuery: KeyQuery {
@@ -69,6 +68,19 @@ open class NetworkQuery: KeyQuery {
                 return type
             }
         }
+        
+        public func toUrlRequestMethod() -> String {
+            switch self {
+            case .get:
+                return "GET"
+            case .delete:
+                return "DELETE"
+            case .put:
+                return "PUT"
+            case .post:
+                return "POST"
+            }
+        }
     }
     
     /// An abstraction of the content type and value in different forms
@@ -77,9 +89,9 @@ open class NetworkQuery: KeyQuery {
         case Json(entity: Encodable)
     }
 
-    private let path: String
-    private let params: [String: Any]
-    private let headers: [String: String]
+    public let path: String
+    public let params: [String: Any]
+    public let headers: [String: String]
     public var method: Method
     public let key: String
     
@@ -95,46 +107,18 @@ open class NetworkQuery: KeyQuery {
 
 extension NetworkQuery {
     
-    private func mapToAlamofireMethod(method: Method) -> HTTPMethod {
+    private func mapToUrlRequestMethod(method: Method) -> String {
         switch method {
         case .get:
-            return .get
+            return "GET"
         case .delete:
-            return .delete
+            return "DELETE"
         case .put:
-            return .put
+            return "PUT"
         case .post:
-            return .post            
+            return "POST"
         }
-    }
-
-    public func request(url: URL, session: Session) -> DataRequest {
-        let fullUrl = url.appendingPathExtension(path)
-        let afMethod = mapToAlamofireMethod(method: method)
-        var parameters: [String: Any] = self.params
-        let encoding: URLEncoding = .default
-        let headers = HTTPHeaders(self.headers)                
-        
-        if case let .put(type: contentType) = method {
-            if let contentType {
-                switch contentType {
-                case .Json(entity: let entity):
-                    let data = try! JSONEncoder().encode(entity)
-                    if let dic = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                        parameters = dic
-                    }
-                case .FormUrlEncoded(params: let formURLEncodedParams):
-                    parameters = formURLEncodedParams
-                }
-            }
-        }
-        
-        return session.request(fullUrl,
-                               method: afMethod,
-                               parameters: parameters,
-                               encoding: encoding,
-                               headers: headers)
-    }
+    }    
 }
 
 extension NetworkQuery {
