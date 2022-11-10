@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
         sp.dependency 'Harmony/Security' 
         sp.dependency 'Harmony/Alamofire'
         sp.dependency 'Harmony/iOS'
-        sp.dependency 'Harmony/MJCocoaCore'
+        #sp.dependency 'Harmony/MJCocoaCore'
         sp.dependency 'Harmony/Vastra'
         sp.dependency 'Harmony/Objection'
         sp.dependency 'Harmony/Testing'

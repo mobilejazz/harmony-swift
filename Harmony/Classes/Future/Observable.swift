@@ -331,7 +331,7 @@ public class Observable<T> {
     }
     
     /// Then closure: delivers the value or the error
-    internal func resolve(success: @escaping (T) -> Void = { _ in },
+    public func resolve(success: @escaping (T) -> Void = { _ in },
                           failure: @escaping (Error) -> Void = { _ in }) {
         lock {
             self.success = success
