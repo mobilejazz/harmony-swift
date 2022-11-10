@@ -33,6 +33,6 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '12.0'
     
     s.source_files = 'Sources/Harmony/**/*'
-    s.frameworks = 'Security'
+    s.frameworks = 'Security'    
 
 end
