@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001902EA29098C4800FB36D2 /* SQLTableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001902E929098C4800FB36D2 /* SQLTableProperty.swift */; };
+		001902EB29098C4800FB36D2 /* SQLTableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001902E929098C4800FB36D2 /* SQLTableProperty.swift */; };
 		0029D1C7290179B8008E1FE8 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 0029D1C6290179B8008E1FE8 /* SQLite */; };
 		003485CC28DC3CDC0045CC27 /* RawSQLDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485CB28DC3CDC0045CC27 /* RawSQLDataSource.swift */; };
 		003485CD28DC3CDC0045CC27 /* RawSQLDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003485CB28DC3CDC0045CC27 /* RawSQLDataSource.swift */; };
+		00D5A4E8290A6D3300F582B8 /* RawSQLDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D5A4E7290A6D3300F582B8 /* RawSQLDataSourceTests.swift */; };
 		24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */; };
 		24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */; };
 		24C7BD6F28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */; };
@@ -234,7 +237,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		001902E929098C4800FB36D2 /* SQLTableProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLTableProperty.swift; sourceTree = "<group>"; };
 		003485CB28DC3CDC0045CC27 /* RawSQLDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSQLDataSource.swift; sourceTree = "<group>"; };
+		00D5A4E7290A6D3300F582B8 /* RawSQLDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawSQLDataSourceTests.swift; sourceTree = "<group>"; };
 		24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemStorageDataSourceTests.swift; sourceTree = "<group>"; };
 		24C7BD6C28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceTester.swift; sourceTree = "<group>"; };
 		24C7BD6E28C9F2C80046F15C /* DeviceStorageDataSourceRegularTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStorageDataSourceRegularTests.swift; sourceTree = "<group>"; };
@@ -797,6 +802,7 @@
 		59B7A8CD27A8297A001F5D8F /* HarmonyTests */ = {
 			isa = PBXGroup;
 			children = (
+				00D5A4E7290A6D3300F582B8 /* RawSQLDataSourceTests.swift */,
 				D28C13F2285B090500E4F2CA /* FutureTests.swift */,
 				D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
 				D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */,
@@ -1330,6 +1336,7 @@
 				59B7A83227A82971001F5D8F /* DataSourceAssembler.swift */,
 				59B7A83027A82971001F5D8F /* AnyDataSource.swift */,
 				003485CB28DC3CDC0045CC27 /* RawSQLDataSource.swift */,
+				001902E929098C4800FB36D2 /* SQLTableProperty.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1772,6 +1779,7 @@
 				59B7AA1927A83966001F5D8F /* KeychainService.swift in Sources */,
 				59B7A88D27A82971001F5D8F /* RepositoryMapper.swift in Sources */,
 				59B7A8B327A82971001F5D8F /* Future.swift in Sources */,
+				001902EA29098C4800FB36D2 /* SQLTableProperty.swift in Sources */,
 				59B7A8AE27A82971001F5D8F /* Data+Extensions.swift in Sources */,
 				59B7A88427A82971001F5D8F /* DeviceStorageDataSource.swift in Sources */,
 				59B7A8B727A82971001F5D8F /* Observable+Batch.swift in Sources */,
@@ -1827,6 +1835,7 @@
 				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
 				D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */,
 				D2067A4A285C64AD00A1047E /* InMemoryDataSourceTests.swift in Sources */,
+				00D5A4E8290A6D3300F582B8 /* RawSQLDataSourceTests.swift in Sources */,
 				24C7BD7528CA11B30046F15C /* TimedCacheDataSourceTests.swift in Sources */,
 				24C7BD7328CA01C40046F15C /* DeviceStorageDataSourceRootKeyTests.swift in Sources */,
 				24C7BD6D28C8AF7E0046F15C /* DeviceStorageDataSourceTester.swift in Sources */,
@@ -1897,6 +1906,7 @@
 				D2D2165827AC280A00A104B8 /* KeychainService.swift in Sources */,
 				D2D2165927AC280A00A104B8 /* RepositoryMapper.swift in Sources */,
 				D2D2165A27AC280A00A104B8 /* Future.swift in Sources */,
+				001902EB29098C4800FB36D2 /* SQLTableProperty.swift in Sources */,
 				D2D2165B27AC280A00A104B8 /* Data+Extensions.swift in Sources */,
 				D2D2165C27AC280A00A104B8 /* DeviceStorageDataSource.swift in Sources */,
 				D2D2165D27AC280A00A104B8 /* Observable+Batch.swift in Sources */,
