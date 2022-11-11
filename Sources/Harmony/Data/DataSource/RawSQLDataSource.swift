@@ -31,6 +31,7 @@ public final class RawSQLDataSource<T: Codable>: GetDataSource, PutDataSource, D
     
     public init?(dbConnection: Connection,
                  tableName: String,
+                 idColumn: String = BaseColumnId,
                  mapper: DataToDecodableMapper<T>,
                  expressions: [any SQLValueExpression],
                  createdAtColumn: String = BaseColumnCreatedAt,
@@ -41,7 +42,7 @@ public final class RawSQLDataSource<T: Codable>: GetDataSource, PutDataSource, D
         self.expressions = expressions
         self.dbConnection = dbConnection
         self.tableName = tableName
-        self.idColumn = BaseColumnId
+        self.idColumn = idColumn
         self.createdAtColumn = createdAtColumn
         self.updatedAtColumn = updatedAtColumn
         self.deletedAtColumn = deletedAtColumn
@@ -56,29 +57,16 @@ public final class RawSQLDataSource<T: Codable>: GetDataSource, PutDataSource, D
     public func get(_ query: Query) -> Future<T> {
         return Future { resolver in
             switch query {
+            case let query as IdQuery<Int>:
+                resolver.set(try getFirstById(query: query))
             case let query as IdQuery<Int64>:
-                do {
-                    let table = Table(tableName)
-                    let idColumn = SQLite.Expression<Int64>(BaseColumnId)
-                    let rows = try dbConnection.prepare(table.filter(idColumn == query.id))
-                    for row in rows {
-                        resolver.set(try mappedObject(from: row, mapper: mapper))
-                        return
-                    }
-                    resolver.set(CoreError.NotFound())
-                    return
-                } catch {
-                    resolver.set(CoreError.QueryNotSupported())
-                    return
-                }
-                
+                resolver.set(try getFirstById(query: query))
             default:
                 resolver.set(CoreError.QueryNotSupported())
-                return
             }
         }
     }
-    
+
     public func getAll(_ query: Query) -> Future<[T]> {
         fatalError()
     }
@@ -134,5 +122,24 @@ private extension RawSQLDataSource {
 
     func mappedExpression<VExp: SQLValueExpression>(from expression: VExp) -> Expression<VExp.V> {
         Expression<VExp.V>(expression.identifier)
+    }
+}
+
+// MARK: - Get Helpers
+private extension RawSQLDataSource {
+    func getFirstById<K>(query: IdQuery<K>) throws -> T where K: Value, K.Datatype: Equatable {
+        guard let first = try getAllById(query: query).first else { throw CoreError.NotFound() }
+        return first
+    }
+    
+    func getAllById<K>(query: IdQuery<K>) throws -> [T] where K: Value, K.Datatype: Equatable {
+        let table = Table(tableName)
+        let idColumn = SQLite.Expression<K>(idColumn)
+        let rows = try dbConnection.prepare(table.filter(idColumn == query.id))
+        let results = try rows.map { row in
+            try mappedObject(from: row, mapper: mapper)
+        }
+
+        return results
     }
 }

@@ -22,7 +22,7 @@ let idKey = "id"
 
 final class RawSQLDataSourceTests: XCTestCase {
 
-    func test_get_successfully_returns_entity() throws {
+    func test_get_by_idQuery_int64_successfully_returns_entity() throws {
         // Given
         let expectedEmail = "alice@mac.com"
         let tableName = "users"
@@ -42,7 +42,48 @@ final class RawSQLDataSourceTests: XCTestCase {
         expect(entity.email).to(equal(expectedEmail))
         expect(entity.id).to(equal(rowId))
     }
+
+    func test_get_by_idQuery_int_successfully_returns_entity() throws {
+        // Given
+        let expectedEmail = "alice@mac.com"
+        let tableName = "users"
+        let expressions: [any SQLValueExpression] = [
+            SQLTableColumn(name: emailKey, type: String.self),
+            SQLTableColumn(name: nameKey, type: String.self, isTypeOptional: true),
+            SQLTableColumn(name: idKey, type: Int.self)]
+        let connection = try Connection(.inMemory, readonly: false)
+        let rowId = try insert(UserEntity(id: 0, name: nil, email: expectedEmail), in: connection, tableName: tableName)
+        let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: expressions)
+        
+        // When
+        let entity = try dataSource.get(IdQuery(rowId)).result.get()
+        
+        // Then
+        expect(entity.name).to(beNil())
+        expect(entity.email).to(equal(expectedEmail))
+        expect(entity.id).to(equal(rowId))
+    }
     
+    func test_get_fails_with_unsupported_id_query() throws {
+        // Given
+        let tableName = "users"
+        let connection = try Connection(.inMemory, readonly: false)
+        let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: [])
+        
+        // Then
+        expect { try dataSource.get(IdQuery<String>("test")).result.get() }.to(throwError(CoreError.QueryNotSupported()))
+    }
+    
+    func test_get_fails_with_unsupported_query() throws {
+        // Given
+        let tableName = "users"
+        let connection = try Connection(.inMemory, readonly: false)
+        let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: [])
+        
+        // Then
+        expect { try dataSource.get(ObjectQuery<String>("test")).result.get() }.to(throwError(CoreError.QueryNotSupported()))
+    }
+
 //    func test_get_fails_if_expressions_dont_match() throws {
 //        // Given
 //        let expectedEmail = "alice@mac.com"
