@@ -68,7 +68,16 @@ public final class RawSQLDataSource<T: Codable>: GetDataSource, PutDataSource, D
     }
 
     public func getAll(_ query: Query) -> Future<[T]> {
-        fatalError()
+        return Future { resolver in
+            switch query {
+            case let query as IdsQuery<Int>:
+                resolver.set(try getAllByIds(query: query))
+            case let query as IdsQuery<Int64>:
+                resolver.set(try getAllByIds(query: query))
+            default:
+                resolver.set(CoreError.QueryNotSupported())
+            }
+        }
     }
     
     // MARK: - PutDataSource
@@ -136,6 +145,17 @@ private extension RawSQLDataSource {
         let table = Table(tableName)
         let idColumn = SQLite.Expression<K>(idColumn)
         let rows = try dbConnection.prepare(table.filter(idColumn == query.id))
+        let results = try rows.map { row in
+            try mappedObject(from: row, mapper: mapper)
+        }
+
+        return results
+    }
+    
+    func getAllByIds<K>(query: IdsQuery<K>) throws -> [T] where K: Value, K.Datatype: Equatable {
+        let table = Table(tableName)
+        let idColumn = SQLite.Expression<K>(idColumn)
+        let rows = try dbConnection.prepare(table.filter(query.ids.contains(idColumn)))
         let results = try rows.map { row in
             try mappedObject(from: row, mapper: mapper)
         }

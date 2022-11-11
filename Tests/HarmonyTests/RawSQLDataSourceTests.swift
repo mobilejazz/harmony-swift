@@ -10,7 +10,7 @@ import Harmony
 import SQLite
 import Nimble
 
-struct UserEntity: Codable {
+struct UserEntity: Codable, Equatable {
     let id: Int64
     let name: String?
     let email: String
@@ -31,16 +31,16 @@ final class RawSQLDataSourceTests: XCTestCase {
             SQLTableColumn(name: nameKey, type: String.self, isTypeOptional: true),
             SQLTableColumn(name: idKey, type: Int64.self)]
         let connection = try Connection(.inMemory, readonly: false)
-        let rowId = try insert(UserEntity(id: 0, name: nil, email: expectedEmail), in: connection, tableName: tableName)
+        let rowId = try insert([UserEntity(id: 0, name: nil, email: expectedEmail)], in: connection, tableName: tableName)
         let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: expressions)
         
         // When
-        let entity = try dataSource.get(IdQuery(rowId)).result.get()
+        let entity = try dataSource.get(IdQuery(rowId[0])).result.get()
         
         // Then
         expect(entity.name).to(beNil())
         expect(entity.email).to(equal(expectedEmail))
-        expect(entity.id).to(equal(rowId))
+        expect(entity.id).to(equal(rowId[0]))
     }
 
     func test_get_by_idQuery_int_successfully_returns_entity() throws {
@@ -52,16 +52,16 @@ final class RawSQLDataSourceTests: XCTestCase {
             SQLTableColumn(name: nameKey, type: String.self, isTypeOptional: true),
             SQLTableColumn(name: idKey, type: Int.self)]
         let connection = try Connection(.inMemory, readonly: false)
-        let rowId = try insert(UserEntity(id: 0, name: nil, email: expectedEmail), in: connection, tableName: tableName)
+        let rowId = try insert([UserEntity(id: 0, name: nil, email: expectedEmail)], in: connection, tableName: tableName)
         let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: expressions)
         
         // When
-        let entity = try dataSource.get(IdQuery(rowId)).result.get()
+        let entity = try dataSource.get(IdQuery(rowId[0])).result.get()
         
         // Then
         expect(entity.name).to(beNil())
         expect(entity.email).to(equal(expectedEmail))
-        expect(entity.id).to(equal(rowId))
+        expect(entity.id).to(equal(rowId[0]))
     }
     
     func test_get_fails_with_unsupported_id_query() throws {
@@ -84,6 +84,31 @@ final class RawSQLDataSourceTests: XCTestCase {
         expect { try dataSource.get(ObjectQuery<String>("test")).result.get() }.to(throwError(CoreError.QueryNotSupported()))
     }
 
+    func test_get_all_by_idsQuery_int64_successfully_returns_entity() throws {
+        // Given
+        let tableName = "users"
+        let expressions: [any SQLValueExpression] = [
+            SQLTableColumn(name: emailKey, type: String.self),
+            SQLTableColumn(name: nameKey, type: String.self, isTypeOptional: true),
+            SQLTableColumn(name: idKey, type: Int64.self)]
+        let connection = try Connection(.inMemory, readonly: false)
+        let rowIds = try insert([UserEntity(id: 0, name: "roger", email: "roger@me.com"),
+                                 UserEntity(id: 0, name: "steve", email: "steve@me.com"),
+                                 UserEntity(id: 0, name: "anne", email: "anne@me.com")
+                                ], in: connection, tableName: tableName)
+
+        let dataSource = try givenADataSource(connection: connection, tableName: tableName, expressions: expressions)
+        
+        // When
+        let entities = try dataSource.getAll(IdsQuery(rowIds)).result.get()
+        
+        // Then
+        expect(entities).to(equal([
+            UserEntity(id: rowIds[0], name: "roger", email: "roger@me.com"),
+            UserEntity(id: rowIds[1], name: "steve", email: "steve@me.com"),
+            UserEntity(id: rowIds[2], name: "anne", email: "anne@me.com")
+        ]))
+    }
 //    func test_get_fails_if_expressions_dont_match() throws {
 //        // Given
 //        let expectedEmail = "alice@mac.com"
@@ -104,7 +129,7 @@ final class RawSQLDataSourceTests: XCTestCase {
 }
 
 private extension RawSQLDataSourceTests {
-    func insert(_ user: UserEntity, in connection: Connection, tableName: String) throws -> Int64 {
+    func insert(_ entities: [UserEntity], in connection: Connection, tableName: String) throws -> [Int64] {
         let users = Table(tableName)
         let id = SQLite.Expression<Int64>(idKey)
         let name = SQLite.Expression<String?>(nameKey)
@@ -115,9 +140,13 @@ private extension RawSQLDataSourceTests {
             t.column(name)
             t.column(email, unique: true)
         })
+        var ids: [Int64] = []
+        for entity in entities {
+            let insertOp = users.insert(name <- entity.name, email <- entity.email)
+            ids.append(try connection.run(insertOp))
+        }
         
-        let insert = users.insert(name <- user.name, email <- user.email)
-        return try connection.run(insert)
+        return ids
     }
     
     func givenADataSource(connection: Connection, tableName: String, expressions: [any SQLValueExpression]) throws -> RawSQLDataSource<UserEntity> {
