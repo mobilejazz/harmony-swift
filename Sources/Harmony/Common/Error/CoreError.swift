@@ -77,6 +77,12 @@ public struct CoreError {
             super.init(domain:CoreError.domain, code: 6, description: description)
         }
     }
+    
+    public class DataSerialization: ClassError {
+        public init(_ description: String = "Can not decode json") {
+            super.init(domain:CoreError.domain, code: 7, description: description)
+        }
+    }
 }
 
 extension CoreError {
