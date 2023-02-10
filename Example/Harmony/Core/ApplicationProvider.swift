@@ -21,11 +21,8 @@ class ApplicationDefaultModule: ApplicationComponent {
     private lazy var logger: Logger = DeviceConsoleLogger()
     private lazy var backgroundExecutor: Executor = DispatchQueueExecutor()
     
-    private lazy var apiClient: Session = {
-        // Alamofire Session Manager
-        let sessionManager = Session(interceptor: BaseURLRequestAdapter(URL(string:"https://demo3068405.mockable.io")!,
-                                                                        [UnauthorizedStatusCodeRequestRetrier()]))
-        return sessionManager
+    private lazy var apiClient: URLSession = {
+        URLSession.shared
     }()
     
     private lazy var storage: AnyDataSource<Data> = {
