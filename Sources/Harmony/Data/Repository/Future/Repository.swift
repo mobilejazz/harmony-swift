@@ -16,10 +16,9 @@
 
 import Foundation
 
-public protocol Repository { }
+public protocol Repository {}
 
-public protocol GetRepository : Repository {
-    
+public protocol GetRepository: Repository {
     associatedtype T
     
     /// Get a single method
@@ -35,18 +34,17 @@ public protocol GetRepository : Repository {
     func getAll(_ query: Query, operation: Operation) -> Future<[T]>
 }
 
-extension GetRepository {
-    public func get<K>(_ id: K, operation: Operation) -> Future<T> where K:Hashable {
+public extension GetRepository {
+    func get<K>(_ id: K, operation: Operation) -> Future<T> where K: Hashable {
         return get(IdQuery(id), operation: operation)
     }
     
-    public func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+    func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return getAll(IdQuery(id), operation: operation)
     }
 }
 
-public protocol PutRepository : Repository {
-    
+public protocol PutRepository: Repository {
     associatedtype T
     
     /// Put by query method
@@ -64,20 +62,19 @@ public protocol PutRepository : Repository {
     func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]>
 }
 
-extension PutRepository {
+public extension PutRepository {
     @discardableResult
-    public func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K:Hashable {
+    func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K: Hashable {
         return put(value, in: IdQuery(id), operation: operation)
     }
     
     @discardableResult
-    public func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K:Hashable {
+    func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return putAll(array, in: IdQuery(id), operation: operation)
     }
 }
 
-public protocol DeleteRepository : Repository {
-    
+public protocol DeleteRepository: Repository {
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
@@ -94,20 +91,20 @@ public protocol DeleteRepository : Repository {
     func deleteAll(_ query: Query, operation: Operation) -> Future<Void>
 }
 
-extension DeleteRepository {
+public extension DeleteRepository {
     @discardableResult
-    public func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
+    func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
         return delete(IdQuery(id), operation: operation)
     }
     
     @available(*, deprecated, message: "Use delete instead")
     @discardableResult
-    public func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K:Hashable {
+    func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
         return deleteAll(IdQuery(id), operation: operation)
     }
 }
 
-public enum RepositoryCRUD : CustomStringConvertible {
+public enum RepositoryCRUD: CustomStringConvertible {
     case get
     case getAll
     case put
@@ -127,8 +124,8 @@ public enum RepositoryCRUD : CustomStringConvertible {
     }
 }
 
-extension Operation {
-    public func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R : Repository {
+public extension Operation {
+    func fatalError<R>(_ method: RepositoryCRUD, _ origin: R) -> Never where R: Repository {
         Swift.fatalError("Undefined operation \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
     }
 }

@@ -18,9 +18,9 @@ import Foundation
 
 private struct RetryRule {
     /// The amount of retries. If zero, the operation won't retry
-    public let count : Int
+    public let count: Int
     /// A closure defining the retry strategy.
-    public let retryIf : (Error) -> Bool
+    public let retryIf: (Error) -> Bool
     
     /// Validates if the current operation is enabled to retry
     ///
@@ -34,20 +34,19 @@ private struct RetryRule {
     ///
     /// - Returns: The next retry rule
     public func next() -> RetryRule {
-        return RetryRule(count: count-1, retryIf: retryIf)
+        return RetryRule(count: count - 1, retryIf: retryIf)
     }
 }
 
 ///
 /// The retry operation
 ///
-public class RetryOperation : Operation {
-    
+public class RetryOperation: Operation {
     /// The retry rule
-    private let retryRule : RetryRule
+    private let retryRule: RetryRule
     
     /// The operation forwarded to the repository
-    public let operation : Operation
+    public let operation: Operation
     
     /// Main initializer
     ///
@@ -55,12 +54,12 @@ public class RetryOperation : Operation {
     ///   - operation: The operation that will be forwarded to the nested repository
     ///   - count: The retry counter. Default value is 1.
     ///   - retryIf: A closure to evaluate each retry error. Return true to allow a retry, false otherwise. Default closure returns true.
-    public init(_ operation: Operation , count: Int = 1, retryIf: @escaping (Error) -> Bool = { _ in true }) {
+    public init(_ operation: Operation, count: Int = 1, retryIf: @escaping (Error) -> Bool = { _ in true }) {
         self.operation = operation
         self.retryRule = RetryRule(count: count, retryIf: retryIf)
     }
     
-    fileprivate init(_ operation: Operation, _ retryRule : RetryRule) {
+    fileprivate init(_ operation: Operation, _ retryRule: RetryRule) {
         self.operation = operation
         self.retryRule = retryRule
     }
@@ -85,13 +84,12 @@ public class RetryOperation : Operation {
 /// Repository adding a retry logic over an existing repository when an error happens.
 /// Incoming operations of a different type as RetryOperation will be forwarded to the contained repository.
 ///
-public class RetryRepository <R,T> : GetRepository, PutRepository, DeleteRepository where R:GetRepository, R:PutRepository, R:DeleteRepository, T == R.T {
-        
+public class RetryRepository<R, T>: GetRepository, PutRepository, DeleteRepository where R: GetRepository, R: PutRepository, R: DeleteRepository, T == R.T {
     /// The nested repository
-    private let repository : R
+    private let repository: R
     
     /// The default retry rule
-    private let retryRule : RetryRule
+    private let retryRule: RetryRule
     
     /// Default initializer
     ///

@@ -16,15 +16,6 @@
 
 import Foundation
 
+// Namespace definition
 @available(iOS 13.0.0, *)
-public actor AsyncDeleteInteractor: AsyncInteractor {
-    private let repository: AsyncDeleteRepository
-
-    public init<R>(_ repository: R) where R: AsyncDeleteRepository {
-        self.repository = repository
-    }
-
-    public func execute(_ query: Query, _ operation: Operation = DefaultOperation()) async throws {
-        try await repository.delete(query, operation: operation)
-    }
-}
+protocol AsyncInteractor {}

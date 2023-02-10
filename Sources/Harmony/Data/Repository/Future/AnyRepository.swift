@@ -19,15 +19,14 @@ import Foundation
 ///
 /// A type eraser for the Repository type, following Apple's Swift Standard Library approach.
 ///
-public final class AnyRepository <T> : GetRepository, PutRepository, DeleteRepository {
-    
+public final class AnyRepository<T>: GetRepository, PutRepository, DeleteRepository {
     private let box: RepositoryBoxBase<T>
     
     /// Default initializer.
     ///
     /// - Parameters:
     ///   - repository: The repository to abstract
-    public init<R>(_ repository: R) where R:GetRepository, R:PutRepository, R:DeleteRepository, R.T == T {
+    public init<R>(_ repository: R) where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == T {
         box = RepositoryBox(repository)
     }
     
@@ -60,8 +59,7 @@ public final class AnyRepository <T> : GetRepository, PutRepository, DeleteRepos
 /// This is an abstract class. Do not use it.
 /// Repository base class defining a generic type T (which is unrelated to the associated type of the Repository protocol)
 ///
-internal class RepositoryBoxBase <T>: GetRepository, PutRepository, DeleteRepository {
-    
+internal class RepositoryBoxBase<T>: GetRepository, PutRepository, DeleteRepository {
     func get(_ query: Query, operation: Operation) -> Future<T> {
         fatalError("This method is abstract.")
     }
@@ -90,8 +88,7 @@ internal class RepositoryBoxBase <T>: GetRepository, PutRepository, DeleteReposi
 ///
 /// A repository box, which has as generic type a Repository and links the RepositoryBoxBase type T as the Base.T type.
 ///
-internal class RepositoryBox <Base> : RepositoryBoxBase <Base.T> where Base:GetRepository, Base:PutRepository, Base:DeleteRepository {
-    
+internal class RepositoryBox<Base>: RepositoryBoxBase<Base.T> where Base: GetRepository, Base: PutRepository, Base: DeleteRepository {
     private let base: Base
     
     init(_ base: Base) {

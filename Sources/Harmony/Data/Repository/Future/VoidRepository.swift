@@ -19,8 +19,8 @@ import Foundation
 ///
 /// Void get repository implementation
 ///
-public class VoidGetRepository<T> : GetRepository {
-    public init() { }
+public class VoidGetRepository<T>: GetRepository {
+    public init() {}
     public func get(_ query: Query, operation: Operation) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
 }
@@ -28,8 +28,8 @@ public class VoidGetRepository<T> : GetRepository {
 ///
 /// Void put repository implementation
 ///
-public class VoidPutRepository<T> : PutRepository {
-    public init() { }
+public class VoidPutRepository<T>: PutRepository {
+    public init() {}
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func putAll(_ array: [T], in query: Query, operation: Operation) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
 }
@@ -37,8 +37,8 @@ public class VoidPutRepository<T> : PutRepository {
 ///
 /// Void delete repository implementation
 ///
-public class VoidDeleteRepository : DeleteRepository {
-    public init() { }
+public class VoidDeleteRepository: DeleteRepository {
+    public init() {}
     public func delete(_ query: Query, operation: Operation) -> Future<Void> { return Future(CoreError.NotImplemented()) }
     public func deleteAll(_ query: Query, operation: Operation) -> Future<Void> { return Future(CoreError.NotImplemented()) }
 }
@@ -46,8 +46,8 @@ public class VoidDeleteRepository : DeleteRepository {
 ///
 /// Void repository implementation
 ///
-public class VoidRepository<T> : GetRepository, PutRepository, DeleteRepository {
-    public init() { }
+public class VoidRepository<T>: GetRepository, PutRepository, DeleteRepository {
+    public init() {}
     public func get(_ query: Query, operation: Operation) -> Future<T> { return Future(CoreError.NotImplemented()) }
     public func getAll(_ query: Query, operation: Operation) -> Future<[T]> { return Future(CoreError.NotImplemented()) }
     public func put(_ value: T?, in query: Query, operation: Operation) -> Future<T> { return Future(CoreError.NotImplemented()) }
