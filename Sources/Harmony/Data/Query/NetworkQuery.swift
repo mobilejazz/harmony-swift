@@ -18,10 +18,8 @@ import Foundation
 
 /// A wrapper around a network query, to be used with the network data sources.
 open class NetworkQuery: KeyQuery {
-    
     /// The HTTP method
     public enum Method: Equatable {
-        
         case get
         case delete
         case put(type: ContentType?)
@@ -95,7 +93,7 @@ open class NetworkQuery: KeyQuery {
     public var method: Method
     public let key: String
     
-    public init(method: Method, path: String, params: [String : Any] = [:], headers: [String: String] = [:], key: String? = nil) {
+    public init(method: Method, path: String, params: [String: Any] = [:], headers: [String: String] = [:], key: String? = nil) {
         self.method = method
         self.path = path
         self.params = params
@@ -106,7 +104,6 @@ open class NetworkQuery: KeyQuery {
 }
 
 extension NetworkQuery {
-    
     private func mapToUrlRequestMethod(method: Method) -> String {
         switch method {
         case .get:
@@ -118,7 +115,7 @@ extension NetworkQuery {
         case .post:
             return "POST"
         }
-    }    
+    }
 }
 
 extension NetworkQuery {
@@ -130,7 +127,7 @@ extension NetworkQuery {
         }
         
         // Updating query if value is passed as separated argument from the query
-        if (contentType == nil && value != nil) {
+        if contentType == nil && value != nil {
             method = try method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
         }
         
@@ -145,7 +142,7 @@ extension NetworkQuery {
         }
         
         // Updating query if value is passed as separated argument from the query
-        if (contentType == nil && !value.isEmpty) {
+        if contentType == nil && !value.isEmpty {
             method = try method.with(contentType: NetworkQuery.ContentType.Json(entity: value))
         }
         

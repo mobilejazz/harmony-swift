@@ -777,11 +777,6 @@
 		00637CB7294375790013C976 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				00637CC1294375790013C976 /* URL+URLRequest.swift */,
-				00637CC2294375790013C976 /* URLSession+ResponseValidation.swift */,
-				00637CC0294375790013C976 /* GetNetworkDataSource.swift */,
-				00637CB8294375790013C976 /* PutNetworkDataSource.swift */,
-				00637CD1294375790013C976 /* DeleteNetworkDataSource.swift */,
 				00637CC3294375790013C976 /* Future */,
 				00637CB9294375790013C976 /* Async */,
 			);
@@ -817,6 +812,9 @@
 				00637CCC294375790013C976 /* DataSourceValidator.swift */,
 				00637CCF294375790013C976 /* DebugDataSource.swift */,
 				00637CD0294375790013C976 /* TimedCacheDataSource.swift */,
+				00637CC0294375790013C976 /* GetNetworkDataSource.swift */,
+				00637CB8294375790013C976 /* PutNetworkDataSource.swift */,
+				00637CD1294375790013C976 /* DeleteNetworkDataSource.swift */,
 			);
 			path = Future;
 			sourceTree = "<group>";
@@ -890,7 +888,7 @@
 		59B7A85527A82971001F5D8F /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				AEDA916228DC9A3800BE09D9 /* Network */,
+				D2EE2C5B29967AEC009AEBA7 /* Network */,
 				59E5191527A9366500A18D72 /* JSON */,
 				59B7AA1127A838D2001F5D8F /* ScopeLock */,
 				59B7AA1027A83161001F5D8F /* Logger */,
@@ -1639,13 +1637,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		AEDA916228DC9A3800BE09D9 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		D2067A38285C5F6E00A1047E /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -1714,6 +1705,15 @@
 				D261AA33285B2DB90012C820 /* Nanoseconds.swift */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		D2EE2C5B29967AEC009AEBA7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				00637CC1294375790013C976 /* URL+URLRequest.swift */,
+				00637CC2294375790013C976 /* URLSession+ResponseValidation.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

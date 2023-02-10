@@ -17,17 +17,16 @@
 import Foundation
 
 public class GetNetworkDataSource<T: Decodable>: GetDataSource {
-    
     private let url: URL
     private let session: URLSession
     private let decoder: JSONDecoder
-    
+
     public init(url: URL, session: URLSession, decoder: JSONDecoder) {
         self.url = url
         self.session = session
         self.decoder = decoder
     }
-    
+
     open func get(_ query: Query) -> Future<T> {
         return execute(query)
     }
@@ -35,14 +34,14 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
     open func getAll(_ query: Query) -> Future<[T]> {
         return execute(query)
     }
-        
-    private func execute<K: Decodable>(_ query: Query) -> Future<K> {        
+
+    private func execute<K: Decodable>(_ query: Query) -> Future<K> {
         return Future<K> { resolver in
             guard let query = getNetworkQuery(query) else {
                 resolver.set(CoreError.QueryNotSupported())
                 return
             }
-                        
+
             let request = try url.toURLRequest(query: query)
             session.dataTask(with: request) { data, response, responseError in
                 validateResponse(response: response, responseData: data, responseError: responseError) { validData in
@@ -55,7 +54,7 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
                     resolver.set(validationError)
                 }
             }
-            .resume()            
+            .resume()
         }
     }
 
@@ -64,7 +63,7 @@ public class GetNetworkDataSource<T: Decodable>: GetDataSource {
         guard let query = query as? NetworkQuery else {
             return nil
         }
-        
+
         guard query.method == NetworkQuery.Method.get else {
             return nil
         }
