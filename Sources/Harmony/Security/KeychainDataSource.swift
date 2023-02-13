@@ -34,7 +34,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
             }
             return Future(value)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -49,7 +49,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
             }
             return Future(array)
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -67,7 +67,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.put, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -85,7 +85,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
                 }
             }
         default:
-            query.fatalError(.putAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -100,7 +100,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.delete, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -115,7 +115,7 @@ public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSour
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.deleteAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
 }

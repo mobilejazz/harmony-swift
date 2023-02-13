@@ -24,7 +24,7 @@ import Foundation
 ///    - `put(data, "data_file.dat").fail { error in [...] }`
 ///    - `delete("my_file.dat").fail { error in [...] }`
 ///
-public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteDataSource {
+public class FileSystemStorageDataSource: GetDataSource, PutDataSource, DeleteDataSource {
     public typealias T = Data
     
     public enum FileNameEncoding {
@@ -34,8 +34,8 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
         case custom((String) -> String)
     }
     
-    private let fileManager : FileManager
-    public let directory : URL
+    private let fileManager: FileManager
+    public let directory: URL
     public let fileNameEncoding: FileNameEncoding
     private let writingOptions: Data.WritingOptions
 
@@ -60,7 +60,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             return nil
         }
         let url = documentsURL.appendingPathComponent(relativePath)
-        print(url);
+        print(url)
         self.init(fileManager: fileManager, directory: url, writingOptions: writingOptions, fileNameEncoding: fileNameEncoding)
     }
     
@@ -90,14 +90,14 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             }
             return Future(data)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
     public func getAll(_ query: Query) -> Future<[Data]> {
         switch query {
         case let query as IdsQuery<String>:
-            let futures : [Future<Data>] = query.ids.map { id in
+            let futures: [Future<Data>] = query.ids.map { id in
                 let path = fileURL(id).path
                 guard let data = fileManager.contents(atPath: path) else {
                     return Future(CoreError.NotFound("Data not found at path: \(path)"))
@@ -115,19 +115,19 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                         do { return !(try url.resourceValues(forKeys: [.isDirectoryKey])).isDirectory! }
                         catch { return false }
                     }.forEach { url in
-                    guard let data = fileManager.contents(atPath: url.path) else {
-                        throw CoreError.NotFound("Data not found at path: \(url.path)")
-                    }
-                    // Attempting to unarchive in case it was an array
+                        guard let data = fileManager.contents(atPath: url.path) else {
+                            throw CoreError.NotFound("Data not found at path: \(url.path)")
+                        }
+                        // Attempting to unarchive in case it was an array
 //                    if let datas = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSData.self], from: data) as? [Data] {
-                    if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
-                        // it was an array!
-                        array.append(contentsOf: datas)
-                    } else {
-                        // Not an array!
-                        array.append(data)
+                        if let datas = NSKeyedUnarchiver.unarchiveObject(with: data) as? [Data] {
+                            // it was an array!
+                            array.append(contentsOf: datas)
+                        } else {
+                            // Not an array!
+                            array.append(data)
+                        }
                     }
-                }
                 r.set(array)
             }
         case let query as KeyQuery:
@@ -141,7 +141,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             }
             return Future(array)
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -150,7 +150,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
             return Future(CoreError.IllegalArgument("value cannot be nil"))
         }
         guard let keyQuery = query as? KeyQuery else {
-            query.fatalError(.put, self)
+            return Future(CoreError.QueryNotSupported())
         }
         return Future { r in
             let fileURL = self.fileURL(keyQuery.key)
@@ -167,10 +167,10 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
         switch query {
         case let query as IdsQuery<String>:
             guard array.count == query.ids.count else {
-                query.fatalError(.putAll, self)
+                return Future(CoreError.QueryNotSupported())
             }
             return Future { r in
-                try query.ids.enumerated().forEach { (offset, id) in
+                try query.ids.enumerated().forEach { offset, id in
                     let fileURL = self.fileURL(id)
                     let folderURL = fileURL.deletingLastPathComponent()
                     if fileManager.fileExists(atPath: folderURL.path) == false {
@@ -193,21 +193,19 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                 r.set(array)
             }
         default:
-            query.fatalError(.getAll, self)
-
+            return Future(CoreError.QueryNotSupported())
         }
-        
     }
 
     public func delete(_ query: Query) -> Future<Void> {
         switch query {
         case let query as IdsQuery<String>:
-            let futures : [Future<Void>] = query.ids.map { id in
-                return Future {
+            let futures: [Future<Void>] = query.ids.map { id in
+                Future {
                     try? fileManager.removeItem(at: fileURL(id))
                 }
             }
-            return Future.batch(futures).map { _ in Void() }
+            return Future.batch(futures).map { _ in () }
         case is AllObjectsQuery:
             return Future {
                 // Deleting everything!
@@ -218,7 +216,7 @@ public class FileSystemStorageDataSource : GetDataSource, PutDataSource, DeleteD
                 try? fileManager.removeItem(at: fileURL(query.key))
             }
         default:
-            query.fatalError(.delete, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     

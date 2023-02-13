@@ -78,7 +78,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             
             return Future(value)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -89,7 +89,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
         case is AllObjectsQuery:
             switch storageType {
             case .regular:
-                query.fatalError(.getAll, self)
+                return Future(CoreError.QueryNotSupported("AllObjectsQuery is not supported with storagType regular."))
             case .rootKey(_):
                 let rootKey = getRootKey()! // Will always be present in this case
                     
@@ -141,7 +141,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
                 return Future(array)
             }
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -163,7 +163,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             userDefaults.synchronize()
             return Future(value)
         default:
-            query.fatalError(.put, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -187,7 +187,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             userDefaults.synchronize()
             return Future(array)
         default:
-            query.fatalError(.putAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -199,7 +199,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
         case is AllObjectsQuery:
             switch storageType {
             case .regular:
-                query.fatalError(.deleteAll, self)
+                return Future(CoreError.QueryNotSupported("AllObjectsQuery is not supported with storagType regular."))
             case .rootKey(_):
                 let rootKey = getRootKey()! // Will always be present in this case
                 userDefaults.removeObject(forKey: rootKey)
@@ -234,7 +234,7 @@ public class DeviceStorageDataSource <T> : GetDataSource, PutDataSource, DeleteD
             userDefaults.synchronize()
             return Future(Void())
         default:
-            query.fatalError(.delete, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     

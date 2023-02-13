@@ -135,8 +135,8 @@ public enum DataSourceCRUD : CustomStringConvertible {
     }
 }
 
-extension Query {
-    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
-        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
-    }
-}
+//extension Query {
+//    public func fatalError<D>(_ method: DataSourceCRUD, _ origin: D) -> Never where D : DataSource {
+//        Swift.fatalError("Undefined query \(String(describing: self)) for method \(method) on \(String(describing: type(of: origin)))")
+//    }
+//}

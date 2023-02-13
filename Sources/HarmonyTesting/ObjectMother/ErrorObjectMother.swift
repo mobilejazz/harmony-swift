@@ -18,5 +18,5 @@ import Foundation
 import Harmony
 
 public func anyError() -> Error {
-    CoreError.Failed()
+    return CoreError.Failed()
 }

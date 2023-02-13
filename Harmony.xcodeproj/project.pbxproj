@@ -172,6 +172,7 @@
 		D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C13F2285B090500E4F2CA /* FutureTests.swift */; };
 		D2B39E00299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */; };
 		D2B39E01299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */; };
+		D2B39E08299A878600E9DB7B /* AsyncInMemoryDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B39E04299A873F00E9DB7B /* AsyncInMemoryDataSourceTests.swift */; };
 		D2D2163627AC280A00A104B8 /* LinkRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A85927A82971001F5D8F /* LinkRecognizer.swift */; };
 		D2D2163727AC280A00A104B8 /* Future+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86B27A82971001F5D8F /* Future+Time.swift */; };
 		D2D2163927AC280A00A104B8 /* DeviceConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B7A86027A82971001F5D8F /* DeviceConsoleLogger.swift */; };
@@ -718,6 +719,7 @@
 		D261AA33285B2DB90012C820 /* Nanoseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nanoseconds.swift; sourceTree = "<group>"; };
 		D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncInMemoryDataSource.swift; sourceTree = "<group>"; };
+		D2B39E04299A873F00E9DB7B /* AsyncInMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncInMemoryDataSourceTests.swift; sourceTree = "<group>"; };
 		D2D2168E27AC280A00A104B8 /* Harmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Harmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2D216A227AC291200A104B8 /* HarmonyTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HarmonyTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2EE2C4029966F37009AEBA7 /* AsyncSingleDataSourceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncSingleDataSourceRepository.swift; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 			children = (
 				D28C13F2285B090500E4F2CA /* FutureTests.swift */,
 				D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */,
+				D2B39E04299A873F00E9DB7B /* AsyncInMemoryDataSourceTests.swift */,
 				D2067A3F285C618600A1047E /* CacheRepositoryTests.swift */,
 				D2067A49285C64AD00A1047E /* InMemoryDataSourceTests.swift */,
 				24C7BD6928C753030046F15C /* FileSystemStorageDataSourceTests.swift */,
@@ -952,9 +955,9 @@
 				24C7BD7428CA11B30046F15C /* TimedCacheDataSourceTests.swift */,
 				003485D428E4592A0045CC27 /* DelayedMainQueueExecutorTests.swift */,
 				AEDA916B28DC9EC900BE09D9 /* GetNetworkDataSourceTests.swift */,
-				006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */,
 				006D52B428F59DC400E6DEF4 /* PutNetworkDataSourceTests.swift */,
 				006D52B628F59DDA00E6DEF4 /* DeleteNetworkDataSourceTests.swift */,
+				006D52B828F5A9F400E6DEF4 /* GenericNetworkDataSourceUtils.swift */,
 			);
 			path = HarmonyTests;
 			sourceTree = "<group>";
@@ -2051,6 +2054,7 @@
 			files = (
 				AE76561D28E17C2000A24487 /* DecoderSpy.swift in Sources */,
 				00FCD4B029111B8B00435E1A /* NetworkQueryTests.swift in Sources */,
+				D2B39E08299A878600E9DB7B /* AsyncInMemoryDataSourceTests.swift in Sources */,
 				AEDA916D28DC9EDA00BE09D9 /* GetNetworkDataSourceTests.swift in Sources */,
 				D2067A40285C618600A1047E /* CacheRepositoryTests.swift in Sources */,
 				24C7BD6B28C793980046F15C /* FileSystemStorageDataSourceTests.swift in Sources */,
