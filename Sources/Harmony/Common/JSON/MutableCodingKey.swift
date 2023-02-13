@@ -19,8 +19,7 @@ import Foundation
 ///
 /// Wrapper to allow us to edit a coding key.
 ///
-public struct MutableCodingKey : CodingKey {
-    
+public struct MutableCodingKey: CodingKey {
     public var stringValue: String
     public var intValue: Int?
     

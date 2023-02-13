@@ -16,12 +16,11 @@
 
 import Foundation
 
-extension Future {
-    
+public extension Future {
     /// Returns the future's value using the async/await pattern
     /// - Returns: Returns the value, or throws an error.
     @available(iOS 13.0.0, *)
-    public func async() async throws -> T {
+    func async() async throws -> T {
         try await withCheckedThrowingContinuation { continuation in
             self.then { continuation.resume(returning: $0) }
                 .fail { continuation.resume(throwing: $0) }

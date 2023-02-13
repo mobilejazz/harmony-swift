@@ -23,7 +23,7 @@ public enum Time {
     case days(Int)
     case weeks(Int)
     case never
-    
+
     fileprivate func toSeconds() -> TimeInterval? {
         switch self {
         case let .seconds(value):
@@ -44,7 +44,7 @@ public enum Time {
 
 /// Objects that will be validated using the VastraTimestampStrategy must implement this protocol.
 public protocol VastraTimestampStrategyDataSource {
-    var  lastUpdate : Date? {get}
+    var lastUpdate: Date? { get }
     func expiryTimeInterval() -> Time
 }
 
@@ -54,21 +54,21 @@ public protocol VastraTimestampStrategyDataSource {
 /// - If the elapsed timeinterval is greater than or equal to expiryTimeInterval: The object will be considered invalid (.Invalid)
 /// - If there is no a lastUpdate date, the strategy won't decide object validity (.Unknown)
 public class VastraTimestampStrategy: VastraStrategy {
-    public init() { }
-    
+    public init() {}
+
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         let lastUpdate = (object as! VastraTimestampStrategyDataSource).lastUpdate
         if lastUpdate == nil {
             return .unknown
         }
-        
+
         let expiryTime = (object as! VastraTimestampStrategyDataSource).expiryTimeInterval()
         let diff = Date().timeIntervalSince(lastUpdate!)
-        
-        guard let seconds  = expiryTime.toSeconds() else {
+
+        guard let seconds = expiryTime.toSeconds() else {
             return .invalid
         }
-        
+
         if diff < seconds {
             return .valid
         } else {

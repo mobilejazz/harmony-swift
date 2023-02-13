@@ -17,7 +17,7 @@
 import Foundation
 
 ///  Object invalidation strategy data source.
-public protocol VastraInvalidationStrategyDataSource  {
+public protocol VastraInvalidationStrategyDataSource {
     func isObjectInvalid() -> Bool
 }
 
@@ -27,7 +27,7 @@ public protocol VastraInvalidationStrategyDataSource  {
 ///
 /// - If the object is invalid, returns .Invalid
 /// - Otherwise returns .Unknown
-public class VastraInvalidationStrategy : VastraStrategy {
+public class VastraInvalidationStrategy: VastraStrategy {
     public init() {}
 
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {

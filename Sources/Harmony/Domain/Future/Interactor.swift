@@ -17,5 +17,4 @@
 import Foundation
 
 // Namespace definition
-public struct Interactor { }
-
+public struct Interactor {}

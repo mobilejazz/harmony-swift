@@ -16,30 +16,29 @@
 
 import Foundation
 
-fileprivate struct FutureError : Error {
-    let description : String
+private struct FutureError: Error {
+    let description: String
     init(_ description: String) {
         self.description = description
     }
 }
 
-extension FutureError {
+private extension FutureError {
     /// Future content has already been set
-    fileprivate static let thenAlreadySet = FutureError("Then already set: cannot set a new then closure once is already set.")
+    static let thenAlreadySet = FutureError("Then already set: cannot set a new then closure once is already set.")
     
     /// Future content has already been set
-    fileprivate static let alreadySent = FutureError("Future is already sent.")
+    static let alreadySent = FutureError("Future is already sent.")
     
     /// Future content has already been set
-    fileprivate static let missingLambda = FutureError("Future cannot be sent as the then clousre hasn't been defined")
+    static let missingLambda = FutureError("Future cannot be sent as the then clousre hasn't been defined")
 }
 
 ///
 /// A FutureResolver resolves a Future.
 ///
 public struct FutureResolver<T> {
-    
-    private var future : Future<T>
+    private var future: Future<T>
     
     /// Main initializer
     ///
@@ -70,13 +69,12 @@ public struct FutureResolver<T> {
     }
 }
 
-extension FutureResolver where T==Void {
+public extension FutureResolver where T == Void {
     /// Sets the future with a void value
-    public func set() {
+    func set() {
         future.set()
     }
 }
-
 
 ///
 /// Future class. Wrapper of a future value of generic type T or an error.
@@ -90,7 +88,7 @@ public class Future<T> {
         case sent
         
         var localizedDescription: String {
-            switch (self) {
+            switch self {
             case .blank:
                 return "Blank: empty future"
             case .waitingThen:
@@ -139,7 +137,7 @@ public class Future<T> {
     }
     
     /// The future result. Using _ prefix as the "result" method returns synchronously the result.
-    internal var _result : Result? = nil
+    internal var _result: Result?
     
     // Private variables
     private var onContentSet: ((inout T?, inout Error?) -> Void)?
@@ -149,7 +147,7 @@ public class Future<T> {
     private var failure: ((_ error: Error) -> Void)?
     
     /// Default initializer
-    public init() { }
+    public init() {}
     
     /// Value initializer
     public init(_ value: T) {
@@ -242,7 +240,7 @@ public class Future<T> {
     ///   - observable: The incoming observable
     ///   - eventIdx: The event index to set the future. Use 0 to indicate the following event (or the eixsting one if the observer is already resolved). Default is 0.
     public func set(_ observable: Observable<T>, atEvent eventIdx: Int = 0) {
-        var obs : Observable<T>? = observable.hub.subscribe()
+        var obs: Observable<T>? = observable.hub.subscribe()
         var idx = eventIdx
         obs!.resolve(success: { value in
             if idx == 0 {
@@ -266,7 +264,7 @@ public class Future<T> {
     ///   - closure: The test closure
     ///   - ignoreErrors: if true, all errors will be ignored (and the future is not resolved). Default is false.
     public func set(_ observable: Observable<T>, ignoreErrors: Bool = false, atEventPassingTest closure: @escaping (T) -> Bool) {
-        var obs : Observable<T>? = observable.hub.subscribe()
+        var obs: Observable<T>? = observable.hub.subscribe()
         obs!.resolve(success: { value in
             if closure(value) {
                 self.set(value)
@@ -283,13 +281,13 @@ public class Future<T> {
     /// Sets the future with a value if not error. Either the value or the error must be provided, otherwise a crash will happen.
     /// Note: error is prioritary, and if not error the value will be used.
     public func set(value: T?, error: Error?) {
-        if _result != nil || state == .sent  {
+        if _result != nil || state == .sent {
             // Do nothing
             return
         }
         
-        var value : T? = value
-        var error : Error? = error
+        var value: T? = value
+        var error: Error? = error
         if let onContentSet = onContentSet {
             onContentSet(&value, &error)
             self.onContentSet = nil
@@ -336,7 +334,7 @@ public class Future<T> {
     ///
     /// - Parameter closure: The code to be executed
     public func onSet(_ closure: @escaping () -> Void) {
-        onContentSet = { (_,_) in
+        onContentSet = { _, _ in
             closure()
         }
     }
@@ -352,8 +350,8 @@ public class Future<T> {
     
     /// Then closure: delivers the value or the error
     internal func resolve(success: @escaping (T) -> Void = { _ in },
-                          failure: @escaping (Error) -> Void = { _ in }) {
-        
+                          failure: @escaping (Error) -> Void = { _ in })
+    {
         if self.success != nil || self.failure != nil {
             fatalError(FutureError.thenAlreadySet.description)
         }
@@ -372,21 +370,19 @@ public class Future<T> {
     
     /// Deliver the result syncrhonously. This method might block the calling thread.
     /// Note that the result can only be delivered once
-    public var result : Result {
-        get {
-            switch state {
-            case .waitingThen:
-                state = .sent
-                return _result!
-            case .blank:
-                semaphore = DispatchSemaphore(value: 0)
-                semaphore!.wait()
-                return self.result
-            case .waitingContent:
-                fatalError(FutureError.thenAlreadySet.description)
-            case .sent:
-                fatalError(FutureError.alreadySent.description)
-            }
+    public var result: Result {
+        switch state {
+        case .waitingThen:
+            state = .sent
+            return _result!
+        case .blank:
+            semaphore = DispatchSemaphore(value: 0)
+            semaphore!.wait()
+            return self.result
+        case .waitingContent:
+            fatalError(FutureError.thenAlreadySet.description)
+        case .sent:
+            fatalError(FutureError.alreadySent.description)
         }
     }
     
@@ -399,7 +395,7 @@ public class Future<T> {
     @discardableResult
     public func then(_ executor: Executor = MainDirectExecutor(), _ success: @escaping (T) -> Void) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     success(value)
                     resolver.set(value)
@@ -421,7 +417,7 @@ public class Future<T> {
     @discardableResult
     public func fail(_ executor: Executor = MainDirectExecutor(), _ failure: @escaping (Error) -> Void) -> Future<T> {
         return Future { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit {
                     resolver.set(value)
                 }
@@ -461,8 +457,8 @@ public class Future<T> {
             success(value)
         }
         
-        self.success = nil
-        self.failure = nil
+        success = nil
+        failure = nil
     }
     
     // Private lock method
@@ -474,7 +470,7 @@ public class Future<T> {
 }
 
 /// To String extension
-extension Future : CustomStringConvertible, CustomDebugStringConvertible {
+extension Future: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         switch state {
         case .blank:
@@ -501,14 +497,14 @@ extension Future : CustomStringConvertible, CustomDebugStringConvertible {
             }
         }
     }
+
     public var debugDescription: String {
         return description
     }
 }
 
-extension Future where T==Void {
-    public func set() {
-        set(Void())
+public extension Future where T == Void {
+    func set() {
+        set(())
     }
 }
-

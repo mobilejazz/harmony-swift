@@ -21,11 +21,11 @@ import Foundation
 ///
 public protocol Executor {
     /// The executor name
-    var name : String? { get }
+    var name: String? { get }
 
     /// var indicating if the executor is executing
-    var executing : Bool { get }
-    
+    var executing: Bool { get }
+
     /// Submits a closure for its execution
     ///
     /// - Parameter closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
@@ -37,7 +37,6 @@ public protocol Executor {
 /// Refined type of Executor that delays execution of a closure
 ///
 public protocol DelayedExecutor: Executor {
-    
     /// Submits a closure for execution later in time
     /// - Parameters:
     ///   - after: amount of time elapsed before the closure gets executed
@@ -51,17 +50,17 @@ public protocol DelayedExecutor: Executor {
     ///   - closure: The code to be executed. The closure must call its subclosure after completing (either sync or async)
     /// - Returns: Nothing (Void)
     @discardableResult
-    func submit(after: DispatchTime, _ closure:  @escaping () throws -> Void) -> Future<Void>
+    func submit(after: DispatchTime, _ closure: @escaping () throws -> Void) -> Future<Void>
 }
 
-fileprivate let lock = NSLock()
-fileprivate var counter : Int = 0
+private let lock = NSLock()
+private var counter: Int = 0
 
-extension Executor {
+public extension Executor {
     /// Creates a unique executor name
     ///
     /// - Returns: An executor name
-    static public func nextExecutorName() -> String {
+    static func nextExecutorName() -> String {
         lock.lock()
         counter += 1
         defer { lock.unlock() }

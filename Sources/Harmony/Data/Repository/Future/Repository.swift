@@ -20,13 +20,13 @@ public protocol Repository {}
 
 public protocol GetRepository: Repository {
     associatedtype T
-    
+
     /// Get a single method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A Future of an optional repository's type
     func get(_ query: Query, operation: Operation) -> Future<T>
-    
+
     /// Main get method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -38,7 +38,7 @@ public extension GetRepository {
     func get<K>(_ id: K, operation: Operation) -> Future<T> where K: Hashable {
         return get(IdQuery(id), operation: operation)
     }
-    
+
     func getAll<K>(_ id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return getAll(IdQuery(id), operation: operation)
     }
@@ -46,14 +46,14 @@ public extension GetRepository {
 
 public protocol PutRepository: Repository {
     associatedtype T
-    
+
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
     /// - Returns: A future of T type. Some data sources might add some extra fields after the put operation, e.g. id or timestamp fields.
     @discardableResult
     func put(_ value: T?, in query: Query, operation: Operation) -> Future<T>
-    
+
     /// Put by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapsules the get query information
@@ -67,7 +67,7 @@ public extension PutRepository {
     func put<K>(_ value: T?, forId id: K, operation: Operation) -> Future<T> where K: Hashable {
         return put(value, in: IdQuery(id), operation: operation)
     }
-    
+
     @discardableResult
     func putAll<K>(_ array: [T], forId id: K, operation: Operation) -> Future<[T]> where K: Hashable {
         return putAll(array, in: IdQuery(id), operation: operation)
@@ -81,7 +81,7 @@ public protocol DeleteRepository: Repository {
     /// - Returns: A future of Void type.
     @discardableResult
     func delete(_ query: Query, operation: Operation) -> Future<Void>
-    
+
     /// Delete by query method
     ///
     /// - Parameter query: An instance conforming to Query that encapusles the delete query information
@@ -96,7 +96,7 @@ public extension DeleteRepository {
     func delete<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
         return delete(IdQuery(id), operation: operation)
     }
-    
+
     @available(*, deprecated, message: "Use delete instead")
     @discardableResult
     func deleteAll<K>(_ id: K, operation: Operation) -> Future<Void> where K: Hashable {
@@ -111,7 +111,7 @@ public enum RepositoryCRUD: CustomStringConvertible {
     case putAll
     case delete
     case deleteAll
-    
+
     public var description: String {
         switch self {
         case .get: return "get"

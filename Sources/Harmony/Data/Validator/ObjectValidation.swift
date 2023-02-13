@@ -20,13 +20,12 @@ import Foundation
 public protocol ObjectValidation {
     /// Validates an object
     func isObjectValid<T>(_ object: T) -> Bool
-    
+
     /// Validates an array of objects
     func isArrayValid<T>(_ objects: [T]) -> Bool
 }
 
 public extension ObjectValidation {
-    
     /// Validator method for arrays
     ///
     /// The validation process iterates over the array and is considered valid if all objects are valid.
@@ -52,7 +51,7 @@ public extension ObjectValidation {
 ///
 /// Default implementation returns always true (all objects are valid)
 ///
-public class DefaultObjectValidation : ObjectValidation {
+public class DefaultObjectValidation: ObjectValidation {
     public init() {}
     public func isObjectValid<T>(_ object: T) -> Bool {
         return true
