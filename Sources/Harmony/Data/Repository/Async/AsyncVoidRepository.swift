@@ -19,6 +19,7 @@ import Foundation
 ///
 /// Async void get repository implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidGetRepository<T>: AsyncGetRepository {
     public init() {}
     public func get(_ query: Query, operation: Operation) async throws -> T { throw CoreError.NotImplemented() }
@@ -28,6 +29,7 @@ public class AsyncVoidGetRepository<T>: AsyncGetRepository {
 ///
 /// Async void put repository implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidPutRepository<T>: AsyncPutRepository {
     public init() {}
     public func put(_ value: T?, in query: Query, operation: Operation) async throws -> T { throw CoreError.NotImplemented() }
@@ -37,6 +39,7 @@ public class AsyncVoidPutRepository<T>: AsyncPutRepository {
 ///
 /// Async void delete repository implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidDeleteRepository: AsyncDeleteRepository {
     public init() {}
     public func delete(_ query: Query, operation: Operation) async throws { throw CoreError.NotImplemented() }
@@ -45,6 +48,7 @@ public class AsyncVoidDeleteRepository: AsyncDeleteRepository {
 ///
 /// Async void repository implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidRepository<T>: AsyncGetRepository, AsyncPutRepository, AsyncDeleteRepository {
     public init() {}
     public func get(_ query: Query, operation: Operation) async throws -> T { throw CoreError.NotImplemented() }

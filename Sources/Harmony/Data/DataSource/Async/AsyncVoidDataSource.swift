@@ -18,6 +18,7 @@ import Foundation
 ///
 /// Async void get data source implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidGetDataSource<T>: AsyncGetDataSource {
     public init() {}
     public func get(_ query: Query) async throws -> T { throw CoreError.NotImplemented() }
@@ -27,6 +28,7 @@ public class AsyncVoidGetDataSource<T>: AsyncGetDataSource {
 ///
 /// Async void put data source implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidPutDataSource<T>: AsyncPutDataSource {
     public func put(_ value: T?, in query: Query) async throws -> T { throw CoreError.NotImplemented() }
     public func putAll(_ array: [T], in query: Query) async throws -> [T] { throw CoreError.NotImplemented() }
@@ -35,6 +37,7 @@ public class AsyncVoidPutDataSource<T>: AsyncPutDataSource {
 ///
 /// Async void delete data source implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidDeleteDataSource: AsyncDeleteDataSource {
     public func delete(_ query: Query) async throws { throw CoreError.NotImplemented() }
 }
@@ -42,6 +45,7 @@ public class AsyncVoidDeleteDataSource: AsyncDeleteDataSource {
 ///
 /// Async void data source implementation
 ///
+@available(iOS 13.0.0, *)
 public class AsyncVoidDataSource<T>: AsyncGetDataSource, AsyncPutDataSource, AsyncDeleteDataSource {
     public init() {}
     public func get(_ query: Query) async throws -> T { throw CoreError.NotImplemented() }
