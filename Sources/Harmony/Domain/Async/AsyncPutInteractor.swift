@@ -24,7 +24,7 @@ public actor AsyncPutInteractor<T>: AsyncInteractor {
         self.repository = AsyncAnyPutRepository(repository)
     }
 
-    public func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = DefaultOperation(), in executor: Executor? = nil) async throws -> T {
+    public func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Operation = DefaultOperation()) async throws -> T {
         try await repository.put(value, in: query, operation: operation)
     }
 }
