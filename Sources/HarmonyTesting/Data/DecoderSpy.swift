@@ -9,7 +9,6 @@ import Foundation
 
 @available(iOS 13.0, *)
 class DecoderSpy: JSONDecoder {
-    
     public var decodeCalledCount = 0
     public var forceFailure = false
     

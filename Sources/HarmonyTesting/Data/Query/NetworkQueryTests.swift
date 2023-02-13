@@ -5,19 +5,18 @@
 //  Created by Borja Arias Drake on 01.11.2022..
 //
 
-import XCTest
 import Harmony
-import Nimble
 import HarmonyTesting
+import Nimble
+import XCTest
 
 final class NetworkQueryTests: XCTestCase {
-
     func test_method_with_content_type_throws_for_get() throws {
         // Given
         let get: NetworkQuery.Method = .get
 
         // Then
-        expect { try get.with(contentType: nil) }.to( throwError())
+        expect { try get.with(contentType: nil) }.to(throwError())
     }
 
     func test_method_with_content_type_throws_for_delete() throws {
@@ -25,7 +24,7 @@ final class NetworkQueryTests: XCTestCase {
         let delete: NetworkQuery.Method = .delete
 
         // Then
-        expect { try delete.with(contentType: nil) }.to( throwError())
+        expect { try delete.with(contentType: nil) }.to(throwError())
     }
 
     func test_method_with_content_type_replaces_type_for_post() throws {
@@ -36,7 +35,7 @@ final class NetworkQueryTests: XCTestCase {
 
         // When
         post = try post.with(contentType: expectedType)
-        
+
         // Then
         try expectContentTypeToMatch(expectedEntity: expectedEntity, actualType: post.contentType())
     }
@@ -49,11 +48,11 @@ final class NetworkQueryTests: XCTestCase {
 
         // When
         put = try put.with(contentType: expectedType)
-        
+
         // Then
         try expectContentTypeToMatch(expectedEntity: expectedEntity, actualType: put.contentType())
     }
-    
+
     func test_content_type_returns_nil_for_get() throws {
         // Given
         let get: NetworkQuery.Method = .get
@@ -75,7 +74,7 @@ final class NetworkQueryTests: XCTestCase {
         let expectedEntity = EntityList()
         let expectedType = NetworkQuery.ContentType.Json(entity: expectedEntity)
         let post: NetworkQuery.Method = .post(type: expectedType)
-        
+
         // Then
         try expectContentTypeToMatch(expectedEntity: expectedEntity, actualType: post.contentType())
     }
@@ -85,14 +84,13 @@ final class NetworkQueryTests: XCTestCase {
         let expectedEntity = EntityList()
         let expectedType = NetworkQuery.ContentType.Json(entity: expectedEntity)
         let put: NetworkQuery.Method = .put(type: expectedType)
-        
+
         // Then
         try expectContentTypeToMatch(expectedEntity: expectedEntity, actualType: put.contentType())
     }
 }
 
 private extension NetworkQueryTests {
-    
     func expectContentTypeToMatch(expectedEntity: EntityList, actualType: NetworkQuery.ContentType?) throws {
         if case let .Json(entity: entity) = actualType {
             expect(entity as? EntityList).to(equal(expectedEntity))
