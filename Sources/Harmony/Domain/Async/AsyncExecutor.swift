@@ -25,7 +25,7 @@ public protocol AsyncExecutor {
 
 /// Direct execution of the operation block.
 @available(iOS 13.0.0, *)
-public class AsyncDicrectExecutor<T>: AsyncExecutor {
+public class AsyncDirectExecutor<T>: AsyncExecutor {
     public func submit(operation: @escaping () async throws -> T) async throws -> T {
         try await operation()
     }

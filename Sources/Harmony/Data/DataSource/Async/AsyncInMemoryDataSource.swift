@@ -17,7 +17,7 @@
 import Foundation
 
 @available(iOS 13.0.0, *)
-public class AsyncInMemoryDataSource<T>: AsyncGetDataSource, AsyncPutDataSource, AsyncDeleteDataSource {
+public actor AsyncInMemoryDataSource<T>: AsyncGetDataSource, AsyncPutDataSource, AsyncDeleteDataSource {
     private var objects: [String: T] = [:]
     private var arrays: [String: [T]] = [:]
     
