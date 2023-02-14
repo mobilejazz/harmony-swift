@@ -166,6 +166,10 @@
 		D261AA2E285B267F0012C820 /* AsyncExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */; };
 		D261AA31285B2AFB0012C820 /* CountingTestExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */; };
 		D261AA34285B2DB90012C820 /* Nanoseconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D261AA33285B2DB90012C820 /* Nanoseconds.swift */; };
+		D27DC6CF299B8F710093E57E /* AsyncAnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DC6CE299B8F710093E57E /* AsyncAnyGetDataSource.swift */; };
+		D27DC6D0299B8F710093E57E /* AsyncAnyGetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DC6CE299B8F710093E57E /* AsyncAnyGetDataSource.swift */; };
+		D27DC6D2299B8FD80093E57E /* AsyncAnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DC6D1299B8FD80093E57E /* AsyncAnyPutDataSource.swift */; };
+		D27DC6D3299B8FD80093E57E /* AsyncAnyPutDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27DC6D1299B8FD80093E57E /* AsyncAnyPutDataSource.swift */; };
 		D28C13F3285B090500E4F2CA /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28C13F2285B090500E4F2CA /* FutureTests.swift */; };
 		D2B39E00299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */; };
 		D2B39E01299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */; };
@@ -733,6 +737,8 @@
 		D261AA2D285B267F0012C820 /* AsyncExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutorTests.swift; sourceTree = "<group>"; };
 		D261AA30285B2AFB0012C820 /* CountingTestExpectation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTestExpectation.swift; sourceTree = "<group>"; };
 		D261AA33285B2DB90012C820 /* Nanoseconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nanoseconds.swift; sourceTree = "<group>"; };
+		D27DC6CE299B8F710093E57E /* AsyncAnyGetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyGetDataSource.swift; sourceTree = "<group>"; };
+		D27DC6D1299B8FD80093E57E /* AsyncAnyPutDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAnyPutDataSource.swift; sourceTree = "<group>"; };
 		D28C13F2285B090500E4F2CA /* FutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 		D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncInMemoryDataSource.swift; sourceTree = "<group>"; };
 		D2B39E04299A873F00E9DB7B /* AsyncInMemoryDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncInMemoryDataSourceTests.swift; sourceTree = "<group>"; };
@@ -812,6 +818,8 @@
 				D2EE2C4C299676D3009AEBA7 /* AsyncDataSourceMapper.swift */,
 				D2EE2C4F2996777D009AEBA7 /* AsyncDataSourceAssembler.swift */,
 				D2B39DFF299A7A7000E9DB7B /* AsyncInMemoryDataSource.swift */,
+				D27DC6CE299B8F710093E57E /* AsyncAnyGetDataSource.swift */,
+				D27DC6D1299B8FD80093E57E /* AsyncAnyPutDataSource.swift */,
 			);
 			path = Async;
 			sourceTree = "<group>";
@@ -1973,6 +1981,7 @@
 				59B7AA1C27A83966001F5D8F /* SecureKey.swift in Sources */,
 				59B7A8BC27A82971001F5D8F /* DirectExecutor.swift in Sources */,
 				59B7A88727A82971001F5D8F /* AnyRepository.swift in Sources */,
+				D27DC6CF299B8F710093E57E /* AsyncAnyGetDataSource.swift in Sources */,
 				59B7A8A227A82971001F5D8F /* ObjectValidation.swift in Sources */,
 				00637CDD294375790013C976 /* DataSourceAssembler.swift in Sources */,
 				59B7A8C227A82971001F5D8F /* Executor+Future.swift in Sources */,
@@ -1998,6 +2007,7 @@
 				D231398B285394460014FFA9 /* AsyncRepository.swift in Sources */,
 				59B7A88127A82971001F5D8F /* CacheRepository.swift in Sources */,
 				59B7A8C727A82971001F5D8F /* VastraService.swift in Sources */,
+				D27DC6D2299B8FD80093E57E /* AsyncAnyPutDataSource.swift in Sources */,
 				00637CDE294375790013C976 /* DeviceStorageDataSource.swift in Sources */,
 				59B7A89B27A82971001F5D8F /* InteractorGet.swift in Sources */,
 				D231398E285394E90014FFA9 /* AsyncRepositoryWrapper.swift in Sources */,
@@ -2138,6 +2148,7 @@
 				D2D2164827AC280A00A104B8 /* MutableCodingKey.swift in Sources */,
 				D2B39E11299A8D5200E9DB7B /* AsyncDataSourceWrapper.swift in Sources */,
 				D2D2164927AC280A00A104B8 /* SecureKey.swift in Sources */,
+				D27DC6D0299B8F710093E57E /* AsyncAnyGetDataSource.swift in Sources */,
 				D2D2164B27AC280A00A104B8 /* DirectExecutor.swift in Sources */,
 				D2D2164C27AC280A00A104B8 /* AnyRepository.swift in Sources */,
 				D2D2164D27AC280A00A104B8 /* ObjectValidation.swift in Sources */,
@@ -2163,6 +2174,7 @@
 				D2EE2C57299678DC009AEBA7 /* AsyncVoidRepository.swift in Sources */,
 				D2D2165F27AC280A00A104B8 /* VastraService.swift in Sources */,
 				D2D2166027AC280A00A104B8 /* InteractorGet.swift in Sources */,
+				D27DC6D3299B8FD80093E57E /* AsyncAnyPutDataSource.swift in Sources */,
 				D2B39E12299A8D5900E9DB7B /* DeleteNetworkDataSource.swift in Sources */,
 				D2B39E0B299A8CA600E9DB7B /* PutNetworkDataSource.swift in Sources */,
 				D2B39E1C299A8D7E00E9DB7B /* AnyPutDataSource.swift in Sources */,
