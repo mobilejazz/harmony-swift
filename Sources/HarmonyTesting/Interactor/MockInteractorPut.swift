@@ -17,7 +17,6 @@
 import Harmony
 
 public extension Interactor {
-
     class MockPutByQuery<T>: PutByQuery<T> {
         private let expectedResult: Result<T, Error>
 
@@ -32,7 +31,7 @@ public extension Interactor {
 
         public var spyExecuteValue: [T?] = []
         public var executeCounter: Int {
-            spyExecuteValue.count
+            self.spyExecuteValue.count
         }
 
         public var spyQuery: [Query?] = []
@@ -40,7 +39,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute(_ value: T? = nil, query: Query = VoidQuery(), _ operation: Harmony.Operation = DefaultOperation(), in executor: Harmony.Executor? = nil) -> Future<T> {
-
             self.spyExecuteValue.append(value)
             self.spyQuery.append(query)
             self.spyOperation.append(operation)
@@ -56,8 +54,7 @@ public extension Interactor {
         public var spyId: [Any] = []
 
         @discardableResult
-        override public func execute<K>(_ value: T?, forId id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K:Hashable {
-
+        override public func execute<K>(_ value: T?, forId id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K: Hashable {
             self.spyExecuteValue.append(value)
             self.spyId.append(id)
             self.spyOperation.append(operation)
@@ -85,14 +82,13 @@ public extension Interactor {
 
         public var spyExecuteValue: [T?] = []
         public var executeCounter: Int {
-            spyExecuteValue.count
+            self.spyExecuteValue.count
         }
 
         public var spyOperation: [Harmony.Operation] = []
 
         @discardableResult
         override public func execute(_ value: T? = nil, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
-
             self.spyExecuteValue.append(value)
             self.spyOperation.append(operation)
 
@@ -112,14 +108,14 @@ public extension Interactor {
             self.expectedResult = expectedResult
             super.init(DirectExecutor(), SingleDataSourceRepository(InMemoryDataSource()))
         }
-        
+
         public required init<R>(_ executor: Executor, _ repository: R) where T == R.T, R: PutRepository {
             fatalError("init(_:_:) has not been implemented")
         }
 
         public var spyExecuteValue: [[T]] = []
         public var executeCounter: Int {
-            spyExecuteValue.count
+            self.spyExecuteValue.count
         }
 
         public var spyQuery: [Query?] = []
@@ -127,7 +123,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute(_ array: [T] = [], query: Query = VoidQuery(), _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
-
             self.spyExecuteValue.append(array)
             self.spyQuery.append(query)
             self.spyOperation.append(operation)
@@ -144,7 +139,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute<K>(_ array: [T] = [], forId id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K: Hashable {
-
             self.spyExecuteValue.append(array)
             self.spyOperation.append(operation)
             self.spyId.append(id)
@@ -172,14 +166,13 @@ public extension Interactor {
 
         public var spyExecuteValue: [[T]] = []
         public var executeCounter: Int {
-            spyExecuteValue.count
+            self.spyExecuteValue.count
         }
 
         public var spyOperation: [Harmony.Operation] = []
 
         @discardableResult
         override public func execute(_ array: [T] = [], _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
-
             self.spyExecuteValue.append(array)
             self.spyOperation.append(operation)
 

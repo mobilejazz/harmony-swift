@@ -28,7 +28,7 @@ public extension ScopeLock {
             }
         }
     }
-    
+
     /// Syncing method using an async closure
     /// Note the sync will kept active until the future sets its value or error.
     ///

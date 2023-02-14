@@ -23,37 +23,36 @@ private let defaultExecutor = DispatchQueueExecutor()
 ///
 @available(*, deprecated, message: "Use the KeychainDataSource and Repository pattern instead.")
 public class KeychainGetInteractor {
-    
-    private let executor : Executor
-    private let keychain : KeychainService
-    private let key : String
-    
+    private let executor: Executor
+    private let keychain: KeychainService
+    private let key: String
+
     /// Default initializer
     ///
     /// - Parameters:
     ///   - executor: The executor to run the interactor
     ///   - keychain: The keychain instance
     ///   - key: The key to access the user defaults
-    public init(_ executor: Executor, _ keychain: KeychainService, _ key : String) {
+    public init(_ executor: Executor, _ keychain: KeychainService, _ key: String) {
         self.executor = executor
         self.keychain = keychain
         self.key = key
     }
-    
+
     /// Convenience initializer.
     /// This initializer uses a shared executor on all KeychainGetInteractor instances and the default service of Keychain().
     ///
     /// - Parameter key: The key to access the user defaults
-    public convenience init(_ key : String) {
+    public convenience init(_ key: String) {
         self.init(defaultExecutor, KeychainService(), key)
     }
-    
+
     /// Main execution method
     ///
     /// - Returns: A future for the result value or error
-    public func execute<T>() -> Future<T> where T:Decodable {
+    public func execute<T>() -> Future<T> where T: Decodable {
         return executor.submit { future in
-            if let result : T = self.keychain.get(self.key) {
+            if let result: T = self.keychain.get(self.key) {
                 future.set(result)
             } else {
                 future.set(CoreError.NotFound("Value not found for key \(self.key)"))

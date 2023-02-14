@@ -14,7 +14,8 @@ public func anyURL() -> URL {
 public func anyURLResponse(url: URL = anyURL(),
                            statusCode: Int = 200,
                            httpVersion: String = "HTTP/2.0",
-                           headers: [String: String] = ["json": "application/json; charset=utf-8"]) -> URLResponse? {
+                           headers: [String: String] = ["json": "application/json; charset=utf-8"]) -> URLResponse?
+{
     HTTPURLResponse(url: url,
                     statusCode: statusCode,
                     httpVersion: httpVersion,
@@ -23,6 +24,7 @@ public func anyURLResponse(url: URL = anyURL(),
 
 public func anyRequest(url: URL = anyURL(),
                        cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData,
-                       timeout: TimeInterval = 1.0) -> URLRequest {
+                       timeout: TimeInterval = 1.0) -> URLRequest
+{
     URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeout)
 }

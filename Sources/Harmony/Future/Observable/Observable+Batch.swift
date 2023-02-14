@@ -17,13 +17,12 @@
 import Foundation
 
 public extension Observable {
-    
     /// Creates a new observable from a sequence of observables.
     /// Note that the batch will be delivered once all observables have resolved at least once. After that, the batch will resolve on all new resolves. Each single error will be delivered independently.
     ///
     /// - Parameter futures: A sequence of observables.
     /// - Returns: The observable batch.
-    static func batch(_ futures : Observable<T> ...) -> Observable<[T]> {
+    static func batch(_ futures: Observable<T> ...) -> Observable<[T]> {
         return Observable.batch(futures)
     }
     
@@ -32,21 +31,21 @@ public extension Observable {
     ///
     /// - Parameter futures: An array of observables.
     /// - Returns: The observable batch.
-    static func batch(_ futures : [Observable<T>]) -> Observable<[T]> {
+    static func batch(_ futures: [Observable<T>]) -> Observable<[T]> {
         if futures.count == 0 {
             return Observable<[T]>([])
         }
         
         let lock = NSLock()
         let future = Observable<[T]>()
-        var dict : [Int:T] = [:]
+        var dict: [Int: T] = [:]
         for (idx, futureT) in futures.enumerated() {
             futureT.resolve(success: { value in
                 lock.lock()
                 dict[idx] = value
                 if dict.count == futures.count {
-                    var array : [T] = []
-                    for idx in 0..<dict.count {
+                    var array: [T] = []
+                    for idx in 0 ..< dict.count {
                         array.append(dict[idx]!)
                     }
                     future.set(array)
@@ -62,37 +61,37 @@ public extension Observable {
     }
     
     /// Creates a new observable that holds the tupple of results
-    func zip<K>(_ observableK: Observable<K>) -> Observable<(T,K)> {
+    func zip<K>(_ observableK: Observable<K>) -> Observable<(T, K)> {
         return flatMap { valueT in
-            return observableK.map { valueK in
-                return (valueT, valueK)
+            observableK.map { valueK in
+                (valueT, valueK)
             }
         }
     }
     
     /// Creates a new observable that holds the tupple of results
-    func zip<K,L>(_ observableK: Observable<K>, _ observableL: Observable<L>) -> Observable<(T,K,L)> {
+    func zip<K, L>(_ observableK: Observable<K>, _ observableL: Observable<L>) -> Observable<(T, K, L)> {
         return zip(observableK).flatMap { valueTK in
-            return observableL.map { valueL in
-                return (valueTK.0, valueTK.1, valueL)
+            observableL.map { valueL in
+                (valueTK.0, valueTK.1, valueL)
             }
         }
     }
     
     /// Creates a new observable that holds the tupple of results
-    func zip<K,L,M>(_ observableK: Observable<K>, _ observableL: Observable<L>, _ observableM: Observable<M>) -> Observable<(T,K,L,M)> {
+    func zip<K, L, M>(_ observableK: Observable<K>, _ observableL: Observable<L>, _ observableM: Observable<M>) -> Observable<(T, K, L, M)> {
         return zip(observableK, observableL).flatMap { valueTKL in
-            return observableM.map { valueM in
-                return (valueTKL.0, valueTKL.1, valueTKL.2, valueM)
+            observableM.map { valueM in
+                (valueTKL.0, valueTKL.1, valueTKL.2, valueM)
             }
         }
     }
     
     /// Unzips a 2-tuple observable into two observables
-    func unzip<K,L>() -> (Observable<K>,Observable<L>) where T == (K,L) {
+    func unzip<K, L>() -> (Observable<K>, Observable<L>) where T == (K, L) {
         let observableK = Observable<K>()
         let observableL = Observable<L>()
-        resolve(success: {tuple in
+        resolve(success: { tuple in
             observableK.set(tuple.0)
             observableL.set(tuple.1)
         }, failure: { error in
@@ -103,11 +102,11 @@ public extension Observable {
     }
     
     /// Unzips a 3-tuple observable into three observables
-    func unzip<K,L,M>() -> (Observable<K>,Observable<L>,Observable<M>) where T == (K,L,M) {
+    func unzip<K, L, M>() -> (Observable<K>, Observable<L>, Observable<M>) where T == (K, L, M) {
         let observableK = Observable<K>()
         let observableL = Observable<L>()
         let observableM = Observable<M>()
-        resolve(success: {tuple in
+        resolve(success: { tuple in
             observableK.set(tuple.0)
             observableL.set(tuple.1)
             observableM.set(tuple.2)
@@ -120,12 +119,12 @@ public extension Observable {
     }
     
     /// Unzips a 4-tuple observable into four observables
-    func unzip<K,L,M,N>() -> (Observable<K>,Observable<L>,Observable<M>,Observable<N>) where T == (K,L,M,N) {
+    func unzip<K, L, M, N>() -> (Observable<K>, Observable<L>, Observable<M>, Observable<N>) where T == (K, L, M, N) {
         let observableK = Observable<K>()
         let observableL = Observable<L>()
         let observableM = Observable<M>()
         let observableN = Observable<N>()
-        resolve(success: {tuple in
+        resolve(success: { tuple in
             observableK.set(tuple.0)
             observableL.set(tuple.1)
             observableM.set(tuple.2)
@@ -140,9 +139,9 @@ public extension Observable {
     }
     
     /// Collapses a 2-tuple observable into a single value observable
-    func collapse<K,L,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L) -> Z) -> Observable<Z> where T == (K,L) {
+    func collapse<K, L, Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K, L) -> Z) -> Observable<Z> where T == (K, L) {
         return Observable<Z>() { observable in
-            resolve(success: {tuple in
+            resolve(success: { tuple in
                 executor.submit { observable.set(closure(tuple.0, tuple.1)) }
             }, failure: { error in
                 executor.submit { observable.set(error) }
@@ -151,9 +150,9 @@ public extension Observable {
     }
     
     /// Collapses a 3-tuple observable into a single value observable
-    func collapse<K,L,M,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M) -> Z) -> Observable<Z> where T == (K,L,M) {
+    func collapse<K, L, M, Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K, L, M) -> Z) -> Observable<Z> where T == (K, L, M) {
         return Observable<Z>() { observable in
-            resolve(success: {tuple in
+            resolve(success: { tuple in
                 executor.submit { observable.set(closure(tuple.0, tuple.1, tuple.2)) }
             }, failure: { error in
                 executor.submit { observable.set(error) }
@@ -162,9 +161,9 @@ public extension Observable {
     }
     
     /// Collapses a 4-tuple observable into a single value observable
-    func collapse<K,L,M,N,Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K,L,M,N) -> Z) -> Observable<Z> where T == (K,L,M,N) {
+    func collapse<K, L, M, N, Z>(_ executor: Executor = DirectExecutor(), _ closure: @escaping (K, L, M, N) -> Z) -> Observable<Z> where T == (K, L, M, N) {
         return Observable<Z>() { observable in
-            resolve(success: {tuple in
+            resolve(success: { tuple in
                 executor.submit { observable.set(closure(tuple.0, tuple.1, tuple.2, tuple.3)) }
             }, failure: { error in
                 executor.submit { observable.set(error) }

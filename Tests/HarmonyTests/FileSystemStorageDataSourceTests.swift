@@ -6,9 +6,9 @@
 //
 
 import Foundation
+import Harmony
 import Nimble
 import XCTest
-import Harmony
 
 class FileSystemStorageDataSourceTests: XCTestCase {
     private func provideDataSource(insertValue: (IdQuery<String>, Data)? = nil, insertValues: (IdQuery<String>, [Data])? = nil) throws -> FileSystemStorageDataSource {
@@ -19,7 +19,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         }
         
         if let insertValues = insertValues {
-            try dataSource.putAll(insertValues.1,in: insertValues.0).result.get()
+            try dataSource.putAll(insertValues.1, in: insertValues.0).result.get()
         }
         
         return dataSource
@@ -66,26 +66,26 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         let dataSource = try provideDataSource()
 
         // When
-        try dataSource.put(expectedValue, in:query).result.get()
+        try dataSource.put(expectedValue, in: query).result.get()
 
         // Then
-        expect{
-           try dataSource.get(query).result.get()
+        expect {
+            try dataSource.get(query).result.get()
         }.to(equal(expectedValue))
     }
     
     func test_putAll_value() throws {
         // Given
         let query = IdQuery(String(randomOfLength: 8))
-        let expectedValue =  [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
+        let expectedValue = [String(randomOfLength: 8).data(using: .utf8)!, String(randomOfLength: 8).data(using: .utf8)!]
         let dataSource = try provideDataSource()
 
         // When
-        try dataSource.putAll(expectedValue, in:query).result.get()
+        try dataSource.putAll(expectedValue, in: query).result.get()
 
         // Then
-        expect{
-           try dataSource.getAll(query).result.get()
+        expect {
+            try dataSource.getAll(query).result.get()
         }.to(equal(expectedValue))
     }
     
@@ -165,7 +165,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
             try dataSource.get(query).result.get()
         }
         // Then
-        .to(throwAssertion())
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_getAll_non_valid_query() throws {
@@ -178,7 +178,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
             try dataSource.getAll(query).result.get()
         }
         // Then
-        .to(throwAssertion())
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_put_non_valid_query() throws {
@@ -192,7 +192,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
             try dataSource.put(value, in: query).result.get()
         }
         // Then
-        .to(throwAssertion())
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_putAll_non_valid_query() throws {
@@ -206,7 +206,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
             try dataSource.putAll(value, in: query).result.get()
         }
         // Then
-        .to(throwAssertion())
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_delete_non_valid_query() throws {
@@ -219,7 +219,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
             try dataSource.delete(query).result.get()
         }
         // Then
-        .to(throwAssertion())
+        .to(throwError(errorType: CoreError.QueryNotSupported.self))
     }
     
     func test_should_replace_previous_value_when_inserting_with_existing_key() throws {
@@ -231,7 +231,7 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         
         expect {
             // When
-            _ = dataSource.put(secondValue,in: query) // Put a new value using the same key
+            _ = dataSource.put(secondValue, in: query) // Put a new value using the same key
             return try dataSource.get(query).result.get()
         }
         // Then
@@ -244,6 +244,4 @@ class FileSystemStorageDataSourceTests: XCTestCase {
         // Then
         .to(throwError(errorType: CoreError.NotFound.self)) // The old value (list) is not there anymore
     }
-
-
 }

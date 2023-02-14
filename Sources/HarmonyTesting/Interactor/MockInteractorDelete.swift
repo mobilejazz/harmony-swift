@@ -17,7 +17,6 @@
 import Harmony
 
 public extension Interactor {
-    
     class MockDeleteByQuery: DeleteByQuery {
         private let expectedResult: Result<Void, Error>
 
@@ -30,16 +29,14 @@ public extension Interactor {
             fatalError("init(_:_:) has not been implemented")
         }
 
-
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ query: Query, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
-
             self.spyOperation.append(operation)
             self.spyQuery.append(query)
 
@@ -55,7 +52,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
-
             self.spyOperation.append(operation)
             self.spyId.append(id)
 
@@ -72,7 +68,6 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
             super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()), VoidQuery())
         }
@@ -83,12 +78,11 @@ public extension Interactor {
 
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
-
             self.spyOperation.append(operation)
 
             switch self.expectedResult {
@@ -104,7 +98,6 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
             super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()))
         }
@@ -116,12 +109,11 @@ public extension Interactor {
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ query: Query, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
-
             self.spyOperation.append(operation)
             self.spyQuery.append(query)
 
@@ -137,7 +129,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> where K: Hashable {
-
             self.spyOperation.append(operation)
             self.spyId.append(id)
 
@@ -154,7 +145,6 @@ public extension Interactor {
         private let expectedResult: Result<Void, Error>
 
         public required init(expectedResult: Result<Void, Error>) {
-
             self.expectedResult = expectedResult
             super.init(DirectExecutor(), SingleDataSourceRepository<InMemoryDataSource<Any>, Any>(InMemoryDataSource()), VoidQuery())
         }
@@ -165,12 +155,11 @@ public extension Interactor {
 
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<Void> {
-
             self.spyOperation.append(operation)
 
             switch self.expectedResult {

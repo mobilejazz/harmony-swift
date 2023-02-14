@@ -17,5 +17,5 @@
 import Foundation
 
 public func randomBool() -> Bool {
-    return Int.random(in: 0...1) != 0
+    return Int.random(in: 0 ... 1) != 0
 }

@@ -19,12 +19,11 @@ import Foundation
 ///
 /// Swift object acting as a key value observer
 ///
-public class KeyValueObserver<V> : NSObject where V : Any {
-    
-    private var context : String
-    private let resolver : ObservableResolver<V>
-    private var keyPath : String
-    private var target : NSObject
+public class KeyValueObserver<V>: NSObject where V: Any {
+    private var context: String
+    private let resolver: ObservableResolver<V>
+    private var keyPath: String
+    private var target: NSObject
     
     /// Convenience init method to use a closure
     ///
@@ -32,7 +31,7 @@ public class KeyValueObserver<V> : NSObject where V : Any {
     ///   - target: The object to observe
     ///   - keyPath: The keyPath to observe
     ///   - closure: The callback closure
-    public convenience init(target: NSObject, keyPath: String, _ closure: @escaping (V) -> Void ) {
+    public convenience init(target: NSObject, keyPath: String, _ closure: @escaping (V) -> Void) {
         let observable = Observable<V>()
         observable.then { closure($0) }
         self.init(target: target, keyPath: keyPath, resolver: ObservableResolver(observable))
@@ -57,7 +56,7 @@ public class KeyValueObserver<V> : NSObject where V : Any {
         self.target.removeObserver(self, forKeyPath: keyPath)
     }
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &self.context, let path = keyPath, path == self.keyPath {
             if let value = change?[NSKeyValueChangeKey.newKey] {
                 resolver.set(value as! V)
@@ -65,4 +64,3 @@ public class KeyValueObserver<V> : NSObject where V : Any {
         }
     }
 }
-

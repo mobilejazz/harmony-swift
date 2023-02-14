@@ -17,5 +17,5 @@
 import Foundation
 
 public func anyDouble(minValue: Double = -32000, maxValue: Double = 32000) -> Double {
-    return Double.random(in: minValue...maxValue)
+    return Double.random(in: minValue ... maxValue)
 }

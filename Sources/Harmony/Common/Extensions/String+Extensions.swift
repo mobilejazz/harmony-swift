@@ -14,21 +14,20 @@
 // limitations under the License.
 //
 
-import Foundation
 import CommonCrypto
+import Foundation
 
-private let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-                        "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                        "0","1","2","3","4","5","6","7","8","9"]
+private let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+                        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 public extension String {
-    
     /// Creates a random string of the given length.
     ///
     /// - Parameter length: The length of the string.
     init(randomOfLength length: UInt) {
         var string = ""
-        for _ in 0..<length {
+        for _ in 0 ..< length {
             let randomIndex = Int(arc4random() % UInt32(alphabet.count))
             string.append(alphabet[randomIndex])
         }
@@ -73,7 +72,7 @@ public extension String {
         }
         
         let first = words.first!
-        guard first.count + 1 < self.count  else {
+        guard first.count + 1 < self.count else {
             return ""
         }
         
@@ -93,11 +92,11 @@ public extension String {
         var digest = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
         #if swift(>=5.0)
         _ = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) in
-            return CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
+            CC_MD5(bytes.baseAddress, CC_LONG(data.count), &digest)
         }
         #else
         _ = data.withUnsafeBytes { bytes in
-            return CC_MD5(bytes, CC_LONG(data.count), &digest)
+            CC_MD5(bytes, CC_LONG(data.count), &digest)
         }
         #endif
         return digest.map { String(format: "%02x", $0) }.joined()

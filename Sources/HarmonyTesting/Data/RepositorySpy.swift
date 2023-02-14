@@ -18,8 +18,7 @@ import Foundation
 import Harmony
 
 /// A GetRepository spy that records all calls.
-public class GetRepositorySpy <D: GetRepository, T> : GetRepository where D.T == T {
-        
+public class GetRepositorySpy<D: GetRepository, T>: GetRepository where D.T == T {
     public private(set) var getCalls: [(query: Query, operation: Harmony.Operation)] = []
     public private(set) var getAllCalls: [(query: Query, operation: Harmony.Operation)] = []
     
@@ -41,8 +40,7 @@ public class GetRepositorySpy <D: GetRepository, T> : GetRepository where D.T ==
 }
 
 /// A PutRepository spy that records all calls.
-public class PutRepositorySpy <D: PutRepository, T> : PutRepository where D.T == T {
-        
+public class PutRepositorySpy<D: PutRepository, T>: PutRepository where D.T == T {
     public private(set) var putCalls: [(value: T?, query: Query, operation: Harmony.Operation)] = []
     public private(set) var putAllCalls: [(array: [T], query: Query, operation: Harmony.Operation)] = []
     
@@ -64,8 +62,7 @@ public class PutRepositorySpy <D: PutRepository, T> : PutRepository where D.T ==
 }
 
 /// A DeleteRepository spy that records all calls.
-public class DeleteRepositorySpy <D: DeleteRepository>: DeleteRepository {
-    
+public class DeleteRepositorySpy<D: DeleteRepository>: DeleteRepository {
     public private(set) var deleteCalls: [(query: Query, operation: Harmony.Operation)] = []
     public private(set) var deleteAllCalls: [(query: Query, operation: Harmony.Operation)] = []
     
@@ -87,8 +84,7 @@ public class DeleteRepositorySpy <D: DeleteRepository>: DeleteRepository {
 }
 
 /// A Repository spy that records all calls.
-public class RepositorySpy <D,T> : GetRepository, PutRepository, DeleteRepository where D:GetRepository, D:PutRepository, D:DeleteRepository, D.T == T {
-    
+public class RepositorySpy<D, T>: GetRepository, PutRepository, DeleteRepository where D: GetRepository, D: PutRepository, D: DeleteRepository, D.T == T {
     public private(set) var getCalls: [(query: Query, operation: Harmony.Operation)] = []
     public private(set) var getAllCalls: [(query: Query, operation: Harmony.Operation)] = []
     
