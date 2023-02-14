@@ -40,7 +40,6 @@ public class AsyncGetRepositoryMapper<R, In, Out>: AsyncGetRepository where R: A
 }
 
 @available(iOS 13.0.0, *)
-
 public class AsyncPutRepositoryMapper<R, In, Out>: AsyncPutRepository where R: AsyncPutRepository, R.T == In {
     public typealias T = Out
 
