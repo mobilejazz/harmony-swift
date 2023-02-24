@@ -33,12 +33,19 @@ class ItemListDefaultPresenter: ItemListPresenter {
     
     func onEventLoadList() {
         view?.onDisplayProgressHud(show: true)
-        getItems.execute().then { items in
-            self.view?.onDisplayProgressHud(show: false)
-            self.view?.onDisplayItems(items)
-        }.fail { error in
-            self.view?.onDisplayProgressHud(show: false)
-            self.view?.onDisplayFailedToFetchItems(error)
+        Task {
+            do {
+                let items = try await self.getItems.execute()
+                Task { @MainActor in
+                    self.view?.onDisplayProgressHud(show: false)
+                    self.view?.onDisplayItems(items)
+                }
+            } catch {
+                Task { @MainActor in
+                    self.view?.onDisplayProgressHud(show: false)
+                    self.view?.onDisplayFailedToFetchItems(error)
+                }
+            }
         }
     }
     
@@ -48,12 +55,21 @@ class ItemListDefaultPresenter: ItemListPresenter {
     
     func onActionReloadList() {
         view?.onDisplayProgressHud(show: true)
-        self.getItems.execute(MainSyncOperation()).then { items in
-            self.view?.onDisplayProgressHud(show: false)
-            self.view?.onDisplayItems(items)
-        }.fail { error in
-            self.view?.onDisplayProgressHud(show: false)
-            self.view?.onDisplayFailedToFetchItems(error)
+        Task {
+            do {
+                let items = try await self.getItems.execute(MainSyncOperation())
+                Task { @MainActor in
+                    self.view?.onDisplayProgressHud(show: false)
+                    self.view?.onDisplayItems(items)
+                }
+            } catch {
+                Task { @MainActor in
+                    self.view?.onDisplayProgressHud(show: false)
+                    self.view?.onDisplayFailedToFetchItems(error)
+                }
+            }
         }
+        
     }
 }
+

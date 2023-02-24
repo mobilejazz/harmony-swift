@@ -9,13 +9,10 @@
 import Harmony
 
 struct GetAllItemsInteractor {
-    let executor: Executor
-    let getItems: Interactor.GetAllByQuery<Item>
+    let getItems: AsyncGetAllInteractor<Item>
     
-    func execute(_ operation: Harmony.Operation = DefaultOperation()) -> Future<[Item]> {
-        return executor.submit { r in
-            let items = try self.getItems.execute(AllItemsQuery(), operation, in: DirectExecutor()).result.get()
-            r.set(items)
-        }
+    func execute(_ operation: Harmony.Operation = DefaultOperation()) async throws -> [Item] {
+        return try await self.getItems.execute(AllItemsQuery(), operation)
+
     }
 }

@@ -33,7 +33,7 @@ class ItemNetworkDataSource : GetDataSource  {
         case let query as IdQuery<String>:
             return getById(query.id)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -44,7 +44,7 @@ class ItemNetworkDataSource : GetDataSource  {
         case is SearchItemsQuery:
             return searchItems((query as! SearchItemsQuery).text)
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
 }
