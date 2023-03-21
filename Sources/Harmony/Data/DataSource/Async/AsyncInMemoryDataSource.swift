@@ -1,5 +1,5 @@
 //
-// Copyright 2023 Mobile Jazz SL
+// Copyright 2022 Mobile Jazz SL
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,94 +18,27 @@ import Foundation
 
 @available(iOS 13.0.0, *)
 public actor AsyncInMemoryDataSource<T>: AsyncGetDataSource, AsyncPutDataSource, AsyncDeleteDataSource {
-    private var objects: [String: T] = [:]
-    private var arrays: [String: [T]] = [:]
+    private let inMemoryDataSource: AgnosticInMemoryDataSource<T> = .init()
     
     public init() {}
     
     public func get(_ query: Query) async throws -> T {
-        switch query {
-        case let query as KeyQuery:
-            guard let value = objects[query.key] else {
-                throw CoreError.NotFound()
-            }
-            return value
-        default:
-            throw CoreError.QueryNotSupported()
-        }
+        return try inMemoryDataSource.get(query)
     }
     
     public func getAll(_ query: Query) async throws -> [T] {
-        switch query {
-        case is AllObjectsQuery:
-            var array = Array(objects.values)
-            arrays.values.forEach { a in
-                array.append(contentsOf: a)
-            }
-            return array
-        case let query as IdsQuery<String>:
-            return objects
-                .filter { query.ids.contains($0.key) }
-                .map { $0.value }
-        case let query as KeyQuery:
-            if let value = arrays[query.key] {
-                return value
-            }
-            throw CoreError.NotFound()
-        default:
-            throw CoreError.QueryNotSupported()
-        }
+        return try inMemoryDataSource.getAll(query)
     }
     
     public func put(_ value: T?, in query: Query) async throws -> T {
-        switch query {
-        case let query as KeyQuery:
-            guard let value = value else {
-                throw CoreError.IllegalArgument("Value cannot be nil")
-            }
-            arrays.removeValue(forKey: query.key)
-            objects[query.key] = value
-            return value
-        default:
-            throw CoreError.QueryNotSupported()
-        }
+        return try inMemoryDataSource.put(value, in: query)
     }
     
     public func putAll(_ array: [T], in query: Query) async throws -> [T] {
-        switch query {
-        case let query as IdsQuery<String>:
-            guard array.count == query.ids.count else {
-                throw CoreError.IllegalArgument("Array lenght must be equal to query.ids length")
-            }
-            array.enumerated().forEach { offset, element in
-                arrays.removeValue(forKey: query.ids[offset])
-                objects[query.ids[offset]] = element
-            }
-            return array
-        case let query as KeyQuery:
-            objects.removeValue(forKey: query.key)
-            arrays[query.key] = array
-            return array
-        default:
-            throw CoreError.QueryNotSupported()
-        }
+        return try inMemoryDataSource.putAll(array, in: query)
     }
     
     public func delete(_ query: Query) async throws {
-        switch query {
-        case is AllObjectsQuery:
-            objects.removeAll()
-            arrays.removeAll()
-        case let query as IdsQuery<String>:
-            query.ids.forEach { key in
-                objects.removeValue(forKey: key)
-                arrays.removeValue(forKey: key)
-            }
-        case let query as KeyQuery:
-            objects.removeValue(forKey: query.key)
-            arrays.removeValue(forKey: query.key)
-        default:
-            throw CoreError.QueryNotSupported()
-        }
+        return try inMemoryDataSource.delete(query)
     }
 }
