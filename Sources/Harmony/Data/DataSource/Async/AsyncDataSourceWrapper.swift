@@ -64,3 +64,35 @@ public class AsyncDeleteDataSourceWrapper<D>: AsyncDeleteDataSource where D: Del
         try await dataSource.delete(query).async()
     }
 }
+
+// swiftlint:disable line_length
+@available(iOS 13.0.0, *)
+public class AsyncDataSourceWrapper<D, T>: AsyncGetDataSource, AsyncPutDataSource, AsyncDeleteDataSource where D: GetDataSource, D: PutDataSource, D: DeleteDataSource, D.T == T {
+    private let dataSource: D
+
+    public init(_ dataSource: D) {
+        self.dataSource = dataSource
+    }
+
+    public func get(_ query: Query) async throws -> T {
+        try await dataSource.get(query).async()
+    }
+
+    public func getAll(_ query: Query) async throws -> [T] {
+        try await dataSource.getAll(query).async()
+    }
+
+    @discardableResult
+    public func put(_ value: T?, in query: Query) async throws -> T {
+        try await dataSource.put(value, in: query).async()
+    }
+
+    @discardableResult
+    public func putAll(_ array: [T], in query: Query) async throws -> [T] {
+        try await dataSource.putAll(array, in: query).async()
+    }
+
+    public func delete(_ query: Query) async throws {
+        try await dataSource.delete(query).async()
+    }
+}
