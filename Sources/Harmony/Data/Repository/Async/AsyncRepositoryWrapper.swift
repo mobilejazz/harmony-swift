@@ -64,3 +64,35 @@ public class AsyncDeleteRepositoryWrapper<R, T>: AsyncDeleteRepository where R: 
         try await repository.delete(query, operation: operation).async()
     }
 }
+
+@available(iOS 13.0.0, *)
+// swiftlint:disable line_length
+public class AsyncRepositoryWrapper<R, T>: AsyncGetRepository, AsyncPutRepository, AsyncDeleteRepository where R: GetRepository, R: PutRepository, R: DeleteRepository, R.T == T {
+    private let repository: R
+
+    public init(_ repository: R) {
+        self.repository = repository
+    }
+
+    public func get(_ query: Query, operation: Operation) async throws -> T {
+        try await repository.get(query, operation: operation).async()
+    }
+
+    public func getAll(_ query: Query, operation: Operation) async throws -> [T] {
+        try await repository.getAll(query, operation: operation).async()
+    }
+
+    @discardableResult
+    public func put(_ value: T?, in query: Query, operation: Operation) async throws -> T {
+        try await repository.put(value, in: query, operation: operation).async()
+    }
+
+    @discardableResult
+    public func putAll(_ array: [T], in query: Query, operation: Operation) async throws -> [T] {
+        try await repository.putAll(array, in: query, operation: operation).async()
+    }
+
+    public func delete(_ query: Query, operation: Operation) async throws {
+        try await repository.delete(query, operation: operation).async()
+    }
+}
