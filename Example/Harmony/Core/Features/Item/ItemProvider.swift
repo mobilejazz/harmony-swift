@@ -63,10 +63,14 @@ class ItemDefaultModule: ItemComponent {
                                 toOutMapper: EncodableToDecodableMapper<ItemEntity, Item>())
         )
     }()
+
+    private lazy var asyncRepository: AsyncAnyGetRepository<Item> = {
+        let asyncRepositoryWrapper: AsyncGetRepositoryWrapper = AsyncGetRepositoryWrapper(repository)
+        return AsyncAnyGetRepository(asyncRepositoryWrapper)
+    }()
     
     private func getAllItemsInteractor() -> GetAllItemsInteractor {
-        return GetAllItemsInteractor(executor: self.executor,
-                                     getItems: Interactor.GetAllByQuery(DirectExecutor(), self.repository))
+        return GetAllItemsInteractor(getItems: AsyncGetAllInteractor(asyncRepository))
     }
     
     func itemListPresenter(view: ItemListPresenterView) -> ItemListPresenter {

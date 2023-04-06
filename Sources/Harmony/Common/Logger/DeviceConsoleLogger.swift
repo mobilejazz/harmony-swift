@@ -16,12 +16,10 @@
 
 import Foundation
 
-
 /// Prints to the system console
 public class DeviceConsoleLogger: Logger {
-    
-    public init() { }
-    
+    public init() {}
+
     public func log(level: LogLevel, tag: String?, message: String) {
         if let tag = tag {
             Swift.print("\(levelStringRepresentation(of: level)) - [\(tag)]: \(message)")
@@ -29,7 +27,7 @@ public class DeviceConsoleLogger: Logger {
             Swift.print("\(levelStringRepresentation(of: level)): \(message)")
         }
     }
-    
+
     public func log(key: String, value: Any?) {
         if let value = value {
             log(level: .info, tag: "KEY", message: "\(key): \(value)")
@@ -40,8 +38,8 @@ public class DeviceConsoleLogger: Logger {
 }
 
 // MARK: - Helpers
+
 private extension DeviceConsoleLogger {
-    
     func levelStringRepresentation(of level: LogLevel) -> String {
         switch level {
             case .trace:

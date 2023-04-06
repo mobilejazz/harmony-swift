@@ -26,15 +26,15 @@ public protocol VastraReachability {
 /// - If internet is NOT available: the strategy considers all objects valid (.Valid)
 /// - If internet is available: the strategy doesn't decide if the object is valid (.Unknown)
 public class VastraReachabilityStrategy: VastraStrategy {
-    private let reachability : VastraReachability
-    
+    private let reachability: VastraReachability
+
     /// Default initializer
     ///
     /// - Parameter reachability: An reachability object
-    public init(_ reachability : VastraReachability) {
+    public init(_ reachability: VastraReachability) {
         self.reachability = reachability
     }
-    
+
     public func isObjectValid<T>(_ object: T) -> VastraStrategyResult {
         if reachability.isReachable() {
             return .unknown

@@ -21,23 +21,21 @@ import Security
 /// A user-friendly interface to store Data inside the keychain.
 ///
 public class KeychainService {
-    
     /// Arguments for the keychain queries
-    private struct kSec {
+    private enum kSec {
         static let classGenericPassword = NSString(format: kSecClassGenericPassword)
-        static let `class`              = NSString(format: kSecClass)
-        static let attrService          = NSString(format: kSecAttrService)
-        static let attrAccount          = NSString(format: kSecAttrAccount)
-        static let returnAttributes     = NSString(format: kSecReturnAttributes)
-        static let valueData            = NSString(format: kSecValueData)
-        static let matchLimit           = NSString(format: kSecMatchLimit)
-        static let matchLimitOne        = NSString(format: kSecMatchLimitOne)
-        static let returnData           = NSString(format: kSecReturnData)
+        static let `class` = NSString(format: kSecClass)
+        static let attrService = NSString(format: kSecAttrService)
+        static let attrAccount = NSString(format: kSecAttrAccount)
+        static let returnAttributes = NSString(format: kSecReturnAttributes)
+        static let valueData = NSString(format: kSecValueData)
+        static let matchLimit = NSString(format: kSecMatchLimit)
+        static let matchLimitOne = NSString(format: kSecMatchLimitOne)
+        static let returnData = NSString(format: kSecReturnData)
     }
 
-    
     /// The Keychain's service name.
-    public let service : String
+    public let service: String
     
     /// Main initializer
     /// The initializer needs a service name. Each service will identify an independent keychain memory zone.
@@ -51,7 +49,7 @@ public class KeychainService {
     ///
     /// - success: A success result
     /// - failed: A failre result, including the status code.
-    public enum Result : Error {
+    public enum Result: Error {
         case success
         case failed(OSStatus)
     }
@@ -61,10 +59,10 @@ public class KeychainService {
     /// - Parameter key: The key.
     /// - Returns: The stored Data or nil.
     public func get(_ key: String) -> Data? {
-        let query = NSDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
+        let query = NSDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!, kSec.matchLimitOne],
                                  forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnData, kSec.matchLimit])
         
-        var dataRef : CFTypeRef?
+        var dataRef: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &dataRef)
         
         if status == errSecSuccess {
@@ -82,8 +80,8 @@ public class KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     public func set(_ data: Data, forKey key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+        let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
+                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let deleteStatus = SecItemDelete(query as CFDictionary)
         if deleteStatus != errSecSuccess {
@@ -106,8 +104,8 @@ public class KeychainService {
     /// - Returns: The operation result.
     @discardableResult
     public func delete(_ key: String) -> Result {
-        let query = NSMutableDictionary(objects:[kSec.classGenericPassword, service, key, kCFBooleanTrue!],
-                                        forKeys:[kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
+        let query = NSMutableDictionary(objects: [kSec.classGenericPassword, service, key, kCFBooleanTrue!],
+                                        forKeys: [kSec.class, kSec.attrService, kSec.attrAccount, kSec.returnAttributes])
         // Delete first and old entry
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess {
@@ -119,13 +117,12 @@ public class KeychainService {
 }
 
 public extension KeychainService {
-    
     /// Custom getter for Decodable conforming types.
     ///
     /// - Parameter key: The key.
     /// - Returns: The type stored in the keychain or nil.
-    func get<T>(_ key: String) ->T? where T:Decodable {
-        guard let data : Data = get(key) else {
+    func get<T>(_ key: String) -> T? where T: Decodable {
+        guard let data: Data = get(key) else {
             return nil
         }
         do {
@@ -142,7 +139,7 @@ public extension KeychainService {
     ///   - value: The Encodable conforming value.
     ///   - key: The key.
     /// - Returns: The operation result.
-    func set<T>(_ value: T, forKey key: String) -> Result where T:Encodable {
+    func set<T>(_ value: T, forKey key: String) -> Result where T: Encodable {
         do {
             let data = try PropertyListEncoder().encode(value)
             return set(data, forKey: key)
@@ -156,7 +153,7 @@ public extension KeychainService {
     /// - Parameter key: The key.
     /// - Returns: The NSCoding conforming type stored in the keychain or nil.
     func get<T>(_ key: String) -> T? where T: NSCoding, T: NSObject {
-        if let data : Data = get(key) {
+        if let data: Data = get(key) {
 //            if let value = try? NSKeyedUnarchiver.unarchivedObject(ofClass: T.self, from: data) {
 //            return value
             if let value = NSKeyedUnarchiver.unarchiveObject(with: data) {

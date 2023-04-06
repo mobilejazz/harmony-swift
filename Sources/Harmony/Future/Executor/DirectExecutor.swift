@@ -19,23 +19,22 @@ import Foundation
 ///
 /// A direct executor executes the closure on the current queue/thread synchronously.
 ///
-public class DirectExecutor : Executor {
-    public private(set) var executing : Bool = false
-    public let name : String? = "com.mobilejazz.executor.direct"
+public class DirectExecutor: Executor {
+    public private(set) var executing: Bool = false
+    public let name: String? = "com.mobilejazz.executor.direct"
     
-    public init() { }
+    public init() {}
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
-        executing = true
+        self.executing = true
         let sempahore = DispatchSemaphore(value: 0)
         closure { sempahore.signal() }
         sempahore.wait()
-        executing = false
+        self.executing = false
     }
 }
 
 public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor {
-    
     private let overrideDelay: Bool
     
     public init(overrideDelay: Bool = false) {
@@ -66,7 +65,7 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
             do {
                 let resolver = FutureResolver(future)
                 try closure(resolver)
-            } catch (let error) {
+            } catch {
                 future.set(error)
             }
         }
@@ -77,7 +76,7 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
     ///
     /// - Parameter closure: The closure to be executed. An error can be thrown.
     /// - Returns: A future wrapping the error, if thrown.
-    @discardableResult public func submit(after: DispatchTime, _ closure:  @escaping () throws -> Void) -> Future<Void> {
+    @discardableResult public func submit(after: DispatchTime, _ closure: @escaping () throws -> Void) -> Future<Void> {
         return self.submit(after: after) { resolver in
             try closure()
             resolver.set()
@@ -89,12 +88,11 @@ public final class DelayedMainQueueExecutor: MainDirectExecutor, DelayedExecutor
 /// Executes on the main queue asynchronously.
 /// However, if the submit is called in the main thread, the submitted closure is directly called as in a DirectExecutor.
 ///
-public class MainDirectExecutor : Executor {
-    
+public class MainDirectExecutor: Executor {
     public let name: String? = "com.mobilejazz.executor.main-direct"
     public var executing: Bool = false
     
-    public init() { }
+    public init() {}
     
     public func submit(_ closure: @escaping (@escaping () -> Void) -> Void) {
         if Thread.isMainThread {

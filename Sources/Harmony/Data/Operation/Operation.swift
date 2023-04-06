@@ -19,11 +19,11 @@ import Foundation
 ///
 /// An operation defines an abstraction on how data must be fetched (how and to which data source a query must be forwarded).
 ///
-public protocol Operation { }
+public protocol Operation {}
 
 ///
 /// The default operation. All repository implementations must accept this operation.
 ///
-public class DefaultOperation : Operation {
-    public init() { }
+public class DefaultOperation: Operation {
+    public init() {}
 }

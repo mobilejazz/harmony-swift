@@ -16,60 +16,58 @@
 
 import Foundation
 
-public protocol LinkRecognizerObserver : AnyObject {
+public protocol LinkRecognizerObserver: AnyObject {
     func linkRecognizer(_ linkRecognizer: LinkRecognizer, didRecognizeURLForKey key: String, components: [String])
     func linkRecognizer(_ linkRecognizer: LinkRecognizer, didFailToRecognizeURL url: URL, result: LinkRecognizer.Result)
 }
 
-public protocol LinkRecognizerDelegate : AnyObject {
+public protocol LinkRecognizerDelegate: AnyObject {
     func linkRecognizer(_ linkRecognizer: LinkRecognizer, willRecognizeURLForKey key: String, components: [String]) -> Bool
 }
 
 public class LinkRecognizer {
-
-    public enum Result : CustomStringConvertible {
+    public enum Result: CustomStringConvertible {
         case valid([String])
         case unknownScheme
         case unsupportedLink
         
         public var description: String {
-            get {
-                switch (self) {
-                case .valid(let components):
-                    return "Valid with components: \(components)"
-                case .unknownScheme:
-                    return "UnkonwnScheme"
-                case .unsupportedLink:
-                    return "UnsupportedLink"
-                }
+            switch self {
+            case .valid(let components):
+                return "Valid with components: \(components)"
+            case .unknownScheme:
+                return "UnkonwnScheme"
+            case .unsupportedLink:
+                return "UnsupportedLink"
             }
         }
     }
     
-    public struct Pattern {
+    public enum Pattern {
         public static let numeric = "(\\d+)"
         public static let nonNumeric = "(\\D+)"
         public static let alphanumeric = "(\\w+)"
         public static let alphanumericAndDash = "([\\w,-]+)"
     }
 
-    public struct Options : OptionSet {
+    public struct Options: OptionSet {
         public var rawValue: Int
         public typealias RawValue = Int
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        public static let none             = Options([])
-        public static let anchoredStart    = Options(rawValue: 1 << 0)
-        public static let anchoredEnd      = Options(rawValue: 1 << 1)
-        public static let caseInsensitive  = Options(rawValue: 1 << 2)
+
+        public static let none = Options([])
+        public static let anchoredStart = Options(rawValue: 1 << 0)
+        public static let anchoredEnd = Options(rawValue: 1 << 1)
+        public static let caseInsensitive = Options(rawValue: 1 << 2)
     }
     
-    public weak var delegate : LinkRecognizerDelegate?
+    public weak var delegate: LinkRecognizerDelegate?
     
-    private let scheme : String
-    private var patterns : [String : String] = [:]
-    private let options : Options
+    private let scheme: String
+    private var patterns: [String: String] = [:]
+    private let options: Options
     private let observers = NSHashTable<AnyObject>.weakObjects()
     
     public init(scheme: String, options: Options = .none) {
@@ -77,7 +75,7 @@ public class LinkRecognizer {
         self.options = options
     }
     
-    public func registerPattern(_ pattern : String, forKey key: String) {
+    public func registerPattern(_ pattern: String, forKey key: String) {
         patterns[key] = pattern
     }
     
@@ -108,10 +106,11 @@ public class LinkRecognizer {
             do {
                 let regex = try NSRegularExpression(pattern: patternStr, options: regexOptions)
                 if let result = regex.firstMatch(in: linkStr,
-                                                 options: NSRegularExpression.MatchingOptions(rawValue:0),
-                                                 range: NSMakeRange(0, linkStr.count)) {
-                    var captures : [String] = []
-                    for index in 0..<result.numberOfRanges {
+                                                 options: NSRegularExpression.MatchingOptions(rawValue: 0),
+                                                 range: NSMakeRange(0, linkStr.count))
+                {
+                    var captures: [String] = []
+                    for index in 0 ..< result.numberOfRanges {
                         if let range = Range(result.range(at: index), in: linkStr) {
                             let capture = linkStr[range]
                             captures.append(String(capture))
@@ -122,10 +121,10 @@ public class LinkRecognizer {
                 
                     if let delegate = delegate {
                         canRecognizePattern = delegate.linkRecognizer(self, willRecognizeURLForKey: key, components: captures)
-                 }
+                    }
                 
                     if canRecognizePattern {
-                      for observer in observers.allObjects {
+                        for observer in observers.allObjects {
                             (observer as! LinkRecognizerObserver).linkRecognizer(self, didRecognizeURLForKey: key, components: captures)
                         }
                         return .valid(captures)

@@ -20,95 +20,93 @@ import Foundation
 /// CoreError is used as a namespace
 ///
 public struct CoreError {
-    
-    private init() { }
+    private init() {}
     
     // The domain for all CoreError errors.
     public static let domain = "com.mobilejazz.core.error"
     
     /// Unknown error
-    public class Unknown : ClassError {
+    public class Unknown: ClassError {
         public init(_ description: String = "Unknown Error") {
             super.init(domain: CoreError.domain, code: 0, description: description)
         }
         
-        public override init(domain: String , code: Int, description: String) {
+        override public init(domain: String, code: Int, description: String) {
             super.init(domain: domain, code: code, description: description)
         }
     }
     
     /// Not found error
-    public class NotFound : ClassError {
+    public class NotFound: ClassError {
         public init(_ description: String = "Not Found") {
-            super.init(domain:CoreError.domain, code: 1, description: description)
+            super.init(domain: CoreError.domain, code: 1, description: description)
         }
     }
     
     /// Illegal argument error
-    public class IllegalArgument : ClassError {
+    public class IllegalArgument: ClassError {
         public init(_ description: String = "Illegal Argument") {
-            super.init(domain:CoreError.domain, code: 2, description: description)
+            super.init(domain: CoreError.domain, code: 2, description: description)
         }
     }
     
     /// Illegal argument error
-    public class NotImplemented : ClassError {
+    public class NotImplemented: ClassError {
         public init(_ description: String = "Not Implemented") {
-            super.init(domain:CoreError.domain, code: 3, description: description)
+            super.init(domain: CoreError.domain, code: 3, description: description)
         }
     }
     
     /// Not valid error
-    public class NotValid : ClassError {
+    public class NotValid: ClassError {
         public init(_ description: String = "Object or action not valid") {
-            super.init(domain:CoreError.domain, code: 4, description: description)
+            super.init(domain: CoreError.domain, code: 4, description: description)
         }
     }
     
     /// Failed error
-    public class Failed : ClassError {
+    public class Failed: ClassError {
         public init(_ description: String = "Action failed") {
-            super.init(domain:CoreError.domain, code: 5, description: description)
+            super.init(domain: CoreError.domain, code: 5, description: description)
         }
     }
     
     public class QueryNotSupported: ClassError {
         public init(_ description: String = "Query not supported") {
-            super.init(domain:CoreError.domain, code: 6, description: description)
+            super.init(domain: CoreError.domain, code: 6, description: description)
         }
     }
     
     public class DataSerialization: ClassError {
         public init(_ description: String = "Can not decode json") {
-            super.init(domain:CoreError.domain, code: 7, description: description)
+            super.init(domain: CoreError.domain, code: 7, description: description)
         }
     }
 }
 
-extension CoreError {
-
+public extension CoreError {
     /// A base implementation for NSError to ClassError conversion
-    public class NSError : Unknown {
+    class NSError: Unknown {
         /// The NSError
-        public let error : Foundation.NSError
+        public let error: Foundation.NSError
         
         /// Default initializer
         ///
         /// - Parameter error: The incoming NSError
-        public init(_ error : Foundation.NSError) {
+        public init(_ error: Foundation.NSError) {
             self.error = error
             super.init(domain: error.domain, code: error.code, description: error.localizedDescription)
         }
         
-        public override func userInfo() -> [String : Any] {
+        override public func userInfo() -> [String: Any] {
             return error.userInfo
         }
     }
     
     /// OSStatus fail error. Subtype of Failed error.
-    public class OSStatusFailure : Failed {
+    class OSStatusFailure: Failed {
         /// The OSStatus
-        public let status : OSStatus
+        public let status: OSStatus
         
         /// Default initializer
         ///
@@ -120,11 +118,10 @@ extension CoreError {
             super.init(description ?? "OSStatus failure with code \(status)")
         }
         
-        public override func userInfo() -> [String : Any] {
+        override public func userInfo() -> [String: Any] {
             var userInfo = super.userInfo()
             userInfo["OSStatus"] = status
             return userInfo
         }
     }
 }
-

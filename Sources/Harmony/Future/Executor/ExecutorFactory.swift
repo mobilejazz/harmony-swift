@@ -16,7 +16,6 @@
 
 import Foundation
 public class ExecutorFactory {
-    
     public enum Scope {
         case none
         case string(String)
@@ -24,10 +23,10 @@ public class ExecutorFactory {
         case type(String)
     }
     
-    private let builder : (String) -> Executor
-    private var stringScope : [String : Executor] = [:]
-    private var integerScope : [Int : Executor] = [:]
-    private var typeScope : [String : Executor] = [:]
+    private let builder: (String) -> Executor
+    private var stringScope: [String: Executor] = [:]
+    private var integerScope: [Int: Executor] = [:]
+    private var typeScope: [String: Executor] = [:]
     
     public init(_ builder: @escaping (String) -> Executor) {
         self.builder = builder

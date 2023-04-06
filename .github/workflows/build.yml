@@ -8,9 +8,9 @@ on:
       - "**"
 
 env:
-  XCODE_VERSION: "14.0"
+  XCODE_VERSION: "14.2"
   DEVICE_SIMULATOR: "iPhone 14"
-  IOS_VERSION: "16.0"
+  IOS_VERSION: "16.2"
 
 jobs:
   build:

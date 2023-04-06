@@ -19,38 +19,37 @@ import Foundation
 //
 // Provides a keychain service for a key value interface.
 //
-public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSource where T : Codable {
+public class KeychainDataSource<T>: GetDataSource, PutDataSource, DeleteDataSource where T: Codable {
+    private let keychain: KeychainService
     
-    private let keychain : KeychainService
-    
-    public init(_ keychain : KeychainService) {
+    public init(_ keychain: KeychainService) {
         self.keychain = keychain
     }
     
     public func get(_ query: Query) -> Future<T> {
         switch query {
         case let query as KeyQuery:
-            guard let value : T = keychain.get(query.key) else {
+            guard let value: T = keychain.get(query.key) else {
                 return Future(CoreError.NotFound())
             }
             return Future(value)
         default:
-            query.fatalError(.get, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
     public func getAll(_ query: Query) -> Future<[T]> {
         switch query {
         case let query as KeyQuery:
-            guard let nsarray : NSArray = keychain.get(query.key) else {
+            guard let nsarray: NSArray = keychain.get(query.key) else {
                 return Future(CoreError.NotFound())
             }
             guard let array = nsarray as? [T] else {
-                return Future(CoreError.Failed("NSArray to Array<\(String(describing:T.self))> cast failed for key \(query.key)"))
+                return Future(CoreError.Failed("NSArray to Array<\(String(describing: T.self))> cast failed for key \(query.key)"))
             }
             return Future(array)
         default:
-            query.fatalError(.getAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -68,7 +67,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to set value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.put, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -86,7 +85,7 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
                 }
             }
         default:
-            query.fatalError(.putAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -96,12 +95,12 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
         case let query as KeyQuery:
             switch keychain.delete(query.key) {
             case .success:
-                return Future(Void())
+                return Future(())
             case .failed(let status):
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.delete, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
     
@@ -111,12 +110,12 @@ public class KeychainDataSource<T> : GetDataSource, PutDataSource, DeleteDataSou
         case let query as KeyQuery:
             switch keychain.delete(query.key) {
             case .success:
-                return Future(Void())
+                return Future(())
             case .failed(let status):
                 return Future(CoreError.OSStatusFailure(status, "Keychain failed to delete value for key \(query.key) (OSStatus \(status))"))
             }
         default:
-            query.fatalError(.deleteAll, self)
+            return Future(CoreError.QueryNotSupported())
         }
     }
 }

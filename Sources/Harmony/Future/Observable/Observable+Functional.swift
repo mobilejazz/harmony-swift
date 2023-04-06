@@ -17,7 +17,6 @@
 import Foundation
 
 public extension Observable {
-        
     /// Maps the value and return a new observable with the value mapped
     ///
     /// - Parameters:
@@ -29,7 +28,7 @@ public extension Observable {
             resolve(success: { value in
                 executor.submit {
                     do { resolver.set(try transform(value)) }
-                    catch (let error) { resolver.set(error) }
+                    catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
@@ -64,7 +63,7 @@ public extension Observable {
             resolve(success: { value in
                 executor.submit {
                     do { resolver.set(try closure(value)) }
-                    catch (let error) { resolver.set(error) }
+                    catch { resolver.set(error) }
                 }
             }, failure: { error in
                 executor.submit { resolver.set(error) }
@@ -78,8 +77,8 @@ public extension Observable {
     /// - Parameter observable: The chained observable
     /// - Returns: The incoming observable chained to the current one
     func chain<K>(_ observable: Observable<K>) -> Observable<K> {
-        return flatMap { value in
-            return observable
+        return flatMap { _ in
+            observable
         }
     }
     
@@ -96,7 +95,7 @@ public extension Observable {
             }, failure: { error in
                 executor.submit {
                     do { resolver.set(try closure(error)) }
-                    catch (let error) { resolver.set(error) }
+                    catch { resolver.set(error) }
                 }
             })
         }
@@ -109,9 +108,9 @@ public extension Observable {
     ///    - executor: An optional executor to execute the closure.
     ///    - closure: The recover closure
     /// - Returns: A chained observable
-    func recover<E:Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
+    func recover<E: Error>(if errorType: E.Type, _ executor: Executor = DirectExecutor(), _ closure: @escaping (E) throws -> Observable<T>) -> Observable<T> {
         return Observable(parent: self) { resolver in
-            resolve(success: {value in
+            resolve(success: { value in
                 executor.submit { resolver.set(value) }
             }, failure: { error in
                 executor.submit {
@@ -119,7 +118,7 @@ public extension Observable {
                     case let error as E:
                         do {
                             resolver.set(try closure(error))
-                        } catch let error {
+                        } catch {
                             resolver.set(error)
                         }
                     default:
@@ -166,7 +165,7 @@ public extension Observable {
                     do {
                         try closure(value)
                         resolver.set(value)
-                    } catch (let error) {
+                    } catch {
                         resolver.set(error)
                     }
                 }

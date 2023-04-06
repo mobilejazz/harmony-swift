@@ -16,26 +16,24 @@
 
 import Foundation
 
-extension Observable {
-    
+public extension Observable {
     ///
     /// A hub acts as a cloner of a given observable.
     /// It can create subscribed observables, making them trigger when the main one triggers.
     ///
-    public class Hub {
-        
-        private weak var observable : Observable<T>?
+    class Hub {
+        private weak var observable: Observable<T>?
         private let lock = NSLock()
-        private var subscribers : NSHashTable<Observable<T>> = NSHashTable.weakObjects()
+        private var subscribers: NSHashTable<Observable<T>> = NSHashTable.weakObjects()
         
         /// Default initializer.
         /// Note that this class will open the then closure of the observable passed on this method.
         ///
         /// - Parameter observable: The observable to be used
-        public init (_ observable: Observable<T>) {
+        public init(_ observable: Observable<T>) {
             self.observable = observable
             
-            observable.resolve(success: {value in
+            observable.resolve(success: { value in
                 self.lock.lock()
                 self.subscribers.allObjects.forEach { $0.set(value) }
                 self.lock.unlock()

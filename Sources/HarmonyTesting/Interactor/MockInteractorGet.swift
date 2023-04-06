@@ -17,7 +17,6 @@
 import Harmony
 
 public extension Interactor {
-    
     class MockGetByQuery<T>: GetByQuery<T> {
         private let expectedResult: Result<T, Error>
 
@@ -33,12 +32,11 @@ public extension Interactor {
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ query: Query = VoidQuery(), _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
-
             self.spyOperation.append(operation)
             self.spyQuery.append(query)
 
@@ -54,7 +52,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> where K: Hashable {
-
             self.spyOperation.append(operation)
             self.spyId.append(id)
 
@@ -75,20 +72,17 @@ public extension Interactor {
             super.init(DirectExecutor(), SingleDataSourceRepository(InMemoryDataSource()), VoidQuery())
         }
 
-
         public required init<R>(_ executor: Executor, _ repository: R, _ query: Query) where T == R.T, R: GetRepository {
             fatalError("init(_:_:_:) has not been implemented")
         }
 
-
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<T> {
-
             self.spyOperation.append(operation)
 
             switch self.expectedResult {
@@ -115,12 +109,11 @@ public extension Interactor {
         public var spyQuery: [Query?] = []
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ query: Query = AllObjectsQuery(), _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
-
             self.spyOperation.append(operation)
             self.spyQuery.append(query)
 
@@ -136,7 +129,6 @@ public extension Interactor {
 
         @discardableResult
         override public func execute<K>(_ id: K, _ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> where K: Hashable {
-
             self.spyOperation.append(operation)
             self.spyId.append(id)
 
@@ -163,12 +155,11 @@ public extension Interactor {
 
         public var spyOperation: [Harmony.Operation] = []
         public var executeCounter: Int {
-            spyOperation.count
+            self.spyOperation.count
         }
 
         @discardableResult
         override public func execute(_ operation: Harmony.Operation = DefaultOperation(), in executor: Executor? = nil) -> Future<[T]> {
-
             self.spyOperation.append(operation)
 
             switch self.expectedResult {

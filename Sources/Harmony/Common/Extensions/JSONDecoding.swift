@@ -17,48 +17,51 @@
 import Foundation
 
 public extension Dictionary where Key == String, Value == AnyObject {
-    func decodeAs<T>(_ type : T.Type,
-                            keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T where T : Decodable {
+    func decodeAs<T>(_ type: T.Type,
+                     keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> T where T: Decodable
+    {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
         let object = try decoder.decode(type, from: data)
         return object
     }
-    
-    func decodeAs<T>(_ type : T.Type,
-                            keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                            completion: (inout T) -> Void = { _ in }) -> Future<T> where T : Decodable {
+
+    func decodeAs<T>(_ type: T.Type,
+                     keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
+                     completion: (inout T) -> Void = { _ in }) -> Future<T> where T: Decodable
+    {
         do {
-            var object : T = try decodeAs(type, keyDecodingStrategy: keyDecodingStrategy)
+            var object: T = try decodeAs(type, keyDecodingStrategy: keyDecodingStrategy)
             completion(&object)
             return Future(object)
-        } catch(let error) {
+        } catch {
             return Future(error)
         }
     }
 }
 
-public extension Array where Element == [String : AnyObject] {
-    func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T] where T : Decodable {
+public extension Array where Element == [String: AnyObject] {
+    func decodeAs<T>(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) throws -> [T] where T: Decodable {
         let data = try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = keyDecodingStrategy
-        let array = try decoder.decode(Array<T>.self, from: data)
+        let array = try decoder.decode([T].self, from: data)
         return array
     }
-    
-    func decodeAs<T>(keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                            forEach: (inout T) -> Void = { _ in },
-                            completion: (inout [T]) -> Void = { _ in }) -> Future<[T]> where T : Decodable {
+
+    func decodeAs<T>(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
+                     forEach: (inout T) -> Void = { _ in },
+                     completion: (inout [T]) -> Void = { _ in }) -> Future<[T]> where T: Decodable
+    {
         do {
-            var array : [T] = try decodeAs(keyDecodingStrategy: keyDecodingStrategy)
+            var array: [T] = try decodeAs(keyDecodingStrategy: keyDecodingStrategy)
             for index in array.indices {
-                forEach(&(array[index]))
+                forEach(&array[index])
             }
             completion(&array)
             return Future(array)
-        } catch(let error) {
+        } catch {
             return Future(error)
         }
     }

@@ -28,7 +28,6 @@ import Foundation
 
 /// Abstracts concrete implementations of a logger system.
 @objc(MJLogger) public protocol Logger {
-    
     /// Logs a String object using a given level
     ///
     /// - Parameters:
@@ -46,8 +45,8 @@ import Foundation
 }
 
 // MARK: - Default implementations
+
 public extension Logger {
-    
     /// Logs a String message using an trace level.
     ///
     /// - Parameters:
@@ -108,12 +107,12 @@ public extension Logger {
     ///   - key: They key
     ///   - value: The value
     func log(key: String, value: Any?) {
-        self.info("\(key)=\(value ?? "-")")        
+        self.info("\(key)=\(value ?? "-")")
     }
 }
 
 /// Logger that does nothing.
-public class VoidLogger : Logger {
+public class VoidLogger: Logger {
     public init() {}
     public func log(level: LogLevel, tag: String?, message: String) {}
     public func log(key: String, value: Any?) {}
